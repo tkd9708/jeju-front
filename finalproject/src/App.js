@@ -17,9 +17,9 @@ class App extends Component {
     render() {
         return (
             <div>
+                <HeaderComp name={this.state.header} />
                 <MainComp name={this.state.main}/>
                 <FooterComp name={this.state.footer}/>
-                <HeaderComp name={this.state.header} />
             </div>
         )
     }
