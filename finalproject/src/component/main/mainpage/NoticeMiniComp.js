@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import PlusImg from "../../image/plus.png";
+import PlusImg from "../../../image/plus.png";
 
-class NoticeComp extends Component {
+class NoticeMiniComp extends Component {
     constructor(props) {
         super(props);
 
@@ -10,7 +10,7 @@ class NoticeComp extends Component {
     render() {
         return (
             <div>
-                {/*<a href="#NoticeComp">{this.props.name}</a>*/}
+                {/*<a href="#NoticeMiniComp">{this.props.name}</a>*/}
                 <br/>
                 {this.props.name}<br/>
                 <h5>공지사항</h5>
@@ -61,4 +61,4 @@ class NoticeComp extends Component {
 
 }
 
-export default NoticeComp;
+export default NoticeMiniComp;
