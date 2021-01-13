@@ -15,7 +15,8 @@ class FooterComp extends Component {
                 <br/>
                 {this.props.name}<br/>
                 <img src={Logo2}
-                     style={{width: "150px"}}
+                     style={{width: "150px"} }
+                     alt="logo2"
                 /><br/>
                 <p>
                     (주)멘도롱소랑 | 경기도 서초구 강남대로 459 (서초동 1300-34)<br/>
