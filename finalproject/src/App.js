@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import MainComp from "./component/main/MainComp";
 import FooterComp from "./component/footer/FooterComp";
+import HeaderComp from "./component/header/HeaderComp";
 
 class App extends Component {
     constructor(props) {
@@ -18,6 +19,7 @@ class App extends Component {
             <div>
                 <MainComp name={this.state.main}/>
                 <FooterComp name={this.state.footer}/>
+                <HeaderComp name={this.state.header} />
             </div>
         )
     }
