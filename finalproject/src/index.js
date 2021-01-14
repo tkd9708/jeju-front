@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
     <React.StrictMode>
+        {/* 아침 */}
         <App/>
     </React.StrictMode>,
     document.getElementById('root')
