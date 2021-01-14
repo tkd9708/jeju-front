@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const ShareBoard=()=>{
+class ShareBoard extends Component{
+  constructor(props){
+    super(props);
+    this.props.setMainView("shareboard")
+  }
+  render() {
     return (
       <div>
-          <b>공유게시판</b>
+        <b>맛집공유게시판</b>
       </div>
+     
     )
+  }
 }
 
 export default ShareBoard;
