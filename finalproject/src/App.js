@@ -35,6 +35,7 @@ class App extends Component {
                                 setMainView={this.setMainView}
                     />
                     <MainComp getMainView={this.getMainView}
+                              setMainView={this.setMainView}
                     />
                 </BrowserRouter>
                 <FooterComp name={this.state.footer}/>

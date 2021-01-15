@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {Component} from "react";
 
-const Login=()=>{
-    return (
-      <div>
-          <b>로그인</b>
-      </div>
-    )
+class Login extends Component{
+    constructor(props) {
+        super(props);
+        this.props.setMainView("login");
+    }
+
+    render() {
+        return (
+            <div>
+                {/*<b>Login</b>*/}
+            </div>
+        )
+    }
 }
 
 export default Login;

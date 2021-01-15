@@ -9,7 +9,7 @@ class Notice extends Component{
     render() {
         return (
             <div>
-                <b>공지사항</b>
+                {/*<b>공지사항</b>*/}
             </div>
         )
     }

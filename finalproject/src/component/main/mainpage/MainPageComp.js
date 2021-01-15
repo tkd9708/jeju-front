@@ -6,6 +6,10 @@ import ShareBoardMiniComp from "./ShareBoardMiniComp";
 
 class MainPageComp extends Component {
 
+    /**
+     * props
+     * setMainView={this.props.setMainView}
+     */
     constructor(props) {
         super(props);
         console.log("MainPageComp constructor", props);
@@ -24,7 +28,9 @@ class MainPageComp extends Component {
             <div>
                 <h4>main page comp</h4>
                 <SearchComp name={this.state.search}/>
-                <ViewspotComp name={this.state.viewspot}/>
+                <ViewspotComp name={this.state.viewspot}
+                              setMainView={this.props.setMainView}
+                />
                 <NoticeMiniComp name={this.state.notice}/>
                 <ShareBoardMiniComp name={this.state.board}/>
             </div>

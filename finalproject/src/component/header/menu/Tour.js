@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {Component} from "react";
 
-const Tour=()=>{
-    return (
-      <div>
-          <b>관광명소</b>
-      </div>
-    )
+class Tour extends Component{
+    constructor(props) {
+        super(props);
+        this.props.setMainView("tour");
+    }
+
+    render() {
+        return (
+            <div>
+                {/*<b>관광명소</b>*/}
+            </div>
+        )
+    }
 }
 
 export default Tour;
