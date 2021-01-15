@@ -2,20 +2,17 @@ import React, {Component} from "react";
 import MainPageComp from "./mainpage/MainPageComp";
 import ReservationPageComp from "./reservation/ReservationPageComp";
 import NoticePageComp from "./notice/NoticePageComp";
+import ShareBoardPageComp from "./shareboard/ShareBoardPageComp";
+import LoginPageComp from "./auth/LoginPageComp";
 
 class MainComp extends Component {
 
-    /**
-     * props
-     * getMainView={this.getMainView}
-     * setMainView={this.setMainView}
-     */
     constructor(props) {
         super(props);
         console.log("MainComp constructor", props);
 
         this.state = {
-
+            mainview: this.props.getMainView()
         }
     }
 
@@ -24,8 +21,7 @@ class MainComp extends Component {
 
         if (this.props.getMainView() == "mainpage") {
             return (
-                <MainPageComp setMainView={this.props.setMainView}
-                />
+                <MainPageComp/>
             )
         } else if (this.props.getMainView() == "reservation") {
             return (
@@ -35,21 +31,13 @@ class MainComp extends Component {
             return (
                 <NoticePageComp/>
             )
-        } else if (this.props.getMainView() == "tour") {
-            return (
-                <NoticePageComp/>
-            )
         } else if (this.props.getMainView() == "shareboard") {
             return (
-                <NoticePageComp/>
-            )
-        } else if (this.props.getMainView() == "mypage") {
-            return (
-                <NoticePageComp/>
+                <ShareBoardPageComp/>
             )
         } else if (this.props.getMainView() == "login") {
             return (
-                <NoticePageComp/>
+                <LoginPageComp />
             )
         } else {
             return (
