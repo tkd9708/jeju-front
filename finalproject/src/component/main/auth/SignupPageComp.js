@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import axios from 'axios';
 
-class LoginPageComp extends Component {
+class SignupPageComp extends Component {
 
     constructor(props) {
         super(props);
@@ -103,4 +103,4 @@ class LoginPageComp extends Component {
 
 }
 
-export default LoginPageComp;
+export default SignupPageComp;
