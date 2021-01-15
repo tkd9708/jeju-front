@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import SearchComp from "./SearchComp";
 import ViewspotComp from "./ViewspotComp";
-import NoticeComp from "./NoticeComp";
-import BoardComp from "./BoardComp";
+import NoticeMiniComp from "./NoticeMiniComp";
+import ShareBoardMiniComp from "./ShareBoardMiniComp";
 
 class MainPageComp extends Component {
 
@@ -22,11 +22,11 @@ class MainPageComp extends Component {
         console.log("MainPageComp render()", this.props);
         return (
             <div>
-                {this.props.name}
+                <h4>main page comp</h4>
                 <SearchComp name={this.state.search}/>
                 <ViewspotComp name={this.state.viewspot}/>
-                <NoticeComp name={this.state.notice}/>
-                <BoardComp name={this.state.board}/>
+                <NoticeMiniComp name={this.state.notice}/>
+                <ShareBoardMiniComp name={this.state.board}/>
             </div>
         )
     }

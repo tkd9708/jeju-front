@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import PlusImg from "../../image/plus.png";
+import PlusImg from "../../../image/plus.png";
 
-class BoardComp extends Component {
+class ShareBoardMiniComp extends Component {
     constructor(props) {
         super(props);
 
@@ -10,7 +10,7 @@ class BoardComp extends Component {
     render() {
         return (
             <div>
-                {/*<a href="#BoardComp">{this.props.name}</a>*/}
+                {/*<a href="#ShareBoardMiniComp">{this.props.name}</a>*/}
                 <br/>
                 {this.props.name}<br/>
                 <h5>공유게시판</h5>
@@ -59,4 +59,4 @@ class BoardComp extends Component {
 
 }
 
-export default BoardComp;
+export default ShareBoardMiniComp;

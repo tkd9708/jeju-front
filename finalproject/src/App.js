@@ -2,6 +2,9 @@ import React, {Component} from "react";
 import MainComp from "./component/main/MainComp";
 import FooterComp from "./component/footer/FooterComp";
 import HeaderComp from "./component/header/HeaderComp";
+import {
+    BrowserRouter
+} from "react-router-dom";
 
 class App extends Component {
     constructor(props) {
@@ -9,16 +12,31 @@ class App extends Component {
 
         this.state = {
             header: "header_comp",
-            main: "main_comp",
+            mainview: "mainpage",
             footer: "footer_comp"
         }
+    }
+
+    setMainView = (mainview) => {
+        this.setState({
+            mainview: mainview
+        });
+    }
+
+    getMainView = () => {
+        return this.state.mainview;
     }
 
     render() {
         return (
             <div>
-                <HeaderComp name={this.state.header} />
-                <MainComp name={this.state.main}/>
+                <BrowserRouter>
+                    <HeaderComp name={this.state.header}
+                                setMainView={this.setMainView}
+                    />
+                    <MainComp getMainView={this.getMainView}
+                    />
+                </BrowserRouter>
                 <FooterComp name={this.state.footer}/>
             </div>
         )
