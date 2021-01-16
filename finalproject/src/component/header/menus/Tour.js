@@ -1,18 +1,17 @@
 import React, {Component} from "react";
 
-class Admin extends Component{
+class Tour extends Component{
     constructor(props) {
         super(props);
-        this.props.setMainView("admin");
     }
 
     render() {
         return (
             <div>
-                {/*<b>Admin</b>*/}
+                {/*<b>관광명소</b>*/}
             </div>
         )
     }
 }
 
-export default Admin;
+export default Tour;

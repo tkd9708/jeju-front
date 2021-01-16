@@ -1,18 +1,18 @@
 import React, {Component} from "react";
 
-class MyPage extends Component{
+
+class Reservation extends Component{
     constructor(props) {
         super(props);
-        this.props.setMainView("mypage");
     }
 
     render() {
         return (
             <div>
-                {/*<b>MyPage</b>*/}
+                {/*<b>비행기 렌터카 예약</b>*/}
             </div>
         )
     }
 }
 
-export default MyPage;
+export default Reservation;

@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {
     BrowserRouter
 } from "react-router-dom";
-import Title from "./Title";
+import Menu from "./Menu";
 
 class HeaderComp extends Component {
     constructor(props) {
@@ -17,7 +17,7 @@ class HeaderComp extends Component {
         return (
             <div>
                 <BrowserRouter>
-                    <Title setMainView={this.props.setMainView}/>
+                    <Menu/>
                 </BrowserRouter>
             </div>
         )

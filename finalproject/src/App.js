@@ -17,28 +17,25 @@ class App extends Component {
         }
     }
 
-    setMainView = (mainview) => {
-        this.setState({
-            mainview: mainview
-        });
-    }
-
-    getMainView = () => {
-        return this.state.mainview;
-    }
+    // setMainView = (mainview) => {
+    //     this.setState({
+    //         mainview: mainview
+    //     });
+    // }
+    //
+    // getMainView = () => {
+    //     return this.state.mainview;
+    // }
 
     render() {
         return (
             <div>
                 <BrowserRouter>
-                    <HeaderComp name={this.state.header}
-                                setMainView={this.setMainView}
-                    />
-                    <MainComp getMainView={this.getMainView}
-                              setMainView={this.setMainView}
-                    />
+                    <HeaderComp></HeaderComp>
+                    <MainComp></MainComp>
+
                 </BrowserRouter>
-                <FooterComp name={this.state.footer}/>
+                <FooterComp/>
             </div>
         )
     }
@@ -47,8 +44,20 @@ class App extends Component {
 
 export default App;
 /*
-    header -> title//호준님, 소연님
-    main
+    HeaderComp
+        Title
+            Home
+            Notice
+            Reservation
+            Tour
+                TourList
+            ShareBoard
+            MyPage
+            Login / Logout
+    MainComp
+        Home
+            -
+            -
         검색
             - 검색 카테고리 select/option
             - 단어검색어 input

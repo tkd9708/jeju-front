@@ -1,18 +1,17 @@
 import React, {Component} from "react";
 
-class Login extends Component{
+class Admin extends Component{
     constructor(props) {
         super(props);
-        this.props.setMainView("login");
     }
 
     render() {
         return (
             <div>
-                {/*<b>Login</b>*/}
+                {/*<b>Admin</b>*/}
             </div>
         )
     }
 }
 
-export default Login;
+export default Admin;

@@ -1,18 +1,17 @@
 import React, {Component} from "react";
 
-class Notice extends Component{
+class MyPage extends Component{
     constructor(props) {
         super(props);
-        this.props.setMainView("notice");
     }
 
     render() {
         return (
             <div>
-                {/*<b>공지사항</b>*/}
+                {/*<b>MyPage</b>*/}
             </div>
         )
     }
 }
 
-export default Notice;
+export default MyPage;

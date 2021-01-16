@@ -5,44 +5,60 @@ import NoticePageComp from "./notice/NoticePageComp";
 import ShareBoardPageComp from "./shareboard/ShareBoardPageComp";
 import LoginPageComp from "./auth/LoginPageComp";
 import MemberListPageComp from "./admin/MemberListPageComp";
+import store from "../../redux/store";
+import {mainViewType} from "../../redux/config";
+import MypagePageComp from "./mypage/MypagePageComp";
+import TourPageComp from "./tour/TourPageComp";
 
 class MainComp extends Component {
 
     constructor(props) {
         super(props);
-        console.log("MainComp constructor", props);
+        console.log("MainComp constructor", props, store.getState().mainView);
 
-        this.state = {
-            mainview: this.props.getMainView()
-        }
+        store.subscribe(function () {
+            console.log("MainComp subscribe()");
+            this.setState({
+                mainView: store.getState().mainView,
+            });
+        }.bind(this));
     }
 
-    getMainView = () => {
-        console.log("getMainView() this.props.getMainView()", this.props.getMainView());
+    setMainView = () => {
+        const _mainView = store.getState().mainView;
+        console.log("MainComp setMainView()", _mainView, mainViewType.MainPage);
 
-        if (this.props.getMainView() == "mainpage") {
+        if (_mainView == mainViewType.MainPage) {
             return (
                 <MainPageComp/>
             )
-        } else if (this.props.getMainView() == "reservation") {
+        } else if (_mainView == mainViewType.Reservation) {
             return (
                 <ReservationPageComp/>
             )
-        } else if (this.props.getMainView() == "notice") {
+        } else if (_mainView == mainViewType.Notice) {
             return (
                 <NoticePageComp/>
             )
-        } else if (this.props.getMainView() == "shareboard") {
+        } else if (_mainView == mainViewType.Tour) {
+            return (
+                <TourPageComp/>
+            )
+        } else if (_mainView == mainViewType.ShareBoard) {
             return (
                 <ShareBoardPageComp/>
             )
-        } else if (this.props.getMainView() == "login") {
+        } else if (_mainView == mainViewType.MyPage) {
             return (
-                <LoginPageComp />
+                <MypagePageComp/>
             )
-        } else if (this.props.getMainView() == "admin") {
+        } else if (_mainView == mainViewType.Login) {
             return (
-                <MemberListPageComp />
+                <LoginPageComp/>
+            )
+        } else if (_mainView == mainViewType.Admin) {
+            return (
+                <MemberListPageComp/>
             )
         } else {
             return (
@@ -58,8 +74,8 @@ class MainComp extends Component {
         console.log("MainComp render()", this.props);
         return (
             <div>
-                {this.props.name}<br/>
-                {this.getMainView()}
+                <h1>MainComp</h1>
+                {this.setMainView()}
             </div>
         )
     }
