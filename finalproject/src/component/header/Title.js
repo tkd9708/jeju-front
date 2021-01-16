@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {NavLink, Route} from "react-router-dom";
-import {Home, Login, ShareBoard, MyPage, Notice, Reservation, Tour} from './menu';
+import {Home, Login, ShareBoard, MyPage, Notice, Reservation, Tour, Admin} from './menu';
 // import Menu from "./components/Header";
 // import Root from './Root';
 
@@ -38,6 +38,9 @@ class Title extends Component {
                     <li>
                         <NavLink exact to="/Login">Login</NavLink>
                     </li>
+                    <li>
+                        <NavLink exact to="/Admin">Admin</NavLink>
+                    </li>
                 </ul>
                 <hr style={{clear: 'both'}}/>
                 {/* exact: 다른 페이지랑 겹쳐 나오지 않도록 해준다 */}
@@ -66,6 +69,9 @@ class Title extends Component {
                 </Route>
                 <Route exact path="/Login/:name?">
                     <Login setMainView={this.props.setMainView}/>
+                </Route>
+                <Route exact path="/Admin:name?">
+                    <Admin setMainView={this.props.setMainView} />
                 </Route>
 
                 {/*<Route exact path="/" component={Home}/>*/}
