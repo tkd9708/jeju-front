@@ -6,9 +6,9 @@ class RowItem extends Component
         const url="http://localhost:9002/photo/";
         return (
             <div>
-                {this.props.row.num}&nbsp;{this.props.row.id}&nbsp;{this.props.row.email}&nbsp;{this.props.row.name}&nbsp;
+                (번호){this.props.row.num}&nbsp;(아이디){this.props.row.id}&nbsp;(이메일){this.props.row.email}&nbsp;(이름){this.props.row.name}&nbsp;
                 <img alt="" src={url+this.props.row.photo} />
-                &nbsp;{this.props.row.hp}
+                &nbsp;(휴대폰){this.props.row.hp}
             </div>
         )
     }
