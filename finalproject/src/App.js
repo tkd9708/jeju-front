@@ -5,6 +5,7 @@ import HeaderComp from "./component/header/HeaderComp";
 import {
     BrowserRouter
 } from "react-router-dom";
+import styled from "styled-components";
 
 class App extends Component {
     constructor(props) {
@@ -29,6 +30,20 @@ class App extends Component {
     // getMainView = () => {
     //     return this.state.mainview;
     // }
+
+    // Login 함수
+    onLogin = () => {
+        this.setState({
+            logged: true
+        });
+    }
+
+    // Logout 함수
+    onLogout = () => {
+        this.setState({
+            logged: false
+        });
+    }
 
     // Login 함수
     onLogin = () => {
