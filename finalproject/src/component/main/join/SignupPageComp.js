@@ -5,7 +5,7 @@ class SignupPageComp extends Component {
 
     constructor(props) {
         super(props);
-        console.log("LoginPageComp constructor", props);
+        console.log("SignupPageComp constructor", props);
         
         this.state={
             id:'',  //아이디를 저장하고 있을 state
@@ -69,10 +69,10 @@ class SignupPageComp extends Component {
     }
 
     render() {
-        console.log("LoginPageComp render()", this.props);
+        console.log("SingupPageComp render()", this.props);
         return (
             <div>
-                <h4>로그인</h4>
+                <h1>회원가입</h1>
                 <div>
                     {this.state.id}
                     <h4 className="showIdResult">{this.state.showIdResult}</h4>

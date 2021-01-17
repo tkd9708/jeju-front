@@ -5,6 +5,7 @@ import NoticePageComp from "./notice/NoticePageComp";
 import ShareBoardPageComp from "./shareboard/ShareBoardPageComp";
 import LoginPageComp from "./auth/LoginPageComp";
 import MemberListPageComp from "./admin/MemberListPageComp";
+import SingupPageComp from "./join/SignupPageComp";
 
 class MainComp extends Component {
 
@@ -43,6 +44,10 @@ class MainComp extends Component {
         } else if (this.props.getMainView() == "admin") {
             return (
                 <MemberListPageComp />
+            )
+        } else if (this.props.getMainView() == "join") {
+            return (
+                <SingupPageComp />
             )
         } else {
             return (

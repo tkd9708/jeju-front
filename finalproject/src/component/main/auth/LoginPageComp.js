@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import axios from 'axios';
+import GoogleLoginBtnComp from "./GoogleLoginBtnComp";
+import GoogleLogoutBtnComp from "./GoogleLogoutBtnComp";
 
 class LoginPageComp extends Component {
 
@@ -89,14 +91,16 @@ class LoginPageComp extends Component {
                 onChange={this.changeEvent.bind(this)}
                 ref="password" value={this.state.password}
                 />
-                <b>
+                <br />
+                <button type="button">
+                    Sign in
+                </button>
+                <h5>
                     내 아이디는 {this.state.id} 입니다
                     내 비밀번호는 {this.state.password} 입니다
-                </b>
-                <button type="button"
-                onClick={this.onIdChk.bind(this)}>
-                    아이디 확인
-                </button>
+                </h5>
+                <GoogleLoginBtnComp />
+                <GoogleLogoutBtnComp />
             </div>
         )
     }
