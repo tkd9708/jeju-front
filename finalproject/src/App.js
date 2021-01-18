@@ -5,6 +5,7 @@ import HeaderComp from "./component/header/HeaderComp";
 import {
     BrowserRouter
 } from "react-router-dom";
+import styled from "styled-components";
 
 class App extends Component {
     constructor(props) {
@@ -20,15 +21,20 @@ class App extends Component {
         }
     }
 
-    // setMainView = (mainview) => {
-    //     this.setState({
-    //         mainview: mainview
-    //     });
-    // }
-    //
-    // getMainView = () => {
-    //     return this.state.mainview;
-    // }
+
+    // Login 함수
+    onLogin = () => {
+        this.setState({
+            logged: true
+        });
+    }
+
+    // Logout 함수
+    onLogout = () => {
+        this.setState({
+            logged: false
+        });
+    }
 
     // Login 함수
     onLogin = () => {
@@ -45,21 +51,17 @@ class App extends Component {
     }
 
     render() {
-        const { logged, onLogout } = this.state;
+        const {logged, onLogout} = this.state;
 
         return (
             <div>
                 <BrowserRouter>
-                    <HeaderComp></HeaderComp>
-                    <MainComp></MainComp>
 
-                    <HeaderComp name={this.state.header}
-                                setMainView={this.setMainView}
-                                logged = { logged }
-                                onLogout = { onLogout }
+
+                    <HeaderComp logged={logged}
+                                onLogout={onLogout}
                     />
-                    <MainComp getMainView={this.getMainView}
-                              setMainView={this.setMainView}
+                    <MainComp
                     />
                 </BrowserRouter>
                 <FooterComp/>

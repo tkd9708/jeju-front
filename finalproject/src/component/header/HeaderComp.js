@@ -12,16 +12,15 @@ class HeaderComp extends Component {
     }
 
     render() {
-        const { logged, onLogout } = this.props;
+        const {logged, onLogout} = this.props;
 
         console.log("HeaderComp render", this.props, this.state);
 
         return (
             <div>
                 <BrowserRouter>
-                    <Menu setMainView={this.props.setMainView}
-                            logged = { logged }
-                            onLogout = { onLogout }
+                    <Menu logged={logged}
+                          onLogout={onLogout}
                     />
                 </BrowserRouter>
             </div>
