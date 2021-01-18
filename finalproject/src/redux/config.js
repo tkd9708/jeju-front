@@ -6,6 +6,9 @@ export const actionType = {
     loginRequest: "loginRequest",
     loginSuccess: "loginSuccess",
     loginFailure: "loginFailure",
+    memberList: "memberList", // 회원 리스트 요청 시작
+    mbListS: "mbListS", // 회원 리스트 요청 성공
+    mbListF: "mbListF", // 회원 리스트 요청 실패
 }
 
 export const mainViewType = {

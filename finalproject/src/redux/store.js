@@ -48,11 +48,13 @@ export default createStore(
         else if (action.type === actionType.loginSuccess) {
             newState = Object.assign({}, state, {
                 logged: true,
+                id: action.type.id,
             });
         }
         else if (action.type === actionType.loginFailure) {
             newState = Object.assign({}, state, {
                 logged: false,
+                id: "",
             });
         }
         
