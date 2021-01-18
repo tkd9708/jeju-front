@@ -3,6 +3,7 @@ import MainPageComp from "./mainpage/MainPageComp";
 import ReservationPageComp from "./reservation/ReservationPageComp";
 import NoticePageComp from "./notice/NoticePageComp";
 import ShareBoardPageComp from "./shareboard/ShareBoardPageComp";
+import ShareBoardFormComp from "./shareboard/ShareBoardFormComp";
 import LoginPageComp from "./auth/LoginPageComp";
 
 class MainComp extends Component {
@@ -34,6 +35,10 @@ class MainComp extends Component {
         } else if (this.props.getMainView() == "shareboard") {
             return (
                 <ShareBoardPageComp/>
+            )
+        } else if (this.props.getMainView() == "shareboardfrom") {
+            return (
+                <ShareBoardFormComp/>
             )
         } else if (this.props.getMainView() == "login") {
             return (
