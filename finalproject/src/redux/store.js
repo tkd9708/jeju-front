@@ -8,7 +8,7 @@ export default createStore(
         if (state === undefined) {
             return {
                 mainView: mainViewType.MainPage,
-                logged: false
+                logged: false,
             }
         }
 
@@ -36,17 +36,17 @@ export default createStore(
         }
         else if (action.type === actionType.loginRequest) {
             newState = Object.assign({}, state, {
-
+                
             });
         }
         else if (action.type === actionType.loginSuccess) {
             newState = Object.assign({}, state, {
-
+                logged: true,
             });
         }
         else if (action.type === actionType.loginFailure) {
             newState = Object.assign({}, state, {
-
+                logged: false,
             });
         }
         
