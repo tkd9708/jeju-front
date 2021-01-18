@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {
     BrowserRouter
 } from "react-router-dom";
-import Title from "./Title";
+import Menu from "./Menu";
 
 class HeaderComp extends Component {
     constructor(props) {

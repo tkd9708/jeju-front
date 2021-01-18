@@ -7,6 +7,7 @@ export const mainViewType = {
     MainPage: "mainPage",
     Home: "home",
     Login: "login",
+    Logout: "Logout",
     MyPage: "myPage",
     Notice: "notice",
     Reservation: "reservation",
@@ -14,5 +15,5 @@ export const mainViewType = {
     Tour: "tour",
     TourList: "tourList",
     Admin: "admin",
-
+    JoinForm: "joinForm",
 }
