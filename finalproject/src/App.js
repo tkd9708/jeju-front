@@ -36,20 +36,6 @@ class App extends Component {
         });
     }
 
-    // Login 함수
-    onLogin = () => {
-        this.setState({
-            logged: true
-        });
-    }
-
-    // Logout 함수
-    onLogout = () => {
-        this.setState({
-            logged: false
-        });
-    }
-
     render() {
         const {logged, onLogout} = this.state;
 
