@@ -13,7 +13,10 @@ class App extends Component {
         this.state = {
             header: "header_comp",
             mainview: "mainpage",
-            footer: "footer_comp"
+            footer: "footer_comp",
+            logged: false,
+            onLogin: this.onLogin,
+            onLogout: this.onLogout
         }
     }
 
@@ -27,13 +30,37 @@ class App extends Component {
     //     return this.state.mainview;
     // }
 
+    // Login 함수
+    onLogin = () => {
+        this.setState({
+            logged: true
+        });
+    }
+
+    // Logout 함수
+    onLogout = () => {
+        this.setState({
+            logged: false
+        });
+    }
+
     render() {
+        const { logged, onLogout } = this.state;
+
         return (
             <div>
                 <BrowserRouter>
                     <HeaderComp></HeaderComp>
                     <MainComp></MainComp>
 
+                    <HeaderComp name={this.state.header}
+                                setMainView={this.setMainView}
+                                logged = { logged }
+                                onLogout = { onLogout }
+                    />
+                    <MainComp getMainView={this.getMainView}
+                              setMainView={this.setMainView}
+                    />
                 </BrowserRouter>
                 <FooterComp/>
             </div>
