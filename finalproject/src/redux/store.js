@@ -7,7 +7,8 @@ export default createStore(
         //state 초기화.
         if (state === undefined) {
             return {
-                mainView: mainViewType.MainPage
+                mainView: mainViewType.MainPage,
+                logged: false
             }
         }
 
