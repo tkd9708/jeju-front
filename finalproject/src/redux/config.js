@@ -1,6 +1,6 @@
 export const actionType = {
     setMainView: "setMainView",
-
+    Singup: "Signup",
 }
 
 export const mainViewType = {

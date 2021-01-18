@@ -1,7 +1,6 @@
 import {createStore} from "redux";
 import {actionType, mainViewType} from "./config";
 
-
 export default createStore(
     function (state, action) {
 
@@ -23,9 +22,13 @@ export default createStore(
                 mainView: action.mainView,
             });
         }
-        // else if (action.type === "") {
-        //
-        // }
+        else if (action.type === actionType.Singup) {
+            
+            newState = Object.assign({}, state, {
+                
+            });
+        }
+        
 
         console.log("reducer()", state, action, newState);
         return newState;
