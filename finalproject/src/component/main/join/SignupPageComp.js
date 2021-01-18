@@ -1,13 +1,11 @@
 import React, {Component} from "react";
 import axios from 'axios';
-import GoogleLoginBtnComp from "./GoogleLoginBtnComp";
-import GoogleLogoutBtnComp from "./GoogleLogoutBtnComp";
 
-class LoginPageComp extends Component {
+class SignupPageComp extends Component {
 
     constructor(props) {
         super(props);
-        console.log("LoginPageComp constructor", props);
+        console.log("SignupPageComp constructor", props);
         
         this.state={
             id:'',  //아이디를 저장하고 있을 state
@@ -71,10 +69,10 @@ class LoginPageComp extends Component {
     }
 
     render() {
-        console.log("LoginPageComp render()", this.props);
+        console.log("SingupPageComp render()", this.props);
         return (
             <div>
-                <h4>로그인</h4>
+                <h1>회원가입</h1>
                 <div>
                     {this.state.id}
                     <h4 className="showIdResult">{this.state.showIdResult}</h4>
@@ -91,20 +89,18 @@ class LoginPageComp extends Component {
                 onChange={this.changeEvent.bind(this)}
                 ref="password" value={this.state.password}
                 />
-                <br />
-                <button type="button">
-                    Sign in
-                </button>
-                <h5>
+                <b>
                     내 아이디는 {this.state.id} 입니다
                     내 비밀번호는 {this.state.password} 입니다
-                </h5>
-                <GoogleLoginBtnComp />
-                <GoogleLogoutBtnComp />
+                </b>
+                <button type="button"
+                onClick={this.onIdChk.bind(this)}>
+                    아이디 확인
+                </button>
             </div>
         )
     }
 
 }
 
-export default LoginPageComp;
+export default SignupPageComp;

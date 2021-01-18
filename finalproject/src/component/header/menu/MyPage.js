@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {Component} from "react";
 
-const MyPage=()=>{
-    return (
-      <div>
-          <b>마이페이지</b>
-      </div>
-    )
+class MyPage extends Component{
+    constructor(props) {
+        super(props);
+        this.props.setMainView("mypage");
+    }
+
+    render() {
+        return (
+            <div>
+                {/*<b>MyPage</b>*/}
+            </div>
+        )
+    }
 }
 
 export default MyPage;

@@ -1,18 +1,18 @@
 import React, {Component} from "react";
 
-class Notice extends Component{
+class Admin extends Component{
     constructor(props) {
         super(props);
-        this.props.setMainView("notice");
+        this.props.setMainView("admin");
     }
 
     render() {
         return (
             <div>
-                {/*<b>공지사항</b>*/}
+                {/*<b>Admin</b>*/}
             </div>
         )
     }
 }
 
-export default Notice;
+export default Admin;

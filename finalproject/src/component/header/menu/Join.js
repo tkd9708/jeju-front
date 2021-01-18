@@ -1,18 +1,18 @@
 import React, {Component} from "react";
 
-class Notice extends Component{
+class Join extends Component{
     constructor(props) {
         super(props);
-        this.props.setMainView("notice");
+        this.props.setMainView("join");
     }
 
     render() {
         return (
             <div>
-                {/*<b>공지사항</b>*/}
+                {/*<b>Join</b>*/}
             </div>
         )
     }
 }
 
-export default Notice;
+export default Join;
