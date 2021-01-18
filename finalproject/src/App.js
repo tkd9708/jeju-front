@@ -6,6 +6,7 @@ import {
     BrowserRouter
 } from "react-router-dom";
 import styled from "styled-components";
+import Menu from "./component/header/Menu";
 
 class App extends Component {
     constructor(props) {
@@ -42,8 +43,10 @@ class App extends Component {
         return (
             <div>
                 <BrowserRouter>
-
-
+                    <Menu logged={logged}
+                          onLogout={onLogout}
+                          type="hide"
+                    />
                     <HeaderComp logged={logged}
                                 onLogout={onLogout}
                     />
