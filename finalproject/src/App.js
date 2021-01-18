@@ -5,7 +5,6 @@ import HeaderComp from "./component/header/HeaderComp";
 import {
     BrowserRouter
 } from "react-router-dom";
-import styled from "styled-components";
 
 class App extends Component {
     constructor(props) {
@@ -21,15 +20,15 @@ class App extends Component {
         }
     }
 
-    setMainView = (mainview) => {
-        this.setState({
-            mainview: mainview
-        });
-    }
-
-    getMainView = () => {
-        return this.state.mainview;
-    }
+    // setMainView = (mainview) => {
+    //     this.setState({
+    //         mainview: mainview
+    //     });
+    // }
+    //
+    // getMainView = () => {
+    //     return this.state.mainview;
+    // }
 
     // Login 함수
     onLogin = () => {
@@ -51,6 +50,9 @@ class App extends Component {
         return (
             <div>
                 <BrowserRouter>
+                    <HeaderComp></HeaderComp>
+                    <MainComp></MainComp>
+
                     <HeaderComp name={this.state.header}
                                 setMainView={this.setMainView}
                                 logged = { logged }
@@ -60,7 +62,7 @@ class App extends Component {
                               setMainView={this.setMainView}
                     />
                 </BrowserRouter>
-                <FooterComp name={this.state.footer}/>
+                <FooterComp/>
             </div>
         )
     }
@@ -69,8 +71,20 @@ class App extends Component {
 
 export default App;
 /*
-    header -> title//호준님, 소연님
-    main
+    HeaderComp
+        Title
+            Home
+            Notice
+            Reservation
+            Tour
+                TourList
+            ShareBoard
+            MyPage
+            Login / Logout
+    MainComp
+        Home
+            -
+            -
         검색
             - 검색 카테고리 select/option
             - 단어검색어 input

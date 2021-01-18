@@ -3,7 +3,6 @@ import React, {Component} from "react";
 class Notice extends Component{
     constructor(props) {
         super(props);
-        this.props.setMainView("notice");
     }
 
     render() {

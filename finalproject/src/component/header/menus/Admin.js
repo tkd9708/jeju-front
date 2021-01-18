@@ -1,18 +1,17 @@
 import React, {Component} from "react";
 
-class MyPage extends Component{
+class Admin extends Component{
     constructor(props) {
         super(props);
-        this.props.setMainView("mypage");
     }
 
     render() {
         return (
             <div>
-                {/*<b>MyPage</b>*/}
+                {/*<b>Admin</b>*/}
             </div>
         )
     }
 }
 
-export default MyPage;
+export default Admin;
