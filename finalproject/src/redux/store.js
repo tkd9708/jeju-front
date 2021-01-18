@@ -1,5 +1,5 @@
 import {createStore} from "redux";
-import {actionType, mainViewType} from "./config";
+import {actionType, mainViewType, spotViewType} from "./config";
 
 export default createStore(
     function (state, action) {
@@ -8,6 +8,7 @@ export default createStore(
         if (state === undefined) {
             return {
                 mainView: mainViewType.MainPage,
+                spotView: spotViewType.Jeju,
                 logged: false,
             }
         }
@@ -21,6 +22,11 @@ export default createStore(
 
             newState = Object.assign({}, state, {
                 mainView: action.mainView,
+            });
+        }
+        else if (action.type === actionType.setSpotView) {
+            newState = Object.assign({}, state, {
+                spotView: action.spotView
             });
         }
         else if (action.type === actionType.Singup) {

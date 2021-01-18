@@ -1,5 +1,6 @@
 export const actionType = {
     setMainView: "setMainView",
+    setSpotView: "setSpotView",
     Singup: "Signup",
     login: "login",
     loginRequest: "loginRequest",
@@ -20,4 +21,20 @@ export const mainViewType = {
     TourList: "tourList",
     Admin: "admin",
     JoinForm: "joinForm",
+}
+
+export const spotViewType = {
+    Jeju : "jeju",
+    Jocheon : "jocheon",
+    Gujwa : "gujwa",
+    Sungsan : "sungsan",
+    Pyoseon : "pyoseon",
+    Namwon : "namwon",
+    Seogwipo : "seogwipo",
+    Andeok : "andeok",
+    Daejung : "daejung",
+    Hangyeong : "hangyeong",
+    Hanrim : "hanrim",
+    Aewol : "aewol",
+    Udo : "udo"
 }
