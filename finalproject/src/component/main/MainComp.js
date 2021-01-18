@@ -38,7 +38,7 @@ class MainComp extends Component {
             return (
                 <ShareBoardPageComp/>
             )
-        } else if (this.props.getMainView() == "shareboardfrom") {
+        } else if (this.props.getMainView() == "shareboardform") {
             return (
                 <ShareBoardFormComp/>
             )
