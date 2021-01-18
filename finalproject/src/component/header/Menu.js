@@ -4,7 +4,6 @@ import {Home, Login, ShareBoard, MyPage, Notice, Reservation, Tour, Admin} from 
 import store from "../../redux/store";
 import {actionType, mainViewType} from "../../redux/config";
 
-
 class Menu extends Component {
 
     constructor(props) {

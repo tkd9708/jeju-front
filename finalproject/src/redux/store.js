@@ -25,7 +25,27 @@ export default createStore(
         else if (action.type === actionType.Singup) {
             
             newState = Object.assign({}, state, {
+                mainView: action.mainView,
+            });
+        }
+        else if (action.type === actionType.login) {
+            newState = Object.assign({}, state, {
                 
+            });
+        }
+        else if (action.type === actionType.loginRequest) {
+            newState = Object.assign({}, state, {
+
+            });
+        }
+        else if (action.type === actionType.loginSuccess) {
+            newState = Object.assign({}, state, {
+
+            });
+        }
+        else if (action.type === actionType.loginFailure) {
+            newState = Object.assign({}, state, {
+
             });
         }
         

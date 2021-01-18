@@ -1,6 +1,10 @@
 export const actionType = {
     setMainView: "setMainView",
     Singup: "Signup",
+    login: "login",
+    loginRequest: "loginRequest",
+    loginSuccess: "loginSuccess",
+    loginFailure: "loginFailure",
 }
 
 export const mainViewType = {
