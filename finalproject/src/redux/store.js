@@ -1,5 +1,5 @@
 import {createStore} from "redux";
-import {actionType, mainViewType} from "./config";
+import {actionType, mainViewType, spotViewType} from "./config";
 
 
 export default createStore(
@@ -8,7 +8,8 @@ export default createStore(
         //state 초기화.
         if (state === undefined) {
             return {
-                mainView: mainViewType.MainPage
+                mainView: mainViewType.MainPage,
+                spotView: spotViewType.Jeju
             }
         }
 
@@ -23,9 +24,11 @@ export default createStore(
                 mainView: action.mainView,
             });
         }
-        // else if (action.type === "") {
-        //
-        // }
+        else if (action.type === actionType.setSpotView) {
+            newState = Object.assign({}, state, {
+                spotView: action.spotView
+            });
+        }
 
         console.log("reducer()", state, action, newState);
         return newState;

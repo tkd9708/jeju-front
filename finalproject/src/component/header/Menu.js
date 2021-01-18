@@ -124,9 +124,10 @@ class Menu extends Component {
                 <Route exact path="/Notice/:name?">
                     <Notice></Notice>
                 </Route>
-                <Route exact path="/Tour/:name?">
+                {/* <Route exact path="/Tour/:name?">
                     <Tour></Tour>
-                </Route>
+                </Route> */}
+                <Route exact path="/Tour/:name?" component={Tour}></Route>
                 <Route exact path="/ShareBoard/:name?">
                     <ShareBoard></ShareBoard>
                 </Route>

@@ -1,8 +1,13 @@
 import React, {Component} from "react";
 
 class Tour extends Component{
-    constructor(props) {
-        super(props);
+    constructor({match}) {
+        super();
+
+        this.state = {
+            area : match.params.name
+        }
+        console.log(this.state.area);
     }
 
     render() {
