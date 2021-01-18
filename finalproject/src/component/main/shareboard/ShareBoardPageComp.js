@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Route, Link} from "react-router-dom";
+import ShareBoardFormComp from "./ShareBoardFormComp";
 // import ShareBoardFormComp from "./ShareBoardFormComp";
 
 
@@ -20,13 +21,13 @@ class ShareBoardPageComp extends Component {
                 </div>
 
                 {/*/!* 공유버튼 *!/*/}
-                {/*<div>*/}
-                {/*    <Link to="./ShareBoard/ShareBoardFormComp">*/}
-                {/*        <button type="button">맛집공유</button>*/}
-                {/*    </Link>*/}
+                <div>
+                    <Link to="./ShareBoard/ShareBoardFormComp">
+                        <button type="button">맛집공유</button>
+                    </Link>
 
-                {/*    <Route exact path="/ShareBoard/ShareBoardFormComp" component={ShareBoardFormComp}/>*/}
-                {/*</div>*/}
+                    <Route exact path="/ShareBoard/ShareBoardFormComp" component={ShareBoardFormComp}/>
+                </div>
 
                 {/* 게시판 폼 */}
                 <div>
