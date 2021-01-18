@@ -1,5 +1,5 @@
 import {createStore} from "redux";
-import {actionType, mainViewType, spotViewType} from "./config";
+import {actionType, mainViewType} from "./config";
 
 export default createStore(
     function (state, action) {
@@ -8,7 +8,7 @@ export default createStore(
         if (state === undefined) {
             return {
                 mainView: mainViewType.MainPage,
-                spotView: spotViewType.Jeju,
+                spotView: '',
                 logged: false,
             }
         }
