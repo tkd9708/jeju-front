@@ -50,8 +50,8 @@ class App extends Component {
         return (
             <div>
                 <BrowserRouter>
-                    <HeaderComp></HeaderComp>
-                    <MainComp></MainComp>
+                    {/* <HeaderComp></HeaderComp>
+                    <MainComp></MainComp> */}
 
                     <HeaderComp name={this.state.header}
                                 setMainView={this.setMainView}
