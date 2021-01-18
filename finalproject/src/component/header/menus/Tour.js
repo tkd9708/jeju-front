@@ -1,22 +1,20 @@
 import React, {Component} from "react";
+import store from "../../../redux/store";
+import {actionType} from "../../../redux/config";
 
-class Tour extends Component{
-    constructor({match}) {
-        super();
+const Tour = ({match}) => {
+    console.log("Tour match", match.params.name);
 
-        this.state = {
-            area : match.params.name
-        }
-        console.log(this.state.area);
-    }
+    store.dispatch({
+        type: actionType.setSpotView,
+        spotView: match.params.name
+    });
 
-    render() {
-        return (
-            <div>
-                {/*<b>관광명소</b>*/}
-            </div>
-        )
-    }
+    return(
+        <div>
+
+        </div>
+    )
 }
 
 export default Tour;
