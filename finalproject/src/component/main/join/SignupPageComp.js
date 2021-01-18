@@ -11,10 +11,10 @@ class SignupPageComp extends Component {
             id:'',  //아이디를 저장하고 있을 state
             password:'',
             pwCheck: "",//비밀번호 두개가 일치하는가
-            name : "",
+            name : '',
             birth_date: "",
             phone : "",
-            email : "",
+            email : '',
             address : "",
             idcanUse: false,//중복된 아이디찾기 true여야 로그인가능
         }
@@ -68,35 +68,61 @@ class SignupPageComp extends Component {
             });
     }
 
+    onSubmitHandler = (e) => {
+        e.preventDefault();
+    };
     render() {
         console.log("SingupPageComp render()", this.props);
         return (
             <div>
+                <form
+                onSubmit = { this.onSubmitHandler.bind(this) }>
                 <h1>회원가입</h1>
                 <div>
                     {this.state.id}
                     <h4 className="showIdResult">{this.state.showIdResult}</h4>
                 </div>
                 <br />
+                <label>이메일</label>
+                <input type="email" name = "email" value = { this.state.email } onChange={this.changeEvent.bind(this)} />
+                <br />
+                <label>이름</label>
+                <input type="text" name = "name" value = { this.state.name } onChange={this.changeEvent.bind(this)} />
+                <br />
                 아이디 :
                 <input type="text" name="id"
                 onChange={this.changeEvent.bind(this)}
                 ref="id" value={this.state.id}
                 />
-                <br />
-                비밀번호 : 
-                <input type="password" name="password"
-                onChange={this.changeEvent.bind(this)}
-                ref="password" value={this.state.password}
-                />
-                <b>
-                    내 아이디는 {this.state.id} 입니다
-                    내 비밀번호는 {this.state.password} 입니다
-                </b>
                 <button type="button"
                 onClick={this.onIdChk.bind(this)}>
                     아이디 확인
                 </button>
+                <br />
+                <label>비밀번호</label>
+                <input type="password" name="password"
+                onChange={this.changeEvent.bind(this)}
+                ref="password" value={this.state.password}
+                />
+                <br />
+                <label>비밀번호 확인</label>
+                <input
+                type = "password"
+                name = "pwCheck"
+                value = { this.state.pwCheck }
+                onChange = { this.changeEvent.bind(this) }
+                />
+                <br />
+                <b>
+                    내 아이디는 {this.state.id} 입니다
+                    내 비밀번호는 {this.state.password} 입니다
+                    내 확인비밀번호는 { this.state.pwCheck } 입니다
+                    내 이메일은 { this.state.email } 입니다
+                    내 이름은 { this.state.name } 입니다
+                </b>
+                <br />
+                <button type = "submit">회원 가입</button>
+                </form>
             </div>
         )
     }

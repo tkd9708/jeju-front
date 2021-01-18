@@ -1,7 +1,6 @@
 import {createStore} from "redux";
 import {actionType, mainViewType, spotViewType} from "./config";
 
-
 export default createStore(
     function (state, action) {
 
@@ -9,7 +8,8 @@ export default createStore(
         if (state === undefined) {
             return {
                 mainView: mainViewType.MainPage,
-                spotView: spotViewType.Jeju
+                spotView: spotViewType.Jeju,
+                logged: false,
             }
         }
 
@@ -29,6 +29,33 @@ export default createStore(
                 spotView: action.spotView
             });
         }
+        else if (action.type === actionType.Singup) {
+            
+            newState = Object.assign({}, state, {
+                mainView: action.mainView,
+            });
+        }
+        else if (action.type === actionType.login) {
+            newState = Object.assign({}, state, {
+                
+            });
+        }
+        else if (action.type === actionType.loginRequest) {
+            newState = Object.assign({}, state, {
+                
+            });
+        }
+        else if (action.type === actionType.loginSuccess) {
+            newState = Object.assign({}, state, {
+                logged: true,
+            });
+        }
+        else if (action.type === actionType.loginFailure) {
+            newState = Object.assign({}, state, {
+                logged: false,
+            });
+        }
+        
 
         console.log("reducer()", state, action, newState);
         return newState;

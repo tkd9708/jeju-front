@@ -21,6 +21,7 @@ class HeaderComp extends Component {
                 <BrowserRouter>
                     <Menu logged={logged}
                           onLogout={onLogout}
+                          type="normal"
                     />
                 </BrowserRouter>
             </div>

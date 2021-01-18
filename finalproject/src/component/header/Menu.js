@@ -4,7 +4,6 @@ import {Home, Login, ShareBoard, MyPage, Notice, Reservation, Tour, Admin} from 
 import store from "../../redux/store";
 import {actionType, mainViewType} from "../../redux/config";
 
-
 class Menu extends Component {
 
     constructor(props) {
@@ -116,29 +115,29 @@ class Menu extends Component {
                 <hr style={{clear: 'both'}}/>
 
                 <Route exact path="/">
-                    <Home></Home>
+                    {/*<Home></Home>*/}
                 </Route>
                 <Route exact path="/Reservation/:name?">
-                    <Reservation></Reservation>
+                    {/*<Reservation></Reservation>*/}
                 </Route>
                 <Route exact path="/Notice/:name?">
-                    <Notice></Notice>
+                    {/*<Notice></Notice>*/}
                 </Route>
                 {/* <Route exact path="/Tour/:name?">
                     <Tour></Tour>
                 </Route> */}
                 <Route exact path="/Tour/:name?" component={Tour}></Route>
                 <Route exact path="/ShareBoard/:name?">
-                    <ShareBoard></ShareBoard>
+                    {/*<ShareBoard></ShareBoard>*/}
                 </Route>
                 <Route exact path="/MyPage/:name?">
-                    <MyPage></MyPage>
+                    {/*<MyPage></MyPage>*/}
                 </Route>
                 <Route exact path="/Login/:name?">
-                    <Login></Login>
+                    {/*<Login></Login>*/}
                 </Route>
                 <Route exact path="/Admin:name?">
-                    <Admin></Admin>
+                    {/*<Admin></Admin>*/}
                 </Route>
             </div>
         )

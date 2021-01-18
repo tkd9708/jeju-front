@@ -1,6 +1,11 @@
 export const actionType = {
     setMainView: "setMainView",
-    setSpotView: "setSpotView"
+    setSpotView: "setSpotView",
+    Singup: "Signup",
+    login: "login",
+    loginRequest: "loginRequest",
+    loginSuccess: "loginSuccess",
+    loginFailure: "loginFailure",
 }
 
 export const mainViewType = {

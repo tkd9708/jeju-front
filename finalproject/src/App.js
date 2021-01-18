@@ -6,6 +6,7 @@ import {
     BrowserRouter
 } from "react-router-dom";
 import styled from "styled-components";
+import Menu from "./component/header/Menu";
 
 class App extends Component {
     constructor(props) {
@@ -36,28 +37,16 @@ class App extends Component {
         });
     }
 
-    // Login 함수
-    onLogin = () => {
-        this.setState({
-            logged: true
-        });
-    }
-
-    // Logout 함수
-    onLogout = () => {
-        this.setState({
-            logged: false
-        });
-    }
-
     render() {
         const {logged, onLogout} = this.state;
 
         return (
             <div>
                 <BrowserRouter>
-
-
+                    <Menu logged={logged}
+                          onLogout={onLogout}
+                          type="hide"
+                    />
                     <HeaderComp logged={logged}
                                 onLogout={onLogout}
                     />
