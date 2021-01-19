@@ -1,5 +1,7 @@
 import {createStore} from "redux";
 import {actionType, mainViewType} from "./config";
+import logger from "redux-logger";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 export default createStore(
     function (state, action) {

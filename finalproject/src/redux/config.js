@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios';
 import React, { useEffect } from "react";
+import {  } from "../component/main/admin/MemberListPageComp";
 
 export const actionType = {
     setMainView: "setMainView",
@@ -14,10 +15,6 @@ export const actionType = {
     MB_LIST_S: "MB_LIST_S", // 회원 리스트 요청 성공
     MB_LIST_F: "MB_LIST_F", // 회원 리스트 요청 실패
 }
-
-// export const memberList = () => {
-//     return (dispatch)
-// }
 
 export const mainViewType = {
     MainPage: "mainPage",
