@@ -10,16 +10,14 @@ class ShareBoardMiniComp extends Component {
     render() {
         return (
             <div>
-                {/*<a href="#ShareBoardMiniComp">{this.props.name}</a>*/}
                 <br/>
-                {this.props.name}<br/>
                 <h5>공유게시판</h5>
                 <button>
                     <img src={PlusImg}
                          style={{width: "50px"}}
                     />
                 </button>
-                <table>
+                <table className="shareBoardList">
                     <thead>
                     <tr>
                         <th>제목</th>
@@ -27,30 +25,23 @@ class ShareBoardMiniComp extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>
-                            <a href="#">
-                                <span>1제목 입니다.</span>
-                            </a>
-                        </td>
-                        <td>1작성일 입니다.</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="#">
-                                <span>2제목 입니다.</span>
-                            </a>
-                        </td>
-                        <td>2작성일 입니다.</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="#">
-                                <span>3제목 입니다.</span>
-                            </a>
-                        </td>
-                        <td>3작성일 입니다.</td>
-                    </tr>
+                    {this.props.list.map(function (e, i) {
+                        // console.log(i, e);
+                        if (i < 5) {
+                            return (
+                                <tr key={i}>
+                                    <td>
+                                        <a href="#">
+                                            <span>{e.subject}</span>
+                                        </a>
+                                    </td>
+                                    <td>{e.writeday}</td>
+                                </tr>
+                            );
+                        } else {
+                            return;
+                        }
+                    })}
                     </tbody>
                 </table>
             </div>
