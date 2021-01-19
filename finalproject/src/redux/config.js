@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios';
 import React, { useEffect } from "react";
+import {  } from "../component/main/admin/MemberListPageComp";
 
 export const actionType = {
     setMainView: "setMainView",
@@ -15,8 +16,16 @@ export const actionType = {
     MB_LIST_F: "MB_LIST_F", // 회원 리스트 요청 실패
 }
 
-// export const memberList = () => {
-//     return (dispatch)
+// useDispatch는 리덕스 스토어의 dispatch를 함수에서 사용할수있게 해주는 Hook이다
+const dispatch = useDispatch();
+// 각 액션을 dispatch 하는 함수
+
+
+// export const memberList = () => async dispatch => {
+//     dispatch({ type: MEMBER_LIST }); // 요청이 시작됨
+//     try {
+//         const 
+//     }
 // }
 
 export const mainViewType = {
