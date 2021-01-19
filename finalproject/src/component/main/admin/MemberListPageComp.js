@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import axios from 'axios';
 import RowItem from "./RowItem";
+import store from "../../../redux/store";
+import { actionType, mainViewType } from "../../../redux/config";
 
 class MemberListPageComp extends Component {
 
