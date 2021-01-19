@@ -1,3 +1,7 @@
+import { useSelector, useDispatch } from "react-redux";
+import axios from 'axios';
+import React, { useEffect } from "react";
+
 export const actionType = {
     setMainView: "setMainView",
     setSpotView: "setSpotView",
@@ -11,9 +15,9 @@ export const actionType = {
     MB_LIST_F: "MB_LIST_F", // 회원 리스트 요청 실패
 }
 
-export const memberList = () => {
-    type: "MEMBER_LIST",
-}
+// export const memberList = () => {
+//     return (dispatch)
+// }
 
 export const mainViewType = {
     MainPage: "mainPage",
