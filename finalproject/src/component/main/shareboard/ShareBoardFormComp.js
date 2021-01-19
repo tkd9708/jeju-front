@@ -1,5 +1,8 @@
 import React, {Component} from "react";
-import { Link } from "react-router-dom";
+import { Route,Link } from "react-router-dom";
+import ShareBoardPageComp from "./ShareBoardPageComp";
+import axios from "axios";
+
 
 
 class ShareBoardFormComp extends Component {
@@ -7,9 +10,15 @@ class ShareBoardFormComp extends Component {
     constructor(props) {
         super(props);
         console.log("ShareBoardFormComp constructor", props);
+
+     
+ 
     }
 
+  
+
     render() {
+       
         console.log("ShareBoardFormComp render()", this.props);
         return (
             <div>
@@ -56,9 +65,10 @@ class ShareBoardFormComp extends Component {
                 <div>
                     
                     <button type="button">공유하기</button>
-                    <Link to="./main/shareboard/ShardBoardPageComp">
+                    <Link to="./ShareBoard/ShareBoardPageComp">
                     <button type="button">맛집목록</button> 
                     </Link>
+                    <Route exact path="/ShareBoard/ShareBoardPageComp" component={ShareBoardPageComp}/>
                 </div>
 
             </div>
