@@ -3,6 +3,9 @@ import axios from 'axios';
 import React, { useEffect } from "react";
 import {  } from "../component/main/admin/MemberListPageComp";
 
+//추후 공통된 url은 여기에 두고 이어붙여서 만들까 합니다.
+export const URL = "";
+
 export const actionType = {
     setMainView: "setMainView",
     setSpotView: "setSpotView",
