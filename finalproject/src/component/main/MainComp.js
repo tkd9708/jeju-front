@@ -9,6 +9,7 @@ import store from "../../redux/store";
 import {mainViewType} from "../../redux/config";
 import MypagePageComp from "./mypage/MypagePageComp";
 import TourPageComp from "./tour/TourPageComp";
+import SignupPageComp from "./join/SignupPageComp";
 
 class MainComp extends Component {
 
@@ -59,6 +60,10 @@ class MainComp extends Component {
         } else if (_mainView == mainViewType.Admin) {
             return (
                 <MemberListPageComp/>
+            )
+        } else if (_mainView == mainViewType.JoinForm) {
+            return (
+                <SignupPageComp />
             )
         } else {
             return (

@@ -8,8 +8,6 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
     <React.StrictMode>
-        {/* 아침 */}
-        {/*주석 확인했습니다*/}
         <App/>
     </React.StrictMode>,
     document.getElementById('root')

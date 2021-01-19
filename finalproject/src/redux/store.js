@@ -1,14 +1,15 @@
 import {createStore} from "redux";
 import {actionType, mainViewType} from "./config";
 
-
 export default createStore(
     function (state, action) {
 
         //state 초기화.
         if (state === undefined) {
             return {
-                mainView: mainViewType.MainPage
+                mainView: mainViewType.MainPage,
+                spotView: '',
+                logged: false,
             }
         }
 
@@ -23,9 +24,40 @@ export default createStore(
                 mainView: action.mainView,
             });
         }
-        // else if (action.type === "") {
-        //
-        // }
+        else if (action.type === actionType.setSpotView) {
+            newState = Object.assign({}, state, {
+                spotView: action.spotView
+            });
+        }
+        else if (action.type === actionType.SIGN_UP) {
+            
+            newState = Object.assign({}, state, {
+                mainView: action.mainView,
+            });
+        }
+        else if (action.type === actionType.LOG_IN) {
+            newState = Object.assign({}, state, {
+                
+            });
+        }
+        else if (action.type === actionType.LOGIN_REQUEST) {
+            newState = Object.assign({}, state, {
+
+            });
+        }
+        else if (action.type === actionType.LOGIN_SUCCESS) {
+            newState = Object.assign({}, state, {
+                logged: true,
+                id: action.type.id,
+            });
+        }
+        else if (action.type === actionType.LOGIN_FAILURE) {
+            newState = Object.assign({}, state, {
+                logged: false,
+                id: "",
+            });
+        }
+        
 
         console.log("reducer()", state, action, newState);
         return newState;

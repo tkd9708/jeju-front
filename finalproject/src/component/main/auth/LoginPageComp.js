@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import axios from 'axios';
 import GoogleLoginBtnComp from "./GoogleLoginBtnComp";
 import GoogleLogoutBtnComp from "./GoogleLogoutBtnComp";
+import store from "../../../redux/store";
+import { actionType, mainViewType } from "../../../redux/config";
 
 class LoginPageComp extends Component {
 

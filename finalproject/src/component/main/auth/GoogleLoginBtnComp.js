@@ -13,6 +13,7 @@ class GoogleLoginBtnComp extends Component
             id: '',
             name: '',
             provider: '',
+            accessToken: ''
         }
     }
 
