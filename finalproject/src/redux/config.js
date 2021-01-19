@@ -11,6 +11,10 @@ export const actionType = {
     MB_LIST_F: "MB_LIST_F", // 회원 리스트 요청 실패
 }
 
+export const memberList = () => {
+    type: "MEMBER_LIST",
+}
+
 export const mainViewType = {
     MainPage: "mainPage",
     Home: "home",
