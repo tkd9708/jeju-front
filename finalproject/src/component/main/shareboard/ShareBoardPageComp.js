@@ -1,15 +1,45 @@
 import React, {Component} from "react";
 import {Route, Link} from "react-router-dom";
 import ShareBoardFormComp from "./ShareBoardFormComp";
-// import ShareBoardFormComp from "./ShareBoardFormComp";
+import ShareBoardRowItem from "./ShareBoardRowItem";
+import axios from "axios";
+
 
 
 class ShareBoardPageComp extends Component {
+    
+    
+    state={
+    listData:[]
+    }
 
+    
     constructor(props) {
         super(props);
         console.log("ShareBoardPageComp constructor", props);
+
+ 
+       
     }
+
+
+    list=()=>{
+        let url="http://192.168.0.220:9002/share/list?start=0&perPage=3";
+        
+        console.log(url);
+        axios.get(url)
+        .then(res=>{
+            this.setState({
+                listData:res.data
+            })
+        })
+    }
+
+    componentWillMount()
+    {
+       this.list();
+    }
+
 
     render() {
         console.log("ShareBoardPageComp render()", this.props);
@@ -31,50 +61,16 @@ class ShareBoardPageComp extends Component {
 
                 {/* 게시판 폼 */}
                 <div>
-                    <table style={{width: '1200px', border: '1px solid black'}}>
+                    <div>
+                    {
+                                this.state.listData.map((row,idx)=>(
+                                    <ShareBoardRowItem row={row} key={row} 
+                                     history={this.props.history}/>
+                                ))
+                            }
 
-                        <th style={{width: '400px', borderRight: '1px solid black'}}>이미지</th>
-
-                        <th style={{width: '600px', borderRight: '1px solid black'}}>
-                            <tr><span>별점</span></tr>
-                            <tr><span>맛집이름</span></tr>
-                            <tr><span>맛집주소</span></tr>
-                            <tr><span>리뷰</span></tr>
-                            <tr><span>작성자/작성날짜</span></tr>
-                        </th>
-
-                        <th style={{width: '200px'}}>
-                            <tr>
-                                <button type="button">좋아요</button>
-                            </tr>
-                            <tr>
-                                <button type="button">찜하기</button>
-                            </tr>
-                            <td>
-                                <button type="button">댓글쓰기</button>
-                                <button type="button">댓글목록</button>
-                            </td>
-                        </th>
-
-
-                    </table>
+                    </div>
                 </div>
-
-                {/* <div style={{width:'1000px', height:'300px',border:'1px solid black'}}>
-
-          <div style={{width:'200px',height:'300px',borderRight:'1px solid black',float:'left'}}>
-          첫번째 영역
-          </div>
-
-          <div style={{width:'200px',height:'100px',borderRight:'1px solid black',float:'left'}}>
-          두번째 영역
-          </div>
-
-          <div style={{width:'200px',height:'300px',borderRight:'1px solid black'}}>
-          세번째 영역
-          </div>
-
-          </div> */}
 
 
                 {/* 검색창 */}
