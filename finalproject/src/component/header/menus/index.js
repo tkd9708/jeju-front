@@ -3,6 +3,7 @@
 export {default as Reservation} from './Reservation';
 export {default as Notice} from './Notice';
 export {default as TourList} from './TourList';
+export {default as Tour} from './Tour';
 export {default as ShareBoard} from './ShareBoard';
 export {default as MyPage} from './MyPage';
 export {default as Login} from './Login';

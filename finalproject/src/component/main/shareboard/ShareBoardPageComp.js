@@ -52,7 +52,7 @@ class ShareBoardPageComp extends Component {
 
                 {/*/!* 공유버튼 *!/*/}
                 <div>
-                    <Link to="./ShareBoard/ShareBoardFormComp">
+                    <Link to="/ShareBoard/ShareBoardFormComp">
                         <button type="button">맛집공유</button>
                     </Link>
 
