@@ -1,7 +1,5 @@
-import {createStore} from "redux";
+import {applyMiddleware, compose, createStore} from "redux";
 import {actionType, mainViewType} from "./config";
-import logger from "redux-logger";
-import { composeWithDevTools } from "redux-devtools-extension";
 
 export default createStore(
     function (state, action) {
@@ -61,12 +59,15 @@ export default createStore(
             });
         }
         else if (action.type === actionType.MEMBER_LIST) {
+
+            
+
             newState = Object.assign({}, state, {
                 memberData: action.payload
             });
+
         }
         
-
         console.log("reducer()", state, action, newState);
         return newState;
     }
