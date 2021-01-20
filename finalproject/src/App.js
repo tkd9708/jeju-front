@@ -43,22 +43,12 @@ class App extends Component {
         return (
             <div>
                 <BrowserRouter>
-<<<<<<< HEAD
-                    {/* <HeaderComp></HeaderComp>
-                    <MainComp></MainComp> */}
-
-                    <HeaderComp name={this.state.header}
-                                setMainView={this.setMainView}
-                                logged = { logged }
-                                onLogout = { onLogout }
-=======
                     <Menu logged={logged}
                           onLogout={onLogout}
                           type="hide"
                     />
                     <HeaderComp logged={logged}
                                 onLogout={onLogout}
->>>>>>> ad3a89bec5596b5e5dba33da18e6e4775eab9d35
                     />
                     <MainComp
                     />
