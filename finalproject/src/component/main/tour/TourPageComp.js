@@ -110,7 +110,7 @@ class TourPageComp extends Component {
                 {/* list 출력 */}
                 {this.state.spotList.map((row,idx)=>(
                     <ItemComp row={row} key={idx} history={this.props.history}></ItemComp>
-                ))}
+                ))} 
 
                 {/* 페이징 */}
                 <PageComp area={this.state.area} startPage={this.startPage} endPage={this.endPage} currentPage={this.currentPage} 

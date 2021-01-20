@@ -13,6 +13,7 @@ export default createStore(
             return {
                 mainView: mainViewType.MainPage,
                 spotView: '',
+                contentsid: '',
                 logged: false,
                 memberData: [], // 회원목록
             }
@@ -32,6 +33,11 @@ export default createStore(
         else if (action.type === actionType.setSpotView) {
             newState = Object.assign({}, state, {
                 spotView: action.spotView
+            });
+        }
+        else if (action.type === actionType.setSpot) {
+            newState = Object.assign({}, state, {
+                contentsid: action.contentsid
             });
         }
         else if (action.type === actionType.SIGN_UP) {
