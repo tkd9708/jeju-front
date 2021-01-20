@@ -2,7 +2,7 @@
 //index.js 호출시 각 컴포넌트를 같은 이름으로 보낸다
 export {default as Reservation} from './Reservation';
 export {default as Notice} from './Notice';
-export {default as Tour} from './Tour';
+export {default as TourList} from './TourList';
 export {default as ShareBoard} from './ShareBoard';
 export {default as MyPage} from './MyPage';
 export {default as Login} from './Login';

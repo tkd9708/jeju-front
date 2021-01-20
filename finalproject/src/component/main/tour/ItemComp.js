@@ -6,9 +6,15 @@ class ItemComp extends Component {
 
         return (
             <div>
-                <img style={{width: '100px', height: '100px'}} src={row.thumbnail}></img><br/>
-                title : {row.title}<br/>
-                addr : {row.roadaddr}<br/>
+                <div onClick={
+                    ()=>{
+                        history.push("/Tour/" + row.contentsid);
+                    }
+                }>
+                    <img style={{width: '100px', height: '100px'}} src={row.thumbnail}></img><br/>
+                    title : {row.title}<br/>
+                    addr : {row.roadaddr}<br/>
+                </div>
                 <hr/>
             </div>
         );

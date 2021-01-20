@@ -10,6 +10,7 @@ import {mainViewType} from "../../redux/config";
 import MypagePageComp from "./mypage/MypagePageComp";
 import TourPageComp from "./tour/TourPageComp";
 import SignupPageComp from "./join/SignupPageComp";
+import DetailTourComp from "./tour/DetailTourComp";
 
 class MainComp extends Component {
 
@@ -42,6 +43,10 @@ class MainComp extends Component {
                 <NoticePageComp/>
             )
         } else if (_mainView == mainViewType.Tour) {
+            return (
+                <DetailTourComp/>
+            )
+        } else if (_mainView == mainViewType.TourList) {
             return (
                 <TourPageComp/>
             )
