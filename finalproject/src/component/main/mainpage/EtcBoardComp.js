@@ -8,7 +8,7 @@ class EtcBoardComp extends Component {
     render() {
         return (
             <div className="etcBoardComp">
-
+                etcBoardComp
             </div>
         );
     }

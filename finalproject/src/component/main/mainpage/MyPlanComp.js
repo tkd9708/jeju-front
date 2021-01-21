@@ -4,7 +4,7 @@ class MyPlanComp extends Component {
     render() {
         return (
             <div className="myPlanComp">
-
+                myPlanComp
             </div>
         );
     }

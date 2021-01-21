@@ -21,6 +21,7 @@ class HotPlaceComp extends Component {
     render() {
         return (
             <div className="hotPlaceComp">
+                hotPlaceComp
                 <br/>
                 {this.props.name}<br/>
                 <NavLink exact to="/TourList/jeju"

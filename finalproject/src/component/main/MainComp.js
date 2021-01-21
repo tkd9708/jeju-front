@@ -88,9 +88,9 @@ class MainComp extends Component {
         }
         return (
             <div className="mainComp">
-                <hr style={style_hr}/>
-                <br/>
-                <h1>MainComp</h1>
+                {/*<hr style={style_hr}/>*/}
+                {/*<br/>*/}
+                {/*<h1>MainComp</h1>*/}
                 {this.setMainView()}
             </div>
         )
