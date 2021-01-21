@@ -29,8 +29,10 @@ div.mainPhotoComp {
 }
 
 div.mainPhotoComp img {
+    flex: 1;
+    height: 1080px;
     transform: scale(1);
-    opacity: 0.3;
+    opacity: 0;
 }
 
 div.mainPhotoComp img:nth-child(1) {
