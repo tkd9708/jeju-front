@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import {NavLink, Route} from "react-router-dom";
 import store from "../../../redux/store";
 import {actionType, mainViewType} from "../../../redux/config";
-import Tour from "../../header/menus/Tour";
 
 class ItemComp extends Component {
 

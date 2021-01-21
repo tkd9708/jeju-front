@@ -53,7 +53,7 @@ class TourPageComp extends Component {
         
         this.no = this.totalCount-(this.currentPage - 1) * this.perPage;
 
-        let url = "http://localhost:9002/spot/list?start=" + this.start + "&perPage=" + this.perPage + "&label2=" + this.state.area + 
+        let url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/spot/list?start=" + this.start + "&perPage=" + this.perPage + "&label2=" + this.state.area + 
             "&select=" + this.select;
 
         axios.get(url)
@@ -67,7 +67,7 @@ class TourPageComp extends Component {
     }
 
     getTotalCount=()=>{
-        let url = "http://localhost:9002/spot/count?label2=" + this.state.area;
+        let url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/spot/count?label2=" + this.state.area;
 
         axios.get(url)
             .then(res=>{

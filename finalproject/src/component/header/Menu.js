@@ -84,10 +84,10 @@ class Menu extends Component {
                         >회원가입</NavLink>
                     </li>
                     <li>
-                        <NavLink exact to="/TourList"
+                        <NavLink exact to="/MyPage"
                                  onClick={() => {
-                                     console.log("TourList NavLink onClick");
-                                     this.setMainView(mainViewType.TourList);
+                                     console.log("Mypage NavLink onClick");
+                                     this.setMainView(mainViewType.MyPage);
                                  }}
                         >MyPage</NavLink>
                     </li>
@@ -100,10 +100,10 @@ class Menu extends Component {
                         >공유게시판</NavLink>
                     </li>
                     <li>
-                        <NavLink exact to="/Tour"
+                        <NavLink exact to="/TourList"
                                  onClick={() => {
                                      console.log("Tour NavLink onClick");
-                                     this.setMainView(mainViewType.Tour);
+                                     this.setMainView(mainViewType.TourList);
                                  }}
                         >관광명소</NavLink>
                     </li>
@@ -145,7 +145,7 @@ class Menu extends Component {
                 <Route exact path="/ShareBoard/:name?">
                     {/*<ShareBoard></ShareBoard>*/}
                 </Route>
-                <Route exact path="/MyPage/:name?">
+                <Route exact path="/MyPage/:name?" component={MyPage}>
                     {/*<MyPage></MyPage>*/}
                 </Route>
                 <Route exact path="/Login/:name?">

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import './kakaomap.css';
 
-const Map=(props)=> {
+const MapComp=(props)=> {
 
     let longitude = useState(0);
     let latitude = useState(0);
@@ -356,4 +356,4 @@ function placesSearchCB(data, status, pagination) {
   );
 }
 
-export default Map;
+export default MapComp;
