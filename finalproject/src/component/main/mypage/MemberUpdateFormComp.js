@@ -38,6 +38,13 @@ class MemberUpdateFormComp extends Component {
           memberData: e.target.value
         })
       }
+
+      email2HandleChange = (e) => {
+        this.setState({
+          email2: e.target.value
+        })
+      }
+
     componentDidMount() {
         this.getData(); //처음 시작시 백엔드로부터 데이타 가져오기
     }
@@ -61,7 +68,7 @@ class MemberUpdateFormComp extends Component {
                 <input type="text" name = "addrdetail" value = {this.state.memberData.addrdetail} onChange={this.handleChange}/><br/>
                 <span>email</span>&nbsp;&nbsp;
                 <input type="text" name = "email" value = {this.state.memberData.email} onChange={this.handleChange}/>
-                <input type="text" name = "email2" value = {this.state.email2} onChange={this.handleChange}/>
+                <input type="text" name = "email2" value = {this.state.email2} onChange={this.email2HandleChange}/>
                 <select name="selectemail" onChange={this.changeEmail}>
                     <option disabled>선택하세요</option>
                     <option value="">직접입력</option>
