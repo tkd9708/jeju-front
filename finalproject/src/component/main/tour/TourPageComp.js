@@ -3,6 +3,8 @@ import store from "../../../redux/store";
 import ItemComp from "./ItemComp";
 import axios from "axios";
 import PageComp from "./PageComp";
+import './TourCss.css';
+import Tourintro from './Tourintro';
 
 class TourPageComp extends Component {
 
@@ -98,15 +100,20 @@ class TourPageComp extends Component {
         console.log("TourPageComp render()", this.props);
         return (
             <div>
-                <h4>TourPageComp {this.state.area} {this.totalCount} {this.state.select}</h4>
-                {/* 이미지 넣기 */}
+                {/* <h4>TourPageComp {this.state.area} {this.totalCount} {this.state.select}</h4> */}
+                
+                <Tourintro area={this.state.area}/>
 
-                <select onChange={this.selectChange.bind(this)} value={this.select}>
+                <br/><br/>
+                {this.state.area}
+                
+                <select onChange={this.selectChange.bind(this)} value={this.select} style={{float: 'right'}}>
                     <option value="star">평점순</option>
                     <option value="likes">좋아요순</option>
                     <option value="title">제목순</option>
                 </select>
 
+                <br/><br/>
                 {/* list 출력 */}
                 {this.state.spotList.map((row,idx)=>(
                     <ItemComp row={row} key={idx} history={this.props.history}></ItemComp>
