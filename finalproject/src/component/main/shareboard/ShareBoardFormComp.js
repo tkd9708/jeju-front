@@ -23,7 +23,7 @@ class ShareBoardFormComp extends Component {
          const upload=new FormData();
          upload.append("uploadFile", uploadFile);
          
-          let url="http://localhost:9002/share/upload";
+          let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/share/upload";
 
           axios({
              method: 'post',
@@ -50,7 +50,7 @@ class ShareBoardFormComp extends Component {
          console.log(subject + ", " + addr + ", " + content);
 
           //db 에 insert
-          let url="http://localhost:9002/share/insert";
+          let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/share/insert";
 
           axios.post(url,{subject,addr,content,star})
           .then(res=>{

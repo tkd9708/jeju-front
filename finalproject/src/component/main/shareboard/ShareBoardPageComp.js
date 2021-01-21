@@ -24,7 +24,7 @@ class ShareBoardPageComp extends Component {
 
 
     list=()=>{
-        let url="http://192.168.0.220:9002/share/list?start=0&perPage=3";
+        let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/share/list?start=0&perPage=3";
         
         console.log(url);
         axios.get(url)
