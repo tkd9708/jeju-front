@@ -28,7 +28,7 @@ class PageComp extends Component {
 
         return (
             <div>
-                {startPage},{endPage},{totalPage}
+                {/* {startPage},{endPage},{totalPage} */}
                 <ul class="pagination">
                     {prev}
                     {pages}
