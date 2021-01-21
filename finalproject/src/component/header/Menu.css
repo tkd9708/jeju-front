@@ -1,0 +1,48 @@
+div {
+    /*border: 1px solid black;*/
+    /*text-align: right;*/
+}
+
+div.menu ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+div.menu ul li {
+    margin-right: 20px;
+}
+
+div.hide {
+    position: fixed;
+    top: -50px;
+}
+
+div.hide {
+    background-color: #ffe480;
+    height: 50px;
+    width: 100%;
+}
+
+div.normal {
+    background-color: rgba(0, 0, 0, 0);
+    height: 50px;
+}
+
+div.hide ul li, div.normal ul li {
+    float: right;
+    font-size: 1.5em;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+div ul li.logo {
+    float: left;
+}
+
+div ul li.logo img {
+    /*margin-bottom: 30px;*/
+}
+
+
+

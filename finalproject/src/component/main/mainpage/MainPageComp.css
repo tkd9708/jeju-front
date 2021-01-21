@@ -1,0 +1,16 @@
+div.mainPageComp{
+    height: 2000px;
+}
+
+
+div.miniTable div{
+    float: left;
+}
+
+div.miniTable{
+    text-align: center;
+}
+
+.shareBoardList, .noticeList{
+    margin: 0px;
+}

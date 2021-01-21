@@ -8,17 +8,53 @@ import {
 import styled from "styled-components";
 import Menu from "./component/header/Menu";
 
+import gsap from "gsap";
+
 class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            header: "header_comp",
+            isStaticHeader: true,
             mainview: "mainpage",
             footer: "footer_comp",
             logged: false,
             onLogin: this.onLogin,
             onLogout: this.onLogout
+        }
+
+        window.onmousewheel = function (e) {
+            console.log(window.scrollY);
+            this.showHeader(window.scrollY);
+        }.bind(this);
+        window.onscroll = function (e) {
+            console.log(window.scrollY);
+            this.showHeader(window.scrollY);
+        }.bind(this);
+
+    }
+
+
+    showHeader = (scrollVal) => {
+        const isStaticHeader = this.state.isStaticHeader;
+        if (scrollVal > 0) {
+            if (!isStaticHeader) {
+                this.setState({
+                    isStaticHeader: true
+                });
+                gsap.to("div.hide", {
+                    y: 50,
+                    duration: 1
+                });
+            }
+        } else {
+            this.setState({
+                isStaticHeader: false
+            });
+            gsap.to("div.hide", {
+                y: -50,
+                duration: 1
+            });
         }
     }
 
