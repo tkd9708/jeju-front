@@ -1,9 +1,8 @@
 import React,{Component} from 'react';
 import store from "../../../redux/store";
 import axios from 'axios';
-import DetailMap from './DetailMap';
-import DetailReview from './DetailReview';
-import Map from './Map';
+import DetailReviewComp from './DetailReviewComp';
+import MapComp from './MapComp';
 
 class DetailTourComp extends Component {
 
@@ -25,7 +24,7 @@ class DetailTourComp extends Component {
     }
 
     getData=()=>{
-        const url = "http://localhost:9002/spot/select?contentsid=" + this.state.contentsid;
+        const url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/spot/select?contentsid=" + this.state.contentsid;
 
         axios.get(url)
             .then(res=>{
@@ -46,11 +45,10 @@ class DetailTourComp extends Component {
         return (
             <div>
                 <h4>DetailTourComp {this.state.contentsid} / {this.state.spotdata.longitude}</h4>
-                {/* <img src={this.state.spotdata.img} alt="" /> */}
-                {/* <DetailMap title={this.state.spotdata.title}/> */}
-                <Map longitude={this.state.spotdata.longitude} latitude={this.state.spotdata.latitude}
+                <MapComp longitude={this.state.spotdata.longitude} latitude={this.state.spotdata.latitude}
                     title={this.state.spotdata.title}/>
-                <DetailReview/>
+                <br/><br/>
+                <DetailReviewComp/>
             </div>
         );
     }
