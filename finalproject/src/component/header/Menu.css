@@ -37,6 +37,7 @@ div.hide {
     position: fixed;
     top: -70px;
     width: 100%;
+    z-index: 100;
 }
 
 /*div.menu ul {*/
