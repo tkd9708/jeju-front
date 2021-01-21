@@ -4,14 +4,14 @@ import store from "../../../redux/store";
 import {actionType, mainViewType} from "../../../redux/config";
 import TourList from '../../header/menus/TourList';
 
-class ViewspotComp extends Component {
+class HotPlaceComp extends Component {
     constructor(props) {
         super(props);
 
     }
 
     setMainView = (mainView) => {
-        console.log("ViewspotComp setMainView()");
+        console.log("HotPlaceComp setMainView()");
         store.dispatch({
             type: actionType.setMainView,
             mainView: mainView
@@ -20,7 +20,7 @@ class ViewspotComp extends Component {
 
     render() {
         return (
-            <div>
+            <div className="hotPlaceComp">
                 <br/>
                 {this.props.name}<br/>
                 <NavLink exact to="/TourList/jeju"
@@ -98,8 +98,8 @@ class ViewspotComp extends Component {
                         >우도</NavLink>
                         <br/>
 
-                {/*<a href="#ViewspotComp">{this.props.name}</a>*/}
-                
+                {/*<a href="#HotPlaceComp">{this.props.name}</a>*/}
+
                 {/* <a href="/Tour/jeju">제주</a> */}
                 {/* <a href="#jocheon">조천</a>
                 <a href="#gujwa">구좌</a>
@@ -120,4 +120,4 @@ class ViewspotComp extends Component {
 
 }
 
-export default ViewspotComp;
+export default HotPlaceComp;

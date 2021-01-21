@@ -17,7 +17,7 @@ class HeaderComp extends Component {
         console.log("HeaderComp render", this.props, this.state);
 
         return (
-            <div>
+            <div className="headerComp">
                 <BrowserRouter>
                     <Menu logged={logged}
                           onLogout={onLogout}

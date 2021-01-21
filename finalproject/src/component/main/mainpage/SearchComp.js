@@ -8,8 +8,7 @@ class SearchComp extends Component {
 
     render() {
         return (
-            <div>
-                {/*<a href="#SearchComp">{this.props.name}</a>*/}
+            <div className="searchComp">
                 <br/>
                 {this.props.name}<br/>
                 <select>

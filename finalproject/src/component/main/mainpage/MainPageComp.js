@@ -1,11 +1,14 @@
 import React, {Component} from "react";
 import SearchComp from "./SearchComp";
-import ViewspotComp from "./ViewspotComp";
+import HotPlaceComp from "./HotPlaceComp";
 import NoticeMiniComp from "./NoticeMiniComp";
 import ShareBoardMiniComp from "./ShareBoardMiniComp";
 import axios from "axios";
 import {URL} from "../../../redux/config";
 import "./MainPageComp.css"
+import MainPhotoComp from "./MainPhotoComp";
+import MyPlanComp from "./MyPlanComp";
+import EtcBoardComp from "./EtcBoardComp";
 
 class MainPageComp extends Component {
 
@@ -58,19 +61,25 @@ class MainPageComp extends Component {
         });
     }
 
+
+    /**
+     * MainPhotoComp
+     * SearchComp | MyPlanComp
+     * HotPlaceComp
+     * EtcBoardComp
+     */
     render() {
         console.log("MainPageComp render()", this.props);
         return (
             <div className="mainPageComp">
                 <h4>main page comp</h4>
-                <SearchComp name={this.state.search}/>
-                <ViewspotComp name={this.state.viewspot}
-                              setMainView={this.props.setMainView}
-                />
-                <div className="miniTable">
-                    <NoticeMiniComp list={this.state.noticeList}/>
-                    <ShareBoardMiniComp list={this.state.shareBoardList}/>
+                <MainPhotoComp/>
+                <div className="search-myplan">
+                    <SearchComp/>
+                    <MyPlanComp/>
                 </div>
+                <HotPlaceComp/>
+                <EtcBoardComp/>
             </div>
         )
     }
