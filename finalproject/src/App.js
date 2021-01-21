@@ -7,8 +7,8 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 import Menu from "./component/header/Menu";
-
 import gsap from "gsap";
+import "./App.css";
 
 class App extends Component {
     constructor(props) {
@@ -43,7 +43,7 @@ class App extends Component {
                     isStaticHeader: true
                 });
                 gsap.to("div.hide", {
-                    y: 50,
+                    y: 70,
                     duration: 1
                 });
             }
@@ -52,7 +52,7 @@ class App extends Component {
                 isStaticHeader: false
             });
             gsap.to("div.hide", {
-                y: -50,
+                y: -70,
                 duration: 1
             });
         }
@@ -77,20 +77,20 @@ class App extends Component {
         const {logged, onLogout} = this.state;
 
         return (
-            <div>
-                <BrowserRouter>
-                    <Menu logged={logged}
-                          onLogout={onLogout}
-                          type="hide"
-                    />
+            <BrowserRouter>
+                <Menu logged={logged}
+                      onLogout={onLogout}
+                      type="hide"
+                />
+                <div className="mainFrame">
                     <HeaderComp logged={logged}
                                 onLogout={onLogout}
                     />
                     <MainComp
                     />
-                </BrowserRouter>
-                <FooterComp/>
-            </div>
+                    <FooterComp/>
+                </div>
+            </BrowserRouter>
         )
     }
 
