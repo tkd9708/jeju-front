@@ -1,10 +1,12 @@
 import React, {Component} from "react";
 import axios from 'axios';
+import {URL} from "../../../redux/config";
 
 class SignupPageComp extends Component {
 
     constructor(props) {
         super(props);
+
         console.log("SignupPageComp constructor", props);
         
         this.state={
@@ -48,7 +50,7 @@ class SignupPageComp extends Component {
             id: this.state.id//현재 id state 값을 data.id에 넣는다
         }
         // ↓은 백엔드로 fetch해서 입력된 값을 POST
-        fetch("http://localhost:9002/member/checkid", 
+        fetch(URL + "/member/checkid", 
                 {//localhost 9002번 포트 checkid라우터를 찾는다
                     method: "POST",
                     headers: {
@@ -73,8 +75,7 @@ class SignupPageComp extends Component {
 
     onSubmitHandler = (e) => {
         e.preventDefault();
-
-        
+        this.onInsertMember();
     };
 
     //사진 업로드시 호출되는 함수
@@ -87,7 +88,7 @@ class SignupPageComp extends Component {
 
         axios({
             method: 'post',
-            url: 'http://localhost:9002/member/upload',
+            url: URL + '/member/upload',
             data: memberFile,
             headers: {'Content-Type':'multipart/form-data'}
         }).then(response=>{
@@ -103,12 +104,31 @@ class SignupPageComp extends Component {
 
     onInsertMember = () => {
         let data = this.state;
-        let url = "http://localhost:9002/member/insert";
+        let url = URL + "/member/insert";
 
         axios.post(url, data)
         .then(response => {
             //성공시
-        
+            //입력값 지우기
+            this.setState({
+                id:'',  //아이디를 저장하고 있을 state
+                pass:'',
+                pwCheck: "",//비밀번호 두개가 일치하는가
+                name : '',
+                gender: '',
+                photo: null,
+                photoname: '',
+                address : '',
+                addrdetail: '',
+                email : '',
+                hp : "",
+                idcanUse: false,//중복된 아이디찾기 true여야 로그인가능
+            })
+
+            // 예전 location.href 와 같은 코드
+            this.props.history.push("/Login");//저장 성공후 로그인으로 이동되도록 한다
+        }).catch(err=>{
+            console.log("회원가입시 오류남:"+err);
         })
     }
     render() {
@@ -117,7 +137,7 @@ class SignupPageComp extends Component {
             <div>
                 <form
                 onSubmit = { this.onSubmitHandler.bind(this) }
-                enctype="multipart/form-data">
+                >
                 <h1>회원가입</h1>
                 <div>
                     {this.state.id}
