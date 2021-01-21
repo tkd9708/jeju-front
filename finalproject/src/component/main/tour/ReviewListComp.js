@@ -13,6 +13,8 @@ class ReviewList extends Component {
     constructor(props){
         super(props);
 
+        this.contentsid = this.props.contentsid;
+
         this.currentPage=1;
         this.totalCount=0;
         this.perPage = 3; // 한페이지당 보여질 글의 갯수
@@ -42,7 +44,7 @@ class ReviewList extends Component {
         this.no = this.totalCount-(this.currentPage - 1) * this.perPage;
 
         const url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/sreview/list?start=" + this.start 
-            + "&perPage=" + this.perPage + "&contentsid=CONT_000000000500027";
+            + "&perPage=" + this.perPage + "&contentsid=" + this.contentsid;
 
         axios.get(url)
             .then(res=>{
@@ -55,7 +57,7 @@ class ReviewList extends Component {
     }
 
     getTotalCount=()=>{
-        let url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/sreview/count?contentsid=CONT_000000000500027";
+        let url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/sreview/count?contentsid=" + this.contentsid;
 
         axios.get(url)
             .then(res=>{
