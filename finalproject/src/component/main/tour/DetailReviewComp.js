@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import ReviewListComp from './ReviewListComp';
 import axios from 'axios';
 
 class DetailReviewComp extends Component {
@@ -7,11 +6,12 @@ class DetailReviewComp extends Component {
     constructor(props){
         super(props);
 
-        this.contentsid = this.props.contentsid;
-
         this.state={
             content:''
         }
+
+        this.contentsid = this.props.contentsid;
+
     }
 
     changeHandler=(e)=>{
@@ -34,6 +34,8 @@ class DetailReviewComp extends Component {
                 this.setState({
                     content : ""
                 })
+                //window.location.reload();
+                this.props.getList();
             }).catch(err=>{
                 console.log("DetailReviewComp insert 오류 : " + err);
             })
@@ -44,7 +46,7 @@ class DetailReviewComp extends Component {
 
         return (
             <div>
-
+                
                 <table style={{width: '80%'}}>
 				    <tbody>
                         <tr>
@@ -61,8 +63,6 @@ class DetailReviewComp extends Component {
                         </tr>
                     </tbody>
 			    </table>
-                <br/><br/>
-                <ReviewListComp contentsid={this.contentsid}/>
             </div>
         );
     }

@@ -3,6 +3,7 @@ import store from "../../../redux/store";
 import axios from 'axios';
 import DetailReviewComp from './DetailReviewComp';
 import MapComp from './MapComp';
+import ReviewListComp from './ReviewListComp';
 
 class DetailTourComp extends Component {
 
@@ -48,7 +49,8 @@ class DetailTourComp extends Component {
                 <MapComp longitude={this.state.spotdata.longitude} latitude={this.state.spotdata.latitude}
                     title={this.state.spotdata.title}/>
                 <br/><br/>
-                <DetailReviewComp contentsid={this.state.contentsid}/>
+                {/* <DetailReviewComp contentsid={this.state.contentsid}/> */}
+                <ReviewListComp contentsid={this.state.contentsid}/>
             </div>
         );
     }

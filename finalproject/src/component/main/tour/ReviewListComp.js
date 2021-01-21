@@ -2,16 +2,17 @@ import React,{Component} from 'react';
 import axios from 'axios';
 import ReviewItemComp from './ReviewItemComp';
 import PageComp from "./PageComp";
+import DetailReviewComp from "./DetailReviewComp";
 
-class ReviewList extends Component {
-
-    state={
-        reviewList: [],
-        pageNum : '0'
-    }
+class ReviewListComp extends Component {
 
     constructor(props){
         super(props);
+
+        this.state={
+            reviewList: [],
+            pageNum : '0'
+        }
 
         this.contentsid = this.props.contentsid;
 
@@ -25,6 +26,10 @@ class ReviewList extends Component {
         this.start=0; // 각 블럭당 불러올 글의 시작번호
         this.end=0; // 각 블럭당 글의 끝번호
         this.no=0; // 각 페이지에서 출력할 시작번호
+    }
+
+    componentWillMount(){
+        this.getTotalCount();
     }
 
     getList=()=>{
@@ -74,15 +79,12 @@ class ReviewList extends Component {
         this.getList();
     }
 
-    componentWillMount(){
-        this.getTotalCount();
-    }
-
     render() {
 
         return (
             <div>
-                <h4>Review List </h4>
+                <DetailReviewComp getList={this.getList.bind(this)} contentsid={this.contentsid}/>
+                <br/><br/>
                 <table className="table table-bordered" style={{width:'80%'}}>
                     <tbody>
                         {this.state.reviewList.map((row,idx)=>(
@@ -91,6 +93,7 @@ class ReviewList extends Component {
                         
                     </tbody>
 				</table>
+                
 
                 {/* 페이징 */}
                 <PageComp area={this.state.area} startPage={this.startPage} endPage={this.endPage} currentPage={this.currentPage} 
@@ -100,4 +103,4 @@ class ReviewList extends Component {
     }
 }
 
-export default ReviewList;
+export default ReviewListComp;
