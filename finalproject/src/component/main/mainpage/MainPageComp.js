@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import SearchComp from "./SearchComp";
-import ViewspotComp from "./ViewspotComp";
+import HotPlaceComp from "./HotPlaceComp";
 import NoticeMiniComp from "./NoticeMiniComp";
 import ShareBoardMiniComp from "./ShareBoardMiniComp";
 import axios from "axios";
@@ -58,19 +58,28 @@ class MainPageComp extends Component {
         });
     }
 
+
+    /**
+     * MainPhotoComp
+     * SearchComp | MyPlanComp
+     * HotPlaceComp
+     * EtcBoardComp
+     */
     render() {
         console.log("MainPageComp render()", this.props);
         return (
             <div className="mainPageComp">
                 <h4>main page comp</h4>
                 <SearchComp name={this.state.search}/>
-                <ViewspotComp name={this.state.viewspot}
-                              setMainView={this.props.setMainView}
+                <HotPlaceComp ace name={this.state.viewspot}
+                          setMainView={this.props.setMainView}
                 />
                 <div className="miniTable">
                     <NoticeMiniComp list={this.state.noticeList}/>
                     <ShareBoardMiniComp list={this.state.shareBoardList}/>
                 </div>
+
+
             </div>
         )
     }
