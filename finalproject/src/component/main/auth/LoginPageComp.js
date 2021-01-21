@@ -3,7 +3,7 @@ import axios from 'axios';
 import GoogleLoginBtnComp from "./GoogleLoginBtnComp";
 import GoogleLogoutBtnComp from "./GoogleLogoutBtnComp";
 import store from "../../../redux/store";
-import { actionType, mainViewType } from "../../../redux/config";
+import { URL, actionType, mainViewType } from "../../../redux/config";
 
 class LoginPageComp extends Component {
 
@@ -49,7 +49,7 @@ class LoginPageComp extends Component {
             id: this.state.id//현재 id state 값을 data.id에 넣는다
         }
         // ↓은 백엔드로 fetch해서 입력된 값을 POST
-        fetch("http://localhost:9002/member/checkid", 
+        fetch( URL + "/member/checkid", 
                 {//localhost 9002번 포트 checkid라우터를 찾는다
                     method: "POST",
                     headers: {
@@ -78,7 +78,7 @@ class LoginPageComp extends Component {
             id: this.state.id,
             pass: this.state.pass
         }
-        let url = "http://localhost:9002/"
+        let url = URL;
 
     }
 

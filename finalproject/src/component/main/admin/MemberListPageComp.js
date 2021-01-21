@@ -2,10 +2,9 @@ import React, {Component} from "react";
 import axios from 'axios';
 import RowItem from "./RowItem";
 import store from "../../../redux/store";
-import { actionType, mainViewType } from "../../../redux/config";
+import { URL, actionType, mainViewType } from "../../../redux/config";
 
 class MemberListPageComp extends Component {
-
     constructor(props) {
         super(props);
         console.log("LoginPageComp constructor", props);
@@ -27,7 +26,7 @@ class MemberListPageComp extends Component {
 
     // 스프링에서 목록 가져오기
     list = () => {
-        let url = "http://localhost:9002/member/list";
+        let url = URL + "/member/list";
         axios.get(url)
         .then(response=>{
             this.setState({
@@ -40,7 +39,7 @@ class MemberListPageComp extends Component {
     
     MEMBERLIST = () => {
         console.log("회원목록 보기 dispatch");
-        let url = "http://localhost:9002/member/list";
+        let url = URL + "/member/list";
         axios.get(url)
         .then(response=>{
             this.setState({

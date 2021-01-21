@@ -12,7 +12,6 @@ class FooterComp extends Component {
         console.log("FooterComp render()", this.props);
         return (
             <div className="footerComp">
-                <br/>
                 <hr/>
                 <img src={Logo2}
                      style={{width: "150px"}}

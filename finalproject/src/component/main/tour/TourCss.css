@@ -1,0 +1,64 @@
+#mainImg {
+    max-height: 600px;
+    overflow: hidden;
+}
+#jejuImg {
+    max-height: initial;
+    margin-top: -30%;
+    width: 100%;
+}
+#jocheonImg {
+    max-height: initial;
+    margin-top: -15%;
+    width: 100%;
+}
+#gujwaImg {
+    max-height: initial;
+    margin-top: -5%;
+    width: 100%;
+}
+#sungsanImg {
+    max-height: initial;
+    margin-top: -25%;
+    width: 100%;
+}
+#namwonImg {
+    max-height: initial;
+    margin-top: -7%;
+    width: 100%;
+}
+#seogwipoImg {
+    max-height: initial;
+    margin-top: -7%;
+    width: 100%;
+}
+#andeokImg {
+    max-height: initial;
+    margin-top: -7%;
+    width: 100%;
+}
+#daejungImg {
+    max-height: initial;
+    margin-top: -25%;
+    width: 100%;
+}
+#hangyeongImg {
+    max-height: initial;
+    margin-top: -15%;
+    width: 100%;
+}
+#hanrimImg {
+    max-height: initial;
+    margin-top: -8%;
+    width: 100%;
+}
+#aewolImg {
+    max-height: initial;
+    margin-top: -7%;
+    width: 100%;
+}
+#udoImg {
+    max-height: initial;
+    margin-top: -5%;
+    width: 100%;
+}
