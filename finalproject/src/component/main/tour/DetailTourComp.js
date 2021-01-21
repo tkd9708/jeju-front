@@ -48,7 +48,7 @@ class DetailTourComp extends Component {
                 <MapComp longitude={this.state.spotdata.longitude} latitude={this.state.spotdata.latitude}
                     title={this.state.spotdata.title}/>
                 <br/><br/>
-                <DetailReviewComp/>
+                <DetailReviewComp contentsid={this.state.contentsid}/>
             </div>
         );
     }
