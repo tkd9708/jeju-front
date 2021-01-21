@@ -13,7 +13,7 @@ class LoginPageComp extends Component {
         
         this.state={
             id:'',  //아이디를 저장하고 있을 state
-            password:'',
+            pass:'',
             pwCheck: "",//비밀번호 두개가 일치하는가
             name : "",
             birth_date: "",
@@ -72,6 +72,16 @@ class LoginPageComp extends Component {
             });
     }
 
+    onLogin=()=>{
+        console.log("로그인할 아이디는 " + this.state.id + "비밀번호는 " + this.state.pass);
+        const data = {
+            id: this.state.id,
+            pass: this.state.pass
+        }
+        let url = "http://localhost:9002/"
+
+    }
+
     render() {
         console.log("LoginPageComp render()", this.props);
         return (
@@ -89,17 +99,18 @@ class LoginPageComp extends Component {
                 />
                 <br />
                 비밀번호 : 
-                <input type="password" name="password"
+                <input type="password" name="pass"
                 onChange={this.changeEvent.bind(this)}
-                value={this.state.password}
+                value={this.state.pass}
                 />
                 <br />
-                <button type="button">
+                <button type="button"
+                onClick={this.onLogin.bind(this)}>
                     Sign in
                 </button>
                 <h5>
                     내 아이디는 {this.state.id} 입니다
-                    내 비밀번호는 {this.state.password} 입니다
+                    내 비밀번호는 {this.state.pass} 입니다
                 </h5>
                 <GoogleLoginBtnComp />
                 <GoogleLogoutBtnComp />
