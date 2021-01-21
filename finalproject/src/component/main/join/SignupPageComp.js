@@ -116,7 +116,8 @@ class SignupPageComp extends Component {
         return (
             <div>
                 <form
-                onSubmit = { this.onSubmitHandler.bind(this) }>
+                onSubmit = { this.onSubmitHandler.bind(this) }
+                enctype="multipart/form-data">
                 <h1>회원가입</h1>
                 <div>
                     {this.state.id}
