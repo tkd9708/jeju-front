@@ -33,7 +33,7 @@ class MainPageComp extends Component {
 
     getNoticeList = () => {
         console.log("getNoticeList()");
-        var url = "http://localhost:9002/notice/list";
+        var url = URL + "/notice/list";
 
         axios.get(url
         ).then((res) => {

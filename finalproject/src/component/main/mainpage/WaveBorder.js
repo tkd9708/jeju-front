@@ -39,7 +39,7 @@ function WaveBorder(props) {
     } = props;
     return (
         <div className={className} style={{ background: upperColor }} {...rest}>
-            <img className="mainPhotoComp_img1" src={jeju1}/>
+            {/* <img className="mainPhotoComp_img1" src={jeju1}/> */}
 
             <svg
                 className={classes.waves}
