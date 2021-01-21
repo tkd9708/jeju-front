@@ -72,7 +72,6 @@ class MainPageComp extends Component {
         console.log("MainPageComp render()", this.props);
         return (
             <div className="mainPageComp">
-                <h4>main page comp</h4>
                 <MainPhotoComp/>
                 <div className="search-myplan">
                     <SearchComp/>
