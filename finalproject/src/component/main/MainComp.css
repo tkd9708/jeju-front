@@ -7,3 +7,7 @@ div.mainComp{
 div.footerComp{
     text-align: center;
 }
+
+div.footerComp hr{
+    margin: 0px;
+}
