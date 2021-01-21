@@ -6,13 +6,12 @@ const Tour = ({match}) => {
     console.log("Tour match", match.params.name);
 
     store.dispatch({
-        type: actionType.setSpotView,
-        spotView: match.params.name
+        type: actionType.setSpot,
+        contentsid: match.params.name
     });
 
     return(
         <div>
-
         </div>
     )
 }

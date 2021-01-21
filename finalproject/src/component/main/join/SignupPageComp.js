@@ -70,6 +70,7 @@ class SignupPageComp extends Component {
 
     onSubmitHandler = (e) => {
         e.preventDefault();
+        
     };
     render() {
         console.log("SingupPageComp render()", this.props);

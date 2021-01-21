@@ -32,6 +32,8 @@ class TourPageComp extends Component {
         this.start=0; // 각 블럭당 불러올 글의 시작번호
         this.end=0; // 각 블럭당 글의 끝번호
         this.no=0; // 각 페이지에서 출력할 시작번호
+
+        this.select = 'star';
     }
 
     getList=()=> {
@@ -51,7 +53,8 @@ class TourPageComp extends Component {
         
         this.no = this.totalCount-(this.currentPage - 1) * this.perPage;
 
-        let url = "http://localhost:9002/spot/list?start=" + this.start + "&perPage=" + this.perPage + "&label2=" + this.state.area;
+        let url = "http://localhost:9002/spot/list?start=" + this.start + "&perPage=" + this.perPage + "&label2=" + this.state.area + 
+            "&select=" + this.select;
 
         axios.get(url)
             .then(res=>{
@@ -86,17 +89,28 @@ class TourPageComp extends Component {
         this.getList();
     }
 
+    selectChange=(e)=>{
+        this.select = e.target.value;
+        this.getList();
+    }
+
     render() {
         console.log("TourPageComp render()", this.props);
         return (
             <div>
-                <h4>TourPageComp {this.state.area} {this.totalCount}</h4>
+                <h4>TourPageComp {this.state.area} {this.totalCount} {this.state.select}</h4>
                 {/* 이미지 넣기 */}
+
+                <select onChange={this.selectChange.bind(this)} value={this.select}>
+                    <option value="star">평점순</option>
+                    <option value="likes">좋아요순</option>
+                    <option value="title">제목순</option>
+                </select>
 
                 {/* list 출력 */}
                 {this.state.spotList.map((row,idx)=>(
                     <ItemComp row={row} key={idx} history={this.props.history}></ItemComp>
-                ))}
+                ))} 
 
                 {/* 페이징 */}
                 <PageComp area={this.state.area} startPage={this.startPage} endPage={this.endPage} currentPage={this.currentPage} 

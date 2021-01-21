@@ -85,13 +85,13 @@ class LoginPageComp extends Component {
                 아이디 :
                 <input type="text" name="id"
                 onChange={this.changeEvent.bind(this)}
-                ref="id" value={this.state.id}
+                value={this.state.id}
                 />
                 <br />
                 비밀번호 : 
                 <input type="password" name="password"
                 onChange={this.changeEvent.bind(this)}
-                ref="password" value={this.state.password}
+                value={this.state.password}
                 />
                 <br />
                 <button type="button">

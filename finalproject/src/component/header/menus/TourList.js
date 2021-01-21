@@ -1,32 +1,18 @@
-import React from 'react';
-import {Link} from "react-router-dom";
+import React, {Component} from "react";
+import store from "../../../redux/store";
+import {actionType} from "../../../redux/config";
 
-import "../MyStyle.css";
+const TourList = ({match}) => {
+    console.log("TourList match", match.params.name);
 
-const TourList = () => {
-    const activeStyle = {}
-    return (
+    store.dispatch({
+        type: actionType.setSpotView,
+        spotView: match.params.name
+    });
+
+    return(
         <div>
-            <ul className="menu">
-                {/*<li>*/}
-                {/*    <Link to="/Reservation">예약</Link>*/}
-                {/*</li>*/}
-                {/*<li>*/}
-                {/*    <Link to="/Notice">공지사항</Link>*/}
-                {/*</li>*/}
-                {/*<li>*/}
-                {/*    <Link to="/Tour">관광명소</Link>*/}
-                {/*</li>*/}
-                {/*<li>*/}
-                {/*    <Link to="/ShareBoard">공유게시판</Link>*/}
-                {/*</li>*/}
-                {/*<li>*/}
-                {/*    <Link to="/MyPage">MyPage</Link>*/}
-                {/*</li>*/}
-                {/*<li>*/}
-                {/*    <Link to="/Login">Login</Link>*/}
-                {/*</li>*/}
-            </ul>
+
         </div>
     )
 }

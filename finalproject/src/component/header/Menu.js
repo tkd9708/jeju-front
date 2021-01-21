@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {NavLink, Route} from "react-router-dom";
-import {Home, Login, ShareBoard, MyPage, Notice, Reservation, Tour, Admin} from './menus';
+import {Home, Login, ShareBoard, MyPage, Notice, Reservation, Admin, TourList, Tour} from './menus';
 import store from "../../redux/store";
 import {actionType, mainViewType} from "../../redux/config";
 import "./Menu.css";
@@ -84,10 +84,10 @@ class Menu extends Component {
                         >회원가입</NavLink>
                     </li>
                     <li>
-                        <NavLink exact to="/MyPage"
+                        <NavLink exact to="/TourList"
                                  onClick={() => {
-                                     console.log("MyPage NavLink onClick");
-                                     this.setMainView(mainViewType.MyPage);
+                                     console.log("TourList NavLink onClick");
+                                     this.setMainView(mainViewType.TourList);
                                  }}
                         >MyPage</NavLink>
                     </li>
@@ -138,10 +138,10 @@ class Menu extends Component {
                 <Route exact path="/Notice/:name?">
                     {/*<Notice></Notice>*/}
                 </Route>
-                {/* <Route exact path="/Tour/:name?">
-                    <Tour></Tour>
-                </Route> */}
+
+                <Route exact path="/TourList/:name?" component={TourList}></Route>
                 <Route exact path="/Tour/:name?" component={Tour}></Route>
+
                 <Route exact path="/ShareBoard/:name?">
                     {/*<ShareBoard></ShareBoard>*/}
                 </Route>

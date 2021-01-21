@@ -8,7 +8,8 @@ export const URL = "http://localhost:9002";
 
 export const actionType = {
     setMainView: "setMainView",
-    setSpotView: "setSpotView",
+    setSpotView: "setSpotView", 
+    setSpot: "setSpot",
     SIGN_UP: "SIGN_UP",
     LOG_IN: "LOG_IN",
     LOGIN_REQUEST: "LOGIN_REQUEST",
