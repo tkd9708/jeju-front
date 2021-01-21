@@ -180,6 +180,7 @@ class SignupPageComp extends Component {
                 <input type="text" name="hp"
                 onChange={this.changeEvent.bind(this)}
                 value = { this.state.hp }></input>
+                <br />
                 <b>
                     내 아이디는 {this.state.id} 입니다
                     내 비밀번호는 {this.state.pass} 입니다
