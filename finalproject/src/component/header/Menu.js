@@ -47,9 +47,10 @@ class Menu extends Component {
                                      this.setMainView(mainViewType.MainPage);
                                  }}
                         >
-                            <img src={Logo2}
-                                 style={{width: "150px"}}
-                                 alt="logo2"/>
+                            Home
+                            {/*<img src={Logo2}*/}
+                            {/*     style={{width: "150px"}}*/}
+                            {/*     alt="logo2"/>*/}
                         </NavLink>
                     </li>
 
@@ -67,7 +68,8 @@ class Menu extends Component {
                                 onLogout();
                                 console.log("Logout NavLink onClick");
                                 this.setMainView(mainViewType.Logout);
-                            }}>Logout</NavLink> :
+                            }}>Logout</NavLink>
+                            :
                             <NavLink exact to="/Login"
                                      onClick={() => {
                                          console.log("Login NavLink onClick");
@@ -75,13 +77,15 @@ class Menu extends Component {
                                      }}
                             >Login</NavLink>
                         }
-                        &nbsp;&nbsp;&nbsp;
+                    </li>
+                    <li>
+                        {/*&nbsp;&nbsp;&nbsp;*/}
                         <NavLink exact to="/Join"
                                  onClick={() => {
                                      console.log("Join NavLink onClick");
                                      this.setMainView(mainViewType.JoinForm);
                                  }}
-                        >회원가입</NavLink>
+                        >Join</NavLink>
                     </li>
                     <li>
                         <NavLink exact to="/MyPage"
@@ -97,7 +101,7 @@ class Menu extends Component {
                                      console.log("ShareBoard NavLink onClick");
                                      this.setMainView(mainViewType.ShareBoard);
                                  }}
-                        >공유게시판</NavLink>
+                        >Share</NavLink>
                     </li>
                     <li>
                         <NavLink exact to="/TourList"
@@ -105,7 +109,7 @@ class Menu extends Component {
                                      console.log("Tour NavLink onClick");
                                      this.setMainView(mainViewType.TourList);
                                  }}
-                        >관광명소</NavLink>
+                        >Tour</NavLink>
                     </li>
                     <li>
                         <NavLink exact to="/Notice"
@@ -113,7 +117,7 @@ class Menu extends Component {
                                      console.log("Notice NavLink onClick");
                                      this.setMainView(mainViewType.Notice);
                                  }}
-                        >공지사항</NavLink>
+                        >Notice</NavLink>
                     </li>
                     <li>
                         <NavLink exact to="/Reservation"
@@ -121,7 +125,7 @@ class Menu extends Component {
                                      console.log("Reservation NavLink onClick");
                                      this.setMainView(mainViewType.Reservation);
                                  }}
-                        >예약</NavLink>
+                        >Reservation</NavLink>
                     </li>
 
 
