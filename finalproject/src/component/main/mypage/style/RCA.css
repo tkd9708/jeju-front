@@ -44,7 +44,7 @@
 
 .move{
     position: relative;
-    right: 10px;
+    
 }
 
 
@@ -163,9 +163,7 @@
     color: rgb(255, 255, 255);
 }
 
-.selected{
-    background-color: rgb(49,50,50);
-}
+
 
 .selected label{
     font-size: 1.2rem;
@@ -174,4 +172,22 @@
     height: 25px;
     background-color: rgb(224, 62, 42);
     border-radius: 100%;
+}
+
+div.category{
+    display: inline-block;
+    position: absolute;
+    right: 80px;
+    line-height: 95px;
+    color: darkslategray;
+    
+}
+
+div.title{
+    color: black;
+    display: inline-block;
+    position: absolute;
+    line-height: 95px;
+    right: 25px;
+    font-size: 12px;
 }

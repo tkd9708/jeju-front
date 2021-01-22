@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment';
+import {FaUtensils} from 'react-icons/fa';
 
 class DateHeader extends Component {
 
@@ -34,6 +35,7 @@ class DateHeader extends Component {
         return (
           <div className={className()} key={"RCA-header-" + date}>
             {date}
+            
           </div>
         )
       })
@@ -46,6 +48,7 @@ class DateHeader extends Component {
     return (
       <div className="RCA-calendar-date-header">
         {this.mapArrayToDate(this.dateToArray(this.props.dates))}
+        
       </div>
     )
   }
@@ -55,8 +58,14 @@ class Week extends Component {
 
   state = {}
 
+  constructor(props){
+    super(props);
+
+    this.ym = this.props.ymOfThisCalendar;
+  }
   Days = (firstDayFormat,weekIndex) => {
     const _days = [];
+    
 
     for (let i = 0; i < 7; i++) {
 
@@ -95,9 +104,12 @@ class Week extends Component {
       return (
         <div className={"RCA-calendar-day " + className} key={`RCA-${dayInfo.weekIndex}-${i}-day`}onClick={() => fn(dayInfo.yearMonthDayFormat)}>
           <label className="RCA-calendar-day-label">
-            {dayInfo.getDay}
+            {dayInfo.getDay}, {this.ym}
           </label>
-        </div>
+          <div className="category"><FaUtensils></FaUtensils></div>
+          <div className="title">삼보식당</div>
+          </div>
+         
       )
     })
   }
@@ -107,11 +119,13 @@ class Week extends Component {
   render() {
     return (
       <div className="RCA-calendar-week">
+        
         {this.mapDaysToComponents(this.Days(this.props.firstDayOfThisWeekformat,this.props.weekIndex),
         this.props.ymOfThisCalendar,
         this.props.selected,
         this.props.fn
         )}
+        
       </div>
     )
   }

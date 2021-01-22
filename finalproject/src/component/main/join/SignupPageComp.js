@@ -1,21 +1,26 @@
 import React, {Component} from "react";
 import axios from 'axios';
+import {URL} from "../../../redux/config";
 
 class SignupPageComp extends Component {
 
     constructor(props) {
         super(props);
+
         console.log("SignupPageComp constructor", props);
         
         this.state={
             id:'',  //아이디를 저장하고 있을 state
-            password:'',
+            pass:'',
             pwCheck: "",//비밀번호 두개가 일치하는가
             name : '',
-            birth_date: "",
-            phone : "",
+            gender: '',
+            photo: null,
+            photoname: '',
+            address : '',
+            addrdetail: '',
             email : '',
-            address : "",
+            hp : "",
             idcanUse: false,//중복된 아이디찾기 true여야 로그인가능
         }
 
@@ -45,7 +50,7 @@ class SignupPageComp extends Component {
             id: this.state.id//현재 id state 값을 data.id에 넣는다
         }
         // ↓은 백엔드로 fetch해서 입력된 값을 POST
-        fetch("http://localhost:9002/member/checkid", 
+        fetch(URL + "/member/checkid", 
                 {//localhost 9002번 포트 checkid라우터를 찾는다
                     method: "POST",
                     headers: {
@@ -70,13 +75,69 @@ class SignupPageComp extends Component {
 
     onSubmitHandler = (e) => {
         e.preventDefault();
+        this.onInsertMember();
     };
+
+    //사진 업로드시 호출되는 함수
+    imageUpload=(e)=>{
+        const uploadFile = e.target.files[0];
+
+        //서버에 업로드
+        const memberFile = new FormData();
+        memberFile.append("uploadFile",uploadFile);
+
+        axios({
+            method: 'post',
+            url: URL + '/member/upload',
+            data: memberFile,
+            headers: {'Content-Type':'multipart/form-data'}
+        }).then(response=>{
+            alert(response.data.photoname+" 이미지명으로 저장합니다");
+            //이미지명 변경
+            this.setState({
+                photoname: response.data.photoname
+            })
+        }).catch(err=>{
+            console.log("이미지 업로드시 오류남:"+err);
+        })
+    }
+
+    onInsertMember = () => {
+        let data = this.state;
+        let url = URL + "/member/insert";
+
+        axios.post(url, data)
+        .then(response => {
+            //성공시
+            //입력값 지우기
+            this.setState({
+                id:'',  //아이디를 저장하고 있을 state
+                pass:'',
+                pwCheck: "",//비밀번호 두개가 일치하는가
+                name : '',
+                gender: '',
+                photo: null,
+                photoname: '',
+                address : '',
+                addrdetail: '',
+                email : '',
+                hp : "",
+                idcanUse: false,//중복된 아이디찾기 true여야 로그인가능
+            })
+
+            // 예전 location.href 와 같은 코드
+            this.props.history.push("/Login");//저장 성공후 로그인으로 이동되도록 한다
+        }).catch(err=>{
+            console.log("회원가입시 오류남:"+err);
+        })
+    }
     render() {
         console.log("SingupPageComp render()", this.props);
         return (
             <div>
                 <form
-                onSubmit = { this.onSubmitHandler.bind(this) }>
+                onSubmit = { this.onSubmitHandler.bind(this) }
+                >
                 <h1>회원가입</h1>
                 <div>
                     {this.state.id}
@@ -92,7 +153,7 @@ class SignupPageComp extends Component {
                 아이디 :
                 <input type="text" name="id"
                 onChange={this.changeEvent.bind(this)}
-                ref="id" value={this.state.id}
+                value={this.state.id}
                 />
                 <button type="button"
                 onClick={this.onIdChk.bind(this)}>
@@ -100,9 +161,9 @@ class SignupPageComp extends Component {
                 </button>
                 <br />
                 <label>비밀번호</label>
-                <input type="password" name="password"
+                <input type="password" name="pass"
                 onChange={this.changeEvent.bind(this)}
-                ref="password" value={this.state.password}
+                value={this.state.pass}
                 />
                 <br />
                 <label>비밀번호 확인</label>
@@ -113,12 +174,45 @@ class SignupPageComp extends Component {
                 onChange = { this.changeEvent.bind(this) }
                 />
                 <br />
+                <select name="gender"
+                onChange = {this.changeEvent.bind(this)}
+                value = { this.state.gender }>
+                    <option value="">성별선택</option>
+                    <option value="여성">여성</option>
+                    <option value="남성">남성</option>
+                </select>
+                <br />
+                사진 : &nbsp;
+                <input type="file" name="photo"
+                onChange={this.imageUpload.bind(this)}
+                ></input>
+                <br />
+                주소 : &nbsp;
+                <input type="text" name="address"
+                onChange={this.changeEvent.bind(this)}
+                value = { this.state.address }></input>
+
+                <input type="text" name="addrdetail"
+                onChange={this.changeEvent.bind(this)}
+                value = { this.state.addrdetail }></input>
+                
+                <br />
+                휴대폰 : &nbsp;
+                <input type="text" name="hp"
+                onChange={this.changeEvent.bind(this)}
+                value = { this.state.hp }></input>
+                <br />
                 <b>
                     내 아이디는 {this.state.id} 입니다
-                    내 비밀번호는 {this.state.password} 입니다
+                    내 비밀번호는 {this.state.pass} 입니다
                     내 확인비밀번호는 { this.state.pwCheck } 입니다
                     내 이메일은 { this.state.email } 입니다
                     내 이름은 { this.state.name } 입니다
+                    내 성별은 { this.state.gender } 입니다
+                    내 사진은 { this.state.photo } 입니다
+                    내 주소1 { this.state.address} 입니다
+                    내 주소2 {this.state.addrdetail} 입니다
+                    내 휴대폰 { this.state.hp } 입니다
                 </b>
                 <br />
                 <button type = "submit">회원 가입</button>

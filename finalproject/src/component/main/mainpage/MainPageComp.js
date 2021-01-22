@@ -1,9 +1,14 @@
 import React, {Component} from "react";
 import SearchComp from "./SearchComp";
-import ViewspotComp from "./ViewspotComp";
+import HotPlaceComp from "./HotPlaceComp";
 import NoticeMiniComp from "./NoticeMiniComp";
 import ShareBoardMiniComp from "./ShareBoardMiniComp";
 import axios from "axios";
+import {URL} from "../../../redux/config";
+import "./MainPageComp.css"
+import MainPhotoComp from "./MainPhotoComp";
+import MyPlanComp from "./MyPlanComp";
+import EtcBoardComp from "./EtcBoardComp";
 
 class MainPageComp extends Component {
 
@@ -28,7 +33,7 @@ class MainPageComp extends Component {
 
     getNoticeList = () => {
         console.log("getNoticeList()");
-        var url = "http://localhost:9002/notice/list";
+        var url = URL + "/notice/list";
 
         axios.get(url
         ).then((res) => {
@@ -43,7 +48,7 @@ class MainPageComp extends Component {
 
     getShareBoardList = () => {
         console.log("getShareBoardList()");
-        var url = "http://localhost:9002/share/list?start=0&perPage=5";
+        var url = URL + "/share/list?start=0&perPage=5";
 
         axios.get(url
         ).then((res) => {
@@ -56,17 +61,24 @@ class MainPageComp extends Component {
         });
     }
 
+
+    /**
+     * MainPhotoComp
+     * SearchComp | MyPlanComp
+     * HotPlaceComp
+     * EtcBoardComp
+     */
     render() {
         console.log("MainPageComp render()", this.props);
         return (
-            <div>
-                <h4>main page comp</h4>
-                <SearchComp name={this.state.search}/>
-                <ViewspotComp name={this.state.viewspot}
-                              setMainView={this.props.setMainView}
-                />
-                <NoticeMiniComp list={this.state.noticeList}/>
-                <ShareBoardMiniComp list={this.state.shareBoardList}/>
+            <div className="mainPageComp">
+                <MainPhotoComp/>
+                <div className="search-myplan">
+                    <SearchComp/>
+                    <MyPlanComp/>
+                </div>
+                <HotPlaceComp/>
+                <EtcBoardComp/>
             </div>
         )
     }

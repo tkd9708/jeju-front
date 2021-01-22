@@ -3,7 +3,9 @@ import axios from 'axios';
 import GoogleLoginBtnComp from "./GoogleLoginBtnComp";
 import GoogleLogoutBtnComp from "./GoogleLogoutBtnComp";
 import store from "../../../redux/store";
-import { actionType, mainViewType } from "../../../redux/config";
+import { URL, actionType, mainViewType } from "../../../redux/config";
+import NaverLoginBtnComp from "./NaverLoginBtnComp";
+import FaceBookLoginBtnComp from "./FaceBookLoginBtnComp";
 
 class LoginPageComp extends Component {
 
@@ -13,7 +15,7 @@ class LoginPageComp extends Component {
         
         this.state={
             id:'',  //아이디를 저장하고 있을 state
-            password:'',
+            pass:'',
             pwCheck: "",//비밀번호 두개가 일치하는가
             name : "",
             birth_date: "",
@@ -49,7 +51,7 @@ class LoginPageComp extends Component {
             id: this.state.id//현재 id state 값을 data.id에 넣는다
         }
         // ↓은 백엔드로 fetch해서 입력된 값을 POST
-        fetch("http://localhost:9002/member/checkid", 
+        fetch( URL + "/member/checkid", 
                 {//localhost 9002번 포트 checkid라우터를 찾는다
                     method: "POST",
                     headers: {
@@ -72,6 +74,16 @@ class LoginPageComp extends Component {
             });
     }
 
+    onLogin=()=>{
+        console.log("로그인할 아이디는 " + this.state.id + "비밀번호는 " + this.state.pass);
+        const data = {
+            id: this.state.id,
+            pass: this.state.pass
+        }
+        let url = URL;
+
+    }
+
     render() {
         console.log("LoginPageComp render()", this.props);
         return (
@@ -85,24 +97,30 @@ class LoginPageComp extends Component {
                 아이디 :
                 <input type="text" name="id"
                 onChange={this.changeEvent.bind(this)}
-                ref="id" value={this.state.id}
+                value={this.state.id}
                 />
                 <br />
                 비밀번호 : 
-                <input type="password" name="password"
+                <input type="password" name="pass"
                 onChange={this.changeEvent.bind(this)}
-                ref="password" value={this.state.password}
+                value={this.state.pass}
                 />
                 <br />
-                <button type="button">
+                <button type="button"
+                onClick={this.onLogin.bind(this)}>
                     Sign in
                 </button>
                 <h5>
                     내 아이디는 {this.state.id} 입니다
-                    내 비밀번호는 {this.state.password} 입니다
+                    내 비밀번호는 {this.state.pass} 입니다
                 </h5>
                 <GoogleLoginBtnComp />
                 <GoogleLogoutBtnComp />
+                <br />
+                <br />
+                <NaverLoginBtnComp />
+                <br />
+                <FaceBookLoginBtnComp />
             </div>
         )
     }

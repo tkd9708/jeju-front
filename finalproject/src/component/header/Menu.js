@@ -1,14 +1,20 @@
 import React, {Component} from 'react';
 import {NavLink, Route} from "react-router-dom";
-import {Home, Login, ShareBoard, MyPage, Notice, Reservation, Tour, Admin} from './menus';
+import {Home, Login, ShareBoard, MyPage, Notice, Reservation, Admin, TourList, Tour} from './menus';
 import store from "../../redux/store";
 import {actionType, mainViewType} from "../../redux/config";
+import "./Menu.css";
+import Logo2 from "../../image/logo2.png";
 
 class Menu extends Component {
 
     constructor(props) {
         super(props);
         console.log("Menu constructor ", this.props)
+
+        this.state = {
+            type: this.props.type,
+        }
     }
 
     setMainView = (mainView) => {
@@ -29,79 +35,25 @@ class Menu extends Component {
         const {logged, onLogout} = this.props;
         console.log("Menu render ", this.props);
 
+        var className_div_menu = `${this.state.type} menu`;
+
         return (
-            <div>
+            <div className={className_div_menu}>
                 <ul className="menu">
-                    <li>
+                    <li className="logo">
                         <NavLink exact to="/"
                                  onClick={() => {
                                      console.log("Home NavLink onClick");
                                      this.setMainView(mainViewType.MainPage);
                                  }}
-                        >홈(로고)</NavLink>
+                        >
+                            Home
+                            {/*<img src={Logo2}*/}
+                            {/*     style={{width: "150px"}}*/}
+                            {/*     alt="logo2"/>*/}
+                        </NavLink>
                     </li>
-                    <li>
-                        <NavLink exact to="/Reservation"
-                                 onClick={() => {
-                                     console.log("Reservation NavLink onClick");
-                                     this.setMainView(mainViewType.Reservation);
-                                 }}
-                        >예약</NavLink>
-                    </li>
-                    <li>
-                        <NavLink exact to="/Notice"
-                                 onClick={() => {
-                                     console.log("Notice NavLink onClick");
-                                     this.setMainView(mainViewType.Notice);
-                                 }}
-                        >공지사항</NavLink>
-                    </li>
-                    <li>
-                        <NavLink exact to="/Tour"
-                                 onClick={() => {
-                                     console.log("Tour NavLink onClick");
-                                     this.setMainView(mainViewType.Tour);
-                                 }}
-                        >관광명소</NavLink>
-                    </li>
-                    <li>
-                        <NavLink exact to="/ShareBoard"
-                                 onClick={() => {
-                                     console.log("ShareBoard NavLink onClick");
-                                     this.setMainView(mainViewType.ShareBoard);
-                                 }}
-                        >공유게시판</NavLink>
-                    </li>
-                    <li>
-                        <NavLink exact to="/MyPage"
-                                 onClick={() => {
-                                     console.log("MyPage NavLink onClick");
-                                     this.setMainView(mainViewType.MyPage);
-                                 }}
-                        >MyPage</NavLink>
-                    </li>
-                    <li>
-                        {logged ?
-                            <NavLink exact to="/" onClick={() => {
-                                onLogout();
-                                console.log("Logout NavLink onClick");
-                                this.setMainView(mainViewType.Logout);
-                            }}>Logout</NavLink> :
-                            <NavLink exact to="/Login"
-                                     onClick={() => {
-                                         console.log("Login NavLink onClick");
-                                         this.setMainView(mainViewType.Login);
-                                     }}
-                            >Login</NavLink>
-                        }
-                        &nbsp;&nbsp;&nbsp;
-                        <NavLink exact to="/Join"
-                                 onClick={() => {
-                                     console.log("Join NavLink onClick");
-                                     this.setMainView(mainViewType.JoinForm);
-                                 }}
-                        >회원가입</NavLink>
-                    </li>
+
                     <li>
                         <NavLink exact to="/Admin"
                                  onClick={() => {
@@ -110,9 +62,76 @@ class Menu extends Component {
                                  }}
                         >Admin</NavLink>
                     </li>
+                    <li>
+                        {logged ?
+                            <NavLink exact to="/" onClick={() => {
+                                onLogout();
+                                console.log("Logout NavLink onClick");
+                                this.setMainView(mainViewType.Logout);
+                            }}>Logout</NavLink>
+                            :
+                            <NavLink exact to="/Login"
+                                     onClick={() => {
+                                         console.log("Login NavLink onClick");
+                                         this.setMainView(mainViewType.Login);
+                                     }}
+                            >Login</NavLink>
+                        }
+                    </li>
+                    <li>
+                        {/*&nbsp;&nbsp;&nbsp;*/}
+                        <NavLink exact to="/Join"
+                                 onClick={() => {
+                                     console.log("Join NavLink onClick");
+                                     this.setMainView(mainViewType.JoinForm);
+                                 }}
+                        >Join</NavLink>
+                    </li>
+                    <li>
+                        <NavLink exact to="/MyPage"
+                                 onClick={() => {
+                                     console.log("Mypage NavLink onClick");
+                                     this.setMainView(mainViewType.MyPage);
+                                 }}
+                        >MyPage</NavLink>
+                    </li>
+                    <li>
+                        <NavLink exact to="/ShareBoard"
+                                 onClick={() => {
+                                     console.log("ShareBoard NavLink onClick");
+                                     this.setMainView(mainViewType.ShareBoard);
+                                 }}
+                        >Share</NavLink>
+                    </li>
+                    <li>
+                        <NavLink exact to="/TourList"
+                                 onClick={() => {
+                                     console.log("Tour NavLink onClick");
+                                     this.setMainView(mainViewType.TourList);
+                                 }}
+                        >Tour</NavLink>
+                    </li>
+                    <li>
+                        <NavLink exact to="/Notice"
+                                 onClick={() => {
+                                     console.log("Notice NavLink onClick");
+                                     this.setMainView(mainViewType.Notice);
+                                 }}
+                        >Notice</NavLink>
+                    </li>
+                    <li>
+                        <NavLink exact to="/Reservation"
+                                 onClick={() => {
+                                     console.log("Reservation NavLink onClick");
+                                     this.setMainView(mainViewType.Reservation);
+                                 }}
+                        >Reservation</NavLink>
+                    </li>
+
+
                 </ul>
 
-                <hr style={{clear: 'both'}}/>
+                {/*<hr style={{clear: 'both'}}/>*/}
 
                 <Route exact path="/">
                     {/*<Home></Home>*/}
@@ -123,14 +142,14 @@ class Menu extends Component {
                 <Route exact path="/Notice/:name?">
                     {/*<Notice></Notice>*/}
                 </Route>
-                {/* <Route exact path="/Tour/:name?">
-                    <Tour></Tour>
-                </Route> */}
+
+                <Route exact path="/TourList/:name?" component={TourList}></Route>
                 <Route exact path="/Tour/:name?" component={Tour}></Route>
+
                 <Route exact path="/ShareBoard/:name?">
                     {/*<ShareBoard></ShareBoard>*/}
                 </Route>
-                <Route exact path="/MyPage/:name?">
+                <Route exact path="/MyPage/:name?" component={MyPage}>
                     {/*<MyPage></MyPage>*/}
                 </Route>
                 <Route exact path="/Login/:name?">

@@ -10,6 +10,8 @@ import {mainViewType} from "../../redux/config";
 import MypagePageComp from "./mypage/MypagePageComp";
 import TourPageComp from "./tour/TourPageComp";
 import SignupPageComp from "./join/SignupPageComp";
+import "./MainComp.css"
+import DetailTourComp from "./tour/DetailTourComp";
 
 class MainComp extends Component {
 
@@ -43,6 +45,10 @@ class MainComp extends Component {
             )
         } else if (_mainView == mainViewType.Tour) {
             return (
+                <DetailTourComp/>
+            )
+        } else if (_mainView == mainViewType.TourList) {
+            return (
                 <TourPageComp/>
             )
         } else if (_mainView == mainViewType.ShareBoard) {
@@ -63,7 +69,7 @@ class MainComp extends Component {
             )
         } else if (_mainView == mainViewType.JoinForm) {
             return (
-                <SignupPageComp />
+                <SignupPageComp/>
             )
         } else {
             return (
@@ -77,9 +83,14 @@ class MainComp extends Component {
 
     render() {
         console.log("MainComp render()", this.props);
+        var style_hr = {
+            margin: "0px"
+        }
         return (
-            <div>
-                <h1>MainComp</h1>
+            <div className="mainComp">
+                {/*<hr style={style_hr}/>*/}
+                {/*<br/>*/}
+                {/*<h1>MainComp</h1>*/}
                 {this.setMainView()}
             </div>
         )

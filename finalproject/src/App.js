@@ -7,18 +7,54 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 import Menu from "./component/header/Menu";
+import gsap from "gsap";
+import "./App.css";
 
 class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            header: "header_comp",
+            isStaticHeader: true,
             mainview: "mainpage",
             footer: "footer_comp",
             logged: false,
             onLogin: this.onLogin,
             onLogout: this.onLogout
+        }
+
+        window.onmousewheel = function (e) {
+            console.log(window.scrollY);
+            this.showHeader(window.scrollY);
+        }.bind(this);
+        window.onscroll = function (e) {
+            console.log(window.scrollY);
+            this.showHeader(window.scrollY);
+        }.bind(this);
+
+    }
+
+
+    showHeader = (scrollVal) => {
+        const isStaticHeader = this.state.isStaticHeader;
+        if (scrollVal > 0) {
+            if (!isStaticHeader) {
+                this.setState({
+                    isStaticHeader: true
+                });
+                gsap.to("div.hide", {
+                    y: 70,
+                    duration: 1
+                });
+            }
+        } else {
+            this.setState({
+                isStaticHeader: false
+            });
+            gsap.to("div.hide", {
+                y: -70,
+                duration: 1
+            });
         }
     }
 
@@ -41,20 +77,20 @@ class App extends Component {
         const {logged, onLogout} = this.state;
 
         return (
-            <div>
-                <BrowserRouter>
-                    <Menu logged={logged}
-                          onLogout={onLogout}
-                          type="hide"
-                    />
+            <BrowserRouter>
+                <Menu logged={logged}
+                      onLogout={onLogout}
+                      type="hide"
+                />
+                <div className="mainFrame">
                     <HeaderComp logged={logged}
                                 onLogout={onLogout}
                     />
                     <MainComp
                     />
-                </BrowserRouter>
-                <FooterComp/>
-            </div>
+                    <FooterComp/>
+                </div>
+            </BrowserRouter>
         )
     }
 

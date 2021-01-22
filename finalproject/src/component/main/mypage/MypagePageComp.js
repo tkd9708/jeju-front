@@ -1,70 +1,66 @@
-import React, {Component} from 'react'
-import './style/RCA.css';
-import moment from 'moment';
-import Header from './Header';
-import Calendar from './Calendar';
 
+import React, {Component} from "react";
+import MemberUpdateFormComp from "./MemberUpdateFormComp";
+import axios from 'axios';
+import { Route,Link } from "react-router-dom";
+import {URL} from "../../../redux/config";
+import MySchedule from './MySchedule';
 
 class MypagePageComp extends Component {
 
     constructor(props) {
         super(props);
         console.log("MypagePageComp constructor", props);
-    }
-      state={
-        calendarYM : moment(),
-        today : moment(),
-        selected : moment().format("YYYY-MM-DD")
 
-      }
 
-      static defaultProps = {
-        clickFn : ()=>{}
-    }
-
-    moveMonth = (month) => {
-        this.setState({
-            calendarYM : this.state.calendarYM.add(month,'M')
-        })
-    }
-
-    changeSelected = (clickedDate) =>{
-
-        if(moment(clickedDate).isSame(this.state.selected,'day')){
-            this.props.clickFn(clickedDate);
-            return;
-        }
-
-        this.setState({
-            selected : clickedDate
-        })
-
-        this.props.clickFn(clickedDate)
-        
-        if(moment(clickedDate).isBefore(this.state.calendarYM,'month')){
-            this.moveMonth(-1)
-        }else if(moment(clickedDate).isAfter(this.state.calendarYM,'month')){
-            this.moveMonth(1)
+        this.state={
+            memberData:[],
         }
     }
-
+    
+    // 스프링에서 목록 가져오기
+    getData = () => {
+        let url = URL + '/member/getdata?id=sanghee';
+        axios.get(url)
+        .then(response=>{
+            this.setState({
+                memberData:response.data
+            })
+        }).catch(err=>{
+            console.log("목록 오류:"+err);
+        })
+    }
+    componentDidMount() {
+        this.getData(); //처음 시작시 백엔드로부터 데이타 가져오기
+    }
     render() {
         return (
-            
-            
-            <div className="test-layout">
-               <div className="RCA-app-container">
-               
-                <Header calendarYM={this.state.calendarYM.format("YYYY년 MM월")}
-                        today={this.state.today.format("현재 YYYY - MM - DD")}
-                        moveMonth={this.moveMonth}/>
-                    
-                     
-                    <Calendar YM={this.state.calendarYM.format("YYYY-MM-DD")}
-                        selected={this.state.selected}
-                        changeSelected={this.changeSelected}
-                    />
-                </div>
+
+            <div>
+                <h1><b>내 정보 관리</b></h1>
+                <table>
+                    <tr>
+                        <div>
+                        <Link to="./mypage/MemberUpdateFormComp">
+                        <button type="button">정보수정</button>
+                        </Link>
+                        <Route exact path="/mypage/MemberUpdateFormComp" component={MemberUpdateFormComp} />
+                        </div>
+                        <span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;<b>I D &nbsp;:&nbsp;&nbsp; </b>
+                        {this.state.memberData.id}<br/>
+                        <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;<b>이름 &nbsp;:&nbsp;&nbsp; </b>
+                        {this.state.memberData.name}<br/>
+                        <span class="glyphicon glyphicon-phone"></span>&nbsp;&nbsp;<b>H P &nbsp;:&nbsp;&nbsp; </b>
+                        {this.state.memberData.hp}<br/>
+                        <span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;<b>Email &nbsp;:&nbsp;&nbsp; </b>
+                        {this.state.memberData.email}@{this.state.memberData.email2}<br/>
+                        <span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;<b>주소 &nbsp;:&nbsp;&nbsp; </b>
+                        {this.state.memberData.address},&nbsp;{this.state.memberData.addrdetail}<br/>
+                    </tr>
+                </table>
+                <h1><b>나의 일정</b></h1>
+                    <MySchedule></MySchedule>
+                <h1><b>나의 리뷰</b></h1>
             </div>
         )
     }
