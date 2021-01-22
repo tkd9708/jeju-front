@@ -7,14 +7,8 @@ import {
 import Menu from "./component/header/Menu";
 import gsap from "gsap";
 import "./App.css";
-import {NavLink, Route} from "react-router-dom";
-import {Home, Login, ShareBoard, MyPage, Notice, Reservation, Admin, TourList, Tour} from './component/header/menus';
-import MainPageComp from "./component/main/mainpage/MainPageComp";
-import ReservationPageComp from "./component/main/reservation/ReservationPageComp";
-import NoticePageComp from "./component/main/notice/NoticePageComp";
-import ShareBoardPageComp from "./component/main/shareboard/ShareBoardPageComp";
-import LoginPageComp from "./component/main/auth/LoginPageComp";
-import MemberListPageComp from "./component/main/admin/MemberListPageComp";
+// import {NavLink, Route} from "react-router-dom";
+// import {Home, Login, ShareBoard, MyPage, Notice, Reservation, Admin, TourList, Tour} from './component/header/menus';
 
 import MainPageComp from "./component/main/mainpage/MainPageComp";
 import ReservationPageComp from "./component/main/reservation/ReservationPageComp";
@@ -139,32 +133,6 @@ class App extends Component {
                     </Switch>
                     <FooterComp/>
                 </div>
-                <Route exact path="/" component={MainPageComp}>
-                    {/*<Home></Home>*/}
-                </Route>
-                <Route exact path="/Reservation/:name?" component={ReservationPageComp}>
-                    {/*<Reservation></Reservation>*/}
-                </Route>
-                <Route exact path="/Notice/:name?" component={NoticePageComp}>
-                    {/*<Notice></Notice>*/}
-                </Route>
-
-                <Route exact path="/TourList/:name?" component={TourList}></Route>
-                {/* <Route exact path="/TourList/:name?" component={TourPageComp}></Route> */}
-                <Route exact path="/Tour/:name?" component={Tour}></Route>
-
-                <Route exact path="/ShareBoard/:name?" component={ShareBoardPageComp}>
-                    {/*<ShareBoard></ShareBoard>*/}
-                </Route>
-                <Route exact path="/MyPage/:name?" component={MyPage}>
-                    {/*<MyPage></MyPage>*/}
-                </Route>
-                <Route exact path="/Login/:name?" component={LoginPageComp}>
-                    {/*<Login></Login>*/}
-                </Route>
-                <Route exact path="/Admin:name?" component={MemberListPageComp}>
-                    {/*<Admin></Admin>*/}
-                </Route>
             </BrowserRouter>
         )
     }
