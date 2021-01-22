@@ -40,10 +40,10 @@ class MainPhotoComp extends Component {
         console.log("photoNum", photoNum, "preNum", preNum);
 
         //zIndex setting.
-        for (let i = 0; i < imgCnt; i++) {
-            arrImg[i].style.zIndex = imgCnt - i;
+        // for (let i = 0; i < imgCnt; i++) {
+        //     arrImg[i].style.zIndex = imgCnt - i;
 
-        }
+        // }
 
         // document.querySelector(`img.mainPhotoComp_img${preNum}`).style.opacity = 0;
 

@@ -24,7 +24,7 @@ class ShareBoardPageComp extends Component {
 
 
     list=()=>{
-        let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/share/list?start=0&perPage=3";
+        let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot8/share/list?start=0&perPage=3";
         
         console.log(url);
         axios.get(url)
@@ -61,15 +61,12 @@ class ShareBoardPageComp extends Component {
 
                 {/* 게시판 폼 */}
                 <div>
-                    <div>
-                    {
+                {
                                 this.state.listData.map((row,idx)=>(
-                                    <ShareBoardRowItem row={row} key={row} 
+                                    <ShareBoardRowItem row={row} key={idx} list={this.list.bind(this)}
                                      history={this.props.history}/>
                                 ))
                             }
-
-                    </div>
                 </div>
 
 
