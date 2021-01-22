@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import MemberUpdateFormComp from "./MemberUpdateFormComp";
 import axios from 'axios';
 import { Route,Link } from "react-router-dom";
+import {URL} from "../../../redux/config";
 
 class MypagePageComp extends Component {
 
@@ -16,7 +17,7 @@ class MypagePageComp extends Component {
     
     // 스프링에서 목록 가져오기
     getData = () => {
-        let url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/member/getdata?id=sanghee";
+        let url = URL + '/member/getdata?id=sanghee';
         axios.get(url)
         .then(response=>{
             this.setState({
