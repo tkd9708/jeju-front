@@ -33,33 +33,31 @@ class MainPhotoComp extends Component {
         console.log("arrImg:", arrImg);
         console.log("photoNum", photoNum, "preNum", preNum);
 
-        //zIndex setting.
-        for (let i = 0; i < imgCnt; i++) {
-            arrImg[i].style.zIndex = imgCnt - i;
+        if(arrImg[0] != null){
+            //zIndex setting.
+            for (let i = 0; i < imgCnt; i++) {
+                arrImg[i].style.zIndex = imgCnt - i;
+            }
 
+            //tween action.
+            gsap.fromTo(`.mainPhotoComp_img${photoNum}`
+                , {
+                    opacity: 0,
+                }, {
+                    opacity: 1,
+                    duration: duration,
+                });
+            gsap.fromTo(`.mainPhotoComp_img${preNum}`
+                , {
+                    opacity: 1,
+                }, {
+                    opacity: 0,
+                    duration: duration,
+                });
+
+            //next action preparing.
+            setTimeout(this.setImageScroll.bind(this, photoNum + 1, photoNum), (duration + 3) * 1000);
         }
-
-        // document.querySelector(`img.mainPhotoComp_img${preNum}`).style.opacity = 0;
-
-
-        //tween action.
-        gsap.fromTo(`.mainPhotoComp_img${photoNum}`
-            , {
-                opacity: 0,
-            }, {
-                opacity: 1,
-                duration: duration,
-            });
-        gsap.fromTo(`.mainPhotoComp_img${preNum}`
-            , {
-                opacity: 1,
-            }, {
-                opacity: 0,
-                duration: duration,
-            });
-
-        //next action preparing.
-        setTimeout(this.setImageScroll.bind(this, photoNum + 1, photoNum), (duration + 3) * 1000);
     }
 
     componentDidMount() {
