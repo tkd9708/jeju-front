@@ -178,7 +178,7 @@ class MemberUpdateFormComp extends Component {
                 <input type="password" name="passCheck" value = {this.state.passCheck} onChange={this.handleChange}/>
                 <br/>
                 <button name="updateBtn" type = "button" onClick={this.onUpdateMember}>정보수정</button><br/>
-                <button name="deleteBtn" type = "button" onClick={this.onDeleteMember}>회원탈퇴</button>
+                <button name="deleteBtn" type = "button" onClick={this.onDeleteMember}>회원 탈퇴</button>
                 </form>
             </div>
         )

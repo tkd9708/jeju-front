@@ -89,7 +89,7 @@ class MypagePageComp extends Component {
                 <h1><b>나의 리뷰</b></h1>
                 <table>
                     <tr>
-
+                    <span class="glyphicon glyphicon-leaf">
                     </tr>
                 </table>
             </div>
