@@ -39,7 +39,7 @@ class MainPhotoComp extends Component {
         console.log("arrImg:", arrImg);
         console.log("photoNum", photoNum, "preNum", preNum);
 
-<<<<<<< HEAD
+
         //zIndex setting.
         // for (let i = 0; i < imgCnt; i++) {
         //     arrImg[i].style.zIndex = imgCnt - i;
@@ -67,7 +67,7 @@ class MainPhotoComp extends Component {
 
         //next action preparing.
         setTimeout(this.setImageScroll.bind(this, photoNum + 1, photoNum), (duration + 3) * 1000);
-=======
+
         if(arrImg[0] != null){
             //zIndex setting.
             for (let i = 0; i < imgCnt; i++) {
@@ -93,7 +93,7 @@ class MainPhotoComp extends Component {
             //next action preparing.
             setTimeout(this.setImageScroll.bind(this, photoNum + 1, photoNum), (duration + 3) * 1000);
         }
->>>>>>> c4d7c22f99fdcde83d9e00f577e8838854d9557d
+
     }
 
     componentDidMount() {
