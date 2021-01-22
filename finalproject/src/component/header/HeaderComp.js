@@ -18,12 +18,12 @@ class HeaderComp extends Component {
 
         return (
             <div className="headerComp">
-                <BrowserRouter>
+                {/*<BrowserRouter>*/}
                     <Menu logged={logged}
                           onLogout={onLogout}
                           type="normal"
                     />
-                </BrowserRouter>
+                {/*</BrowserRouter>*/}
             </div>
         )
     }

@@ -48,14 +48,11 @@ class Menu extends Component {
                                  }}
                         >
                             Home
-                            {/*<img src={Logo2}*/}
-                            {/*     style={{width: "150px"}}*/}
-                            {/*     alt="logo2"/>*/}
                         </NavLink>
                     </li>
 
                     <li>
-                        <NavLink exact to="/Admin"
+                        <NavLink exact to="/admin"
                                  onClick={() => {
                                      console.log("Admin NavLink onClick");
                                      this.setMainView(mainViewType.Admin);
@@ -71,7 +68,7 @@ class Menu extends Component {
                                          this.setMainView(mainViewType.Logout);
                                      }}>Logout</NavLink>
                             :
-                            <NavLink exact to="/Login"
+                            <NavLink exact to="/login"
                                      onClick={() => {
                                          console.log("Login NavLink onClick");
                                          this.setMainView(mainViewType.Login);
@@ -80,7 +77,7 @@ class Menu extends Component {
                         }
                     </li>
                     <li>
-                        <NavLink exact to="/Join"
+                        <NavLink exact to="/join"
                                  onClick={() => {
                                      console.log("Join NavLink onClick");
                                      this.setMainView(mainViewType.JoinForm);
@@ -88,7 +85,7 @@ class Menu extends Component {
                         >Join</NavLink>
                     </li>
                     <li>
-                        <NavLink exact to="/MyPage"
+                        <NavLink exact to="/mypage"
                                  onClick={() => {
                                      console.log("Mypage NavLink onClick");
                                      this.setMainView(mainViewType.MyPage);
@@ -96,7 +93,7 @@ class Menu extends Component {
                         >MyPage</NavLink>
                     </li>
                     <li>
-                        <NavLink exact to="/ShareBoard"
+                        <NavLink exact to="/share"
                                  onClick={() => {
                                      console.log("ShareBoard NavLink onClick");
                                      this.setMainView(mainViewType.ShareBoard);
@@ -104,7 +101,7 @@ class Menu extends Component {
                         >Share</NavLink>
                     </li>
                     <li>
-                        <NavLink exact to="/TourList"
+                        <NavLink exact to="/tour"
                                  onClick={() => {
                                      console.log("Tour NavLink onClick");
                                      this.setMainView(mainViewType.TourList);
@@ -112,7 +109,7 @@ class Menu extends Component {
                         >Tour</NavLink>
                     </li>
                     <li>
-                        <NavLink exact to="/Notice"
+                        <NavLink exact to="/notice"
                                  onClick={() => {
                                      console.log("Notice NavLink onClick");
                                      this.setMainView(mainViewType.Notice);
@@ -120,42 +117,14 @@ class Menu extends Component {
                         >Notice</NavLink>
                     </li>
                     <li>
-                        <NavLink exact to="/Reservation"
+                        <NavLink exact to="/reservation"
                                  onClick={() => {
                                      console.log("Reservation NavLink onClick");
                                      this.setMainView(mainViewType.Reservation);
                                  }}
                         >Reservation</NavLink>
                     </li>
-
-
                 </ul>
-
-                {/*<Route exact path="/">*/}
-                {/*    /!*<Home></Home>*!/*/}
-                {/*</Route>*/}
-                {/*<Route exact path="/Reservation/:name?">*/}
-                {/*    /!*<Reservation></Reservation>*!/*/}
-                {/*</Route>*/}
-                {/*<Route exact path="/Notice/:name?">*/}
-                {/*    /!*<Notice></Notice>*!/*/}
-                {/*</Route>*/}
-
-                {/*<Route exact path="/TourList/:name?" component={TourList}></Route>*/}
-                {/*<Route exact path="/Tour/:name?" component={Tour}></Route>*/}
-
-                {/*<Route exact path="/ShareBoard/:name?">*/}
-                {/*    /!*<ShareBoard></ShareBoard>*!/*/}
-                {/*</Route>*/}
-                {/*<Route exact path="/MyPage/:name?" component={MyPage}>*/}
-                {/*    /!*<MyPage></MyPage>*!/*/}
-                {/*</Route>*/}
-                {/*<Route exact path="/Login/:name?">*/}
-                {/*    /!*<Login></Login>*!/*/}
-                {/*</Route>*/}
-                {/*<Route exact path="/Admin:name?">*/}
-                {/*    /!*<Admin></Admin>*!/*/}
-                {/*</Route>*/}
             </div>
         )
     }

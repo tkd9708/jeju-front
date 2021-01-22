@@ -5,11 +5,11 @@ import NoticePageComp from "./notice/NoticePageComp";
 import ShareBoardPageComp from "./shareboard/ShareBoardPageComp";
 import LoginPageComp from "./auth/LoginPageComp";
 import MemberListPageComp from "./admin/MemberListPageComp";
-import store from "../../redux/store";
-import {mainViewType} from "../../redux/config";
 import MypagePageComp from "./mypage/MypagePageComp";
 import TourPageComp from "./tour/TourPageComp";
 import SignupPageComp from "./join/SignupPageComp";
+import store from "../../redux/store";
+import {mainViewType} from "../../redux/config";
 import "./MainComp.css"
 import DetailTourComp from "./tour/DetailTourComp";
 import {MyPage, Tour, TourList} from "../header/menus";
@@ -41,47 +41,47 @@ class MainComp extends Component {
         } else if (_mainView == mainViewType.Reservation) {
             return (
                 // <ReservationPageComp/>
-                <Route exact path="/Reservation/:name?" component={ReservationPageComp}/>
+                <Route path="/Reservation/:name?" component={ReservationPageComp}/>
             )
         } else if (_mainView == mainViewType.Notice) {
             return (
                 // <NoticePageComp/>
-                <Route exact path="/Notice/:name?" component={NoticePageComp}/>
+                <Route path="/Notice/:name?" component={NoticePageComp}/>
             )
         } else if (_mainView == mainViewType.Tour) {
             return (
                 // <DetailTourComp/>
-                <Route exact path="/Tour/:name?" component={DetailTourComp}/>
+                <Route path="/Tour/:name?" component={DetailTourComp}/>
             )
         } else if (_mainView == mainViewType.TourList) {
             return (
                 // <TourPageComp/>
-                <Route exact path="/TourList/:name?" component={TourPageComp}></Route>
+                <Route path="/TourList/:name?" component={TourPageComp}></Route>
             )
         } else if (_mainView == mainViewType.ShareBoard) {
             return (
                 // <ShareBoardPageComp/>
-                <Route exact path="/ShareBoard/:name?" component={ShareBoardPageComp}/>
+                <Route path="/ShareBoard/:name?" component={ShareBoardPageComp}/>
             )
         } else if (_mainView == mainViewType.MyPage) {
             return (
                 // <MypagePageComp/>
-                <Route exact path="/MyPage/:name?" component={MainPageComp}/>
+                <Route path="/MyPage/:name?" component={MainPageComp}/>
             )
         } else if (_mainView == mainViewType.Login) {
             return (
                 // <LoginPageComp/>
-                <Route exact path="/Login/:name?" component={LoginPageComp}/>
+                <Route path="/Login/:name?" component={LoginPageComp}/>
             )
         } else if (_mainView == mainViewType.Admin) {
             return (
                 // <MemberListPageComp/>
-                <Route exact path="/Admin:name?" component={MemberListPageComp}/>
+                <Route path="/Admin:name?" component={MemberListPageComp}/>
             )
         } else if (_mainView == mainViewType.JoinForm) {
             return (
                 // <SignupPageComp/>
-                <Route exact path="/Join:name?" component={SignupPageComp}/>
+                <Route path="/Join:name?" component={SignupPageComp}/>
             )
         } else {
             return (
@@ -100,7 +100,7 @@ class MainComp extends Component {
         }
         return (
             <div className="mainComp">
-                {this.setMainView()}
+                {/*{this.setMainView()}*/}
             </div>
         )
     }
