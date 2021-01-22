@@ -1,5 +1,7 @@
 import {createStore} from "redux";
 import {actionType, mainViewType} from "./config";
+import logger from "redux-logger";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 export default createStore(
     function (state, action) {
@@ -10,6 +12,7 @@ export default createStore(
                 mainView: mainViewType.MainPage,
                 spotView: '',
                 logged: false,
+                memberData: [], // 회원목록
             }
         }
 
@@ -55,6 +58,11 @@ export default createStore(
             newState = Object.assign({}, state, {
                 logged: false,
                 id: "",
+            });
+        }
+        else if (action.type === actionType.MEMBER_LIST) {
+            newState = Object.assign({}, state, {
+                memberData: action.payload
             });
         }
         
