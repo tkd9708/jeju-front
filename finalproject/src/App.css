@@ -1,7 +1,10 @@
-.mainFrame{
+div.mainFrame{
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
+
+
 
 
 
