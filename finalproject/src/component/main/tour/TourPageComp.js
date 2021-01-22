@@ -20,6 +20,10 @@ class TourPageComp extends Component {
 
         console.log("TourPageComp this.props", this.props);
 
+        //const { history, location } = this.props;
+        //console.log("Tour url 출력 : " + this.location.pathname);
+        //console.log("Tour Page props 출력 : " + history + location.state);
+
         store.subscribe(function () {
             console.log("TourPageComp subscribe()");
             this.setState({
@@ -27,6 +31,7 @@ class TourPageComp extends Component {
             });
         }.bind(this));
 
+        console.log("tour page : " + this.state.area);
         this.currentPage = 1;
         this.totalCount = 0;
         this.perPage = 12; // 한페이지당 보여질 글의 갯수
@@ -84,15 +89,17 @@ class TourPageComp extends Component {
     }
 
     componentWillMount() {
+        console.log("투어 페이지 willMount");
         this.getTotalCount();
 
     }
 
     componentWillUnmount() {
-        console.log("TourPageComp componentWillUnmount()");
-        // store.dispatch({
-        //
-        // });
+        console.log("투어 페이지 willunMount");
+    }
+
+    componentDidUpdate() {
+        console.log("투어 페이지 DidUpdate");
     }
 
     paginate = (num) => {
@@ -110,8 +117,6 @@ class TourPageComp extends Component {
         console.log("TourPageComp render()", this.props);
         return (
             <div>
-                {/* <h4>TourPageComp {this.state.area} {this.totalCount} {this.state.select}</h4> */}
-
                 <Tourintro area={this.state.area}/>
 
                 <br/><br/>

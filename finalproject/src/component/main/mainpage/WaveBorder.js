@@ -10,10 +10,10 @@ const styles = {
     waves: {
         position: "relative",
         width: "100%",
-        marginBottom: -7,
+        // marginBottom: -7,
         height: "7vw",
         minHeight: "7vw",
-        "z-index": 9999999,
+        // "z-index": 9999999,
     },
     "@keyframes moveForever": {
         from: { transform: "translate3d(-90px, 0, 0)" },
