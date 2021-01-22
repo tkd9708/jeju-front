@@ -1,20 +1,17 @@
 import React, {Component} from "react";
-import store from "../../../redux/store";
-import {actionType} from "../../../redux/config";
 
-const TourList = ({match}) => {
-    console.log("TourList match", match.params.name);
+class TourList extends Component {
 
-    store.dispatch({
-        type: actionType.setSpotView,
-        spotView: match.params.name
-    });
-
-    return(
-        <div>
-
-        </div>
-    )
+    constructor(props) {
+        super(props);
+    }
+    
+    render(){
+        return(
+            <div>
+            </div>
+        )
+    }
 }
 
 export default TourList;

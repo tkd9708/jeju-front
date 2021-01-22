@@ -20,6 +20,7 @@ import MypagePageComp from "./component/main/mypage/MypagePageComp";
 import TourPageComp from "./component/main/tour/TourPageComp";
 import SignupPageComp from "./component/main/join/SignupPageComp";
 import FooterComp from "./component/footer/FooterComp";
+import DetailTourComp from "./component/main/tour/DetailTourComp";
 
 class App extends Component {
     constructor(props) {
@@ -117,8 +118,8 @@ class App extends Component {
                         <Route  path="/share/:name?">
                             <ShareBoardPageComp/>
                         </Route>
-                        <Route  path="/tour/:name?">
-                            <TourPageComp/>
+                        <Route  path="/tour/:name?" component={DetailTourComp}>
+                            {/* <DetailTourComp/> */}
                         </Route>
                         <Route  path="/notice/:name?">
                             <NoticePageComp/>
@@ -127,8 +128,8 @@ class App extends Component {
                             <ReservationPageComp/>
                         </Route>
 
-                        <Route  path="/tourlist/:name?">
-                            <TourPageComp/>
+                        <Route  path="/tourlist/:name?" component={TourPageComp}>
+                            {/* <TourPageComp/> */}
                         </Route>
                     </Switch>
                     <FooterComp/>

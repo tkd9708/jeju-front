@@ -1,27 +1,20 @@
 import React,{Component} from 'react';
-import store from "../../../redux/store";
 import axios from 'axios';
-import DetailReviewComp from './DetailReviewComp';
 import MapComp from './MapComp';
 import ReviewListComp from './ReviewListComp';
 import {URL} from '../../../redux/config';
 
 class DetailTourComp extends Component {
 
-    state = {
-        spotdata:[],
-        contentsid: store.getState().contentsid
-    }
+    
 
-    constructor(props) {
+    constructor({match}, props) {
         super(props);
 
-        store.subscribe(function () {
-            console.log("DetailTourComp subscribe()");
-            this.setState({
-                contentsid: store.getState().contentsid
-            });
-        }.bind(this));
+        this.state = {
+            spotdata:[],
+            contentsid: match.params.name
+        }
 
     }
 

@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import store from "../../../redux/store";
 import ItemComp from "./ItemComp";
 import axios from "axios";
 import PageComp from "./PageComp";
@@ -10,29 +9,15 @@ import Box from '@material-ui/core/Box';
 
 class TourPageComp extends Component {
 
-    state = {
-        area: store.getState().spotView,
-        spotList: [],
-        pageNum: '0'
-    }
-
-    constructor(props) {
+    constructor({match}, props) {
         super(props);
 
-        console.log("TourPageComp this.props", this.props);
+        this.state={
+            area: match.params.name,
+            spotList: [],
+            pageNum: '0'
+        }
 
-        //const { history, location } = this.props;
-        //console.log("Tour url 출력 : " + this.location.pathname);
-        //console.log("Tour Page props 출력 : " + history + location.state);
-
-        store.subscribe(function () {
-            console.log("TourPageComp subscribe()");
-            this.setState({
-                spotView: store.getState().spotView
-            });
-        }.bind(this));
-
-        console.log("tour page : " + this.state.area);
         this.currentPage = 1;
         this.totalCount = 0;
         this.perPage = 12; // 한페이지당 보여질 글의 갯수
@@ -90,18 +75,9 @@ class TourPageComp extends Component {
     }
 
     componentWillMount() {
-        console.log("투어 페이지 willMount");
         this.getTotalCount();
-
     }
 
-    // componentWillUnmount(){
-    //     console.log("투어 페이지 willunMount");
-    // }
-
-    // componentDidUpdate(){
-    //     console.log("투어 페이지 DidUpdate");
-    // }
 
     paginate = (num) => {
 
@@ -121,7 +97,7 @@ class TourPageComp extends Component {
                 <Tourintro area={this.state.area}/>
 
                 <br/><br/>
-                <select onChange={this.selectChange.bind(this)} value={this.select} style={{float: 'right'}}>
+                <select onChange={this.selectChange.bind(this)} value={this.select} style={{float: 'right', marginRight: '20px'}}>
                     <option value="star">평점순</option>
                     <option value="likes">좋아요순</option>
                     <option value="title">제목순</option>
@@ -130,19 +106,22 @@ class TourPageComp extends Component {
                 <br/><br/>
                 {/* list 출력 */}
 
-                <Box
-                    display="flex"
-                    flexWrap="nowrap"
-                    p={1}
-                    m={1}
-                    bgcolor="background.paper"
-                    css={{ maxWidth: 300 }}
-                >
-                    {this.state.spotList.map((row,idx)=>(
-                    <ItemComp row={row} key={idx} history={this.props.history}></ItemComp>
-                    ))}
-                </Box>
-                 
+                <div style={{width:'100%'}}>
+                    <Box
+                        display="flex"
+                        flexWrap="wrap"
+                        p={1}
+                        m={1}
+                        bgcolor="background.paper"
+                        justifyContent="center"
+                        css={{ maxWidth: '100%' }}
+                    >
+                        {this.state.spotList.map((row,idx)=>(
+                        <ItemComp row={row} key={idx} history={this.props.history}></ItemComp>
+                        ))}
+                    </Box>
+                </div>
+                 <br/><br/>
 
                 {/* 페이징 */}
                 <PageComp area={this.state.area} startPage={this.startPage} endPage={this.endPage}
