@@ -13,13 +13,13 @@ class SearchComp extends Component {
                 <br/>
                 {this.props.name}<br/>
                 <select>
-                    <option>전체</option>
-                    <option>지역</option>
-                    <option>명소</option>
-                    <option>태그</option>
+                    <option>All</option>
+                    <option>Location</option>
+                    <option>Tour</option>
+                    <option>Tag</option>
                 </select>
-                <input type="text" placeholder="검색할 단어를 입력하세요."/>
-                <button type="button">검색</button>
+                <input type="text" placeholder="Input For Search."/>
+                <button type="button">Search</button>
             </div>
         )
     }

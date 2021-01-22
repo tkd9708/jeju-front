@@ -3,7 +3,8 @@ import MainComp from "./component/main/MainComp";
 import FooterComp from "./component/footer/FooterComp";
 import HeaderComp from "./component/header/HeaderComp";
 import {
-    BrowserRouter
+    BrowserRouter,
+    // withRouter
 } from "react-router-dom";
 import styled from "styled-components";
 import Menu from "./component/header/Menu";
@@ -24,11 +25,11 @@ class App extends Component {
         }
 
         window.onmousewheel = function (e) {
-            console.log(window.scrollY);
+            // console.log(window.scrollY);
             this.showHeader(window.scrollY);
         }.bind(this);
         window.onscroll = function (e) {
-            console.log(window.scrollY);
+            // console.log(window.scrollY);
             this.showHeader(window.scrollY);
         }.bind(this);
 
@@ -77,7 +78,8 @@ class App extends Component {
         const {logged, onLogout} = this.state;
 
         return (
-            <BrowserRouter>
+            // <BrowserRouter>
+            <div>
                 <Menu logged={logged}
                       onLogout={onLogout}
                       type="hide"
@@ -90,10 +92,10 @@ class App extends Component {
                     />
                     <FooterComp/>
                 </div>
-            </BrowserRouter>
+            </div>
+            // </BrowserRouter>
         )
     }
-
 }
 
 export default App;

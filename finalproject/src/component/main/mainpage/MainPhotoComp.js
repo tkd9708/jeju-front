@@ -36,8 +36,8 @@ class MainPhotoComp extends Component {
             tempImgIdx = tempImgIdx > imgCnt ? tempImgIdx - imgCnt : tempImgIdx;
             arrImg.push(document.querySelector(`img.mainPhotoComp_img${tempImgIdx}`));
         }
-        console.log("arrImg:", arrImg);
-        console.log("photoNum", photoNum, "preNum", preNum);
+        // console.log("arrImg:", arrImg);
+        // console.log("photoNum", photoNum, "preNum", preNum);
 
         if(arrImg[0] != null){
             //zIndex setting.

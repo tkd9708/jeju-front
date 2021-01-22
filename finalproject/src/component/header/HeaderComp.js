@@ -8,13 +8,13 @@ class HeaderComp extends Component {
     constructor(props) {
         super(props);
 
-        console.log("HeaderComp constructor", props);
+        // console.log("HeaderComp constructor", props);
     }
 
     render() {
         const {logged, onLogout} = this.props;
 
-        console.log("HeaderComp render", this.props, this.state);
+        // console.log("HeaderComp render", this.props, this.state);
 
         return (
             <div className="headerComp">

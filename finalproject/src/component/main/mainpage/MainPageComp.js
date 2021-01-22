@@ -18,7 +18,7 @@ class MainPageComp extends Component {
      */
     constructor(props) {
         super(props);
-        console.log("MainPageComp constructor", props);
+        // console.log("MainPageComp constructor", props);
 
         this.state = {
             shareBoardList: [],
@@ -32,32 +32,32 @@ class MainPageComp extends Component {
     }
 
     getNoticeList = () => {
-        console.log("getNoticeList()");
+        // console.log("getNoticeList()");
         var url = URL + "/notice/list";
 
         axios.get(url
         ).then((res) => {
-            console.log("getNoticeList success : ", res);
+            // console.log("getNoticeList success : ", res);
             this.setState({
                 noticeList: res.data
             });
         }).catch((error) => {
-            console.log("getNoticeList error", error);
+            // console.log("getNoticeList error", error);
         });
     }
 
     getShareBoardList = () => {
-        console.log("getShareBoardList()");
+        // console.log("getShareBoardList()");
         var url = URL + "/share/list?start=0&perPage=5";
 
         axios.get(url
         ).then((res) => {
-            console.log("getShareBoardList success : ", res);
+            // console.log("getShareBoardList success : ", res);
             this.setState({
                 shareBoardList: res.data
             });
         }).catch((error) => {
-            console.log("getShareBoardList error", error);
+            // console.log("getShareBoardList error", error);
         });
     }
 
@@ -69,7 +69,7 @@ class MainPageComp extends Component {
      * EtcBoardComp
      */
     render() {
-        console.log("MainPageComp render()", this.props);
+        // console.log("MainPageComp render()", this.props);
         return (
             <div className="mainPageComp">
                 <MainPhotoComp/>

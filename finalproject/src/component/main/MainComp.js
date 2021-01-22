@@ -12,6 +12,8 @@ import TourPageComp from "./tour/TourPageComp";
 import SignupPageComp from "./join/SignupPageComp";
 import "./MainComp.css"
 import DetailTourComp from "./tour/DetailTourComp";
+import {MyPage, Tour, TourList} from "../header/menus";
+import {Route} from "react-router-dom";
 
 class MainComp extends Component {
 
@@ -20,7 +22,7 @@ class MainComp extends Component {
         console.log("MainComp constructor", props, store.getState().mainView);
 
         store.subscribe(function () {
-            console.log("MainComp subscribe()");
+            console.log("MainComp subscribe()", store.getState().mainView);
             this.setState({
                 mainView: store.getState().mainView,
             });
@@ -33,43 +35,53 @@ class MainComp extends Component {
 
         if (_mainView == mainViewType.MainPage) {
             return (
-                <MainPageComp/>
+                // <MainPageComp/>
+                <Route exact path="/" component={MainPageComp}/>
             )
         } else if (_mainView == mainViewType.Reservation) {
             return (
-                <ReservationPageComp/>
+                // <ReservationPageComp/>
+                <Route exact path="/Reservation/:name?" component={ReservationPageComp}/>
             )
         } else if (_mainView == mainViewType.Notice) {
             return (
-                <NoticePageComp/>
+                // <NoticePageComp/>
+                <Route exact path="/Notice/:name?" component={NoticePageComp}/>
             )
         } else if (_mainView == mainViewType.Tour) {
             return (
-                <DetailTourComp/>
+                // <DetailTourComp/>
+                <Route exact path="/Tour/:name?" component={DetailTourComp}/>
             )
         } else if (_mainView == mainViewType.TourList) {
             return (
-                <TourPageComp/>
+                // <TourPageComp/>
+                <Route exact path="/TourList/:name?" component={TourPageComp}></Route>
             )
         } else if (_mainView == mainViewType.ShareBoard) {
             return (
-                <ShareBoardPageComp/>
+                // <ShareBoardPageComp/>
+                <Route exact path="/ShareBoard/:name?" component={ShareBoardPageComp}/>
             )
         } else if (_mainView == mainViewType.MyPage) {
             return (
-                <MypagePageComp/>
+                // <MypagePageComp/>
+                <Route exact path="/MyPage/:name?" component={MainPageComp}/>
             )
         } else if (_mainView == mainViewType.Login) {
             return (
-                <LoginPageComp/>
+                // <LoginPageComp/>
+                <Route exact path="/Login/:name?" component={LoginPageComp}/>
             )
         } else if (_mainView == mainViewType.Admin) {
             return (
-                <MemberListPageComp/>
+                // <MemberListPageComp/>
+                <Route exact path="/Admin:name?" component={MemberListPageComp}/>
             )
         } else if (_mainView == mainViewType.JoinForm) {
             return (
-                <SignupPageComp/>
+                // <SignupPageComp/>
+                <Route exact path="/Join:name?" component={SignupPageComp}/>
             )
         } else {
             return (
@@ -88,9 +100,6 @@ class MainComp extends Component {
         }
         return (
             <div className="mainComp">
-                {/*<hr style={style_hr}/>*/}
-                {/*<br/>*/}
-                {/*<h1>MainComp</h1>*/}
                 {this.setMainView()}
             </div>
         )

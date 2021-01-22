@@ -17,6 +17,8 @@ class TourPageComp extends Component {
     constructor(props) {
         super(props);
 
+        console.log("TourPageComp this.props", this.props);
+
         store.subscribe(function () {
             console.log("TourPageComp subscribe()");
             this.setState({
@@ -42,20 +44,20 @@ class TourPageComp extends Component {
 
         // 나머지가 있을 경우에는 1페이지 더 추가 (예 : 총글수가 9이고 한페이지당 2개씩 볼 경우)
         this.totalPage = Math.floor(this.totalCount/this.perPage) + (this.totalCount % this.perPage > 0 ? 1 : 0);
-        
+
         // 시작페이지와 끝페이지 구하기
         this.startPage = Math.floor((this.currentPage - 1) / this.perBlock) * this.perBlock + 1;
         this.endPage = this.startPage + this.perBlock - 1;
         // 마지막 블럭은 endPage를 totalPage로 해놔야 한다.
         if(this.endPage > this.totalPage)
             this.endPage = this.totalPage;
-        
+
         // mysql은 첫 글이 0번이므로 +1 안해도됨 (오라클은 1번)
         this.start = (this.currentPage-1) * this.perPage;
-        
+
         this.no = this.totalCount-(this.currentPage - 1) * this.perPage;
 
-        let url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/spot/list?start=" + this.start + "&perPage=" + this.perPage + "&label2=" + this.state.area + 
+        let url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/spot/list?start=" + this.start + "&perPage=" + this.perPage + "&label2=" + this.state.area +
             "&select=" + this.select;
 
         axios.get(url)
@@ -82,11 +84,18 @@ class TourPageComp extends Component {
 
     componentWillMount(){
         this.getTotalCount();
-        
+
+    }
+
+    componentWillUnmount() {
+        console.log("TourPageComp componentWillUnmount()");
+        // store.dispatch({
+        //
+        // });
     }
 
     paginate = (num) => {
-        
+
         this.currentPage = num;
         this.getList();
     }
@@ -101,12 +110,12 @@ class TourPageComp extends Component {
         return (
             <div>
                 {/* <h4>TourPageComp {this.state.area} {this.totalCount} {this.state.select}</h4> */}
-                
+
                 <Tourintro area={this.state.area}/>
 
                 <br/><br/>
                 {this.state.area}
-                
+
                 <select onChange={this.selectChange.bind(this)} value={this.select} style={{float: 'right'}}>
                     <option value="star">평점순</option>
                     <option value="likes">좋아요순</option>
@@ -117,10 +126,10 @@ class TourPageComp extends Component {
                 {/* list 출력 */}
                 {this.state.spotList.map((row,idx)=>(
                     <ItemComp row={row} key={idx} history={this.props.history}></ItemComp>
-                ))} 
+                ))}
 
                 {/* 페이징 */}
-                <PageComp area={this.state.area} startPage={this.startPage} endPage={this.endPage} currentPage={this.currentPage} 
+                <PageComp area={this.state.area} startPage={this.startPage} endPage={this.endPage} currentPage={this.currentPage}
                     totalPage={this.totalPage} paginate={this.paginate.bind(this)}></PageComp>
             </div>
         )

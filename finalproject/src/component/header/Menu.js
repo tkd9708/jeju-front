@@ -10,7 +10,7 @@ class Menu extends Component {
 
     constructor(props) {
         super(props);
-        console.log("Menu constructor ", this.props)
+        // console.log("Menu constructor ", this.props)
 
         this.state = {
             type: this.props.type,
@@ -33,7 +33,7 @@ class Menu extends Component {
         // 따라서 전역적인 상태가 필요하다.
 
         const {logged, onLogout} = this.props;
-        console.log("Menu render ", this.props);
+        // console.log("Menu render ", this.props);
 
         var className_div_menu = `${this.state.type} menu`;
 
@@ -64,11 +64,12 @@ class Menu extends Component {
                     </li>
                     <li>
                         {logged ?
-                            <NavLink exact to="/" onClick={() => {
-                                onLogout();
-                                console.log("Logout NavLink onClick");
-                                this.setMainView(mainViewType.Logout);
-                            }}>Logout</NavLink>
+                            <NavLink exact to="/"
+                                     onClick={() => {
+                                         onLogout();
+                                         console.log("Logout NavLink onClick");
+                                         this.setMainView(mainViewType.Logout);
+                                     }}>Logout</NavLink>
                             :
                             <NavLink exact to="/Login"
                                      onClick={() => {
@@ -79,7 +80,6 @@ class Menu extends Component {
                         }
                     </li>
                     <li>
-                        {/*&nbsp;&nbsp;&nbsp;*/}
                         <NavLink exact to="/Join"
                                  onClick={() => {
                                      console.log("Join NavLink onClick");
@@ -131,33 +131,31 @@ class Menu extends Component {
 
                 </ul>
 
-                {/*<hr style={{clear: 'both'}}/>*/}
+                {/*<Route exact path="/">*/}
+                {/*    /!*<Home></Home>*!/*/}
+                {/*</Route>*/}
+                {/*<Route exact path="/Reservation/:name?">*/}
+                {/*    /!*<Reservation></Reservation>*!/*/}
+                {/*</Route>*/}
+                {/*<Route exact path="/Notice/:name?">*/}
+                {/*    /!*<Notice></Notice>*!/*/}
+                {/*</Route>*/}
 
-                <Route exact path="/">
-                    {/*<Home></Home>*/}
-                </Route>
-                <Route exact path="/Reservation/:name?">
-                    {/*<Reservation></Reservation>*/}
-                </Route>
-                <Route exact path="/Notice/:name?">
-                    {/*<Notice></Notice>*/}
-                </Route>
+                {/*<Route exact path="/TourList/:name?" component={TourList}></Route>*/}
+                {/*<Route exact path="/Tour/:name?" component={Tour}></Route>*/}
 
-                <Route exact path="/TourList/:name?" component={TourList}></Route>
-                <Route exact path="/Tour/:name?" component={Tour}></Route>
-
-                <Route exact path="/ShareBoard/:name?">
-                    {/*<ShareBoard></ShareBoard>*/}
-                </Route>
-                <Route exact path="/MyPage/:name?" component={MyPage}>
-                    {/*<MyPage></MyPage>*/}
-                </Route>
-                <Route exact path="/Login/:name?">
-                    {/*<Login></Login>*/}
-                </Route>
-                <Route exact path="/Admin:name?">
-                    {/*<Admin></Admin>*/}
-                </Route>
+                {/*<Route exact path="/ShareBoard/:name?">*/}
+                {/*    /!*<ShareBoard></ShareBoard>*!/*/}
+                {/*</Route>*/}
+                {/*<Route exact path="/MyPage/:name?" component={MyPage}>*/}
+                {/*    /!*<MyPage></MyPage>*!/*/}
+                {/*</Route>*/}
+                {/*<Route exact path="/Login/:name?">*/}
+                {/*    /!*<Login></Login>*!/*/}
+                {/*</Route>*/}
+                {/*<Route exact path="/Admin:name?">*/}
+                {/*    /!*<Admin></Admin>*!/*/}
+                {/*</Route>*/}
             </div>
         )
     }
