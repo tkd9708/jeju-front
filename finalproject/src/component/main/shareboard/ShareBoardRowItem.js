@@ -1,7 +1,7 @@
 import React, {Component,useState} from "react";
 import {Route, Link} from "react-router-dom";
 import ShareBoardUpdateForm from "./ShareBoardUpdateForm";
-import Modal from './Modal';
+import Modal from './modal';
 import axios from "axios";
 import ShareReview from './ShareReview';
 

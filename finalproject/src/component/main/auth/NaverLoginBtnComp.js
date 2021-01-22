@@ -16,13 +16,15 @@ export default function NaverLoginBtnComp () {
     useEffect(Login, []);
 
     const Naver = () => {
-        const naverLogin = new naver.LoginWithNaverId({
+        var naverLogin = new naver.LoginWithNaverId({
             clientId: 'dPXRHN5aH3Xl6lXxm7bn',
-            callbackUrl: "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot1",
-            isPopup: false,
+            callbackUrl: "http://localhost:3000/login?naver=true",
+            isPopup: false, // 팝업을 통한 연동처리 여부
             loginButton: {color: "green", type: 3, height: 60},
             callbackHandle: true
         });
+
+        // 설정정보를 초기화하고 연동을 준비
         naverLogin.init();
     }
 
