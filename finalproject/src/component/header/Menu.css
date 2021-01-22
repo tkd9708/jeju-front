@@ -9,7 +9,7 @@ ul.menu {
 
 ul.menu li {
     width: calc((100% / 9));
-    background: gold;
+    background: #ffd700;
     transition: 0.5s;
 }
 

@@ -29,8 +29,10 @@ div.mainPhotoComp {
 }
 
 div.mainPhotoComp img {
+    flex: 1;
+    height: 1080px;
     transform: scale(1);
-    opacity: 0.3;
+    opacity: 0;
 }
 
 div.mainPhotoComp img:nth-child(1) {
@@ -53,6 +55,13 @@ div.mainPhotoComp img:nth-child(4) {
     left: calc(-1920px * 3);
 }
 
+div.wave {
+    position: absolute;
+    top: 1016px;
+    width: 1920px;
+    /*z-index: 5;*/
+}
+
 
 /*search-myplan*/
 div.search-myplan {
@@ -68,6 +77,7 @@ div.search-myplan div {
 div.search-myplan div.searchComp {
     flex: 0.33;
 }
+
 
 /*div.search-myplan div.myPlanComp{*/
 /*    flex: 0.3;*/
