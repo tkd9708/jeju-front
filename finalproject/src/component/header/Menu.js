@@ -5,6 +5,7 @@ import store from "../../redux/store";
 import {actionType, mainViewType} from "../../redux/config";
 import "./Menu.css";
 import Logo2 from "../../image/logo2.png";
+import TourPageComp from '../main/tour/TourPageComp';
 
 class Menu extends Component {
 
@@ -133,31 +134,32 @@ class Menu extends Component {
 
                 {/*<hr style={{clear: 'both'}}/>*/}
 
-                <Route exact path="/">
+                {/* <Route exact path="/"> */}
                     {/*<Home></Home>*/}
-                </Route>
-                <Route exact path="/Reservation/:name?">
+                {/* </Route> */}
+                {/* <Route exact path="/Reservation/:name?"> */}
                     {/*<Reservation></Reservation>*/}
-                </Route>
-                <Route exact path="/Notice/:name?">
+                {/* </Route> */}
+                 {/* <Route exact path="/Notice/:name?"> */}
                     {/*<Notice></Notice>*/}
-                </Route>
+                {/* </Route> */}
 
-                <Route exact path="/TourList/:name?" component={TourList}></Route>
-                <Route exact path="/Tour/:name?" component={Tour}></Route>
+                {/* <Route exact path="/TourList/:name?" component={TourList}></Route> */}
+                {/* <Route exact path="/TourList/:name?" component={TourPageComp}></Route> */}
+                {/* <Route exact path="/Tour/:name?" component={Tour}></Route> */}
 
-                <Route exact path="/ShareBoard/:name?">
+                {/* <Route exact path="/ShareBoard/:name?"> */}
                     {/*<ShareBoard></ShareBoard>*/}
-                </Route>
-                <Route exact path="/MyPage/:name?" component={MyPage}>
+                {/* </Route> */}
+                {/* <Route exact path="/MyPage/:name?" component={MyPage}> */}
                     {/*<MyPage></MyPage>*/}
-                </Route>
-                <Route exact path="/Login/:name?">
+                {/* </Route>
+                <Route exact path="/Login/:name?"> */}
                     {/*<Login></Login>*/}
-                </Route>
-                <Route exact path="/Admin:name?">
+                {/* </Route>
+                <Route exact path="/Admin:name?"> */}
                     {/*<Admin></Admin>*/}
-                </Route>
+                {/* </Route> */}
             </div>
         )
     }

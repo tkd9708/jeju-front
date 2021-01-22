@@ -1,5 +1,8 @@
 import React,{Component} from 'react';
 import axios from 'axios';
+import {URL} from '../../../redux/config';
+import store from "../../../redux/store";
+import {actionType, mainViewType} from "../../../redux/config";
 
 class DetailReviewComp extends Component {
 
@@ -11,7 +14,35 @@ class DetailReviewComp extends Component {
         }
 
         this.contentsid = this.props.contentsid;
+        this.url = window.location.href.split("/").reverse()[1];
 
+    }
+
+    setMainView = (mainView) => {
+        console.log("Home setMainView()");
+        store.dispatch({
+            type: actionType.setMainView,
+            // mainView: mainViewType.MainPage
+            mainView: mainView
+        });
+    }
+
+    componentWillMount(){
+        //const url = window.location.href.split("/").reverse();
+        console.log("투어디테일 페이지 willMount : " + this.url);
+        
+    }
+
+    componentWillUnmount(){
+        console.log("투어디테일 페이지 willunMount");
+    }
+
+    componentDidUpdate(){
+        console.log("투어디테일 페이지 DidUpdate : " + window.location.href);
+        const changeUrl = window.location.href.split("/").reverse()[1];
+        if(this.url != changeUrl){
+            this.setMainView(mainViewType.TourList);
+        }
     }
 
     changeHandler=(e)=>{
@@ -26,8 +57,8 @@ class DetailReviewComp extends Component {
         let content = this.state.content;
         let contentsid = this.contentsid;
 
-        let url = "http://localhost:9002/sreview/insert";
-        //let url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/sreview/insert";
+        //let url = "http://localhost:9002/sreview/insert";
+        let url = URL + "/sreview/insert";
 
         axios.post(url, {contentsid, memNum, star, content})
             .then(res=>{
