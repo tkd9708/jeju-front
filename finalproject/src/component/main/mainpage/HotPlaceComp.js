@@ -25,74 +25,74 @@ class HotPlaceComp extends Component {
                 hotPlaceComp
                 <br/>
                 {this.props.name}<br/>
-                <NavLink exact to="/TourList/jeju"
+                <NavLink exact to="/tourlist/jeju"
                                  onClick={() => {
                                      console.log("TourList NavLink onClick");
                                      this.setMainView(mainViewType.TourList);
                                  }}
                         >제주</NavLink>
-                <NavLink exact to="/TourList/jocheon"
+                <NavLink exact to="/tourlist/jocheon"
                                  onClick={() => {
                                      console.log("TourList NavLink onClick");
                                      this.setMainView(mainViewType.TourList);
                                  }}
                         >조천</NavLink>
-                <NavLink exact to="/TourList/gujwa"
+                <NavLink exact to="/tourlist/gujwa"
                                  onClick={() => {
                                      console.log("TourList NavLink onClick");
                                      this.setMainView(mainViewType.TourList);
                                  }}
                         >구좌</NavLink>
-                <NavLink exact to="/TourList/sungsan"
+                <NavLink exact to="/tourlist/sungsan"
                                  onClick={() => {
                                      console.log("TourList NavLink onClick");
                                      this.setMainView(mainViewType.TourList);
                                  }}
                         >성산</NavLink>
-                <NavLink exact to="/TourList/namwon"
+                <NavLink exact to="/tourlist/namwon"
                                  onClick={() => {
                                      console.log("TourList NavLink onClick");
                                      this.setMainView(mainViewType.TourList);
                                  }}
                         >남원</NavLink>
-                <NavLink exact to="/TourList/seogwipo"
+                <NavLink exact to="/tourlist/seogwipo"
                                  onClick={() => {
                                      console.log("TourList NavLink onClick");
                                      this.setMainView(mainViewType.TourList);
                                  }}
                         >서귀포</NavLink>
                         <br/>
-                <NavLink exact to="/TourList/andeok"
+                <NavLink exact to="/tourlist/andeok"
                                  onClick={() => {
                                      console.log("TourList NavLink onClick");
                                      this.setMainView(mainViewType.TourList);
                                  }}
                         >안덕</NavLink>
-                <NavLink exact to="/TourList/daejung"
+                <NavLink exact to="/tourlist/daejung"
                                  onClick={() => {
                                      console.log("TourList NavLink onClick");
                                      this.setMainView(mainViewType.TourList);
                                  }}
                         >대정</NavLink>
-                <NavLink exact to="/TourList/hangyeong"
+                <NavLink exact to="/tourlist/hangyeong"
                                  onClick={() => {
                                      console.log("TourList NavLink onClick");
                                      this.setMainView(mainViewType.TourList);
                                  }}
                         >한경</NavLink>
-                <NavLink exact to="/TourList/hanrim"
+                <NavLink exact to="/tourlist/hanrim"
                                  onClick={() => {
                                      console.log("TourList NavLink onClick");
                                      this.setMainView(mainViewType.TourList);
                                  }}
                         >한림</NavLink>
-                <NavLink exact to="/TourList/aewol"
+                <NavLink exact to="/tourlist/aewol"
                                  onClick={() => {
                                      console.log("TourList NavLink onClick");
                                      this.setMainView(mainViewType.TourList);
                                  }}
                         >애월</NavLink>
-                <NavLink exact to="/TourList/udo"
+                <NavLink exact to="/tourlist/udo"
                                  onClick={() => {
                                      console.log("TourList NavLink onClick");
                                      this.setMainView(mainViewType.TourList);

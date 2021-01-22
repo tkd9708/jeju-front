@@ -5,11 +5,11 @@ class FooterComp extends Component {
 
     constructor(props) {
         super(props);
-        console.log("FooterComp constructor", props);
+        // console.log("FooterComp constructor", props);
     }
 
     render() {
-        console.log("FooterComp render()", this.props);
+        // console.log("FooterComp render()", this.props);
         return (
             <div className="footerComp">
                 <hr/>

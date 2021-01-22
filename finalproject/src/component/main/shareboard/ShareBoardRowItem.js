@@ -1,22 +1,16 @@
 import React, {Component,useState} from "react";
 import {Route, Link} from "react-router-dom";
 import ShareBoardUpdateForm from "./ShareBoardUpdateForm";
-import Modal from './modal';
-
+import Modal from './Modal';
 import axios from "axios";
-
-
-
-
-
-
-
+import ShareReview from './ShareReview';
 
 
 class ShareBoardRowItem extends Component {
 
      state={
         modalOpen:false
+        
      }
 
     constructor(props){
@@ -36,19 +30,25 @@ class ShareBoardRowItem extends Component {
         // })
     }
 
+    onInsertData=()=>{
+
+    }
+
      openModal = () => {
          this.setState({ modalOpen: true })
      }
+
      closeModal = () => {
          this.setState({ modalOpen: false })
      }
 
+     componentDidUpdate(){
+        console.log("state변경");
+     }
 
     render() {
         const {row}=this.props;
     
-    
-
         return (
             <div>
                  <React.Fragment>
@@ -107,63 +107,78 @@ class ShareBoardRowItem extends Component {
                     </div>  
                   
                    
-                    
-                    {/* //header 부분에 텍스트를 입력한다. */}
-                    <Modal open={ this.state.modalOpen } close={ this.closeModal.bind(this) } header="맛집이름">
-
-                     {/* // Modal.js <main> { props.children } </main>에 내용이 입력된다.  */}
-                     <div style={{border:'1px solid black', width:'420px',height:'700px'}} margin="auto">
-                         
-                         <div style={{borderBottom:'1px solid black',height:'50px'}}>
-                         
-                            <div style={{float:"left"}}>(작성자) 님이 공유하신 맛집입니다.</div>
-                         
-                            <div style={{float:"right"}}>
-                                <input type="button" value="찜하기"/>
-
-                            </div>
-
-                         </div>
-
-                         <div style={{borderBottom:'1px solid black', width:'420px',height:'200px'}}>{row.photo}</div>
-
-                         
-                         <div style={{borderBottom:'1px solid black',width:'420px',height:'300px'}}>
-                            <div>평점:{row.star}</div>
-
-                            <div>주소:{row.addr}</div>
-
-                            <div>리뷰:{row.content}</div>
-
-                            <div>작성일:{row.writeday}</div>
-                         </div>
-
-                         <b>댓글------------------------------------------------------</b>
-
-                         <div style={{width:'420px'}}>
-                         
-                            <div style={{float:'left',marginTop:'20px'}}>
-                         
-                               <div style={{float:'left',marginRight:'20px',marginBottom:'20px'}}>id</div>
-                         
-                               <div style={{float:'left'}}>
-                                   <input type="button" className="glyphicon glyphicon-camera" value="이미지"/>
-                               </div>
-                        
-                               <div style={{float:'left'}}>
-                                   <textarea placeholder="댓글을 입력하세요" style={{width:'350px'}}/>
-                                   <input type="button" value="저장" style={{float:'right'}}/>
-                               </div>
-  
-                            </div>
-
-                        </div>
-                     </div>
-                     </Modal>
-                     
- 
-                    
             </div>
+
+            {/* //header 부분에 텍스트를 입력한다. */}
+            <Modal open={ this.state.modalOpen } close={ this.closeModal.bind(this) } title="share">
+
+{/* // Modal.js <main> { props.children } </main>에 내용이 입력된다.  */}
+<div style={{border:'1px solid black', width:'1150px',height:'700px',margin:'auto'}}>
+    
+    <div style={{borderBottom:'1px solid black',height:'50px'}}>
+    
+       <div style={{float:"left"}}><input type="button" value="좋아요"/></div>
+       
+       <div style={{float:"left"}}>(작성자) 님이 공유하신 맛집입니다.</div>
+    
+       <div style={{float:"right"}}>
+           <input type="button" value="찜하기"/>
+
+       </div>
+
+    </div>
+
+    <div style={{borderBottom:'1px solid black',width:'1150px',height:'400px'}}>
+       
+       <div style={{borderBottom:'1px solid black',borderRight:'1px solid black',width:'550px',height:'400px',float:'left'}}>{row.photo}</div>
+
+    
+       <div style={{borderLeft:'1px solid black', width:'600x', float:'right'}}>
+          <div style={{width:'550px',height:'50px'}}>평점:{row.star}</div>
+
+          <div style={{width:'550px',height:'50px'}}>주소:{row.addr}</div>
+
+          <div style={{width:'550px',height:'200px', marginTop:'50px'}}>리뷰:{row.content}</div>
+
+          <div style={{width:'550px',height:'50px'}}>작성일:{row.writeday}</div>
+       </div>
+   
+   </div>
+
+
+   
+
+    <div style={{borderBottom:'1px solid black',width:'1150px',height:'130px',marginTop:'20px'}}>
+  
+    
+     
+       <div style={{marginLeft:"20px"}}>
+          <div style={{float:'left'}}>id</div>
+    
+          <div style={{float:'left',marginRight:'100px'}} >
+              <input type="button" className="glyphicon glyphicon-camera" value="이미지"/>
+          </div>
+       </div>
+   
+          <div>
+              <div>
+              <textarea placeholder="댓글을 입력하세요" style={{width:'800px',height:'100px',float:'left'}}/>
+              </div>
+              <div style={{float:'left',marginLeft:'50px'}}>
+              <button type="button" onClick={this.onInsertData.bind(this)}>저장</button>
+              </div>
+          </div>
+
+   </div>
+
+          <div>
+              <ShareReview regroup={row.regroup}/>
+          </div>
+
+
+   
+</div>
+</Modal>
             </React.Fragment>
                
                      

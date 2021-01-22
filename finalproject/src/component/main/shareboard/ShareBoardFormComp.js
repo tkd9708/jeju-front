@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import { Route,Link } from "react-router-dom";
 import ShareBoardPageComp from "./ShareBoardPageComp";
 import axios from "axios";
+import {URL} from '../../../redux/config';
 
 
 
@@ -23,7 +24,8 @@ class ShareBoardFormComp extends Component {
          const upload=new FormData();
          upload.append("uploadFile", uploadFile);
          
-          let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot8/share/upload";
+         let url = URL + "/share/upload";
+          //let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot8/share/upload";
 
           axios({
              method: 'post',

@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Route, Link} from "react-router-dom";
 import ShareBoardFormComp from "./ShareBoardFormComp";
 import ShareBoardRowItem from "./ShareBoardRowItem";
+import {URL} from '../../../redux/config';
 import axios from "axios";
 
 
@@ -24,7 +25,9 @@ class ShareBoardPageComp extends Component {
 
 
     list=()=>{
-        let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot8/share/list?start=0&perPage=3";
+
+        // let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot8/share/list?start=0&perPage=3";
+        let url = URL + "/share/list?start=0&perPage=3";
         
         console.log(url);
         axios.get(url)

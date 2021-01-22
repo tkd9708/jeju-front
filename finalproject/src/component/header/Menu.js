@@ -11,7 +11,7 @@ class Menu extends Component {
 
     constructor(props) {
         super(props);
-        console.log("Menu constructor ", this.props)
+        // console.log("Menu constructor ", this.props)
 
         this.state = {
             type: this.props.type,
@@ -34,7 +34,7 @@ class Menu extends Component {
         // 따라서 전역적인 상태가 필요하다.
 
         const {logged, onLogout} = this.props;
-        console.log("Menu render ", this.props);
+        // console.log("Menu render ", this.props);
 
         var className_div_menu = `${this.state.type} menu`;
 
@@ -49,14 +49,11 @@ class Menu extends Component {
                                  }}
                         >
                             Home
-                            {/*<img src={Logo2}*/}
-                            {/*     style={{width: "150px"}}*/}
-                            {/*     alt="logo2"/>*/}
                         </NavLink>
                     </li>
 
                     <li>
-                        <NavLink exact to="/Admin"
+                        <NavLink exact to="/admin"
                                  onClick={() => {
                                      console.log("Admin NavLink onClick");
                                      this.setMainView(mainViewType.Admin);
@@ -65,13 +62,14 @@ class Menu extends Component {
                     </li>
                     <li>
                         {logged ?
-                            <NavLink exact to="/" onClick={() => {
-                                onLogout();
-                                console.log("Logout NavLink onClick");
-                                this.setMainView(mainViewType.Logout);
-                            }}>Logout</NavLink>
+                            <NavLink exact to="/"
+                                     onClick={() => {
+                                         onLogout();
+                                         console.log("Logout NavLink onClick");
+                                         this.setMainView(mainViewType.Logout);
+                                     }}>Logout</NavLink>
                             :
-                            <NavLink exact to="/Login"
+                            <NavLink exact to="/login"
                                      onClick={() => {
                                          console.log("Login NavLink onClick");
                                          this.setMainView(mainViewType.Login);
@@ -80,8 +78,7 @@ class Menu extends Component {
                         }
                     </li>
                     <li>
-                        {/*&nbsp;&nbsp;&nbsp;*/}
-                        <NavLink exact to="/Join"
+                        <NavLink exact to="/join"
                                  onClick={() => {
                                      console.log("Join NavLink onClick");
                                      this.setMainView(mainViewType.JoinForm);
@@ -89,7 +86,7 @@ class Menu extends Component {
                         >Join</NavLink>
                     </li>
                     <li>
-                        <NavLink exact to="/MyPage"
+                        <NavLink exact to="/mypage"
                                  onClick={() => {
                                      console.log("Mypage NavLink onClick");
                                      this.setMainView(mainViewType.MyPage);
@@ -97,7 +94,7 @@ class Menu extends Component {
                         >MyPage</NavLink>
                     </li>
                     <li>
-                        <NavLink exact to="/ShareBoard"
+                        <NavLink exact to="/share"
                                  onClick={() => {
                                      console.log("ShareBoard NavLink onClick");
                                      this.setMainView(mainViewType.ShareBoard);
@@ -105,7 +102,7 @@ class Menu extends Component {
                         >Share</NavLink>
                     </li>
                     <li>
-                        <NavLink exact to="/TourList"
+                        <NavLink exact to="/tour"
                                  onClick={() => {
                                      console.log("Tour NavLink onClick");
                                      this.setMainView(mainViewType.TourList);
@@ -113,7 +110,7 @@ class Menu extends Component {
                         >Tour</NavLink>
                     </li>
                     <li>
-                        <NavLink exact to="/Notice"
+                        <NavLink exact to="/notice"
                                  onClick={() => {
                                      console.log("Notice NavLink onClick");
                                      this.setMainView(mainViewType.Notice);
@@ -121,15 +118,13 @@ class Menu extends Component {
                         >Notice</NavLink>
                     </li>
                     <li>
-                        <NavLink exact to="/Reservation"
+                        <NavLink exact to="/reservation"
                                  onClick={() => {
                                      console.log("Reservation NavLink onClick");
                                      this.setMainView(mainViewType.Reservation);
                                  }}
                         >Reservation</NavLink>
                     </li>
-
-
                 </ul>
 
                 {/*<hr style={{clear: 'both'}}/>*/}

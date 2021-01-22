@@ -1,22 +1,25 @@
 import React, {Component} from "react";
-import MainComp from "./component/main/MainComp";
-import FooterComp from "./component/footer/FooterComp";
-import HeaderComp from "./component/header/HeaderComp";
 import {
-    BrowserRouter
+    BrowserRouter,
+    Route,
+    Switch
 } from "react-router-dom";
-import styled from "styled-components";
 import Menu from "./component/header/Menu";
 import gsap from "gsap";
 import "./App.css";
-import {NavLink, Route} from "react-router-dom";
-import {Home, Login, ShareBoard, MyPage, Notice, Reservation, Admin, TourList, Tour} from './component/header/menus';
+// import {NavLink, Route} from "react-router-dom";
+// import {Home, Login, ShareBoard, MyPage, Notice, Reservation, Admin, TourList, Tour} from './component/header/menus';
+
 import MainPageComp from "./component/main/mainpage/MainPageComp";
 import ReservationPageComp from "./component/main/reservation/ReservationPageComp";
 import NoticePageComp from "./component/main/notice/NoticePageComp";
 import ShareBoardPageComp from "./component/main/shareboard/ShareBoardPageComp";
 import LoginPageComp from "./component/main/auth/LoginPageComp";
 import MemberListPageComp from "./component/main/admin/MemberListPageComp";
+import MypagePageComp from "./component/main/mypage/MypagePageComp";
+import TourPageComp from "./component/main/tour/TourPageComp";
+import SignupPageComp from "./component/main/join/SignupPageComp";
+import FooterComp from "./component/footer/FooterComp";
 
 class App extends Component {
     constructor(props) {
@@ -32,11 +35,11 @@ class App extends Component {
         }
 
         window.onmousewheel = function (e) {
-            console.log(window.scrollY);
+            // console.log(window.scrollY);
             this.showHeader(window.scrollY);
         }.bind(this);
         window.onscroll = function (e) {
-            console.log(window.scrollY);
+            // console.log(window.scrollY);
             this.showHeader(window.scrollY);
         }.bind(this);
 
@@ -90,44 +93,49 @@ class App extends Component {
                       onLogout={onLogout}
                       type="hide"
                 />
+                <Menu logged={logged}
+                      onLogout={onLogout}
+                      type="normal"
+                />
                 <div className="mainFrame">
-                    <HeaderComp logged={logged}
-                                onLogout={onLogout}
-                    />
-                    <MainComp
-                    />
+                    <Switch>
+                        <Route exact path="/">
+                            <MainPageComp/>
+                        </Route>
+                        <Route  path="/admin/:name?">
+                            <MemberListPageComp/>
+                        </Route>
+                        <Route  path="/login/:name?">
+                            <LoginPageComp/>
+                        </Route>
+                        <Route  path="/join/:name?">
+                            <SignupPageComp/>
+                        </Route>
+                        <Route  path="/mypage/:name?">
+                            <MypagePageComp/>
+                        </Route>
+                        <Route  path="/share/:name?">
+                            <ShareBoardPageComp/>
+                        </Route>
+                        <Route  path="/tour/:name?">
+                            <TourPageComp/>
+                        </Route>
+                        <Route  path="/notice/:name?">
+                            <NoticePageComp/>
+                        </Route>
+                        <Route  path="/reservation/:name?">
+                            <ReservationPageComp/>
+                        </Route>
+
+                        <Route  path="/tourlist/:name?">
+                            <TourPageComp/>
+                        </Route>
+                    </Switch>
                     <FooterComp/>
                 </div>
-                <Route exact path="/" component={MainPageComp}>
-                    {/*<Home></Home>*/}
-                </Route>
-                <Route exact path="/Reservation/:name?" component={ReservationPageComp}>
-                    {/*<Reservation></Reservation>*/}
-                </Route>
-                <Route exact path="/Notice/:name?" component={NoticePageComp}>
-                    {/*<Notice></Notice>*/}
-                </Route>
-
-                <Route exact path="/TourList/:name?" component={TourList}></Route>
-                {/* <Route exact path="/TourList/:name?" component={TourPageComp}></Route> */}
-                <Route exact path="/Tour/:name?" component={Tour}></Route>
-
-                <Route exact path="/ShareBoard/:name?" component={ShareBoardPageComp}>
-                    {/*<ShareBoard></ShareBoard>*/}
-                </Route>
-                <Route exact path="/MyPage/:name?" component={MyPage}>
-                    {/*<MyPage></MyPage>*/}
-                </Route>
-                <Route exact path="/Login/:name?" component={LoginPageComp}>
-                    {/*<Login></Login>*/}
-                </Route>
-                <Route exact path="/Admin:name?" component={MemberListPageComp}>
-                    {/*<Admin></Admin>*/}
-                </Route>
             </BrowserRouter>
         )
     }
-
 }
 
 export default App;
