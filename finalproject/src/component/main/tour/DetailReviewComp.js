@@ -14,36 +14,36 @@ class DetailReviewComp extends Component {
         }
 
         this.contentsid = this.props.contentsid;
-        this.url = window.location.href.split("/").reverse()[1];
+       // this.url = window.location.href.split("/").reverse()[1];
 
     }
 
-    setMainView = (mainView) => {
-        console.log("Home setMainView()");
-        store.dispatch({
-            type: actionType.setMainView,
-            // mainView: mainViewType.MainPage
-            mainView: mainView
-        });
-    }
+    // setMainView = (mainView) => {
+    //     console.log("Home setMainView()");
+    //     store.dispatch({
+    //         type: actionType.setMainView,
+    //         // mainView: mainViewType.MainPage
+    //         mainView: mainView
+    //     });
+    // }
 
-    componentWillMount(){
-        //const url = window.location.href.split("/").reverse();
-        console.log("투어디테일 페이지 willMount : " + this.url);
+    // componentWillMount(){
+    //     //const url = window.location.href.split("/").reverse();
+    //     console.log("투어디테일 페이지 willMount : " + this.url);
         
-    }
+    // }
 
-    componentWillUnmount(){
-        console.log("투어디테일 페이지 willunMount");
-    }
+    // componentWillUnmount(){
+    //     console.log("투어디테일 페이지 willunMount");
+    // }
 
-    componentDidUpdate(){
-        console.log("투어디테일 페이지 DidUpdate : " + window.location.href);
-        const changeUrl = window.location.href.split("/").reverse()[1];
-        if(this.url != changeUrl){
-            this.setMainView(mainViewType.TourList);
-        }
-    }
+    // componentDidUpdate(){
+    //     console.log("투어디테일 페이지 DidUpdate : " + window.location.href);
+    //     const changeUrl = window.location.href.split("/").reverse()[1];
+    //     if(this.url != changeUrl){
+    //         this.setMainView(mainViewType.TourList);
+    //     }
+    // }
 
     changeHandler=(e)=>{
         this.setState({

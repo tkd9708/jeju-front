@@ -6,6 +6,7 @@ import PageComp from "./PageComp";
 import './TourCss.css';
 import Tourintro from './Tourintro';
 import {URL} from '../../../redux/config';
+import Box from '@material-ui/core/Box';
 
 class TourPageComp extends Component {
 
@@ -92,13 +93,13 @@ class TourPageComp extends Component {
         
     }
 
-    componentWillUnmount(){
-        console.log("투어 페이지 willunMount");
-    }
+    // componentWillUnmount(){
+    //     console.log("투어 페이지 willunMount");
+    // }
 
-    componentDidUpdate(){
-        console.log("투어 페이지 DidUpdate");
-    }
+    // componentDidUpdate(){
+    //     console.log("투어 페이지 DidUpdate");
+    // }
 
     paginate = (num) => {
         
@@ -120,7 +121,6 @@ class TourPageComp extends Component {
                 <Tourintro area={this.state.area}/>
 
                 <br/><br/>
-                {this.state.area}
                 
                 <select onChange={this.selectChange.bind(this)} value={this.select} style={{float: 'right'}}>
                     <option value="star">평점순</option>
@@ -130,9 +130,19 @@ class TourPageComp extends Component {
 
                 <br/><br/>
                 {/* list 출력 */}
-                {this.state.spotList.map((row,idx)=>(
+                <Box
+                    display="flex"
+                    flexWrap="nowrap"
+                    p={1}
+                    m={1}
+                    bgcolor="background.paper"
+                    css={{ maxWidth: 300 }}
+                >
+                    {this.state.spotList.map((row,idx)=>(
                     <ItemComp row={row} key={idx} history={this.props.history}></ItemComp>
-                ))} 
+                    ))}
+                </Box>
+                 
 
                 {/* 페이징 */}
                 <PageComp area={this.state.area} startPage={this.startPage} endPage={this.endPage} currentPage={this.currentPage} 

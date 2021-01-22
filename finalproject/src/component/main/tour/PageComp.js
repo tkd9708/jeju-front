@@ -5,12 +5,12 @@ class PageComp extends Component {
     render() {
         const{startPage, endPage, currentPage, totalPage, paginate} = this.props;
 
-        let prev = startPage>1?<li class="page-item"><a class="page-link" onClick={(e)=>{
+        let prev = startPage>1?<li className="page-item"><a className="page-link" onClick={(e)=>{
             e.preventDefault();
             this.props.paginate(startPage - 1);
         }}>◀</a></li>:"";
 
-        let next = endPage < totalPage?<li class="page-item"><a class="page-link" onClick={(e)=>{
+        let next = endPage < totalPage?<li className="page-item"><a className="page-link" onClick={(e)=>{
             e.preventDefault();
             this.props.paginate(endPage + 1);
         }}>▶</a></li>:"";
@@ -20,7 +20,7 @@ class PageComp extends Component {
             page.push(i);
         }
         let pages = page.map(function(num,idx){
-            return <li class="page-item"><a class="page-link" style={{color : num==currentPage?"red":"black"}} onClick={(e)=>{
+            return <li className="page-item"><a className="page-link" style={{color : num==currentPage?"red":"black"}} onClick={(e)=>{
                 e.preventDefault();
                 paginate(num);
             }}>{num}</a></li>
@@ -29,7 +29,7 @@ class PageComp extends Component {
         return (
             <div>
                 {/* {startPage},{endPage},{totalPage} */}
-                <ul class="pagination">
+                <ul className="pagination">
                     {prev}
                     {pages}
                     {next}

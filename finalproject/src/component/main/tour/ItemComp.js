@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import {NavLink, Route} from "react-router-dom";
 import store from "../../../redux/store";
 import {actionType, mainViewType} from "../../../redux/config";
+import './TourCss.css';
+import Box from '@material-ui/core/Box';
 
 class ItemComp extends Component {
 
@@ -18,18 +20,16 @@ class ItemComp extends Component {
         const url = "/Tour/" + row.contentsid; 
 
         return (
-            <div>
+            <Box p={1}>
                 <NavLink exact to={url}
-                                 onClick={() => {
-                                     this.setMainView(mainViewType.Tour);
-                                 }}>
-                                     <img style={{width: '100px', height: '100px'}} src={row.thumbnail}></img><br/>
-                                        title : {row.title}<br/>
-                                        addr : {row.roadaddr}<br/>
-                                 </NavLink>
-                    
-                <hr/>
-            </div>
+                             onClick={() => {
+                                 this.setMainView(mainViewType.Tour);
+                             }}>
+                                 <img style={{width: '200px', height: '200px'}} src={row.thumbnail}></img><br/>
+                                    title : {row.title}<br/>
+                                    addr : {row.roadaddr}<br/>
+                            </NavLink>
+            </Box>
         );
     }
 }
