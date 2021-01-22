@@ -1,7 +1,7 @@
 import React, { Component,useState } from 'react';
 import './modal.css'
 
-class modal extends Component {
+class Modal extends Component {
     render() {
         // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
         const { open, close, header } = this.props;
@@ -12,14 +12,14 @@ class modal extends Component {
                     <section>
                         <header>
                             { header }
-                            <button className="close" onClick={close}> &times; </button>
+                            <button className="close" onClick={close} > &times; </button>
                         </header>
                         <main>
                             {this.props.children}
                         </main>
-                        <footer>
-                            <button className="close" onClick={close}> close </button>
-                        </footer>
+                        {/* <footer>
+                            <button className="close" onClick={close}> 댓글목록 </button>
+                        </footer> */}
                     </section>
                 ) : null }
             </div>
@@ -27,4 +27,4 @@ class modal extends Component {
     }
 }
 
-export default modal;
+export default Modal;

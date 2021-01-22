@@ -3,6 +3,7 @@ import axios from 'axios';
 import ReviewItemComp from './ReviewItemComp';
 import PageComp from "./PageComp";
 import DetailReviewComp from "./DetailReviewComp";
+import {URL} from '../../../redux/config';
 
 class ReviewListComp extends Component {
 
@@ -48,8 +49,7 @@ class ReviewListComp extends Component {
         
         this.no = this.totalCount-(this.currentPage - 1) * this.perPage;
 
-        const url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/sreview/list?start=" + this.start 
-            + "&perPage=" + this.perPage + "&contentsid=" + this.contentsid;
+        const url = URL + "/sreview/list?start=" + this.start + "&perPage=" + this.perPage + "&contentsid=" + this.contentsid;
 
         axios.get(url)
             .then(res=>{
@@ -62,7 +62,7 @@ class ReviewListComp extends Component {
     }
 
     getTotalCount=()=>{
-        let url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/sreview/count?contentsid=" + this.contentsid;
+        let url = URL + "/sreview/count?contentsid=" + this.contentsid;
 
         axios.get(url)
             .then(res=>{

@@ -2,7 +2,7 @@
 import React, {Component} from "react";
 import MemberUpdateFormComp from "./MemberUpdateFormComp";
 import axios from 'axios';
-import { Route,Link } from "react-router-dom";
+import {Route, Link} from "react-router-dom";
 import {URL} from "../../../redux/config";
 import MySchedule from './MySchedule';
 
@@ -12,27 +12,62 @@ class MypagePageComp extends Component {
         super(props);
         console.log("MypagePageComp constructor", props);
 
+<<<<<<< HEAD
 
         this.state={
             memberData:[],
+=======
+        this.state = {
+            memberData: [],
+            reviewList: [],
+            pageNum: '0'
+>>>>>>> 7457f2317fa0526834bbf1ea37eecc60d74e9afd
         }
     }
-    
+
     // 스프링에서 목록 가져오기
-    getData = () => {
+    // member
+    getMyData = () => {
         let url = URL + '/member/getdata?id=sanghee';
         axios.get(url)
-        .then(response=>{
-            this.setState({
-                memberData:response.data
-            })
-        }).catch(err=>{
-            console.log("목록 오류:"+err);
+            .then(response => {
+                this.setState({
+                    memberData: response.data
+                })
+            }).catch(err => {
+            console.log("목록 오류:" + err);
         })
     }
-    componentDidMount() {
-        this.getData(); //처음 시작시 백엔드로부터 데이타 가져오기
+    getMyReview = () => {
+        let url = URL + '/reivew/getdata?id=sanghee';
+        axios.get(url)
+            .then(response => {
+                this.setState({
+                    reviewList: response.data
+                })
+            }).catch(err => {
+            console.log("목록 오류:" + err);
+        })
     }
+
+    // getWishlist = () => {
+    //     let url = URL + '/reivew/getdata?id=sanghee';
+    //     axios.get(url)
+    //     .then(response=>{
+    //         this.setState({
+    //             reviewList:response.data
+    //         })
+    //     }).catch(err=>{
+    //         console.log("목록 오류:"+err);
+    //     })
+    // }
+
+    componentDidMount() {
+        this.getMyData(); //처음 시작시 백엔드로부터 데이타 가져오기
+        this.getMyReview();
+        //this.getWishlist();
+    }
+
     render() {
         return (
 
@@ -41,10 +76,10 @@ class MypagePageComp extends Component {
                 <table>
                     <tr>
                         <div>
-                        <Link to="./mypage/MemberUpdateFormComp">
-                        <button type="button">정보수정</button>
-                        </Link>
-                        <Route exact path="/mypage/MemberUpdateFormComp" component={MemberUpdateFormComp} />
+                            <Link to="./mypage/MemberUpdateFormComp">
+                                <button type="button">정보수정</button>
+                            </Link>
+                            <Route exact path="/mypage/MemberUpdateFormComp" component={MemberUpdateFormComp}/>
                         </div>
                         <span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;<b>I D &nbsp;:&nbsp;&nbsp; </b>
                         {this.state.memberData.id}<br/>
@@ -61,10 +96,14 @@ class MypagePageComp extends Component {
                 <h1><b>나의 일정</b></h1>
                     <MySchedule></MySchedule>
                 <h1><b>나의 리뷰</b></h1>
+                <table>
+                    <tr>
+                        <span class="glyphicon glyphicon-leaf"/>
+                    </tr>
+                </table>
             </div>
         )
     }
-
 }
 
 export default MypagePageComp;
