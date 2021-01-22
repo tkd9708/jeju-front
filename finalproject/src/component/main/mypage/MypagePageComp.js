@@ -12,11 +12,14 @@ class MypagePageComp extends Component {
 
         this.state={
             memberData:[],
+            reviewList: [],
+            pageNum : '0'
         }
     }
     
     // 스프링에서 목록 가져오기
-    getData = () => {
+    // member
+    getMyData = () => {
         let url = URL + '/member/getdata?id=sanghee';
         axios.get(url)
         .then(response=>{
@@ -27,8 +30,34 @@ class MypagePageComp extends Component {
             console.log("목록 오류:"+err);
         })
     }
+    getMyReview = () => {
+        let url = URL + '/reivew/getdata?id=sanghee';
+        axios.get(url)
+        .then(response=>{
+            this.setState({
+                reviewList:response.data
+            })
+        }).catch(err=>{
+            console.log("목록 오류:"+err);
+        })
+    }
+
+    // getWishlist = () => {
+    //     let url = URL + '/reivew/getdata?id=sanghee';
+    //     axios.get(url)
+    //     .then(response=>{
+    //         this.setState({
+    //             reviewList:response.data
+    //         })
+    //     }).catch(err=>{
+    //         console.log("목록 오류:"+err);
+    //     })
+    // }
+
     componentDidMount() {
-        this.getData(); //처음 시작시 백엔드로부터 데이타 가져오기
+        this.getMyData(); //처음 시작시 백엔드로부터 데이타 가져오기
+        this.getMyReview(); 
+        //this.getWishlist();
     }
     render() {
         console.log("MypagePageComp render()", this.props);
@@ -58,6 +87,11 @@ class MypagePageComp extends Component {
                 <h1><b>나의 일정</b></h1>
 
                 <h1><b>나의 리뷰</b></h1>
+                <table>
+                    <tr>
+
+                    </tr>
+                </table>
             </div>
         )
     }
