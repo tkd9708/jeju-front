@@ -4,6 +4,8 @@ import GoogleLoginBtnComp from "./GoogleLoginBtnComp";
 import GoogleLogoutBtnComp from "./GoogleLogoutBtnComp";
 import store from "../../../redux/store";
 import { URL, actionType, mainViewType } from "../../../redux/config";
+import NaverLoginBtnComp from "./NaverLoginBtnComp";
+import FaceBookLoginBtnComp from "./FaceBookLoginBtnComp";
 
 class LoginPageComp extends Component {
 
@@ -114,6 +116,11 @@ class LoginPageComp extends Component {
                 </h5>
                 <GoogleLoginBtnComp />
                 <GoogleLogoutBtnComp />
+                <br />
+                <br />
+                <NaverLoginBtnComp />
+                <br />
+                <FaceBookLoginBtnComp />
             </div>
         )
     }

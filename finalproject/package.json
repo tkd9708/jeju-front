@@ -9,11 +9,13 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "components-extra": "^3.1.3",
-    "gsap": "^3.6.0",
+    "gsap": "3.6.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-facebook-login": "4.1.1",
     "react-google-login": "^5.2.2",
+    "react-icons": "4.1.0",
     "react-redux": "7.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
@@ -51,5 +53,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:9002"
+  "proxy": "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot8/"
 }
