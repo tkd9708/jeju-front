@@ -80,10 +80,11 @@ class MainPhotoComp extends Component {
                     <img className="mainPhotoComp_img4" src={udo1}/>
                 </div>
                 <MuiThemeProvider theme={theme}>
-                    <WaveBorder 
+                    <WaveBorder
                         upperColor="#FFFFFF"
-                        lowerColor={theme.palette.common.darkBlack}
+                        lowerColor="#FFD700"//{theme.palette.common.darkBlack}
                         animationNegativeDelay={4}
+                        className="wave"
                     />
                 </MuiThemeProvider>
             </>
