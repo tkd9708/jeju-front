@@ -4,6 +4,7 @@ import axios from 'axios';
 import DetailReviewComp from './DetailReviewComp';
 import MapComp from './MapComp';
 import ReviewListComp from './ReviewListComp';
+import {URL} from '../../../redux/config';
 
 class DetailTourComp extends Component {
 
@@ -25,7 +26,7 @@ class DetailTourComp extends Component {
     }
 
     getData=()=>{
-        const url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/spot/select?contentsid=" + this.state.contentsid;
+        const url = URL + "/spot/select?contentsid=" + this.state.contentsid;
 
         axios.get(url)
             .then(res=>{

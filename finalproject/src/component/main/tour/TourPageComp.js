@@ -1,10 +1,11 @@
-import React, {Component} from "react";
+import React, {Component, useEffect, useState} from "react";
 import store from "../../../redux/store";
 import ItemComp from "./ItemComp";
 import axios from "axios";
 import PageComp from "./PageComp";
 import './TourCss.css';
 import Tourintro from './Tourintro';
+import {URL} from '../../../redux/config';
 
 class TourPageComp extends Component {
 
@@ -17,6 +18,10 @@ class TourPageComp extends Component {
     constructor(props) {
         super(props);
 
+        //const { history, location } = this.props;
+        //console.log("Tour url 출력 : " + this.location.pathname);
+        //console.log("Tour Page props 출력 : " + history + location.state);
+
         store.subscribe(function () {
             console.log("TourPageComp subscribe()");
             this.setState({
@@ -24,6 +29,7 @@ class TourPageComp extends Component {
             });
         }.bind(this));
 
+        console.log("tour page : " + this.state.area);
         this.currentPage=1;
         this.totalCount=0;
         this.perPage = 12; // 한페이지당 보여질 글의 갯수
@@ -55,7 +61,7 @@ class TourPageComp extends Component {
         
         this.no = this.totalCount-(this.currentPage - 1) * this.perPage;
 
-        let url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/spot/list?start=" + this.start + "&perPage=" + this.perPage + "&label2=" + this.state.area + 
+        let url = URL + "/spot/list?start=" + this.start + "&perPage=" + this.perPage + "&label2=" + this.state.area + 
             "&select=" + this.select;
 
         axios.get(url)
@@ -69,7 +75,7 @@ class TourPageComp extends Component {
     }
 
     getTotalCount=()=>{
-        let url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/spot/count?label2=" + this.state.area;
+        let url = URL + "/spot/count?label2=" + this.state.area;
 
         axios.get(url)
             .then(res=>{
@@ -81,8 +87,17 @@ class TourPageComp extends Component {
     }
 
     componentWillMount(){
+        console.log("투어 페이지 willMount");
         this.getTotalCount();
         
+    }
+
+    componentWillUnmount(){
+        console.log("투어 페이지 willunMount");
+    }
+
+    componentDidUpdate(){
+        console.log("투어 페이지 DidUpdate");
     }
 
     paginate = (num) => {
