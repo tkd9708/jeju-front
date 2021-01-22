@@ -54,10 +54,7 @@ class MypagePageComp extends Component {
             
             <div className="test-layout">
                <div className="RCA-app-container">
-               {/* {this.state.calendarYM.format("YYYY년 MM월") }    
-               <button onClick={()=> this.setState({this.state.today.})>이전달</button>
-               <span>{this.state.today.format("현재 YYYY - MM - DD")}</span>
-                <button>다음달</button> */}
+               
                 <Header calendarYM={this.state.calendarYM.format("YYYY년 MM월")}
                         today={this.state.today.format("현재 YYYY - MM - DD")}
                         moveMonth={this.moveMonth}/>
