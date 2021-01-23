@@ -1,23 +1,27 @@
 import { getSuggestedQuery } from '@testing-library/react';
-import React , { Component, useEffect } from 'react';
+import React , { Component, useEffect, useState } from 'react';
 import reactDOM from 'react-dom';
 import GoogleLogin from 'react-google-login';
 import { refreshTokenSetup } from "./refreshToken";
+import { URL } from "../../../redux/config";
 
+//window에 있는 naver 비구조화 할당하여 선언한다.
+//window객체에서 뽑아야 하는 naver 파라미터는 global로
+//선언해주지않으면사용이불가한다.
 const { naver } = window;
 
+
+
 export default function NaverLoginBtnComp () {
+    
+    const [userData, setUserData] = useState({});
     
     const Login = () => {
         Naver();
         UserProfile();
-        onClose();
     }
 
     useEffect(Login, []);
-    
-       
-
 
     //client_id 와 redirect_uri 등록
     //JavaScript용 라이브러리 동작에 필요한 기본정보를 설정하는 코드
@@ -32,8 +36,8 @@ export default function NaverLoginBtnComp () {
 
         let naverLogin = new naver.LoginWithNaverId({
             clientId: 'dPXRHN5aH3Xl6lXxm7bn',
-            callbackUrl: "http://localhost:3000?naver=true",
-            isPopup: true, // 팝업을 통한 연동처리 여부
+            callbackUrl: "http://localhost:3000/login?naver=true",
+            isPopup: false, // 팝업을 통한 연동처리 여부
             loginButton: {color: "green", type: 3, height: 60},
             callbackHandle: true
             // callback 페이지가 분리되었을 경우에 callback 페이지에서는 callback처리를 해줄수 있도록 설정합니다
@@ -44,27 +48,9 @@ export default function NaverLoginBtnComp () {
         naverLogin.init();
         console.log(naverLogin.getLoginStatus());
 
-        window.addEventListener('load', function() {
-            naverLogin.getLoginStatus(function (status) {
-                if (status && naver) {
-                    // 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크
-                    var email = naverLogin.user.getEmail();
-                    if( email == undefined || email == null ) {
-                        alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
-                        // 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함
-                        naverLogin.reprompt();
-                        return;
-                    }
-                    
-                    window.self.close();
-                    // window.location.replace("http://localhost:3000?naver=true");
-                    window.opener.location.replace("http://localhost:3000?naver=true");
-                } else {
-                    console.log("callback 처리에 실패하였습니다.");
-                    console.log(status);
-                }
-            });
-        });
+        
+
+        
 
         naverLogin.getLoginStatus((status) => {
             if (status) {
@@ -76,10 +62,45 @@ export default function NaverLoginBtnComp () {
                 const id = naverLogin.user.getId();
                 const age = naverLogin.user.getAge();
                 const hp = naverLogin.user.getMobile();
-                console.log(email, name, profileImage, birthday, id, age, hp);
+                console.log("네이버로그인상태 : " + email, name, profileImage, birthday, id, age, hp);
+                
             } else {
                 console.log('AccessToken이 올바르지 않습니다.');
             }
+        });
+
+        window.addEventListener('load', function() {
+            naverLogin.getLoginStatus(function (status) {
+                if (status && naver) {
+                    // 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크
+                    var email = naverLogin.user.getEmail();
+                    var name = naverLogin.user.getNickName();
+                    var profileImage = naverLogin.user.getProfileImage();
+                    var birthday = naverLogin.user.getBirthday();
+                    var id = naverLogin.user.getId();
+                    var age = naverLogin.user.getAge();
+                    var hp = naverLogin.user.getMobile();
+                    
+                    if( email == undefined || email == null ) {
+                        alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
+                        // 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함
+                        naverLogin.reprompt();
+                        return;
+                    }
+                    
+                    alert(email);
+                    alert(name);
+                    alert(profileImage);
+                    alert(birthday);
+                    alert(id);
+                    alert(hp);
+                    // window.location.replace("http://localhost:3000/login?naver=true");
+                    
+                } else {
+                    console.log("callback 처리에 실패하였습니다.");
+                    console.log(status);
+                }
+            });
         });
     }
 
@@ -87,15 +108,31 @@ export default function NaverLoginBtnComp () {
         window.location.href.includes('access_token') && GetUser();
         function GetUser() {
             const location = window.location.href.split('=')[1];
-            console.log(location);
+            console.log("로케이션 : " + location);
+            const token = location.split('&')[0];
+            console.log("token : " + token);
+            fetch(`${URL}/account/sign-in`, {
+                method: "GET",
+                headers : {
+                    "Content-type" : "application/json",
+                    "Authorization" : token
+                },
+            })
+            .then(response => response.json())
+            .then(response => {
+                localStorage.setItem("access_token", response.token);
+                localStorage.setItem("nickname", response.nickname);
+                localStorage.setItem("image",response.image);
+                setUserData({
+                    nickname : response.nickname,
+                    image : response.image
+                })
+            })
+            .catch(err => console.log("err : ", err));
         }
-    }
-
-    const onClose = () => {
-        window.opener = null;
-        window.open("", "_self");
-        window.close();
     };
+
+    
 
     return (
         //네이버 아이디로 로그인 버튼 생성
@@ -104,9 +141,11 @@ export default function NaverLoginBtnComp () {
         //사용 가능한 로그인 버튼은 크기별 3가지 색상별 2가지씩
         //총 6가지가 제공되며 
         //각각 스크립트 내에 loginButton option을 통하여 세팅
+        <>
         <div id="naverIdLogin" onClick={Login}>
             네이버로그인
         </div>
+        </>
     );
 }
 
