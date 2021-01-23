@@ -39,7 +39,6 @@ class MainPhotoComp extends Component {
         // console.log("arrImg:", arrImg);
         // console.log("photoNum", photoNum, "preNum", preNum);
 
-
         //zIndex setting.
         // for (let i = 0; i < imgCnt; i++) {
         //     arrImg[i].style.zIndex = imgCnt - i;

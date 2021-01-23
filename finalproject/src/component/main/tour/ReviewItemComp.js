@@ -6,7 +6,7 @@ class ReviewItemComp extends Component {
 
     render() {
         const {row}=this.props;
-        const photoname = row.photoname=="no"?"":row.photo;
+        const photoname = row.photoname==="no"?"":row.photo;
         return (
             <tr>
                 <td style={{width:'15%'}}>

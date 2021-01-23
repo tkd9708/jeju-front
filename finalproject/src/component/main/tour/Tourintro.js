@@ -24,13 +24,13 @@ class Tourintro extends Component {
 
     render() {
 
-        let img = this.area=="jeju"?<img id="jejuImg" src={jeju}/>:(this.area=="jocheon"?<img id="jocheonImg" src={jocheon}/>:
-            (this.area=="aewol"?<img id="aewolImg" src={aewol}/>:(this.area=="andeok"?<img id="andeokImg" src={andeok}/>:
-            (this.area=="daejung"?<img id="daejungImg" src={daejung}/>:(this.area=="gujwa"?<img id="gujwaImg" src={gujwa}/>:
-            (this.area=="hangyeong"?<img id="hangyeongImg" src={hangyeong}/>:(this.area=="hanrim"?<img id="hanrimImg" src={hanrim}/>:
-            (this.area=="namwon"?<img id="namwonImg" src={namwon}/>:(this.area=="pyoseon"?<img id="pyoseonImg" src={pyoseon}/>:
-            (this.area=="seogwipo"?<img id="seogwipoImg" src={seogwipo}/>:(this.area=="sungsan"?<img id="sungsanImg" src={sungsan}/>:
-            (this.area=="udo"?<img id="udoImg" src={udo}/>:""))))))))))));
+        let img = this.area==="jeju"?<img id="jejuImg" src={jeju} alt=""/>:(this.area==="jocheon"?<img id="jocheonImg" src={jocheon} alt=""/>:
+            (this.area==="aewol"?<img id="aewolImg" src={aewol} alt=""/>:(this.area==="andeok"?<img id="andeokImg" src={andeok} alt=""/>:
+            (this.area==="daejung"?<img id="daejungImg" src={daejung} alt=""/>:(this.area==="gujwa"?<img id="gujwaImg" src={gujwa} alt=""/>:
+            (this.area==="hangyeong"?<img id="hangyeongImg" src={hangyeong} alt=""/>:(this.area==="hanrim"?<img id="hanrimImg" src={hanrim} alt=""/>:
+            (this.area==="namwon"?<img id="namwonImg" src={namwon} alt=""/>:(this.area==="pyoseon"?<img id="pyoseonImg" src={pyoseon} alt=""/>:
+            (this.area==="seogwipo"?<img id="seogwipoImg" src={seogwipo} alt=""/>:(this.area==="sungsan"?<img id="sungsanImg" src={sungsan} alt=""/>:
+            (this.area==="udo"?<img id="udoImg" src={udo} alt=""/>:""))))))))))));
         return (
             <div>
                 {/* <h4>Tourintro {this.props.area}</h4> */}
