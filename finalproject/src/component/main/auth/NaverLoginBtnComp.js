@@ -94,6 +94,8 @@ export default function NaverLoginBtnComp () {
                     alert(birthday);
                     alert(id);
                     alert(hp);
+                    alert(age+ "세");
+                    // 처리후 되돌아갈 곳
                     // window.location.replace("http://localhost:3000/login?naver=true");
                     
                 } else {

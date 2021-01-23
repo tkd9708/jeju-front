@@ -126,7 +126,7 @@ class SignupPageComp extends Component {
             })
 
             // 예전 location.href 와 같은 코드
-            this.props.history.push("/Login");//저장 성공후 로그인으로 이동되도록 한다
+            this.props.history.push("/login");//저장 성공후 로그인으로 이동되도록 한다
         }).catch(err=>{
             console.log("회원가입시 오류남:"+err);
         })
@@ -164,6 +164,7 @@ class SignupPageComp extends Component {
                 <input type="password" name="pass"
                 onChange={this.changeEvent.bind(this)}
                 value={this.state.pass}
+                autoComplete="new-password"
                 />
                 <br />
                 <label>비밀번호 확인</label>
