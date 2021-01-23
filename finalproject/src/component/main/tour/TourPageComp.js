@@ -6,6 +6,9 @@ import './TourCss.css';
 import Tourintro from './Tourintro';
 import {URL} from '../../../redux/config';
 import Box from '@material-ui/core/Box';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 
 class TourPageComp extends Component {
 
@@ -95,18 +98,25 @@ class TourPageComp extends Component {
         return (
             <div>
                 <Tourintro area={this.state.area}/>
-
                 <br/><br/>
-                <select onChange={this.selectChange.bind(this)} value={this.select} style={{float: 'right', marginRight: '20px'}}>
-                    <option value="star">평점순</option>
-                    <option value="likes">좋아요순</option>
-                    <option value="title">제목순</option>
-                </select>
-
-                <br/><br/>
+ 
                 {/* list 출력 */}
 
                 <div style={{width:'100%'}}>
+                    <FormControl id="selectTourList">
+                        <InputLabel>정렬순서</InputLabel>
+                        <Select
+                            native
+                            value={this.select}
+                            onChange={this.selectChange.bind(this)}
+                            >
+                            <option value="star">평점순</option>
+                            <option value="likes">좋아요순</option>
+                            <option value="title">제목순</option>
+                        </Select>
+                    </FormControl>
+                    <br/><br/>
+
                     <Box
                         display="flex"
                         flexWrap="wrap"
@@ -119,14 +129,14 @@ class TourPageComp extends Component {
                         {this.state.spotList.map((row,idx)=>(
                         <ItemComp row={row} key={idx} history={this.props.history}></ItemComp>
                         ))}
-                    </Box>
+                     </Box>
                 </div>
+                
+                
                  <br/><br/>
 
                 {/* 페이징 */}
-                <PageComp area={this.state.area} startPage={this.startPage} endPage={this.endPage}
-                          currentPage={this.currentPage}
-                          totalPage={this.totalPage} paginate={this.paginate.bind(this)}></PageComp>
+                <PageComp currentPage={this.currentPage} totalPage={this.totalPage} paginate={this.paginate.bind(this)}></PageComp>
             </div>
         )
     }
