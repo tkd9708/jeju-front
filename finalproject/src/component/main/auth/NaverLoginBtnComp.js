@@ -107,9 +107,25 @@ export default function NaverLoginBtnComp () {
     const UserProfile = () => {
         window.location.href.includes('access_token') && GetUser();
         function GetUser() {
+            console.log("window.location.href : " + window.location.href);
             const location = window.location.href.split('=')[1];
             console.log("로케이션 : " + location);
-            const token = location.split('&')[0];
+            console.log("로케이션 0번째 : " + window.location.href.split("=")[0]);
+            console.log("로케이션 길이 : " + window.location.href.split("=").length);
+            for (var i=0; i < window.location.href.split("=").length; i = i + 1)
+            {
+                console.log(window.location.href.split("=")[i]);
+            }
+            var sharpPos = window.location.href.indexOf('#', 0);
+            console.log("# 위치 : " + sharpPos);
+            
+            var sharpSplit = window.location.href.split("#")[1];
+            var idxEq = sharpSplit.indexOf("=");
+            var startPos = idxEq + 1;
+            var tokenEnd = sharpSplit.indexOf("&");
+
+            const token = sharpSplit.substring(startPos, tokenEnd);
+            
             console.log("token : " + token);
             fetch(`${URL}/account/sign-in`, {
                 method: "GET",
