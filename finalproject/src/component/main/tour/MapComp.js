@@ -1,12 +1,19 @@
 /*global kakao */
 import React, { useEffect, useState } from "react";
 import './kakaomap.css';
+import Box from '@material-ui/core/Box';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import RestaurantIcon from '@material-ui/icons/Restaurant';
+import LocalCafeIcon from '@material-ui/icons/LocalCafe';
+import HotelIcon from '@material-ui/icons/Hotel';
 
 const MapComp=(props)=> {
 
     let longitude = useState(0);
     let latitude = useState(0);
     let title = useState("");
+    const [value, setValue] = React.useState(0);
 
     console.log("longitude : " + props.longitude);
     useEffect(() => {
@@ -107,14 +114,17 @@ const MapComp=(props)=> {
     }
     // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 function placesSearchCB(data, status, pagination) {
+
     if (status === kakao.maps.services.Status.OK) {
          // 정상적으로 검색이 완료됐으면 지도에 마커를 표출합니다
+
          displayPlaces(data);
          
       // 페이지 번호를 표출합니다
          displayPagination(pagination);
      } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
          // 검색결과가 없는경우 해야할 처리가 있다면 이곳에 작성해 주세요
+         displayPlaces(null);
      } else if (status === kakao.maps.services.Status.ERROR) {
          // 에러로 인해 검색결과가 나오지 않은 경우 해야할 처리가 있다면 이곳에 작성해 주세요
          
@@ -135,24 +145,30 @@ function placesSearchCB(data, status, pagination) {
      // 지도에 표시되고 있는 마커를 제거합니다
      removeMarker();
      
-     for ( var i=0; i<places.length; i++ ) {
-         // 마커를 생성하고 지도에 표시합니다
-         var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
-             marker = addMarker(placePosition, i), 
-             itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
-         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-         // LatLngBounds 객체에 좌표를 추가합니다
-         bounds.extend(placePosition);
-         // 마커와 검색결과 항목에 mouseover 했을때
-         // 해당 장소에 인포윈도우에 장소명을 표시합니다
-         // mouseout 했을 때는 인포윈도우를 닫습니다
-         (function(marker, place) {
-            kakao.maps.event.addListener(marker, 'click', function() {
-                displayPlaceInfo(place);
-            });
-         })(marker, places[i]);
-         fragment.appendChild(itemEl);
+     if(places == null){
+        itemEl = getListItem(-1, null);
+        fragment.appendChild(itemEl);
      }
+    else{
+        for ( var i=0; i<places.length; i++ ) {
+            // 마커를 생성하고 지도에 표시합니다
+            var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
+                marker = addMarker(placePosition, i), 
+                itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
+            // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+            // LatLngBounds 객체에 좌표를 추가합니다
+            bounds.extend(placePosition);
+            // 마커와 검색결과 항목에 mouseover 했을때
+            // 해당 장소에 인포윈도우에 장소명을 표시합니다
+            // mouseout 했을 때는 인포윈도우를 닫습니다
+            (function(marker, place) {
+                kakao.maps.event.addListener(marker, 'click', function() {
+                    displayPlaceInfo(place);
+                });
+            })(marker, places[i]);
+            fragment.appendChild(itemEl);
+        }
+    }
     
      // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
      listEl.appendChild(fragment);
@@ -163,25 +179,31 @@ function placesSearchCB(data, status, pagination) {
  // 검색결과 항목을 Element로 반환하는 함수입니다
  function getListItem(index, places) {
      
-     var el = document.createElement('li'),
-     itemStr = '<div style="display: flex; margin-left: 100px;"><span class="markerbg marker_' + (index+1) + '"></span>' +
-                 '<a class="info" style="float:left; width: 70%; cursor:pointer;" href="' + places.place_url + '" target="_blank" title="' + places.place_name + '">' +
-                 '   <h5 class="placeName">' + places.place_name + '</h5>';
-     if (places.road_address_name) {
-         itemStr += '    <span>' + places.road_address_name + '</span>' +
-                     '   <span class="jibun gray">' +  places.address_name  + '</span>';
-     } else {
-         itemStr += '    <span>' +  places.address_name  + '</span>'; 
+     if(index == -1){
+        var el = document.createElement('li'),
+        itemStr = "<div><br/>검색 결과가 존재하지 않습니다.</div>";
+        el.innerHTML = itemStr;
+        el.className = 'item';
+    
+        return el;
      }
-                  
-     itemStr += '  <span class="tel">' + places.phone  + '</span>' + '</a>';  
-     itemStr += '<div style="display: inline-block; width: 30%; font-size: 30pt; color:red; '
-                 +	'text-align: center; line-height: 150px; margin-right: 100px; position: relative;">' 
-                 + '<div class="sd_heartlist aroundHeart" idx="' + index + '" style="cursor:pointer;" space="' + places.place_name + '" addr="' + places.road_address_name + '" category="' + currCategory + '"></div></div></div>';
-             
-     el.innerHTML = itemStr;
-     el.className = 'item';
-     return el;
+    else{
+        var el = document.createElement('li'),
+        itemStr = '<table className="table table-bordered" id="placeListTable"><tr>' +
+                    '<td style={{width:"20%"}}><span class="markerbg marker_' + (index+1) + '"></span></td>' +
+                    '<td style={{width:"60%"}}><a class="info" href="' + places.place_url + '" target="_blank" title="' + places.place_name + '">' +
+                    '<p>' + places.place_name + '</p>';
+        itemStr += '<span class="gray">' +  places.address_name  + '</span>';      
+        itemStr += '<span class="tel">' + places.phone  + '</span>' + 
+                    '</a></td>' +
+                    '<td style={{width:"20%"}}>일정추가</td></tr></table>';
+                    el.innerHTML = itemStr;
+                    el.className = 'item';
+                
+                    return el;
+    }
+    
+     
  }
  // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
  function addMarker(position, idx, title) {
@@ -300,26 +322,26 @@ function placesSearchCB(data, status, pagination) {
         placeOverlay.setMap(null);
         if (className === 'on') {
             currCategory = '';
-            changeCategoryClass();
+            // changeCategoryClass();
             removeMarker();
         } else {
             currCategory = id;
-            changeCategoryClass(this);
+            // changeCategoryClass(this);
             searchPlaces();
         }
     }
     //클릭된 카테고리에만 클릭된 스타일을 적용하는 함수입니다
-    function changeCategoryClass(el) {
-        var category = document.getElementById('category'),
-            children = category.children,
-            i;
-        for ( i=0; i<children.length; i++ ) {
-            children[i].className = '';
-        }
-        if (el) {
-            el.className = 'on';
-        } 
-    } 
+    // function changeCategoryClass(el) {
+    //     var category = document.getElementById('category'),
+    //         children = category.children,
+    //         i;
+    //     for ( i=0; i<children.length; i++ ) {
+    //         children[i].className = '';
+    //     }
+    //     if (el) {
+    //         el.className = 'on';
+    //     } 
+    // } 
     // 마커를 지도 위에 표시
     marker.setMap(map);
   };
@@ -327,11 +349,53 @@ function placesSearchCB(data, status, pagination) {
   return (
       <div>
           {/* <div id="map" style={{ width: "500px", height: "500px" }}></div> */}
-          <div style={{marginLeft: '200px', marginRight: '200px'}}>
-                <h1 style={{fontWeight: '900'}}>명소 주변</h1>
-                <br/>
-                <div className="map_wrap" className="map_wrap" style={{textAlign: 'center'}}>
-                    <div id="map" style={{width:'500px', height:'500px', position:'relative', overflow:'hidden'}}></div>
+          
+          <Box className="map_wrap" style={{textAlign: 'center'}}
+                        display="flex"
+                        flexWrap="wrap"
+                        p={1}
+                        m={1}
+                        bgcolor="background.paper"
+                        justifyContent="center"
+                        css={{ maxWidth: '100%' }}
+                    >
+                        
+                        <Box m={1} id="map" style={{position:'relative', overflow:'hidden'}}>
+                            <input type="hidden" value={title} id="keyword" size="15"></input>
+                        </Box>
+
+                        <br/><br/>
+                        
+                        <Box m={1} id="placeListBox">
+                            <BottomNavigation
+                                    id="category"
+                                    value={value}
+                                    onChange={(event, newValue) => {
+                                        setValue(newValue);
+                                    }}
+                                    showLabels
+                                    >
+                                    <BottomNavigationAction id="FD6" data-order="0" label="Food" icon={<RestaurantIcon />} 
+                                        style={{borderLeft: '1px solid #ddd', borderTop: '1px solid #ddd', borderBottom: '1px solid #ddd'}} />
+                                    <BottomNavigationAction id="CE7" data-order="1" label="Cafe" icon={<LocalCafeIcon />} style={{border: '1px solid #ddd'}} />
+                                    <BottomNavigationAction id="AD5" data-order="2" label="Rooms" icon={<HotelIcon />}
+                                        style={{borderRight: '1px solid #ddd', borderTop: '1px solid #ddd', borderBottom: '1px solid #ddd'}}/>
+                                    </BottomNavigation>
+                            <div id="menu_wrap" class="bg_white">
+                                <ul id="placesList">
+                                    <li style={{marginTop: '30px'}}>원하시는 카테고리를 선택해주세요.</li>
+                                </ul>
+                                <div id="pagination"></div>
+                            </div>
+                        </Box>
+                        
+                    </Box>
+
+          
+          {/* <div style={{display:'flex', width:'100%'}}>
+                
+                <div className="map_wrap" className="map_wrap" style={{textAlign: 'center', display:'flex', flexShrink:'1', justifyContent:'center'}}>
+                    <div id="map" style={{position:'relative', overflow:'hidden'}}>
                     <ul id="category">
                         <li id="FD6" data-order="0"> 
                             <span className="category_bg restaurant"></span>
@@ -347,11 +411,15 @@ function placesSearchCB(data, status, pagination) {
                         </li>     
                     </ul>   
                     <input type="hidden" value={title} id="keyword" size="15"></input>
+                    </div>
+                    
                 </div>
                 <br/><br/>
-                <ul id="placesList"></ul>
-                <div id="pagination"></div>
-            </div>
+                <div style={{display:'flex', flexShrink:'1', justifyContent:'center'}}>
+                    <ul id="placesList"></ul>
+                    <div id="pagination"></div>
+                </div>
+            </div> */}
       </div>   
   );
 }

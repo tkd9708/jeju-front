@@ -117,6 +117,11 @@ class TourPageComp extends Component {
                     </FormControl>
                     <br/><br/>
 
+                    {/* <button type="button"  onClick={
+                    ()=>{
+                        this.props.history.push("/tour/CNTS_000000000018472");
+                    }
+                }>디테일 페이지</button> */}
                     <Box
                         display="flex"
                         flexWrap="wrap"
@@ -127,7 +132,7 @@ class TourPageComp extends Component {
                         css={{ maxWidth: '100%' }}
                     >
                         {this.state.spotList.map((row,idx)=>(
-                        <ItemComp row={row} key={idx} history={this.props.history}></ItemComp>
+                            <ItemComp row={row} key={idx} history={this.props.history} getList={this.getList.bind(this)}></ItemComp>
                         ))}
                      </Box>
                 </div>
@@ -136,7 +141,8 @@ class TourPageComp extends Component {
                  <br/><br/>
 
                 {/* 페이징 */}
-                <PageComp currentPage={this.currentPage} totalPage={this.totalPage} paginate={this.paginate.bind(this)}></PageComp>
+                <PageComp currentPage={this.currentPage} startPage={this.startPage} endPage={this.endPage}
+                     totalPage={this.totalPage} paginate={this.paginate.bind(this)}></PageComp>
             </div>
         )
     }

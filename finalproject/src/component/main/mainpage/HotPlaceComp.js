@@ -49,6 +49,12 @@ class HotPlaceComp extends Component {
                                      this.setMainView(mainViewType.TourList);
                                  }}
                         >성산</NavLink>
+                <NavLink exact to="/tourlist/pyoseon"
+                                 onClick={() => {
+                                     console.log("TourList NavLink onClick");
+                                     this.setMainView(mainViewType.TourList);
+                                 }}
+                        >표선</NavLink>
                 <NavLink exact to="/tourlist/namwon"
                                  onClick={() => {
                                      console.log("TourList NavLink onClick");
