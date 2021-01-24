@@ -48,16 +48,21 @@ div.mainPhotoComp div img {
 /*search-myplan*/
 div.search-myplan {
     display: flex;
+    padding: 30px;
 }
 
 div.search-myplan .searchComp {
-    flex: 1;
+    flex-grow: 0;
     /*max-height: 500px;*/
     border-right: 1px solid black;
 }
 
-div.search-myplan div.searchComp {
-    flex: 0.2 1;
+div.search-myplan div{
+    flex-grow: 1;
+}
+
+div.search-myplan div div{
+    flex-grow: 0;
 }
 
 

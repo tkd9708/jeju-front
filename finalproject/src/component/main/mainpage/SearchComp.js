@@ -69,7 +69,7 @@ export default function SearchComp() {
     }
 
     return (
-        <div className="searchComp" style={{height: "500px", paddingLeft: "50px", paddingTop: "50px"}}>
+        <div className="searchComp" style={{height: "500px", padding: "20px"}}>
             <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
                 <Select
