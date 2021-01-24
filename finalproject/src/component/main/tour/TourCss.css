@@ -223,3 +223,40 @@
         text-align: right;
     }
 }
+
+/* detailTour */
+.detailTitle{
+    background-image: url('../../../image/titleLine.PNG');
+    background-size: 100% 100%;
+}
+
+@media only screen and (max-width:770px){
+    .detailTitle{
+        margin-top: 30px;
+        font-size: 13pt;
+        font-weight: 800;
+    }
+    .detailTitleContent{
+        margin-left: 20px;
+    }
+}
+@media only screen and (min-width:400px) and (max-width:770px){
+    .detailTitle{
+        margin-top: 50px;
+        font-size: 20pt;
+        font-weight: 700;
+    }  
+    .detailTitleContent{
+        margin-left: 30px;
+    }
+}
+@media only screen and (min-width:770px){
+    .detailTitle{
+        margin-top: 100px;
+        font-size: 25pt;
+        font-weight: 900;
+    }
+    .detailTitleContent{
+        margin-left: 50px;
+    }
+}

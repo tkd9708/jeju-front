@@ -117,6 +117,11 @@ class TourPageComp extends Component {
                     </FormControl>
                     <br/><br/>
 
+                    {/* <button type="button"  onClick={
+                    ()=>{
+                        this.props.history.push("/tour/CNTS_000000000018472");
+                    }
+                }>디테일 페이지</button> */}
                     <Box
                         display="flex"
                         flexWrap="wrap"

@@ -21,9 +21,10 @@ class ItemComp extends Component {
 
     render() {
         const {row}=this.props;
-        const addr = row.roadaddr!=null?row.roadaddr.split(" "):row.addr.split(" ");
-
+        const addr = row.roadaddr!=null?row.roadaddr.split(" "):row.addr!=null?row.addr.split(" "):"";
+        
         return (
+
             <Box m={1} id="itemBox">
                 <div style={{cursor: 'pointer'}} onClick={
                     ()=>{
