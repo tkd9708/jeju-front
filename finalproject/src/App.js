@@ -51,7 +51,7 @@ class App extends Component {
         {
             this.setState({
                 logged: true,
-            });    
+            });
         }
         else
         {
@@ -61,7 +61,7 @@ class App extends Component {
         }
     }
 
-    
+
     showHeader = (scrollVal) => {
         const isStaticHeader = this.state.isStaticHeader;
         if (scrollVal > 0) {
@@ -103,17 +103,15 @@ class App extends Component {
 
     render() {
         let { logged } = this.state;
-        
+
         return (
             <BrowserRouter>
-                {logged ?
                 <Menu logged={logged}
                       type="hide"
-                /> : 
+                />
                 <Menu logged={logged}
                       type="normal"
                 />
-                }      
                 <div className="mainFrame">
                     <Switch>
                         <Route exact path="/">

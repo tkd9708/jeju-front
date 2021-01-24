@@ -1,29 +1,114 @@
-import React, {Component} from "react";
+import React from 'react';
+import {makeStyles} from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
-class SearchComp extends Component {
-    constructor(props) {
-        super(props);
+
+const useStyles = makeStyles((theme) => ({
+    formControl: {
+        // margin: theme.spacing(1),
+        // minWidth: 120,
+        width: "150px",
+        // height:"40px"
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
+    root: {
+        '& > *': {
+            // margin: theme.spacing(1),
+            width: '300px',
+        },
+    },
+}));
+
+
+export default function SearchComp() {
+
+    const classes = useStyles();
+    const [category, setCategory] = React.useState("all");
+    const [searchVal, setSearchVal] = React.useState("");
+
+    const setCategoryHandler = (e) => {
+        // console.log(e.target.value);
+        setCategory(e.target.value);
+    };
+
+    const setSearchValHandler = (e) => {
+        // console.log(e.target.value);
+        setSearchVal(e.target.value);
 
     }
 
-    render() {
-        return (
-            <div className="searchComp">
-                searchComp
-                <br/>
-                {this.props.name}<br/>
-                <select>
-                    <option>All</option>
-                    <option>Location</option>
-                    <option>Tour</option>
-                    <option>Tag</option>
-                </select>
-                <input type="text" placeholder="Input For Search."/>
-                <button type="button">Search</button>
-            </div>
-        )
+    //input 내용에 따라 버튼 색깔 변화
+    const updateButtonType = () => {
+        const searchButton = document.querySelector(".searchButton");
+
+        if(searchButton == null){   //초반에 null일경우 스킵.
+            return;
+        }
+
+        if (searchVal == "") {
+            searchButton.classList.remove("MuiButton-containedPrimary");
+        } else {
+            if (!searchButton.classList.contains("MuiButton-containedPrimary")) {
+                searchButton.classList.add("MuiButton-containedPrimary");
+            }
+        }
     }
+
+    const doSearchHandler = () => {
+        // console.log(category, searchVal);
+
+        //search action.
+    }
+
+    return (
+        <div className="searchComp" style={{height: "500px", paddingLeft: "50px", paddingTop: "50px"}}>
+            <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
+                <Select
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={category}
+                    onChange={setCategoryHandler}
+                    label="Category"
+                >
+                    <MenuItem value="all">
+                        <em>All</em>
+                    </MenuItem>
+                    <MenuItem value="location">Location</MenuItem>
+                    <MenuItem value="tour">Tour</MenuItem>
+                    <MenuItem value="tag">Tag</MenuItem>
+                </Select>
+            </FormControl>
+            <br/><br/>
+            <TextField id="outlined-basic" label="Input For Search." variant="outlined"
+                       autoComplete="off" className={classes.root}
+                       value={searchVal}
+                       onChange={setSearchValHandler}
+            />
+            <br/><br/>
+            <Button variant="contained" color="primary" className="searchButton"
+                    onClick={doSearchHandler}
+            > Search </Button>
+            {updateButtonType()}
+        </div>
+
+    )
 
 }
 
-export default SearchComp;
+//활성화
+//<button class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary" tabindex="0" type="button">
+// <span class="MuiButton-label">Search</span>
+// <span class="MuiTouchRipple-root"></span>
+// </button>
+
+
+
