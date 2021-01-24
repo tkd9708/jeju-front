@@ -5,61 +5,43 @@ div.mainPageComp {
 }
 
 
-/*div.miniTable div{*/
-/*    float: left;*/
-/*}*/
-
-/*div.miniTable{*/
-/*    text-align: center;*/
-/*}*/
-
-/*.shareBoardList, .noticeList{*/
-/*    margin: 0px;*/
-/*}*/
-
-
-/*div.mainPhotoComp{*/
-/*    !*display: flex;*!*/
-/*}*/
-
-
 /*mainPhotoComp*/
 div.mainPhotoComp {
-    display: flex;
+    max-height: 600px;
+    overflow: hidden;
+    background-color: gold;
 }
 
-div.mainPhotoComp img {
-    flex: 1;
-    height: 1080px;
-    transform: scale(1);
-    opacity: 0;
-}
-
-div.mainPhotoComp img:nth-child(1) {
+div.mainPhotoComp div {
+    max-height: 600px;
+    margin: 0px;
+    overflow: hidden;
     position: relative;
-    left: 0;
+    text-align: center;
 }
 
-div.mainPhotoComp img:nth-child(2) {
+div.mainPhotoComp div:nth-child(1) {
+    top: 0px;
+}
+
+div.mainPhotoComp div:nth-child(2) {
+    top: calc(-600px);
+}
+
+div.mainPhotoComp div:nth-child(3) {
+    top: calc(-600px * 2);
+}
+
+div.mainPhotoComp div:nth-child(4) {
+    top: calc(-600px * 3);
+}
+
+div.mainPhotoComp div img {
     position: relative;
-    left: -1920px;
-}
-
-div.mainPhotoComp img:nth-child(3) {
-    position: relative;
-    left: calc(-1920px * 2);
-}
-
-div.mainPhotoComp img:nth-child(4) {
-    position: relative;
-    left: calc(-1920px * 3);
-}
-
-div.wave {
-    position: absolute;
-    top: 1016px;
-    width: 1920px;
-    /*z-index: 5;*/
+    top: -300px;
+    /*transform: scale(1.5);*/
+    min-width: 1920px;
+    max-width: 2560px;
 }
 
 
@@ -68,14 +50,14 @@ div.search-myplan {
     display: flex;
 }
 
-div.search-myplan div {
+div.search-myplan .searchComp {
     flex: 1;
-    height: 500px;
-    border: 1px solid black;
+    /*max-height: 500px;*/
+    border-right: 1px solid black;
 }
 
 div.search-myplan div.searchComp {
-    flex: 0.33;
+    flex: 0.2 1;
 }
 
 
