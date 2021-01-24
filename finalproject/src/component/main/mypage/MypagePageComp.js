@@ -5,7 +5,7 @@ import {Route, Link} from "react-router-dom";
 import {URL} from "../../../redux/config";
 
 class MypagePageComp extends Component {
-
+    
     constructor(props) {
         super(props);
         console.log("MypagePageComp constructor", props);
@@ -62,6 +62,7 @@ class MypagePageComp extends Component {
 
     render() {
         console.log("MypagePageComp render()", this.props);
+
         return (
             <div>
                 <h1><b>내 정보 관리</b></h1>
@@ -85,16 +86,12 @@ class MypagePageComp extends Component {
                         {this.state.memberData.address},&nbsp;{this.state.memberData.addrdetail}<br/>
                     </tr>
                 </table>
-                <h1><b>나의 일정</b></h1>
-
-                <h1><b>나의 리뷰</b></h1>
-                <table>
-                    <tr>
-                        <span class="glyphicon glyphicon-leaf"/>
-                    </tr>
-                </table>
+                
             </div>
+            
         )
+        
+        
     }
 }
 
