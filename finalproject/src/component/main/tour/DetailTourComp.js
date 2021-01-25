@@ -39,13 +39,13 @@ class DetailTourComp extends Component {
     }
 
     render() {
-
+        
         return (
             <div>
                 {/* <h4>DetailTourComp {this.state.contentsid} / {this.state.spotdata.longitude}</h4> */}
-                <h4>{this.state.spotdata.img}</h4>
+                {/* <img src={detailTitle} alt="이미지 없음" style={{width: '100%'}}/> */}
+                {/* <h4>{this.state.spotdata.img}</h4> */}
                 <img src={this.state.spotdata.img} alt="이미지 없음" style={{width: '100%'}}/>
-                <img src={detailTitle} alt="이미지 없음" style={{width: '100%'}}/>
                 <br/><br/>
 
                 <div className="detailTitle">

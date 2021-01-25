@@ -4,6 +4,7 @@ import ReviewItemComp from './ReviewItemComp';
 import PageComp from "./PageComp";
 import DetailReviewComp from "./DetailReviewComp";
 import {URL} from '../../../redux/config';
+import './TourDetailCss.css';
 
 class ReviewListComp extends Component {
 
@@ -19,7 +20,7 @@ class ReviewListComp extends Component {
 
         this.currentPage=1;
         this.totalCount=0;
-        this.perPage = 3; // 한페이지당 보여질 글의 갯수
+        this.perPage = 5; // 한페이지당 보여질 글의 갯수
         this.perBlock = 5; // 한블럭당 출력할 페이지의 갯수
         this.totalPage=0; // 총 페이지의 갯수
         this.startPage=0; // 각 블럭당 시작 페이지 번호
@@ -84,8 +85,8 @@ class ReviewListComp extends Component {
         return (
             <div>
                 <DetailReviewComp getList={this.getList.bind(this)} contentsid={this.contentsid}/>
-                <br/><br/>
-                <table className="table table-bordered" style={{width:'80%'}}>
+                
+                <table className="table" id="tourRiveiwTable">
                     <tbody>
                         {this.state.reviewList.map((row,idx)=>(
                             <ReviewItemComp row={row} key={idx} history={this.props.history}></ReviewItemComp>
