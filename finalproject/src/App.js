@@ -121,7 +121,10 @@ class App extends Component {
                             <MemberListPageComp/>
                         </Route>
                         <Route  path="/login/:name?">
-                            <LoginPageComp/>
+                            <LoginPageComp
+                            logged={logged}
+                            onLogin={this.onLogin}
+                            />
                         </Route>
                         <Route  path="/join/:name?">
                             <SignupPageComp/>
