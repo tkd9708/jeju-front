@@ -24,13 +24,9 @@ class ShareBoardFormComp extends Component {
          const upload=new FormData();
          upload.append("uploadFile", uploadFile);
          
-<<<<<<< HEAD
 
-          let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot8/share/upload";
-=======
          let url = URL + "/share/upload";
           //let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot8/share/upload";
->>>>>>> 7457f2317fa0526834bbf1ea37eecc60d74e9afd
 
           axios({
              method: 'post',

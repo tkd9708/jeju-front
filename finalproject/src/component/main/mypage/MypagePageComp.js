@@ -12,16 +12,11 @@ class MypagePageComp extends Component {
         super(props);
         console.log("MypagePageComp constructor", props);
 
-<<<<<<< HEAD
 
-        this.state={
-            memberData:[],
-=======
         this.state = {
             memberData: [],
             reviewList: [],
             pageNum: '0'
->>>>>>> 7457f2317fa0526834bbf1ea37eecc60d74e9afd
         }
     }
 
