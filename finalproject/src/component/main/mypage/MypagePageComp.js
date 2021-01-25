@@ -3,6 +3,12 @@ import MemberUpdateFormComp from "./MemberUpdateFormComp";
 import axios from 'axios';
 import {Route, Link} from "react-router-dom";
 import {URL} from "../../../redux/config";
+import PropTypes from 'prop-types';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 class MypagePageComp extends Component {
     
@@ -13,10 +19,19 @@ class MypagePageComp extends Component {
         this.state = {
             memberData: [],
             reviewList: [],
-            pageNum: '0'
+            pageNum: '0',
+            value: 0
         }
     }
-
+    tabProps = (index) => {
+        return {
+          id: `simple-tab-${index}`,
+          'aria-controls': `simple-tabpanel-${index}`,
+        };
+      }
+      handleChange = (event, newValue) => {
+        this.setState({ value: newValue });
+      }
     // 스프링에서 목록 가져오기
     // member
     getMyData = () => {
@@ -86,7 +101,22 @@ class MypagePageComp extends Component {
                         {this.state.memberData.address},&nbsp;{this.state.memberData.addrdetail}<br/>
                     </tr>
                 </table>
-                
+                <AppBar position="static">
+                    <Tabs value={this.state.value} onChange={this.handleChange} aria-label="simple tabs example">
+                        <Tab label="나의 일정" {...this.tabProps(0)} />
+                        <Tab label="나의 후기" {...this.tabProps(1)} />
+                        <Tab label="나의 예약" {...this.tabProps(2)} />
+                    </Tabs>
+                </AppBar>
+                <TabPanel value={this.state.value} index={0}>
+                    나의 일정
+                </TabPanel>
+                    <TabPanel value={this.state.value} index={1}>
+                    Item Two
+                </TabPanel>
+                    <TabPanel value={this.state.value} index={2}>
+                    나의 예약
+                </TabPanel>
             </div>
             
         )
@@ -94,5 +124,14 @@ class MypagePageComp extends Component {
         
     }
 }
-
+class TabPanel extends Component {
+    render() {
+      return (
+        <Typography component="div" hidden={this.props.value !== this.props.index}>
+          <Box p={3}>{this.props.children}</Box>
+        </Typography>
+      );
+    }
+  }
 export default MypagePageComp;
+

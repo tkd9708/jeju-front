@@ -74,13 +74,15 @@ div.search-myplan div div{
 /*hotPlaceComp*/
 div.hotPlaceComp {
     /*flex: 1;*/
-    height: 500px;
-    border: 1px solid black;
+    height: 700px;
+    border-top: 1px solid black;
+    padding:20px;
 }
 
 /*etcBoardComp*/
 div.etcBoardComp {
     /*flex: 1;*/
-    height: 500px;
-    border: 1px solid black;
+    height: 700px;
+    border-top: 1px solid black;
+    padding:20px;
 }
