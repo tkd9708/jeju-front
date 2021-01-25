@@ -1,8 +1,25 @@
-import React, {Component} from "react";
+import React, { Component, useState } from "react";
 import axios from 'axios';
 import {URL} from "../../../redux/config";
+import { makeStyles, createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import PropTypes from "prop-types";
+// import { withStyles } from "@material-ui/styles";
+import { createMuiTheme } from "@material-ui/core";
+
+const styles = theme => ({
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
+            width: '25ch',
+        },
+    },
+});
 
 class SignupPageComp extends Component {
+
+    
 
     constructor(props) {
         super(props);
@@ -27,8 +44,6 @@ class SignupPageComp extends Component {
         //함수 선언
         this.onIdChk=this.onIdChk.bind(this);
     }
-
-
 
     // 변수 선언시 state 영역에 추가했을 경우에만 나중에 값변경이 가능하다
     // 값 변경시에는 setState 를 이용해야만 한다
@@ -132,10 +147,13 @@ class SignupPageComp extends Component {
         })
     }
     render() {
+        const { classes } = this.props;
         console.log("SingupPageComp render()", this.props);
         return (
             <div>
                 <form
+                className={classes.root}
+                noValidate autoComplete="off"
                 onSubmit = { this.onSubmitHandler.bind(this) }
                 >
                 <h1>회원가입</h1>
@@ -144,36 +162,58 @@ class SignupPageComp extends Component {
                     <h4 className="showIdResult">{this.state.showIdResult}</h4>
                 </div>
                 <br />
-                <label>이메일</label>
-                <input type="email" name = "email" value = { this.state.email } onChange={this.changeEvent.bind(this)} />
+                <TextField id="standard-secondary" label="이름" color="secondary" 
+                type="email" name="email" value={ this.state.email }
+                onChange = { this.changeEvent.bind(this) } />
+                
+                {/* <label>이메일</label>
+                <input type="email" name = "email" value = { this.state.email } onChange={this.changeEvent.bind(this)} /> */}
                 <br />
-                <label>이름</label>
-                <input type="text" name = "name" value = { this.state.name } onChange={this.changeEvent.bind(this)} />
+                
+                {/* <label>이름</label>
+                <input type="text" name = "name" value = { this.state.name } onChange={this.changeEvent.bind(this)} /> */}
+                
+                <TextField id="standard-secondary" label="이름" color="secondary" 
+                type="text" name="name" value={ this.state.name }
+                onChange = { this.changeEvent.bind(this) } />
+
                 <br />
-                아이디 :
+                {/* 아이디 :
                 <input type="text" name="id"
                 onChange={this.changeEvent.bind(this)}
                 value={this.state.id}
-                />
+                /> */}
+                <TextField id="standard-secondary" label="아이디" color="secondary" 
+                type="text" name="id" value={ this.state.id }
+                onChange = { this.changeEvent.bind(this) } />
+
                 <button type="button"
                 onClick={this.onIdChk.bind(this)}>
                     아이디 확인
                 </button>
                 <br />
-                <label>비밀번호</label>
+                {/* <label>비밀번호</label>
                 <input type="password" name="pass"
                 onChange={this.changeEvent.bind(this)}
                 value={this.state.pass}
                 autoComplete="new-password"
-                />
+                /> */}
+                <TextField id="standard-secondary" label="비밀번호" color="secondary" 
+                type="password" name="pass" value={ this.state.pass }
+                onChange = { this.changeEvent.bind(this) } />
+
                 <br />
-                <label>비밀번호 확인</label>
+                {/* <label>비밀번호 확인</label>
                 <input
                 type = "password"
                 name = "pwCheck"
                 value = { this.state.pwCheck }
                 onChange = { this.changeEvent.bind(this) }
-                />
+                /> */}
+                <TextField id="standard-secondary" label="비밀번호 확인" color="secondary" 
+                type="password" name="pwCheck" value={ this.state.pwCheck }
+                onChange = { this.changeEvent.bind(this) } />
+
                 <br />
                 <select name="gender"
                 onChange = {this.changeEvent.bind(this)}
@@ -188,20 +228,33 @@ class SignupPageComp extends Component {
                 onChange={this.imageUpload.bind(this)}
                 ></input>
                 <br />
-                주소 : &nbsp;
+                {/* 주소 : &nbsp;
                 <input type="text" name="address"
                 onChange={this.changeEvent.bind(this)}
-                value = { this.state.address }></input>
+                value = { this.state.address }></input> */}
 
-                <input type="text" name="addrdetail"
+                <TextField id="standard-secondary" label="주소" color="secondary" 
+                type="text" name="address" value={ this.state.address }
+                onChange = { this.changeEvent.bind(this) } />
+
+                {/* <input type="text" name="addrdetail"
                 onChange={this.changeEvent.bind(this)}
-                value = { this.state.addrdetail }></input>
+                value = { this.state.addrdetail }></input> */}
                 
+                <TextField id="standard-secondary" label="상세주소" color="secondary" 
+                type="text" name="addrdetail" value={ this.state.addrdetail }
+                onChange = { this.changeEvent.bind(this) } />
+
                 <br />
-                휴대폰 : &nbsp;
+                {/* 휴대폰 : &nbsp;
                 <input type="text" name="hp"
                 onChange={this.changeEvent.bind(this)}
-                value = { this.state.hp }></input>
+                value = { this.state.hp }></input> */}
+
+                <TextField id="standard-secondary" label="휴대폰" color="secondary" 
+                type="text" name="hp" value={ this.state.hp }
+                onChange = { this.changeEvent.bind(this) } />
+
                 <br />
                 <b>
                     내 아이디는 {this.state.id} 입니다
@@ -224,4 +277,8 @@ class SignupPageComp extends Component {
 
 }
 
-export default SignupPageComp;
+SignupPageComp.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(SignupPageComp);
