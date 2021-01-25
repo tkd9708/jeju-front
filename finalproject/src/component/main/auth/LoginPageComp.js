@@ -23,10 +23,10 @@ class LoginPageComp extends Component {
             email : "",
             address : "",
             idcanUse: false,//중복된 아이디찾기 true여야 로그인가능
+            logged:this.props.logged,
         }
 
         //함수 선언
-        this.onIdChk=this.onIdChk.bind(this);
     }
 
 
@@ -43,45 +43,23 @@ class LoginPageComp extends Component {
         })
     }
 
-    //방법2
-    onIdChk=(e)=>{
-        e.preventDefault();
-        console.log(this.state.id);
-        const data = {
-            id: this.state.id//현재 id state 값을 data.id에 넣는다
-        }
-        // ↓은 백엔드로 fetch해서 입력된 값을 POST
-        fetch( URL + "/member/checkid", 
-                {//localhost 9002번 포트 checkid라우터를 찾는다
-                    method: "POST",
-                    headers: {
-                    "Content-Type" : "application/json"
-                    },
-                body: JSON.stringify(data),//json화 해버리기
-                })
-            .then(response => response.json())
-            .then(json=> {
-                console.log("확인입니다");
-                if(json.idcanUse == true){  //uson을받아왔는데idcanUse값이true면사용가능
-                    alert("사용가능한 ID입니다");
-                    this.setState({
-                        idcanUse: true
-                    })
-                }
-                else{
-                    alert("다른 ID를 입력해주세요");
-                }
-            });
-    }
-
     onLogin=()=>{
         console.log("로그인할 아이디는 " + this.state.id + "비밀번호는 " + this.state.pass);
         const data = {
             id: this.state.id,
             pass: this.state.pass
         }
-        let url = URL;
+        let url = URL + "/member/login";
 
+        axios.post(url, data)
+        .then(response => {
+            this.props.onLogin();
+
+            this.props.history.push("/");
+        }).catch(err => {
+            console.log("로그인시 오류남:"+err);
+        })
+        
     }
 
     render() {

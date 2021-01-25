@@ -115,7 +115,12 @@ class App extends Component {
                     <Switch>
                         <Route exact path="/" component={MainPageComp}/>
                         <Route path="/admin/:name?" component={MemberListPageComp}/>
-                        <Route path="/login/:name?" component={LoginPageComp}/>
+                        <Route  path="/login/:name?">
+                            <LoginPageComp
+                                logged={logged}
+                                onLogin={this.onLogin}
+                            />
+                        </Route>
                         <Route path="/join/:name?" component={SignupPageComp}/>
                         <Route path="/mypage/:name?" component={MypagePageComp}/>
                         <Route exact path="/share" component={ShareBoardPageComp}/>

@@ -1,0 +1,91 @@
+label {
+    margin-bottom: 0;
+}
+#btnInsertReview{
+    white-space: wrap;
+}
+#detailReField{
+    margin: 0 !important;
+}
+
+@media only screen and (max-width:400px){
+    #tourRiveiwTable{
+        width: 300px;
+        margin: 70px auto;
+        margin-bottom: 100px;
+        font-size: 8pt;
+    }
+    .tourReImg{
+        width: 50px;
+        height: 50px;
+    }
+    #srContent{
+        width: 200px;
+        height: 100px;
+        font-size: 8pt;
+    }
+    #btnInsertReview{
+        height: 100px;
+        width: 50px;
+        font-size: 6pt;
+    }
+}
+@media only screen and (min-width:400px) and (max-width:770px){
+    #tourRiveiwTable{
+        width: 500px;
+        margin: 100px auto;
+        margin-bottom: 100px;
+        font-size: 10pt;
+    }
+    .tourReImg{
+        width: 80px;
+        height: 80px;
+    }
+    #srContent{
+        width: 280px;
+        height: 100px;
+        font-size: 10pt;
+    }
+    #btnInsertReview{
+        height: 100px;
+        width: 50px;
+        font-size: 10pt;
+    }
+}
+@media only screen and (min-width:770px) and (max-width:1023px){
+    #tourRiveiwTable{
+        width: 800px;
+        margin: 120px auto;
+        margin-bottom: 100px;
+    }
+    .tourReImg{
+        width: 100px;
+        height: 100px;
+    }
+    #srContent{
+        width: 500px;
+        height: 130px;
+    }
+    #btnInsertReview{
+        height: 130px;
+        width: 80px;
+    }
+}
+@media only screen and (min-width:1023px){
+    #tourRiveiwTable{
+        width: 1000px;
+        margin: 150px auto;
+    }
+    .tourReImg{
+        width: 100px;
+        height: 100px;
+    }
+    #srContent{
+        width: 600px;
+        height: 150px;
+    }
+    #btnInsertReview{
+        height: 150px;
+        width: 100px;
+    }
+}
