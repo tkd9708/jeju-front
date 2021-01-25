@@ -22,6 +22,8 @@ import SignupPageComp from "./component/main/join/SignupPageComp";
 import FooterComp from "./component/footer/FooterComp";
 import DetailTourComp from "./component/main/tour/DetailTourComp";
 
+let confirmLs = localStorage.getItem("com.naver.nid.access_token");
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -44,6 +46,19 @@ class App extends Component {
             this.showHeader(window.scrollY);
         }.bind(this);
 
+
+        if(confirmLs !== undefined)
+        {
+            this.setState({
+                logged: true,
+            });
+        }
+        else
+        {
+            this.setState({
+                logged: false,
+            });
+        }
     }
 
 
@@ -85,17 +100,16 @@ class App extends Component {
         });
     }
 
+
     render() {
-        const {logged, onLogout} = this.state;
+        let { logged } = this.state;
 
         return (
             <BrowserRouter>
                 <Menu logged={logged}
-                      onLogout={onLogout}
                       type="hide"
                 />
                 <Menu logged={logged}
-                      onLogout={onLogout}
                       type="normal"
                 />
                 <div className="mainFrame">
