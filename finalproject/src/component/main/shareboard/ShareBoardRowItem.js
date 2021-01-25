@@ -165,8 +165,8 @@ class ShareBoardRowItem extends Component {
                             margin: 'auto',
                             overflow: 'scroll'
                         }}
-                             ref={this.myRef} onScroll={this.onScroll}>
-
+                             ref={this.myRef} onScroll={this.onScroll}
+                        >
                             <div style={{borderBottom: '1px solid black', height: '50px'}}>
                                 <div style={{float: "left"}}><input type="button" value="좋아요"/></div>
                                 <div style={{float: "left"}}>(작성자) 님이 공유하신 맛집입니다.</div>
@@ -174,7 +174,6 @@ class ShareBoardRowItem extends Component {
                                     <input type="button" value="찜하기"/>
                                 </div>
                             </div>
-
                             <div style={{borderBottom: '1px solid black', width: '1150px', height: '400px'}}>
                                 <div style={{
                                     borderBottom: '1px solid black',
@@ -183,19 +182,14 @@ class ShareBoardRowItem extends Component {
                                     height: '400px',
                                     float: 'left'
                                 }}>{row.photo}</div>
-
-
                                 <div style={{borderLeft: '1px solid black', width: '600x', float: 'right'}}>
                                     <div style={{width: '550px', height: '50px'}}>평점:{row.star}</div>
-
                                     <div style={{width: '550px', height: '50px'}}>주소:{row.addr}</div>
-
                                     <div style={{
                                         width: '550px',
                                         height: '200px',
                                         marginTop: '50px'
                                     }}>리뷰:{row.content}</div>
-
                                     <div style={{width: '550px', height: '50px'}}>작성일:{row.writeday}</div>
                                 </div>
 

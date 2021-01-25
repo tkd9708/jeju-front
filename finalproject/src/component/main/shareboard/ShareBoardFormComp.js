@@ -142,7 +142,6 @@ class ShareBoardFormComp extends Component {
                         onClick={this.handleSubmit.bind(this)}
                 >공유하기
                 </button>
-
                 <Link to="/share">
                     <button type="button">목록</button>
                 </Link>

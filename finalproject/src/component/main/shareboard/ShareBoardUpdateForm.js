@@ -132,14 +132,13 @@ class ShareBoardUpdateForm extends Component {
                     </tr>
 
                 </table>
-                {/* <button type="button" onClick={this.handleSubmit.bind(this)}>수정하기</button> */}
                 <button type="button" onClick={this.onDataUpdate.bind(this)}>수정하기</button>
-                <Link to="/ShareBoardPageComp">
-                    <button type="button">취소</button>
-                </Link>
-                <Route exact path="/ShareBoardPageComp" component={ShareBoardPageComp}/>
-
-
+                <button type="button"
+                        onClick={() => {
+                            this.props.history.goBack();
+                        }}
+                >취소
+                </button>
             </div>
         )
     }
