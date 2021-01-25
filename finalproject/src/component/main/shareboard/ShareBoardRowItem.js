@@ -3,6 +3,7 @@ import {Route, Link} from "react-router-dom";
 import ShareBoardUpdateForm from "./ShareBoardUpdateForm";
 import Modal from './Modal';
 import axios from "axios";
+import {URL} from '../../../redux/config';
 import ShareReview from './ShareReview';
 
 
@@ -15,8 +16,24 @@ class ShareBoardRowItem extends Component {
 
     constructor(props){
         super(props);
-
+        
+        //스크롤
+        this.myRef = React.createRef()
+        this.state = {scrollTop: 0}
     }
+  
+
+
+    //스크롤
+    onScroll = () => {
+        const scrollY = window.scrollY //Don't get confused by what's scrolling - It's not the window
+        const scrollTop = this.myRef.current.scrollTop
+        console.log(`onScroll, window.scrollY: ${scrollY} myRef.scrollTop: ${scrollTop}`);
+        this.setState({
+          scrollTop: scrollTop
+        })
+    }
+
 
 
     //삭제하는 함수 이벤트
@@ -31,6 +48,13 @@ class ShareBoardRowItem extends Component {
     }
 
     onInsertData=()=>{
+      let url = URL + "/share/insert";
+
+      axios.insert(url)
+          .then(res => {
+              this.insert = res.data;
+              this.getList();
+          })
 
     }
 
@@ -43,11 +67,19 @@ class ShareBoardRowItem extends Component {
      }
 
      componentDidUpdate(){
-        console.log("state변경");
+      console.log("state변경");
      }
+      
+     
+    
 
     render() {
         const {row}=this.props;
+       //스크롤
+        const {
+            scrollTop
+          } = this.state
+    
     
         return (
             <div>
@@ -112,73 +144,75 @@ class ShareBoardRowItem extends Component {
             {/* //header 부분에 텍스트를 입력한다. */}
             <Modal open={ this.state.modalOpen } close={ this.closeModal.bind(this) } title="share">
 
-{/* // Modal.js <main> { props.children } </main>에 내용이 입력된다.  */}
-<div style={{border:'1px solid black', width:'1150px',height:'700px',margin:'auto'}}>
+                    {/* // Modal.js <main> { props.children } </main>에 내용이 입력된다.  */}
+                <div style={{border:'1px solid black', width:'1150px',height:'700px',margin:'auto',overflow: 'scroll'}} 
+                      ref={this.myRef} onScroll={this.onScroll}>
+        
+                    <div style={{borderBottom:'1px solid black',height:'50px'}}>
     
-    <div style={{borderBottom:'1px solid black',height:'50px'}}>
-    
-       <div style={{float:"left"}}><input type="button" value="좋아요"/></div>
+                      <div style={{float:"left"}}><input type="button" value="좋아요"/></div>
        
-       <div style={{float:"left"}}>(작성자) 님이 공유하신 맛집입니다.</div>
-    
-       <div style={{float:"right"}}>
-           <input type="button" value="찜하기"/>
+                      <div style={{float:"left"}}>(작성자) 님이 공유하신 맛집입니다.</div>
+          
+                      <div style={{float:"right"}}>
+                         <input type="button" value="찜하기"/>
 
-       </div>
+                      </div>
 
-    </div>
+                     </div>
 
-    <div style={{borderBottom:'1px solid black',width:'1150px',height:'400px'}}>
+                    <div style={{borderBottom:'1px solid black',width:'1150px',height:'400px'}}>
        
-       <div style={{borderBottom:'1px solid black',borderRight:'1px solid black',width:'550px',height:'400px',float:'left'}}>{row.photo}</div>
+                       <div style={{borderBottom:'1px solid black',borderRight:'1px solid black',width:'550px',height:'400px',float:'left'}}>{row.photo}</div>
 
     
-       <div style={{borderLeft:'1px solid black', width:'600x', float:'right'}}>
-          <div style={{width:'550px',height:'50px'}}>평점:{row.star}</div>
+                        <div style={{borderLeft:'1px solid black', width:'600x', float:'right'}}>
+                            <div style={{width:'550px',height:'50px'}}>평점:{row.star}</div>
 
-          <div style={{width:'550px',height:'50px'}}>주소:{row.addr}</div>
+                            <div style={{width:'550px',height:'50px'}}>주소:{row.addr}</div>
 
-          <div style={{width:'550px',height:'200px', marginTop:'50px'}}>리뷰:{row.content}</div>
+                            <div style={{width:'550px',height:'200px', marginTop:'50px'}}>리뷰:{row.content}</div>
 
-          <div style={{width:'550px',height:'50px'}}>작성일:{row.writeday}</div>
-       </div>
+                           <div style={{width:'550px',height:'50px'}}>작성일:{row.writeday}</div>
+                        </div>
    
-   </div>
+                    </div>
 
 
    
 
-    <div style={{borderBottom:'1px solid black',width:'1150px',height:'130px',marginTop:'20px'}}>
+                    <div style={{borderBottom:'1px solid black',width:'1150px',height:'130px',marginTop:'20px'}}>
   
     
      
-       <div style={{marginLeft:"20px"}}>
-          <div style={{float:'left'}}>id</div>
+                        <div style={{marginLeft:"20px"}}>
+                            <div style={{float:'left'}}>id</div>
     
-          <div style={{float:'left',marginRight:'100px'}} >
-              <input type="button" className="glyphicon glyphicon-camera" value="이미지"/>
-          </div>
-       </div>
+                            <div style={{float:'left',marginRight:'100px'}} >
+                              <input type="button" className="glyphicon glyphicon-camera" value="이미지"/>
+                          </div>
+                        </div>
    
-          <div>
-              <div>
-              <textarea placeholder="댓글을 입력하세요" style={{width:'800px',height:'100px',float:'left'}}/>
-              </div>
-              <div style={{float:'left',marginLeft:'50px'}}>
-              <button type="button" onClick={this.onInsertData.bind(this)}>저장</button>
-              </div>
-          </div>
+                    <div>
+                       <div>
+                         <textarea placeholder="댓글을 입력하세요" style={{width:'800px',height:'100px',float:'left'}}/>
+                       </div>
+                       <div style={{float:'left',marginLeft:'50px'}}>
+                          <button type="button" onClick={this.onInsertData.bind(this)}>저장</button>
+                     </div>
+                     </div>
 
-   </div>
+             </div>
 
-          <div>
-              <ShareReview regroup={row.regroup}/>
-          </div>
+                   <div>
+                     <ShareReview regroup={row.regroup}/>
+                   </div>
 
 
    
-</div>
-</Modal>
+              </div>
+              </Modal>
+
             </React.Fragment>
                
                      
@@ -191,8 +225,9 @@ class ShareBoardRowItem extends Component {
 
         )
     }
-
+  
 }
+
 
 
 export default ShareBoardRowItem

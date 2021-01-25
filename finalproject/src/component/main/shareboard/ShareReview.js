@@ -1,4 +1,6 @@
 import React, { Component,useState } from 'react';
+import axios from "axios";
+import {URL} from '../../../redux/config';
 import ReviewItem from './ReviewItem';
 
 class ShareReview extends Component {
@@ -11,16 +13,24 @@ class ShareReview extends Component {
         this.regroup = this.props.regroup;
     }
 
-    getList=()=>{
+     getList=()=>{
+        let url = URL + "/share/list";
 
-    }
+        axios.get(url)
+        .then(res=>{
+            this.setState({
+                listData: res.data
+            })
+          })
+
+     }
 
     render() {
         return (
             <div>
                {
                     this.state.listData.map((row,idx)=>(
-                        <ReviewItem row={row} key={idx} list={this.list.bind(this)}
+                        <ReviewItem row={row} key={idx} list={this.getList.bind(this)}
                             history={this.props.history}/>
                     ))
                  }
