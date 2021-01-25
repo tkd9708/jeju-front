@@ -1,7 +1,6 @@
 import FacebookLogin from "react-facebook-login";
 import React, { Component } from "react";
 import styled from "styled-components";
-import { FaFacebookSquare } from "react-icons/fa";
 
 class FaceBookLoginBtnComp extends Component {
 
@@ -41,13 +40,13 @@ class FaceBookLoginBtnComp extends Component {
             fbContent = (
                 <FacebookLogin
                     appId="513629929622627"
-                    autoLoad={true} // 실행과 동시에 자동으로 로그인 팝업창이 뜸
+                    autoLoad={false} // 실행과 동시에 자동으로 로그인 팝업창이 뜸
                     fields="name,email.picture" // 어떤정보를 받아올지 입력하는 필드
                     scope="public_profile,user_friends"
                     onClick={this.componentClicked} // this.바인딩 추가
                     callback={this.responseFacebook} // this.바인딩 추가
                 />
-            )
+            );
         }
 
         return (

@@ -1,19 +1,17 @@
 import React, {Component} from "react";
-import store from "../../../redux/store";
-import {actionType} from "../../../redux/config";
 
-const Tour = ({match}) => {
-    console.log("Tour match", match.params.name);
+class Tour extends Component {
 
-    store.dispatch({
-        type: actionType.setSpot,
-        contentsid: match.params.name
-    });
-
-    return(
-        <div>
-        </div>
-    )
+    constructor(props) {
+        super(props);
+    }
+    
+    render(){
+        return(
+            <div>
+            </div>
+        )
+    }
 }
 
 export default Tour;

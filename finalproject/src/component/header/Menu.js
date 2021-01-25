@@ -15,6 +15,8 @@ class Menu extends Component {
 
         this.state = {
             type: this.props.type,
+            onLogin: this.props.onLogin,
+            onLogout: this.props.onLogout,
         }
     }
 
@@ -32,10 +34,11 @@ class Menu extends Component {
         // 로그아웃일 경우 onLogout함수를 통해 logged를 다시 false로 바꿔준다.
         // 부모컴포넌트가 HeaderComp->App이므로 props를 통해 value를 전달받을 수 있다. 그러나 Login컴포넌트의경우는 여러번 전달해야함.
         // 따라서 전역적인 상태가 필요하다.
-
-        const {logged, onLogout} = this.props;
+        
+        
+        let {logged} = this.props;
         // console.log("Menu render ", this.props);
-
+        
         var className_div_menu = `${this.state.type} menu`;
 
         return (
@@ -64,7 +67,6 @@ class Menu extends Component {
                         {logged ?
                             <NavLink exact to="/"
                                      onClick={() => {
-                                         onLogout();
                                          console.log("Logout NavLink onClick");
                                          this.setMainView(mainViewType.Logout);
                                      }}>Logout</NavLink>

@@ -49,6 +49,12 @@ class HotPlaceComp extends Component {
                                      this.setMainView(mainViewType.TourList);
                                  }}
                         >성산</NavLink>
+                <NavLink exact to="/tourlist/pyoseon"
+                                 onClick={() => {
+                                     console.log("TourList NavLink onClick");
+                                     this.setMainView(mainViewType.TourList);
+                                 }}
+                        >표선</NavLink>
                 <NavLink exact to="/tourlist/namwon"
                                  onClick={() => {
                                      console.log("TourList NavLink onClick");
@@ -100,18 +106,12 @@ class HotPlaceComp extends Component {
                         >우도</NavLink>
                         <br/>
 
-                <Route exact path="/TourList/:name?" component={TourList}></Route>
+                {/* <Route exact path="/TourList/:name?" component={TourList}></Route> */}
                
                
                 {/*<a href="#HotPlaceComp">{this.props.name}</a>*/}
 
-                {/* <button type="button" onClick={
-                    ()=>{
-                        //this.props.history.push("/Tour/jeju");
-                        document.location.href = "TourList/jeju";
-                    }
-                }>제주제주</button>
-                <a href="/TourList/jeju">제주</a>
+                {/* <a href="/tourlist/jeju">제주</a>
                 <a href="/TourList/jocheon">조천</a>
                 <a href="/TourList/gujwa">구좌</a>
                 <a href="/TourList/sungsan">성산</a>

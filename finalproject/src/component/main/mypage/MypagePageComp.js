@@ -7,7 +7,7 @@ import {URL} from "../../../redux/config";
 import MySchedule from './MySchedule';
 
 class MypagePageComp extends Component {
-
+    
     constructor(props) {
         super(props);
         console.log("MypagePageComp constructor", props);
@@ -33,17 +33,17 @@ class MypagePageComp extends Component {
             console.log("목록 오류:" + err);
         })
     }
-    getMyReview = () => {
-        let url = URL + '/reivew/getdata?id=sanghee';
-        axios.get(url)
-            .then(response => {
-                this.setState({
-                    reviewList: response.data
-                })
-            }).catch(err => {
-            console.log("목록 오류:" + err);
-        })
-    }
+    // getMyReview = () => {
+    //     let url = URL + '/reivew/getdata?id=sanghee'; 
+    //     axios.get(url)
+    //         .then(response => {
+    //             this.setState({
+    //                 reviewList: response.data
+    //             })
+    //         }).catch(err => {
+    //         console.log("목록 오류:" + err);
+    //     })
+    // }
 
     // getWishlist = () => {
     //     let url = URL + '/reivew/getdata?id=sanghee';
@@ -59,11 +59,14 @@ class MypagePageComp extends Component {
 
     componentDidMount() {
         this.getMyData(); //처음 시작시 백엔드로부터 데이타 가져오기
-        this.getMyReview();
+       // this.getMyReview();
         //this.getWishlist();
     }
 
     render() {
+
+        console.log("MypagePageComp render()", this.props);
+
         return (
 
             <div>
@@ -88,17 +91,19 @@ class MypagePageComp extends Component {
                         {this.state.memberData.address},&nbsp;{this.state.memberData.addrdetail}<br/>
                     </tr>
                 </table>
+                <br/><br/>
                 <h1><b>나의 일정</b></h1>
-                    <MySchedule></MySchedule>
-                <h1><b>나의 리뷰</b></h1>
-                <table>
-                    <tr>
-                        <span class="glyphicon glyphicon-leaf"/>
-                    </tr>
-                </table>
+                 <MySchedule></MySchedule>  
+                
             </div>
+            
+            
         )
+        
+        
     }
+
+    
 }
 
 export default MypagePageComp;

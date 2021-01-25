@@ -1,5 +1,5 @@
 import React, { Component,useState } from 'react';
-import './modal.css'
+import './Modal.css'
 
 class Modal extends Component {
     render() {
@@ -8,7 +8,7 @@ class Modal extends Component {
 
         return (
             <div className={ open ? 'openModal modal': 'modal' }>
-                { open ? (  
+                { open ? (
                     <section>
                         <header>
                             { header }

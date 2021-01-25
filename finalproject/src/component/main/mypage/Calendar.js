@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import moment from 'moment';
-import {FaUtensils} from 'react-icons/fa';
+import {FaUtensils,FaMugHot,FaHotel,FaHamburger} from 'react-icons/fa';
+import axios from 'axios';
+import {URL} from "../../../redux/config";
 
 class DateHeader extends Component {
 
@@ -56,13 +58,53 @@ class DateHeader extends Component {
 
 class Week extends Component {
 
-  state = {}
 
   constructor(props){
     super(props);
 
     this.ym = this.props.ymOfThisCalendar;
+    this.state={
+      memId:'',
+      spotId:'',
+      shareNum:'',
+      aroundId:'',
+      content:'',
+      wishday:'',
+      title:'',
+      subject:'',
+      category:''
+      // list:[]
+    }
   }
+
+  getData=()=>{
+    // let url=URL+'/wish/list?memId=sanghee';
+    let url = "http://localhost:9002/wish/list?memId=sanghee";
+    axios.get(url)
+    .then(response=>{
+      console.log("캘린더 출력 : " + response.data.memId); 
+      this.setState({
+        // list: response.data
+        memId:response.data.memId,
+        spotId:response.data.spotId,
+        shareNum:response.data.shareNum,
+        content:response.data.content,
+        wishday:response.data.wishday,
+        aroundId:response.data.aroundId,
+        title:response.data.title,
+        subject:response.data.subject
+        // category:response.data.content.split(",")[0]
+
+      })
+    }).catch(err=>{
+      console.log("캘린더 목록 오류:"+err);
+    })
+  }
+
+  componentDidMount(){
+    this.getData();
+  }
+
   Days = (firstDayFormat,weekIndex) => {
     const _days = [];
     
@@ -101,13 +143,22 @@ class Week extends Component {
         className = "selected"
       }
 
+      const category=this.state.category;
+      const day=this.props.ymOfThisCalendar+"-"+dayInfo.getDay;
+      const wishday=this.state.content;
+      console.log(category);
+
       return (
         <div className={"RCA-calendar-day " + className} key={`RCA-${dayInfo.weekIndex}-${i}-day`}onClick={() => fn(dayInfo.yearMonthDayFormat)}>
           <label className="RCA-calendar-day-label">
-            {dayInfo.getDay}, {this.ym}
+            {dayInfo.getDay} 
+          
           </label>
-          <div className="category"><FaUtensils></FaUtensils></div>
-          <div className="title">삼보식당</div>
+          <div className="category">{wishday===day &&category==='카페'?<FaMugHot></FaMugHot>:
+          wishday===day &&category==='숙박'?<FaHotel></FaHotel>:wishday===day &&category==='음식점'?
+        <FaHamburger></FaHamburger>:''}</div>
+          <div className="title">삼보식당{this.state.spotId}</div>
+          
           </div>
          
       )

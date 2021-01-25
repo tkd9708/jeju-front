@@ -1,11 +1,12 @@
-div.mainFrame{
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
+div.mainFrame {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
 }
 
-
-
+div.footerComp {
+    text-align: center;
+}
 
 
 /*.App {*/
