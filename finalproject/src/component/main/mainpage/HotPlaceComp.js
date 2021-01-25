@@ -64,6 +64,7 @@ export default function HotPlaceComp() {
 
     return (
         <div className="hotPlaceComp">
+            
             <Paper square>
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                     <Tab label="Jeju" {...a11yProps(0)} />
@@ -132,14 +133,14 @@ export default function HotPlaceComp() {
 */
 
 
-/*
-<NavLink exact to="/tourlist/jeju"
+
+{/* <NavLink exact to="/tourlist/jeju"
          onClick={() => {
              console.log("TourList NavLink onClick");
              this.setMainView(mainViewType.TourList);
          }}
->제주</NavLink>
-<NavLink exact to="/tourlist/jocheon"
+>제주</NavLink> */}
+{/* <NavLink exact to="/tourlist/jocheon"
          onClick={() => {
              console.log("TourList NavLink onClick");
              this.setMainView(mainViewType.TourList);
@@ -211,7 +212,7 @@ export default function HotPlaceComp() {
              console.log("TourList NavLink onClick");
              this.setMainView(mainViewType.TourList);
          }}
->우도</NavLink>
-*/
+>우도</NavLink> */}
+
 
 // <Route path="/TourList/:name?" component={TourList}></Route>
