@@ -24,7 +24,6 @@ class ShareBoardFormComp extends Component {
         upload.append("uploadFile", uploadFile);
 
         let url = URL + "/share/upload";
-        //let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot8/share/upload";
 
         axios({
             method: 'post',
@@ -51,7 +50,7 @@ class ShareBoardFormComp extends Component {
         console.log(subject + ", " + addr + ", " + content);
 
         //db 에 insert
-        let url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot8/share/insert";
+        let url = URL + "/share/insert";
 
         axios.post(url, {subject, addr, content, star})
             .then(res => {
@@ -66,7 +65,7 @@ class ShareBoardFormComp extends Component {
                     photoname: ''
                 });
 
-                if(resolve!= null){
+                if (resolve != null) {
                     resolve();
                 }
             }).catch(err => {
@@ -81,9 +80,9 @@ class ShareBoardFormComp extends Component {
             this.onDataInsert(resolve);
         });
 
-        _promise.then(()=>{
+        _promise.then(() => {
             alert('공유하였습니다. 목록확인하세요 ' + this.state.subject);
-        }).then(()=>{
+        }).then(() => {
             this.props.history.push("/share");
         });
     }

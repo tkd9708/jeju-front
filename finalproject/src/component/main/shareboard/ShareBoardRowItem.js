@@ -145,7 +145,7 @@ class ShareBoardRowItem extends Component {
                                         onClick={this.onDeleteData.bind(this)}
                                 >삭제
                                 </button>
-                                <Link to="/share/update">
+                                <Link to={`/share/update/${this.props.row.num}`}>
                                     <button type="button" style={{float: 'right'}}
                                     >수정
                                     </button>
