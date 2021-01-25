@@ -3,7 +3,8 @@ import axios from 'axios';
 import MapComp from './MapComp';
 import ReviewListComp from './ReviewListComp';
 import {URL} from '../../../redux/config';
-import detailTitle from '../../../image/detailTitle.jpg';
+import StarRoundedIcon from '@material-ui/icons/StarRounded';
+import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
 
 class DetailTourComp extends Component {
 
@@ -39,13 +40,24 @@ class DetailTourComp extends Component {
     }
 
     render() {
-        
+        var star = '';
+        for(var i=1; i<=5; i++){
+            if(i <= this.state.spotdata.star){
+                star += <StarRoundedIcon/>;
+            }
+            else {
+                star += <StarBorderRoundedIcon/>;
+            }
+        }
         return (
             <div>
-                {/* <h4>DetailTourComp {this.state.contentsid} / {this.state.spotdata.longitude}</h4> */}
-                {/* <img src={detailTitle} alt="이미지 없음" style={{width: '100%'}}/> */}
-                {/* <h4>{this.state.spotdata.img}</h4> */}
                 <img src={this.state.spotdata.img} alt="이미지 없음" style={{width: '100%'}}/>
+                <div>
+                    <b>{this.state.spotdata.title}</b>
+                    <span style={{color: '#F0CD58'}}>
+                        {star}
+                    </span>
+                </div>
                 <br/><br/>
 
                 <div className="detailTitle">
