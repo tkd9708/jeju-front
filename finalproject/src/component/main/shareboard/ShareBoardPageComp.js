@@ -2,8 +2,9 @@ import React, {Component} from "react";
 import {Route, Link} from "react-router-dom";
 import ShareBoardFormComp from "./ShareBoardFormComp";
 import ShareBoardRowItem from "./ShareBoardRowItem";
-import {URL} from '../../../redux/config';
+import {URL, actionType} from '../../../redux/config';
 import axios from "axios";
+import store from "../../../redux/store";
 
 
 class ShareBoardPageComp extends Component {
@@ -14,8 +15,12 @@ class ShareBoardPageComp extends Component {
 
     constructor(props) {
         super(props);
-        console.log("ShareBoardPageComp constructor", props);
+        console.log("ShareBoardPageComp constructor", this.props);
 
+        store.subscribe(this.list.bind(this));
+        store.dispatch({
+            type: actionType.shareBoardUpdate,
+        });
     }
 
     list = () => {
@@ -23,12 +28,15 @@ class ShareBoardPageComp extends Component {
         let url = URL + "/share/list?start=0&perPage=3";
 
         console.log(url);
-        axios.get(url)
-            .then(res => {
-                this.setState({
-                    listData: res.data
-                })
+        axios.get(url
+        ).then(res => {
+            console.log("list() res", res);
+            this.setState({
+                listData: res.data
             })
+        }).catch(err => {
+            console.log("list() err", err);
+        });
     }
 
     componentWillMount() {
@@ -47,11 +55,9 @@ class ShareBoardPageComp extends Component {
 
                 {/*/!* 공유버튼 *!/*/}
                 <div>
-                    <Link to="/ShareBoard/ShareBoardFormComp">
+                    <Link to="/share/insert">
                         <button type="button">맛집공유</button>
                     </Link>
-
-                    <Route exact path="/ShareBoard/ShareBoardFormComp" component={ShareBoardFormComp}/>
                 </div>
 
                 {/* 게시판 폼 */}

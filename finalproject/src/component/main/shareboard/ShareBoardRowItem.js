@@ -3,10 +3,25 @@ import {Route, Link} from "react-router-dom";
 import ShareBoardUpdateForm from "./ShareBoardUpdateForm";
 import Modal from './Modal';
 import axios from "axios";
-import {URL} from '../../../redux/config';
+import {actionType, URL} from '../../../redux/config';
 import ShareReview from './ShareReview';
+import store from "../../../redux/store";
 
-
+/*
+row:
+    addr: "제주시 제주동 제주읍 제주리 제주제주"
+    content: "맛있습니다. 맛있습니다. 맛있습니다. 맛있습니다.↵맛있습니다. 맛있습니다. 맛있습니다. 맛있습니다↵맛있습니다. 맛있습니다. 맛있습니다. 맛있습니다"
+    id: "hee0134"
+    likes: 0
+    num: "422"
+    photo: "jeju20210122102347.png"
+    regroup: 422
+    relevel: 0
+    restep: 0
+    star: "4"
+    subject: "제주도 맛집맛집"
+    writeday: "2021-01-22"
+ */
 class ShareBoardRowItem extends Component {
 
     state = {
@@ -16,7 +31,7 @@ class ShareBoardRowItem extends Component {
 
     constructor(props) {
         super(props);
-
+        console.log("constructor", this.props);
         //스크롤
         this.myRef = React.createRef()
         this.state = {scrollTop: 0}
@@ -35,14 +50,30 @@ class ShareBoardRowItem extends Component {
 
 
     //삭제하는 함수 이벤트
-    onDeleteData = (num) => {
-        //console.log("share : " + num);
-        // let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/share/delete?num="+ num;
-        // axios.delete(url)
-        // .then(res=>{
-        //     //목록으로 이동
-        //     this.props.history.push("/list");
-        // })
+    onDeleteData = (e) => {
+        e.preventDefault();
+        let num = this.props.row.num;
+        let regroup = this.props.row.regroup;
+        let url = URL + "/share/delete";
+        let data = {
+            num: num,
+            regroup: regroup,
+        }
+
+        // console.log("onDeleteData", url, data);
+
+        if (window.confirm("삭제하시겠습니까?")) {
+            axios.post(url, data
+            ).then(res => {
+                // console.log("onDeleteData() res", res);
+                store.dispatch({
+                    type: actionType.shareBoardUpdate,
+                });
+                this.props.history.push("/share");
+            }).catch(err => {
+                console.log("onDeleteData() err", err);
+            });
+        }
     }
 
     onInsertData = () => {
@@ -76,7 +107,6 @@ class ShareBoardRowItem extends Component {
             scrollTop
         } = this.state
 
-
         return (
             <div>
                 <React.Fragment>
@@ -87,10 +117,13 @@ class ShareBoardRowItem extends Component {
                         margin: '80px',
                         float: 'left',
                         cursor: 'pointer'
-                    }} onClick={this.openModal.bind(this)}>
+                    }}
+                        // onClick={this.openModal.bind(this)}
+                    >
 
-                        <div
-                            style={{borderBottom: '1px solid black', width: '400px', height: '250px'}}>{row.photo}</div>
+                        <div style={{borderBottom: '1px solid black', width: '400px', height: '250px'}}
+                             onClick={this.openModal.bind(this)}
+                        >{row.photo}</div>
 
 
                         <div style={{
@@ -98,53 +131,27 @@ class ShareBoardRowItem extends Component {
                             width: '400px',
                             height: '50px',
                             alignItems: 'center'
-                        }}>맛집이름:{row.subject}</div>
-
-
+                        }}
+                             onClick={this.openModal.bind(this)}
+                        >맛집이름:{row.subject}</div>
                         <div style={{borderBottom: '1px solid black', width: '400px', height: '100px'}}>
-
                             <div>평점:{row.star}</div>
-
                             <div>주소:{row.addr}</div>
-
                         </div>
-
                         <div>
-
-
                             <div style={{width: '400px', height: '50px'}}>
-
                                 <div style={{float: 'left'}}>조회수:{row.readcount}</div>
-
-
                                 <button type="button" style={{float: 'right'}}
-                                        onClick={
-                                            () => {
-                                                console.log(row.num + ", " + row.regroup);
-
-                                                // let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot/share/delete?regroup=" + row.regroup + "&num="+ num;
-                                                // axios.delete(url)
-                                                // .then(res=>{
-                                                //     //목록으로 이동
-                                                //     this.props.list();
-                                                // })
-                                            }
-                                        }>삭제
+                                        onClick={this.onDeleteData.bind(this)}
+                                >삭제
                                 </button>
-
-
-                                <Link to="/ShareBoard/ShareBoardUpdateForm">
-                                    <button type="button" style={{float: 'right'}}>수정</button>
+                                <Link to="/share/update">
+                                    <button type="button" style={{float: 'right'}}
+                                    >수정
+                                    </button>
                                 </Link>
-                                <Route exact path="/ShareBoard/ShareBoardUpdateForm" component={ShareBoardUpdateForm}/>
-
-
                             </div>
-
-
                         </div>
-
-
                     </div>
 
                     {/* //header 부분에 텍스트를 입력한다. */}
@@ -161,20 +168,14 @@ class ShareBoardRowItem extends Component {
                              ref={this.myRef} onScroll={this.onScroll}>
 
                             <div style={{borderBottom: '1px solid black', height: '50px'}}>
-
                                 <div style={{float: "left"}}><input type="button" value="좋아요"/></div>
-
                                 <div style={{float: "left"}}>(작성자) 님이 공유하신 맛집입니다.</div>
-
                                 <div style={{float: "right"}}>
                                     <input type="button" value="찜하기"/>
-
                                 </div>
-
                             </div>
 
                             <div style={{borderBottom: '1px solid black', width: '1150px', height: '400px'}}>
-
                                 <div style={{
                                     borderBottom: '1px solid black',
                                     borderRight: '1px solid black',
