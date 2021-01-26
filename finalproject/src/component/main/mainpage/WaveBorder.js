@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core";
+import {withStyles} from "@material-ui/core";
 import jeju1 from "../../../image/jeju1.jpg";
 import jeju2 from "../../../image/jeju2.jpg";
 import jeju3 from "../../../image/jeju3.jpeg";
@@ -18,8 +18,8 @@ const styles = {
         // bottom: "-1000",
     },
     "@keyframes moveForever": {
-        from: { transform: "translate3d(-90px, 0, 0)" },
-        to: { transform: "translate3d(85px, 0, 0)" }
+        from: {transform: "translate3d(-90px, 0, 0)"},
+        to: {transform: "translate3d(85px, 0, 0)"}
     },
     parallax: {
         "& > use": {
@@ -52,7 +52,7 @@ function WaveBorder(props) {
         ...rest
     } = props;
     return (
-        <div className={className} style={{ background: upperColor }} {...rest}>
+        <div className={className} style={{background: upperColor}} {...rest}>
             {/* <img className="mainPhotoComp_img1" src={jeju1}/> */}
             <svg
                 className={classes.waves}
@@ -61,27 +61,29 @@ function WaveBorder(props) {
                 viewBox="0 24 150 28"
                 preserveAspectRatio="none"
                 shapeRendering="auto">
-                    <defs>
+                <defs>
                     <path
                         id={id}
                         d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
                     />
-                    </defs>
-                    <g className={classes.parallax}>
-                        <use href={`#${id}`} x="48" y="6" fill={lowerColor} />
-                    </g>
-                </svg>
-                <div className="footerComp">
-                    {/* <hr/> */}
-                    <img src={Logo2}
-                        style={{width: "150px"}}
-                        alt="logo2"/>
+                </defs>
+                <g className={classes.parallax}>
+                    <use href={`#${id}`} x="48" y="6" fill={lowerColor}/>
+                </g>
+            </svg>
+            {/*<div className="footerComp">*/}
+            <div>
+                {/* <hr/> */}
+                <div className="content">
                     <br/>
-                    <div className="content">
-                        (주)멘도롱소랑 | 경기도 서초구 강남대로 459 (서초동 1300-34)<br/>
-                        사업자 번호 147-14-12345 | 전화번호:02-123-1234 | 팩스 02-1234-1234 | 이메일 help@naver.com
-                    </div>
+                    <img src={Logo2}
+                         style={{width: "150px"}}
+                         alt="logo2"/>
+                    <br/>
+                    (주)멘도롱소랑 | 경기도 서초구 강남대로 459 (서초동 1300-34)<br/>
+                    사업자 번호 147-14-12345 | 전화번호:02-123-1234 | 팩스 02-1234-1234 | 이메일 help@naver.com
                 </div>
+            </div>
         </div>
     );
 }

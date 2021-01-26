@@ -33,10 +33,12 @@ class App extends Component {
         this.state = {
             isStaticHeader: true,
             mainview: "mainpage",
-            footer: "footer_comp",
+            // footerPositionType: "",
+
             logged: false,
             onLogin: this.onLogin,
             onLogout: this.onLogout
+
         }
 
         window.onmousewheel = function (e) {
@@ -100,6 +102,8 @@ class App extends Component {
     }
 
 
+
+
     render() {
         let {logged} = this.state;
 
@@ -115,7 +119,7 @@ class App extends Component {
                     <Switch>
                         <Route exact path="/" component={MainPageComp}/>
                         <Route path="/admin/:name?" component={MemberListPageComp}/>
-                        <Route  path="/login/:name?">
+                        <Route path="/login/:name?">
                             <LoginPageComp
                                 logged={logged}
                                 onLogin={this.onLogin}
@@ -131,7 +135,10 @@ class App extends Component {
                         <Route path="/reservation/:name?" component={ReservationPageComp}/>
                         <Route path="/tourlist/:name?" component={TourPageComp}/>
                     </Switch>
-                    <FooterComp/>
+                    <div className="footerComp"
+                    >
+                        <FooterComp/>
+                    </div>
                 </div>
             </BrowserRouter>
         )
