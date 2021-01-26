@@ -2,11 +2,14 @@ import React, { Component, useState } from "react";
 import axios from 'axios';
 import {URL} from "../../../redux/config";
 import { makeStyles, createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
 import TextField from "@material-ui/core/TextField";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import PropTypes from "prop-types";
 // import { withStyles } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
 
 const styles = theme => ({
     root: {
@@ -15,7 +18,15 @@ const styles = theme => ({
             width: '25ch',
         },
     },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
 });
+
+const genders = [
+    '남성',
+    '여성',
+];
 
 class SignupPageComp extends Component {
 
@@ -146,6 +157,13 @@ class SignupPageComp extends Component {
             console.log("회원가입시 오류남:"+err);
         })
     }
+
+    handleChange = (event) => {
+        this.setState({
+            gender: event.target.value,
+        });
+    };
+
     render() {
         const { classes } = this.props;
         console.log("SingupPageComp render()", this.props);
@@ -215,13 +233,28 @@ class SignupPageComp extends Component {
                 onChange = { this.changeEvent.bind(this) } />
 
                 <br />
-                <select name="gender"
+                {/* <select name="gender"
                 onChange = {this.changeEvent.bind(this)}
                 value = { this.state.gender }>
                     <option value="">성별선택</option>
                     <option value="여성">여성</option>
                     <option value="남성">남성</option>
-                </select>
+                </select> */}
+
+                <InputLabel id="demo-simple-select-label">성별</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={this.state.gender}
+                    onChange={this.handleChange}
+                >
+                    {genders.map((gender) => (
+                        <MenuItem key={gender} value={gender}>
+                            {gender}
+                        </MenuItem>
+                    ))}
+                </Select>
+
                 <br />
                 사진 : &nbsp;
                 <input type="file" name="photo"
