@@ -24,7 +24,6 @@ class ShareBoardPageComp extends Component {
     }
 
     list = () => {
-        // let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot8/share/list?start=0&perPage=3";
         let url = URL + "/share/list?start=0&perPage=3";
 
         console.log(url);
@@ -45,7 +44,6 @@ class ShareBoardPageComp extends Component {
 
 
     render() {
-        console.log("ShareBoardPageComp render()", this.props);
         return (
             <div>
                 {/* 제목 */}
