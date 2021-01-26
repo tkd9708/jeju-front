@@ -172,9 +172,10 @@ class DetailReviewComp extends Component {
                                             <PhotoCamera />
                                         </IconButton>  
                                         {/* <span style={{display:'inline-block', paddingBottom: '20px'}}>{this.state.upload}</span> */}
+                                        {chip}
                                     </label>
                             </label>
-                                    {chip}
+                                    
                         </Box>
                         <Box m={1}>
                             <button type="button" className="btn btn-warning" id="btnInsertReview" style={{marginTop: '21px'}}
