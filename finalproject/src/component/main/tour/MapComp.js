@@ -1,5 +1,5 @@
 /*global kakao */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import './kakaomap.css';
 import Box from '@material-ui/core/Box';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -7,27 +7,25 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import LocalCafeIcon from '@material-ui/icons/LocalCafe';
 import HotelIcon from '@material-ui/icons/Hotel';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import AroundModal from "./AroundModal";
+import UseModal from './UseModal';
 
 const MapComp=(props)=> {
 
     let longitude = useState(0);
     let latitude = useState(0);
     let title = useState("");
-    const [open, setOpen] = useState(false); 
-    const [setopen, setSetopen] = useState(false);
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertSetOpen, setAlertSetOpen] = useState(false);
     const [aroundId, setAroundId] = useState("");
-    const [content, setContent] = useState("");   
+    const [wishTitle, setWishTitle] = useState("");
+    const [wishContent, setWishContent] = useState("");
     
     const [value, setValue] = React.useState(0);
 
@@ -213,11 +211,18 @@ function placesSearchCB(data, status, pagination) {
         itemStr += '<span class="gray">' +  places.address_name  + '</span>';      
         itemStr += '<span class="tel">' + places.phone  + '</span>' + 
                     '</a></td>' +
-                    '<td style={{width:"20%"}}><div className="addWishBtn">일정추가</div></td></tr></table>';
+                    '<td style={{width:"20%"}}><div className="addWishBtn" onClick={setting}>일정추가</div></td></tr></table>';
         el.innerHTML = itemStr;
+        el.onclick=function(){
+            setWishTitle(places.place_name);
+            setWishContent(places.address_name);
+            toggle();
+        }
         el.className = 'item';
                 
         return el;
+
+        // return <div dangerouslySetInnerHTML={{ __html : itemStr}}></div>;
     }    
  }
  
@@ -328,17 +333,6 @@ function placesSearchCB(data, status, pagination) {
         }
     }
 
-    
-    function add() {
-        var category = document.getElementsByClassName('addWishBtn'),
-            children = category.children;
-        for (var i=0; i<children.length; i++) {
-            children[i].onclick = onClickAdd;
-        }
-    }
-    function onClickAdd() {
-        console("click");
-    }
     //클릭된 카테고리에만 클릭된 스타일을 적용하는 함수입니다
     // function changeCategoryClass(el) {
     //     var category = document.getElementById('category'),
@@ -356,14 +350,6 @@ function placesSearchCB(data, status, pagination) {
   };
 
 
-    // modal 함수
-    const handleOpen = () => {
-        setOpen(open);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     // alert 함수
     const handleAlertOpen = () => {
@@ -374,17 +360,19 @@ function placesSearchCB(data, status, pagination) {
         setAlertOpen(false);
     };
 
-    
-    function setting(places){
-        console.log(places.place_name);
-    }
-
-
+    const {isShowing, toggle} = UseModal();
   return (
       <div>
           {/* <div id="map" style={{ width: "500px", height: "500px" }}></div> */}
-          <div onClick={setting}>일정추가</div>
-          {aroundId}
+          
+          {/* <button className="button-default" onClick={toggle}>Show Modal</button> */}
+          {/* 모달 */}
+          <AroundModal
+                isShowing={isShowing}
+                hide={toggle}
+                wishTitle = {wishTitle}
+            />
+
           <Box className="map_wrap" style={{textAlign: 'center'}}
                         display="flex"
                         flexWrap="wrap"
@@ -427,10 +415,10 @@ function placesSearchCB(data, status, pagination) {
                     </Box>
 
                     {/* 일정 추가 모달 */}
-                    <Modal
+                    {/* <Modal
                         aria-labelledby="transition-modal-title"
                         aria-describedby="transition-modal-description"
-                        className="modal"
+                        className="aroundmodal"
                         open={open}
                         onClose={handleClose}
                         closeAfterTransition
@@ -440,21 +428,21 @@ function placesSearchCB(data, status, pagination) {
                         }}
                     >
                         <Fade in={open}>
-                        <div className="paper">
-                            <span className="modalTitle">일정 추가</span><br/>
+                        <div className="aroundpaper">
+                            <span className="aroundmodalTitle">일정 추가</span><br/> */}
                             {/* 🏰&nbsp;&nbsp;{this.state.spotdata.title}<br/> */}
                             {/* 🗺&nbsp;&nbsp;{this.state.spotdata.roadaddr}<br/> */}
-                            🗓&nbsp;&nbsp;여행 날짜
+                            {/* 🗓&nbsp;&nbsp;여행 날짜
                             <input type="date" class="form-control form-control-sm" ref="wishday"></input>
                             ⏰&nbsp;&nbsp;예정 시간
                             <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
                             <div style={{textAlign: 'center'}}>
-                                <button type="button" class="btn btn-warning modalBtn"><b>추가</b></button>
+                                <button type="button" class="btn btn-warning aroundmodalBtn"><b>추가</b></button>
                             </div>
 
                         </div>
                         </Fade>
-                    </Modal>
+                    </Modal> */}
 
                     {/* alert 창 */}
                     <Dialog

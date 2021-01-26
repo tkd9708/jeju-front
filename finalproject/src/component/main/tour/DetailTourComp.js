@@ -30,9 +30,9 @@ class DetailTourComp extends Component {
 
     }
 
-    // componentDidUpdate() {
-    //     window.scrollTo(0,0);
-    // }
+    componentDidUpdate() {
+        window.scrollTo(0,0);
+    }
 
     getData=()=>{
         const url = URL + "/spot/select?contentsid=" + this.state.contentsid;
@@ -99,7 +99,11 @@ class DetailTourComp extends Component {
         let wishday = this.refs.wishday.value;
         let wishtime = this.refs.wishtime.value;
 
-        axios.post(url, {memId, spotId, content, wishday, wishtime})
+        console.log(this.refs.wishday.value);
+        if(wishday == '' || wishtime == '')
+            alert("날짜와 시간을 모두 선택해주세요.");
+        else{
+            axios.post(url, {memId, spotId, content, wishday, wishtime})
             .then(res=>{
                 this.setState({
                     open: false,
@@ -108,6 +112,8 @@ class DetailTourComp extends Component {
             }).catch(err=>{
                 console.log("spotwish insert 오류 : " + err);
             })
+        }
+        
     }
       
 
@@ -163,9 +169,8 @@ class DetailTourComp extends Component {
                         ⏰&nbsp;&nbsp;예정 시간
                         <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
                         <div style={{textAlign: 'center'}}>
-                            <button type="button" class="btn btn-warning modalBtn" onClick={this.insertWish.bind(this)}><b>추가</b></button>
+                            <button type="button" class="btn btn-warning spotmodalBtn" onClick={this.insertWish.bind(this)}><b>추가</b></button>
                         </div>
-
                     </div>
                     </Fade>
                 </Modal>
