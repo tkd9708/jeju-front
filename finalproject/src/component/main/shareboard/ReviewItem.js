@@ -68,19 +68,44 @@ class ReviewItem extends Component {
         })
     }
 
+    onDeleteSubAnswer = ()=>{
+        let num = this.props.row.num;
+        let regroup = this.props.row.regroup;
+        let url = URL + "/share/deleteanswer" +
+            "?num="+num;
+
+        console.log("onDeleteData", url);
+
+        if (window.confirm("삭제하시겠습니까?")) {
+            axios.post(url
+            ).then(res => {
+                console.log("onDeleteData() res", res);
+                store.dispatch({
+                    type: actionType.shareBoardUpdate,
+                });
+                // this.props.history.push("/share");
+            }).catch(err => {
+                console.log("onDeleteData() err", err);
+            });
+        }
+    }
+
     render() {
         const {row} = this.props;
 
         return (
             <div style={{marginLeft: `calc(30px*${row.relevel})`}}>
-                {row.photo} / {row.regroup} / {row.relevel} / {row.restep} /<br/>
-                내용 :
+                {row.num} / {row.photo} / {row.regroup} / {row.relevel} / {row.restep} / 내용 :
                 <div style={{border: "1px solid", margin: "5px"}}>
                     {row.content}
                 </div>
                 <button type="button"
                         onClick={this.onTriggerInput.bind(this)}
                 >댓글 쓰기
+                </button>&nbsp;
+                <button type="button"
+                        onClick={this.onDeleteSubAnswer.bind(this)}
+                >댓글 삭제
                 </button>
 
                 {/*댓글 입력창 on/off*/}
