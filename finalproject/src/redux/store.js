@@ -23,49 +23,36 @@ export default createStore(
 
         //action.type 별로 로직처리 다르게 하기.
         if (action.type === actionType.setMainView) {
+            newState = Object.assign({}, state, {
+                mainView: action.mainView,
+            });
+        } else if (action.type === actionType.SIGN_UP) {
 
             newState = Object.assign({}, state, {
                 mainView: action.mainView,
             });
-        }
-        else if (action.type === actionType.SIGN_UP) {
-            
-            newState = Object.assign({}, state, {
-                mainView: action.mainView,
-            });
-        }
-        else if (action.type === actionType.LOG_IN) {
-            newState = Object.assign({}, state, {
-                
-            });
-        }
-        else if (action.type === actionType.LOGIN_REQUEST) {
-            newState = Object.assign({}, state, {
-
-            });
-        }
-        else if (action.type === actionType.LOGIN_SUCCESS) {
+        } else if (action.type === actionType.LOG_IN) {
+            newState = Object.assign({}, state, {});
+        } else if (action.type === actionType.LOGIN_REQUEST) {
+            newState = Object.assign({}, state, {});
+        } else if (action.type === actionType.LOGIN_SUCCESS) {
             newState = Object.assign({}, state, {
                 logged: true,
                 id: action.type.id,
             });
-        }
-        else if (action.type === actionType.LOGIN_FAILURE) {
+        } else if (action.type === actionType.LOGIN_FAILURE) {
             newState = Object.assign({}, state, {
                 logged: false,
                 id: "",
             });
-        }
-        else if (action.type === actionType.MEMBER_LIST) {
-
-
-
+        } else if (action.type === actionType.MEMBER_LIST) {
             newState = Object.assign({}, state, {
                 memberData: action.payload
             });
-
+        } else if(action.type === actionType.shareBoardUpdate){
+            newState = Object.assign({}, state);
         }
-        
+
         console.log("reducer()", state, action, newState);
         return newState;
     }
