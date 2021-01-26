@@ -96,7 +96,6 @@ class DetailReviewComp extends Component {
         const imageFile=new FormData();
         imageFile.append("uploadFile",uploadFile);
 
-        // let url = "http://localhost:9002/sreview/upload";
         let url = URL + "/sreview/upload";
         
         axios({
@@ -113,8 +112,7 @@ class DetailReviewComp extends Component {
     }
 
     handleDelete = () => {
-        let url = "http://localhost:9002/sreview/delupload";
-        // let url = URL + "/sreview/delupload";
+        let url = URL + "/sreview/delupload";
         axios.get(url)
             .then(res=>{
                 this.setState({

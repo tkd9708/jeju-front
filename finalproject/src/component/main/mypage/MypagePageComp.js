@@ -9,6 +9,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import MySchedule from './MySchedule';
 
 class MypagePageComp extends Component {
     
@@ -101,6 +102,7 @@ class MypagePageComp extends Component {
                         {this.state.memberData.address},&nbsp;{this.state.memberData.addrdetail}<br/>
                     </tr>
                 </table>
+                {/* <MySchedule/> */}
                 <AppBar position="static">
                     <Tabs value={this.state.value} onChange={this.handleChange} aria-label="simple tabs example">
                         <Tab label="나의 일정" {...this.tabProps(0)} />
@@ -109,7 +111,7 @@ class MypagePageComp extends Component {
                     </Tabs>
                 </AppBar>
                 <TabPanel value={this.state.value} index={0}>
-                    나의 일정
+                    <MySchedule/>
                 </TabPanel>
                     <TabPanel value={this.state.value} index={1}>
                     Item Two

@@ -54,6 +54,7 @@ class ReviewListComp extends Component {
 
         axios.get(url)
             .then(res=>{
+                // console.log("review list : " + res.data.contentsid);
                 this.setState({
                     reviewList : res.data
                 })

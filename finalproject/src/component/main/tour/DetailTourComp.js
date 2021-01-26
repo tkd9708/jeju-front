@@ -7,6 +7,12 @@ import './TourDetailCss.css';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 
 class DetailTourComp extends Component {
 
@@ -17,7 +23,9 @@ class DetailTourComp extends Component {
             spotdata:[],
             contentsid: match.params.name,
             open: false, 
-            setOpen: false
+            setOpen: false,
+            alertOpen: false,
+            alertSetOpen: false
         }
 
     }
@@ -48,12 +56,13 @@ class DetailTourComp extends Component {
             e.target.className = 'heart';       
         }
         else{
-            e.target.className = 'heart clickheart';
+            // e.target.className = 'heart clickheart';
             this.handleOpen();
         }
             
     }
 
+    // modal 함수
     handleOpen = () => {
         this.setState({
             open: true
@@ -66,6 +75,20 @@ class DetailTourComp extends Component {
         })
     };
 
+    // alert 함수
+    alertOpen = () => {
+        this.setState({
+            alertOpen: true
+        })
+    };
+
+    alertClose = () => {
+        this.setState({
+            alertOpen: false
+        })
+        this.refs.thumbHeart.className="heart clickheart";
+    };
+
     insertWish=()=>{
         // console.log(this.refs.wishday.value);
 
@@ -76,7 +99,15 @@ class DetailTourComp extends Component {
         let wishday = this.refs.wishday.value;
         let wishtime = this.refs.wishtime.value;
 
-        // axios.post(url, {})
+        axios.post(url, {memId, spotId, content, wishday, wishtime})
+            .then(res=>{
+                this.setState({
+                    open: false,
+                    alertOpen: true
+                })
+            }).catch(err=>{
+                console.log("spotwish insert 오류 : " + err);
+            })
     }
       
 
@@ -105,7 +136,7 @@ class DetailTourComp extends Component {
                     <span id="thumbTag" style={{color: '#bbb'}}>{this.state.spotdata.tag}</span><br/>
                     <span id="thumbRoad" style={{color: '#bbb'}}><span class="fa fa-map-marker"></span>&nbsp;&nbsp;{this.state.spotdata.roadaddr}</span><br/>
                     
-                    <span id="thumbHeart" className='heart' style={{position: 'absolute', cursor: 'pointer'}} onClick={this.heartClick.bind(this)}></span>
+                    <span id="thumbHeart" ref="thumbHeart" className='heart' style={{position: 'absolute', cursor: 'pointer'}} onClick={this.heartClick.bind(this)}></span>
                 </div>
                 <br/><br/>
 
@@ -113,7 +144,7 @@ class DetailTourComp extends Component {
                 <Modal
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"
-                    className="modal"
+                    className="spotmodal"
                     open={this.state.open}
                     onClose={this.handleClose.bind(this)}
                     closeAfterTransition
@@ -123,8 +154,8 @@ class DetailTourComp extends Component {
                     }}
                 >
                     <Fade in={this.state.open}>
-                    <div className="paper">
-                        <span className="modalTitle">일정 추가</span><br/>
+                    <div className="spotpaper">
+                        <span className="spotmodalTitle">일정 추가</span><br/>
                         🏰&nbsp;&nbsp;{this.state.spotdata.title}<br/>
                         🗺&nbsp;&nbsp;{this.state.spotdata.roadaddr}<br/>
                         🗓&nbsp;&nbsp;여행 날짜
@@ -173,6 +204,37 @@ class DetailTourComp extends Component {
 
                 {/* 후기 */}
                 <ReviewListComp contentsid={this.state.contentsid}/>
+
+                {/* alert 창 */}
+                <Dialog
+                    open={this.state.alertOpen}
+                    onClose={this.alertClose.bind(this)}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"일정 추가 완료"}</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Mypage로 이동하여 확인하시겠습니까?
+                    </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={this.alertClose.bind(this)} color="primary">
+                        NO
+                    </Button>
+                    <Button onClick={
+                        ()=>{
+                            this.setState({
+                                alertOpen: false
+                            })
+                            this.refs.thumbHeart.className="heart clickheart";
+                            this.props.history.push("/mypage");
+                        }
+                    } color="primary" autoFocus>
+                        YES
+                    </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         );
     }
