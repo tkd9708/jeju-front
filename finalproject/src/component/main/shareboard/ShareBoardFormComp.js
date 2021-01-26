@@ -52,23 +52,22 @@ class ShareBoardFormComp extends Component {
         //db 에 insert
         let url = URL + "/share/insert";
 
-        axios.post(url, {subject, addr, content, star})
-            .then(res => {
-                //값 지우기
-                this.refs.subject.value = '';
-                this.refs.addr.value = '';
-                this.refs.content.value = '';
+        axios.post(url, {subject, addr, content, star}
+        ).then(res => {
+            //값 지우기
+            this.refs.subject.value = '';
+            this.refs.addr.value = '';
+            this.refs.content.value = '';
 
+            //이미지도 지우기
+            this.setState({
+                photoname: ''
+            });
 
-                //이미지도 지우기
-                this.setState({
-                    photoname: ''
-                });
-
-                if (resolve != null) {
-                    resolve();
-                }
-            }).catch(err => {
+            if (resolve != null) {
+                resolve();
+            }
+        }).catch(err => {
             console.log("shareboard insert 오류 : " + err);
         })
 

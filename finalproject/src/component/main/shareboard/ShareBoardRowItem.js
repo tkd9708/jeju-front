@@ -42,7 +42,7 @@ class ShareBoardRowItem extends Component {
     onScroll = () => {
         const scrollY = window.scrollY //Don't get confused by what's scrolling - It's not the window
         const scrollTop = this.myRef.current.scrollTop
-        console.log(`onScroll, window.scrollY: ${scrollY} myRef.scrollTop: ${scrollTop}`);
+        // console.log(`onScroll, window.scrollY: ${scrollY} myRef.scrollTop: ${scrollTop}`);
         this.setState({
             scrollTop: scrollTop
         })
@@ -76,14 +76,40 @@ class ShareBoardRowItem extends Component {
         }
     }
 
-    onInsertData = () => {
-        let url = URL + "/share/insert";
+    onInsertAnswer = () => {
+        // 원본 리뷰글의 댓글
+        // regroup 현재꺼 / relevel 1 / restep 현재꺼 /
+        let num = this.props.row.num;
+        let regroup = this.props.row.regroup;
+        let relevel = this.props.row.relevel;
+        let restep = this.props.row.restep;
+        let content = this.refs.content.value;
+        let star = 0;
+        let url = URL + "/share/insert" +
+            "?" +
+            "relevel=" + relevel +
+            "&restep=" + restep +
+            "&regroup=" + regroup;
+        let data = {
+            num: num,
+            // regroup: regroup,
+            // relevel: relevel,
+            // restep: restep,
+            content: content,
+            star: star,
+        }
 
-        axios.insert(url)
-            .then(res => {
-                this.insert = res.data;
-                this.getList();
-            })
+        console.log(url, data);
+
+        axios.post(url, data
+        ).then(res => {
+            console.log("onInsertAnswer res", res);
+            store.dispatch({
+                type: actionType.shareBoardUpdate,
+            });
+        }).catch(err => {
+            console.log("onInsertAnswer err", err);
+        })
 
     }
 
@@ -95,9 +121,9 @@ class ShareBoardRowItem extends Component {
         this.setState({modalOpen: false})
     }
 
-    componentDidUpdate() {
-        console.log("state변경");
-    }
+    // componentDidUpdate() {
+    //     console.log("state변경");
+    // }
 
 
     render() {
@@ -167,6 +193,7 @@ class ShareBoardRowItem extends Component {
                         }}
                              ref={this.myRef} onScroll={this.onScroll}
                         >
+
                             <div style={{borderBottom: '1px solid black', height: '50px'}}>
                                 <div style={{float: "left"}}><input type="button" value="좋아요"/></div>
                                 <div style={{float: "left"}}>(작성자) 님이 공유하신 맛집입니다.</div>
@@ -174,6 +201,7 @@ class ShareBoardRowItem extends Component {
                                     <input type="button" value="찜하기"/>
                                 </div>
                             </div>
+
                             <div style={{borderBottom: '1px solid black', width: '1150px', height: '400px'}}>
                                 <div style={{
                                     borderBottom: '1px solid black',
@@ -192,7 +220,6 @@ class ShareBoardRowItem extends Component {
                                     }}>리뷰:{row.content}</div>
                                     <div style={{width: '550px', height: '50px'}}>작성일:{row.writeday}</div>
                                 </div>
-
                             </div>
 
 
@@ -202,8 +229,6 @@ class ShareBoardRowItem extends Component {
                                 height: '130px',
                                 marginTop: '20px'
                             }}>
-
-
                                 <div style={{marginLeft: "20px"}}>
                                     <div style={{float: 'left'}}>id</div>
 
@@ -215,29 +240,23 @@ class ShareBoardRowItem extends Component {
                                 <div>
                                     <div>
                                         <textarea placeholder="댓글을 입력하세요"
-                                                  style={{width: '800px', height: '100px', float: 'left'}}/>
+                                                  style={{width: '800px', height: '100px', float: 'left'}}
+                                                  ref="content"
+                                        />
                                     </div>
                                     <div style={{float: 'left', marginLeft: '50px'}}>
-                                        <button type="button" onClick={this.onInsertData.bind(this)}>저장</button>
+                                        <button type="button" onClick={this.onInsertAnswer.bind(this)}>저장</button>
                                     </div>
                                 </div>
-
                             </div>
-
                             <div>
-                                <ShareReview regroup={row.regroup}/>
+                                <ShareReview regroup={row.regroup}
+                                />
                             </div>
-
-
                         </div>
                     </Modal>
-
                 </React.Fragment>
-
-
             </div>
-
-
         )
     }
 

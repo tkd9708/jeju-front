@@ -60,7 +60,7 @@ class ShareBoardUpdateForm extends Component {
     }
 
 
-    onDataUpdate = () => {
+    onDataUpdate = (resolve) => {
         //입력값 변수에 저장하기
         let subject = this.refs.subject.value;
         let addr = this.refs.addr.value;
@@ -70,21 +70,39 @@ class ShareBoardUpdateForm extends Component {
         //db 에 update
         let url = URL + "/share/update";
         let num = this.num;
-        axios.post(url, {num, subject, addr, content, star})
-            .then(res => {
-                //리스트로 이동
-                this.props.history.push("/ShareBoard" + num);
-            }).catch(err => {
+        axios.post(url, {num, subject, addr, content, star}
+        ).then(res => {
+            //값 지우기
+            this.refs.subject.value = '';
+            this.refs.addr.value = '';
+            this.refs.content.value = '';
+
+            //이미지도 지우기
+            this.setState({
+                photoname: ''
+            });
+
+            if (resolve != null) {
+                resolve();
+            }
+        }).catch(err => {
             console.log("수정시 오류남:" + err);
         })
 
     }
 
-    //  handleSubmit(event) {
-    //      alert('수정하였습니다.' + this.state.subject);
-    //      event.preventDefault();
-    //      this.onDataInsert();
-    //    }
+    handleSubmit(event) {
+        event.preventDefault();
+        let _promise = new Promise((resolve, reject) => {
+            this.onDataUpdate(resolve);
+        });
+
+        _promise.then(() => {
+            alert('업데이트 하였습니다. 목록확인하세요 ' + this.state.subject);
+        }).then(() => {
+            this.props.history.push("/share");
+        });
+    }
 
     render() {
         console.log("ShareBoardUpateForm render()", this.props);
@@ -132,7 +150,10 @@ class ShareBoardUpdateForm extends Component {
                     </tr>
 
                 </table>
-                <button type="button" onClick={this.onDataUpdate.bind(this)}>수정하기</button>
+                <button type="button"
+                        onClick={this.handleSubmit.bind(this)}
+                >수정하기
+                </button>
                 <button type="button"
                         onClick={() => {
                             this.props.history.goBack();
