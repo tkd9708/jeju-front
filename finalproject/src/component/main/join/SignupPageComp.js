@@ -162,7 +162,7 @@ class SignupPageComp extends Component {
                     <h4 className="showIdResult">{this.state.showIdResult}</h4>
                 </div>
                 <br />
-                <TextField id="standard-secondary" label="이름" color="secondary" 
+                <TextField id="standard-secondary" label="이메일" color="secondary" 
                 type="email" name="email" value={ this.state.email }
                 onChange = { this.changeEvent.bind(this) } />
                 
