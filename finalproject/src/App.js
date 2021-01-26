@@ -23,6 +23,8 @@ import FooterComp from "./component/footer/FooterComp";
 import DetailTourComp from "./component/main/tour/DetailTourComp";
 import ShareBoardFormComp from "./component/main/shareboard/ShareBoardFormComp";
 import ShareBoardUpdateForm from "./component/main/shareboard/ShareBoardUpdateForm";
+import store from "./redux/store";
+import {actionType} from "./redux/config";
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -101,7 +103,11 @@ class App extends Component {
         });
     }
 
-
+    componentDidMount() {
+        store.dispatch({
+            type:actionType.setMainView,
+        })
+    }
 
 
     render() {
