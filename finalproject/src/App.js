@@ -24,6 +24,8 @@ import FooterComp from "./component/footer/FooterComp";
 import DetailTourComp from "./component/main/tour/DetailTourComp";
 import ShareBoardFormComp from "./component/main/shareboard/ShareBoardFormComp";
 import ShareBoardUpdateForm from "./component/main/shareboard/ShareBoardUpdateForm";
+import store from "./redux/store";
+import {actionType} from "./redux/config";
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -34,10 +36,12 @@ class App extends Component {
         this.state = {
             isStaticHeader: true,
             mainview: "mainpage",
-            footer: "footer_comp",
+            // footerPositionType: "",
+
             logged: false,
             onLogin: this.onLogin,
             onLogout: this.onLogout
+
         }
 
         window.onmousewheel = function (e) {
@@ -100,6 +104,12 @@ class App extends Component {
         });
     }
 
+    componentDidMount() {
+        store.dispatch({
+            type:actionType.setMainView,
+        })
+    }
+
 
     render() {
         let {logged} = this.state;
@@ -116,7 +126,7 @@ class App extends Component {
                     <Switch>
                         <Route exact path="/" component={MainPageComp}/>
                         <Route path="/admin/:name?" component={MemberListPageComp}/>
-                        <Route  path="/login/:name?">
+                        <Route path="/login/:name?">
                             <LoginPageComp
                                 logged={logged}
                                 onLogin={this.onLogin}
@@ -132,7 +142,10 @@ class App extends Component {
                         <Route path="/reservation/:name?" component={ReservationPageComp}/>
                         <Route path="/tourlist/:name?" component={TourPageComp}/>
                     </Switch>
-                    <FooterComp/>
+                    <div className="footerComp"
+                    >
+                        <FooterComp/>
+                    </div>
                 </div>
             </BrowserRouter>
         )

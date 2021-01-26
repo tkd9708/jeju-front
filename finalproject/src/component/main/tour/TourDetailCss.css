@@ -88,17 +88,17 @@ label {
       }
 
     /* 모달 */
-    .modalTitle {
+    .spotmodalTitle {
         font-size: 14pt;
         font-weight: 700;
         line-height: 50px;
     }
-    .paper {
+    .spotpaper {
         padding: 30px;
         line-height: 25px;
         font-size: 8pt;
     }
-    .modalBtn {
+    .spotmodalBtn {
         font-size: 8pt;
         margin-top: 10px;
     }
@@ -169,17 +169,17 @@ label {
       }
       
     /* 모달 */
-    .modalTitle {
+    .spotmodalTitle {
         font-size: 16pt;
         font-weight: 700;
         line-height: 50px;
     }
-    .paper {
+    .spotpaper {
         padding: 50px;
         line-height: 30px;
         font-size: 10pt;
     }
-    .modalBtn {
+    .spotmodalBtn {
         font-size: 10pt;
         margin-top: 10px;
     }
@@ -247,17 +247,17 @@ label {
       }
 
     /* 모달 */
-    .modalTitle {
+    .spotmodalTitle {
         font-size: 16pt;
         font-weight: 700;
         line-height: 50px;
     }
-    .paper {
+    .spotpaper {
         padding: 50px;
         line-height: 30px;
         font-size: 10pt;
     }
-    .modalBtn {
+    .spotmodalBtn {
         font-size: 10pt;
         margin-top: 10px;
     }
@@ -319,17 +319,17 @@ label {
       }
 
     /* 모달 */
-    .modalTitle {
+    .spotmodalTitle {
         font-size: 16pt;
         font-weight: 700;
         line-height: 50px;
     }
-    .paper {
+    .spotpaper {
         padding: 50px;
         line-height: 30px;
         font-size: 10pt;
     }
-    .modalBtn {
+    .spotmodalBtn {
         font-size: 10pt;
         margin-top: 10px;
     }
@@ -356,12 +356,12 @@ label {
   }
 
 /* 모달 */
-.modal {
+.spotmodal {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-.paper {
+.spotpaper {
     background-color: #fff;
     border: 2px solid #000;
     box-shadow: 5;

@@ -17,35 +17,51 @@ class ShareBoardPageComp extends Component {
         super(props);
         console.log("ShareBoardPageComp constructor", this.props);
 
-        store.subscribe(this.list.bind(this));
+        store.subscribe(this.getShareListByPaging.bind(this));
         store.dispatch({
             type: actionType.shareBoardUpdate,
         });
     }
 
-    list = () => {
-        // let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot8/share/list?start=0&perPage=3";
+    getShareListByPaging = () => {
         let url = URL + "/share/list?start=0&perPage=3";
 
         console.log(url);
         axios.get(url
         ).then(res => {
-            console.log("list() res", res);
+            console.log("getShareListByPaging() res", res);
             this.setState({
                 listData: res.data
             })
         }).catch(err => {
-            console.log("list() err", err);
+            console.log("getShareListByPaging() err", err);
+        });
+    }
+
+    searchShareList = () => {
+        let url = URL + "/share/search" +
+            "?start=0" +
+            "&perPage=3" +
+            "&search=" + this.refs.search.value;
+
+        console.log(url);
+
+        axios.get(url
+        ).then(res => {
+            console.log("searchShareList() res", res);
+            this.setState({
+                listData: res.data
+            });
+        }).catch(err => {
+            console.log("searchShareList() err", err);
         });
     }
 
     componentWillMount() {
-        this.list();
+        this.getShareListByPaging();
     }
 
-
     render() {
-        console.log("ShareBoardPageComp render()", this.props);
         return (
             <div>
                 {/* 제목 */}
@@ -58,23 +74,33 @@ class ShareBoardPageComp extends Component {
                     <Link to="/share/insert">
                         <button type="button">맛집공유</button>
                     </Link>
+                    &nbsp;
+                    <button type="button"
+                            onClick={this.getShareListByPaging.bind(this)}
+                    >전 체 글
+                    </button>
+                    &nbsp;
+                    <input type="text" placeholder="검색할 단어를 입력하세요." ref="search"/>
+                    &nbsp;
+                    <button type="button"
+                            onClick={this.searchShareList.bind(this)}
+                    >검 색
+                    </button>
                 </div>
 
                 {/* 게시판 폼 */}
                 <div>
                     {
                         this.state.listData.map((row, idx) => (
-                            <ShareBoardRowItem row={row} key={idx} list={this.list.bind(this)}
-                                               history={this.props.history}/>
+                            <ShareBoardRowItem row={row} key={idx}
+                                               list={this.getShareListByPaging.bind(this)}
+                                               history={this.props.history}
+                            />
                         ))
                     }
                 </div>
 
-                {/* 검색창 */}
-                <div>
-                    <input type="text" placeholder="검색할 단어를 입력하세요."/>
-                    <button type="button">검색</button>
-                </div>
+
             </div>
         )
     }

@@ -5,6 +5,36 @@ import thunk from "redux-thunk";
 
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
+const footerStyle = {
+    sizeIn: {
+        position: "absolute",
+        width: "100%",
+        bottom: "2.5%",
+    },
+    sizeOver: {
+        width: "100%",
+    }
+}
+
+const setPositionFooter = () => {
+    let menuHeight = document.querySelector(".menu").offsetHeight;
+    let mainFrameHeight = document.querySelector(".mainFrame").offsetHeight;
+    let topContentHeight = menuHeight + mainFrameHeight;
+    console.log(mainFrameHeight, menuHeight, topContentHeight, window.visualViewport.height);
+    let footerComp = document.querySelector(".footerComp");
+
+    if (window.visualViewport.height > topContentHeight) {
+        footerComp.style.width = footerStyle.sizeIn.width;
+        footerComp.style.position = footerStyle.sizeIn.position;
+        footerComp.style.bottom = footerStyle.sizeIn.bottom;
+    } else {
+        footerComp.style.width = footerStyle.sizeOver.width;
+        footerComp.style.position = "";
+        footerComp.style.bottom = "";
+    }
+}
+
+
 export default createStore(
     function (state, action) {
 
@@ -23,6 +53,7 @@ export default createStore(
 
         //action.type 별로 로직처리 다르게 하기.
         if (action.type === actionType.setMainView) {
+            window.setTimeout(setPositionFooter, 100);
             newState = Object.assign({}, state, {
                 mainView: action.mainView,
             });
@@ -49,7 +80,7 @@ export default createStore(
             newState = Object.assign({}, state, {
                 memberData: action.payload
             });
-        } else if(action.type === actionType.shareBoardUpdate){
+        } else if (action.type === actionType.shareBoardUpdate) {
             newState = Object.assign({}, state);
         }
 

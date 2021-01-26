@@ -96,7 +96,6 @@ class DetailReviewComp extends Component {
         const imageFile=new FormData();
         imageFile.append("uploadFile",uploadFile);
 
-        // let url = "http://localhost:9002/sreview/upload";
         let url = URL + "/sreview/upload";
         
         axios({
@@ -113,8 +112,7 @@ class DetailReviewComp extends Component {
     }
 
     handleDelete = () => {
-        let url = "http://localhost:9002/sreview/delupload";
-        // let url = URL + "/sreview/delupload";
+        let url = URL + "/sreview/delupload";
         axios.get(url)
             .then(res=>{
                 this.setState({
@@ -174,9 +172,10 @@ class DetailReviewComp extends Component {
                                             <PhotoCamera />
                                         </IconButton>  
                                         {/* <span style={{display:'inline-block', paddingBottom: '20px'}}>{this.state.upload}</span> */}
+                                        {chip}
                                     </label>
                             </label>
-                                    {chip}
+                                    
                         </Box>
                         <Box m={1}>
                             <button type="button" className="btn btn-warning" id="btnInsertReview" style={{marginTop: '21px'}}
