@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Menu from "./component/header/Menu";
 import gsap from "gsap";
+import '@progress/kendo-theme-default/dist/all.css';
 import "./App.css";
 // import {NavLink, Route} from "react-router-dom";
 // import {Home, Login, ShareBoard, MyPage, Notice, Reservation, Admin, TourList, Tour} from './component/header/menus';

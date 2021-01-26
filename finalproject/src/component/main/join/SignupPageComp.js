@@ -1,4 +1,5 @@
 import React, { Component, useState } from "react";
+import * as ReactDOM from "react-dom";
 import axios from 'axios';
 import {URL} from "../../../redux/config";
 import { makeStyles, createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
@@ -10,6 +11,7 @@ import PropTypes from "prop-types";
 import { createMuiTheme } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+import { Upload } from "@progress/kendo-react-upload";
 
 const styles = theme => ({
     root: {
@@ -28,9 +30,19 @@ const genders = [
     '여성',
 ];
 
-class SignupPageComp extends Component {
+const fileStatuses = [
+    'UploadFailed',
+    'Initial',
+    'Selected',
+    'Uploading',
+    'Uploaded',
+    'RemoveFailed',
+    'Removing'
+];
 
-    
+let uploadFile = null;
+
+class SignupPageComp extends Component {
 
     constructor(props) {
         super(props);
@@ -50,7 +62,10 @@ class SignupPageComp extends Component {
             email : '',
             hp : "",
             idcanUse: false,//중복된 아이디찾기 true여야 로그인가능
-        }
+            files: [],
+            events: [],
+            filePreviews: {},
+        };
 
         //함수 선언
         this.onIdChk=this.onIdChk.bind(this);
@@ -128,6 +143,31 @@ class SignupPageComp extends Component {
         })
     }
 
+    //사진 업로드시 호출되는 함수
+    // imageUpload=(e)=>{
+    //     uploadFile = e.affectedFiles[0].name;
+    //     alert("업로드할 파일은 : " + uploadFile);
+
+    //     //서버에 업로드
+    //     const memberFile = new FormData();
+    //     memberFile.append("uploadFile",uploadFile);
+
+    //     axios({
+    //         method: 'post',
+    //         url: URL + '/member/upload',
+    //         data: memberFile,
+    //         headers: {'Content-Type':'multipart/form-data'}
+    //     }).then(response=>{
+    //         alert(response.data.photoname+" 이미지명으로 저장합니다");
+    //         //이미지명 변경
+    //         this.setState({
+    //             photoname: response.data.photoname
+    //         })
+    //     }).catch(err=>{
+    //         console.log("이미지 업로드시 오류남:"+err);
+    //     })
+    // }
+
     onInsertMember = () => {
         let data = this.state;
         let url = URL + "/member/insert";
@@ -164,6 +204,78 @@ class SignupPageComp extends Component {
         });
     };
 
+    onAdd = (event) => {
+        const afterStateChange = () => {
+            event.affectedFiles
+                .filter(file => !file.validationErrors)
+                .forEach(file => {
+                    const reader = new FileReader();
+
+                    reader.onloadend = (ev) => {
+                        this.setState({
+                            filePreviews: {
+                                ...this.state.filePreviews,
+                                [file.uid]: ev.target.result
+                            }
+                        });
+                    };
+
+                    reader.readAsDataURL(file.getRawFile());
+                });
+        };
+
+        this.setState({
+            files: event.newState,
+            events: [
+                ...this.state.events,
+                `선택된 파일: ${event.affectedFiles[0].name}`
+            ],
+        }, afterStateChange);
+
+        uploadFile = event.affectedFiles[0].name;
+    }
+
+    onRemove = (event) => {
+        const filePreviews = {
+            ...this.state.filePreviews
+        };
+
+        event.affectedFiles.forEach(file => {
+            delete filePreviews[file.uid];
+        });
+
+        this.setState({
+            files: event.newState,
+            events: [
+                ...this.state.events,
+                `파일 제거됨: ${event.affectedFiles[0].name}`
+            ],
+            filePreviews: filePreviews
+        });
+    }
+
+    onProgress = (event) => {
+        this.setState({
+            files: event.newState,
+            events: [
+                ...this.state.events,
+                `진행 정도: ${event.affectedFiles[0].progress} %`
+            ]
+        });
+    }
+
+    onStatusChange = (event) => {
+        const file = event.affectedFiles[0];
+
+        this.setState({
+            files: event.newState,
+            events: [
+                ...this.state.events,
+                `File '${file.name}' status changed to: ${fileStatuses[file.status]}`
+            ]
+        });
+    }
+    
     render() {
         const { classes } = this.props;
         console.log("SingupPageComp render()", this.props);
@@ -260,6 +372,47 @@ class SignupPageComp extends Component {
                 <input type="file" name="photo"
                 onChange={this.imageUpload.bind(this)}
                 ></input>
+
+                {/* <div>
+                    <InputLabel id="demo-simple-select-label">사진</InputLabel>
+                    <br />
+                    <Upload 
+                        batch={false}
+                        multiple={true}
+                        files={this.state.files}
+                        onAdd={this.onAdd}
+                        onRemove={this.onRemove}
+                        onProgress={this.onProgress}
+                        onStatusChange={this.onSatusChange}
+                        withCredentials={false}
+                        // saveUrl={URL + '/member/upload'}
+                        removeUrl={'https://demos.telerik.com/kendo-ui/service-v4/upload/remove'}
+                        onChange={this.imageUpload.bind(this)}
+                    />
+                    <div className={'example-config'} style={{ marginTop: 20 }}>
+                        <ul className={'event-log'}>
+                            {
+                                this.state.events.map(event => <li key={event}>{event}</li>)
+                            }
+                        </ul>
+                    </div>
+                    {
+                        this.state.files.length ? 
+                        <div className={'img-preview example-config'}>
+                            <h3>선택된그림들 미리보기</h3>
+                            {
+                                Object.keys(this.state.filePreviews)
+                                    .map((fileKey, index) => (<img 
+                                        src={this.state.filePreviews[fileKey]} 
+                                        alt={index}
+                                        style={{ width: 200, margin: 10 }} 
+                                    />))
+                            }
+                        </div> : undefined
+                    }
+                </div> */}
+
+
                 <br />
                 {/* 주소 : &nbsp;
                 <input type="text" name="address"
@@ -305,7 +458,7 @@ class SignupPageComp extends Component {
                 <button type = "submit">회원 가입</button>
                 </form>
             </div>
-        )
+        );
     }
 
 }
