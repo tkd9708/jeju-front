@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import moment from 'moment';
-import {FaUtensils,FaMugHot,FaHotel,FaHamburger} from 'react-icons/fa';
+
 import axios from 'axios';
 import {URL} from "../../../redux/config";
+import DayItem from './DayItem';
 
 class DateHeader extends Component {
 
@@ -64,35 +65,19 @@ class Week extends Component {
 
     this.ym = this.props.ymOfThisCalendar;
     this.state={
-      // memId:'',
-      // spotId:'',
-      // shareNum:'',
-      // aroundId:'',
-      // content:'',
-      // wishday:'',
-      // title:'',
-      // subject:'',
-      // category:''
        list:[]
     };
   }
 
-  getData=async()=>{
-     let url=URL+'/wish/list?memId=regegw';
+  getData=()=>{
+
+    let url = URL + "/wish/list?memId=sanghee";
+
     axios.get(url)
     .then(response=>{
-      //console.log("캘린더 출력 : " + response.data.memId); 
+      console.log("캘린더 출력 : " + response.data); 
       this.setState({
-        list: response.data.list
-        // memId:response.data.memId,
-        // spotId:response.data.spotId,
-        // shareNum:response.data.shareNum,
-        // content:response.data.content,
-        // wishday:response.data.wishday,
-        // aroundId:response.data.aroundId,
-        // title:response.data.title,
-        // subject:response.data.subject
-        // category:response.data.content.split(",")[0]
+        list: response.data
 
       });
     }).catch(err=>{
@@ -113,6 +98,8 @@ class Week extends Component {
       const Day = moment(firstDayFormat).add(i,'d');
       _days.push({
         yearMonthDayFormat: Day.format("YYYY-MM-DD"),
+        getYear: Day.format('Y'),
+        getMonth: Day.format('M'),
         getDay: Day.format('D'),
         isHolyDay: false,
         weekIndex
@@ -142,23 +129,29 @@ class Week extends Component {
         className = "selected"
       }
 
-      const category=this.state.memId;
-      const day=this.props.ymOfThisCalendar+"-"+dayInfo.getDay;
-      const wishday=this.statewishday;
-      console.log(category);
-
       
+    //   console.log(category);
+
+        var date = new Date(); 
+        var year = date.getFullYear(); 
+        var month = new String(date.getMonth()); 
+        var days = new String(date.getDate());
+        // var today = year + "-" + month + "-" + days;
+        var today = new Date(year, month, days);
+        var selectDay = new Date(dayInfo.getYear, dayInfo.getMonth-1, dayInfo.getDay);
+        var betweenDay = selectDay.getTime() - today.getTime();
+        // console.log(betweenDay);
+
        return(
           <div className={"RCA-calendar-day " + className} key={`RCA-${dayInfo.weekIndex}-${i}-day`}onClick={() => fn(dayInfo.yearMonthDayFormat)}>
             <label className="RCA-calendar-day-label">
-              {dayInfo.getDay} 
+              {dayInfo.getDay}
             
             </label>
-            <div className="category">{wishday===day &&category==='카페'?<FaMugHot></FaMugHot>:
-            wishday===day &&category==='숙박'?<FaHotel></FaHotel>:wishday===day &&category==='음식점'?
-          <FaHamburger></FaHamburger>:''}</div>
-            <div className="title">삼보식당</div>
-  
+            {this.state.list.map((row,idx)=>(
+                <DayItem row={row} key={idx} className={className} dayInfo={dayInfo} i={i} fn={fn}></DayItem>
+            ))}
+           
             </div>
        )
       })    
@@ -218,4 +211,3 @@ class Calendar extends Component {
 }
 
 export default Calendar;
-

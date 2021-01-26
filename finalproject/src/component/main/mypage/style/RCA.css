@@ -130,9 +130,11 @@
     box-sizing: border-box;
     position: relative;
     flex-basis: 14.2857143%;
-    border: 0.1px solid white;
+    border: 0.1px solid #ddd;
     border-top: none;
-    background-color: rgb(225,224,224);
+    background-color: white;
+    height: 100px;
+    overflow-y: auto;
 }
 
 .RCA-calendar-week{
@@ -187,7 +189,8 @@ div.title{
     color: black;
     display: inline-block;
     position: absolute;
-    line-height: 95px;
+    /* line-height: 30px; */
+    padding-top: 20px;
     right: 25px;
     font-size: 12px;
 }

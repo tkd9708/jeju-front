@@ -64,7 +64,7 @@ class MySchedule extends Component {
                         changeSelected={this.changeSelected}
                     />
                 </div>
-        )
+        
     
     </div>
         )
