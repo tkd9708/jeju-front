@@ -30,9 +30,9 @@ class DetailTourComp extends Component {
 
     }
 
-    componentDidUpdate() {
-        window.scrollTo(0,0);
-    }
+    // componentDidUpdate() {
+    //     window.scrollTo(0,0);
+    // }
 
     getData=()=>{
         const url = URL + "/spot/select?contentsid=" + this.state.contentsid;

@@ -49,6 +49,7 @@ export default createStore(
                 mainView: mainViewType.MainPage,
                 logged: false,
                 memberData: [], // 회원목록
+                pageNum: '1'
             }
         }
 
@@ -87,6 +88,10 @@ export default createStore(
             });
         } else if (action.type === actionType.shareBoardUpdate) {
             newState = Object.assign({}, state);
+        } else if (action.type === actionType.tourPage) {
+            newState = Object.assign({}, state, {
+                pageNum: action.pageNum
+            });
         }
 
         console.log("reducer()", state, action, newState);

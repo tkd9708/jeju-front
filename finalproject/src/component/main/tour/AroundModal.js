@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './kakaomap.css';
+import {URL} from '../../../redux/config';
+import AroundModalDetail from './AroundModalDetail';
 
-const AroundModal = ({ isShowing, hide, wishTitle }) => isShowing ? ReactDOM.createPortal(
-  
+const AroundModal = ({ isShowing, hide, wishTitle, wishContent, category }) => isShowing ? ReactDOM.createPortal(
+
   <React.Fragment>
     <div className="aroundmodal-overlay"/>
     <div className="aroundmodal-wrapper" aria-modal aria-hidden tabIndex={-1} role="dialog">
@@ -13,9 +15,8 @@ const AroundModal = ({ isShowing, hide, wishTitle }) => isShowing ? ReactDOM.cre
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <p>
-          {wishTitle}
-        </p>
+          <AroundModalDetail wishTitle={wishTitle} wishContent={wishContent} category={category}/>
+          
       </div>
     </div>
   </React.Fragment>, document.body

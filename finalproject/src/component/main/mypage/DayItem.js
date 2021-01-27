@@ -31,8 +31,6 @@ class DayItem extends Component {
         var d = wishday.substr(8,2);
         var aroundId=row.aroundId;
         var category=row.content;
-        
-       
         var today = new Date(y, m-1, d);
         var betweenDay = selectDay.getTime() - today.getTime();  // 이게 0이여야 해당하는 날짜랑 wishday랑 맞는거에요!
         var tag = betweenDay==0?
