@@ -24,7 +24,11 @@ import FooterComp from "./component/footer/FooterComp";
 import DetailTourComp from "./component/main/tour/DetailTourComp";
 import ShareBoardFormComp from "./component/main/shareboard/ShareBoardFormComp";
 import ShareBoardUpdateForm from "./component/main/shareboard/ShareBoardUpdateForm";
+<<<<<<< HEAD
 import NoticeContent from './component/main/notice/NoticeContent';
+=======
+import NoticeContent from "./component/main/notice/NoticeContent";
+>>>>>>> 34ee4ab08e2fb36914a0aff41d5196f2f16107b3
 import store from "./redux/store";
 import {actionType} from "./redux/config";
 import SearchResultComp from "./component/main/mainpage/SearchResultComp";

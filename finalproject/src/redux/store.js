@@ -26,7 +26,7 @@ const setPositionFooter = () => {
     let topContentHeight = menuHeight + mainFrameHeight;
     console.log(mainFrameHeight, menuHeight, topContentHeight, window.visualViewport.height);
 
-    if(footerComp){
+    if (footerComp) {
         if (window.visualViewport.height > topContentHeight) {
             footerComp.style.width = footerStyle.sizeIn.width;
             footerComp.style.position = footerStyle.sizeIn.position;
@@ -36,6 +36,8 @@ const setPositionFooter = () => {
             footerComp.style.position = "";
             footerComp.style.bottom = "";
         }
+    } else{
+        window.setTimeout(setPositionFooter, 100);
     }
 }
 
@@ -53,6 +55,12 @@ export default createStore(
                 id: '',
                 loginId: '',
                 googleOn: false,
+                mainSearch: {
+                    category: "all",
+                    searchVal: "",
+                    searchResultDataList: [],
+                },
+
             }
         }
 
@@ -109,6 +117,14 @@ export default createStore(
             newState = Object.assign({}, state, {
                 googleOn: action.googleOn
             })
+        } else if (action.type === actionType.setSearchResultDataList) {
+            newState = Object.assign({}, state, {
+                mainSearch: {
+                    category: action.category,
+                    searchVal: action.searchVal,
+                    searchResultDataList: action.searchResultDataList,
+                },
+            });
         }
 
         console.log("reducer()", state, action, newState);
