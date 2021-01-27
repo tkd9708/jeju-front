@@ -17,11 +17,14 @@ const footerStyle = {
 }
 
 const setPositionFooter = () => {
-    let menuHeight = document.querySelector(".menu").offsetHeight;
-    let mainFrameHeight = document.querySelector(".mainFrame").offsetHeight;
+    let menuElement = document.querySelector(".menu");
+    let mainFrameElement = document.querySelector(".mainFrame");
+
+    let menuHeight = (menuElement) ? menuElement.offsetHeight : 0;
+    let mainFrameHeight = (mainFrameElement) ? mainFrameElement.offsetHeight : 0;
+    let footerComp = document.querySelector(".footerComp");
     let topContentHeight = menuHeight + mainFrameHeight;
     console.log(mainFrameHeight, menuHeight, topContentHeight, window.visualViewport.height);
-    let footerComp = document.querySelector(".footerComp");
 
     if (window.visualViewport.height > topContentHeight) {
         footerComp.style.width = footerStyle.sizeIn.width;
