@@ -35,7 +35,8 @@ class LoginPageComp extends Component {
         store.dispatch({
             type: actionType.LOG_IN,
             // mainView: mainViewType.MainPage
-            loginId: loginId
+            loginId: loginId,
+            logged: true
         });
     }
 
@@ -44,7 +45,7 @@ class LoginPageComp extends Component {
     // 이벤트
     changeEvent=(e)=>{
         
-        console.log(e.target.id+":"+e.target.value);
+        // console.log(e.target.id+":"+e.target.value);
         // 만약 엔터 누를때만 변경되도록 하고 싶으면
         this.setState({
             [e.target.name]:e.target.value
@@ -62,14 +63,18 @@ class LoginPageComp extends Component {
 
         axios.post(url, data)
         .then(response => {
+            console.log(response.data);
             if(response.data){
-                this.props.onLogin();
+                // this.props.onLogin();
                 this.setLoginId(data.id);
                 alert(store.getState().loginId+ "가 스토어에 저장된 아이디입니다");
                 this.props.history.push("/");
             }
             else{
                 alert("아이디와 비밀번호가 맞지않습니다.");
+                this.setState({
+                    pass: '',
+                })
             }
         }).catch(err => {
             console.log("로그인시 오류남:"+err);
@@ -77,8 +82,8 @@ class LoginPageComp extends Component {
     }
 
     render() {
-        console.log("LoginPageComp render()", this.props);
-        console.log("스토어에 있는 로그인 아이디 상태는 : " + store.getState().loginId);
+        // console.log("LoginPageComp render()", this.props);
+        // console.log("스토어에 있는 로그인 아이디 상태는 : " + store.getState().loginId);
         return (
             <div>
                 <h4>로그인</h4>

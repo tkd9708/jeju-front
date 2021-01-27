@@ -165,15 +165,15 @@ class DetailReviewComp extends Component {
                             
                             <textarea name="content" id="srContent" style={{resize: 'none'}} value={this.state.content} 
                                     className="form-control" onChange={this.changeHandler.bind(this)}></textarea>
-                            <input style={{display:'none'}} id="icon-button-file" type="file" onChange={this.uploadImage.bind(this)}/>
-                                    <label htmlFor="icon-button-file">
+                            <input style={{display:'none'}} id="review-icon-button-file" type="file" onChange={this.uploadImage.bind(this)}/>
+                                    <label htmlFor="review-icon-button-file">
                                         
                                         <IconButton color="primary" aria-label="upload picture" component="span" style={{marginBottom: '10px'}}>
                                             <PhotoCamera />
                                         </IconButton>  
                                         {/* <span style={{display:'inline-block', paddingBottom: '20px'}}>{this.state.upload}</span> */}
-                                        {chip}
                                     </label>
+                                    {chip}
                             </label>
                                     
                         </Box>

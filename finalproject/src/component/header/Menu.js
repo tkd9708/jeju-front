@@ -17,7 +17,15 @@ class Menu extends Component {
             type: this.props.type,
             onLogin: this.props.onLogin,
             onLogout: this.props.onLogout,
+            logged: store.getState().logged
         }
+
+        store.subscribe(function () {
+            console.log("Menu subscribe()", store.getState().logged);
+            this.setState({
+                logged: store.getState().logged,
+            });
+        }.bind(this));
     }
 
     setMainView = (mainView) => {
@@ -29,14 +37,27 @@ class Menu extends Component {
         });
     }
 
+    setLogOut = () => {
+        console.log("Menu setLogOut()");
+        
+        store.dispatch({
+            type: actionType.LOG_IN,
+            // mainView: mainViewType.MainPage
+            loginId: '',
+            logged: false
+        });
+    }
+    
     render() {
+        console.log("메뉴에서 스토어 상태 : " + store.getState().loginId);
+        console.log("메뉴에서 스토어 로그인 상태 : " + store.getState().logged);
         // 부모컴포넌트(App->HeaderComp)에서 받아온 logged, onLogout을 통해 로그인 전에는 '로그인'을 로그인 후에는 '로그아웃'으로 글씨 변경
         // 로그아웃일 경우 onLogout함수를 통해 logged를 다시 false로 바꿔준다.
         // 부모컴포넌트가 HeaderComp->App이므로 props를 통해 value를 전달받을 수 있다. 그러나 Login컴포넌트의경우는 여러번 전달해야함.
         // 따라서 전역적인 상태가 필요하다.
 
 
-        let {logged} = this.props;
+        // let {logged} = this.props;
         // console.log("Menu render ", this.props);
 
         var className_div_menu = `${this.state.type} menu`;
@@ -64,11 +85,12 @@ class Menu extends Component {
                         >Admin</NavLink>
                     </li>
                     <li>
-                        {logged ?
+                        {this.state.logged ?
                             <NavLink exact to="/"
                                      onClick={() => {
                                          console.log("Logout NavLink onClick");
-                                         this.setMainView(mainViewType.Logout);
+                                         this.setMainView(mainViewType.MainPage);
+                                         this.setLogOut();
                                      }}>Logout</NavLink>
                             :
                             <NavLink exact to="/login"

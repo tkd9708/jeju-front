@@ -39,10 +39,6 @@ const setPositionFooter = () => {
     }
 }
 
-const persistConfig = {
-    key: "root",
-    storage
-}
 
 const reducer = function (state, action) {
 
@@ -82,8 +78,13 @@ const reducer = function (state, action) {
         });
     } else if (action.type === actionType.LOG_IN) {
         newState = Object.assign({}, state, {
-            loginId: action.loginId
-        });
+            loginId: action.loginId,
+        logged: action.logged
+            });
+        } else if (action.type === actionType.LOG_OUT) {
+            newState = Object.assign({}, state, {
+                loginId: action.loginId,
+                logged: action.logged});
     } else if (action.type === actionType.LOGIN_REQUEST) {
         newState = Object.assign({}, state, {});
     } else if (action.type === actionType.LOGIN_SUCCESS) {
