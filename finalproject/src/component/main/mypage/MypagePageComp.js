@@ -10,6 +10,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import MySchedule from './MySchedule';
+import MyReviwe from './MyReview';
+import MyWishlist from './MyWishlist';
 
 class MypagePageComp extends Component {
     
@@ -19,7 +21,6 @@ class MypagePageComp extends Component {
 
         this.state = {
             memberData: [],
-            reviewList: [],
             pageNum: '0',
             value: 0
         }
@@ -46,34 +47,9 @@ class MypagePageComp extends Component {
             console.log("목록 오류:" + err);
         })
     }
-    getMyReview = () => {
-        let url = URL + '/reivew/getdata?id=sanghee';
-        axios.get(url)
-            .then(response => {
-                this.setState({
-                    reviewList: response.data
-                })
-            }).catch(err => {
-            console.log("목록 오류:" + err);
-        })
-    }
-
-    // getWishlist = () => {
-    //     let url = URL + '/reivew/getdata?id=sanghee';
-    //     axios.get(url)
-    //     .then(response=>{
-    //         this.setState({
-    //             reviewList:response.data
-    //         })
-    //     }).catch(err=>{
-    //         console.log("목록 오류:"+err);
-    //     })
-    // }
 
     componentDidMount() {
         this.getMyData(); //처음 시작시 백엔드로부터 데이타 가져오기
-        this.getMyReview();
-        //this.getWishlist();
     }
 
     render() {
@@ -85,10 +61,9 @@ class MypagePageComp extends Component {
                 <table>
                     <tr>
                         <div>
-                            <Link to="./mypage/MemberUpdateFormComp">
+                            <Link to="./mypage/update">
                                 <button type="button">정보수정</button>
                             </Link>
-                            <Route exact path="/mypage/MemberUpdateFormComp" component={MemberUpdateFormComp}/>
                         </div>
                         <span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;<b>I D &nbsp;:&nbsp;&nbsp; </b>
                         {this.state.memberData.id}<br/>
@@ -102,7 +77,6 @@ class MypagePageComp extends Component {
                         {this.state.memberData.address},&nbsp;{this.state.memberData.addrdetail}<br/>
                     </tr>
                 </table>
-                {/* <MySchedule/> */}
                 <AppBar position="static">
                     <Tabs value={this.state.value} onChange={this.handleChange} aria-label="simple tabs example">
                         <Tab label="나의 일정" {...this.tabProps(0)} />
@@ -113,11 +87,11 @@ class MypagePageComp extends Component {
                 <TabPanel value={this.state.value} index={0}>
                     <MySchedule/>
                 </TabPanel>
-                    <TabPanel value={this.state.value} index={1}>
-                    Item Two
+                <TabPanel value={this.state.value} index={1}>
+                    <MyReviwe/>
                 </TabPanel>
-                    <TabPanel value={this.state.value} index={2}>
-                    나의 예약
+                <TabPanel value={this.state.value} index={2}>
+                    <MyWishlist/>
                 </TabPanel>
             </div>
             
