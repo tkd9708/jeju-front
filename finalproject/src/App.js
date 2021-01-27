@@ -26,6 +26,7 @@ import ShareBoardFormComp from "./component/main/shareboard/ShareBoardFormComp";
 import ShareBoardUpdateForm from "./component/main/shareboard/ShareBoardUpdateForm";
 import store from "./redux/store";
 import {actionType} from "./redux/config";
+import SearchResultComp from "./component/main/mainpage/SearchResultComp";
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -125,6 +126,10 @@ class App extends Component {
                 <div className="mainFrame">
                     <Switch>
                         <Route exact path="/" component={MainPageComp}/>
+
+                        {/*test*/}
+                        <Route path="/search/:category?/:keyword?" component={SearchResultComp}/>
+
                         <Route path="/admin/:name?" component={MemberListPageComp}/>
                         <Route path="/login/:name?">
                             <LoginPageComp

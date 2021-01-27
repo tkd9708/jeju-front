@@ -73,11 +73,29 @@ div.search-myplan div div{
 
 /*hotPlaceComp*/
 div.hotPlaceComp {
-    /*flex: 1;*/
+    display: flex;
+    flex-direction: row;
     height: 700px;
     border-top: 1px solid black;
     padding:20px;
 }
+
+div.hotPlaceComp div{
+    border: 1px solid;
+}
+
+div.hotPlaceComp div.hotPlace_location{
+    width: 30%;
+}
+
+div.hotPlaceComp div.hotPlace_sample{
+    width: 70%;
+    /*overflow: scroll;*/
+}
+
+
+
+
 
 /*etcBoardComp*/
 div.etcBoardComp {
