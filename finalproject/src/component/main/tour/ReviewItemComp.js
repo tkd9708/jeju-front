@@ -22,16 +22,20 @@ class ReviewItemComp extends Component {
         const star = row.star==1?<SentimentVeryDissatisfiedIcon/>:row.star==2?<SentimentDissatisfiedIcon/>
         :row.star==3?<SentimentSatisfiedIcon/>:row.star==4?<SentimentSatisfiedAltIcon/>:<SentimentVerySatisfiedIcon/>
 
+        // 로그인 아이디가 맞으면 출력
+        //const edit = 
         return (
             <tr>
                 {photo}
-                <td style={{width:'60%', padding: '10px'}} align="left" colSpan={w}>
+                <td style={{width:'60%', padding: '10px'}   } align="left" colSpan={w}>
                     
                     &nbsp;&nbsp;
                     <span style={{color: '#F0CD58'}}>{star}</span>
                     &nbsp; &nbsp;<b>{row.memNum}</b>
                     <br/><br/>
                     <p>{row.content}</p>
+                    {/* {edit} */}
+                    
                     <div style={{float: 'right', color: '#aaa'}}>
                          {row.writeday}
                     </div>

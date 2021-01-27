@@ -24,6 +24,11 @@ import FooterComp from "./component/footer/FooterComp";
 import DetailTourComp from "./component/main/tour/DetailTourComp";
 import ShareBoardFormComp from "./component/main/shareboard/ShareBoardFormComp";
 import ShareBoardUpdateForm from "./component/main/shareboard/ShareBoardUpdateForm";
+<<<<<<< .mine
+import NoticeContent from './component/main/notice/NoticeContent';
+=======
+import NoticeContent from "./component/main/notice/NoticeContent";
+>>>>>>> .theirs
 import store from "./redux/store";
 import {actionType} from "./redux/config";
 
@@ -138,7 +143,9 @@ class App extends Component {
                         <Route path="/share/insert" component={ShareBoardFormComp}/>
                         <Route path="/share/update/:num?" component={ShareBoardUpdateForm}/>
                         <Route path="/tour/:name?/:pageNum?" component={DetailTourComp}/>
-                        <Route path="/notice/:name?" component={NoticePageComp}/>
+                        <Route exact path="/notice" component={NoticePageComp}/>
+                        <Route path="/notice/content/:num?" component={NoticeContent}/>
+                        <Route path="/notice/content/:num?" component={NoticeContent}/>
                         <Route path="/reservation/:name?" component={ReservationPageComp}/>
                         <Route path="/tourlist/:name?" component={TourPageComp}/>
                     </Switch>
