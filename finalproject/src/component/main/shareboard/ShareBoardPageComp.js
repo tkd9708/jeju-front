@@ -2,50 +2,66 @@ import React, {Component} from "react";
 import {Route, Link} from "react-router-dom";
 import ShareBoardFormComp from "./ShareBoardFormComp";
 import ShareBoardRowItem from "./ShareBoardRowItem";
-import {URL} from '../../../redux/config';
+import {URL, actionType} from '../../../redux/config';
 import axios from "axios";
-
+import store from "../../../redux/store";
 
 
 class ShareBoardPageComp extends Component {
-    
-    
-    state={
-    listData:[]
+
+    state = {
+        listData: []
     }
 
-    
     constructor(props) {
         super(props);
-        console.log("ShareBoardPageComp constructor", props);
+        console.log("ShareBoardPageComp constructor", this.props);
 
- 
-       
+        store.subscribe(this.getShareListByPaging.bind(this));
+        store.dispatch({
+            type: actionType.shareBoardUpdate,
+        });
     }
 
-
-    list=()=>{
-
-        // let url="http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot8/share/list?start=0&perPage=3";
+    getShareListByPaging = () => {
         let url = URL + "/share/list?start=0&perPage=3";
-        
+
         console.log(url);
-        axios.get(url)
-        .then(res=>{
+        axios.get(url
+        ).then(res => {
+            console.log("getShareListByPaging() res", res);
             this.setState({
-                listData:res.data
+                listData: res.data
             })
-        })
+        }).catch(err => {
+            console.log("getShareListByPaging() err", err);
+        });
     }
 
-    componentWillMount()
-    {
-       this.list();
+    searchShareList = () => {
+        let url = URL + "/share/search" +
+            "?start=0" +
+            "&perPage=3" +
+            "&search=" + this.refs.search.value;
+
+        console.log(url);
+
+        axios.get(url
+        ).then(res => {
+            console.log("searchShareList() res", res);
+            this.setState({
+                listData: res.data
+            });
+        }).catch(err => {
+            console.log("searchShareList() err", err);
+        });
     }
 
+    componentWillMount() {
+        this.getShareListByPaging();
+    }
 
     render() {
-        console.log("ShareBoardPageComp render()", this.props);
         return (
             <div>
                 {/* 제목 */}
@@ -55,29 +71,36 @@ class ShareBoardPageComp extends Component {
 
                 {/*/!* 공유버튼 *!/*/}
                 <div>
-                    <Link to="/ShareBoard/ShareBoardFormComp">
+                    <Link to="/share/insert">
                         <button type="button">맛집공유</button>
                     </Link>
-
-                    <Route exact path="/ShareBoard/ShareBoardFormComp" component={ShareBoardFormComp}/>
+                    &nbsp;
+                    <button type="button"
+                            onClick={this.getShareListByPaging.bind(this)}
+                    >전 체 글
+                    </button>
+                    &nbsp;
+                    <input type="text" placeholder="검색할 단어를 입력하세요." ref="search"/>
+                    &nbsp;
+                    <button type="button"
+                            onClick={this.searchShareList.bind(this)}
+                    >검 색
+                    </button>
                 </div>
 
                 {/* 게시판 폼 */}
                 <div>
-                {
-                                this.state.listData.map((row,idx)=>(
-                                    <ShareBoardRowItem row={row} key={idx} list={this.list.bind(this)}
-                                     history={this.props.history}/>
-                                ))
-                            }
+                    {
+                        this.state.listData.map((row, idx) => (
+                            <ShareBoardRowItem row={row} key={idx}
+                                               list={this.getShareListByPaging.bind(this)}
+                                               history={this.props.history}
+                            />
+                        ))
+                    }
                 </div>
 
 
-                {/* 검색창 */}
-                <div>
-                    <input type="text" placeholder="검색할 단어를 입력하세요."/>
-                    <button type="button">검색</button>
-                </div>
             </div>
         )
     }

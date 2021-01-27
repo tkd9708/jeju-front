@@ -1,29 +1,55 @@
-import React, { Component,useState } from 'react';
+import React, {Component, useState} from 'react';
+import axios from "axios";
+import {URL} from '../../../redux/config';
 import ReviewItem from './ReviewItem';
+import store from "../../../redux/store";
 
 class ShareReview extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
-        this.state={
-            listData:[]
+        this.state = {
+            listData: []
         }
         this.regroup = this.props.regroup;
+
+        //글 추가가 되면 자동 호출되게끔 subscribe 등록.
+        store.subscribe(this.getAnswerList.bind(this));
     }
 
-    getList=()=>{
+    getAnswerList = () => {
+        //댓글 출력하는 함수.
+        let url = URL + "/share/answer" + "?regroup=" + this.regroup;
+        console.log(url);
 
+        axios.get(url
+        ).then(res => {
+            console.log(res);
+            this.setState({
+                listData: res.data
+            });
+        }).catch(err => {
+            console.log(err);
+        })
+
+    }
+
+    componentDidMount() {
+        this.getAnswerList();
     }
 
     render() {
         return (
             <div>
-               {
-                    this.state.listData.map((row,idx)=>(
-                        <ReviewItem row={row} key={idx} list={this.list.bind(this)}
-                            history={this.props.history}/>
-                    ))
-                 }
+                {
+                    this.state.listData.map((row, idx) => {
+                        return (
+                            <ReviewItem row={row} key={idx}
+                                        history={this.props.history}
+                            />
+                        )
+                    })
+                }
             </div>
         )
     }

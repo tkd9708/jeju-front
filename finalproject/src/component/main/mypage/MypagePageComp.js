@@ -3,6 +3,12 @@ import MemberUpdateFormComp from "./MemberUpdateFormComp";
 import axios from 'axios';
 import {Route, Link} from "react-router-dom";
 import {URL} from "../../../redux/config";
+import PropTypes from 'prop-types';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import MySchedule from './MySchedule';
 
 class MypagePageComp extends Component {
@@ -11,14 +17,22 @@ class MypagePageComp extends Component {
         super(props);
         console.log("MypagePageComp constructor", props);
 
-
         this.state = {
             memberData: [],
             reviewList: [],
-            pageNum: '0'
+            pageNum: '0',
+            value: 0
         }
     }
-
+    tabProps = (index) => {
+        return {
+          id: `simple-tab-${index}`,
+          'aria-controls': `simple-tabpanel-${index}`,
+        };
+      }
+      handleChange = (event, newValue) => {
+        this.setState({ value: newValue });
+      }
     // 스프링에서 목록 가져오기
     // member
     getMyData = () => {
@@ -32,17 +46,17 @@ class MypagePageComp extends Component {
             console.log("목록 오류:" + err);
         })
     }
-    // getMyReview = () => {
-    //     let url = URL + '/reivew/getdata?id=sanghee'; 
-    //     axios.get(url)
-    //         .then(response => {
-    //             this.setState({
-    //                 reviewList: response.data
-    //             })
-    //         }).catch(err => {
-    //         console.log("목록 오류:" + err);
-    //     })
-    // }
+    getMyReview = () => {
+        let url = URL + '/reivew/getdata?id=sanghee';
+        axios.get(url)
+            .then(response => {
+                this.setState({
+                    reviewList: response.data
+                })
+            }).catch(err => {
+            console.log("목록 오류:" + err);
+        })
+    }
 
     // getWishlist = () => {
     //     let url = URL + '/reivew/getdata?id=sanghee';
@@ -58,16 +72,14 @@ class MypagePageComp extends Component {
 
     componentDidMount() {
         this.getMyData(); //처음 시작시 백엔드로부터 데이타 가져오기
-       // this.getMyReview();
+        this.getMyReview();
         //this.getWishlist();
     }
 
     render() {
-
         console.log("MypagePageComp render()", this.props);
 
         return (
-
             <div>
                 <h1><b>내 정보 관리</b></h1>
                 <table>
@@ -90,19 +102,38 @@ class MypagePageComp extends Component {
                         {this.state.memberData.address},&nbsp;{this.state.memberData.addrdetail}<br/>
                     </tr>
                 </table>
-                <br/><br/>
-                <h1><b>나의 일정</b></h1>
-                 <MySchedule></MySchedule>  
-                
+                {/* <MySchedule/> */}
+                <AppBar position="static">
+                    <Tabs value={this.state.value} onChange={this.handleChange} aria-label="simple tabs example">
+                        <Tab label="나의 일정" {...this.tabProps(0)} />
+                        <Tab label="나의 후기" {...this.tabProps(1)} />
+                        <Tab label="나의 예약" {...this.tabProps(2)} />
+                    </Tabs>
+                </AppBar>
+                <TabPanel value={this.state.value} index={0}>
+                    <MySchedule/>
+                </TabPanel>
+                    <TabPanel value={this.state.value} index={1}>
+                    Item Two
+                </TabPanel>
+                    <TabPanel value={this.state.value} index={2}>
+                    나의 예약
+                </TabPanel>
             </div>
-            
             
         )
         
         
     }
-
-    
 }
-
+class TabPanel extends Component {
+    render() {
+      return (
+        <Typography component="div" hidden={this.props.value !== this.props.index}>
+          <Box p={3}>{this.props.children}</Box>
+        </Typography>
+      );
+    }
+  }
 export default MypagePageComp;
+

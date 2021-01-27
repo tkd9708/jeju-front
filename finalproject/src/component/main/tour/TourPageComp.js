@@ -78,9 +78,9 @@ class TourPageComp extends Component {
     }
 
     componentWillMount() {
+        window.scrollTo(0,0);
         this.getTotalCount();
     }
-
 
     paginate = (num) => {
 

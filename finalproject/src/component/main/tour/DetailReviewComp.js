@@ -9,6 +9,11 @@ import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltO
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import './TourDetailCss.css';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Chip from '@material-ui/core/Chip';
 
 const customIcons = {
     1: {
@@ -48,7 +53,9 @@ class DetailReviewComp extends Component {
         super(props);
 
         this.state={
-            content:''
+            content:'',
+            upload:'',
+            star: '1'
         }
 
         this.contentsid = this.props.contentsid;
@@ -63,17 +70,18 @@ class DetailReviewComp extends Component {
 
     insertReview=()=>{
         let memNum = 'sanghee'; // 나중에 로그인상태의 아이디 집어넣기
-        let star = 5;
+        let star = this.state.star;
         let content = this.state.content;
         let contentsid = this.contentsid;
 
-        //let url = "http://localhost:9002/sreview/insert";
+        // let url = "http://localhost:9002/sreview/insert";
         let url = URL + "/sreview/insert";
 
         axios.post(url, {contentsid, memNum, star, content})
             .then(res=>{
                 this.setState({
-                    content : ""
+                    content : "",
+                    upload: ''
                 })
                 //window.location.reload();
                 this.props.getList();
@@ -83,12 +91,44 @@ class DetailReviewComp extends Component {
 
     }
 
-    
-      
-      
+    uploadImage=(e)=>{
+        const uploadFile=e.target.files[0];
+        const imageFile=new FormData();
+        imageFile.append("uploadFile",uploadFile);
+
+        let url = URL + "/sreview/upload";
+        
+        axios({
+            method:'post',
+            url:url,
+            data:imageFile,
+            headers:{'Content-Type':'multipart/form-data'}
+        }).then(res=>{
+            this.setState({
+                upload:res.data.photoname
+            })
+        })
+
+    }
+
+    handleDelete = () => {
+        let url = URL + "/sreview/delupload";
+        axios.get(url)
+            .then(res=>{
+                this.setState({
+                    upload:''
+                })
+            })
+    };
 
     render() {
 
+        const chip = this.state.upload==''?"":<Chip
+                                                variant="outlined"
+                                                size="small"
+                                                label={this.state.upload}
+                                                onDelete={this.handleDelete.bind(this)}
+                                            />;
         return (
             <div>
                 <Box
@@ -100,23 +140,45 @@ class DetailReviewComp extends Component {
                         justifyContent="center"
                         css={{ maxWidth: '100%' }}
                     >
-                        <Box m={1}>
-                            <Box component="fieldset" mb={3} borderColor="transparent">
+                        <Box m={1} id="detailReField">
+                           
+                            <label htmlFor="srContent" style={{verticalAlign: 'middle', height: '45px'}}>
+                            <Box component="fieldset" borderColor="transparent">
+                            &nbsp;&nbsp;
                                 <Rating
                                     name="customized-icons"
-                                    defaultValue={2}
+                                    defaultValue={1}
                                     getLabelText={(value) => customIcons[value].label}
                                     IconContainerComponent={IconContainer}
+                                    onChange={
+                                        (e)=>{
+                                            this.setState({
+                                                star : e.target.value
+                                            })
+                                        }
+                                    }
                                     />
-                            </Box>    
-                            사진 선택
-                        </Box>
-                        <Box m={1}>
-                            <textarea name="content" id="srContent" style={{width:'600px', height: '150px', resize: 'none'}} value={this.state.content} 
+                                    
+                                    {/* &nbsp;&nbsp;<MoreVertIcon style={{marginBottom: '10px', color: "#ddd"}}/>&nbsp; */}
+                                    
+                            </Box> 
+                            
+                            <textarea name="content" id="srContent" style={{resize: 'none'}} value={this.state.content} 
                                     className="form-control" onChange={this.changeHandler.bind(this)}></textarea>
+                            <input style={{display:'none'}} id="icon-button-file" type="file" onChange={this.uploadImage.bind(this)}/>
+                                    <label htmlFor="icon-button-file">
+                                        
+                                        <IconButton color="primary" aria-label="upload picture" component="span" style={{marginBottom: '10px'}}>
+                                            <PhotoCamera />
+                                        </IconButton>  
+                                        {/* <span style={{display:'inline-block', paddingBottom: '20px'}}>{this.state.upload}</span> */}
+                                        {chip}
+                                    </label>
+                            </label>
+                                    
                         </Box>
                         <Box m={1}>
-                            <button type="button" className="btn btn-warning" id="btnInsertReview" style={{height:'150px', width: '100px'}}
+                            <button type="button" className="btn btn-warning" id="btnInsertReview" style={{marginTop: '21px'}}
                                     onClick={this.insertReview.bind(this)}><b>작&nbsp;성</b></button>
                         </Box>
                 </Box>

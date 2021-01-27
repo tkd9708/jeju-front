@@ -1,5 +1,5 @@
 /*global kakao */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import './kakaomap.css';
 import Box from '@material-ui/core/Box';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -7,12 +7,26 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import LocalCafeIcon from '@material-ui/icons/LocalCafe';
 import HotelIcon from '@material-ui/icons/Hotel';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import AroundModal from "./AroundModal";
+import UseModal from './UseModal';
 
 const MapComp=(props)=> {
 
     let longitude = useState(0);
     let latitude = useState(0);
     let title = useState("");
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertSetOpen, setAlertSetOpen] = useState(false);
+    const [aroundId, setAroundId] = useState("");
+    const [wishTitle, setWishTitle] = useState("");
+    const [wishContent, setWishContent] = useState("");
+    
     const [value, setValue] = React.useState(0);
 
     console.log("longitude : " + props.longitude);
@@ -188,6 +202,7 @@ function placesSearchCB(data, status, pagination) {
         return el;
      }
     else{
+        // setting(places);
         var el = document.createElement('li'),
         itemStr = '<table className="table table-bordered" id="placeListTable"><tr>' +
                     '<td style={{width:"20%"}}><span class="markerbg marker_' + (index+1) + '"></span></td>' +
@@ -196,15 +211,23 @@ function placesSearchCB(data, status, pagination) {
         itemStr += '<span class="gray">' +  places.address_name  + '</span>';      
         itemStr += '<span class="tel">' + places.phone  + '</span>' + 
                     '</a></td>' +
-                    '<td style={{width:"20%"}}>일정추가</td></tr></table>';
-                    el.innerHTML = itemStr;
-                    el.className = 'item';
+                    '<td style={{width:"20%"}}><div className="addWishBtn" onClick={setting}>일정추가</div></td></tr></table>';
+        el.innerHTML = itemStr;
+        el.onclick=function(){
+            setWishTitle(places.place_name);
+            setWishContent(places.address_name);
+            toggle();
+        }
+        el.className = 'item';
                 
-                    return el;
-    }
-    
-     
+        return el;
+
+        // return <div dangerouslySetInnerHTML={{ __html : itemStr}}></div>;
+    }    
  }
+ 
+ 
+ 
  // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
  function addMarker(position, idx, title) {
      var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
@@ -278,28 +301,6 @@ function placesSearchCB(data, status, pagination) {
         placeOverlay.setMap(map);  
     }
 
-    // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
-    // 인포윈도우에 장소명을 표시합니다
-    // function displayInfowindow(marker, place) {
-    //     //var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
-        
-    //     var content = '<div class="placeinfo">' +
-    //                     '   <a className="title" href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">' + place.place_name + '</a>';   
-                            
-    //     if (place.road_address_name) {
-    //         content += '    <span title="' + place.road_address_name + '">' + place.road_address_name + '</span>' +
-    //                     '  <span className="jibun" title="' + place.address_name + '">(지번 : ' + place.address_name + ')</span>';
-    //     }  else {
-    //         content += '    <span title="' + place.address_name + '">' + place.address_name + '</span>';
-    //     }                
-        
-    //     content += '    <span className="tel">' + place.phone + '</span>' + 
-    //                 '</div>' + 
-    //                 '<div className="after"></div>';
-                    
-    //     infowindow.setContent(content);
-    //     infowindow.open(map, marker);
-    // }
     // 검색결과 목록의 자식 Element를 제거하는 함수입니다
     function removeAllChildNods(el) {   
         while (el.hasChildNodes()) {
@@ -315,6 +316,7 @@ function placesSearchCB(data, status, pagination) {
             children[i].onclick = onClickCategory;
         }
     }
+
     //카테고리를 클릭했을 때 호출되는 함수입니다
     function onClickCategory() {
         var id = this.id, className = this.className;
@@ -330,6 +332,7 @@ function placesSearchCB(data, status, pagination) {
             searchPlaces();
         }
     }
+
     //클릭된 카테고리에만 클릭된 스타일을 적용하는 함수입니다
     // function changeCategoryClass(el) {
     //     var category = document.getElementById('category'),
@@ -346,10 +349,30 @@ function placesSearchCB(data, status, pagination) {
     marker.setMap(map);
   };
 
+
+
+    // alert 함수
+    const handleAlertOpen = () => {
+        setAlertOpen(true);
+    };
+
+    const handleAlertClose = () => {
+        setAlertOpen(false);
+    };
+
+    const {isShowing, toggle} = UseModal();
   return (
       <div>
           {/* <div id="map" style={{ width: "500px", height: "500px" }}></div> */}
           
+          {/* <button className="button-default" onClick={toggle}>Show Modal</button> */}
+          {/* 모달 */}
+          <AroundModal
+                isShowing={isShowing}
+                hide={toggle}
+                wishTitle = {wishTitle}
+            />
+
           <Box className="map_wrap" style={{textAlign: 'center'}}
                         display="flex"
                         flexWrap="wrap"
@@ -391,35 +414,63 @@ function placesSearchCB(data, status, pagination) {
                         
                     </Box>
 
-          
-          {/* <div style={{display:'flex', width:'100%'}}>
-                
-                <div className="map_wrap" className="map_wrap" style={{textAlign: 'center', display:'flex', flexShrink:'1', justifyContent:'center'}}>
-                    <div id="map" style={{position:'relative', overflow:'hidden'}}>
-                    <ul id="category">
-                        <li id="FD6" data-order="0"> 
-                            <span className="category_bg restaurant"></span>
-                            음식점
-                        </li>  
-                        <li id="CE7" data-order="1"> 
-                            <span className="category_bg cafe"></span>
-                            카페
-                        </li>
-                        <li id="AD5" data-order="2"> 
-                            <span className="category_bg hotel"></span>
-                            숙박
-                        </li>     
-                    </ul>   
-                    <input type="hidden" value={title} id="keyword" size="15"></input>
-                    </div>
-                    
-                </div>
-                <br/><br/>
-                <div style={{display:'flex', flexShrink:'1', justifyContent:'center'}}>
-                    <ul id="placesList"></ul>
-                    <div id="pagination"></div>
-                </div>
-            </div> */}
+                    {/* 일정 추가 모달 */}
+                    {/* <Modal
+                        aria-labelledby="transition-modal-title"
+                        aria-describedby="transition-modal-description"
+                        className="aroundmodal"
+                        open={open}
+                        onClose={handleClose}
+                        closeAfterTransition
+                        BackdropComponent={Backdrop}
+                        BackdropProps={{
+                        timeout: 500,
+                        }}
+                    >
+                        <Fade in={open}>
+                        <div className="aroundpaper">
+                            <span className="aroundmodalTitle">일정 추가</span><br/> */}
+                            {/* 🏰&nbsp;&nbsp;{this.state.spotdata.title}<br/> */}
+                            {/* 🗺&nbsp;&nbsp;{this.state.spotdata.roadaddr}<br/> */}
+                            {/* 🗓&nbsp;&nbsp;여행 날짜
+                            <input type="date" class="form-control form-control-sm" ref="wishday"></input>
+                            ⏰&nbsp;&nbsp;예정 시간
+                            <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
+                            <div style={{textAlign: 'center'}}>
+                                <button type="button" class="btn btn-warning aroundmodalBtn"><b>추가</b></button>
+                            </div>
+
+                        </div>
+                        </Fade>
+                    </Modal> */}
+
+                    {/* alert 창 */}
+                    <Dialog
+                        open={alertOpen}
+                        onClose={handleAlertClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">{"일정 추가 완료"}</DialogTitle>
+                        <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Mypage로 이동하여 확인하시겠습니까?
+                        </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                        <Button onClick={handleAlertClose} color="primary">
+                            NO
+                        </Button>
+                        <Button onClick={
+                            ()=>{
+                                setAlertOpen(false);
+                                this.props.history.push("/mypage");
+                            }
+                        } color="primary" autoFocus>
+                            YES
+                        </Button>
+                        </DialogActions>
+                    </Dialog>
       </div>   
   );
 }

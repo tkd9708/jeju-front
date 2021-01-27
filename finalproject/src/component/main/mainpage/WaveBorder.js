@@ -1,30 +1,44 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core";
+import {withStyles} from "@material-ui/core";
 import jeju1 from "../../../image/jeju1.jpg";
 import jeju2 from "../../../image/jeju2.jpg";
 import jeju3 from "../../../image/jeju3.jpeg";
 import udo1 from "../../../image/udo1.jpg";
+import Logo2 from "../../../image/logo2.png";
 
 const styles = {
     waves: {
-        position: "relative",
+        position: "absolute",
         width: "100%",
         // marginBottom: -7,
         height: "7vw",
         minHeight: "7vw",
-        // "z-index": 9999999,
+        // "z-index": "-5",
+        // bottom: "-1000",
     },
     "@keyframes moveForever": {
-        from: { transform: "translate3d(-90px, 0, 0)" },
-        to: { transform: "translate3d(85px, 0, 0)" }
+        from: {transform: "translate3d(-90px, 0, 0)"},
+        to: {transform: "translate3d(85px, 0, 0)"}
     },
     parallax: {
         "& > use": {
             animation: "$moveForever 4s cubic-bezier(0.62, 0.5, 0.38, 0.5) infinite",
             animationDelay: props => `-${props.animationNegativeDelay}s`
         }
-    }
+    },
+    content: {
+        textAlign: "center",
+        backgroundColor: "#2d55aa",
+        // minHeight: "75vh",
+        // margin: "-.1em 0 0 0",
+        color: "#ffdd55",
+        fontSize: "2em",
+        fontWeight: "300",
+        userSelect: "none",
+        cursor: "default",
+        outline: "none",
+    },
 };
 
 function WaveBorder(props) {
@@ -38,9 +52,8 @@ function WaveBorder(props) {
         ...rest
     } = props;
     return (
-        <div className={className} style={{ background: upperColor }} {...rest}>
+        <div className={className} style={{background: upperColor}} {...rest}>
             {/* <img className="mainPhotoComp_img1" src={jeju1}/> */}
-
             <svg
                 className={classes.waves}
                 xmlns="http://www.w3.org/2000/svg"
@@ -48,16 +61,29 @@ function WaveBorder(props) {
                 viewBox="0 24 150 28"
                 preserveAspectRatio="none"
                 shapeRendering="auto">
-                    <defs>
+                <defs>
                     <path
                         id={id}
                         d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
                     />
-                    </defs>
-                    <g className={classes.parallax}>
-                        <use href={`#${id}`} x="48" y="0" fill={lowerColor} />
-                    </g>
-                </svg>
+                </defs>
+                <g className={classes.parallax}>
+                    <use href={`#${id}`} x="48" y="6" fill={lowerColor}/>
+                </g>
+            </svg>
+            {/*<div className="footerComp">*/}
+            <div>
+                {/* <hr/> */}
+                <div className="content">
+                    <br/>
+                    <img src={Logo2}
+                         style={{width: "150px"}}
+                         alt="logo2"/>
+                    <br/>
+                    (주)멘도롱소랑 | 경기도 서초구 강남대로 459 (서초동 1300-34)<br/>
+                    사업자 번호 147-14-12345 | 전화번호:02-123-1234 | 팩스 02-1234-1234 | 이메일 help@naver.com
+                </div>
+            </div>
         </div>
     );
 }

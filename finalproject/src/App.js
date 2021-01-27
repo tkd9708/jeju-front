@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Menu from "./component/header/Menu";
 import gsap from "gsap";
+import '@progress/kendo-theme-default/dist/all.css';
 import "./App.css";
 // import {NavLink, Route} from "react-router-dom";
 // import {Home, Login, ShareBoard, MyPage, Notice, Reservation, Admin, TourList, Tour} from './component/header/menus';
@@ -21,6 +22,10 @@ import TourPageComp from "./component/main/tour/TourPageComp";
 import SignupPageComp from "./component/main/join/SignupPageComp";
 import FooterComp from "./component/footer/FooterComp";
 import DetailTourComp from "./component/main/tour/DetailTourComp";
+import ShareBoardFormComp from "./component/main/shareboard/ShareBoardFormComp";
+import ShareBoardUpdateForm from "./component/main/shareboard/ShareBoardUpdateForm";
+import store from "./redux/store";
+import {actionType} from "./redux/config";
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -31,10 +36,12 @@ class App extends Component {
         this.state = {
             isStaticHeader: true,
             mainview: "mainpage",
-            footer: "footer_comp",
+            // footerPositionType: "",
+
             logged: false,
             onLogin: this.onLogin,
             onLogout: this.onLogout
+
         }
 
         window.onmousewheel = function (e) {
@@ -47,14 +54,11 @@ class App extends Component {
         }.bind(this);
 
 
-        if(confirmLs !== undefined)
-        {
+        if (confirmLs !== undefined) {
             this.setState({
                 logged: true,
             });
-        }
-        else
-        {
+        } else {
             this.setState({
                 logged: false,
             });
@@ -100,9 +104,15 @@ class App extends Component {
         });
     }
 
+    componentDidMount() {
+        store.dispatch({
+            type:actionType.setMainView,
+        })
+    }
+
 
     render() {
-        let { logged } = this.state;
+        let {logged} = this.state;
 
         return (
             <BrowserRouter>
@@ -114,39 +124,28 @@ class App extends Component {
                 />
                 <div className="mainFrame">
                     <Switch>
-                        <Route exact path="/">
-                            <MainPageComp/>
+                        <Route exact path="/" component={MainPageComp}/>
+                        <Route path="/admin/:name?" component={MemberListPageComp}/>
+                        <Route path="/login/:name?">
+                            <LoginPageComp
+                                logged={logged}
+                                onLogin={this.onLogin}
+                            />
                         </Route>
-                        <Route  path="/admin/:name?">
-                            <MemberListPageComp/>
-                        </Route>
-                        <Route  path="/login/:name?">
-                            <LoginPageComp/>
-                        </Route>
-                        <Route  path="/join/:name?">
-                            <SignupPageComp/>
-                        </Route>
-                        <Route  path="/mypage/:name?">
-                            <MypagePageComp/>
-                        </Route>
-                        <Route  path="/share/:name?">
-                            <ShareBoardPageComp/>
-                        </Route>
-                        <Route  path="/tour/:name?" component={DetailTourComp}>
-                            {/* <DetailTourComp/> */}
-                        </Route>
-                        <Route  path="/notice/:name?">
-                            <NoticePageComp/>
-                        </Route>
-                        <Route  path="/reservation/:name?">
-                            <ReservationPageComp/>
-                        </Route>
-
-                        <Route  path="/tourlist/:name?" component={TourPageComp}>
-                            {/* <TourPageComp/> */}
-                        </Route>
+                        <Route path="/join/:name?" component={SignupPageComp}/>
+                        <Route path="/mypage/:name?" component={MypagePageComp}/>
+                        <Route exact path="/share" component={ShareBoardPageComp}/>
+                        <Route path="/share/insert" component={ShareBoardFormComp}/>
+                        <Route path="/share/update/:num?" component={ShareBoardUpdateForm}/>
+                        <Route path="/tour/:name?" component={DetailTourComp}/>
+                        <Route path="/notice/:name?" component={NoticePageComp}/>
+                        <Route path="/reservation/:name?" component={ReservationPageComp}/>
+                        <Route path="/tourlist/:name?" component={TourPageComp}/>
                     </Switch>
-                    <FooterComp/>
+                    <div className="footerComp"
+                    >
+                        <FooterComp/>
+                    </div>
                 </div>
             </BrowserRouter>
         )

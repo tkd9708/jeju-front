@@ -1,6 +1,46 @@
-import React, {Component} from "react";
+import React, { Component, useState } from "react";
+import * as ReactDOM from "react-dom";
 import axios from 'axios';
 import {URL} from "../../../redux/config";
+import { makeStyles, createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import TextField from "@material-ui/core/TextField";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
+import PropTypes from "prop-types";
+// import { withStyles } from "@material-ui/styles";
+import { createMuiTheme } from "@material-ui/core";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import { Upload } from "@progress/kendo-react-upload";
+
+const styles = theme => ({
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
+            width: '25ch',
+        },
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
+});
+
+const genders = [
+    '남성',
+    '여성',
+];
+
+const fileStatuses = [
+    'UploadFailed',
+    'Initial',
+    'Selected',
+    'Uploading',
+    'Uploaded',
+    'RemoveFailed',
+    'Removing'
+];
+
+let uploadFile = null;
 
 class SignupPageComp extends Component {
 
@@ -22,13 +62,14 @@ class SignupPageComp extends Component {
             email : '',
             hp : "",
             idcanUse: false,//중복된 아이디찾기 true여야 로그인가능
-        }
+            files: [],
+            events: [],
+            filePreviews: {},
+        };
 
         //함수 선언
         this.onIdChk=this.onIdChk.bind(this);
     }
-
-
 
     // 변수 선언시 state 영역에 추가했을 경우에만 나중에 값변경이 가능하다
     // 값 변경시에는 setState 를 이용해야만 한다
@@ -102,6 +143,31 @@ class SignupPageComp extends Component {
         })
     }
 
+    //사진 업로드시 호출되는 함수
+    // imageUpload=(e)=>{
+    //     uploadFile = e.affectedFiles[0].name;
+    //     alert("업로드할 파일은 : " + uploadFile);
+
+    //     //서버에 업로드
+    //     const memberFile = new FormData();
+    //     memberFile.append("uploadFile",uploadFile);
+
+    //     axios({
+    //         method: 'post',
+    //         url: URL + '/member/upload',
+    //         data: memberFile,
+    //         headers: {'Content-Type':'multipart/form-data'}
+    //     }).then(response=>{
+    //         alert(response.data.photoname+" 이미지명으로 저장합니다");
+    //         //이미지명 변경
+    //         this.setState({
+    //             photoname: response.data.photoname
+    //         })
+    //     }).catch(err=>{
+    //         console.log("이미지 업로드시 오류남:"+err);
+    //     })
+    // }
+
     onInsertMember = () => {
         let data = this.state;
         let url = URL + "/member/insert";
@@ -131,11 +197,93 @@ class SignupPageComp extends Component {
             console.log("회원가입시 오류남:"+err);
         })
     }
+
+    handleChange = (event) => {
+        this.setState({
+            gender: event.target.value,
+        });
+    };
+
+    onAdd = (event) => {
+        const afterStateChange = () => {
+            event.affectedFiles
+                .filter(file => !file.validationErrors)
+                .forEach(file => {
+                    const reader = new FileReader();
+
+                    reader.onloadend = (ev) => {
+                        this.setState({
+                            filePreviews: {
+                                ...this.state.filePreviews,
+                                [file.uid]: ev.target.result
+                            }
+                        });
+                    };
+
+                    reader.readAsDataURL(file.getRawFile());
+                });
+        };
+
+        this.setState({
+            files: event.newState,
+            events: [
+                ...this.state.events,
+                `선택된 파일: ${event.affectedFiles[0].name}`
+            ],
+        }, afterStateChange);
+
+        uploadFile = event.affectedFiles[0].name;
+    }
+
+    onRemove = (event) => {
+        const filePreviews = {
+            ...this.state.filePreviews
+        };
+
+        event.affectedFiles.forEach(file => {
+            delete filePreviews[file.uid];
+        });
+
+        this.setState({
+            files: event.newState,
+            events: [
+                ...this.state.events,
+                `파일 제거됨: ${event.affectedFiles[0].name}`
+            ],
+            filePreviews: filePreviews
+        });
+    }
+
+    onProgress = (event) => {
+        this.setState({
+            files: event.newState,
+            events: [
+                ...this.state.events,
+                `진행 정도: ${event.affectedFiles[0].progress} %`
+            ]
+        });
+    }
+
+    onStatusChange = (event) => {
+        const file = event.affectedFiles[0];
+
+        this.setState({
+            files: event.newState,
+            events: [
+                ...this.state.events,
+                `File '${file.name}' status changed to: ${fileStatuses[file.status]}`
+            ]
+        });
+    }
+    
     render() {
+        const { classes } = this.props;
         console.log("SingupPageComp render()", this.props);
         return (
             <div>
                 <form
+                className={classes.root}
+                noValidate autoComplete="off"
                 onSubmit = { this.onSubmitHandler.bind(this) }
                 >
                 <h1>회원가입</h1>
@@ -144,64 +292,155 @@ class SignupPageComp extends Component {
                     <h4 className="showIdResult">{this.state.showIdResult}</h4>
                 </div>
                 <br />
-                <label>이메일</label>
-                <input type="email" name = "email" value = { this.state.email } onChange={this.changeEvent.bind(this)} />
+                <TextField id="standard-secondary" label="이메일" color="secondary" 
+                type="email" name="email" value={ this.state.email }
+                onChange = { this.changeEvent.bind(this) } />
+                
+                {/* <label>이메일</label>
+                <input type="email" name = "email" value = { this.state.email } onChange={this.changeEvent.bind(this)} /> */}
                 <br />
-                <label>이름</label>
-                <input type="text" name = "name" value = { this.state.name } onChange={this.changeEvent.bind(this)} />
+                
+                {/* <label>이름</label>
+                <input type="text" name = "name" value = { this.state.name } onChange={this.changeEvent.bind(this)} /> */}
+                
+                <TextField id="standard-secondary" label="이름" color="secondary" 
+                type="text" name="name" value={ this.state.name }
+                onChange = { this.changeEvent.bind(this) } />
+
                 <br />
-                아이디 :
+                {/* 아이디 :
                 <input type="text" name="id"
                 onChange={this.changeEvent.bind(this)}
                 value={this.state.id}
-                />
+                /> */}
+                <TextField id="standard-secondary" label="아이디" color="secondary" 
+                type="text" name="id" value={ this.state.id }
+                onChange = { this.changeEvent.bind(this) } />
+
                 <button type="button"
                 onClick={this.onIdChk.bind(this)}>
                     아이디 확인
                 </button>
                 <br />
-                <label>비밀번호</label>
+                {/* <label>비밀번호</label>
                 <input type="password" name="pass"
                 onChange={this.changeEvent.bind(this)}
                 value={this.state.pass}
                 autoComplete="new-password"
-                />
+                /> */}
+                <TextField id="standard-secondary" label="비밀번호" color="secondary" 
+                type="password" name="pass" value={ this.state.pass }
+                onChange = { this.changeEvent.bind(this) } />
+
                 <br />
-                <label>비밀번호 확인</label>
+                {/* <label>비밀번호 확인</label>
                 <input
                 type = "password"
                 name = "pwCheck"
                 value = { this.state.pwCheck }
                 onChange = { this.changeEvent.bind(this) }
-                />
+                /> */}
+                <TextField id="standard-secondary" label="비밀번호 확인" color="secondary" 
+                type="password" name="pwCheck" value={ this.state.pwCheck }
+                onChange = { this.changeEvent.bind(this) } />
+
                 <br />
-                <select name="gender"
+                {/* <select name="gender"
                 onChange = {this.changeEvent.bind(this)}
                 value = { this.state.gender }>
                     <option value="">성별선택</option>
                     <option value="여성">여성</option>
                     <option value="남성">남성</option>
-                </select>
+                </select> */}
+
+                <InputLabel id="demo-simple-select-label">성별</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={this.state.gender}
+                    onChange={this.handleChange}
+                >
+                    {genders.map((gender) => (
+                        <MenuItem key={gender} value={gender}>
+                            {gender}
+                        </MenuItem>
+                    ))}
+                </Select>
+
                 <br />
                 사진 : &nbsp;
                 <input type="file" name="photo"
                 onChange={this.imageUpload.bind(this)}
                 ></input>
+
+                {/* <div>
+                    <InputLabel id="demo-simple-select-label">사진</InputLabel>
+                    <br />
+                    <Upload 
+                        batch={false}
+                        multiple={true}
+                        files={this.state.files}
+                        onAdd={this.onAdd}
+                        onRemove={this.onRemove}
+                        onProgress={this.onProgress}
+                        onStatusChange={this.onSatusChange}
+                        withCredentials={false}
+                        // saveUrl={URL + '/member/upload'}
+                        removeUrl={'https://demos.telerik.com/kendo-ui/service-v4/upload/remove'}
+                        onChange={this.imageUpload.bind(this)}
+                    />
+                    <div className={'example-config'} style={{ marginTop: 20 }}>
+                        <ul className={'event-log'}>
+                            {
+                                this.state.events.map(event => <li key={event}>{event}</li>)
+                            }
+                        </ul>
+                    </div>
+                    {
+                        this.state.files.length ? 
+                        <div className={'img-preview example-config'}>
+                            <h3>선택된그림들 미리보기</h3>
+                            {
+                                Object.keys(this.state.filePreviews)
+                                    .map((fileKey, index) => (<img 
+                                        src={this.state.filePreviews[fileKey]} 
+                                        alt={index}
+                                        style={{ width: 200, margin: 10 }} 
+                                    />))
+                            }
+                        </div> : undefined
+                    }
+                </div> */}
+
+
                 <br />
-                주소 : &nbsp;
+                {/* 주소 : &nbsp;
                 <input type="text" name="address"
                 onChange={this.changeEvent.bind(this)}
-                value = { this.state.address }></input>
+                value = { this.state.address }></input> */}
 
-                <input type="text" name="addrdetail"
+                <TextField id="standard-secondary" label="주소" color="secondary" 
+                type="text" name="address" value={ this.state.address }
+                onChange = { this.changeEvent.bind(this) } />
+
+                {/* <input type="text" name="addrdetail"
                 onChange={this.changeEvent.bind(this)}
-                value = { this.state.addrdetail }></input>
+                value = { this.state.addrdetail }></input> */}
                 
+                <TextField id="standard-secondary" label="상세주소" color="secondary" 
+                type="text" name="addrdetail" value={ this.state.addrdetail }
+                onChange = { this.changeEvent.bind(this) } />
+
                 <br />
-                휴대폰 : &nbsp;
+                {/* 휴대폰 : &nbsp;
                 <input type="text" name="hp"
                 onChange={this.changeEvent.bind(this)}
-                value = { this.state.hp }></input>
+                value = { this.state.hp }></input> */}
+
+                <TextField id="standard-secondary" label="휴대폰" color="secondary" 
+                type="text" name="hp" value={ this.state.hp }
+                onChange = { this.changeEvent.bind(this) } />
+
                 <br />
                 <b>
                     내 아이디는 {this.state.id} 입니다
@@ -219,9 +458,13 @@ class SignupPageComp extends Component {
                 <button type = "submit">회원 가입</button>
                 </form>
             </div>
-        )
+        );
     }
 
 }
 
-export default SignupPageComp;
+SignupPageComp.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(SignupPageComp);

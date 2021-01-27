@@ -3,8 +3,8 @@ import { createMuiTheme } from "@material-ui/core";
 // colors
 const primary = "#b3294e";
 const seconday = "#4829B2";
-const black = "#343a40";
-const darkBlack = "rgb(36, 40, 44)";
+const black = "#303738";
+const darkBlack = "rgb(25, 30, 31)";
 const background = "#f5f5f5";
 
 // spacing

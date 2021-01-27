@@ -4,9 +4,17 @@ div.mainFrame {
     overflow: auto;
 }
 
-div.footerComp {
+div.footerComp .content {
     text-align: center;
 }
+
+/*
+div.footerComp {
+    position: absolute;
+    width: 100%;
+    bottom: 2%;
+}
+*/
 
 
 /*.App {*/
