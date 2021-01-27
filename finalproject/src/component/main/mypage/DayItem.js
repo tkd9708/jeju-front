@@ -20,9 +20,10 @@ class DayItem extends Component {
         const {row} = this.props;
         var dayInfo = this.props.dayInfo;
         var selectDay = new Date(dayInfo.getYear, dayInfo.getMonth-1, dayInfo.getDay);
-        var y = row.wishday.substr(0, 4);
-        var m = row.wishday.substr(5, 2);
-        var d = row.wishday.substr(8, 2);
+        var wishday = ""+row.wishday;
+        var y = wishday.substr(0, 4);
+        var m = wishday.substr(5, 2);
+        var d = wishday.substr(8, 2);
 
         var today = new Date(y, m-1, d);
         var betweenDay = selectDay.getTime() - today.getTime();  // 이게 0이여야 해당하는 날짜랑 wishday랑 맞는거에요!

@@ -106,21 +106,21 @@ class Menu extends Component {
                     <li class="dropdown">
                         <a>Tour</a>
                             <div class="dropdown-content" >
-                                <a href="/tourlist/jeju">제주</a>
-                                <a href="/TourList/jocheon">조천</a>
-                                <a href="/TourList/gujwa">구좌</a>
-                                <a href="/TourList/sungsan">성산</a>
-                                <a href="/TourList/pyoseon">표선</a>
+                                <a href="/tourlist/jeju/1">제주</a>
+                                <a href="/TourList/jocheon/1">조천</a>
+                                <a href="/TourList/gujwa/1">구좌</a>
+                                <a href="/TourList/sungsan/1">성산</a>
+                                <a href="/TourList/pyoseon/1">표선</a>
 
-                                <a href="/TourList/namwon">남원</a>
-                                <a href="/TourList/seogwipo">서귀포</a>
-                                <a href="/TourList/andeok">안덕</a>
-                                <a href="/TourList/daejung">대정</a>
-                                <a href="/TourList/hangyeong">한경</a>
+                                <a href="/TourList/namwon/1">남원</a>
+                                <a href="/TourList/seogwipo/1">서귀포</a>
+                                <a href="/TourList/andeok/1">안덕</a>
+                                <a href="/TourList/daejung/1">대정</a>
+                                <a href="/TourList/hangyeong/1">한경</a>
 
-                                <a href="/TourList/hanrim">한림</a>
-                                <a href="/TourList/aewol">애월</a>
-                                <a href="/TourList/udo">우도</a>
+                                <a href="/TourList/hanrim/1">한림</a>
+                                <a href="/TourList/aewol/1">애월</a>
+                                <a href="/TourList/udo/1">우도</a>
                             </div>
                             {/* <NavLink exact to="/tour"
                                     onClick={() => {

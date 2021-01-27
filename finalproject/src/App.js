@@ -126,7 +126,7 @@ class App extends Component {
                         <Route exact path="/share" component={ShareBoardPageComp}/>
                         <Route path="/share/insert" component={ShareBoardFormComp}/>
                         <Route path="/share/update/:num?" component={ShareBoardUpdateForm}/>
-                        <Route path="/tour/:name?" component={DetailTourComp}/>
+                        <Route path="/tour/:name?/:pageNum?" component={DetailTourComp}/>
                         <Route path="/notice/:name?" component={NoticePageComp}/>
                         <Route path="/reservation/:name?" component={ReservationPageComp}/>
                         <Route path="/tourlist/:name?" component={TourPageComp}/>
