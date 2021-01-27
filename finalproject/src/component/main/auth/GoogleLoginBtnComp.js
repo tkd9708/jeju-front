@@ -51,6 +51,10 @@ class GoogleLoginBtnComp extends Component
                 provider: 'google'
             });
 
+            this.setGoogleOn();
+
+            alert("스토어에 저장된 구글로그인 상태 : " + store.getState().googleOn);
+
             // initializing the setup
             refreshTokenSetup(res);
         };

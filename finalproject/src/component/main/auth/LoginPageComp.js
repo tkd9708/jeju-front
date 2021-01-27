@@ -64,8 +64,8 @@ class LoginPageComp extends Component {
         .then(response => {
             if(response.data){
                 this.props.onLogin();
-                this.setLoginId();
-                alert(store.loginId+ "가 스토어에 저장된 아이디입니다");
+                this.setLoginId(data.id);
+                alert(store.getState().loginId+ "가 스토어에 저장된 아이디입니다");
                 this.props.history.push("/");
             }
             else{
@@ -78,6 +78,7 @@ class LoginPageComp extends Component {
 
     render() {
         console.log("LoginPageComp render()", this.props);
+        console.log("스토어에 있는 로그인 아이디 상태는 : " + store.getState().loginId);
         return (
             <div>
                 <h4>로그인</h4>
