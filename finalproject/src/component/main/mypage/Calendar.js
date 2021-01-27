@@ -4,6 +4,7 @@ import {FaUtensils,FaMugHot,FaHotel,FaHamburger} from 'react-icons/fa';
 import axios from 'axios';
 import {URL} from "../../../redux/config";
 import DayItem from './DayItem';
+//import Subject from './Subject';
 
 class DateHeader extends Component {
 
@@ -63,9 +64,13 @@ class Week extends Component {
   constructor(props){
     super(props);
 
+    
+
     this.ym = this.props.ymOfThisCalendar;
     this.state={
        list:[]
+       
+       
     };
   }
 
@@ -75,7 +80,7 @@ class Week extends Component {
 
     axios.get(url)
     .then(response=>{
-      console.log("캘린더 출력 : " + response.data); 
+      //console.log("캘린더 출력 : " + response.data); 
       this.setState({
         list: response.data
 
@@ -85,9 +90,16 @@ class Week extends Component {
     })
   }
 
+  
+
   componentDidMount(){
     this.getData();
+    
   }
+
+  
+
+  
 
   Days = (firstDayFormat,weekIndex) => {
     const _days = [];
@@ -152,10 +164,18 @@ class Week extends Component {
             </label>
             {this.state.list.map((row,idx)=>(
                 <DayItem row={row} key={idx} className={className} dayInfo={dayInfo} i={i} fn={fn}></DayItem>
+                
             ))}
-           
+            
+              
+
+              
             </div>
+            
+            
        )
+
+       
       })    
         
     }
