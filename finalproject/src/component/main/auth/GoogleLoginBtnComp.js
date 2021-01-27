@@ -2,7 +2,8 @@ import React , { Component } from 'react';
 import reactDOM from 'react-dom';
 import GoogleLogin from 'react-google-login';
 import { refreshTokenSetup } from "./refreshToken";
-
+import store from "../../../redux/store";
+import { URL, actionType, mainViewType } from "../../../redux/config";
 
 class GoogleLoginBtnComp extends Component
 {
@@ -15,6 +16,23 @@ class GoogleLoginBtnComp extends Component
             provider: '',
             accessToken: ''
         }
+    }
+
+    setLoginId = (loginId) => {
+        console.log("LoginPage setLoginId()");
+        store.dispatch({
+            type: actionType.LOG_IN,
+            // mainView: mainViewType.MainPage
+            loginId: loginId
+        });
+    }
+
+    setGoogleOn = () => {
+        console.log("구글로 로그인했습니다");
+        store.dispatch({
+            type: actionType.googleLogin,
+            googleOn: true
+        });
     }
 
     render() {
@@ -32,6 +50,10 @@ class GoogleLoginBtnComp extends Component
                 name: res.profileObj.name,
                 provider: 'google'
             });
+
+            this.setGoogleOn();
+
+            alert("스토어에 저장된 구글로그인 상태 : " + store.getState().googleOn);
 
             // initializing the setup
             refreshTokenSetup(res);

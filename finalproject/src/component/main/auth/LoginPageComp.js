@@ -30,18 +30,28 @@ class LoginPageComp extends Component {
     }
 
 
+    setLoginId = (loginId) => {
+        console.log("LoginPage setLoginId()");
+        store.dispatch({
+            type: actionType.LOG_IN,
+            // mainView: mainViewType.MainPage
+            loginId: loginId,
+            logged: true
+        });
+    }
 
     // 변수 선언시 state 영역에 추가했을 경우에만 나중에 값변경이 가능하다
     // 값 변경시에는 setState 를 이용해야만 한다
     // 이벤트
     changeEvent=(e)=>{
         
-        console.log(e.target.id+":"+e.target.value);
+        // console.log(e.target.id+":"+e.target.value);
         // 만약 엔터 누를때만 변경되도록 하고 싶으면
         this.setState({
             [e.target.name]:e.target.value
         })
     }
+
 
     onLogin=()=>{
         console.log("로그인할 아이디는 " + this.state.id + "비밀번호는 " + this.state.pass);
@@ -53,17 +63,27 @@ class LoginPageComp extends Component {
 
         axios.post(url, data)
         .then(response => {
-            this.props.onLogin();
-
-            this.props.history.push("/");
+            console.log(response.data);
+            if(response.data){
+                // this.props.onLogin();
+                this.setLoginId(data.id);
+                alert(store.getState().loginId+ "가 스토어에 저장된 아이디입니다");
+                this.props.history.push("/");
+            }
+            else{
+                alert("아이디와 비밀번호가 맞지않습니다.");
+                this.setState({
+                    pass: '',
+                })
+            }
         }).catch(err => {
             console.log("로그인시 오류남:"+err);
         })
-        
     }
 
     render() {
-        console.log("LoginPageComp render()", this.props);
+        // console.log("LoginPageComp render()", this.props);
+        // console.log("스토어에 있는 로그인 아이디 상태는 : " + store.getState().loginId);
         return (
             <div>
                 <h4>로그인</h4>

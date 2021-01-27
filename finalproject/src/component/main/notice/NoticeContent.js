@@ -7,28 +7,29 @@ class NoticeContent extends Component
     constructor({match})
     {
         super();
-        this.num=match.params.num;
-        this.state={
-            selectData:[]
-        }
+        this.subject=match.params.subject;
+        // this.state={selectData:''}
+        this.content=match.params.content;
+        this.state={selectData:''}
     }
     onSelectData=()=>{
-        let url=URL + "/notice/detail";
-
-        axios.get(url)
-        .then(res=>{
-            this.setState({
-                selectData:res.data
-            })
+        let url= {URL} + "/notice/list";
+    axios.get(url)
+    .then(res=>{
+        this.setState({
+            selectData:res.data
         })
-    }
+    })
+}
 
-    componentWillMount() {
-        this.onSelectData();
-    }
-
+componentWillMount() {
+    console.log("content willmount");
+    this.onSelectData();
+}
     render(){
+        let url=document.getElementById("url").textContent
         const {selectData}=this.state;
+
 
         return (
             <div>

@@ -39,7 +39,7 @@ class NoticeMiniComp extends Component {
                                 </tr>
                             );
                         } else {
-                            return;
+
                         }
                     })}
                     </tbody>
