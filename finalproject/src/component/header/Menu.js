@@ -34,11 +34,11 @@ class Menu extends Component {
         // 로그아웃일 경우 onLogout함수를 통해 logged를 다시 false로 바꿔준다.
         // 부모컴포넌트가 HeaderComp->App이므로 props를 통해 value를 전달받을 수 있다. 그러나 Login컴포넌트의경우는 여러번 전달해야함.
         // 따라서 전역적인 상태가 필요하다.
-        
-        
+
+
         let {logged} = this.props;
         // console.log("Menu render ", this.props);
-        
+
         var className_div_menu = `${this.state.type} menu`;
 
         return (
@@ -103,9 +103,11 @@ class Menu extends Component {
                                  }}
                         >Share</NavLink>
                     </li>
-                    <li class="dropdown">
+                    {/*<li class="dropdown">*/}
+                    <li className="dropdown">
                         <a>Tour</a>
-                            <div class="dropdown-content" >
+                            {/*<div class="dropdown-content" >*/}
+                            <div className="dropdown-content" >
                                 <a href="/tourlist/jeju/1">제주</a>
                                 <a href="/TourList/jocheon/1">조천</a>
                                 <a href="/TourList/gujwa/1">구좌</a>
@@ -128,8 +130,8 @@ class Menu extends Component {
                                         this.setMainView(mainViewType.TourList);
                                     }}
                             >Tour</NavLink> */}
-                       
-                        
+
+
                     </li>
                     <li>
                         <NavLink exact to="/notice"
@@ -148,7 +150,7 @@ class Menu extends Component {
                         >Reservation</NavLink>
                     </li>
                 </ul>
-                
+
 
                 {/*<hr style={{clear: 'both'}}/>*/}
 

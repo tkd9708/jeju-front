@@ -41,8 +41,10 @@ const useStyles = makeStyles((theme) => ({
     },
     paperRoot: {
         display: "flex",
-        flexWrap: "wrap",
+        // flexWrap: "wrap",
+        overflow:"scroll",
         "& > *": {
+            flexShrink:"0",
             margin: "10px",
             padding: "10px",
             width: "400px",
@@ -52,92 +54,70 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function BoardSample() {
+export default function BoardSample(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
+    // console.log(props);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
     return (
-        <div className={classes.paperRoot}>
-            <Paper elevation={3}>
-                <Card className={classes.root}>
-                    <CardHeader
-                        avatar={
-                            <Avatar aria-label="recipe" className={classes.avatar}>
-                                YK
-                            </Avatar>
-                        }
-                        action={
-                            <IconButton aria-label="settings">
-                                <MoreVertIcon/>
-                            </IconButton>
-                        }
-                        title="Shrimp and Chorizo Paella"
-                        subheader="September 14, 2016"
-                    />
-                    <CardMedia
-                        className={classes.media}
-                        image="/static/images/cards/paella.jpg"
-                        title="Paella dish"
-                    />
-                    <CardContent>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            This impressive paella is a perfect party dish and a fun meal to cook
-                            together with your guests. Add 1 cup of frozen peas along with the
-                            mussels, if you like.
-                        </Typography>
-                    </CardContent>
-                    <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites">
-                            <FavoriteIcon/>
-                        </IconButton>
-                        <IconButton aria-label="share">
-                            <ShareIcon/>
-                        </IconButton>
-                    </CardActions>
-                </Card>
-            </Paper>
-            <Paper elevation={3}>
-                <Card className={classes.root}>
-                    <CardHeader
-                        avatar={
-                            <Avatar aria-label="recipe" className={classes.avatar}>
-                                YK
-                            </Avatar>
-                        }
-                        action={
-                            <IconButton aria-label="settings">
-                                <MoreVertIcon/>
-                            </IconButton>
-                        }
-                        title="Shrimp and Chorizo Paella"
-                        subheader="September 14, 2016"
-                    />
-                    <CardMedia
-                        className={classes.media}
-                        image="/static/images/cards/paella.jpg"
-                        title="Paella dish"
-                    />
-                    <CardContent>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            This impressive paella is a perfect party dish and a fun meal to cook
-                            together with your guests. Add 1 cup of frozen peas along with the
-                            mussels, if you like.
-                        </Typography>
-                    </CardContent>
-                    <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites">
-                            <FavoriteIcon/>
-                        </IconButton>
-                        <IconButton aria-label="share">
-                            <ShareIcon/>
-                        </IconButton>
-                    </CardActions>
-                </Card>
-            </Paper>
+        <div>
+            <h1>{props.location}</h1>
+            <hr/>
+            <div className={classes.paperRoot}>
+                <Paper elevation={3}>
+                </Paper>
+                <Paper elevation={3}>
+                </Paper>
+                <Paper elevation={3}>
+                </Paper>
+                <Paper elevation={3}>
+                </Paper>
+            </div>
         </div>
+
     )
 }
+
+
+/*
+<Card className={classes.root}>
+                    <CardHeader
+                        avatar={
+                            <Avatar aria-label="recipe" className={classes.avatar}>
+                                YK
+                            </Avatar>
+                        }
+                        action={
+                            <IconButton aria-label="settings">
+                                <MoreVertIcon/>
+                            </IconButton>
+                        }
+                        title="Shrimp and Chorizo Paella"
+                        subheader="September 14, 2016"
+                    />
+                    <CardMedia
+                        className={classes.media}
+                        image="/static/images/cards/paella.jpg"
+                        title="Paella dish"
+                    />
+                    <CardContent>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            This impressive paella is a perfect party dish and a fun meal to cook
+                            together with your guests. Add 1 cup of frozen peas along with the
+                            mussels, if you like.
+                        </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                        <IconButton aria-label="add to favorites">
+                            <FavoriteIcon/>
+                        </IconButton>
+                        <IconButton aria-label="share">
+                            <ShareIcon/>
+                        </IconButton>
+                    </CardActions>
+                </Card>
+ */

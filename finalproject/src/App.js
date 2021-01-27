@@ -24,9 +24,14 @@ import FooterComp from "./component/footer/FooterComp";
 import DetailTourComp from "./component/main/tour/DetailTourComp";
 import ShareBoardFormComp from "./component/main/shareboard/ShareBoardFormComp";
 import ShareBoardUpdateForm from "./component/main/shareboard/ShareBoardUpdateForm";
+<<<<<<< HEAD
 import NoticeContent from "./component/main/notice/NoticeContent";
+=======
+import NoticeContent from './component/main/notice/NoticeContent';
+>>>>>>> 29f84925963f1894f57a3d698b6063aaeea4567f
 import store from "./redux/store";
 import {actionType} from "./redux/config";
+import SearchResultComp from "./component/main/mainpage/SearchResultComp";
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -123,9 +128,13 @@ class App extends Component {
                 <Menu logged={logged}
                       type="normal"
                 />
-                <div className="mainFrame">
+                <div className="mainFrame"  >
                     <Switch>
                         <Route exact path="/" component={MainPageComp}/>
+
+                        {/*test*/}
+                        <Route path="/search/:category?/:keyword?" component={SearchResultComp}/>
+
                         <Route path="/admin/:name?" component={MemberListPageComp}/>
                         <Route path="/login/:name?">
                             <LoginPageComp
