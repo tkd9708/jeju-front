@@ -44,8 +44,8 @@ class NoticePageComp extends Component {
                 {this.props.name}<br/>
                 <button onClick={
                     ()=>{
-                        
-                        // this.props.history.push("/notice/insert/"+this.props.row);
+
+                         this.props.history.push("/notice/insert/"+this.props.row);
                     }
                 }>
                     <img src={PlusImg}
