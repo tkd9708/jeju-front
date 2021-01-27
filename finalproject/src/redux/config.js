@@ -3,8 +3,13 @@ import axios from 'axios';
 import React, {useEffect} from "react";
 import {} from "../component/main/admin/MemberListPageComp";
 
+<<<<<<< HEAD
 export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot2/";
 // export const URL = "http://localhost:9002";
+=======
+export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot2";
+//export const URL = "http://localhost:9002";
+>>>>>>> 1e734ea11e6564b0c18f401313839b2270dab8b3
 
 export const actionType = {
     setMainView: "setMainView",
@@ -17,6 +22,7 @@ export const actionType = {
     MB_LIST_S: "MB_LIST_S", // 회원 리스트 요청 성공
     MB_LIST_F: "MB_LIST_F", // 회원 리스트 요청 실패
     shareBoardUpdate: "shareBoardUpdate",
+    tourPage: "tourpage"
 }
 
 export const mainViewType = {
