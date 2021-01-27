@@ -26,14 +26,18 @@ const setPositionFooter = () => {
     let topContentHeight = menuHeight + mainFrameHeight;
     console.log(mainFrameHeight, menuHeight, topContentHeight, window.visualViewport.height);
 
-    if (window.visualViewport.height > topContentHeight) {
-        footerComp.style.width = footerStyle.sizeIn.width;
-        footerComp.style.position = footerStyle.sizeIn.position;
-        footerComp.style.bottom = footerStyle.sizeIn.bottom;
-    } else {
-        footerComp.style.width = footerStyle.sizeOver.width;
-        footerComp.style.position = "";
-        footerComp.style.bottom = "";
+    if (footerComp) {
+        if (window.visualViewport.height > topContentHeight) {
+            footerComp.style.width = footerStyle.sizeIn.width;
+            footerComp.style.position = footerStyle.sizeIn.position;
+            footerComp.style.bottom = footerStyle.sizeIn.bottom;
+        } else {
+            footerComp.style.width = footerStyle.sizeOver.width;
+            footerComp.style.position = "";
+            footerComp.style.bottom = "";
+        }
+    } else{
+        window.setTimeout(setPositionFooter, 100);
     }
 }
 
@@ -47,7 +51,16 @@ export default createStore(
                 mainView: mainViewType.MainPage,
                 logged: false,
                 memberData: [], // 회원목록
-                pageNum: '1'
+                pageNum: '1',
+                id: '',
+                loginId: '',
+                googleOn: false,
+                mainSearch: {
+                    category: "all",
+                    searchVal: "",
+                    searchResultDataList: [],
+                },
+
             }
         }
 
@@ -67,9 +80,19 @@ export default createStore(
                 mainView: action.mainView,
             });
         } else if (action.type === actionType.LOG_IN) {
-            newState = Object.assign({}, state, {});
+            newState = Object.assign({}, state, {
+                loginId: action.loginId,
+                logged: action.logged
+            });
+        } else if (action.type === actionType.LOG_OUT) {
+            newState = Object.assign({}, state, {
+                loginId: action.loginId,
+                logged: action.logged
+            });
         } else if (action.type === actionType.LOGIN_REQUEST) {
-            newState = Object.assign({}, state, {});
+            newState = Object.assign({}, state, {
+                
+            });
         } else if (action.type === actionType.LOGIN_SUCCESS) {
             newState = Object.assign({}, state, {
                 logged: true,
@@ -89,6 +112,18 @@ export default createStore(
         } else if (action.type === actionType.tourPage) {
             newState = Object.assign({}, state, {
                 pageNum: action.pageNum
+            });
+        } else if (action.type === actionType.googleLogin) {
+            newState = Object.assign({}, state, {
+                googleOn: action.googleOn
+            })
+        } else if (action.type === actionType.setSearchResultDataList) {
+            newState = Object.assign({}, state, {
+                mainSearch: {
+                    category: action.category,
+                    searchVal: action.searchVal,
+                    searchResultDataList: action.searchResultDataList,
+                },
             });
         }
 

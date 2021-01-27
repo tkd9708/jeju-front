@@ -24,8 +24,10 @@ import FooterComp from "./component/footer/FooterComp";
 import DetailTourComp from "./component/main/tour/DetailTourComp";
 import ShareBoardFormComp from "./component/main/shareboard/ShareBoardFormComp";
 import ShareBoardUpdateForm from "./component/main/shareboard/ShareBoardUpdateForm";
+import NoticeContent from "./component/main/notice/NoticeContent";
 import store from "./redux/store";
 import {actionType} from "./redux/config";
+import SearchResultComp from "./component/main/mainpage/SearchResultComp";
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -122,15 +124,16 @@ class App extends Component {
                 <Menu logged={logged}
                       type="normal"
                 />
-                <div className="mainFrame">
+                <div className="mainFrame"  >
                     <Switch>
                         <Route exact path="/" component={MainPageComp}/>
+
+                        {/*test*/}
+                        <Route path="/search/:category?/:keyword?" component={SearchResultComp}/>
+
                         <Route path="/admin/:name?" component={MemberListPageComp}/>
                         <Route path="/login/:name?">
-                            <LoginPageComp
-                                logged={logged}
-                                onLogin={this.onLogin}
-                            />
+                            <LoginPageComp/>
                         </Route>
                         <Route path="/join/:name?" component={SignupPageComp}/>
                         <Route path="/mypage/:name?" component={MypagePageComp}/>
@@ -138,7 +141,9 @@ class App extends Component {
                         <Route path="/share/insert" component={ShareBoardFormComp}/>
                         <Route path="/share/update/:num?" component={ShareBoardUpdateForm}/>
                         <Route path="/tour/:name?/:pageNum?" component={DetailTourComp}/>
-                        <Route path="/notice/:name?" component={NoticePageComp}/>
+                        <Route exact path="/notice" component={NoticePageComp}/>
+                        <Route path="/notice/content/:num?" component={NoticeContent}/>
+                        <Route path="/notice/content/:num?" component={NoticeContent}/>
                         <Route path="/reservation/:name?" component={ReservationPageComp}/>
                         <Route path="/tourlist/:name?" component={TourPageComp}/>
                     </Switch>
