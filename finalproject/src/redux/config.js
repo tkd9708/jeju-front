@@ -3,13 +3,10 @@ import axios from 'axios';
 import React, {useEffect} from "react";
 import {} from "../component/main/admin/MemberListPageComp";
 
-<<<<<<< HEAD
+
 export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot2/";
 // export const URL = "http://localhost:9002";
-=======
-export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot2";
-//export const URL = "http://localhost:9002";
->>>>>>> 1e734ea11e6564b0c18f401313839b2270dab8b3
+
 
 export const actionType = {
     setMainView: "setMainView",

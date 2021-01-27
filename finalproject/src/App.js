@@ -24,11 +24,7 @@ import FooterComp from "./component/footer/FooterComp";
 import DetailTourComp from "./component/main/tour/DetailTourComp";
 import ShareBoardFormComp from "./component/main/shareboard/ShareBoardFormComp";
 import ShareBoardUpdateForm from "./component/main/shareboard/ShareBoardUpdateForm";
-<<<<<<< .mine
 import NoticeContent from './component/main/notice/NoticeContent';
-=======
-import NoticeContent from "./component/main/notice/NoticeContent";
->>>>>>> .theirs
 import store from "./redux/store";
 import {actionType} from "./redux/config";
 
