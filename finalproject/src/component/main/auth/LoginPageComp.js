@@ -30,6 +30,14 @@ class LoginPageComp extends Component {
     }
 
 
+    setLoginId = (loginId) => {
+        console.log("LoginPage setLoginId()");
+        store.dispatch({
+            type: actionType.LOG_IN,
+            // mainView: mainViewType.MainPage
+            loginId: loginId
+        });
+    }
 
     // 변수 선언시 state 영역에 추가했을 경우에만 나중에 값변경이 가능하다
     // 값 변경시에는 setState 를 이용해야만 한다
@@ -43,6 +51,7 @@ class LoginPageComp extends Component {
         })
     }
 
+
     onLogin=()=>{
         console.log("로그인할 아이디는 " + this.state.id + "비밀번호는 " + this.state.pass);
         const data = {
@@ -53,9 +62,15 @@ class LoginPageComp extends Component {
 
         axios.post(url, data)
         .then(response => {
-            this.props.onLogin();
-
-            this.props.history.push("/");
+            if(response.data){
+                this.props.onLogin();
+                this.setLoginId();
+                alert(store.loginId+ "가 스토어에 저장된 아이디입니다");
+                this.props.history.push("/");
+            }
+            else{
+                alert("아이디와 비밀번호가 맞지않습니다.");
+            }
         }).catch(err => {
             console.log("로그인시 오류남:"+err);
         })

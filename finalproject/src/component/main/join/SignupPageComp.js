@@ -19,6 +19,7 @@ import { green, grey, orange } from "@material-ui/core/colors";
 import { createRipples } from "react-ripples";
 
 import RippleBtn from "./SubmitBtn";
+import RippleBtn2 from "./SubmitBtn2";
 
 const styles = theme => ({
     root: {
@@ -485,15 +486,10 @@ class SignupPageComp extends Component {
                     내 휴대폰 { this.state.hp } 입니다
                 </b>
                 <br />
-                <MyRipples>
+                {/* <MyRipples>
                 <button type = "submit">회원 가입</button>
-                </MyRipples>
-                <MyRipples>
-                    <ColorButton variant="contained" color="seconday" className={classes.margin}>
-                        회원가입
-                    </ColorButton>
-                </MyRipples>
-                <RippleBtn />
+                </MyRipples> */}
+                <RippleBtn2 />
                 </form>
             </div>
         );

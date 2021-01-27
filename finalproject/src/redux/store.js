@@ -47,7 +47,10 @@ export default createStore(
                 mainView: mainViewType.MainPage,
                 logged: false,
                 memberData: [], // 회원목록
+                pageNum: '1',
                 id: '',
+                loginId: '',
+                googleOn: false,
             }
         }
 
@@ -67,7 +70,9 @@ export default createStore(
                 mainView: action.mainView,
             });
         } else if (action.type === actionType.LOG_IN) {
-            newState = Object.assign({}, state, {});
+            newState = Object.assign({}, state, {
+                loginId: action.loginId
+            });
         } else if (action.type === actionType.LOGIN_REQUEST) {
             newState = Object.assign({}, state, {});
         } else if (action.type === actionType.LOGIN_SUCCESS) {
@@ -86,6 +91,14 @@ export default createStore(
             });
         } else if (action.type === actionType.shareBoardUpdate) {
             newState = Object.assign({}, state);
+        } else if (action.type === actionType.tourPage) {
+            newState = Object.assign({}, state, {
+                pageNum: action.pageNum
+            });
+        } else if (action.type === actionType.googleLogin) {
+            newState = Object.assign({}, state, {
+                googleOn: action.googleOn
+            })
         }
 
         console.log("reducer()", state, action, newState);
