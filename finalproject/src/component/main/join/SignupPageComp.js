@@ -91,27 +91,27 @@ class SignupPageComp extends Component {
             id: this.state.id//현재 id state 값을 data.id에 넣는다
         }
         // ↓은 백엔드로 fetch해서 입력된 값을 POST
-        fetch(URL + "/member/checkid", 
-                {//localhost 9002번 포트 checkid라우터를 찾는다
-                    method: "POST",
-                    headers: {
-                    "Content-Type" : "application/json"
-                    },
-                body: JSON.stringify(data),//json화 해버리기
+        let url = URL + '/member/checkid?id=' + this.state.id;
+        axios.get(url)
+        .then(response=>{
+            alert(response.data.idcanUse + "를 받았습니다");
+            if(response.data.idcanUse === "true")
+            {
+                alert("사용가능한 아이디입니다");
+                this.setState({
+                    idcanUse: true
                 })
-            .then(response => response.json())
-            .then(json=> {
-                console.log("확인입니다");
-                if(json.idcanUse == true){  //uson을받아왔는데idcanUse값이true면사용가능
-                    alert("사용가능한 ID입니다");
-                    this.setState({
-                        idcanUse: true
-                    })
-                }
-                else{
-                    alert("다른 ID를 입력해주세요");
-                }
-            });
+            }
+            else if(response.data.idcanUse === "false")
+            {
+                alert("다른 아이디를입력해주세요");
+                this.setState({
+                    id: '',
+                })
+            }
+        }).catch(err => {
+            console.log("아이디체크시 오류남:"+err);
+        })
     }
 
     onSubmitHandler = (e) => {
