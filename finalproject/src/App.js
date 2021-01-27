@@ -123,7 +123,7 @@ class App extends Component {
                 <Menu logged={logged}
                       type="normal"
                 />
-                <div className="mainFrame">
+                <div className="mainFrame"  >
                     <Switch>
                         <Route exact path="/" component={MainPageComp}/>
                         <Route path="/admin/:name?" component={MemberListPageComp}/>
