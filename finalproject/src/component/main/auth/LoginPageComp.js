@@ -35,7 +35,8 @@ class LoginPageComp extends Component {
         store.dispatch({
             type: actionType.LOG_IN,
             // mainView: mainViewType.MainPage
-            loginId: loginId
+            loginId: loginId,
+            logged: true
         });
     }
 
@@ -70,6 +71,9 @@ class LoginPageComp extends Component {
             }
             else{
                 alert("아이디와 비밀번호가 맞지않습니다.");
+                this.setState({
+                    pass: '',
+                })
             }
         }).catch(err => {
             console.log("로그인시 오류남:"+err);

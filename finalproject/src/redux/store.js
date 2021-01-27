@@ -73,10 +73,18 @@ export default createStore(
             });
         } else if (action.type === actionType.LOG_IN) {
             newState = Object.assign({}, state, {
-                loginId: action.loginId
+                loginId: action.loginId,
+                logged: action.logged
+            });
+        } else if (action.type === actionType.LOG_OUT) {
+            newState = Object.assign({}, state, {
+                loginId: action.loginId,
+                logged: action.logged
             });
         } else if (action.type === actionType.LOGIN_REQUEST) {
-            newState = Object.assign({}, state, {});
+            newState = Object.assign({}, state, {
+                
+            });
         } else if (action.type === actionType.LOGIN_SUCCESS) {
             newState = Object.assign({}, state, {
                 logged: true,
