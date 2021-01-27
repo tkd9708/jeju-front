@@ -21,6 +21,9 @@ import { createRipples } from "react-ripples";
 import RippleBtn from "./SubmitBtn";
 import RippleBtn2 from "./SubmitBtn2";
 
+import store from "../../../redux/store";
+import { actionType, mainViewType } from "../../../redux/config";
+
 const styles = theme => ({
     root: {
         '& > *': {
@@ -319,7 +322,6 @@ class SignupPageComp extends Component {
                 >
                 <h1>회원가입</h1>
                 <div>
-                    {this.state.id}
                     <h4 className="showIdResult">{this.state.showIdResult}</h4>
                 </div>
                 <br />
@@ -471,20 +473,6 @@ class SignupPageComp extends Component {
                 <TextField id="standard-secondary" label="휴대폰" color="secondary" 
                 type="text" name="hp" value={ this.state.hp }
                 onChange = { this.changeEvent.bind(this) } />
-
-                <br />
-                <b>
-                    내 아이디는 {this.state.id} 입니다
-                    내 비밀번호는 {this.state.pass} 입니다
-                    내 확인비밀번호는 { this.state.pwCheck } 입니다
-                    내 이메일은 { this.state.email } 입니다
-                    내 이름은 { this.state.name } 입니다
-                    내 성별은 { this.state.gender } 입니다
-                    내 사진은 { this.state.photo } 입니다
-                    내 주소1 { this.state.address} 입니다
-                    내 주소2 {this.state.addrdetail} 입니다
-                    내 휴대폰 { this.state.hp } 입니다
-                </b>
                 <br />
                 {/* <MyRipples>
                 <button type = "submit">회원 가입</button>
