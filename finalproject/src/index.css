@@ -14,12 +14,12 @@
 
 /*BMHANNAPro.ttf*/
 @font-face {
-    font-family: "BMHANNAPro";
-    src: url("font/BMHANNAPro.ttf") format("truetype");
+    font-family: "NotoSans-Medium";
+    src: url("font/NotoSans-Medium.ttf") format("truetype");
     font-style: auto;
 }
 
 body {
-    font-family: BMHANNAPro;
-    font-size: 18px;
+    font-family: NotoSans-Medium;
+    font-size: 16px;
 }

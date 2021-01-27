@@ -106,10 +106,15 @@ class TourPageComp extends Component {
         return (
             <div>
                 <Tourintro area={this.state.area}/>
-                <br/><br/>
+                <br/><br/><br/>
  
                 {/* list 출력 */}
 
+                <div className="tourIntroTitle">
+                    <span className="tourIntroTitleContent" style={{backgroundColor:'white', color: '#3073BD'}}>
+                        &nbsp;&nbsp;&nbsp;명소&nbsp;&nbsp;&nbsp;
+                    </span>
+                </div>
                 <div style={{width:'100%'}}>
                     <FormControl id="selectTourList">
                         <InputLabel>정렬순서</InputLabel>
@@ -130,6 +135,7 @@ class TourPageComp extends Component {
                         this.props.history.push("/tour/CNTS_000000000018472");
                     }
                 }>디테일 페이지</button> */}
+
                     <Box
                         display="flex"
                         flexWrap="wrap"
