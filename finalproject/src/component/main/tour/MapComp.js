@@ -7,12 +7,6 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import LocalCafeIcon from '@material-ui/icons/LocalCafe';
 import HotelIcon from '@material-ui/icons/Hotel';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
 import AroundModal from "./AroundModal";
 import UseModal from './UseModal';
 
@@ -21,9 +15,7 @@ const MapComp=(props)=> {
     let longitude = useState(0);
     let latitude = useState(0);
     let title = useState("");
-    const [alertOpen, setAlertOpen] = useState(false);
-    const [alertSetOpen, setAlertSetOpen] = useState(false);
-    const [aroundId, setAroundId] = useState("");
+    const [category, setCategory] = useState("");
     const [wishTitle, setWishTitle] = useState("");
     const [wishContent, setWishContent] = useState("");
     
@@ -211,7 +203,7 @@ function placesSearchCB(data, status, pagination) {
         itemStr += '<span class="gray">' +  places.address_name  + '</span>';      
         itemStr += '<span class="tel">' + places.phone  + '</span>' + 
                     '</a></td>' +
-                    '<td style={{width:"20%"}}><div className="addWishBtn" onClick={setting}>일정추가</div></td></tr></table>';
+                    '<td style={{width:"20%"}}><div class="addWishBtn">일정추가</div></td></tr></table>';
         el.innerHTML = itemStr;
         el.onclick=function(){
             setWishTitle(places.place_name);
@@ -328,6 +320,7 @@ function placesSearchCB(data, status, pagination) {
             removeMarker();
         } else {
             currCategory = id;
+            setCategory(currCategory);
             // changeCategoryClass(this);
             searchPlaces();
         }
@@ -350,16 +343,6 @@ function placesSearchCB(data, status, pagination) {
   };
 
 
-
-    // alert 함수
-    const handleAlertOpen = () => {
-        setAlertOpen(true);
-    };
-
-    const handleAlertClose = () => {
-        setAlertOpen(false);
-    };
-
     const {isShowing, toggle} = UseModal();
   return (
       <div>
@@ -371,6 +354,8 @@ function placesSearchCB(data, status, pagination) {
                 isShowing={isShowing}
                 hide={toggle}
                 wishTitle = {wishTitle}
+                wishContent = {wishContent}
+                category = {category}
             />
 
           <Box className="map_wrap" style={{textAlign: 'center'}}
@@ -444,33 +429,7 @@ function placesSearchCB(data, status, pagination) {
                         </Fade>
                     </Modal> */}
 
-                    {/* alert 창 */}
-                    <Dialog
-                        open={alertOpen}
-                        onClose={handleAlertClose}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                    >
-                        <DialogTitle id="alert-dialog-title">{"일정 추가 완료"}</DialogTitle>
-                        <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            Mypage로 이동하여 확인하시겠습니까?
-                        </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                        <Button onClick={handleAlertClose} color="primary">
-                            NO
-                        </Button>
-                        <Button onClick={
-                            ()=>{
-                                setAlertOpen(false);
-                                this.props.history.push("/mypage");
-                            }
-                        } color="primary" autoFocus>
-                            YES
-                        </Button>
-                        </DialogActions>
-                    </Dialog>
+                    
       </div>   
   );
 }

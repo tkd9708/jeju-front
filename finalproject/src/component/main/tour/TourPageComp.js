@@ -9,19 +9,27 @@ import Box from '@material-ui/core/Box';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import store from "../../../redux/store";
+import {actionType} from "../../../redux/config";
 
 class TourPageComp extends Component {
 
     constructor({match}, props) {
         super(props);
 
+        store.subscribe(function () {
+            this.setState({
+                pageNum: store.getState().pageNum,
+            });
+        }.bind(this));
+
         this.state={
             area: match.params.name,
             spotList: [],
-            pageNum: '0'
+            pageNum: match.params.pageNum==null?store.getState().pageNum:1
         }
 
-        this.currentPage = 1;
+        this.currentPage = this.state.pageNum;
         this.totalCount = 0;
         this.perPage = 12; // 한페이지당 보여질 글의 갯수
         this.perBlock = 5; // 한블럭당 출력할 페이지의 갯수

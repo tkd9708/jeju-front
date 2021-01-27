@@ -17,11 +17,14 @@ const footerStyle = {
 }
 
 const setPositionFooter = () => {
-    let menuHeight = document.querySelector(".menu").offsetHeight;
-    let mainFrameHeight = document.querySelector(".mainFrame").offsetHeight;
+    let menuElement = document.querySelector(".menu");
+    let mainFrameElement = document.querySelector(".mainFrame");
+
+    let menuHeight = (menuElement) ? menuElement.offsetHeight : 0;
+    let mainFrameHeight = (mainFrameElement) ? mainFrameElement.offsetHeight : 0;
+    let footerComp = document.querySelector(".footerComp");
     let topContentHeight = menuHeight + mainFrameHeight;
     console.log(mainFrameHeight, menuHeight, topContentHeight, window.visualViewport.height);
-    let footerComp = document.querySelector(".footerComp");
 
     if (window.visualViewport.height > topContentHeight) {
         footerComp.style.width = footerStyle.sizeIn.width;
@@ -44,6 +47,7 @@ export default createStore(
                 mainView: mainViewType.MainPage,
                 logged: false,
                 memberData: [], // 회원목록
+                pageNum: '1'
             }
         }
 
@@ -82,6 +86,10 @@ export default createStore(
             });
         } else if (action.type === actionType.shareBoardUpdate) {
             newState = Object.assign({}, state);
+        } else if (action.type === actionType.tourPage) {
+            newState = Object.assign({}, state, {
+                pageNum: action.pageNum
+            });
         }
 
         console.log("reducer()", state, action, newState);

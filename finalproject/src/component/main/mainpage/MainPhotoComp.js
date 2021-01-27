@@ -37,6 +37,7 @@ class MainPhotoComp extends Component {
             arrImg.push(document.querySelector(`img.mainPhotoComp_img${tempImgIdx}`));
         }
 
+
         if (arrImg[0] != null) {
             //zIndex setting.
             for (let i = 0; i < imgCnt; i++) {
@@ -62,6 +63,7 @@ class MainPhotoComp extends Component {
             //next action preparing.
             setTimeout(this.setImageScroll.bind(this, photoNum + 1, photoNum), (duration + 2) * 1000);
         }
+
     }
 
     componentDidMount() {
