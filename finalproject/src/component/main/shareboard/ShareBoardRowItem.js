@@ -10,6 +10,10 @@ import Box from '@material-ui/core/Box';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import BuildIcon from '@material-ui/icons/Build';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import Button from '@material-ui/core/Button';
+import orange from '@material-ui/core/colors/orange';
+
 import './Share.css';
 
 /*
@@ -138,6 +142,8 @@ class ShareBoardRowItem extends Component {
             scrollTop
         } = this.state
 
+        const primary = orange[500]; 
+
          
 
         return (
@@ -162,7 +168,7 @@ class ShareBoardRowItem extends Component {
                             <div>주소:{row.addr}</div>
                         </div>
                         <div>
-                            <div style={{width: '400px', height: '50px'}}>
+                            <div style={{width: '400px', height: '65px',backgroundColor:'#FaFaFa'}}>
                               {/* 좋아요 버튼 */}
                               <ThumbUpAltIcon id="ShareThumbIcon"/>
 
@@ -188,11 +194,20 @@ class ShareBoardRowItem extends Component {
                         {/* // Modal.js <main> { props.children } </main>에 내용이 입력된다.  */}
                         <div id="ShareModalAll" ref={this.myRef} onScroll={this.onScroll}>
                              
-                            <div>
+                            <div style={{width:"1150px",height:"140px"}}> 
+                                <div style={{float:'left'}}>
                                  {/* 좋아요 버튼 */}
                                  <ThumbUpAltIcon id="ShareModalThumbIcon"/>
-                                <div style={{marginTop:"15px"}}>(작성자) 님이 공유하신 맛집입니다.</div>
-                                <span id="ShareHeart" className='heart'></span>
+                                 
+                                <p style={{marginTop:"10px",marginBottom:'45px'}}>(작성자) 님이 공유하신 맛집입니다.</p>
+
+                                <b>맛집이름:{row.subject}</b>
+                                </div>
+                                
+                                {/* 찜하기 버튼 */}
+                                <div id="ShareHeart" className="heart"></div>
+
+                                
                             </div>
 
                             <div id="ShareModalMidBox">
@@ -200,37 +215,33 @@ class ShareBoardRowItem extends Component {
                                    
                                 
                                 <div id="ShareModalContent">
-                                    <div>평점:{row.star}</div>
-                                    <div>주소:{row.addr}</div>
-                                    <div>리뷰:{row.content}</div>
-                                    <div>작성일:{row.writeday}</div>
+                                    <div id="ShareModalContent1">평점:{row.star}</div>
+                                    <div id="ShareModalContent2">주소:{row.addr}</div>
+                                    <div id="ShareModalContent3">리뷰:{row.content}</div>
+                                    <div id="ShareModalContent4">작성일:{row.writeday}</div>
                                 </div>
                             </div>
 
 
-                            <div style={{
-                                borderBottom: '1px solid black',
-                                width: '1150px',
-                                height: '130px',
-                                marginTop: '20px'
-                            }}>
-                                <div style={{marginLeft: "20px"}}>
-                                    <div style={{float: 'left'}}>id</div>
+                            <div id="ShareReviewWrite">
+                                <div>
+                                    <div style={{float: 'left'}}>ID</div>
 
-                                    <div style={{float: 'left', marginRight: '100px'}}>
-                                        <input type="button" className="glyphicon glyphicon-camera" value="이미지"/>
-                                    </div>
+                                    {/* 댓글 이미지 추가 아이콘 */}
+                                    <AddAPhotoIcon id="ShareReviewPhotoIcon"/>
                                 </div>
 
                                 <div>
                                     <div>
                                         <textarea placeholder="댓글을 입력하세요"
-                                                  style={{width: '800px', height: '100px', float: 'left'}}
+                                                  style={{width: '900px', height: '100px', float: 'left'}}
                                                   ref="content"
                                         />
                                     </div>
-                                    <div style={{float: 'left', marginLeft: '50px'}}>
-                                        <button type="button" onClick={this.onInsertAnswer.bind(this)}>저장</button>
+
+                                    <div>
+                                    <button type="button" className="btn btn-warning" id="ShareReviewSave" 
+                                    onClick={this.onInsertAnswer.bind(this)}><b>작&nbsp;성</b></button>
                                     </div>
                                 </div>
                             </div>
