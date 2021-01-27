@@ -7,8 +7,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import {URL} from "../../../redux/config";
+import {actionType, URL} from "../../../redux/config";
 import axios from "axios";
+import store from "../../../redux/store";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +37,7 @@ export default function SearchComp(props) {
     const [category, setCategory] = React.useState("all");
     const [searchVal, setSearchVal] = React.useState("");
     const [searchDataList, setSearchDataList] = React.useState(null);
-    console.log("SearchComp props", props);
+    // console.log("SearchComp props", props);
 
     const setCategoryHandler = (e) => {
         // console.log(e.target.value);
@@ -84,6 +85,12 @@ export default function SearchComp(props) {
             setSearchDataList(res.data);
 
             //dispatch
+            store.dispatch({
+                type: actionType.setSearchResultDataList,
+                category: category,
+                searchVal: searchVal,
+                searchResultDataList: res.data,
+            });
 
             ///search/:category?/:keyword?
             props.history.push(`/search/${category}/${searchVal}`);
