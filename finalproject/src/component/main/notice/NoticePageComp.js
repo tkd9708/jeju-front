@@ -3,6 +3,9 @@ import PlusImg from "../../../image/plus.png";
 import BoardItem from "./BoardItem";
 import axios from 'axios';
 import './NoticeCss.css';
+import {URL} from '../../../redux/config';
+import BoardForm from './BoardForm';
+import NoticeContent from './NoticeContent';
 
 class NoticePageComp extends Component {
     state={
@@ -12,8 +15,9 @@ class NoticePageComp extends Component {
     }
 
     list=()=>{
-        let url="http://192.168.0.3:9002/notice/list";
+        let url=[URL] + "/notice/list";
         console.log(url);
+
         axios.get(url)
         .then(res=>{
             this.setState({
@@ -46,10 +50,9 @@ class NoticePageComp extends Component {
         return (
             <div>
                 {/*<a href="#NoticeMiniComp">{this.props.name}</a>*/}
-            
+                <BoardForm list={this.list.bind(this)}/>
                 <br/>
                 {this.props.name}<br/>
-                <h5>공지사항아아아</h5>
                 <button>
                     <img src={PlusImg}
                          style={{width: "50px"}}
@@ -99,7 +102,7 @@ class NoticePageComp extends Component {
                     </tbody>
                 </table>
 
-
+                    <NoticeContent/>
             </div>
         )
     }
