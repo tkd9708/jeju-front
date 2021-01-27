@@ -69,11 +69,19 @@ export default function SearchComp(props) {
 
     const doSearchHandler = () => {
         console.log(category, searchVal);
+        // store.dispatch({
+        //     type: actionType.setSearchResultDataList,
+        //     category: category,
+        //     searchVal: searchVal,
+        //     searchResultDataList: res.data,
+        // });
+        // props.history.push(`/search/${category}/${searchVal}`);
 
         //search action.
+        let perPage = 10;
         let url = URL + "/spot/searchlist" +
             "?start=0" +
-            "&perPage=3" +
+            "&perPage=" + perPage +
             "&category=" + category +
             "&search=" + searchVal;
 
