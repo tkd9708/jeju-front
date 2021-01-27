@@ -26,14 +26,16 @@ const setPositionFooter = () => {
     let topContentHeight = menuHeight + mainFrameHeight;
     console.log(mainFrameHeight, menuHeight, topContentHeight, window.visualViewport.height);
 
-    if (window.visualViewport.height > topContentHeight) {
-        footerComp.style.width = footerStyle.sizeIn.width;
-        footerComp.style.position = footerStyle.sizeIn.position;
-        footerComp.style.bottom = footerStyle.sizeIn.bottom;
-    } else {
-        footerComp.style.width = footerStyle.sizeOver.width;
-        footerComp.style.position = "";
-        footerComp.style.bottom = "";
+    if(footerComp){
+        if (window.visualViewport.height > topContentHeight) {
+            footerComp.style.width = footerStyle.sizeIn.width;
+            footerComp.style.position = footerStyle.sizeIn.position;
+            footerComp.style.bottom = footerStyle.sizeIn.bottom;
+        } else {
+            footerComp.style.width = footerStyle.sizeOver.width;
+            footerComp.style.position = "";
+            footerComp.style.bottom = "";
+        }
     }
 }
 
