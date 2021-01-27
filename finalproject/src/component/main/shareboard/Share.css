@@ -203,7 +203,46 @@
 
     /* shareform css */
 
+    #ShareFormSubject{
+        margin: 0 auto;
+        margin-left: 47.5%;
+        margin-top: 20px;
+        font-weight: 900;
+                
+    }
 
+
+    #ShareFormAll{
+        width: 800px;
+        height: 600px;
+        border: 1px solid black; 
+        margin: 0 auto;
+        margin-top: 30px;
+        border-radius: 50%;
+       
+
+    }
+
+   
+    
+    th{
+        text-align: center;
+    }
+
+    input{
+        margin-top: 20px;
+    }
+ 
+
+    #ShareFormButton{
+        margin:0 auto;
+        margin-left: 45%;
+        margin-top: 20px;
+        
+    }
+    
+ 
+  
 
 
 

@@ -11,8 +11,6 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import BuildIcon from '@material-ui/icons/Build';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
-import Button from '@material-ui/core/Button';
-import orange from '@material-ui/core/colors/orange';
 
 import './Share.css';
 
@@ -142,7 +140,7 @@ class ShareBoardRowItem extends Component {
             scrollTop
         } = this.state
 
-        const primary = orange[500]; 
+       
 
          
 
