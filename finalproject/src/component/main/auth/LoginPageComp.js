@@ -7,6 +7,11 @@ import { URL, actionType, mainViewType } from "../../../redux/config";
 import NaverLoginBtnComp from "./NaverLoginBtnComp";
 import FaceBookLoginBtnComp from "./FaceBookLoginBtnComp";
 
+import TextField from "@material-ui/core/TextField";
+
+import MakeLoginBtn from "./MakeLoginBtn";
+import { FaThemeisle } from "react-icons/fa";
+
 class LoginPageComp extends Component {
 
     constructor(props) {
@@ -24,11 +29,11 @@ class LoginPageComp extends Component {
             address : "",
             idcanUse: false,//중복된 아이디찾기 true여야 로그인가능
             logged:this.props.logged,
+            onLogin:this.onLogin,
         }
 
         //함수 선언
     }
-
 
     setLoginId = (loginId) => {
         console.log("LoginPage setLoginId()");
@@ -51,7 +56,6 @@ class LoginPageComp extends Component {
             [e.target.name]:e.target.value
         })
     }
-
 
     onLogin=()=>{
         console.log("로그인할 아이디는 " + this.state.id + "비밀번호는 " + this.state.pass);
@@ -84,6 +88,7 @@ class LoginPageComp extends Component {
     render() {
         // console.log("LoginPageComp render()", this.props);
         // console.log("스토어에 있는 로그인 아이디 상태는 : " + store.getState().loginId);
+        const parentOnLoginHandler = this.onLogin.bind(this);
         return (
             <div>
                 <h4>로그인</h4>
@@ -92,22 +97,24 @@ class LoginPageComp extends Component {
                     <h4 className="showIdResult">{this.state.showIdResult}</h4>
                 </div>
                 <br />
-                아이디 :
-                <input type="text" name="id"
-                onChange={this.changeEvent.bind(this)}
-                value={this.state.id}
-                />
+                
+                <TextField id="standard-secondary" label="아이디" color="secondary" 
+                type="text" name="id" value={ this.state.id }
+                onChange = { this.changeEvent.bind(this) } />
+
                 <br />
-                비밀번호 : 
-                <input type="password" name="pass"
-                onChange={this.changeEvent.bind(this)}
-                value={this.state.pass}
-                />
+
+                <TextField id="standard-secondary" label="비밀번호" color="secondary" 
+                type="password" name="pass" value={ this.state.pass }
+                onChange = { this.changeEvent.bind(this) } />
+
                 <br />
                 <button type="button"
                 onClick={this.onLogin.bind(this)}>
                     Sign in
                 </button>
+                <MakeLoginBtn 
+                parentOnLoginHandler={parentOnLoginHandler} />
                 <h5>
                     내 아이디는 {this.state.id} 입니다
                     내 비밀번호는 {this.state.pass} 입니다

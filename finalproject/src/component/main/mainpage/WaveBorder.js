@@ -11,7 +11,7 @@ const styles = {
     waves: {
         position: "absolute",
         width: "100%",
-        // marginBottom: -7,
+        marginBottom: -7,
         height: "7vw",
         minHeight: "7vw",
         // "z-index": "-5",
