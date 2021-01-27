@@ -8,10 +8,17 @@ import TextField from "@material-ui/core/TextField";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import PropTypes from "prop-types";
 // import { withStyles } from "@material-ui/styles";
-import { createMuiTheme } from "@material-ui/core";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { Upload } from "@progress/kendo-react-upload";
+
+import Button from "@material-ui/core/Button";
+import { green, grey, orange } from "@material-ui/core/colors";
+
+import { createRipples } from "react-ripples";
+
+import RippleBtn from "./SubmitBtn";
 
 const styles = theme => ({
     root: {
@@ -40,9 +47,32 @@ const fileStatuses = [
     'Removing'
 ];
 
+const ColorButton = withStyles((theme) => ({
+    root: {
+        color: theme.palette.getContrastText(orange[200]),
+        '&:hover': {
+            backgroundColor: grey[100],
+        },
+        outline: 'none !important',
+        
+    },
+}))(Button);
+
+const theme = createMuiTheme({
+    palette: {
+        primary: green,
+    },
+});
+
+const MyRipples = createRipples({
+    color: 'orange',
+    during: 2200,
+})
+
 let uploadFile = null;
 
 class SignupPageComp extends Component {
+
 
     constructor(props) {
         super(props);
@@ -455,7 +485,15 @@ class SignupPageComp extends Component {
                     내 휴대폰 { this.state.hp } 입니다
                 </b>
                 <br />
+                <MyRipples>
                 <button type = "submit">회원 가입</button>
+                </MyRipples>
+                <MyRipples>
+                    <ColorButton variant="contained" color="seconday" className={classes.margin}>
+                        회원가입
+                    </ColorButton>
+                </MyRipples>
+                <RippleBtn />
                 </form>
             </div>
         );

@@ -59,7 +59,6 @@ class LoginPageComp extends Component {
         }).catch(err => {
             console.log("로그인시 오류남:"+err);
         })
-        
     }
 
     render() {

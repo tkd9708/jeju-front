@@ -47,6 +47,7 @@ export default createStore(
                 mainView: mainViewType.MainPage,
                 logged: false,
                 memberData: [], // 회원목록
+                id: '',
             }
         }
 
