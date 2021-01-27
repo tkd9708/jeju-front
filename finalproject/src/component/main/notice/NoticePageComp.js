@@ -15,7 +15,7 @@ class NoticePageComp extends Component {
     }
 
     list=()=>{
-        let url=[URL] + "/notice/list";
+        let url= URL + "/notice/list";
         console.log(url);
 
         axios.get(url)
@@ -26,19 +26,6 @@ class NoticePageComp extends Component {
         })
     }
 
-    // handelSave=(data)=>{
-    //     console.dir(data);
-
-    //     this.setState({
-    //         maxNo:++this.state.maxNo,
-    //         boards:this.state.boards.concat({
-    //             brdno:this.state.maxNo,
-    //             brddate:new Date(),
-    //             brdtitle: data.brdtitle
-    //         })
-    //     })
-    // }
-
     componentWillMount()
     {
         this.list();
@@ -46,7 +33,6 @@ class NoticePageComp extends Component {
     render() {
         const {boards}=this.state;
 
-    
         return (
             <div>
                 {/*<a href="#NoticeMiniComp">{this.props.name}</a>*/}
@@ -102,7 +88,7 @@ class NoticePageComp extends Component {
                     </tbody>
                 </table>
 
-                    <NoticeContent/>
+                    {/* <NoticeContent/> */}
             </div>
         )
     }
