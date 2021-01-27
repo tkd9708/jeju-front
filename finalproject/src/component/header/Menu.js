@@ -17,7 +17,15 @@ class Menu extends Component {
             type: this.props.type,
             onLogin: this.props.onLogin,
             onLogout: this.props.onLogout,
+            logged: store.getState().logged
         }
+
+        store.subscribe(function () {
+            console.log("Menu subscribe()", store.getState().logged);
+            this.setState({
+                logged: store.getState().logged,
+            });
+        }.bind(this));
     }
 
     setMainView = (mainView) => {
@@ -31,16 +39,17 @@ class Menu extends Component {
 
     setLogOut = () => {
         console.log("Menu setLogOut()");
+        
         store.dispatch({
-            type: actionType.LOG_OUT,
+            type: actionType.LOG_IN,
             // mainView: mainViewType.MainPage
             loginId: '',
-            logged: false,
+            logged: false
         });
     }
     
     render() {
-        console.log("메뉴에서 스토어 상태 : " + store.getState());
+        console.log("메뉴에서 스토어 상태 : " + store.getState().loginId);
         console.log("메뉴에서 스토어 로그인 상태 : " + store.getState().logged);
         // 부모컴포넌트(App->HeaderComp)에서 받아온 logged, onLogout을 통해 로그인 전에는 '로그인'을 로그인 후에는 '로그아웃'으로 글씨 변경
         // 로그아웃일 경우 onLogout함수를 통해 logged를 다시 false로 바꿔준다.
@@ -76,7 +85,7 @@ class Menu extends Component {
                         >Admin</NavLink>
                     </li>
                     <li>
-                        {store.getState().logged ?
+                        {this.state.logged ?
                             <NavLink exact to="/"
                                      onClick={() => {
                                          console.log("Logout NavLink onClick");
