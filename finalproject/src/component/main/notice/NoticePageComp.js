@@ -26,8 +26,11 @@ class NoticePageComp extends Component {
         })
     }
 
+  
+
     componentWillMount()
     {
+        // this.onSelectData();
         this.list();
     }
     render() {
@@ -39,7 +42,11 @@ class NoticePageComp extends Component {
                 <BoardForm list={this.list.bind(this)}/>
                 <br/>
                 {this.props.name}<br/>
-                <button>
+                <button onClick={
+                    ()=>{
+                        this.props.history.push("/notice/insert/"+this.props.row);
+                    }
+                }>
                     <img src={PlusImg}
                          style={{width: "50px"}}
                     />
