@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React,{Component}  from 'react';
+import {URL} from '../../../redux/config';
 
 class NoticeContent extends Component
 {
@@ -7,12 +8,12 @@ class NoticeContent extends Component
     {
         super();
         this.subject=match.params.subject;
-        this.state={selectData:''}
+        // this.state={selectData:''}
         this.content=match.params.content;
         this.state={selectData:''}
     }
     onSelectData=()=>{
-        let url=[URL] + "/notice/list";
+        let url= {URL} + "/notice/list";
     axios.get(url)
     .then(res=>{
         this.setState({
@@ -22,6 +23,7 @@ class NoticeContent extends Component
 }
 
 componentWillMount() {
+    console.log("content willmount");
     this.onSelectData();
 }
     render(){

@@ -15,7 +15,7 @@ class NoticePageComp extends Component {
     }
 
     list=()=>{
-        let url=[URL] + "/notice/list";
+        let url=URL + "/notice/list";
         console.log(url);
 
         axios.get(url)
@@ -102,7 +102,7 @@ class NoticePageComp extends Component {
                     </tbody>
                 </table>
 
-                    <NoticeContent/>
+                    {/* <NoticeContent/> */}
             </div>
         )
     }
