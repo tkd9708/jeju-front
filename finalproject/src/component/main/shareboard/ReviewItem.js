@@ -9,26 +9,47 @@ class ReviewItem extends Component {
         super(props);
         this.state = {
             isOpen: false,
+            saveType: "",
         }
 
     }
 
-    onTriggerInput = () => {
+    onTriggerInput = (type = null) => {
+
         const {row} = this.props;
         var className = `.input_answer_${row.regroup}_${row.relevel}_${row.restep}`;
         console.log(className);
+
         let divInput = document.querySelector(className);
 
-        if (this.state.isOpen) {
-            divInput.style.display = "none";
-            this.setState({
-                isOpen: false,
-            });
+        if (this.state.saveType == type || type == null) {
+            if (this.state.isOpen) {
+                divInput.style.display = "none";
+                this.setState({
+                    isOpen: false,
+                });
+            } else {
+                divInput.style.display = "block";
+                this.setState({
+                    isOpen: true,
+                    saveType: type,
+                });
+            }
         } else {
             divInput.style.display = "block";
             this.setState({
                 isOpen: true,
+                saveType: type,
             });
+        }
+    }
+
+    onSaveButton = () => {
+        console.log(this.state.saveType);
+        if (this.state.saveType == "insert") {
+            this.onInsertSubAnswer();
+        } else if (this.state.saveType == "update") {
+            this.onUpdateSubAnswer();
         }
     }
 
@@ -63,9 +84,56 @@ class ReviewItem extends Component {
                 type: actionType.shareBoardUpdate,
             });
             this.onTriggerInput();
+            this.refs.content.value = "";
         }).catch(err => {
             console.log("onInsertAnswer err", err);
         })
+    }
+
+    onDeleteSubAnswer = () => {
+        let num = this.props.row.num;
+        let regroup = this.props.row.regroup;
+        let url = URL + "/share/deleteanswer" +
+            "?num=" + num;
+
+        console.log("onDeleteData", url);
+
+        if (window.confirm("삭제하시겠습니까?")) {
+            axios.post(url
+            ).then(res => {
+                console.log("onDeleteData() res", res);
+                store.dispatch({
+                    type: actionType.shareBoardUpdate,
+                });
+                // this.props.history.push("/share");
+            }).catch(err => {
+                console.log("onDeleteData() err", err);
+            });
+        }
+    }
+
+    onUpdateSubAnswer = () => {
+        let num = this.props.row.num;
+        let content = this.refs.content.value;
+        let url = URL + "/share/updateanswer" +
+            "?num=" + num +
+            "&content=" + content;
+        console.log("onUpdateSubAnswer", url);
+
+        if (window.confirm("수정하시겠습니까?")) {
+            axios.post(url
+            ).then(res => {
+                console.log("onUpdateSubAnswer() res", res);
+                store.dispatch({
+                    type: actionType.shareBoardUpdate,
+                });
+                // this.props.history.push("/share");
+                this.refs.content.value = "";
+                this.onTriggerInput();
+            }).catch(err => {
+                console.log("onUpdateSubAnswer() err", err);
+            });
+        }
     }
 
     render() {
@@ -73,14 +141,26 @@ class ReviewItem extends Component {
 
         return (
             <div style={{marginLeft: `calc(30px*${row.relevel})`}}>
-                {row.photo} / {row.regroup} / {row.relevel} / {row.restep} /<br/>
-                내용 :
+                {row.num} / {row.photo} / {row.regroup} / {row.relevel} / {row.restep} / 내용 :
                 <div style={{border: "1px solid", margin: "5px"}}>
                     {row.content}
                 </div>
                 <button type="button"
-                        onClick={this.onTriggerInput.bind(this)}
+                        onClick={this.onTriggerInput.bind(this, "insert")}
+                        disabled={row.content.includes("삭제된 글입니다.") ? true : false}
                 >댓글 쓰기
+                </button>
+                &nbsp;
+                <button type="button"
+                        onClick={this.onTriggerInput.bind(this, "update")}
+                        disabled={row.content.includes("삭제된 글입니다.") ? true : false}
+                >댓글 수정
+                </button>
+                &nbsp;
+                <button type="button"
+                        onClick={this.onDeleteSubAnswer.bind(this)}
+                        disabled={row.content.includes("삭제된 글입니다.") ? true : false}
+                >댓글 삭제
                 </button>
 
                 {/*댓글 입력창 on/off*/}
@@ -90,7 +170,7 @@ class ReviewItem extends Component {
                               ref="content"
                     />
                     <button type="button"
-                            onClick={this.onInsertSubAnswer}
+                            onClick={this.onSaveButton.bind(this)}
                     >저장
                     </button>
                 </div>

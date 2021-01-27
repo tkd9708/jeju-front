@@ -1,4 +1,5 @@
 import React, { Component, useState } from "react";
+import * as ReactDOM from "react-dom";
 import axios from 'axios';
 import {URL} from "../../../redux/config";
 import { makeStyles, createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
@@ -10,6 +11,7 @@ import PropTypes from "prop-types";
 import { createMuiTheme } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+import { Upload } from "@progress/kendo-react-upload";
 
 const styles = theme => ({
     root: {
@@ -28,9 +30,19 @@ const genders = [
     '여성',
 ];
 
-class SignupPageComp extends Component {
+const fileStatuses = [
+    'UploadFailed',
+    'Initial',
+    'Selected',
+    'Uploading',
+    'Uploaded',
+    'RemoveFailed',
+    'Removing'
+];
 
-    
+let uploadFile = null;
+
+class SignupPageComp extends Component {
 
     constructor(props) {
         super(props);
@@ -50,7 +62,10 @@ class SignupPageComp extends Component {
             email : '',
             hp : "",
             idcanUse: false,//중복된 아이디찾기 true여야 로그인가능
-        }
+            files: [],
+            events: [],
+            filePreviews: {},
+        };
 
         //함수 선언
         this.onIdChk=this.onIdChk.bind(this);
@@ -76,27 +91,27 @@ class SignupPageComp extends Component {
             id: this.state.id//현재 id state 값을 data.id에 넣는다
         }
         // ↓은 백엔드로 fetch해서 입력된 값을 POST
-        fetch(URL + "/member/checkid", 
-                {//localhost 9002번 포트 checkid라우터를 찾는다
-                    method: "POST",
-                    headers: {
-                    "Content-Type" : "application/json"
-                    },
-                body: JSON.stringify(data),//json화 해버리기
+        let url = URL + '/member/checkid?id=' + this.state.id;
+        axios.get(url)
+        .then(response=>{
+            alert(response.data.idcanUse + "를 받았습니다");
+            if(response.data.idcanUse === "true")
+            {
+                alert("사용가능한 아이디입니다");
+                this.setState({
+                    idcanUse: true
                 })
-            .then(response => response.json())
-            .then(json=> {
-                console.log("확인입니다");
-                if(json.idcanUse == true){  //uson을받아왔는데idcanUse값이true면사용가능
-                    alert("사용가능한 ID입니다");
-                    this.setState({
-                        idcanUse: true
-                    })
-                }
-                else{
-                    alert("다른 ID를 입력해주세요");
-                }
-            });
+            }
+            else if(response.data.idcanUse === "false")
+            {
+                alert("다른 아이디를입력해주세요");
+                this.setState({
+                    id: '',
+                })
+            }
+        }).catch(err => {
+            console.log("아이디체크시 오류남:"+err);
+        })
     }
 
     onSubmitHandler = (e) => {
@@ -127,6 +142,31 @@ class SignupPageComp extends Component {
             console.log("이미지 업로드시 오류남:"+err);
         })
     }
+
+    //사진 업로드시 호출되는 함수
+    // imageUpload=(e)=>{
+    //     uploadFile = e.affectedFiles[0].name;
+    //     alert("업로드할 파일은 : " + uploadFile);
+
+    //     //서버에 업로드
+    //     const memberFile = new FormData();
+    //     memberFile.append("uploadFile",uploadFile);
+
+    //     axios({
+    //         method: 'post',
+    //         url: URL + '/member/upload',
+    //         data: memberFile,
+    //         headers: {'Content-Type':'multipart/form-data'}
+    //     }).then(response=>{
+    //         alert(response.data.photoname+" 이미지명으로 저장합니다");
+    //         //이미지명 변경
+    //         this.setState({
+    //             photoname: response.data.photoname
+    //         })
+    //     }).catch(err=>{
+    //         console.log("이미지 업로드시 오류남:"+err);
+    //     })
+    // }
 
     onInsertMember = () => {
         let data = this.state;
@@ -164,6 +204,78 @@ class SignupPageComp extends Component {
         });
     };
 
+    onAdd = (event) => {
+        const afterStateChange = () => {
+            event.affectedFiles
+                .filter(file => !file.validationErrors)
+                .forEach(file => {
+                    const reader = new FileReader();
+
+                    reader.onloadend = (ev) => {
+                        this.setState({
+                            filePreviews: {
+                                ...this.state.filePreviews,
+                                [file.uid]: ev.target.result
+                            }
+                        });
+                    };
+
+                    reader.readAsDataURL(file.getRawFile());
+                });
+        };
+
+        this.setState({
+            files: event.newState,
+            events: [
+                ...this.state.events,
+                `선택된 파일: ${event.affectedFiles[0].name}`
+            ],
+        }, afterStateChange);
+
+        uploadFile = event.affectedFiles[0].name;
+    }
+
+    onRemove = (event) => {
+        const filePreviews = {
+            ...this.state.filePreviews
+        };
+
+        event.affectedFiles.forEach(file => {
+            delete filePreviews[file.uid];
+        });
+
+        this.setState({
+            files: event.newState,
+            events: [
+                ...this.state.events,
+                `파일 제거됨: ${event.affectedFiles[0].name}`
+            ],
+            filePreviews: filePreviews
+        });
+    }
+
+    onProgress = (event) => {
+        this.setState({
+            files: event.newState,
+            events: [
+                ...this.state.events,
+                `진행 정도: ${event.affectedFiles[0].progress} %`
+            ]
+        });
+    }
+
+    onStatusChange = (event) => {
+        const file = event.affectedFiles[0];
+
+        this.setState({
+            files: event.newState,
+            events: [
+                ...this.state.events,
+                `File '${file.name}' status changed to: ${fileStatuses[file.status]}`
+            ]
+        });
+    }
+    
     render() {
         const { classes } = this.props;
         console.log("SingupPageComp render()", this.props);
@@ -260,6 +372,47 @@ class SignupPageComp extends Component {
                 <input type="file" name="photo"
                 onChange={this.imageUpload.bind(this)}
                 ></input>
+
+                {/* <div>
+                    <InputLabel id="demo-simple-select-label">사진</InputLabel>
+                    <br />
+                    <Upload 
+                        batch={false}
+                        multiple={true}
+                        files={this.state.files}
+                        onAdd={this.onAdd}
+                        onRemove={this.onRemove}
+                        onProgress={this.onProgress}
+                        onStatusChange={this.onSatusChange}
+                        withCredentials={false}
+                        // saveUrl={URL + '/member/upload'}
+                        removeUrl={'https://demos.telerik.com/kendo-ui/service-v4/upload/remove'}
+                        onChange={this.imageUpload.bind(this)}
+                    />
+                    <div className={'example-config'} style={{ marginTop: 20 }}>
+                        <ul className={'event-log'}>
+                            {
+                                this.state.events.map(event => <li key={event}>{event}</li>)
+                            }
+                        </ul>
+                    </div>
+                    {
+                        this.state.files.length ? 
+                        <div className={'img-preview example-config'}>
+                            <h3>선택된그림들 미리보기</h3>
+                            {
+                                Object.keys(this.state.filePreviews)
+                                    .map((fileKey, index) => (<img 
+                                        src={this.state.filePreviews[fileKey]} 
+                                        alt={index}
+                                        style={{ width: 200, margin: 10 }} 
+                                    />))
+                            }
+                        </div> : undefined
+                    }
+                </div> */}
+
+
                 <br />
                 {/* 주소 : &nbsp;
                 <input type="text" name="address"
@@ -305,7 +458,7 @@ class SignupPageComp extends Component {
                 <button type = "submit">회원 가입</button>
                 </form>
             </div>
-        )
+        );
     }
 
 }
