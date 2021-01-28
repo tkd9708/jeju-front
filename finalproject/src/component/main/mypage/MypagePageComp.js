@@ -74,12 +74,12 @@ class MypagePageComp extends Component {
             <div>
                 <div id="mypageInfo" style={{width: '100%', backgroundColor: '#f7f7f7', position: 'relative'}}>
                     <p id="mypageInfoTitle">내 정보 관리</p>
-                    <button type="button" id="mypageInfoBtn" style={{border: 'none', borderRadius: '10px', position:'absolute'}}
+                    {/* <button type="button" id="mypageInfoBtn" style={{border: 'none', borderRadius: '10px', position:'absolute'}}
                                     onClick={
                                         ()=>{
                                             this.props.history.push("/mypage/update");
                                         }
-                                    }><b>정보수정</b></button>
+                                    }><b>정보수정</b></button> */}
                     <table>
                         <tr id="mypageInfoRow" bgcolor="#fff">
                             <td className="mypageInfoCol" style={{width:'20%', textAlign: 'center'}}>
@@ -152,6 +152,7 @@ class MypagePageComp extends Component {
                         <Tab label="나의 일정" {...this.tabProps(0)}/>
                         <Tab label="나의 후기" {...this.tabProps(1)}/>
                         <Tab label="나의 예약" {...this.tabProps(2)}/>
+                        <Tab label="나의 정보" {...this.tabProps(3)}/>
                     </Tabs>
                     <TabPanel value={this.state.value} index={0}>
                         <MySchedule/>
@@ -161,6 +162,9 @@ class MypagePageComp extends Component {
                     </TabPanel>
                     <TabPanel value={this.state.value} index={2}>
                         <MyWishlist/>
+                    </TabPanel>
+                    <TabPanel value={this.state.value} index={2}>
+                        <MemberUpdateFormComp/>
                     </TabPanel>
                 </Paper>
                 
