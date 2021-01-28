@@ -153,7 +153,7 @@ class MemberUpdateFormComp extends Component {
                 <span>gender</span>&nbsp;&nbsp;
                 <input type="text" name = "gender" value = {this.state.gender} onChange={this.handleChange}/><br/>
                 <span>photo</span>&nbsp;&nbsp;
-                <input type="file" name = "photo" value = {this.state.photo} onChange={this.handleChange}/><br/>
+                <input type="file" name = "photo" onChange={this.handleChange}/><br/>
                 <span>address</span>&nbsp;&nbsp;
                 <input type="text" name = "address" value = {this.state.address} onChange={this.handleChange}/>
                 <button type="button"><span>주소검색</span></button><br/>

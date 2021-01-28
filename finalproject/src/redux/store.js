@@ -28,6 +28,7 @@ const setPositionFooter = () => {
     let topContentHeight = menuHeight + mainFrameHeight;
     console.log(mainFrameHeight, menuHeight, topContentHeight, window.visualViewport.height);
 
+
     if (footerComp) {
         if (window.visualViewport.height > topContentHeight) {
             footerComp.style.width = footerStyle.sizeIn.width;
@@ -52,7 +53,6 @@ const reducer = function (state, action) {
             mainView: mainViewType.MainPage,
             logged: false,
             memberData: [], // 회원목록
-            pageNum: '1',
             id: '',
             loginId: '',
             googleOn: false,
@@ -71,7 +71,7 @@ const reducer = function (state, action) {
 
     //action.type 별로 로직처리 다르게 하기.
     if (action.type === actionType.setMainView) {
-        window.setTimeout(setPositionFooter, 100);
+        // window.setTimeout(setPositionFooter, 100);
         newState = Object.assign({}, state, {
             mainView: action.mainView,
         });
@@ -107,10 +107,6 @@ const reducer = function (state, action) {
         });
     } else if (action.type === actionType.shareBoardUpdate) {
         newState = Object.assign({}, state);
-    } else if (action.type === actionType.tourPage) {
-        newState = Object.assign({}, state, {
-            pageNum: action.pageNum
-        });
     } else if (action.type === actionType.googleLogin) {
         newState = Object.assign({}, state, {
             googleOn: action.googleOn
