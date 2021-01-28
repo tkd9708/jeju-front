@@ -28,6 +28,7 @@ import NoticeContent from "./component/main/notice/NoticeContent";
 import store from "./redux/store";
 import {actionType} from "./redux/config";
 import SearchResultComp from "./component/main/mainpage/SearchResultComp";
+import MemberUpdateFormComp from "./component/main/mypage/MemberUpdateFormComp";
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -136,16 +137,17 @@ class App extends Component {
                             <LoginPageComp/>
                         </Route>
                         <Route path="/join/:name?" component={SignupPageComp}/>
-                        <Route path="/mypage/:name?" component={MypagePageComp}/>
+                        <Route exact path="/mypage" component={MypagePageComp}/>
+                        <Route path="/mypage/update/:num?" component={MemberUpdateFormComp}/>
                         <Route exact path="/share" component={ShareBoardPageComp}/>
                         <Route path="/share/insert" component={ShareBoardFormComp}/>
                         <Route path="/share/update/:num?" component={ShareBoardUpdateForm}/>
-                        <Route path="/tour/:name?/:pageNum?" component={DetailTourComp}/>
+                        <Route path="/tour/:name?" component={DetailTourComp}/>
                         <Route exact path="/notice" component={NoticePageComp}/>
                         <Route path="/notice/content/:num?" component={NoticeContent}/>
                         <Route path="/notice/content/:num?" component={NoticeContent}/>
                         <Route path="/reservation/:name?" component={ReservationPageComp}/>
-                        <Route path="/tourlist/:name?" component={TourPageComp}/>
+                        <Route path="/tourlist/:name?/:pageNum?" component={TourPageComp}/>
                     </Switch>
                     <div className="footerComp"
                     >

@@ -58,7 +58,7 @@ class LoginPageComp extends Component {
     }
 
     onLogin=()=>{
-        console.log("로그인할 아이디는 " + this.state.id + "비밀번호는 " + this.state.pass);
+        // console.log("로그인할 아이디는 " + this.state.id + "비밀번호는 " + this.state.pass);
         const data = {
             id: this.state.id,
             pass: this.state.pass
@@ -71,7 +71,7 @@ class LoginPageComp extends Component {
             if(response.data){
                 // this.props.onLogin();
                 this.setLoginId(data.id);
-                alert(store.getState().loginId+ "가 스토어에 저장된 아이디입니다");
+                // alert(store.getState().loginId+ "가 스토어에 저장된 아이디입니다");
                 this.props.history.push("/");
             }
             else{

@@ -21,7 +21,6 @@ export const actionType = {
     MB_LIST_S: "MB_LIST_S", // 회원 리스트 요청 성공
     MB_LIST_F: "MB_LIST_F", // 회원 리스트 요청 실패
     shareBoardUpdate: "shareBoardUpdate",
-    tourPage: "tourpage",
     setSearchResultDataList: "setSearchResultDataList",
 }
 
