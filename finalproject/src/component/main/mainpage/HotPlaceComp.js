@@ -1,9 +1,11 @@
-import React, {Component} from "react";
+import React, {Component, useState} from "react";
 import {NavLink, Route} from "react-router-dom";
 import store from "../../../redux/store";
 import {actionType, mainViewType} from "../../../redux/config";
 import TourList from '../../header/menus/TourList';
 import TourPageComp from '../tour/TourPageComp';
+import axios from 'axios';
+import {URL} from "../../../redux/config";
 
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
@@ -15,6 +17,23 @@ import BoardSample from "./BoardSample";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
+
+
+    // photos, setPhotos 비구조화 할당
+    let [photos, setPhotos] = useState([]);
+
+    // 통신 메서드
+    function searchApi() {
+        const url = URL + '/spot/list';
+        axios.get(url)
+        .then(function(response) {
+            setPhotos(response.data);
+            console.log("성공");
+        })
+        .catch(function(error) {
+            console.log("실패");
+        })
+    }
 
     return (
         <div
