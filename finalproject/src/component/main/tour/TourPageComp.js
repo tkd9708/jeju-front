@@ -9,27 +9,19 @@ import Box from '@material-ui/core/Box';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import store from "../../../redux/store";
 
 class TourPageComp extends Component {
 
     constructor({match}, props) {
         super(props);
 
-        // store.subscribe(function () {
-        //     this.setState({
-        //         tourPage: store.getState().tourPage,
-        //     });
-        // }.bind(this));
 
         this.state={
             area: match.params.name,
             spotList: [],
-            // tourPage: store.getState().tourPage
             pageNum : match.params.pageNum
         }
 
-        // this.pageNum = this.state.tourPage=='home'?1:store.getState().tourPage;
         this.currentPage = this.state.pageNum;
         this.totalCount = 0;
         this.perPage = 12; // 한페이지당 보여질 글의 갯수
@@ -88,16 +80,9 @@ class TourPageComp extends Component {
     }
 
     componentWillMount() {
-        // console.log(this.history.action);
         window.scrollTo(0,0);
         this.getTotalCount();
     }
-
-    // paginate = (num) => {
-
-    //     this.currentPage = num;
-    //     this.getList();
-    // }
 
     selectChange = (e) => {
         this.select = e.target.value;
@@ -149,8 +134,7 @@ class TourPageComp extends Component {
                         css={{ maxWidth: '100%' }}
                     >
                         {this.state.spotList.map((row,idx)=>(
-                            <ItemComp row={row} key={idx} history={this.props.history} getList={this.getList.bind(this)}
-                                pageNum = {this.currentPage}></ItemComp>
+                            <ItemComp row={row} key={idx} history={this.props.history} getList={this.getList.bind(this)}></ItemComp>
                         ))}
                      </Box>
                 </div>
@@ -160,7 +144,7 @@ class TourPageComp extends Component {
 
                 {/* 페이징 */}
                 <PageComp currentPage={this.currentPage} startPage={this.startPage} endPage={this.endPage}
-                     totalPage={this.totalPage} area={this.state.area} history={this.props.history}></PageComp>
+                     totalPage={this.totalPage} area={this.state.area}></PageComp>
             </div>
         )
     }

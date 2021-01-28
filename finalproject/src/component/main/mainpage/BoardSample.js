@@ -72,7 +72,7 @@ export default function BoardSample(props) {
 
     // 통신 메서드
     function searchApi() {
-        const url = URL + 'spot/list?start=0&perPage=5&label2=' + props.location;
+        const url = URL + '/spot/list?start=0&perPage=5&label2=' + props.location;
         axios.get(url)
         .then(function(response) {
             console.log(response.data);

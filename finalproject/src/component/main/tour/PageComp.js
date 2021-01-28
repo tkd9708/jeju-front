@@ -1,10 +1,5 @@
 import React,{Component} from 'react';
-import Pagination from '@material-ui/lab/Pagination';
 import './TourCss.css';
-import store from "../../../redux/store";
-import {actionType} from "../../../redux/config";
-import {Link} from "react-router-dom";
-
 class PageComp extends Component {
 
     render() {
@@ -15,7 +10,6 @@ class PageComp extends Component {
 
         let next = endPage < totalPage?<li className="page-item">
             <a className="page-link" style={{color: 'black'}} href={`/tourlist/${area}/${endPage+1}`}>▶</a></li>:"";
-            // <Link className="page-link" to ={`/tourlist/${this.props.row.num}/`}>▶</Link>
         let page = [];
         for(let i=startPage; i<=endPage; i++){
             page.push(i);
