@@ -174,7 +174,7 @@ class ReviewItemComp extends Component {
             <td style={{width:'75%', padding: '10px', position: 'relative'}} align="left" colSpan={w}>
                 &nbsp;&nbsp;    
                 <span style={{color: '#F0CD58'}}>{star}</span>
-                &nbsp; &nbsp;<b>{row.memNum}</b>
+                &nbsp; &nbsp;<b>{row.memNum}</b><span style={{color: '#999'}}>님이 작성하신 후기입니다.</span>
                 <br/><br/>
                 <p>{row.content}</p>
                 {/* {edit} */}

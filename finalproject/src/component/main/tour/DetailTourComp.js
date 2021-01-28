@@ -4,6 +4,7 @@ import MapComp from './MapComp';
 import ReviewListComp from './ReviewListComp';
 import {URL} from '../../../redux/config';
 import './TourDetailCss.css';
+import './TourCss.css';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -182,7 +183,7 @@ class DetailTourComp extends Component {
                     </span>
                 </div>
                 <br/>
-                <div id="thumbIntro">
+                <div id="thumbIntro" style={{color: '#888'}}>
                     {star}<br/>
                     {this.state.spotdata.introduction}
                 </div>
@@ -192,6 +193,9 @@ class DetailTourComp extends Component {
                     <span className="detailTitleContent" style={{backgroundColor:'white', color: '#3073BD'}}>
                         &nbsp;&nbsp;주변 정보&nbsp;&nbsp;
                     </span>
+                </div>
+                <div className="detailIntro" style={{color: "#888"}}>
+                    다양한 "{this.state.spotdata.title}"의 주변 정보를 소개합니다.
                 </div>
                 <br/>
                 
@@ -205,9 +209,12 @@ class DetailTourComp extends Component {
                         &nbsp;&nbsp;&nbsp;후기&nbsp;&nbsp;&nbsp;
                     </span>
                 </div>
-                <br/>
 
                 {/* 후기 */}
+                <div className="detailIntro" style={{color: "#888"}}>
+                    직접 다녀온 회원분들의 다양한 후기를 확인해보세요.<br/> 
+                    여러분들의 생생한 후기를 남길 수 있습니다.
+                </div>
                 <ReviewListComp contentsid={this.state.contentsid}/>
 
                 {/* alert 창 */}
