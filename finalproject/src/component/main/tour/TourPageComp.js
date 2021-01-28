@@ -15,13 +15,14 @@ class TourPageComp extends Component {
     constructor({match}, props) {
         super(props);
 
+
         this.state={
             area: match.params.name,
             spotList: [],
-            pageNum: '0'
+            pageNum : match.params.pageNum
         }
 
-        this.currentPage = 1;
+        this.currentPage = this.state.pageNum;
         this.totalCount = 0;
         this.perPage = 12; // 한페이지당 보여질 글의 갯수
         this.perBlock = 5; // 한블럭당 출력할 페이지의 갯수
@@ -66,6 +67,7 @@ class TourPageComp extends Component {
     }
 
     getTotalCount = () => {
+        
         let url = URL + "/spot/count?label2=" + this.state.area;
 
         axios.get(url)
@@ -82,12 +84,6 @@ class TourPageComp extends Component {
         this.getTotalCount();
     }
 
-    paginate = (num) => {
-
-        this.currentPage = num;
-        this.getList();
-    }
-
     selectChange = (e) => {
         this.select = e.target.value;
         this.getList();
@@ -98,10 +94,15 @@ class TourPageComp extends Component {
         return (
             <div>
                 <Tourintro area={this.state.area}/>
-                <br/><br/>
+                <br/><br/><br/>
  
                 {/* list 출력 */}
 
+                <div className="tourIntroTitle">
+                    <span className="tourIntroTitleContent" style={{backgroundColor:'white', color: '#3073BD'}}>
+                        &nbsp;&nbsp;&nbsp;명소&nbsp;&nbsp;&nbsp;
+                    </span>
+                </div>
                 <div style={{width:'100%'}}>
                     <FormControl id="selectTourList">
                         <InputLabel>정렬순서</InputLabel>
@@ -122,6 +123,7 @@ class TourPageComp extends Component {
                         this.props.history.push("/tour/CNTS_000000000018472");
                     }
                 }>디테일 페이지</button> */}
+
                     <Box
                         display="flex"
                         flexWrap="wrap"
@@ -142,7 +144,7 @@ class TourPageComp extends Component {
 
                 {/* 페이징 */}
                 <PageComp currentPage={this.currentPage} startPage={this.startPage} endPage={this.endPage}
-                     totalPage={this.totalPage} paginate={this.paginate.bind(this)}></PageComp>
+                     totalPage={this.totalPage} area={this.state.area}></PageComp>
             </div>
         )
     }

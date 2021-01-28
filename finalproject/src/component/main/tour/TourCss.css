@@ -71,6 +71,11 @@
 
 
 /* spot List */
+.tourIntroTitle{
+    background-image: url('../../../image/titleLine.PNG');
+    background-size: 100% 100%;
+}
+
 @media only screen and (max-width:400px){
     #selectTourList{
         float: right;
@@ -118,6 +123,21 @@
         font-size: 0.8em;
         width: 100px;
         text-align: right;
+    }
+    .tourIntroTitle{
+        margin-top: 50px;
+        margin-bottom: 20px;
+        font-size: 15pt;
+        font-weight: 700;
+    }
+    .tourIntroTitleContent{
+        margin-left: 15px;
+    }
+    .tourIntroContent {
+        margin: 0 25px;
+        color: #999;
+        line-height: 30px;
+        font-size: 7pt;
     }
 }
 @media only screen and (min-width:400px) and (max-width:770px){
@@ -169,6 +189,21 @@
         width: 140px;
         text-align: right;
     }
+    .tourIntroTitle{
+        margin-top: 50px;
+        margin-bottom: 20px;
+        font-size: 20pt;
+        font-weight: 700;
+    }
+    .tourIntroTitleContent{
+        margin-left: 50px;
+    }
+    .tourIntroContent {
+        margin: 0 50px;
+        color: #999;
+        line-height: 30px;
+        font-size: 10pt;
+    }
 }
 @media only screen and (min-width:770px){
     #selectTourList{
@@ -179,7 +214,7 @@
         text-align: center;
         border: 1px solid #eee;
         width: 330px;
-        margin-right: 20px;
+        margin-right: 50px;
         margin-bottom: 50px;
         margin-top: 30px;
         text-align: left;
@@ -222,6 +257,20 @@
         width: 250px;
         text-align: right;
     }
+    .tourIntroTitle{
+        margin-top: 50px;
+        margin-bottom: 20px;
+        font-size: 25pt;
+        font-weight: 700;
+    }
+    .tourIntroTitleContent{
+        margin-left: 80px;
+    }
+    .tourIntroContent {
+        margin: 0 100px;
+        color: #999;
+        line-height: 30px;
+    }
 }
 
 /* detailTour */
@@ -232,7 +281,7 @@
 
 @media only screen and (max-width:400px){
     .detailTitle{
-        margin-top: 30px;
+        margin-top: 10px;
         font-size: 13pt;
         font-weight: 800;
     }
@@ -247,16 +296,26 @@
         font-weight: 700;
     }  
     .detailTitleContent{
-        margin-left: 30px;
+        margin-left: 20px;
     }
 }
-@media only screen and (min-width:770px){
+@media only screen and (min-width:770px) and (max-width:1023px){
     .detailTitle{
-        margin-top: 100px;
+        margin-top: 80px;
         font-size: 20pt;
         font-weight: 900;
     }
     .detailTitleContent{
         margin-left: 50px;
+    }
+}
+@media only screen and (min-width:1023px){
+    .detailTitle{
+        margin-top: 100px;
+        font-size: 25pt;
+        font-weight: 900;
+    }
+    .detailTitleContent{
+        margin-left: 80px;
     }
 }

@@ -8,10 +8,21 @@ import TextField from "@material-ui/core/TextField";
 import { Theme } from "@material-ui/core/styles/createMuiTheme";
 import PropTypes from "prop-types";
 // import { withStyles } from "@material-ui/styles";
-import { createMuiTheme } from "@material-ui/core";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { Upload } from "@progress/kendo-react-upload";
+
+import Button from "@material-ui/core/Button";
+import { green, grey, orange } from "@material-ui/core/colors";
+
+import { createRipples } from "react-ripples";
+
+import RippleBtn from "./SubmitBtn";
+import RippleBtn2 from "./SubmitBtn2";
+
+import store from "../../../redux/store";
+import { actionType, mainViewType } from "../../../redux/config";
 
 const styles = theme => ({
     root: {
@@ -40,9 +51,32 @@ const fileStatuses = [
     'Removing'
 ];
 
+const ColorButton = withStyles((theme) => ({
+    root: {
+        color: theme.palette.getContrastText(orange[200]),
+        '&:hover': {
+            backgroundColor: grey[100],
+        },
+        outline: 'none !important',
+        
+    },
+}))(Button);
+
+const theme = createMuiTheme({
+    palette: {
+        primary: green,
+    },
+});
+
+const MyRipples = createRipples({
+    color: 'orange',
+    during: 2200,
+})
+
 let uploadFile = null;
 
 class SignupPageComp extends Component {
+
 
     constructor(props) {
         super(props);
@@ -91,27 +125,27 @@ class SignupPageComp extends Component {
             id: this.state.id//현재 id state 값을 data.id에 넣는다
         }
         // ↓은 백엔드로 fetch해서 입력된 값을 POST
-        fetch(URL + "/member/checkid", 
-                {//localhost 9002번 포트 checkid라우터를 찾는다
-                    method: "POST",
-                    headers: {
-                    "Content-Type" : "application/json"
-                    },
-                body: JSON.stringify(data),//json화 해버리기
+        let url = URL + '/member/checkid?id=' + this.state.id;
+        axios.get(url)
+        .then(response=>{
+            alert(response.data.idcanUse + "를 받았습니다");
+            if(response.data.idcanUse === "true")
+            {
+                alert("사용가능한 아이디입니다");
+                this.setState({
+                    idcanUse: true
                 })
-            .then(response => response.json())
-            .then(json=> {
-                console.log("확인입니다");
-                if(json.idcanUse == true){  //uson을받아왔는데idcanUse값이true면사용가능
-                    alert("사용가능한 ID입니다");
-                    this.setState({
-                        idcanUse: true
-                    })
-                }
-                else{
-                    alert("다른 ID를 입력해주세요");
-                }
-            });
+            }
+            else if(response.data.idcanUse === "false")
+            {
+                alert("다른 아이디를입력해주세요");
+                this.setState({
+                    id: '',
+                })
+            }
+        }).catch(err => {
+            console.log("아이디체크시 오류남:"+err);
+        })
     }
 
     onSubmitHandler = (e) => {
@@ -288,7 +322,6 @@ class SignupPageComp extends Component {
                 >
                 <h1>회원가입</h1>
                 <div>
-                    {this.state.id}
                     <h4 className="showIdResult">{this.state.showIdResult}</h4>
                 </div>
                 <br />
@@ -440,22 +473,11 @@ class SignupPageComp extends Component {
                 <TextField id="standard-secondary" label="휴대폰" color="secondary" 
                 type="text" name="hp" value={ this.state.hp }
                 onChange = { this.changeEvent.bind(this) } />
-
                 <br />
-                <b>
-                    내 아이디는 {this.state.id} 입니다
-                    내 비밀번호는 {this.state.pass} 입니다
-                    내 확인비밀번호는 { this.state.pwCheck } 입니다
-                    내 이메일은 { this.state.email } 입니다
-                    내 이름은 { this.state.name } 입니다
-                    내 성별은 { this.state.gender } 입니다
-                    내 사진은 { this.state.photo } 입니다
-                    내 주소1 { this.state.address} 입니다
-                    내 주소2 {this.state.addrdetail} 입니다
-                    내 휴대폰 { this.state.hp } 입니다
-                </b>
-                <br />
+                {/* <MyRipples>
                 <button type = "submit">회원 가입</button>
+                </MyRipples> */}
+                <RippleBtn2 />
                 </form>
             </div>
         );

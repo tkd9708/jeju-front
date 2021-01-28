@@ -74,7 +74,7 @@ class MainPageComp extends Component {
             <div className="mainPageComp">
                 <MainPhotoComp/>
                 <div className="search-myplan">
-                    <SearchComp/>
+                    <SearchComp history={this.props.history}/>
                     <MyPlanComp/>
                 </div>
                 <HotPlaceComp history={this.props.history}/>

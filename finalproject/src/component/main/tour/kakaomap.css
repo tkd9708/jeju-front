@@ -41,6 +41,7 @@
 * {margin: 0;
     padding: 0;}
 #placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;min-height: 65px;}
+#placesList .addWishBtn {cursor: pointer;}
 #placesList .item span {display: block;margin-top:4px;}
 #placesList .item table td, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 #placesList .item .info{padding:10px 0 10px 55px;}
@@ -90,6 +91,24 @@
         max-height: 300px;
         font-size:8px;
     }
+    /* 모달 */
+    .aroundmodalTitle {
+        font-size: 14pt;
+        font-weight: 700;
+        line-height: 50px;
+    }
+    .aroundpaper {
+        line-height: 25px;
+        font-size: 8pt;
+    }
+    .aroundmodalBtn {
+        font-size: 8pt;
+        margin-top: 10px;
+    }
+    .aroundmodal {
+        max-width: 300px;
+       
+    }
 }
 @media only screen and (min-width:400px) and (max-width:770px){
     #map{
@@ -113,6 +132,24 @@
         max-height: 400px;
         font-size:10px;
     }
+    /* 모달 */
+    .aroundmodalTitle {
+        font-size: 16pt;
+        font-weight: 700;
+        line-height: 50px;
+    }
+    .aroundpaper {
+        line-height: 30px;
+        font-size: 10pt;
+    }
+    .aroundmodalBtn {
+        font-size: 10pt;
+        margin-top: 10px;
+    }
+    .aroundmodal {
+        max-width: 370px;
+       
+    }
 }
 @media only screen and (min-width:770px) and (max-width:1023px){
     #map{
@@ -135,6 +172,24 @@
         /* height:450px; */
         max-height: 450px;
         font-size:12px;
+    }
+    /* 모달 */
+    .aroundmodalTitle {
+        font-size: 16pt;
+        font-weight: 700;
+        line-height: 50px;
+    }
+    .aroundpaper {
+        line-height: 30px;
+        font-size: 10pt;
+    }
+    .aroundmodalBtn {
+        font-size: 10pt;
+        margin-top: 10px;
+    }
+    .aroundmodal {
+        max-width: 500px;
+       
     }
 }
 @media only screen and (min-width:1023px){
@@ -164,11 +219,29 @@
         max-height: 480px;
         font-size:12px;
     }
+    /* 모달 */
+    .aroundmodalTitle {
+        font-size: 16pt;
+        font-weight: 700;
+        line-height: 50px;
+    }
+    .aroundpaper {
+        line-height: 30px;
+        font-size: 10pt;
+    }
+    .aroundmodalBtn {
+        font-size: 10pt;
+        margin-top: 10px;
+    }
+    .aroundmodal {
+        max-width: 500px;
+       
+    }
     
 }
 
 
-  
+  /* 모달 */
   .aroundmodal-overlay {
     position: fixed;
     top: 0;
@@ -196,9 +269,10 @@
     z-index: 100;
     background: white;
     position: relative;
+    top: 50px;
     margin: 1.75rem auto;
     border-radius: 3px;
-    max-width: 500px;
+    /* max-width: 500px; */
     padding: 2rem;
   }
   

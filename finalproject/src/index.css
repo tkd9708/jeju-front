@@ -11,3 +11,15 @@
 /*    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',*/
 /*    monospace;*/
 /*}*/
+
+/*BMHANNAPro.ttf*/
+@font-face {
+    font-family: "NotoSans-Medium";
+    src: url("font/NotoSans-Medium.ttf") format("truetype");
+    font-style: auto;
+}
+
+body {
+    font-family: NotoSans-Medium;
+    font-size: 16px;
+}

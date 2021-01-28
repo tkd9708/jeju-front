@@ -1,9 +1,11 @@
-import React, {Component} from "react";
+import React, {Component, useState} from "react";
 import {NavLink, Route} from "react-router-dom";
 import store from "../../../redux/store";
 import {actionType, mainViewType} from "../../../redux/config";
 import TourList from '../../header/menus/TourList';
 import TourPageComp from '../tour/TourPageComp';
+import axios from 'axios';
+import {URL} from "../../../redux/config";
 
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
@@ -14,7 +16,23 @@ import Box from '@material-ui/core/Box';
 import BoardSample from "./BoardSample";
 
 function TabPanel(props) {
-    const { children, value, index, ...other } = props;
+    const {children, value, index, ...other} = props;
+
+    // photos, setPhotos 비구조화 할당
+    let [photos, setPhotos] = useState([]);
+
+    // 통신 메서드
+    function searchApi() {
+        const url = URL + '/spot/list';
+        axios.get(url)
+        .then(function(response) {
+            setPhotos(response.data);
+            console.log("성공");
+        })
+        .catch(function(error) {
+            console.log("실패");
+        })
+    }
 
     return (
         <div
@@ -48,6 +66,7 @@ function a11yProps(index) {
 
 export default function HotPlaceComp() {
     const [value, setValue] = React.useState(2);
+    const [selectedLocation, setSelectedLocation] = React.useState("제주");
 
     const handleChange = (event, newValue) => {
         console.log(event, newValue);
@@ -62,10 +81,41 @@ export default function HotPlaceComp() {
         });
     }
 
+    const clickLocation = (e) => {
+        e.preventDefault();
+        // console.log(selectedLocation, e.target.dataset.location);
+        setSelectedLocation(e.target.dataset.location);
+
+    }
+
     return (
         <div className="hotPlaceComp">
-            
-            <Paper square>
+            <div className="hotPlace_location">
+                <a href="#" data-location="제주" onClick={clickLocation.bind(this)}>제주</a>
+                <a href="#" data-location="조천" onClick={clickLocation.bind(this)}>조천</a>
+                <a href="#" data-location="구좌" onClick={clickLocation.bind(this)}>구좌</a>
+                <a href="#" data-location="성산" onClick={clickLocation.bind(this)}>성산</a>
+                <a href="#" data-location="표선" onClick={clickLocation.bind(this)}>표선</a>
+                <a href="#" data-location="남원" onClick={clickLocation.bind(this)}>남원</a>
+                <a href="#" data-location="서귀" onClick={clickLocation.bind(this)}>서귀</a>
+                <a href="#" data-location="안덕" onClick={clickLocation.bind(this)}>안덕</a>
+                <a href="#" data-location="대정" onClick={clickLocation.bind(this)}>대정</a>
+                <a href="#" data-location="한경" onClick={clickLocation.bind(this)}>한경</a>
+                <a href="#" data-location="한림" onClick={clickLocation.bind(this)}>한림</a>
+                <a href="#" data-location="애월" onClick={clickLocation.bind(this)}>애월</a>
+                <a href="#" data-location="우도" onClick={clickLocation.bind(this)}>우도</a>
+            </div>
+            <div className="hotPlace_sample">
+                <BoardSample location={selectedLocation}/>
+            </div>
+
+        </div>
+    )
+}
+
+
+/*
+<Paper square>
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                     <Tab label="Jeju" {...a11yProps(0)} />
                     <Tab label="Jocheon" {...a11yProps(1)} />
@@ -109,29 +159,26 @@ export default function HotPlaceComp() {
                 <TabPanel value={value} index={12}>
                 </TabPanel>
             </Paper>
-        </div>
-    )
-}
+ */
 
 
 /*
-<a href="/tourlist/jeju">제주</a>
-<a href="/TourList/jocheon">조천</a>
-<a href="/TourList/gujwa">구좌</a>
-<a href="/TourList/sungsan">성산</a>
-<a href="/TourList/pyoseon">표선</a>
+<a href="/tourlist/jeju     ">제주</a>
+<a href="/TourList/jocheon  ">조천</a>
+<a href="/TourList/gujwa    ">구좌</a>
+<a href="/TourList/sungsan  ">성산</a>
+<a href="/TourList/pyoseon  ">표선</a>
 
-<a href="/TourList/namwon">남원</a>
-<a href="/TourList/seogwipo">서귀포</a><br/>
-<a href="/TourList/andeok">안덕</a>
-<a href="/TourList/daejung">대정</a>
+<a href="/TourList/namwon   ">남원</a>
+<a href="/TourList/seogwipo ">서귀</a><br/>
+<a href="/TourList/andeok   ">안덕</a>
+<a href="/TourList/daejung  ">대정</a>
 <a href="/TourList/hangyeong">한경</a>
 
-<a href="/TourList/hanrim">한림</a>
-<a href="/TourList/aewol">애월</a>
-<a href="/TourList/udo">우도</a><br/><br/>
+<a href="/TourList/hanrim   ">한림</a>
+<a href="/TourList/aewol    ">애월</a>
+<a href="/TourList/udo      ">우도</a><br/><br/>
 */
-
 
 
 {/* <NavLink exact to="/tourlist/jeju"
@@ -139,7 +186,8 @@ export default function HotPlaceComp() {
              console.log("TourList NavLink onClick");
              this.setMainView(mainViewType.TourList);
          }}
->제주</NavLink> */}
+>제주</NavLink> */
+}
 {/* <NavLink exact to="/tourlist/jocheon"
          onClick={() => {
              console.log("TourList NavLink onClick");
@@ -212,7 +260,8 @@ export default function HotPlaceComp() {
              console.log("TourList NavLink onClick");
              this.setMainView(mainViewType.TourList);
          }}
->우도</NavLink> */}
+>우도</NavLink> */
+}
 
 
 // <Route path="/TourList/:name?" component={TourList}></Route>

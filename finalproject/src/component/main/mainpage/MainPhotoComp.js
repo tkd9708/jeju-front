@@ -23,7 +23,7 @@ class MainPhotoComp extends Component {
     setImageScroll = (photoNum, preNum = 4) => {
         const duration = 3;
         const imgCnt = 4;
-        let arrImg = new Array();
+        let arrImg = [];
 
         //over index setting
         if (photoNum > imgCnt) {
@@ -36,6 +36,7 @@ class MainPhotoComp extends Component {
             tempImgIdx = tempImgIdx > imgCnt ? tempImgIdx - imgCnt : tempImgIdx;
             arrImg.push(document.querySelector(`img.mainPhotoComp_img${tempImgIdx}`));
         }
+
 
         if (arrImg[0] != null) {
             //zIndex setting.
@@ -62,6 +63,7 @@ class MainPhotoComp extends Component {
             //next action preparing.
             setTimeout(this.setImageScroll.bind(this, photoNum + 1, photoNum), (duration + 2) * 1000);
         }
+
     }
 
     componentDidMount() {

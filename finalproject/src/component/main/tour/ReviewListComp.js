@@ -91,7 +91,7 @@ class ReviewListComp extends Component {
                     <caption style={{captionSide: 'top', borderBottom: '1px solid gray'}}>총 {this.totalCount}개의 후기가 있습니다.</caption>
                     <tbody>
                         {this.state.reviewList.map((row,idx)=>(
-                            <ReviewItemComp row={row} key={idx} history={this.props.history}></ReviewItemComp>
+                            <ReviewItemComp row={row} key={idx} history={this.props.history} list={this.getTotalCount.bind(this)}></ReviewItemComp>
                         ))} 
                         
                     </tbody>
