@@ -4,18 +4,24 @@ import './TourCss.css';
 class PageComp extends Component {
 
     render() {
-        const {area, startPage, endPage, currentPage, totalPage, paginate} = this.props;
+        const {area, startPage, endPage, currentPage, totalPage, paginate, category, search, type} = this.props;
 
-        let prev = startPage > 1 ? <li className="page-item">
-            <a className="page-link" style={{color: 'black'}} href={`/tourlist/${area}/${startPage - 1}`}>◀</a>
-        </li> : "";
+        let prev = startPage > 1 ?
+            <li className="page-item">
+                <a className="page-link" style={{color: 'black'}} href={`/tourlist/${area}/${startPage - 1}`}>◀</a>
+            </li> : "";
 
-        let next = endPage < totalPage ? <li className="page-item">
-            <a className="page-link" style={{color: 'black'}} href={`/tourlist/${area}/${endPage + 1}`}>▶</a></li> : "";
+        let next = endPage < totalPage ?
+            <li className="page-item">
+                <a className="page-link" style={{color: 'black'}} href={`/tourlist/${area}/${endPage + 1}`}>▶</a>
+            </li> : "";
+
         let page = [];
+
         for (let i = startPage; i <= endPage; i++) {
             page.push(i);
         }
+
         let pages = page.map(function (num, idx) {
             return (
                 <li className="page-item">
@@ -24,7 +30,11 @@ class PageComp extends Component {
                            color: num == currentPage ? "#D1CC38" : "black",
                            fontWeight: num == currentPage ? "700" : ""
                        }}
-                       href={`/tourlist/${area}/${num}`}
+                       href={(type == "tour")
+                           ? `/tourlist/${area}/${num}`
+                           : (type == "search")
+                               ? `/search/${category}/${search}/${num}`
+                               : ""}
                     >{num}</a>
                 </li>
             )
@@ -39,11 +49,12 @@ class PageComp extends Component {
                     {next}
                 </ul>;
         } else {
-            pagination = <ul className='pagination' style={{justifyContent: 'center', marginBottom: '100px'}}>
-                {prev}
-                {pages}
-                {next}
-            </ul>;
+            pagination =
+                <ul className='pagination' style={{justifyContent: 'center', marginBottom: '100px'}}>
+                    {prev}
+                    {pages}
+                    {next}
+                </ul>;
         }
 
         return (

@@ -69,14 +69,18 @@ export default function SearchComp(props) {
 
     const doSearchHandler = () => {
         console.log(category, searchVal);
-        // store.dispatch({
-        //     type: actionType.setSearchResultDataList,
-        //     category: category,
-        //     searchVal: searchVal,
-        //     searchResultDataList: res.data,
-        // });
-        // props.history.push(`/search/${category}/${searchVal}`);
 
+        store.dispatch({
+            type: actionType.setSearchResultDataList,
+            category: category,
+            searchVal: searchVal,
+            searchResultDataList: [],
+        });
+
+        ///search/:category?/:keyword?
+        props.history.push(`/search/${category}/${searchVal}/1`);
+
+        /*
         //search action.
         let perPage = 10;
         let url = URL + "/spot/searchlist" +
@@ -101,10 +105,12 @@ export default function SearchComp(props) {
             });
 
             ///search/:category?/:keyword?
-            props.history.push(`/search/${category}/${searchVal}`);
+            props.history.push(`/search/${category}/${searchVal}/1`);
         }).catch(err => {
             console.log("doSearchHandler() err:", err);
         });
+
+        */
     }
 
     return (

@@ -130,7 +130,7 @@ class App extends Component {
                         <Route exact path="/" component={MainPageComp}/>
 
                         {/*test*/}
-                        <Route path="/search/:category?/:keyword?" component={SearchResultComp}/>
+                        <Route path="/search/:category?/:keyword?/:pageNum?" component={SearchResultComp}/>
 
                         <Route path="/admin/:name?" component={MemberListPageComp}/>
                         <Route path="/login/:name?">
