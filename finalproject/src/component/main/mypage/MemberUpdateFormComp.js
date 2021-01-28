@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import axios from 'axios';
 import {URL} from "../../../redux/config";
+import './style/UpdateFormCss.css';
 
 class MemberUpdateFormComp extends Component {
 
     constructor(props) {
         super(props);
-        console.log("MemberUpdateFormComp constructor", props);
 
         this.state={
             id: '',
@@ -139,9 +139,9 @@ class MemberUpdateFormComp extends Component {
         })
     }
     render() {
-        console.log("MemberUpdateFormComp render()", this.props);
+        // console.log("MemberUpdateFormComp render()", this.props);
         return (
-            <div>
+            <div id="MypageUpdateForm">
                 <form>
                 <h1>회원정보 수정</h1>
                 <br/>
@@ -175,7 +175,7 @@ class MemberUpdateFormComp extends Component {
                 {/* <button name="passUpdateBtn" type = "button" onClick={this.onPassUpdateMember}>비밀번호 변경</button><br/> */}
 
                 <span>현재 비밀번호 확인</span>&nbsp;&nbsp;
-                <input type="password" name="passCheck" value = {this.state.passCheck} onChange={this.handleChange}/>
+                {/* <input type="password" name="passCheck" value = {this.state.passCheck} onChange={this.handleChange}/> */}
                 <br/>
                 <button name="updateBtn" type = "button" onClick={this.onUpdateMember}>정보수정</button><br/>
                 <button name="deleteBtn" type = "button" onClick={this.onDeleteMember}>회원 탈퇴</button>

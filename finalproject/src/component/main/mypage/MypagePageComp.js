@@ -13,6 +13,7 @@ import MyWishlist from './MyWishlist';
 import './style/MyinfoCss.css';
 import userImg from '../../../image/user.png';
 import Paper from '@material-ui/core/Paper';
+import PassCheck from './PassCheck';
 
 class MypagePageComp extends Component {
     
@@ -24,7 +25,8 @@ class MypagePageComp extends Component {
             memberData: [],
             pageNum: '0',
             value: 0,
-            wishCount: 0
+            wishCount: 0,
+            passOk: false
         }
     }
     tabProps = (index) => {
@@ -64,12 +66,19 @@ class MypagePageComp extends Component {
         this.getMyData(); //처음 시작시 백엔드로부터 데이타 가져오기
     }
 
+    passOk=()=>{
+        this.setState({
+            passOk: true
+        })
+    }
+
     render() {
         // console.log("MypagePageComp render()", this.props);
         const url = URL + "/";
         const userimg = this.state.memberData.photo==null?userImg:url+this.state.memberData.photo;
         const address = this.state.memberData.addrdetail!==null?"(" + this.state.memberData.addrdetail + ")":"";
-
+        const passOkTab = this.state.passOk==true?<MemberUpdateFormComp num={this.state.memberData}/>:<PassCheck passOk={this.passOk.bind(this)}/>;
+        
         return (
             <div>
                 <div id="mypageInfo" style={{width: '100%', backgroundColor: '#f7f7f7', position: 'relative'}}>
@@ -163,8 +172,9 @@ class MypagePageComp extends Component {
                     <TabPanel value={this.state.value} index={2}>
                         <MyWishlist/>
                     </TabPanel>
-                    <TabPanel value={this.state.value} index={2}>
-                        <MemberUpdateFormComp/>
+                    <TabPanel value={this.state.value} index={3}>
+                        {/* <MemberUpdateFormComp/> */}
+                        {passOkTab}
                     </TabPanel>
                 </Paper>
                 

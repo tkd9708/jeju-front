@@ -59,18 +59,13 @@ class DateHeader extends Component {
 }
 
 class Week extends Component {
-
-
   constructor(props){
     super(props);
-
-    
 
     this.ym = this.props.ymOfThisCalendar;
     this.state={
        list:[]
-       
-       
+         
     };
   }
 
@@ -90,16 +85,10 @@ class Week extends Component {
     })
   }
 
-  
-
   componentDidMount(){
     this.getData();
     
   }
-
-  
-
-  
 
   Days = (firstDayFormat,weekIndex) => {
     const _days = [];
@@ -139,49 +128,39 @@ class Week extends Component {
 
       if(moment(dayInfo.yearMonthDayFormat).isSame(selectedDayFormat,'day')){
         className = "selected"
+
+        console.log(dayInfo.yearMonthDayFormat);
+        //// 여기서 모달 띄우는 setState그거 하면서 아이디랑 날짜 보내서 정보 얻어오면될거같아요
       }
 
       const category=this.state.memId;
       const day=this.props.ymOfThisCalendar+"-"+dayInfo.getDay;
       const wishday=this.statewishday;
-    //   console.log(category);
 
         var date = new Date(); 
         var year = date.getFullYear(); 
         var month = new String(date.getMonth()); 
         var days = new String(date.getDate());
-        // var today = year + "-" + month + "-" + days;
         var today = new Date(year, month, days);
         var selectDay = new Date(dayInfo.getYear, dayInfo.getMonth-1, dayInfo.getDay);
         var betweenDay = selectDay.getTime() - today.getTime();
-        // console.log(betweenDay);
 
        return(
           <div className={"RCA-calendar-day " + className} key={`RCA-${dayInfo.weekIndex}-${i}-day`}onClick={() => fn(dayInfo.yearMonthDayFormat)}>
-            <label className="RCA-calendar-day-label">
-              {dayInfo.getDay}
-            
-            </label>
-            {this.state.list.map((row,idx)=>(
-                <DayItem row={row} key={idx} className={className} dayInfo={dayInfo} i={i} fn={fn}></DayItem>
-                
-            ))}
-            {/* {this.state.list.map((row,idx)=>(
-                <DayItem row={row} key={idx} className={className} dayInfo={dayInfo} i={i} fn={fn}></DayItem>
-                
-            ))} */}
-            
+              <label className="RCA-calendar-day-label">
+                {dayInfo.getDay}
               
+              </label>
+              {this.state.list.map((row,idx)=>(
+                  <DayItem row={row} key={idx} className={className} dayInfo={dayInfo} i={i} fn={fn}></DayItem>
+                  
+              ))}
 
-              
-            </div>
-            
-            
-       )
-
-       
-      })    
-        
+              {/*  여기 모달 태그 넣기 */}
+          </div>
+          
+       )      
+      })         
     }
 
 

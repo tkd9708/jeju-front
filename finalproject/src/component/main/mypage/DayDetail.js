@@ -39,7 +39,7 @@ class DayDetail extends Component {
         let url=URL+"/wish/spottitle?contentsid="+ this.props.row.spotId;
         axios.get(url)
         .then(res=>{
-            console.log(res.data);
+            // console.log(res.data);
             this.setState({
                 list:res.data
             });
@@ -86,32 +86,7 @@ class DayDetail extends Component {
         
         return (
             <div>
-            {/* <div className="category">{wishday===day &&category==='카페'?<FaMugHot></FaMugHot>:
-                    wishday===day &&category==='숙박'?<FaHotel></FaHotel>:wishday===day &&category==='음식점'?
-                <FaHamburger></FaHamburger>:''}</div> */}
-                {/* {aroundId!==null?content.split(",")[0]==="음식점"
-                ?<FaHamburger></FaHamburger>:content.split(",")[0]==="숙박"?
-                <FaHotel></FaHotel>:<FaMugHot></FaMugHot>:''}{aroundId}
-                {shareNum!==null?<FcRating></FcRating>:''}
-                {spotId!==null?<FcBookmark></FcBookmark>:''}
-                {this.state.list} */}
-                {/* <br/><FcCheckmark></FcCheckmark> */}
-                {/* {shareNum===null&&aroundId===null&&spotId===null?'🌳':''}
-                {content} */}
                 {tag}
-                
-                {/* {this.state.list.map((row,idx)=>(
-                <DaySubject row={row} key={idx}></DaySubject>
-                
-                 ))} */}
-                
-            {/* <div className="title">
-               <div>
-               {subject}
-                </div>
-                <br/>
-              </div>   */}
-                 
             </div>
         );
     }
