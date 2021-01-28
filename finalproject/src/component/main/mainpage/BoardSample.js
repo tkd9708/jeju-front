@@ -96,17 +96,16 @@ export default function BoardSample(props) {
                 {photos.map((row)=>(
                     <BoardSampleItem row={row}/>
                 ))}
-                {/* <Paper elevation={3}>{}
+                {/* <Paper elevation={3}>
                 </Paper>
-                <Paper elevation={3}>456
+                <Paper elevation={3}>
                 </Paper>
-                <Paper elevation={3}>789
+                <Paper elevation={3}>
                 </Paper>
-                <Paper elevation={3}>4332
+                <Paper elevation={3}>
                 </Paper> */}
             </div>
         </div>
-
     )
 }
 
