@@ -5,6 +5,7 @@ import {actionType, mainViewType, URL} from "../../../redux/config";
 export default function SearchResultComp(props) {
     console.log("SearchResultComp props", props);
     var mainSearch = store.getState().mainSearch;
+    console.log(mainSearch);
     var category = mainSearch.category;
     var searchVal = mainSearch.searchVal;
     var searchResultDataList = mainSearch.searchResultDataList;
