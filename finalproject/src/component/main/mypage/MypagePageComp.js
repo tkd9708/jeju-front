@@ -92,7 +92,7 @@ class MypagePageComp extends Component {
                     <table>
                         <tr id="mypageInfoRow" bgcolor="#fff">
                             <td className="mypageInfoCol" style={{width:'20%', textAlign: 'center'}}>
-                                <img src={userimg} alt="이미지없음" id="mypageUserImg"/><br/>
+                                <img src={userImg} alt="이미지없음" id="mypageUserImg"/><br/>
                             </td>
                             <td className="mypageInfoCol" style={{width:'40%'}}>
                                 <table>
