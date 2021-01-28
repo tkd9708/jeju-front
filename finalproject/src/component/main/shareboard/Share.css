@@ -1,0 +1,258 @@
+/* shareboardlist css */
+
+    #ShareListBox{
+        
+        border: 1px solid #eee;
+        width: 400px;
+        height: 500px;
+        margin: 80px;
+        float: left;
+        cursor: pointer;
+        margin-left: 7%;
+       
+    }
+    #ShareImg{
+        border-bottom: 1px solid #eee;
+        width: 400px;
+        height: 250px;
+        text-align: center;
+    }
+    #ShareListSubject{
+        font-size: 15pt;
+        width: 400px;
+        height: 50px;
+        color:#888;
+        border-bottom: 1px solid #eee;
+        margin-top: 15px;
+        text-align: center;
+       
+    }
+    #ShareContentDiv{
+    
+        font-size: 1.1em;
+        border-bottom: 1px solid #eee;
+        width: 400px; 
+        height: 100px;
+        color: #888;
+        text-align: center;
+        margin-top: 20px;
+        
+      
+    }
+    #ShareContent{
+        margin-bottom: 15px;
+    }
+
+    #ShareThumbIcon{
+        font-size: 15pt;
+        cursor: pointer;
+        margin-top: 15px;
+        margin-left: 15px;
+    }
+
+    #UpdateButton{
+        float: right;
+        margin-top: 16px;
+        margin-right: 15px;
+        color: black;
+        font-size: 22px;
+
+    }
+
+    #DeleteButton{
+        float: right;
+        margin-top: 16px;
+        margin-right: 15px;
+        color:black;
+        
+    }
+
+
+
+
+
+
+
+
+
+
+ /* shareboard모달(detailpage) css */
+
+    #ShareModalAll{
+        border: 1px solid black;
+        width: 1150px;
+        height: 800px;
+        margin: auto;
+        overflow: scroll;
+    }
+
+    #ShareModalThumbIcon{
+        font-size: 15pt;
+        cursor: pointer;
+        margin-top: 10px;
+        /* float: left;  */
+       
+    }
+
+ 
+
+    /* 찜하기 heart 애니메이션 */
+    .heart {
+        width: 50px;
+        height: 50px;
+        transform: translate(-10%, -10%);
+        background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
+        background-position: 0 0;
+        cursor: pointer;
+        animation: fave-heart 1s steps(28);
+      }
+      .heart:hover {
+        background-position: -2800px 0;
+        transition: background 1s steps(28);
+      }
+      @keyframes fave-heart {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: -2800px 0;
+        }
+      }
+      
+      #ShareHeart{
+          
+        float: right;  
+        margin-top: 50px;
+      
+      }
+   
+    
+    
+    
+    
+    #ShareModalMidBox{
+        border: 1px solid #eee;
+        width: 1150px; 
+        height: 400px;
+
+    }
+    
+    #ShareModalImg{
+        border: 1px solid #eee;
+        width: 550px;
+        height: 400px;
+        text-align: center;
+        float: left;
+
+    }
+
+    #ShareModalContent{
+        border: 1px solid #eee;
+        width: 550px;
+        height: 400px;
+        float: right;
+    }
+    #ShareModalContent1{
+        border-bottom: 1px solid #eee;
+        width: 550px;
+        height: 75px;
+        float: left;
+    }
+    #ShareModalContent2{
+        border-bottom: 1px solid #eee;
+        width: 550px;
+        height: 75px;
+        float: left;
+    }
+    #ShareModalContent3{
+        border-bottom: 1px solid #eee;
+        width: 550px;
+        height: 200px;
+        float: left;
+    }
+    #ShareModalContent4{
+        border-bottom: 1px solid #eee;
+        width: 550px;
+        height: 50px;
+        float: left;
+    }
+
+    #ShareReviewWrite{
+        border: 1px solid #eee;
+        width: 1150px;
+        height: 130px;
+        margin-top: 20px;
+
+    }
+
+    #ShareReviewPhotoIcon{
+        font-size: 15pt;
+        cursor: pointer;
+        margin-left: 15px;
+        margin-bottom: 3.5px;
+    }
+
+    #ShareReviewSave{
+        width: 180px;
+        height: 100px;
+        cursor: pointer;
+        margin-left: 15px;
+        
+             
+    }
+
+    /* shareform css */
+
+    #ShareFormSubject{
+        margin: 0 auto;
+        margin-left: 47.5%;
+        margin-top: 20px;
+        font-weight: 900;
+                
+    }
+
+
+    #ShareFormAll{
+        width: 800px;
+        height: 600px;
+        border: 1px solid black; 
+        margin: 0 auto;
+        margin-top: 30px;
+        border-radius: 50%;
+       
+
+    }
+
+   
+    
+    th{
+        text-align: center;
+    }
+
+    input{
+        margin-top: 20px;
+    }
+ 
+
+    #ShareFormButton{
+        margin:0 auto;
+        margin-left: 45%;
+        margin-top: 20px;
+        
+    }
+    
+ 
+  
+
+
+
+
+
+
+
+
+
+
+
+
+

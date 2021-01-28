@@ -216,3 +216,7 @@ div.title{
     /* boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3), */
 }
+
+#transition-modal-title{
+    text-align: center;
+}

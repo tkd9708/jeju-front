@@ -1,15 +1,10 @@
 import React,{Component} from 'react';
-
-import moment from 'moment';
-import axios from 'axios';
 import './style/RCA.css';
-//import Subject from './Subject';
 import DayDetail from './DayDetail';
+import Header from './Header';
 
 class DayItem extends Component {
-    static defaultProps={
-        
-    };
+    
 
     constructor(props){
         super(props);
@@ -59,13 +54,17 @@ class DayItem extends Component {
         var y = wishday.substr(0,4);
         var m = wishday.substr(5,2);
         var d = wishday.substr(8,2);
+
+        var aroundId=row.aroundId;
+        var category=row.content;
         var today = new Date(y, m-1, d);
         var betweenDay = selectDay.getTime() - today.getTime();  // 이게 0이여야 해당하는 날짜랑 wishday랑 맞는거에요!
         var tag = betweenDay==0?<DayDetail row={this.props.row}/>:"";
-
+        var header=betweenDay==0?<Header row={this.props.row}/>:"";
         return (
             <div>
                 {tag}
+               
             </div>
         );
     }

@@ -23,7 +23,7 @@ class MainPhotoComp extends Component {
     setImageScroll = (photoNum, preNum = 4) => {
         const duration = 3;
         const imgCnt = 4;
-        let arrImg = new Array();
+        let arrImg = [];
 
         //over index setting
         if (photoNum > imgCnt) {

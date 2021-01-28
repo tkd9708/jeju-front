@@ -3,6 +3,11 @@ import {Route, Link} from "react-router-dom";
 import ShareBoardPageComp from "./ShareBoardPageComp";
 import axios from "axios";
 import {URL} from '../../../redux/config';
+import "./Share.css";
+// import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+
+
+
 
 
 class ShareBoardFormComp extends Component {
@@ -90,29 +95,35 @@ class ShareBoardFormComp extends Component {
         //const url="http://localhost:9002/photo/";
         console.log("ShareBoardFormComp render()", this.props);
 
+     
+            
+
         return (
             <div>
-                <b>맛집공유</b>
+                <div id="ShareFormSubject">
+                <h3>맛집공유</h3>
+                </div>
 
-                <table style={{width: '800px', border: '1px solid black'}}>
+             
+                <table id="ShareFormAll" className="table table-bordered" style={{borderRadius:'50px'}}>
                     <tr>
-                        <th><span>맛집이름</span></th>
+                        <th style={{verticalAlign:'middle'}}><span>맛집이름</span></th>
                         <td>
-                            <input type="text" style={{width: '200px', height: '20px'}}
+                            <input className="form-control" type="text" style={{width: '200px', height: '60px'}}
                                    placeholder="맛집이름을 적어주세요" ref="subject"/>
                         </td>
                     </tr>
 
                     <tr>
-                        <th><span>맛집주소</span></th>
+                        <th style={{verticalAlign:'middle'}}><span >맛집주소</span></th>
                         <td>
-                            <input type="text" style={{width: '400px', height: '20px'}}
+                            <input className="form-control" type="text" style={{width: '400px', height: '60px'}}
                                    placeholder="맛집주소를 적어주세요" ref="addr"/>
                         </td>
                     </tr>
 
                     <tr>
-                        <th><span>이미지</span></th>
+                        <th style={{verticalAlign:'middle'}}><span>이미지</span></th>
                         <td>
                             <input type="file" onChange={this.uploadImage.bind(this)}/>
                             {/* <img src={url + this.state.photoname} alt="이미지없음" style={{width:'200px',height:'300px'}}/> */}
@@ -120,30 +131,36 @@ class ShareBoardFormComp extends Component {
                     </tr>
 
                     <tr>
-                        <th><span>리뷰</span></th>
+                        <th style={{verticalAlign:'middle'}}><span>리뷰</span></th>
                         <td>
-                         <textarea maxLength="1200"
-                                   style={{width: '400px', height: '120px', resize: 'none'}}
-                                   ref="content">
+                         <textarea maxLength="1000" className="form-control"
+                                   style={{width: '600px', height: '150px', resize: 'none',cursor:'auto'}}
+                                   ref="content" placeholder="리뷰를 입력하세요">
                          </textarea>
                         </td>
                     </tr>
 
                     <tr>
-                        <th><span>평가</span></th>
+                        <th style={{verticalAlign:'middle'}}><span>평가</span></th>
                         <td>
                             <b>별점 이미지</b>
                         </td>
                     </tr>
 
                 </table>
-                <button type="button"
+              
+                
+                <div id="ShareFormButton">
+                <button type="button" className="btn btn-outline-warning"
+                        style={{color:'darkorange'}}
                         onClick={this.handleSubmit.bind(this)}
                 >공유하기
                 </button>
                 <Link to="/share">
-                    <button type="button">목록</button>
+                    <button type="button" className="btn btn-outline-warning"
+                    style={{color:'darkorange'}}>목록</button>
                 </Link>
+                </div>
             </div>
         )
     }

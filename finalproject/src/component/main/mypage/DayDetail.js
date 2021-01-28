@@ -1,10 +1,9 @@
 import React,{Component} from 'react';
-
-import moment from 'moment';
 import axios from 'axios';
 import './style/RCA.css';
 import {URL} from "../../../redux/config";
-import { FcRating,FcBookmark,FcCheckmark } from "react-icons/fc";
+import Header from './Header';
+
 
 //import Subject from './Subject';
 
@@ -84,7 +83,7 @@ class DayDetail extends Component {
         var spot = spotId!=null?<div>🗼{this.state.list}</div>:'';
         var myTodo = (aroundId==null&&shareNum==null&&spotId==null)?<div>🌳{content}</div>:'';
         var tag = aroundId!==null?around:shareNum!==null?share:spotId!==null?spot:myTodo;
-
+        
         return (
             <div>
             {/* <div className="category">{wishday===day &&category==='카페'?<FaMugHot></FaMugHot>:
@@ -100,6 +99,7 @@ class DayDetail extends Component {
                 {/* {shareNum===null&&aroundId===null&&spotId===null?'🌳':''}
                 {content} */}
                 {tag}
+                
                 {/* {this.state.list.map((row,idx)=>(
                 <DaySubject row={row} key={idx}></DaySubject>
                 

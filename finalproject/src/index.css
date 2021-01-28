@@ -11,3 +11,15 @@
 /*    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',*/
 /*    monospace;*/
 /*}*/
+
+/*BMHANNAPro.ttf*/
+@font-face {
+    font-family: "BMHANNAPro";
+    src: url("font/BMHANNAPro.ttf") format("truetype");
+    font-style: auto;
+}
+
+body {
+    font-family: BMHANNAPro;
+    font-size: 18px;
+}

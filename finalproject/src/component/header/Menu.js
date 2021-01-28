@@ -17,7 +17,15 @@ class Menu extends Component {
             type: this.props.type,
             onLogin: this.props.onLogin,
             onLogout: this.props.onLogout,
+            logged: store.getState().logged
         }
+
+        store.subscribe(function () {
+            console.log("Menu subscribe()", store.getState().logged);
+            this.setState({
+                logged: store.getState().logged,
+            });
+        }.bind(this));
     }
 
     setMainView = (mainView) => {
@@ -29,16 +37,29 @@ class Menu extends Component {
         });
     }
 
+    setLogOut = () => {
+        console.log("Menu setLogOut()");
+        
+        store.dispatch({
+            type: actionType.LOG_IN,
+            // mainView: mainViewType.MainPage
+            loginId: '',
+            logged: false
+        });
+    }
+    
     render() {
+        console.log("메뉴에서 스토어 상태 : " + store.getState().loginId);
+        console.log("메뉴에서 스토어 로그인 상태 : " + store.getState().logged);
         // 부모컴포넌트(App->HeaderComp)에서 받아온 logged, onLogout을 통해 로그인 전에는 '로그인'을 로그인 후에는 '로그아웃'으로 글씨 변경
         // 로그아웃일 경우 onLogout함수를 통해 logged를 다시 false로 바꿔준다.
         // 부모컴포넌트가 HeaderComp->App이므로 props를 통해 value를 전달받을 수 있다. 그러나 Login컴포넌트의경우는 여러번 전달해야함.
         // 따라서 전역적인 상태가 필요하다.
-        
-        
-        let {logged} = this.props;
+
+
+        // let {logged} = this.props;
         // console.log("Menu render ", this.props);
-        
+
         var className_div_menu = `${this.state.type} menu`;
 
         return (
@@ -64,11 +85,12 @@ class Menu extends Component {
                         >Admin</NavLink>
                     </li>
                     <li>
-                        {logged ?
+                        {this.state.logged ?
                             <NavLink exact to="/"
                                      onClick={() => {
                                          console.log("Logout NavLink onClick");
-                                         this.setMainView(mainViewType.Logout);
+                                         this.setMainView(mainViewType.MainPage);
+                                         this.setLogOut();
                                      }}>Logout</NavLink>
                             :
                             <NavLink exact to="/login"
@@ -103,24 +125,26 @@ class Menu extends Component {
                                  }}
                         >Share</NavLink>
                     </li>
-                    <li class="dropdown">
+                    {/*<li class="dropdown">*/}
+                    <li className="dropdown">
                         <a>Tour</a>
-                            <div class="dropdown-content" >
-                                <a href="/tourlist/jeju">제주</a>
-                                <a href="/TourList/jocheon">조천</a>
-                                <a href="/TourList/gujwa">구좌</a>
-                                <a href="/TourList/sungsan">성산</a>
-                                <a href="/TourList/pyoseon">표선</a>
+                            {/*<div class="dropdown-content" >*/}
+                            <div className="dropdown-content" >
+                                <a href="/tourlist/jeju/1">제주</a>
+                                <a href="/TourList/jocheon/1">조천</a>
+                                <a href="/TourList/gujwa/1">구좌</a>
+                                <a href="/TourList/sungsan/1">성산</a>
+                                <a href="/TourList/pyoseon/1">표선</a>
 
-                                <a href="/TourList/namwon">남원</a>
-                                <a href="/TourList/seogwipo">서귀포</a>
-                                <a href="/TourList/andeok">안덕</a>
-                                <a href="/TourList/daejung">대정</a>
-                                <a href="/TourList/hangyeong">한경</a>
+                                <a href="/TourList/namwon/1">남원</a>
+                                <a href="/TourList/seogwipo/1">서귀포</a>
+                                <a href="/TourList/andeok/1">안덕</a>
+                                <a href="/TourList/daejung/1">대정</a>
+                                <a href="/TourList/hangyeong/1">한경</a>
 
-                                <a href="/TourList/hanrim">한림</a>
-                                <a href="/TourList/aewol">애월</a>
-                                <a href="/TourList/udo">우도</a>
+                                <a href="/TourList/hanrim/1">한림</a>
+                                <a href="/TourList/aewol/1">애월</a>
+                                <a href="/TourList/udo/1">우도</a>
                             </div>
                             {/* <NavLink exact to="/tour"
                                     onClick={() => {
@@ -128,8 +152,8 @@ class Menu extends Component {
                                         this.setMainView(mainViewType.TourList);
                                     }}
                             >Tour</NavLink> */}
-                       
-                        
+
+
                     </li>
                     <li>
                         <NavLink exact to="/notice"
@@ -148,7 +172,7 @@ class Menu extends Component {
                         >Reservation</NavLink>
                     </li>
                 </ul>
-                
+
 
                 {/*<hr style={{clear: 'both'}}/>*/}
 

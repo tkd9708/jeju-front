@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import moment from 'moment';
+import React, { Component } from 'react';
 import {FcPrevious,FcNext,FcList} from 'react-icons/fc';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -28,6 +27,12 @@ import './style/RCA.css';
     render() {
         // const [getMoment, setMoment]=useState(moment());     
         // const today = getMoment;   
+        const {row}=this.props;
+        // var wishday=row.wishday;
+
+       //var wishday=row.wishday;
+       
+
         return (
             <div className="RCA-header-container">
                 <h2 className="RCA-header-calendarYM RCA-header-middle">
@@ -76,8 +81,8 @@ import './style/RCA.css';
                 >
                     <Fade in={this.state.open}>
                     <div className="calPaper">
-                        <h2 id="transition-modal-title">Transition modal</h2>
-                        <p id="transition-modal-description">react-transition-group animates me.</p>
+                        <h2 id="transition-modal-title">일정 목록</h2>
+                        <p id="transition-modal-description">⭕</p>
                     </div>
                     </Fade>
                 </Modal>

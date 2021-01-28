@@ -6,6 +6,13 @@ import axios from "axios";
 import {actionType, URL} from '../../../redux/config';
 import ShareReview from './ShareReview';
 import store from "../../../redux/store";
+import Box from '@material-ui/core/Box';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import BuildIcon from '@material-ui/icons/Build';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+
+import './Share.css';
 
 /*
 row:
@@ -133,119 +140,106 @@ class ShareBoardRowItem extends Component {
             scrollTop
         } = this.state
 
+       
+
+         
+
         return (
+            
             <div>
                 <React.Fragment>
-                    <div style={{
-                        border: '1px solid black',
-                        width: '400px',
-                        height: '450px',
-                        margin: '80px',
-                        float: 'left',
-                        cursor: 'pointer'
-                    }}
-                        // onClick={this.openModal.bind(this)}
-                    >
+                  
+                   <Box m={1} id="ShareListBox">
+                    <div>
+                     {/* onClick={this.openModal.bind(this)}  */}
+                        
+                        <div id="ShareImg" onClick={this.openModal.bind(this)}>
+                              {row.photo}
+                        </div>
+                             
+                        <div id="ShareListSubject"  onClick={this.openModal.bind(this)}>
+                              {row.subject}      
+                        </div>
 
-                        <div style={{borderBottom: '1px solid black', width: '400px', height: '250px'}}
-                             onClick={this.openModal.bind(this)}
-                        >{row.photo}</div>
-
-
-                        <div style={{
-                            borderBottom: '1px solid black',
-                            width: '400px',
-                            height: '50px',
-                            alignItems: 'center'
-                        }}
-                             onClick={this.openModal.bind(this)}
-                        >맛집이름:{row.subject}</div>
-                        <div style={{borderBottom: '1px solid black', width: '400px', height: '100px'}}>
-                            <div>평점:{row.star}</div>
+                        <div id="ShareContentDiv">
+                            <div id="ShareContent">평점:{row.star}</div>
                             <div>주소:{row.addr}</div>
                         </div>
                         <div>
-                            <div style={{width: '400px', height: '50px'}}>
-                                <div style={{float: 'left'}}>조회수:{row.readcount}</div>
-                                <button type="button" style={{float: 'right'}}
-                                        onClick={this.onDeleteData.bind(this)}
-                                >삭제
-                                </button>
-                                <Link to={`/share/update/${this.props.row.num}`}>
-                                    <button type="button" style={{float: 'right'}}
-                                    >수정
-                                    </button>
-                                </Link>
+                            <div style={{width: '400px', height: '65px',backgroundColor:'#FaFaFa'}}>
+                              {/* 좋아요 버튼 */}
+                              <ThumbUpAltIcon id="ShareThumbIcon"/>
+
+                              
+                              {/* 삭제 버튼 */}
+                              <DeleteForeverIcon  id="DeleteButton" onClick={this.onDeleteData.bind(this)}/>
+                             
+
+                              <Link to={`/share/update/${this.props.row.num}`}>
+                              <BuildIcon id="UpdateButton"/>
+                              </Link>
+                              
+                                              
                             </div>
                         </div>
                     </div>
+                    </Box>
+                   
 
                     {/* //header 부분에 텍스트를 입력한다. */}
                     <Modal open={this.state.modalOpen} close={this.closeModal.bind(this)} title="share">
 
                         {/* // Modal.js <main> { props.children } </main>에 내용이 입력된다.  */}
-                        <div style={{
-                            border: '1px solid black',
-                            width: '1150px',
-                            height: '700px',
-                            margin: 'auto',
-                            overflow: 'scroll'
-                        }}
-                             ref={this.myRef} onScroll={this.onScroll}
-                        >
+                        <div id="ShareModalAll" ref={this.myRef} onScroll={this.onScroll}>
+                             
+                            <div style={{width:"1150px",height:"140px"}}> 
+                                <div style={{float:'left'}}>
+                                 {/* 좋아요 버튼 */}
+                                 <ThumbUpAltIcon id="ShareModalThumbIcon"/>
+                                 
+                                <p style={{marginTop:"10px",marginBottom:'45px'}}>(작성자) 님이 공유하신 맛집입니다.</p>
 
-                            <div style={{borderBottom: '1px solid black', height: '50px'}}>
-                                <div style={{float: "left"}}><input type="button" value="좋아요"/></div>
-                                <div style={{float: "left"}}>(작성자) 님이 공유하신 맛집입니다.</div>
-                                <div style={{float: "right"}}>
-                                    <input type="button" value="찜하기"/>
+                                <b>맛집이름:{row.subject}</b>
                                 </div>
+                                
+                                {/* 찜하기 버튼 */}
+                                <div id="ShareHeart" className="heart"></div>
+
+                                
                             </div>
 
-                            <div style={{borderBottom: '1px solid black', width: '1150px', height: '400px'}}>
-                                <div style={{
-                                    borderBottom: '1px solid black',
-                                    borderRight: '1px solid black',
-                                    width: '550px',
-                                    height: '400px',
-                                    float: 'left'
-                                }}>{row.photo}</div>
-                                <div style={{borderLeft: '1px solid black', width: '600x', float: 'right'}}>
-                                    <div style={{width: '550px', height: '50px'}}>평점:{row.star}</div>
-                                    <div style={{width: '550px', height: '50px'}}>주소:{row.addr}</div>
-                                    <div style={{
-                                        width: '550px',
-                                        height: '200px',
-                                        marginTop: '50px'
-                                    }}>리뷰:{row.content}</div>
-                                    <div style={{width: '550px', height: '50px'}}>작성일:{row.writeday}</div>
+                            <div id="ShareModalMidBox">
+                                <div id="ShareModalImg">{row.photo}</div>
+                                   
+                                
+                                <div id="ShareModalContent">
+                                    <div id="ShareModalContent1">평점:{row.star}</div>
+                                    <div id="ShareModalContent2">주소:{row.addr}</div>
+                                    <div id="ShareModalContent3">리뷰:{row.content}</div>
+                                    <div id="ShareModalContent4">작성일:{row.writeday}</div>
                                 </div>
                             </div>
 
 
-                            <div style={{
-                                borderBottom: '1px solid black',
-                                width: '1150px',
-                                height: '130px',
-                                marginTop: '20px'
-                            }}>
-                                <div style={{marginLeft: "20px"}}>
-                                    <div style={{float: 'left'}}>id</div>
+                            <div id="ShareReviewWrite">
+                                <div>
+                                    <div style={{float: 'left'}}>ID</div>
 
-                                    <div style={{float: 'left', marginRight: '100px'}}>
-                                        <input type="button" className="glyphicon glyphicon-camera" value="이미지"/>
-                                    </div>
+                                    {/* 댓글 이미지 추가 아이콘 */}
+                                    <AddAPhotoIcon id="ShareReviewPhotoIcon"/>
                                 </div>
 
                                 <div>
                                     <div>
                                         <textarea placeholder="댓글을 입력하세요"
-                                                  style={{width: '800px', height: '100px', float: 'left'}}
+                                                  style={{width: '900px', height: '100px', float: 'left'}}
                                                   ref="content"
                                         />
                                     </div>
-                                    <div style={{float: 'left', marginLeft: '50px'}}>
-                                        <button type="button" onClick={this.onInsertAnswer.bind(this)}>저장</button>
+
+                                    <div>
+                                    <button type="button" className="btn btn-warning" id="ShareReviewSave" 
+                                    onClick={this.onInsertAnswer.bind(this)}><b>작&nbsp;성</b></button>
                                     </div>
                                 </div>
                             </div>
