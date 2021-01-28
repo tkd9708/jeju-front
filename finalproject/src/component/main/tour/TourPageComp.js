@@ -15,6 +15,7 @@ class TourPageComp extends Component {
     constructor({match}, props) {
         super(props);
 
+        // console.log(match);
 
         this.state={
             area: match.params.name,
@@ -67,7 +68,7 @@ class TourPageComp extends Component {
     }
 
     getTotalCount = () => {
-        
+
         let url = URL + "/spot/count?label2=" + this.state.area;
 
         axios.get(url)
@@ -90,12 +91,12 @@ class TourPageComp extends Component {
     }
 
     render() {
-        console.log("TourPageComp render()", this.props);
+        // console.log("TourPageComp render()", this.props);
         return (
             <div>
                 <Tourintro area={this.state.area}/>
                 <br/><br/><br/>
- 
+
                 {/* list 출력 */}
 
                 <div className="tourIntroTitle">
@@ -138,8 +139,8 @@ class TourPageComp extends Component {
                         ))}
                      </Box>
                 </div>
-                
-                
+
+
                  <br/><br/>
 
                 {/* 페이징 */}
