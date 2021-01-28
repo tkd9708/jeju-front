@@ -12,7 +12,7 @@ import MyReviwe from './MyReview';
 import MyWishlist from './MyWishlist';
 import './style/MyinfoCss.css';
 import userImg from '../../../image/user.png';
-import {Route, Link} from "react-router-dom";
+import Paper from '@material-ui/core/Paper';
 
 class MypagePageComp extends Component {
     
@@ -140,22 +140,30 @@ class MypagePageComp extends Component {
                         </tr>
                     </table>
                 </div>
-                <AppBar position="static" style={{marginTop: '100px'}}>
-                    <Tabs value={this.state.value} onChange={this.handleChange} aria-label="simple tabs example">
-                        <Tab label="나의 일정" {...this.tabProps(0)} />
-                        <Tab label="나의 후기" {...this.tabProps(1)} />
-                        <Tab label="나의 예약" {...this.tabProps(2)} />
+                
+                <Paper square style={{marginTop: '100px'}}>
+                    <Tabs
+                        value={this.state.value}
+                        indicatorColor="primary"
+                        textColor="primary"
+                        onChange={this.handleChange}
+                        aria-label="disabled tabs example"
+                    >
+                        <Tab label="나의 일정" {...this.tabProps(0)}/>
+                        <Tab label="나의 후기" {...this.tabProps(1)}/>
+                        <Tab label="나의 예약" {...this.tabProps(2)}/>
                     </Tabs>
-                </AppBar>
-                <TabPanel value={this.state.value} index={0}>
-                    <MySchedule/>
-                </TabPanel>
-                <TabPanel value={this.state.value} index={1}>
-                    <MyReviwe/>
-                </TabPanel>
-                <TabPanel value={this.state.value} index={2}>
-                    <MyWishlist/>
-                </TabPanel>
+                    <TabPanel value={this.state.value} index={0}>
+                        <MySchedule/>
+                    </TabPanel>
+                    <TabPanel value={this.state.value} index={1}>
+                        <MyReviwe/>
+                    </TabPanel>
+                    <TabPanel value={this.state.value} index={2}>
+                        <MyWishlist/>
+                    </TabPanel>
+                </Paper>
+                
             </div>
             
         )

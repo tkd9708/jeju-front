@@ -163,4 +163,8 @@
         line-height: 70px;
         color: #aaa;
     }
+    .MuiTab-root {
+        font-weight: 900;
+        font-size: 20pt !important;
+    }
 }
