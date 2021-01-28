@@ -18,7 +18,6 @@ import BoardSample from "./BoardSample";
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
 
-
     // photos, setPhotos 비구조화 할당
     let [photos, setPhotos] = useState([]);
 
