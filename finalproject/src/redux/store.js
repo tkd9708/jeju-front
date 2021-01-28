@@ -71,7 +71,7 @@ const reducer = function (state, action) {
 
     //action.type 별로 로직처리 다르게 하기.
     if (action.type === actionType.setMainView) {
-        window.setTimeout(setPositionFooter, 100);
+        // window.setTimeout(setPositionFooter, 100);
         newState = Object.assign({}, state, {
             mainView: action.mainView,
         });
