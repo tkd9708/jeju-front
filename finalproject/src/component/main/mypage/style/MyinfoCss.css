@@ -1,0 +1,52 @@
+@media only screen and (max-width:400px){
+    
+}
+@media only screen and (min-width:400px) and (max-width:770px){
+    
+}
+@media only screen and (min-width:770px) and (max-width:1023px){
+    
+}
+@media only screen and (min-width:1023px){
+    div#mypageInfo {
+        padding: 20px 130px 20px 130px;
+        height: 400px;
+        margin-top: 150px;
+    }
+    p#mypageInfoTitle{
+        font-weight: 900;
+        font-size: 25pt;
+    }
+    tr#mypageInfoRow {
+        height: 250px;
+        line-height: 30px;
+    }
+    td.mypageInfoCol {
+        padding: 35px; 
+        line-height: 30px;
+    }
+    img#mypageUserImg {
+        width: 150px;
+        height: 150px;
+        border: 1px solid #ddd;
+        border-radius: 100%;
+    }
+    button#mypageInfoBtn {
+        top: 20px;
+        right: 20px;
+    }
+    div#mypageInfo>table {
+        width: 100%; 
+        border-spacing: 20px;
+        border-collapse: inherit;
+    }
+    span.mypageInfoSubtitle {
+        font-size: 15pt;
+        font-weight: 900;
+    }
+    span.mypageInfoSubContent {
+        font-size: 13pt;
+        line-height: 70px;
+        color: #aaa;
+    }
+}
