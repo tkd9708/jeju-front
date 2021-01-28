@@ -3,9 +3,58 @@ import {Route, Link} from "react-router-dom";
 import ShareBoardPageComp from "./ShareBoardPageComp";
 import axios from "axios";
 import {URL} from '../../../redux/config';
+import Rating from '@material-ui/lab/Rating';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import { withStyles } from '@material-ui/core/styles';
+// import PropTypes from 'prop-types';
+// import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+
 import "./Share.css";
 // import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 
+
+const StyledRating = withStyles({
+    iconFilled: {
+      color: '#ff6d75',
+    },
+    iconHover: {
+      color: '#ff3d47',
+    },
+  })(Rating);
+  
+//   const customIcons = {
+//     1: {
+//       icon: <SentimentVeryDissatisfiedIcon />,
+//       label: 'Very Dissatisfied',
+//     },
+//     2: {
+//       icon: <SentimentDissatisfiedIcon />,
+//       label: 'Dissatisfied',
+//     },
+//     3: {
+//       icon: <SentimentSatisfiedIcon />,
+//       label: 'Neutral',
+//     },
+//     4: {
+//       icon: <SentimentSatisfiedAltIcon />,
+//       label: 'Satisfied',
+//     },
+//     5: {
+//       icon: <SentimentVerySatisfiedIcon />,
+//       label: 'Very Satisfied',
+//     },
+//   };
+  
+//   function IconContainer(props) {
+//     const { value, ...other } = props;
+//     return <span {...other}>{customIcons[value].icon}</span>;
+//   }
+  
+//   IconContainer.propTypes = {
+//     value: PropTypes.number.isRequired,
+//   };
+  
 
 
 
@@ -105,25 +154,25 @@ class ShareBoardFormComp extends Component {
                 </div>
 
              
-                <table id="ShareFormAll" className="table table-bordered" style={{borderRadius:'50px'}}>
+                <table id="ShareFormAll">
                     <tr>
-                        <th style={{verticalAlign:'middle'}}><span>맛집이름</span></th>
+                        <th style={{verticalAlign:'middle'}}><span>맛집이름 </span></th>
                         <td>
-                            <input className="form-control" type="text" style={{width: '200px', height: '60px'}}
+                            <input className="form-control" type="text" style={{width: '200px', height: '50px'}}
                                    placeholder="맛집이름을 적어주세요" ref="subject"/>
                         </td>
                     </tr>
 
                     <tr>
-                        <th style={{verticalAlign:'middle'}}><span >맛집주소</span></th>
+                        <th style={{verticalAlign:'middle'}}><span >맛집주소 </span></th>
                         <td>
-                            <input className="form-control" type="text" style={{width: '400px', height: '60px'}}
+                            <input className="form-control" type="text" style={{width: '400px', height: '50px'}}
                                    placeholder="맛집주소를 적어주세요" ref="addr"/>
                         </td>
                     </tr>
 
                     <tr>
-                        <th style={{verticalAlign:'middle'}}><span>이미지</span></th>
+                        <th style={{verticalAlign:'middle'}}><span>이미지 </span></th>
                         <td>
                             <input type="file" onChange={this.uploadImage.bind(this)}/>
                             {/* <img src={url + this.state.photoname} alt="이미지없음" style={{width:'200px',height:'300px'}}/> */}
@@ -131,7 +180,7 @@ class ShareBoardFormComp extends Component {
                     </tr>
 
                     <tr>
-                        <th style={{verticalAlign:'middle'}}><span>리뷰</span></th>
+                        <th style={{verticalAlign:'middle'}}><span>리뷰 </span></th>
                         <td>
                          <textarea maxLength="1000" className="form-control"
                                    style={{width: '600px', height: '150px', resize: 'none',cursor:'auto'}}
@@ -141,9 +190,24 @@ class ShareBoardFormComp extends Component {
                     </tr>
 
                     <tr>
-                        <th style={{verticalAlign:'middle'}}><span>평가</span></th>
+                        <th style={{verticalAlign:'middle'}}><span>평가 </span></th>
+                        
                         <td>
-                            <b>별점 이미지</b>
+                        <Box style={{marginTop:"25px"}} component="fieldset" mb={3} borderColor="transparent">
+                        <Rating
+                         name="customized-empty"
+                         defaultValue={1}
+                         //precision={0.5}
+                         emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                         onChange={
+                            (e)=>{
+                                this.setState({
+                                    star : e.target.value
+                                })
+                            }
+                        }
+                         />
+                        </Box>
                         </td>
                     </tr>
 
@@ -151,14 +215,14 @@ class ShareBoardFormComp extends Component {
               
                 
                 <div id="ShareFormButton">
-                <button type="button" className="btn btn-outline-warning"
-                        style={{color:'darkorange'}}
+                <button type="button" className="btn btn-danger" disabled="disabled"
+                        style={{color:'white',cursor:'pointer'}}
                         onClick={this.handleSubmit.bind(this)}
                 >공유하기
                 </button>
                 <Link to="/share">
-                    <button type="button" className="btn btn-outline-warning"
-                    style={{color:'darkorange'}}>목록</button>
+                    <button type="button" className="btn btn-danger" disabled="disabled"
+                    style={{color:'white',cursor:'pointer'}}>목록</button>
                 </Link>
                 </div>
             </div>
