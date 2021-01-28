@@ -68,37 +68,73 @@ class MypagePageComp extends Component {
         // console.log("MypagePageComp render()", this.props);
         const url = URL + "/";
         const userimg = this.state.memberData.photo==null?userImg:url+this.state.memberData.photo;
-        const address = this.state.memberData.addrdetail!==null?(this.state.memberData.addrdetail):"";
+        const address = this.state.memberData.addrdetail!==null?"(" + this.state.memberData.addrdetail + ")":"";
 
         return (
             <div>
-                <div id="mypageInfo" style={{width: '100%', backgroundColor: '#f7f7f7'}}>
+                <div id="mypageInfo" style={{width: '100%', backgroundColor: '#f7f7f7', position: 'relative'}}>
                     <p id="mypageInfoTitle">내 정보 관리</p>
+                    <button type="button" id="mypageInfoBtn" style={{border: 'none', borderRadius: '10px', position:'absolute'}}
+                                    onClick={
+                                        ()=>{
+                                            this.props.history.push("/mypage/update");
+                                        }
+                                    }><b>정보수정</b></button>
                     <table>
                         <tr id="mypageInfoRow" bgcolor="#fff">
                             <td className="mypageInfoCol" style={{width:'20%', textAlign: 'center'}}>
                                 <img src={userimg} alt="이미지없음" id="mypageUserImg"/><br/>
                             </td>
-                            <td className="mypageInfoCol" style={{width:'40%', position: 'relative'}}>
-                                <span class="fas fa-bookmark"></span>&nbsp;&nbsp;&nbsp;&nbsp;{this.state.memberData.id}<br/>
-                                <span class="fas fa-user-alt"></span>&nbsp;&nbsp;&nbsp;{this.state.memberData.name}<br/>
-                                <span class="fas fa-phone-alt"></span>&nbsp;&nbsp;&nbsp;&nbsp;{this.state.memberData.hp}<br/>
-                                <span class="fas fa-envelope-open-text"></span>&nbsp;&nbsp;&nbsp;&nbsp;{this.state.memberData.email}@{this.state.memberData.email2}<br/>
-                                <span class="fas fa-home"></span>&nbsp;&nbsp;&nbsp;{this.state.memberData.address}<br/>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{address}
-                                <button type="button" id="mypageInfoBtn" style={{border: 'none', borderRadius: '10px', position:'absolute'}}
-                                    onClick={
-                                        ()=>{
-                                            this.props.history.push("/mypage/update");
-                                        }
-                                    }><b>회원정보 수정</b></button>
+                            <td className="mypageInfoCol" style={{width:'40%'}}>
+                                <table>
+                                    <tr style={{borderBottom: '1px dotted #eee'}}>
+                                        <td>
+                                            <span class="fas fa-bookmark"></span>
+                                        </td>
+                                        <td style={{paddingLeft: '10px'}}>
+                                            {this.state.memberData.id}
+                                        </td>
+                                    </tr>
+                                    <tr style={{borderBottom: '1px dotted #eee'}}>
+                                        <td>
+                                        <span class="fas fa-user-alt"></span>
+                                        </td>
+                                        <td style={{paddingLeft: '10px'}}>
+                                            {this.state.memberData.name}
+                                        </td>
+                                    </tr>
+                                    <tr style={{borderBottom: '1px dotted #eee'}}>
+                                        <td>
+                                        <span class="fas fa-phone-alt"></span>
+                                        </td>
+                                        <td style={{paddingLeft: '10px'}}>
+                                            {this.state.memberData.hp}
+                                        </td>
+                                    </tr>
+                                    <tr style={{borderBottom: '1px dotted #eee'}}>
+                                        <td>
+                                            <span class="fas fa-envelope-open-text"></span>
+                                        </td>
+                                        <td style={{paddingLeft: '10px'}}>
+                                            {this.state.memberData.email}@{this.state.memberData.email2}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        <span class="fas fa-home"></span>
+                                        </td>
+                                        <td style={{paddingLeft: '10px'}}>
+                                            {this.state.memberData.address}<br/>{address}
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                             <td style={{width:'20%', textAlign: 'center'}}>
-                                <span className="mypageInfoSubtitle">일정 갯수</span><br/>
+                                <span className="mypageInfoSubtitle">일정</span><br/>
                                 <span className="mypageInfoSubContent">{this.state.wishCount}</span>
                             </td>
                             <td style={{width:'20%', textAlign: 'center'}}>
-                                <span className="mypageInfoSubtitle">공유 일정 갯수</span><br/>
+                                <span className="mypageInfoSubtitle">공유한 일정</span><br/>
                                 <span className="mypageInfoSubContent">0</span>
                             </td>
                         </tr>
