@@ -75,7 +75,7 @@ div.search-myplan div div{
 div.hotPlaceComp {
     display: flex;
     flex-direction: row;
-    height: 700px;
+    height: 450px;
     border-top: 1px solid black;
     padding:20px;
 }
