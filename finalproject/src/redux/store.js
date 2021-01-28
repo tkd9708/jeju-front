@@ -28,6 +28,7 @@ const setPositionFooter = () => {
     let topContentHeight = menuHeight + mainFrameHeight;
     console.log(mainFrameHeight, menuHeight, topContentHeight, window.visualViewport.height);
 
+
     if (footerComp) {
         if (window.visualViewport.height > topContentHeight) {
             footerComp.style.width = footerStyle.sizeIn.width;

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import moment from 'moment';
-import {FaUtensils,FaMugHot,FaHotel,FaHamburger} from 'react-icons/fa';
 import axios from 'axios';
 import {URL} from "../../../redux/config";
 import DayItem from './DayItem';
-//import Subject from './Subject';
+import Header from './Header';
+
 
 class DateHeader extends Component {
 
@@ -166,6 +166,10 @@ class Week extends Component {
                 <DayItem row={row} key={idx} className={className} dayInfo={dayInfo} i={i} fn={fn}></DayItem>
                 
             ))}
+            {/* {this.state.list.map((row,idx)=>(
+                <DayItem row={row} key={idx} className={className} dayInfo={dayInfo} i={i} fn={fn}></DayItem>
+                
+            ))} */}
             
               
 
