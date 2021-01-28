@@ -94,6 +94,7 @@ class SignupPageComp extends Component {
             address : '',
             addrdetail: '',
             email : '',
+            email2:'',
             hp : "",
             idcanUse: false,//중복된 아이디찾기 true여야 로그인가능
             files: [],
@@ -298,6 +299,12 @@ class SignupPageComp extends Component {
         });
     }
 
+    changeEmail = (e) => {
+        this.setState({
+            email2: e.target.value
+        })
+    }
+
     onStatusChange = (event) => {
         const file = event.affectedFiles[0];
 
@@ -328,7 +335,17 @@ class SignupPageComp extends Component {
                 <TextField id="standard-secondary" label="이메일" color="secondary" 
                 type="email" name="email" value={ this.state.email }
                 onChange = { this.changeEvent.bind(this) } />
-                
+                @
+                <TextField id="standard-secondary2" color="secondary" 
+                type="email" name="email2" value={ this.state.email2 }
+                onChange = { this.changeEvent.bind(this) } />
+                <select name="selectemail" onChange={this.changeEmail.bind(this)}>
+                    <option disabled>선택하세요</option>
+                    <option value="">직접입력</option>
+                    <option value="naver.com">naver.com</option>
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="nate.com">nate.com</option> 
+                </select><br/>
                 
                 {/* <label>이메일</label>
                 <input type="email" name = "email" value = { this.state.email } onChange={this.changeEvent.bind(this)} /> */}

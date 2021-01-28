@@ -14,6 +14,7 @@ import './style/MyinfoCss.css';
 import userImg from '../../../image/user.png';
 import Paper from '@material-ui/core/Paper';
 import PassCheck from './PassCheck';
+import store from "../../../redux/store";
 
 class MypagePageComp extends Component {
     
@@ -41,7 +42,7 @@ class MypagePageComp extends Component {
     // 스프링에서 목록 가져오기
     // member
     getMyData = () => {
-        let url = URL + '/member/getdata?id=sanghee';
+        let url = URL + '/member/getdata?id=' + store.getState().loginId;
         axios.get(url)
             .then(response => {
                 this.setState({
@@ -51,7 +52,7 @@ class MypagePageComp extends Component {
             console.log("목록 오류:" + err);
         })
 
-        url = URL + '/wish/wishcount?memId=sanghee';
+        url = URL + '/wish/wishcount?memId=' + store.getState().loginId;
         axios.get(url)
             .then(res=>{
                 this.setState({
