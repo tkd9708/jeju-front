@@ -142,12 +142,12 @@ class App extends Component {
                         <Route exact path="/share" component={ShareBoardPageComp}/>
                         <Route path="/share/insert" component={ShareBoardFormComp}/>
                         <Route path="/share/update/:num?" component={ShareBoardUpdateForm}/>
-                        <Route path="/tour/:name?/:pageNum?" component={DetailTourComp}/>
+                        <Route path="/tour/:name?" component={DetailTourComp}/>
                         <Route exact path="/notice" component={NoticePageComp}/>
                         <Route path="/notice/content/:num?" component={NoticeContent}/>
                         <Route path="/notice/content/:num?" component={NoticeContent}/>
                         <Route path="/reservation/:name?" component={ReservationPageComp}/>
-                        <Route path="/tourlist/:name?" component={TourPageComp}/>
+                        <Route path="/tourlist/:name?/:pageNum?" component={TourPageComp}/>
                     </Switch>
                     <div className="footerComp"
                     >

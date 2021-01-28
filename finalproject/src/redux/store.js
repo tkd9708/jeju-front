@@ -52,7 +52,7 @@ const reducer = function (state, action) {
             mainView: mainViewType.MainPage,
             logged: false,
             memberData: [], // 회원목록
-            pageNum: '1',
+            tourPage: 'home',
             id: '',
             loginId: '',
             googleOn: false,
@@ -109,7 +109,7 @@ const reducer = function (state, action) {
         newState = Object.assign({}, state);
     } else if (action.type === actionType.tourPage) {
         newState = Object.assign({}, state, {
-            pageNum: action.pageNum
+            tourPage: action.tourPage
         });
     } else if (action.type === actionType.googleLogin) {
         newState = Object.assign({}, state, {
