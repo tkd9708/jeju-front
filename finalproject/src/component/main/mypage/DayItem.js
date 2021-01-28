@@ -1,37 +1,45 @@
 import React,{Component} from 'react';
-import {FaUtensils,FaMugHot,FaHotel,FaHamburger} from 'react-icons/fa';
+
 import moment from 'moment';
 import axios from 'axios';
 import './style/RCA.css';
 //import Subject from './Subject';
+import DayDetail from './DayDetail';
 
 class DayItem extends Component {
+    static defaultProps={
+        
+    };
 
     constructor(props){
         super(props);
 
-        this.state={
-            sharelist:[],
-            spotlist:[]
-        };
+        // this.state={
+        //     // sharelist:[],
+        //     // spotlist:[],
+            
+        // };
 
     }
+    // rendervalue=()=>{
+    //     return this.props.row.shareNum===null?0:'';
+    // }
 
-    getShare=()=>{
-        let url=URL+"/wish/sharesubject?num="+this.props.row.shareNum;
-        axios.get(url)
-        .then(res=>{
-            this.setState({
-                sharelist:res.data
-            });
-        }).catch(err=>{
-            console.log("목록 오류:"+err);
-        })
-    }
+    // getShare=()=>{
+    //     let url=URL+"/wish/sharesubject?num="+(this.props.row.shareNum!==null?'':0);
+    //     axios.get(url)
+    //     .then(res=>{
+    //         this.setState({
+    //             sharelist:res.data
+    //         });
+    //     }).catch(err=>{
+    //         console.log("목록 오류:"+err);
+    //     })
+    // }
 
-    componentDidMount(){
-        this.getShare();
-    }
+    // componentDidMount(){
+    //     this.getShare();
+    // }
 
     // componentWillUnmount(){
     //     console.log("Day Item willmount");
@@ -51,31 +59,9 @@ class DayItem extends Component {
         var y = wishday.substr(0,4);
         var m = wishday.substr(5,2);
         var d = wishday.substr(8,2);
-        var aroundId=row.aroundId;
-        var category=row.content;
-        var shareNum=row.shareNum;
-        var subject=this.state.sharelist.subject;
         var today = new Date(y, m-1, d);
         var betweenDay = selectDay.getTime() - today.getTime();  // 이게 0이여야 해당하는 날짜랑 wishday랑 맞는거에요!
-        var tag = betweenDay==0?
-        <div>
-            {/* <div className="category">{wishday===day &&category==='카페'?<FaMugHot></FaMugHot>:
-                    wishday===day &&category==='숙박'?<FaHotel></FaHotel>:wishday===day &&category==='음식점'?
-                <FaHamburger></FaHamburger>:''}</div> */}
-                {aroundId!==null?category.split(",")[0]==="음식점"
-                ?<FaHamburger></FaHamburger>:category.split(",")[0]==="숙박"?
-                <FaHotel></FaHotel>:<FaMugHot></FaMugHot>:''}{aroundId}
-               {shareNum!==null?subject:''}
-            <div className="title">
-                
-                
-
-                
-                </div>
-                <br/>
-                 
-        </div>
-        :"";
+        var tag = betweenDay==0?<DayDetail row={this.props.row}/>:"";
 
         return (
             <div>
