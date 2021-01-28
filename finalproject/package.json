@@ -26,6 +26,7 @@
     "react-google-login": "^5.2.2",
     "react-icons": "4.1.0",
     "react-kakao-login": "^2.0.3",
+    "react-native": "^0.63.4",
     "react-redux": "7.2.2",
     "react-ripples": "^2.2.1",
     "react-router-dom": "^5.2.0",

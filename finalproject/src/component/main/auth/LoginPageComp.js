@@ -11,6 +11,7 @@ import TextField from "@material-ui/core/TextField";
 
 import MakeLoginBtn from "./MakeLoginBtn";
 import { FaThemeisle } from "react-icons/fa";
+import {Route, Link} from "react-router-dom";
 
 class LoginPageComp extends Component {
 
@@ -119,6 +120,10 @@ class LoginPageComp extends Component {
                     내 아이디는 {this.state.id} 입니다
                     내 비밀번호는 {this.state.pass} 입니다
                 </h5>
+                {/* 회원가입 */}
+                <Link to="/join"><button type="button" className="btn btn-warning">회원가입</button></Link>
+                
+                
                 <GoogleLoginBtnComp />
                 <GoogleLogoutBtnComp />
                 <br />

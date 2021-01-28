@@ -329,6 +329,7 @@ class SignupPageComp extends Component {
                 type="email" name="email" value={ this.state.email }
                 onChange = { this.changeEvent.bind(this) } />
                 
+                
                 {/* <label>이메일</label>
                 <input type="email" name = "email" value = { this.state.email } onChange={this.changeEvent.bind(this)} /> */}
                 <br />
