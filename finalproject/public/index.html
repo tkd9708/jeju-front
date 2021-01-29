@@ -52,62 +52,64 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"
         charset="utf-8"></script>
 <script>
-    function moveElement(x, y) {
-        // var strSelector = "div.hotPlace_location div.btn_go";
-        var strSelector = "div.hotPlaceComp div.hotPlace_location div.btn_go img.img_wholeMap";
-        var element = document.querySelector(strSelector);
-        var elementRectInfo = null;
+    // function moveElement(x, y) {
+    //     // var strSelector = "div.hotPlace_location div.btn_go";
+    //     var strSelector = "div.hotPlaceComp div.hotPlace_location div.btn_go img.img_wholeMap";
+    //     var element = document.querySelector(strSelector);
+    //     var elementRectInfo = null;
+    //
+    //     console.log("selected element: ", element);
+    //
+    //     if (element) {
+    //         elementRectInfo = element.getBoundingClientRect();
+    //         console.log("elementRectInfo", elementRectInfo);
+    //     }
+    // }
+    //
+    // window.addEventListener('keyup', function (e) {
+    //     if (e.code == "ArrowLeft") {
+    //         console.log("keyEvent", e);
+    //         moveElement(-1, 0);
+    //     } else if (e.code == "ArrowRight") {
+    //         console.log("keyEvent", e);
+    //         moveElement(1, 0);
+    //     } else if (e.code == "ArrowUp") {
+    //         console.log("keyEvent", e);
+    //         moveElement(0, -1);
+    //     } else if (e.code == "ArrowDown") {
+    //         console.log("keyEvent", e);
+    //         moveElement(0, 1);
+    //     }
+    // });
 
-        console.log("selected element: ", element);
-
-        if (element) {
-            elementRectInfo = element.getBoundingClientRect();
-            console.log("elementRectInfo", elementRectInfo);
-        }
-    }
-
-    window.addEventListener('keyup', function (e) {
-        if (e.code == "ArrowLeft") {
-            console.log("keyEvent", e);
-            moveElement(-1, 0);
-        } else if (e.code == "ArrowRight") {
-            console.log("keyEvent", e);
-            moveElement(1, 0);
-        } else if (e.code == "ArrowUp") {
-            console.log("keyEvent", e);
-            moveElement(0, -1);
-        } else if (e.code == "ArrowDown") {
-            console.log("keyEvent", e);
-            moveElement(0, 1);
-        }
-    });
-
-    window.addEventListener('keydown', function (e) {
-        var offset = [0,0];
-        // var divOverlay = document.getElementById ("btn_go_jeju");
-        var divOverlay = document.querySelector("div.hotPlaceComp div.hotPlace_location div.btn_go img.img_wholeMap");
-        console.log(divOverlay);
-        var isDown = false;
-        divOverlay.addEventListener('mousedown', function(e) {
-            isDown = true;
-            offset = [
-                divOverlay.offsetLeft - e.clientX,
-                divOverlay.offsetTop - e.clientY
-            ];
-        }, true);
-        document.addEventListener('mouseup', function() {
-            isDown = false;
-            console.log(divOverlay.style.cssText);
-        }, true);
-
-        document.addEventListener('mousemove', function(e) {
-            event.preventDefault();
-            if (isDown) {
-                divOverlay.style.left = (e.clientX + offset[0]) + 'px';
-                divOverlay.style.top  = (e.clientY + offset[1]) + 'px';
-            }
-        }, true);
-    });
+    // window.addEventListener('keydown', function (e) {
+    //     var offset = [0,0];
+    //     // var divOverlay = document.getElementById ("btn_go_jeju");
+    //     // var divOverlay = document.querySelector("div.hotPlaceComp div.hotPlace_location div.btn_go img.img_wholeMap");
+    //     var divOverlay = null;
+    //
+    //     console.log(divOverlay);
+    //     var isDown = false;
+    //     divOverlay.addEventListener('mousedown', function(e) {
+    //         isDown = true;
+    //         offset = [
+    //             divOverlay.offsetLeft - e.clientX,
+    //             divOverlay.offsetTop - e.clientY
+    //         ];
+    //     }, true);
+    //     document.addEventListener('mouseup', function() {
+    //         isDown = false;
+    //         console.log(divOverlay.style.cssText);
+    //     }, true);
+    //
+    //     document.addEventListener('mousemove', function(e) {
+    //         event.preventDefault();
+    //         if (isDown) {
+    //             divOverlay.style.left = (e.clientX + offset[0]) + 'px';
+    //             divOverlay.style.top  = (e.clientY + offset[1]) + 'px';
+    //         }
+    //     }, true);
+    // });
 
 </script>
 

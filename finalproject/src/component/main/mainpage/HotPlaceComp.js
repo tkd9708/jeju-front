@@ -79,9 +79,9 @@ function a11yProps(index) {
     };
 }
 
-export default function HotPlaceComp() {
+export default function HotPlaceComp(props) {
     const [value, setValue] = React.useState(2);
-    const [selectedLocation, setSelectedLocation] = React.useState("제주");
+    const [selectedLocationIdx, setSelectedLocationIdx] = React.useState(0);
 
     const handleChange = (event, newValue) => {
         // console.log(event, newValue);
@@ -98,8 +98,8 @@ export default function HotPlaceComp() {
 
     const clickLocation = (e) => {
         e.preventDefault();
-        // console.log(selectedLocation, e.target.dataset.location);
-        setSelectedLocation(e.target.dataset.location_kr.trim());
+        setSelectedLocationIdx(e.target.dataset.idx);
+
     }
 
     const setActionEvent = () => {
@@ -138,6 +138,7 @@ export default function HotPlaceComp() {
                                    onClick={clickLocation.bind(this)}
                                    data-location_en={e}
                                    data-location_kr={arrJejuLoc_ko[i]}
+                                   data-idx={i}
                                 >{arrJejuLoc_ko[i]}
                                 </a>
                             </div>
@@ -161,9 +162,11 @@ export default function HotPlaceComp() {
                 </div>
             </div>
             <div className="hotPlace_sample">
-                <BoardSample location={selectedLocation}/>
+                <BoardSample idx={selectedLocationIdx}
+                             history={props.history}
+                />
             </div>
-            {setActionEvent}
+            {/*{setActionEvent}*/}
         </div>
     )
 }
