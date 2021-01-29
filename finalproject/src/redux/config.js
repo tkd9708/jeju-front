@@ -4,15 +4,15 @@ import React, {useEffect} from "react";
 import {} from "../component/main/admin/MemberListPageComp";
 
 
-<<<<<<< HEAD
+
 
 export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot2";
 
 
-=======
 
-  export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot2";
->>>>>>> ac5ba039c4d492734bfb9d66fa1d70249af40e16
+
+//export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot2";
+
 //export const URL = "http://localhost:9002";
 
 export const arrJejuLoc_en = [

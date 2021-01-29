@@ -199,7 +199,7 @@ class ShareBoardRowItem extends Component {
                                  
                                 <p style={{marginTop:"10px",marginBottom:'45px'}}>(작성자) 님이 공유하신 맛집입니다.</p>
 
-                                <b style={{fontSize:'20px'}}>{row.subject}</b>
+                                <b style={{fontSize:'15px'}}>{row.subject}</b>
                                 </div>
                                 
                                 {/* 찜하기 버튼 */}
