@@ -8,6 +8,37 @@ import {} from "../component/main/admin/MemberListPageComp";
  // export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot2";
 export const URL = "http://localhost:9002";
 
+export const arrJejuLoc_en = [
+    "jeju",
+    "jocheon",
+    "gujwa",
+    "sungsan",
+    "pyoseon",
+    "namwon",
+    "andeok",
+    "daejung",
+    "hangyeong",
+    "hanrim",
+    "aewol",
+    "udo",
+    "seogwipo",
+]
+
+export const arrJejuLoc_ko = [
+    "제주",
+    "조천",
+    "구좌",
+    "성산",
+    "표선",
+    "남원",
+    "안덕",
+    "대정",
+    "한경",
+    "한림",
+    "애월",
+    "우도",
+    "서귀포",
+]
 
 export const actionType = {
     setMainView: "setMainView",

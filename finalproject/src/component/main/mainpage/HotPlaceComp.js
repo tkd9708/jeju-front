@@ -1,7 +1,7 @@
 import React, {Component, useState} from "react";
 import {NavLink, Route} from "react-router-dom";
 import store from "../../../redux/store";
-import {actionType, mainViewType} from "../../../redux/config";
+import {actionType, arrJejuLoc_en, arrJejuLoc_ko, mainViewType} from "../../../redux/config";
 import TourList from '../../header/menus/TourList';
 import TourPageComp from '../tour/TourPageComp';
 import axios from 'axios';
@@ -15,6 +15,35 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import BoardSample from "./BoardSample";
 
+import img_s_jeju from "../../../image/land_s/jeju_s.png";
+import img_s_jocheon from "../../../image/land_s/jocheon_s.png";
+import img_s_gujwa from "../../../image/land_s/gujwa_s.png";
+import img_s_sungsan from "../../../image/land_s/sungsan_s.png";
+import img_s_pyoseon from "../../../image/land_s/pyoseon_s.png";
+import img_s_namwon from "../../../image/land_s/namwon_s.png";
+import img_s_seogwipo from "../../../image/land_s/seogwipo_s.png";
+import img_s_andeok from "../../../image/land_s/andeok_s.png";
+import img_s_daejung from "../../../image/land_s/daejung_s.png";
+import img_s_hangyeong from "../../../image/land_s/hangyeong_s.png";
+import img_s_hanrim from "../../../image/land_s/hanrim_s.png";
+import img_s_aewol from "../../../image/land_s/aewol_s.png";
+import img_s_udo from "../../../image/land_s/udo_s.png";
+
+import img_jeju from "../../../image/land/jeju.png";
+import img_jocheon from "../../../image/land/jocheon.png";
+import img_gujwa from "../../../image/land/gujwa.png";
+import img_sungsan from "../../../image/land/sungsan.png";
+import img_pyoseon from "../../../image/land/pyoseon.png";
+import img_namwon from "../../../image/land/namwon.png";
+import img_seogwipo from "../../../image/land/seogwipo.png";
+import img_andeok from "../../../image/land/andeok.png";
+import img_daejung from "../../../image/land/daejung.png";
+import img_hangyeong from "../../../image/land/hangyeong.png";
+import img_hanrim from "../../../image/land/hanrim.png";
+import img_aewol from "../../../image/land/aewol.png";
+import img_udo from "../../../image/land/udo.png";
+import img_wholeMap from "../../../image/land/jejuisland_d.png";
+
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
 
@@ -24,13 +53,13 @@ function TabPanel(props) {
     // 통신 메서드
     function searchApi() {
         const url = URL + '/spot/list';
-        axios.get(url)
-        .then(function(response) {
+
+        axios.get(url
+        ).then(function (response) {
             setPhotos(response.data);
-            console.log("성공");
-        })
-        .catch(function(error) {
-            console.log("실패");
+            console.log("/spot/list", response);
+        }).catch(function (error) {
+            console.log("/spot/list", error);
         })
     }
 
@@ -69,12 +98,12 @@ export default function HotPlaceComp() {
     const [selectedLocation, setSelectedLocation] = React.useState("제주");
 
     const handleChange = (event, newValue) => {
-        console.log(event, newValue);
+        // console.log(event, newValue);
         setValue(newValue);
     };
 
     const setMainView = (mainView) => {
-        console.log("HotPlaceComp setMainView()");
+        // console.log("HotPlaceComp setMainView()");
         store.dispatch({
             type: actionType.setMainView,
             mainView: mainView
@@ -84,35 +113,155 @@ export default function HotPlaceComp() {
     const clickLocation = (e) => {
         e.preventDefault();
         // console.log(selectedLocation, e.target.dataset.location);
-        setSelectedLocation(e.target.dataset.location);
+        setSelectedLocation(e.target.dataset.location_kr.trim());
+    }
+
+    const setActionEvent = () => {
 
     }
+
+    const mouseOverEventJejuMap = (e) => {
+        // console.log("mouseOverEventJejuMap", e.target.dataset);
+
+        let selectedLoc = document.getElementById("btn_go_" + e.target.dataset.location_en);
+        // console.log(selectedLoc);
+        selectedLoc.style.visibility = "visible";
+    }
+
+    const mouseLeaveEventJejuMap = (e) => {
+        // console.log("mouseLeaveEventJejuMap", e.target.dataset);
+
+        let selectedLoc = document.getElementById("btn_go_" + e.target.dataset.location_en);
+        // console.log(selectedLoc);
+        selectedLoc.style.visibility = "hidden";
+    }
+
 
     return (
         <div className="hotPlaceComp">
             <div className="hotPlace_location">
-                <a href="#" data-location="제주" onClick={clickLocation.bind(this)}>제주</a>
-                <a href="#" data-location="조천" onClick={clickLocation.bind(this)}>조천</a>
-                <a href="#" data-location="구좌" onClick={clickLocation.bind(this)}>구좌</a>
-                <a href="#" data-location="성산" onClick={clickLocation.bind(this)}>성산</a>
-                <a href="#" data-location="표선" onClick={clickLocation.bind(this)}>표선</a>
-                <a href="#" data-location="남원" onClick={clickLocation.bind(this)}>남원</a>
-                <a href="#" data-location="서귀" onClick={clickLocation.bind(this)}>서귀</a>
-                <a href="#" data-location="안덕" onClick={clickLocation.bind(this)}>안덕</a>
-                <a href="#" data-location="대정" onClick={clickLocation.bind(this)}>대정</a>
-                <a href="#" data-location="한경" onClick={clickLocation.bind(this)}>한경</a>
-                <a href="#" data-location="한림" onClick={clickLocation.bind(this)}>한림</a>
-                <a href="#" data-location="애월" onClick={clickLocation.bind(this)}>애월</a>
-                <a href="#" data-location="우도" onClick={clickLocation.bind(this)}>우도</a>
+                <div className="btn_go">
+                    <img className="img_wholeMap" src={img_wholeMap}/>
+
+                    {
+                        arrJejuLoc_en.map((e, i) => (
+                            <div className={e}>
+                                <a href="#"
+                                   onMouseLeave={mouseLeaveEventJejuMap}
+                                   onMouseOver={mouseOverEventJejuMap}
+                                   onClick={clickLocation.bind(this)}
+                                   data-location_en={e}
+                                   data-location_kr={arrJejuLoc_ko[i]}
+                                >{arrJejuLoc_ko[i]}
+                                </a>
+                            </div>
+                        ))
+                    }
+
+                    <img id="btn_go_jeju" src={img_s_jeju}/>
+                    <img id="btn_go_jocheon" src={img_s_jocheon}/>
+                    <img id="btn_go_gujwa" src={img_s_gujwa}/>
+                    <img id="btn_go_sungsan" src={img_s_sungsan}/>
+                    <img id="btn_go_pyoseon" src={img_s_pyoseon}/>
+                    <img id="btn_go_namwon" src={img_s_namwon}/>
+                    <img id="btn_go_andeok" src={img_s_andeok}/>
+                    <img id="btn_go_daejung" src={img_s_daejung}/>
+                    <img id="btn_go_hangyeong" src={img_s_hangyeong}/>
+                    <img id="btn_go_hanrim" src={img_s_hanrim}/>
+                    <img id="btn_go_aewol" src={img_s_aewol}/>
+                    <img id="btn_go_udo" src={img_s_udo}/>
+                    <img id="btn_go_seogwipo" src={img_s_seogwipo}/>
+
+                </div>
             </div>
             <div className="hotPlace_sample">
                 <BoardSample location={selectedLocation}/>
             </div>
-
+            {setActionEvent}
         </div>
     )
 }
 
+/*
+                    <div className="jeju">     <a href="#"  onMouseLeave={mouseLeaveEventJejuMap}  onMouseOver={mouseOverEventJejuMap}   onClick={clickLocation.bind(this)} data-location_en="jeju     "  data-location_kr="제주"  >제주   </a> </div>   <img id="btn_go_jeju"       src={img_s_jeju       }/>
+                    <div className="jocheon">  <a href="#"  onMouseLeave={mouseLeaveEventJejuMap}  onMouseOver={mouseOverEventJejuMap}   onClick={clickLocation.bind(this)} data-location_en="jocheon  "  data-location_kr="조천"  >조천   </a> </div>   <img id="btn_go_jocheon"    src={img_s_jocheon    }/>
+                    <div className="gujwa">    <a href="#"  onMouseLeave={mouseLeaveEventJejuMap}  onMouseOver={mouseOverEventJejuMap}   onClick={clickLocation.bind(this)} data-location_en="gujwa    "  data-location_kr="구좌"  >구좌   </a> </div>   <img id="btn_go_gujwa"      src={img_s_gujwa      }/>
+                    <div className="sungsan">  <a href="#"  onMouseLeave={mouseLeaveEventJejuMap}  onMouseOver={mouseOverEventJejuMap}   onClick={clickLocation.bind(this)} data-location_en="sungsan  "  data-location_kr="성산"  >성산   </a> </div>   <img id="btn_go_sungsan"    src={img_s_sungsan    }/>
+                    <div className="pyoseon">  <a href="#"  onMouseLeave={mouseLeaveEventJejuMap}  onMouseOver={mouseOverEventJejuMap}   onClick={clickLocation.bind(this)} data-location_en="pyoseon  "  data-location_kr="표선"  >표선   </a> </div>   <img id="btn_go_pyoseon"    src={img_s_pyoseon    }/>
+                    <div className="namwon">   <a href="#"  onMouseLeave={mouseLeaveEventJejuMap}  onMouseOver={mouseOverEventJejuMap}   onClick={clickLocation.bind(this)} data-location_en="namwon   "  data-location_kr="남원"  >남원   </a> </div>   <img id="btn_go_namwon"     src={img_s_namwon     }/>
+                    <div className="andeok">   <a href="#"  onMouseLeave={mouseLeaveEventJejuMap}  onMouseOver={mouseOverEventJejuMap}   onClick={clickLocation.bind(this)} data-location_en="andeok   "  data-location_kr="안덕"  >안덕   </a> </div>   <img id="btn_go_andeok"     src={img_s_andeok     }/>
+                    <div className="daejung">  <a href="#"  onMouseLeave={mouseLeaveEventJejuMap}  onMouseOver={mouseOverEventJejuMap}   onClick={clickLocation.bind(this)} data-location_en="daejung  "  data-location_kr="대정"  >대정   </a> </div>   <img id="btn_go_daejung"    src={img_s_daejung    }/>
+                    <div className="hangyeong"><a href="#"  onMouseLeave={mouseLeaveEventJejuMap}  onMouseOver={mouseOverEventJejuMap}   onClick={clickLocation.bind(this)} data-location_en="hangyeong"  data-location_kr="한경"  >한경   </a> </div>   <img id="btn_go_hangyeong"  src={img_s_hangyeong  }/>
+                    <div className="hanrim">   <a href="#"  onMouseLeave={mouseLeaveEventJejuMap}  onMouseOver={mouseOverEventJejuMap}   onClick={clickLocation.bind(this)} data-location_en="hanrim   "  data-location_kr="한림"  >한림   </a> </div>   <img id="btn_go_hanrim"     src={img_s_hanrim     }/>
+                    <div className="aewol">    <a href="#"  onMouseLeave={mouseLeaveEventJejuMap}  onMouseOver={mouseOverEventJejuMap}   onClick={clickLocation.bind(this)} data-location_en="aewol    "  data-location_kr="애월"  >애월   </a> </div>   <img id="btn_go_aewol"      src={img_s_aewol      }/>
+                    <div className="udo">      <a href="#"  onMouseLeave={mouseLeaveEventJejuMap}  onMouseOver={mouseOverEventJejuMap}   onClick={clickLocation.bind(this)} data-location_en="udo      "  data-location_kr="우도"  >우도   </a> </div>   <img id="btn_go_udo"        src={img_s_udo        }/>
+                    <div className="seogwipo"> <a href="#"  onMouseLeave={mouseLeaveEventJejuMap}  onMouseOver={mouseOverEventJejuMap}   onClick={clickLocation.bind(this)} data-location_en="seogwipo "  data-location_kr="서귀포" >서귀포  </a> </div>  <img id="btn_go_seogwipo"   src={img_s_seogwipo   }/>
+
+ */
+
+/*
+import img_s_jeju       from "../../../image/land_s/jeju_s.png";
+import img_s_jocheon    from "../../../image/land_s/jocheon_s.png";
+import img_s_gujwa      from "../../../image/land_s/gujwa_s.png";
+import img_s_sungsan    from "../../../image/land_s/sungsan_s.png";
+import img_s_pyoseon    from "../../../image/land_s/pyoseon_s.png";
+import img_s_namwon     from "../../../image/land_s/namwon_s.png";
+import img_s_seogwipo   from "../../../image/land_s/seogwipo_s.png";
+import img_s_andeok     from "../../../image/land_s/andeok_s.png";
+import img_s_daejung    from "../../../image/land_s/daejung_s.png";
+import img_s_hangyeong  from "../../../image/land_s/hangyeong_s.png";
+import img_s_hanrim     from "../../../image/land_s/hanrim_s.png";
+import img_s_aewol      from "../../../image/land_s/aewol_s.png";
+import img_s_udo        from "../../../image/land_s/udo_s.png";
+
+import img_jeju         from "../../../image/land/jeju.png";
+import img_jocheon      from "../../../image/land/jocheon.png";
+import img_gujwa        from "../../../image/land/gujwa.png";
+import img_sungsan      from "../../../image/land/sungsan.png";
+import img_pyoseon      from "../../../image/land/pyoseon.png";
+import img_namwon       from "../../../image/land/namwon.png";
+import img_seogwipo     from "../../../image/land/seogwipo.png";
+import img_andeok       from "../../../image/land/andeok.png";
+import img_daejung      from "../../../image/land/daejung.png";
+import img_hangyeong    from "../../../image/land/hangyeong.png";
+import img_hanrim       from "../../../image/land/hanrim.png";
+import img_aewol        from "../../../image/land/aewol.png";
+import img_udo          from "../../../image/land/udo.png";
+ */
+
+/*
+<div className="btn_go">
+    <div className="jeju">          <a href="#">제주</a>      </div>  <img id="btn_go_jeju"       src={img_jeju     }  />
+    <div className="jocheon">       <a href="#">조천</a>      </div>  <img id="btn_go_jocheon"    src={img_jocheon  }  />
+    <div className="gujwa">         <a href="#">구좌</a>      </div>  <img id="btn_go_gujwa"      src={img_gujwa    }  />
+    <div className="sungsan">       <a href="#">성산</a>      </div>  <img id="btn_go_sungsan"    src={img_sungsan  }  />
+    <div className="pyoseon">       <a href="#">표선</a>      </div>  <img id="btn_go_pyoseon"    src={img_pyoseon  }  />
+    <div className="namwon">        <a href="#">남원</a>      </div>  <img id="btn_go_namwon"     src={img_namwon   }  />
+    <div className="seogwipo">      <a href="#">서귀</a>      </div>  <img id="btn_go_seogwipo"   src={img_seogwipo }  />
+    <div className="andeok">        <a href="#">안덕</a>      </div>  <img id="btn_go_andeok"     src={img_andeok   }  />
+    <div className="daejung">       <a href="#">대정</a>      </div>  <img id="btn_go_daejung"    src={img_daejung  }  />
+    <div className="hangyeong">     <a href="#">한경</a>      </div>  <img id="btn_go_hangyeong"  src={img_hangyeong}  />
+    <div className="hanrim">        <a href="#">한림</a>      </div>  <img id="btn_go_hanrim"     src={img_hanrim   }  />
+    <div className="aewol">         <a href="#">애월</a>      </div>  <img id="btn_go_aewol"      src={img_aewol    }  />
+    <div className="udo">           <a href="#">우도</a>      </div>  <img id="btn_go_udo"        src={img_udo      }  />
+</div>
+ */
+
+/*
+    <a href="#" data-location="제주" onClick={clickLocation.bind(this)}>제주</a>
+    <a href="#" data-location="조천" onClick={clickLocation.bind(this)}>조천</a>
+    <a href="#" data-location="구좌" onClick={clickLocation.bind(this)}>구좌</a>
+    <a href="#" data-location="성산" onClick={clickLocation.bind(this)}>성산</a>
+    <a href="#" data-location="표선" onClick={clickLocation.bind(this)}>표선</a>
+    <a href="#" data-location="남원" onClick={clickLocation.bind(this)}>남원</a>
+    <a href="#" data-location="서귀" onClick={clickLocation.bind(this)}>서귀</a>
+    <a href="#" data-location="안덕" onClick={clickLocation.bind(this)}>안덕</a>
+    <a href="#" data-location="대정" onClick={clickLocation.bind(this)}>대정</a>
+    <a href="#" data-location="한경" onClick={clickLocation.bind(this)}>한경</a>
+    <a href="#" data-location="한림" onClick={clickLocation.bind(this)}>한림</a>
+    <a href="#" data-location="애월" onClick={clickLocation.bind(this)}>애월</a>
+    <a href="#" data-location="우도" onClick={clickLocation.bind(this)}>우도</a>
+ */
 
 /*
 <Paper square>

@@ -36,12 +36,13 @@ const footerStyle = {
     sizeIn: {
         position: "absolute",
         width: "100%",
-        bottom: "2.5%",
+        bottom: "2.0%",
     },
     sizeOver: {
         width: "100%",
     }
 }
+
 const setPositionFooter = () => {
     let menuElement = document.querySelector(".menu");
     let mainFrameElement = document.querySelector(".mainFrame");
@@ -51,7 +52,6 @@ const setPositionFooter = () => {
     let footerComp = document.querySelector(".footerComp");
     let topContentHeight = menuHeight + mainFrameHeight;
     console.log(mainFrameHeight, menuHeight, topContentHeight, window.visualViewport.height);
-
 
     if (footerComp) {
         if (window.visualViewport.height > topContentHeight) {
