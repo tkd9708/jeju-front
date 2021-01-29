@@ -249,7 +249,6 @@ class DetailTourComp extends Component {
                             this.setState({
                                 alertOpen: false
                             })
-                            this.refs.thumbHeart.className="heart clickheart";
                             this.props.history.push("/mypage");
                         }
                     } color="primary" autoFocus>

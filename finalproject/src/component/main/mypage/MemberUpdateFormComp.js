@@ -131,19 +131,25 @@ class MemberUpdateFormComp extends Component {
             email2: this.state.email2,
             hp: this.state.hp
           }
-          console.log(data);
         
         let url = URL + "/member/update";
 
-        console.log(data);
-        axios.post(url, data)
-        .then(response => {
-            this.props.passOk(false);
-            window.scrollTo(0,0);
-            alert("정보가 수정되었습니다.");
-        }).catch(err=>{
-            console.log("회원업데이트중 오류:"+err);
-        })
+        if(this.state.id.trim()==='' || this.state.name.trim()==='' || this.state.pass.trim()==='' 
+            || this.state.gender.trim()==='' || this.state.fullAddress.trim()==='' || this.state.addrdetail.trim()==='' ||
+            this.state.email.trim()==='' || this.state.email2.trim()==='' || this.state.hp.trim()===''){
+                alert("정보를 모두 입력해주세요.")
+        }
+        else {
+            axios.post(url, data)
+            .then(response => {
+                this.props.passOk(false);
+                window.scrollTo(0,0);
+                alert("정보가 수정되었습니다.");
+            }).catch(err=>{
+                console.log("회원업데이트중 오류:"+err);
+            })
+        }
+        
     }
 
     onDeleteMember = () => {
