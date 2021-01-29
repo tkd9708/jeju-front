@@ -7,12 +7,10 @@ import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { withStyles } from '@material-ui/core/styles';
 import { MDBBtn } from "mdbreact";
-// import PropTypes from 'prop-types';
-// import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 
+import Box from '@material-ui/core/Box';
 import "./Share.css";
-// import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+
 
 
 const StyledRating = withStyles({
@@ -24,46 +22,13 @@ const StyledRating = withStyles({
     },
   })(Rating);
   
-//   const customIcons = {
-//     1: {
-//       icon: <SentimentVeryDissatisfiedIcon />,
-//       label: 'Very Dissatisfied',
-//     },
-//     2: {
-//       icon: <SentimentDissatisfiedIcon />,
-//       label: 'Dissatisfied',
-//     },
-//     3: {
-//       icon: <SentimentSatisfiedIcon />,
-//       label: 'Neutral',
-//     },
-//     4: {
-//       icon: <SentimentSatisfiedAltIcon />,
-//       label: 'Satisfied',
-//     },
-//     5: {
-//       icon: <SentimentVerySatisfiedIcon />,
-//       label: 'Very Satisfied',
-//     },
-//   };
-  
-//   function IconContainer(props) {
-//     const { value, ...other } = props;
-//     return <span {...other}>{customIcons[value].icon}</span>;
-//   }
-  
-//   IconContainer.propTypes = {
-//     value: PropTypes.number.isRequired,
-//   };
-  
-
-
-
 
 class ShareBoardFormComp extends Component {
 
     state = {
         photoname: ''
+        
+        
     }
 
     constructor(props) {
@@ -194,11 +159,11 @@ class ShareBoardFormComp extends Component {
                         <th id="shareth" style={{verticalAlign:'middle'}}><span>평가 </span></th>
                         
                         <td id="sharetd">
-                        <Box style={{marginTop:"25px"}} component="fieldset" mb={3} borderColor="transparent">
+                        <Box style={{marginTop:"10px"}}>
                         <Rating
-                         name="customized-empty"
-                         defaultValue={1}
-                         //precision={0.5}
+                         
+                         defaultValue={0}
+                        
                          emptyIcon={<StarBorderIcon fontSize="inherit" />}
                          onChange={
                             (e)=>{

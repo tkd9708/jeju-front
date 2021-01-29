@@ -11,6 +11,9 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import BuildIcon from '@material-ui/icons/Build';   
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import Rating from '@material-ui/lab/Rating';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import { withStyles } from '@material-ui/core/styles';
 import { MDBBtn } from "mdbreact";
 import './Share.css';
 
@@ -29,6 +32,17 @@ row:
     subject: "제주도 맛집맛집"
     writeday: "2021-01-22"
  */
+
+const StyledRating = withStyles({
+    iconFilled: {
+      color: '#ff6d75',
+    },
+    iconHover: {
+      color: '#ff3d47',
+    },
+  })(Rating);
+
+
 class ShareBoardRowItem extends Component {
 
     state = {
@@ -140,6 +154,7 @@ class ShareBoardRowItem extends Component {
             scrollTop
         } = this.state
 
+
        
 
          
@@ -162,9 +177,25 @@ class ShareBoardRowItem extends Component {
                         </div>
 
                         <div id="ShareContentDiv">
-                            <div id="ShareContent">평점:{row.star}</div>
-                            <div>주소:{row.addr}</div>
+                            
+                            
+                            
+                            <Box>
+                                
+                              <Rating style={{marginTop:'13px'}}
+                            
+                              defaultValue={row.star}
+                              
+                              emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                        
+                              />
+                            </Box>
+                            
+                           
+                        
+                            <div style={{marginTop:'10px'}}>주소:{row.addr}</div>
                         </div>
+                        
                         <div>
                             <div style={{width: '400px', height: '55px',backgroundColor:'#FaFaFa'}}>
                               {/* 좋아요 버튼 */}
@@ -213,7 +244,18 @@ class ShareBoardRowItem extends Component {
                                    
                                 
                                 <div id="ShareModalContent">
-                                    <div id="ShareModalContent1">평점:{row.star}</div>
+                                    <div id="ShareModalContent1">
+                                    <Box>
+                                
+                                    <Rating 
+                              
+                                     defaultValue={row.star}
+                                
+                                     emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                          
+                                     />
+                                    </Box>
+                              </div>
                                     <div id="ShareModalContent2">주소:{row.addr}</div>
                                     <div id="ShareModalContent3">리뷰:{row.content}</div>
                                     <div id="ShareModalContent4">작성일:{row.writeday}</div>
