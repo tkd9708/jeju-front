@@ -13,7 +13,7 @@ import TextField from "@material-ui/core/TextField";
 
 import MakeLoginBtn from "./MakeLoginBtn";
 import { FaThemeisle } from "react-icons/fa";
-import {Route, Link} from "react-router-dom";
+import {Route, Link, withRouter } from "react-router-dom";
 
 class LoginPageComp extends Component {
 
@@ -143,4 +143,4 @@ class LoginPageComp extends Component {
 
 }
 
-export default LoginPageComp;
+export default withRouter(LoginPageComp);

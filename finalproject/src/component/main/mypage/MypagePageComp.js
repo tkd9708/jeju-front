@@ -78,7 +78,7 @@ class MypagePageComp extends Component {
     render() {
         // console.log("MypagePageComp render()", this.props);
         const url = URL + "/";
-        const userimg = this.state.memberData.photo==null?userImg:url+this.state.memberData.photo;
+        const userimg = this.state.memberData.photo=="no"?userImg:url+this.state.memberData.photo;
         const address = this.state.memberData.addrdetail!==null?"(" + this.state.memberData.addrdetail + ")":"";
         const passOkTab = this.state.passOk==true?<MemberUpdateFormComp num={this.state.memberData} passOk={this.passOk.bind(this)} history={this.props.history}/>:<PassCheck passOk={this.passOk.bind(this)}/>;
         
@@ -96,7 +96,7 @@ class MypagePageComp extends Component {
                     >
 
                         <Box className="mypageInfoCol" width="20%" alignSelf="center">
-                            <img src={userImg} alt="이미지없음" id="mypageUserImg"/>
+                            <img src={userimg} alt="이미지없음" id="mypageUserImg"/>
                         </Box>
                         <Box m={1} bgcolor="#fff" width="50%" className="mypageInfoCol">
                             <table>

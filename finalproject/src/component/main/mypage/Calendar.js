@@ -80,6 +80,7 @@ class Week extends Component {
       })
     };
 
+
       getData=()=>{
 
             let url = URL + "/wish/list?memId=sanghee";
@@ -121,6 +122,7 @@ class Week extends Component {
       // }
     
    
+
 
 
 
@@ -192,7 +194,7 @@ class Week extends Component {
                 open: true
               })
               this.getList(dayInfo.yearMonthDayFormat);
-              
+
             }}>
               <label className="RCA-calendar-day-label">
                 {dayInfo.getDay}
@@ -213,8 +215,10 @@ class Week extends Component {
     
 
   render() {
+
     var content=this.state.clist.content;
    
+
 
     return (
       <div className="RCA-calendar-week">
@@ -242,6 +246,7 @@ class Week extends Component {
                         {/* <h2 id="transition-modal-title">일정 목록</h2>
                         <p id="transition-modal-description"></p> */}
                         
+
                         <h2 id="transition-modal-title">{this.props.selected}</h2>
                         
                         <br/>
@@ -254,6 +259,7 @@ class Week extends Component {
                           row.content.split(",")[0]==="숙박"?<div>🏟{row.title}❌</div>:''}<br/></div>
                           
                           
+
                         ))}
                         
                     </div>

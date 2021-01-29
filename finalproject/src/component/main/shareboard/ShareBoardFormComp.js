@@ -6,12 +6,11 @@ import {URL} from '../../../redux/config';
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { withStyles } from '@material-ui/core/styles';
-// import PropTypes from 'prop-types';
-// import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import { MDBBtn } from "mdbreact";
 
+import Box from '@material-ui/core/Box';
 import "./Share.css";
-// import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+
 
 
 const StyledRating = withStyles({
@@ -23,46 +22,13 @@ const StyledRating = withStyles({
     },
   })(Rating);
   
-//   const customIcons = {
-//     1: {
-//       icon: <SentimentVeryDissatisfiedIcon />,
-//       label: 'Very Dissatisfied',
-//     },
-//     2: {
-//       icon: <SentimentDissatisfiedIcon />,
-//       label: 'Dissatisfied',
-//     },
-//     3: {
-//       icon: <SentimentSatisfiedIcon />,
-//       label: 'Neutral',
-//     },
-//     4: {
-//       icon: <SentimentSatisfiedAltIcon />,
-//       label: 'Satisfied',
-//     },
-//     5: {
-//       icon: <SentimentVerySatisfiedIcon />,
-//       label: 'Very Satisfied',
-//     },
-//   };
-  
-//   function IconContainer(props) {
-//     const { value, ...other } = props;
-//     return <span {...other}>{customIcons[value].icon}</span>;
-//   }
-  
-//   IconContainer.propTypes = {
-//     value: PropTypes.number.isRequired,
-//   };
-  
-
-
-
 
 class ShareBoardFormComp extends Component {
 
     state = {
         photoname: ''
+        
+        
     }
 
     constructor(props) {
@@ -150,38 +116,38 @@ class ShareBoardFormComp extends Component {
         return (
             <div>
                 <div id="ShareFormSubject">
-                <h3>맛집공유</h3>
+                <h3 id="sharesubject">맛집공유</h3>
                 </div>
 
              
                 <table id="ShareFormAll">
                     <tr>
-                        <th style={{verticalAlign:'middle'}}><span>맛집이름 </span></th>
-                        <td>
+                        <th id="shareth" style={{verticalAlign:'middle'}}><span>맛집이름 </span></th>
+                        <td id="sharetd">
                             <input className="form-control" type="text" style={{width: '200px', height: '50px'}}
                                    placeholder="맛집이름을 적어주세요" ref="subject"/>
                         </td>
                     </tr>
 
                     <tr>
-                        <th style={{verticalAlign:'middle'}}><span >맛집주소 </span></th>
-                        <td>
+                        <th id="shareth" style={{verticalAlign:'middle'}}><span >맛집주소 </span></th>
+                        <td id="sharetd">
                             <input className="form-control" type="text" style={{width: '400px', height: '50px'}}
                                    placeholder="맛집주소를 적어주세요" ref="addr"/>
                         </td>
                     </tr>
 
                     <tr>
-                        <th style={{verticalAlign:'middle'}}><span>이미지 </span></th>
-                        <td>
+                        <th id="shareth"  style={{verticalAlign:'middle'}}><span>이미지 </span></th>
+                        <td id="sharetd">
                             <input type="file" onChange={this.uploadImage.bind(this)}/>
                             {/* <img src={url + this.state.photoname} alt="이미지없음" style={{width:'200px',height:'300px'}}/> */}
                         </td>
                     </tr>
 
                     <tr>
-                        <th style={{verticalAlign:'middle'}}><span>리뷰 </span></th>
-                        <td>
+                        <th id="shareth" style={{verticalAlign:'middle'}}><span>리뷰 </span></th>
+                        <td id="sharetd">
                          <textarea maxLength="1000" className="form-control"
                                    style={{width: '600px', height: '150px', resize: 'none',cursor:'auto'}}
                                    ref="content" placeholder="리뷰를 입력하세요">
@@ -190,14 +156,14 @@ class ShareBoardFormComp extends Component {
                     </tr>
 
                     <tr>
-                        <th style={{verticalAlign:'middle'}}><span>평가 </span></th>
+                        <th id="shareth" style={{verticalAlign:'middle'}}><span>평가 </span></th>
                         
-                        <td>
-                        <Box style={{marginTop:"25px"}} component="fieldset" mb={3} borderColor="transparent">
+                        <td id="sharetd">
+                        <Box style={{marginTop:"10px"}}>
                         <Rating
-                         name="customized-empty"
-                         defaultValue={1}
-                         //precision={0.5}
+                         
+                         defaultValue={0}
+                        
                          emptyIcon={<StarBorderIcon fontSize="inherit" />}
                          onChange={
                             (e)=>{
@@ -215,14 +181,16 @@ class ShareBoardFormComp extends Component {
               
                 
                 <div id="ShareFormButton">
-                <button type="button" className="btn btn-danger" disabled="disabled"
-                        style={{color:'white',cursor:'pointer'}}
-                        onClick={this.handleSubmit.bind(this)}
-                >공유하기
-                </button>
+                <MDBBtn size="sm" color="deep-orange" 
+                        
+                        onClick={this.handleSubmit.bind(this)}>
+                     <b style={{fontSize:'15px'}}>공유하기</b>
+                </MDBBtn>
                 <Link to="/share">
-                    <button type="button" className="btn btn-danger" disabled="disabled"
-                    style={{color:'white',cursor:'pointer'}}>목록</button>
+                    <MDBBtn size="sm" color="deep-orange" 
+                    >
+                     <b style={{fontSize:'15px'}}>목록</b>
+                    </MDBBtn>
                 </Link>
                 </div>
             </div>

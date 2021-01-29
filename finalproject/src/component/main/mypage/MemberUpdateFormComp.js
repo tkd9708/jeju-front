@@ -9,7 +9,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import AddrList from './AddrList';
+import DaumPostcode from 'react-daum-postcode';
 
 class MemberUpdateFormComp extends Component {
 
@@ -28,8 +28,11 @@ class MemberUpdateFormComp extends Component {
             hp: '',
             password: '',
             showPassword: false,
-            keyword:'',
-            addrs: []
+            zoneCode : "",
+            fullAddress : "",
+            isDaumPost : false,
+            isRegister : false,
+            register: [],
         }
     }    
     
@@ -122,25 +125,31 @@ class MemberUpdateFormComp extends Component {
             pass: this.state.password,
             gender: this.state.gender,
             photo: this.state.photo,
-            address: this.state.address,
+            address: this.state.fullAddress,
             addrdetail: this.state.addrdetail,
             email: this.state.email,
             email2: this.state.email2,
             hp: this.state.hp
           }
-          console.log(data);
         
         let url = URL + "/member/update";
 
-        console.log(data);
-        axios.post(url, data)
-        .then(response => {
-            this.props.passOk(false);
-            window.scrollTo(0,0);
-            alert("정보가 수정되었습니다.");
-        }).catch(err=>{
-            console.log("회원업데이트중 오류:"+err);
-        })
+        if(this.state.id.trim()==='' || this.state.name.trim()==='' || this.state.pass.trim()==='' 
+            || this.state.gender.trim()==='' || this.state.fullAddress.trim()==='' || this.state.addrdetail.trim()==='' ||
+            this.state.email.trim()==='' || this.state.email2.trim()==='' || this.state.hp.trim()===''){
+                alert("정보를 모두 입력해주세요.")
+        }
+        else {
+            axios.post(url, data)
+            .then(response => {
+                this.props.passOk(false);
+                window.scrollTo(0,0);
+                alert("정보가 수정되었습니다.");
+            }).catch(err=>{
+                console.log("회원업데이트중 오류:"+err);
+            })
+        }
+        
     }
 
     onDeleteMember = () => {
@@ -193,33 +202,40 @@ class MemberUpdateFormComp extends Component {
     }
 
     // 주소검색
-    findAddress=()=>{
-        fetch(
-            `https://www.juso.go.kr/addrlink/addrLinkUrl.do?currentPage=1&countPerPage=100&keyword=${this.state.keyword}&confmKey=devU01TX0FVVEgyMDIxMDEyOTEzNDgxNTExMDc1ODU=&resultType=4`
-        )
-            .then(res => res.json())
-            .then(json => this.pushAddrs(json))
-            .catch(err => console.log("주소 불러오기 실패: " + err));
-    }
-
-    pushAddrs=json=>{
-        let tempAddr = [];
-        json.results.juso.map(addr=>{
-            return tempAddr.push(addr.zipNo + " " + addr.roadAddr);
-        });
+    handleTogglePost = () => {
+        var p = this.state.isDaumPost;
         this.setState({
-            addrs: tempAddr
+            isDaumPost : !p
         })
     }
 
-    render() {
-        console.log("MemberUpdateFormComp render()", this.props);
-        return (
-            <div id="MypageUpdateForm" style={{textAlign: 'center'}}>
-               <ul>
-                <AddrList list={this.state.addrs}/>
-               </ul>
+    // postcode
+    handleAddress = (data) => {
+        let AllAddress = data.address;
+        let extraAddress = ''; 
+        let zoneCodes = data.zonecode;
+        
+        if (data.addressType === 'R') {
+          if (data.bname !== '') {
+            extraAddress += data.bname;
+          }
+          if (data.buildingName !== '') {
+            extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
+          }
+          AllAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
+        }
+        this.setState ({
+            fullAddress: AllAddress,
+            zoneCode : zoneCodes
+        })
+      }
 
+    render() {
+        // console.log("MemberUpdateFormComp render()", this.props);
+
+
+        return (
+            <div id="MypageUpdateForm" style={{textAlign: 'center', position: 'relative'}}>
 
                 {/* <form onSubmit={this.onUpdateMember}> */}
                     <table class="table table-bordered">
@@ -266,11 +282,25 @@ class MemberUpdateFormComp extends Component {
                         </tr>
                         <tr>
                             <td colSpan="2">
-                                <input type="text" name = "address" class="form-control" value = {this.state.address} onChange={this.handleChange} required/>
+                                <input type="text" name = "address" class="form-control" value = {this.state.fullAddress} disabled  required/>
                                 <br/>
                                 <input type="text" name = "addrdetail" class="form-control" value = {this.state.addrdetail} onChange={this.handleChange} required/>
-                                <input type="text" name = "keyword" value={this.state.keyword} onChange={this.handleChange.bind(this)}/>
-                                <button type="button" onClick={this.findAddress.bind(this)}>주소검색</button>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2" onClick={this.handleTogglePost.bind(this)} style={{backgroundColor: '#036E38', color: 'white', cursor: 'pointer'}}>
+                                주소검색
+                                {
+                                    this.state.isDaumPost ?
+                                        <DaumPostcode
+                                            onComplete={this.handleAddress.bind(this)}
+                                            autoClose
+                                            className="postSearchModal"
+                                            isDaumPost={this.state.isDaumPost}
+                                            />
+                                    : null
+                                }
                             </td>
                         </tr>
                         <tr>
