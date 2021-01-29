@@ -5,15 +5,28 @@ class PageComp extends Component {
 
     render() {
         const {area, startPage, endPage, currentPage, totalPage, paginate, category, search, type} = this.props;
-
+        // href={`/tourlist/${area}/${startPage - 1}`}
+        // href={`/tourlist/${area}/${endPage + 1}`}
         let prev = startPage > 1 ?
             <li className="page-item">
-                <a className="page-link" style={{color: 'black'}} href={`/tourlist/${area}/${startPage - 1}`}>◀</a>
+                <a className="page-link" style={{color: 'black'}}
+                   href={(type == "tour")
+                       ? `/tourlist/${area}/${startPage - 1}`
+                       : (type == "search")
+                           ? `/search/${category}/${search}/${startPage - 1}`
+                           : ""}
+                >◀</a>
             </li> : "";
 
         let next = endPage < totalPage ?
             <li className="page-item">
-                <a className="page-link" style={{color: 'black'}} href={`/tourlist/${area}/${endPage + 1}`}>▶</a>
+                <a className="page-link" style={{color: 'black'}}
+                   href={(type == "tour")
+                       ? `/tourlist/${area}/${endPage + 1}`
+                       : (type == "search")
+                           ? `/search/${category}/${search}/${endPage + 1}`
+                           : ""}
+                >▶</a>
             </li> : "";
 
         let page = [];

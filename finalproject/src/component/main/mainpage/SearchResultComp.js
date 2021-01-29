@@ -102,6 +102,8 @@ class SearchResultComp extends Component {
             "?category=" + this.select +
             "&search=" + this.state.searchVal;
 
+        console.log(url);
+
         axios.get(url
         ).then(res => {
             console.log("res:", res);
