@@ -15,11 +15,12 @@ class TourPageComp extends Component {
     constructor({match}, props) {
         super(props);
 
+        // console.log(match);
 
-        this.state={
+        this.state = {
             area: match.params.name,
             spotList: [],
-            pageNum : match.params.pageNum
+            pageNum: match.params.pageNum
         }
 
         this.currentPage = this.state.pageNum;
@@ -67,7 +68,7 @@ class TourPageComp extends Component {
     }
 
     getTotalCount = () => {
-        
+
         let url = URL + "/spot/count?label2=" + this.state.area;
 
         axios.get(url)
@@ -80,7 +81,7 @@ class TourPageComp extends Component {
     }
 
     componentWillMount() {
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
         this.getTotalCount();
     }
 
@@ -90,27 +91,27 @@ class TourPageComp extends Component {
     }
 
     render() {
-        console.log("TourPageComp render()", this.props);
+        // console.log("TourPageComp render()", this.props);
         return (
             <div>
                 <Tourintro area={this.state.area}/>
                 <br/><br/><br/>
- 
+
                 {/* list 출력 */}
 
                 <div className="tourIntroTitle">
-                    <span className="tourIntroTitleContent" style={{backgroundColor:'white', color: '#3073BD'}}>
+                    <span className="tourIntroTitleContent" style={{backgroundColor: 'white', color: '#036E38'}}>
                         &nbsp;&nbsp;&nbsp;명소&nbsp;&nbsp;&nbsp;
                     </span>
                 </div>
-                <div style={{width:'100%'}}>
+                <div style={{width: '100%'}}>
                     <FormControl id="selectTourList">
                         <InputLabel>정렬순서</InputLabel>
                         <Select
                             native
                             value={this.select}
                             onChange={this.selectChange.bind(this)}
-                            >
+                        >
                             <option value="star">평점순</option>
                             <option value="likes">좋아요순</option>
                             <option value="title">제목순</option>
@@ -131,20 +132,26 @@ class TourPageComp extends Component {
                         m={1}
                         bgcolor="background.paper"
                         justifyContent="center"
-                        css={{ maxWidth: '100%' }}
+                        css={{maxWidth: '100%'}}
                     >
-                        {this.state.spotList.map((row,idx)=>(
-                            <ItemComp row={row} key={idx} history={this.props.history} getList={this.getList.bind(this)}></ItemComp>
+                        {this.state.spotList.map((row, idx) => (
+                            <ItemComp row={row} key={idx}
+                                      history={this.props.history}
+                                      getList={this.getList.bind(this)}
+                            ></ItemComp>
                         ))}
-                     </Box>
+                    </Box>
                 </div>
-                
-                
-                 <br/><br/>
+
+
+                <br/><br/>
 
                 {/* 페이징 */}
-                <PageComp currentPage={this.currentPage} startPage={this.startPage} endPage={this.endPage}
-                     totalPage={this.totalPage} area={this.state.area}></PageComp>
+                <PageComp currentPage={this.currentPage}
+                          startPage={this.startPage} endPage={this.endPage}
+                          totalPage={this.totalPage} area={this.state.area}
+                          type="tour"
+                ></PageComp>
             </div>
         )
     }

@@ -207,30 +207,48 @@
         margin: 0 auto;
         margin-left: 47.5%;
         margin-top: 20px;
+                 
+    }
+
+    h3{
         font-weight: 900;
-                
+        font-size: 35px;
+        color:lightsalmon;
+
     }
 
 
     #ShareFormAll{
-        width: 800px;
-        height: 600px;
-        border: 1px solid black; 
+        width: 750px;
+        height: 580px;
         margin: 0 auto;
-        margin-top: 30px;
-        border-radius: 50%;
-       
-
+        margin-top: 15px;
+              
+ 
     }
 
    
     
     th{
+        
         text-align: center;
+        border-bottom: 2px solid wheat;
+        padding-right: 20px;
+        color:burlywood;
+        text-shadow: wheat;
+        font-weight: lighter;
+        font-size: 1.2em;
+
+    }
+
+    td{
+        border-bottom: 2px solid wheat;
+        padding-left: 20px;
+
     }
 
     input{
-        margin-top: 20px;
+        margin-top: 7px;
     }
  
 

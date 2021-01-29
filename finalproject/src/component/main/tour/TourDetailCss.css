@@ -17,7 +17,7 @@ label {
     display: table;
 }
 
-@media only screen and (max-width:400px){
+@media only screen and (max-width:450px){
     #tourRiveiwTable{
         width: 300px;
         margin: 70px auto;
@@ -69,30 +69,32 @@ label {
         margin-bottom: 80px;
         margin-left: 30px;
         margin-right: 30px;
+        text-align: center;
     }
     #thumbRoad{
         font-size: 7pt;
     }
-    #thumbHeart{
+    /* #thumbHeart{
         font-size: 10pt;
         right: 15px;
         bottom: 15px;
-    }
-    #thumbHeart{
-        right: -75px;
-        bottom: -100px;
-    }
-    .heart {
+    } */
+    /* #thumbHeart{
+        left: -150px;
+        top: -10px;
+    } */
+    .spotheart {
         width: 80px;
         height: 80px;
     }
     .detailIntro{
         margin-top: 10px;
         margin-bottom: 20px;
-        margin-left: 30px;
-        margin-right: 30px;
+        /* margin-left: 30px;
+        margin-right: 30px; */
         font-size: 8pt;
         line-height: 20px;
+        text-align: center;
     }
 
     /* 모달 */
@@ -111,7 +113,7 @@ label {
         margin-top: 10px;
     }
 }
-@media only screen and (min-width:400px) and (max-width:770px){
+@media only screen and (min-width:450px) and (max-width:770px){
     #tourRiveiwTable{
         width: 500px;
         margin: 100px auto;
@@ -158,6 +160,7 @@ label {
         margin-bottom: 100px;
         margin-left: 50px;
         margin-right: 50px;
+        text-align: center;
     }
     #thumbRoad{
         font-size: 8pt;
@@ -171,17 +174,18 @@ label {
         right: -50px;
         bottom: -60px;
     }
-    .heart {
+    .spotheart {
         width: 90px;
         height: 90px;
     }
     .detailIntro{
         margin-top: 20px;
         margin-bottom: 20px;
-        margin-left: 50px;
-        margin-right: 50px;
+        /* margin-left: 50px;
+        margin-right: 50px; */
         font-size: 10pt;
         line-height: 25px;
+        text-align: center;
     }
       
     /* 모달 */
@@ -244,6 +248,7 @@ label {
         margin-bottom: 150px;
         margin-left: 80px;
         margin-right: 80px;
+        text-align: center;
     }
     #thumbRoad{
         font-size: 9pt;
@@ -257,17 +262,18 @@ label {
         right: -60px;
         bottom: -60px;
     }
-    .heart {
+    .spotheart {
         width: 100px;
         height: 100px;
     }
     .detailIntro{
         margin-top: 20px;
         margin-bottom: 40px;
-        margin-left: 80px;
-        margin-right: 80px;
+        /* margin-left: 80px;
+        margin-right: 80px; */
         font-size: 11pt;
         line-height: 30px;
+        text-align: center;
     }
 
     /* 모달 */
@@ -329,25 +335,27 @@ label {
         margin-left: 100px;
         margin-right: 100px;
         font-size: 13pt;
+        text-align: center;
     }
     #thumbRoad{
         font-size: 10pt;
     }
     #thumbHeart{
-        right: -60px;
-        bottom: -60px;
+        right: -10px;
+        bottom: -10px;
     }
-    .heart {
+    .spotheart {
         width: 100px;
         height: 100px;
     }
     .detailIntro{
         margin-top: 20px;
         margin-bottom: 50px;
-        margin-left: 100px;
-        margin-right: 100px;
+        /* margin-left: 100px;
+        margin-right: 100px; */
         font-size: 13pt;
         line-height: 30px;
+        text-align: center;
     }
 
     /* 모달 */
@@ -367,14 +375,14 @@ label {
     }
 }
 /* heart 애니메이션 */
-.heart {
+.spotheart {
     transform: translate(-50%, -50%);
     background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
     background-position: 0 0;
     cursor: pointer;
     /* animation: fave-heart 1s steps(28); */
   }
-  .clickheart {
+  .spotclickheart {
     background-position: -2800px 0;
     transition: background 1s steps(28);
   }

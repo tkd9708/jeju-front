@@ -88,7 +88,7 @@ class DetailTourComp extends Component {
         this.setState({
             alertOpen: false
         })
-        this.refs.thumbHeart.className="heart clickheart";
+        this.refs.thumbHeart.className="spotheart spotclickheart";
     };
 
     insertWish=()=>{
@@ -138,13 +138,15 @@ class DetailTourComp extends Component {
         return (
             <div>
                 {/* 이미지, spot 정보 */}
-                <img src={this.state.spotdata.img} alt="이미지 없음" style={{width: '100%'}}/>
+                <img src={this.state.spotdata.img} alt="이미지 없음" style={{width: '100%'}}>
+                    
+                </img>
                 <div style={{color: 'whitesmoke'}} class="thumbText">
                     <b id="thumbTitle">{this.state.spotdata.title}</b><br/>
                     <span id="thumbTag" style={{color: '#bbb'}}>{this.state.spotdata.tag}</span><br/>
                     <span id="thumbRoad" style={{color: '#bbb'}}><span class="fa fa-map-marker"></span>&nbsp;&nbsp;{this.state.spotdata.roadaddr}</span><br/>
                     
-                    <span id="thumbHeart" ref="thumbHeart" className='heart' style={{position: 'absolute', cursor: 'pointer'}} onClick={this.heartClick.bind(this)}></span>
+                    {/* <span id="thumbHeart" ref="thumbHeart" className='heart' style={{position: 'absolute', cursor: 'pointer'}} onClick={this.heartClick.bind(this)}></span> */}
                 </div>
                 <br/><br/>
 
@@ -179,20 +181,22 @@ class DetailTourComp extends Component {
 
                 {/* 소개 */}
                 <div className="detailTitle">
-                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#3073BD'}}>
+                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
                         &nbsp;&nbsp;&nbsp;소개&nbsp;&nbsp;&nbsp;
                     </span>
                 </div>
                 <br/>
                 <div id="thumbIntro" style={{color: '#888'}}>
                     {star}<br/>
-                    {this.state.spotdata.introduction}
+                    {this.state.spotdata.introduction}<br/>
+                    
+                    {/* <span id="thumbHeart" ref="thumbHeart" className='spotheart' style={{ cursor: 'pointer', position: 'absolute'}} onClick={this.heartClick.bind(this)}></span> */}
                 </div>
                 
                 {/* 주변 정보 */}
                 <div className="detailTitle">
-                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#3073BD'}}>
-                        &nbsp;&nbsp;주변 정보&nbsp;&nbsp;
+                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
+                        &nbsp;&nbsp;가보고 싶은 그 곳, {this.state.spotdata.title} &nbsp;&nbsp;
                     </span>
                 </div>
                 <div className="detailIntro" style={{color: "#888"}}>
@@ -206,7 +210,7 @@ class DetailTourComp extends Component {
                 <br/><br/>
 
                 <div className="detailTitle">
-                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#3073BD'}}>
+                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
                         &nbsp;&nbsp;&nbsp;후기&nbsp;&nbsp;&nbsp;
                     </span>
                 </div>

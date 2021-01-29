@@ -70,7 +70,7 @@ class MainPhotoComp extends Component {
         for (let i = 0; i < 4; i++) {
             gsap.killTweensOf(`.mainPhotoComp_img${i + 1}`);
         }
-        this.setImageScroll(1, 4);
+        // this.setImageScroll(1, 4);
     }
 
     render() {

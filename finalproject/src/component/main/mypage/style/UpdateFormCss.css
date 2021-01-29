@@ -1,0 +1,106 @@
+@media only screen and (max-width:400px){
+    .mypagePassMargin {
+        margin: 10px;
+    }
+    .mypageTextField {
+        height: 20ch;
+        width: 23ch;
+        font-size: 8pt;
+    }
+    .MuiInputBase-root {
+        font-size: 1rem !important;
+    }
+    .MuiOutlinedInput-input {
+        padding : 10px 14px !important;
+    }
+    .MuiFormLabel-root {
+        font-size: 1em !important;
+    }
+    .MuiSvgIcon-root {
+        font-size: 1rem !important;
+    }
+    .mypagePassBtn{
+        font-size: 0.5rem;
+        height: 7ch;
+    }
+}
+@media only screen and (min-width:400px) and (max-width:770px){
+    .mypagePassMargin {
+        margin: 10px;
+    }
+    .mypageTextField {
+        height: 20ch;
+        width: 23ch;
+        font-size: 8pt;
+    }
+    .MuiInputBase-root {
+        font-size: 1rem !important;
+    }
+    .MuiOutlinedInput-input {
+        padding : 10px 14px !important;
+    }
+    .MuiFormLabel-root {
+        font-size: 1em !important;
+    }
+    .MuiSvgIcon-root {
+        font-size: 1rem !important;
+    }
+    .mypagePassBtn{
+        font-size: 0.8rem;
+        height: 6ch;
+    }
+    .mypagePassBtn{
+        font-size: 0.5rem;
+        height: 7ch;
+    }
+}
+@media only screen and (min-width:770px) and (max-width:1023px){
+    .mypagePassMargin {
+        margin: 10px;
+    }
+    .mypageTextField {
+        height: 20ch;
+        width: 25ch;
+        font-size: 10pt;
+    }
+    .MuiInputBase-root {
+        font-size: 1.2rem !important;
+    }
+    .MuiOutlinedInput-input {
+        padding : 10px 14px !important;
+    }
+    .MuiFormLabel-root {
+        font-size: 1.2em !important;
+    }
+    .MuiSvgIcon-root {
+        font-size: 1.5rem !important;
+    }
+    .mypagePassBtn{
+        font-size: 0.8rem;
+        height: 6ch;
+    }
+}
+@media only screen and (min-width:1023px){
+    .mypagePassMargin {
+        margin: 10px;
+    }
+    .mypageTextField {
+        height: 25ch;
+        width: 25ch;
+    }
+    .MuiInputBase-root {
+        font-size: 1.2rem !important;
+    }
+    .MuiOutlinedInput-input {
+        padding : 10px 14px !important;
+    }
+    .MuiFormLabel-root {
+        font-size: 1.2em !important;
+    }
+    .MuiSvgIcon-root {
+        font-size: 1.5rem !important;
+    }
+    .mypagePassBtn{
+        height: 5ch;
+    }
+}
