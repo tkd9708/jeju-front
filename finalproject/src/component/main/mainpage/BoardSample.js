@@ -44,9 +44,9 @@ const useStyles = makeStyles((theme) => ({
     paperRoot: {
         display: "flex",
         // flexWrap: "wrap",
-        overflow:"scroll",
+        overflow: "scroll",
         "& > *": {
-            flexShrink:"0",
+            flexShrink: "0",
             margin: "10px",
             padding: "10px",
             width: "300px",
@@ -68,20 +68,20 @@ export default function BoardSample(props) {
     useEffect(() => {
 
         searchApi();
-    },[]);
+    }, []);
 
     // 통신 메서드
     function searchApi() {
         const url = URL + '/spot/list?start=0&perPage=5&label2=' + props.location;
         axios.get(url)
-        .then(function(response) {
-            console.log(response.data);
-            setPhotos(response.data);
-            console.log("성공");
-        })
-        .catch(function(error) {
-            console.log("실패");
-        })
+            .then(function (response) {
+                console.log(response.data);
+                setPhotos(response.data);
+                console.log("성공");
+            })
+            .catch(function (error) {
+                console.log("실패");
+            });
     }
 
     const handleExpandClick = () => {
@@ -93,8 +93,8 @@ export default function BoardSample(props) {
             <h1>{props.location}</h1>
             <hr/>
             <div className={classes.paperRoot}>
-                {photos.map((row)=>(
-                    <BoardSampleItem row={row}/>
+                {photos.map((row, index) => (
+                    <BoardSampleItem key={index} row={row}/>
                 ))}
                 {/* <Paper elevation={3}>
                 </Paper>

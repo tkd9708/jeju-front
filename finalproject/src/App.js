@@ -52,7 +52,7 @@ const setPositionFooter = () => {
     let mainFrameHeight = (mainFrameElement) ? mainFrameElement.offsetHeight : 0;
     let footerComp = document.querySelector(".footerComp");
     let topContentHeight = menuHeight + mainFrameHeight;
-    console.log(mainFrameHeight, menuHeight, topContentHeight, window.visualViewport.height);
+    // console.log(mainFrameHeight, menuHeight, topContentHeight, window.visualViewport.height);
 
     if (footerComp) {
         if (window.visualViewport.height > topContentHeight) {

@@ -131,7 +131,7 @@ export default function HotPlaceComp() {
 
                     {
                         arrJejuLoc_en.map((e, i) => (
-                            <div className={e}>
+                            <div className={e} key={i}>
                                 <a href="#"
                                    onMouseLeave={mouseLeaveEventJejuMap}
                                    onMouseOver={mouseOverEventJejuMap}
