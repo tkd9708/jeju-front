@@ -6,6 +6,7 @@ import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
+import {makeStyles} from "@material-ui/core/styles";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -40,8 +41,27 @@ function a11yProps(index) {
     };
 }
 
-export default function EtcBoardComp() {
+const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%',
+        // maxWidth: 360,
+        backgroundColor: theme.palette.background.paper,
+    },
+    pagesRoot: {
+        display: "flex",
+        flexWrap: "wrap",
+        "& > *": {
+            margin: "10px",
+            padding: "10px",
+            width: "300px",
+            height: "400px",
+            overflow: "hidden",
+        }
+    }
+}));
 
+export default function EtcBoardComp() {
+    const classes = useStyles();
     const [value, setValue] = React.useState(2);
 
     const handleChange = (event, newValue) => {
@@ -61,7 +81,10 @@ export default function EtcBoardComp() {
                     <Tab label="Share MyPlan" {...a11yProps(2)} />
                 </Tabs>
                 <TabPanel value={value} index={0}>
-                    <BoardSample/>
+                    <div className={classes.pagesRoot}>
+                        <Paper elevation={3}>
+                        </Paper>
+                    </div>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                 </TabPanel>
