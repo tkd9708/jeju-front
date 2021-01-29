@@ -13,6 +13,8 @@ import MyWishlist from './MyWishlist';
 import './style/MyinfoCss.css';
 import userImg from '../../../image/user.png';
 import Paper from '@material-ui/core/Paper';
+import PassCheck from './PassCheck';
+import store from "../../../redux/store";
 
 class MypagePageComp extends Component {
     
@@ -24,7 +26,8 @@ class MypagePageComp extends Component {
             memberData: [],
             pageNum: '0',
             value: 0,
-            wishCount: 0
+            wishCount: 0,
+            passOk: false
         }
     }
     tabProps = (index) => {
@@ -39,7 +42,7 @@ class MypagePageComp extends Component {
     // 스프링에서 목록 가져오기
     // member
     getMyData = () => {
-        let url = URL + '/member/getdata?id=sanghee';
+        let url = URL + '/member/getdata?id=' + store.getState().loginId;
         axios.get(url)
             .then(response => {
                 this.setState({
@@ -49,7 +52,7 @@ class MypagePageComp extends Component {
             console.log("목록 오류:" + err);
         })
 
-        url = URL + '/wish/wishcount?memId=sanghee';
+        url = URL + '/wish/wishcount?memId=' + store.getState().loginId;
         axios.get(url)
             .then(res=>{
                 this.setState({
@@ -64,26 +67,33 @@ class MypagePageComp extends Component {
         this.getMyData(); //처음 시작시 백엔드로부터 데이타 가져오기
     }
 
+    passOk=()=>{
+        this.setState({
+            passOk: true
+        })
+    }
+
     render() {
         // console.log("MypagePageComp render()", this.props);
         const url = URL + "/";
         const userimg = this.state.memberData.photo==null?userImg:url+this.state.memberData.photo;
         const address = this.state.memberData.addrdetail!==null?"(" + this.state.memberData.addrdetail + ")":"";
-
+        const passOkTab = this.state.passOk==true?<MemberUpdateFormComp num={this.state.memberData}/>:<PassCheck passOk={this.passOk.bind(this)}/>;
+        
         return (
             <div>
                 <div id="mypageInfo" style={{width: '100%', backgroundColor: '#f7f7f7', position: 'relative'}}>
                     <p id="mypageInfoTitle">내 정보 관리</p>
-                    <button type="button" id="mypageInfoBtn" style={{border: 'none', borderRadius: '10px', position:'absolute'}}
+                    {/* <button type="button" id="mypageInfoBtn" style={{border: 'none', borderRadius: '10px', position:'absolute'}}
                                     onClick={
                                         ()=>{
                                             this.props.history.push("/mypage/update");
                                         }
-                                    }><b>정보수정</b></button>
+                                    }><b>정보수정</b></button> */}
                     <table>
                         <tr id="mypageInfoRow" bgcolor="#fff">
                             <td className="mypageInfoCol" style={{width:'20%', textAlign: 'center'}}>
-                                <img src={userimg} alt="이미지없음" id="mypageUserImg"/><br/>
+                                <img src={userImg} alt="이미지없음" id="mypageUserImg"/><br/>
                             </td>
                             <td className="mypageInfoCol" style={{width:'40%'}}>
                                 <table>
@@ -152,6 +162,7 @@ class MypagePageComp extends Component {
                         <Tab label="나의 일정" {...this.tabProps(0)}/>
                         <Tab label="나의 후기" {...this.tabProps(1)}/>
                         <Tab label="나의 예약" {...this.tabProps(2)}/>
+                        <Tab label="나의 정보" {...this.tabProps(3)}/>
                     </Tabs>
                     <TabPanel value={this.state.value} index={0}>
                         <MySchedule/>
@@ -161,6 +172,10 @@ class MypagePageComp extends Component {
                     </TabPanel>
                     <TabPanel value={this.state.value} index={2}>
                         <MyWishlist/>
+                    </TabPanel>
+                    <TabPanel value={this.state.value} index={3}>
+                        {/* <MemberUpdateFormComp/> */}
+                        {passOkTab}
                     </TabPanel>
                 </Paper>
                 

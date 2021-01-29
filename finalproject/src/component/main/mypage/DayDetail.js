@@ -50,7 +50,7 @@ class DayDetail extends Component {
         let url=URL+"/wish/spottitle?contentsid="+ this.props.row.spotId;
         axios.get(url)
         .then(res=>{
-            console.log(res.data);
+            // console.log(res.data);
             this.setState({
                 list:res.data
             });
@@ -97,34 +97,9 @@ class DayDetail extends Component {
         
         return (
             <div>
-            <div className="RCA-Calendar-list">
+
                 {tag}
-            </div>    
-                {/* <Modal
-                    aria-labelledby="transition-modal-title"
-                    aria-describedby="transition-modal-description"
-                    className="calModal"
-                    open={this.state.open}
-                    onClose={this.handleClose.bind(this)}
-                    closeAfterTransition
-                    BackdropComponent={Backdrop}
-                    BackdropProps={{
-                    timeout: 500,
-                    }}
-                >
-                    <Fade in={this.state.open}>
-                    <div className="calPaper">
-                        <h2 id="transition-modal-title">일정 목록</h2>
-                        <p id="transition-modal-description"></p>
-                        {tag}
-                    </div>
-                    </Fade>
-                    
-                </Modal> */}
-            
-            </div>   
-            
-         
+            </div>
         );
     }
 }

@@ -2,7 +2,7 @@
     div#mypageInfo {
         padding: 10px 10px 10px 10px;
         /* height: 300px; */
-        margin-top: 80px;
+        margin-top: 40px;
     }
     p#mypageInfoTitle{
         font-weight: 900;
@@ -39,12 +39,16 @@
         line-height: 40px;
         color: #aaa;
     }
+    .MuiTab-root {
+        font-weight: 900;
+        font-size: 9pt !important;
+    }
 }
 @media only screen and (min-width:400px) and (max-width:770px){
     div#mypageInfo {
         padding: 20px 30px 20px 30px;
         /* height: 300px; */
-        margin-top: 100px;
+        margin-top: 50px;
     }
     p#mypageInfoTitle{
         font-weight: 900;
@@ -81,12 +85,16 @@
         line-height: 50px;
         color: #aaa;
     }
+    .MuiTab-root {
+        font-weight: 900;
+        font-size: 10pt !important;
+    }
 }
 @media only screen and (min-width:770px) and (max-width:1023px){
     div#mypageInfo {
         padding: 20px 50px 20px 50px;
         /* height: 300px; */
-        margin-top: 100px;
+        margin-top: 80px;
     }
     p#mypageInfoTitle{
         font-weight: 900;
@@ -128,7 +136,7 @@
     div#mypageInfo {
         padding: 20px 80px 20px 80px;
         /* height: 400px; */
-        margin-top: 150px;
+        margin-top: 100px;
     }
     p#mypageInfoTitle{
         font-weight: 900;
@@ -165,6 +173,6 @@
     }
     .MuiTab-root {
         font-weight: 900;
-        font-size: 20pt !important;
+        font-size: 15pt !important;
     }
 }

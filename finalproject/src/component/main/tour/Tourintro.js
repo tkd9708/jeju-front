@@ -20,6 +20,11 @@ class Tourintro extends Component {
         super(props);
 
         this.area = this.props.area;
+        this.type = null;
+
+        if(this.props.type){
+            this.type = this.props.type;
+        }
     }
 
     render() {
@@ -99,16 +104,26 @@ class Tourintro extends Component {
                 <div id="mainImg">
                     {img}
                     <br/>
-                    
                 </div>
-                <div className="tourIntroTitle">
-                    <span className="tourIntroTitleContent" style={{backgroundColor:'white', color: '#3073BD'}}>
-                        &nbsp;&nbsp;&nbsp;{intro}&nbsp;&nbsp;&nbsp;
-                    </span>
-                </div>
-                <div className="tourIntroContent">
-                    {content}
-                </div>
+                {
+                    (this.type && this.type == "search")
+                    ? (
+                        ""
+                    )
+                    : (
+                        <div>
+                            <div className="tourIntroTitle">
+                                <span className="tourIntroTitleContent" style={{backgroundColor: 'white', color: '#036E38'}}>
+                                    &nbsp;&nbsp;&nbsp;{intro}&nbsp;&nbsp;&nbsp;
+                                </span>
+                            </div>
+                            <div className="tourIntroContent">
+                                {content}
+                            </div>
+                        </div>
+                    )
+                }
+
             </div>
         );
     }

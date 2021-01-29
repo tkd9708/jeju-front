@@ -7,42 +7,8 @@ const persistConfig = {
     key: "root",
     storage
 }
-const footerStyle = {
-    sizeIn: {
-        position: "absolute",
-        width: "100%",
-        bottom: "2.5%",
-    },
-    sizeOver: {
-        width: "100%",
-    }
-}
-
-const setPositionFooter = () => {
-    let menuElement = document.querySelector(".menu");
-    let mainFrameElement = document.querySelector(".mainFrame");
-
-    let menuHeight = (menuElement) ? menuElement.offsetHeight : 0;
-    let mainFrameHeight = (mainFrameElement) ? mainFrameElement.offsetHeight : 0;
-    let footerComp = document.querySelector(".footerComp");
-    let topContentHeight = menuHeight + mainFrameHeight;
-    console.log(mainFrameHeight, menuHeight, topContentHeight, window.visualViewport.height);
 
 
-    if (footerComp) {
-        if (window.visualViewport.height > topContentHeight) {
-            footerComp.style.width = footerStyle.sizeIn.width;
-            footerComp.style.position = footerStyle.sizeIn.position;
-            footerComp.style.bottom = footerStyle.sizeIn.bottom;
-        } else {
-            footerComp.style.width = footerStyle.sizeOver.width;
-            footerComp.style.position = "";
-            footerComp.style.bottom = "";
-        }
-    } else {
-        window.setTimeout(setPositionFooter, 100);
-    }
-}
 
 
 const reducer = function (state, action) {
