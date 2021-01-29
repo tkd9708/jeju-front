@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import axios from 'axios';
-import {URL} from "../../../redux/config";
+import {arrJejuLoc_en, arrJejuLoc_ko, URL} from "../../../redux/config";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -19,6 +19,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 import Paper from "@material-ui/core/Paper";
 import BoardSampleItem from './BoardSampleItem';
+import ItemComp from "../tour/ItemComp";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,14 +47,14 @@ const useStyles = makeStyles((theme) => ({
         // flexWrap: "wrap",
         overflow: "scroll",
         "& > *": {
-            flexShrink: "0",
-            margin: "10px",
-            padding: "10px",
-            width: "300px",
-            height: "300px",
-            overflow: "hidden",
-            textAlign: "center",
-            objectFit: "cover"
+            // flexShrink: "0",
+            // margin: "10px",
+            // padding: "10px",
+            // width: "300px",
+            // height: "300px",
+            // overflow: "hidden",
+            // textAlign: "center",
+            // objectFit: "cover"
         }
     }
 }));
@@ -61,26 +62,27 @@ const useStyles = makeStyles((theme) => ({
 export default function BoardSample(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-    // console.log(props);
-    // photos, setPhotos 비구조화 할당
-    const [photos, setPhotos] = useState([]);
+    const [spotList, setSpotList] = useState([]);
+    const idx = props.idx;
 
-    useEffect(() => {
+    useEffect(()=>{
+        getList();
+    }, [idx]);
 
-        searchApi();
-    }, []);
 
     // 통신 메서드
-    function searchApi() {
-        const url = URL + '/spot/list?start=0&perPage=5&label2=' + props.location;
+    function getList() {
+        const url = URL + '/spot/list' +
+            '?start=0' +
+            '&perPage=5' +
+            '&label2=' + arrJejuLoc_en[idx];
         axios.get(url)
             .then(function (response) {
                 console.log(response.data);
-                setPhotos(response.data);
-                console.log("성공");
+                setSpotList(response.data);
             })
             .catch(function (error) {
-                console.log("실패");
+                console.log("실패", error);
             });
     }
 
@@ -90,20 +92,19 @@ export default function BoardSample(props) {
 
     return (
         <div>
-            <h1>{props.location}</h1>
+            <hr/>
+            <h1>&nbsp;&nbsp;&nbsp;&nbsp;{arrJejuLoc_ko[idx]}</h1>
             <hr/>
             <div className={classes.paperRoot}>
-                {photos.map((row, index) => (
-                    <BoardSampleItem key={index} row={row}/>
-                ))}
-                {/* <Paper elevation={3}>
-                </Paper>
-                <Paper elevation={3}>
-                </Paper>
-                <Paper elevation={3}>
-                </Paper>
-                <Paper elevation={3}>
-                </Paper> */}
+                {spotList.map((row, i) => {
+                    // console.log(i, row, props.history);
+                    return (
+                        <ItemComp row={row} key={i}
+                                  history={props.history}
+                                  getList={getList.bind(this)}
+                        ></ItemComp>
+                    )
+                })}
             </div>
         </div>
     )
