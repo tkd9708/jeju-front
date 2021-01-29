@@ -4,7 +4,10 @@ import axios from 'axios';
 import {URL} from "../../../redux/config";
 import DayItem from './DayItem';
 import Header from './Header';
-
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import './style/RCA.css';
 
 class DateHeader extends Component {
 
@@ -64,10 +67,20 @@ class Week extends Component {
 
     this.ym = this.props.ymOfThisCalendar;
     this.state={
-       list:[]
+       list:[],
+      clist:[],
+
+       open : false,
+       setOpen : false
          
     };
   }
+
+  handleClose = () => {
+    this.setState({
+        open: false
+    })
+  };
 
   getData=()=>{
 
@@ -85,8 +98,27 @@ class Week extends Component {
     })
   }
 
+  getList=()=>{
+    let url=URL+"/wish/daylist"+
+          "?memId=sanghee"+
+          "&day=2020-12-16";
+    axios.get(url)
+    .then(res=>{
+      console.log("출력:"+res.data);
+      this.setState({
+        clist:res.data
+    });
+  }).catch(err=>{
+    console.log("목록 오류:"+err);
+  })
+} 
+
+  
+
+ 
   componentDidMount(){
     this.getData();
+    
     
   }
 
@@ -128,15 +160,29 @@ class Week extends Component {
 
       if(moment(dayInfo.yearMonthDayFormat).isSame(selectedDayFormat,'day')){
         className = "selected"
-
-        console.log(dayInfo.yearMonthDayFormat);
-        //// 여기서 모달 띄우는 setState그거 하면서 아이디랑 날짜 보내서 정보 얻어오면될거같아요
+        //this.getList();
+        //console.log(dayInfo.yearMonthDayFormat);
+        
+          
+      
+         //this.getList();
+        //this.getList("sanghee","2020-12-16");
+        
+         
+        
+        
+         
+      
+          //// 여기서 모달 띄우는 setState그거 하면서 아이디랑 날짜 보내서 정보 얻어오면될거같아요
       }
-
+      
+     
+      
+      
       const category=this.state.memId;
       const day=this.props.ymOfThisCalendar+"-"+dayInfo.getDay;
-      const wishday=this.statewishday;
-
+      const wishday=this.state.wishday;
+      
         var date = new Date(); 
         var year = date.getFullYear(); 
         var month = new String(date.getMonth()); 
@@ -144,11 +190,18 @@ class Week extends Component {
         var today = new Date(year, month, days);
         var selectDay = new Date(dayInfo.getYear, dayInfo.getMonth-1, dayInfo.getDay);
         var betweenDay = selectDay.getTime() - today.getTime();
-
+        
        return(
           <div className={"RCA-calendar-day " + className} key={`RCA-${dayInfo.weekIndex}-${i}-day`}onClick={() => fn(dayInfo.yearMonthDayFormat)}>
-              <label className="RCA-calendar-day-label">
+              <label className="RCA-calendar-day-label" onClick={
+                ()=>{
+                  this.setState({
+                    open:true
+                  })
+                }
+              }>
                 {dayInfo.getDay}
+               
               
               </label>
               {this.state.list.map((row,idx)=>(
@@ -156,14 +209,36 @@ class Week extends Component {
                   
               ))}
 
-              {/*  여기 모달 태그 넣기 */}
+              <Modal
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    className="calModal"
+                    open={this.state.open}
+                    onClose={this.handleClose.bind(this)}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                    timeout: 500,
+                    }}
+                  >
+                    <Fade in={this.state.open}>
+                    <div className="calPaper">
+                        <h2 id="transition-modal-title">일정 목록</h2>
+                        <p id="transition-modal-description"></p>
+                        {this.state.clist.map((row)=>(
+                          <div>{row.content}</div>
+                        ))}
+                    </div>
+                    </Fade>
+                    
+                </Modal>{/*  여기 모달 태그 넣기 */}
           </div>
           
        )      
       })         
     }
 
-
+    
 
   render() {
     return (
