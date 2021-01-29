@@ -4,6 +4,9 @@ label {
 #btnInsertReview{
     white-space: wrap;
 }
+#btnInsertBox{
+    margin: 0 !important;
+}
 #detailReField{
     margin: 0 !important;
 }
@@ -16,11 +19,12 @@ label {
     transform: translate( -50%, -50% );
     display: table;
 }
-
-@media only screen and (max-width:450px){
+@media only screen and (max-width: 300px){
     #tourRiveiwTable{
-        width: 300px;
-        margin: 70px auto;
+        width: 100%;
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-top: 70px;
         margin-bottom: 100px;
         font-size: 8pt;
     }
@@ -29,14 +33,15 @@ label {
         height: 50px;
     }
     #srContent{
-        width: 200px;
+        width: 100%;
         height: 100px;
         font-size: 8pt;
     }
     #btnInsertReview{
         height: 100px;
-        width: 50px;
+        width: 100%;
         font-size: 6pt;
+        margin-top: 24px;
     }
     .thumbStar{
         font-size: 15pt;
@@ -113,9 +118,113 @@ label {
         margin-top: 10px;
     }
 }
+@media only screen and (min-width:300px) and (max-width:440px){
+    #tourRiveiwTable{
+        width: 90vw;
+        margin: 70px auto;
+        margin-bottom: 100px;
+        font-size: 8pt;
+    }
+    .tourReImg{
+        width: 50px;
+        height: 50px;
+    }
+    #srContent{
+        width: 200px;
+        height: 100px;
+        font-size: 8pt;
+    }
+    #btnInsertReview{
+        height: 100px;
+        width: 50px;
+        font-size: 6pt;
+        margin-top: 24px;
+    }
+    .thumbStar{
+        font-size: 15pt;
+    }
+    .thumbText {
+        top: 20%;
+        left: 67%;
+        width: 170px;
+        height: 100px;
+        padding-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        /* max-height: 150px; */
+        font-size: 6pt;
+    }
+    #thumbTitle{
+        font-size: 10pt;
+    }
+    #thumbTag{
+        font-size: 7pt;
+    }
+    #thumbStar{
+        font-size: 7pt;
+    }
+    #thumbIntro{
+        margin-top: 13px;
+        font-size: 8pt;
+        line-height: 20px;
+        margin-bottom: 80px;
+        margin-left: 30px;
+        margin-right: 30px;
+        text-align: center;
+    }
+    #thumbRoad{
+        font-size: 7pt;
+    }
+    /* #thumbHeart{
+        font-size: 10pt;
+        right: 15px;
+        bottom: 15px;
+    } */
+    /* #thumbHeart{
+        left: -150px;
+        top: -10px;
+    } */
+    /* .spotheart {
+        width: 80px;
+        height: 80px;
+    } */
+    #thumbAddBtn>span {
+        font-size: 6pt;
+    }
+    #thumbAddBtn {
+        padding: 0 !important;
+        margin-top: 5px;
+    }
+    .detailIntro{
+        margin-top: 10px;
+        margin-bottom: 20px;
+        /* margin-left: 30px;
+        margin-right: 30px; */
+        font-size: 8pt;
+        line-height: 20px;
+        text-align: center;
+    }
+
+    /* 모달 */
+    .spotmodalTitle {
+        font-size: 14pt;
+        font-weight: 700;
+        line-height: 50px;
+    }
+    .spotpaper {
+        padding: 30px;
+        line-height: 25px;
+        font-size: 8pt;
+    }
+    .spotmodalBtn {
+        font-size: 8pt;
+        margin-top: 10px;
+    }
+}
 @media only screen and (min-width:450px) and (max-width:770px){
     #tourRiveiwTable{
-        width: 500px;
+        width: 90vw;
         margin: 100px auto;
         margin-bottom: 100px;
         font-size: 10pt;
@@ -133,6 +242,7 @@ label {
         height: 100px;
         width: 50px;
         font-size: 10pt;
+        margin-top: 23px;
     }
     .thumbText {
         top: 25%;
@@ -165,7 +275,7 @@ label {
     #thumbRoad{
         font-size: 8pt;
     }
-    #thumbHeart{
+    /* #thumbHeart{
         font-size: 12pt;
         right: 20px;
         bottom: 20px;
@@ -177,6 +287,12 @@ label {
     .spotheart {
         width: 90px;
         height: 90px;
+    } */
+    #thumbAddBtn>span {
+        font-size: 8pt;
+    }
+    #thumbAddBtn {
+        margin-top: 8px;
     }
     .detailIntro{
         margin-top: 20px;
@@ -206,7 +322,7 @@ label {
 }
 @media only screen and (min-width:770px) and (max-width:1023px){
     #tourRiveiwTable{
-        width: 800px;
+        width: 90vw;
         margin: 120px auto;
         margin-bottom: 100px;
     }
@@ -221,6 +337,7 @@ label {
     #btnInsertReview{
         height: 130px;
         width: 80px;
+        margin-top: 29px;
     }
     .thumbText {
         top: 30%;
@@ -253,7 +370,7 @@ label {
     #thumbRoad{
         font-size: 9pt;
     }
-    #thumbHeart{
+    /* #thumbHeart{
         font-size: 13pt;
         right: 20px;
         bottom: 20px;
@@ -265,6 +382,12 @@ label {
     .spotheart {
         width: 100px;
         height: 100px;
+    } */
+    #thumbAddBtn>span {
+        font-size: 10pt;
+    }
+    #thumbAddBtn {
+        margin-top: 10px;
     }
     .detailIntro{
         margin-top: 20px;
@@ -294,7 +417,7 @@ label {
 }
 @media only screen and (min-width:1023px){
     #tourRiveiwTable{
-        width: 1000px;
+        width: 90vw;
         margin: 150px auto;
     }
     .tourReImg{
@@ -308,6 +431,7 @@ label {
     #btnInsertReview{
         height: 150px;
         width: 100px;
+        margin-top: 29px;
     }
     .thumbText {
         top: 35%;
@@ -340,13 +464,16 @@ label {
     #thumbRoad{
         font-size: 10pt;
     }
-    #thumbHeart{
+    /* #thumbHeart{
         right: -10px;
         bottom: -10px;
     }
     .spotheart {
         width: 100px;
         height: 100px;
+    } */
+    #thumbAddBtn {
+        margin-top: 10px;
     }
     .detailIntro{
         margin-top: 20px;

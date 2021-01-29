@@ -111,6 +111,7 @@ class TourPageComp extends Component {
                             native
                             value={this.select}
                             onChange={this.selectChange.bind(this)}
+                            id="selectTour"
                         >
                             <option value="star">평점순</option>
                             <option value="likes">좋아요순</option>

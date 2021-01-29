@@ -14,6 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import store from '../../../redux/store';
 
 class DetailTourComp extends Component {
 
@@ -53,22 +54,28 @@ class DetailTourComp extends Component {
         this.getData();
     }
 
-    heartClick=(e)=>{
-        if(e.target.className == 'heart clickheart'){
-            e.target.className = 'heart';       
-        }
-        else{
-            // e.target.className = 'heart clickheart';
-            this.handleOpen();
-        }
+    // heartClick=(e)=>{
+    //     if(e.target.className == 'heart clickheart'){
+    //         e.target.className = 'heart';       
+    //     }
+    //     else{
+    //         // e.target.className = 'heart clickheart';
+    //         this.handleOpen();
+    //     }
             
-    }
+    // }
 
     // modal 함수
     handleOpen = () => {
-        this.setState({
-            open: true
-        })
+        if(!store.getState().logged){
+            alert("로그인이 필요한 서비스입니다.");
+        }
+        else{
+            this.setState({
+                open: true
+            })
+        }
+        
     };
 
     handleClose = () => {
@@ -92,8 +99,6 @@ class DetailTourComp extends Component {
     };
 
     insertWish=()=>{
-        // console.log(this.refs.wishday.value);
-
         let url = URL + "/wish/insertspot";
         let memId = 'sanghee'; // 나중에 로그인 아이디로 넣기
         let spotId = this.state.contentsid;
@@ -117,7 +122,6 @@ class DetailTourComp extends Component {
         }
         
     }
-      
 
     render() {
         var star = this.state.spotdata.star==5?
@@ -145,7 +149,7 @@ class DetailTourComp extends Component {
                     <b id="thumbTitle">{this.state.spotdata.title}</b><br/>
                     <span id="thumbTag" style={{color: '#bbb'}}>{this.state.spotdata.tag}</span><br/>
                     <span id="thumbRoad" style={{color: '#bbb'}}><span class="fa fa-map-marker"></span>&nbsp;&nbsp;{this.state.spotdata.roadaddr}</span><br/>
-                    
+                    <Button variant="outlined" id="thumbAddBtn" style={{color: 'white', border: '1px solid #aaa'}} onClick={this.handleOpen.bind(this)}>일정추가</Button>
                     {/* <span id="thumbHeart" ref="thumbHeart" className='heart' style={{position: 'absolute', cursor: 'pointer'}} onClick={this.heartClick.bind(this)}></span> */}
                 </div>
                 <br/><br/>
@@ -189,6 +193,7 @@ class DetailTourComp extends Component {
                 <div id="thumbIntro" style={{color: '#888'}}>
                     {star}<br/>
                     {this.state.spotdata.introduction}<br/>
+                    
                     
                     {/* <span id="thumbHeart" ref="thumbHeart" className='spotheart' style={{ cursor: 'pointer', position: 'absolute'}} onClick={this.heartClick.bind(this)}></span> */}
                 </div>
