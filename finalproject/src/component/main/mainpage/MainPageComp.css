@@ -91,11 +91,12 @@ div.hotPlaceComp div.hotPlace_location div.btn_go{
 }
 
 
-
+/*left: -125px; top: 1194px;*/
 div.hotPlaceComp div.hotPlace_location div.btn_go img{
     position: absolute;
-    left: -120px;
-    top: 1190px;
+    /*left: -120px;*/
+    /*top: 1190px;*/
+    left: -125px; top: 1194px;
     transform: scale(0.7);
     z-index: 1;
     visibility: hidden;
@@ -103,8 +104,9 @@ div.hotPlaceComp div.hotPlace_location div.btn_go img{
 
 div.hotPlaceComp div.hotPlace_location div.btn_go img.img_wholeMap{
     position: absolute;
-    left: -120px;
-    top: 1190px;
+    /*left: -120px;*/
+    /*top: 1190px;*/
+    left: -125px; top: 1194px;
     transform: scale(0.7);
     z-index: 0;
     visibility: visible;
@@ -129,19 +131,19 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div.udo a{
 }
 
 
-div.btn_go div.jeju       { position: absolute;  left: 341px; top: 1390px;}
-div.btn_go div.jocheon    { position: absolute;  left: 452px; top: 1361px;}
-div.btn_go div.gujwa      { position: absolute;  left: 546px; top: 1349px;}
-div.btn_go div.sungsan    { position: absolute;  left: 598px; top: 1425px;}
-div.btn_go div.pyoseon    { position: absolute;  left: 526px; top: 1468px;}
-div.btn_go div.namwon     { position: absolute;  left: 442px; top: 1507px;}
-div.btn_go div.seogwipo   { position: absolute;  left: 313px; top: 1541px;}
-div.btn_go div.andeok     { position: absolute;  left: 186px; top: 1545px;}
-div.btn_go div.daejung    { position: absolute;  left: 113px; top: 1574px;}
-div.btn_go div.hangyeong  { position: absolute;  left: 100px; top: 1514px;}
-div.btn_go div.hanrim     { position: absolute;  left: 143px; top: 1469px;}
-div.btn_go div.aewol      { position: absolute;  left: 220px; top: 1433px;}
-div.btn_go div.udo        { position: absolute;  left: 691px; top: 1310px;}
+div.btn_go div.jeju       { position: absolute;  left: calc(341px - 5px); top: calc(1390px + 4px);}
+div.btn_go div.jocheon    { position: absolute;  left: calc(452px - 5px); top: calc(1361px + 4px);}
+div.btn_go div.gujwa      { position: absolute;  left: calc(546px - 5px); top: calc(1349px + 4px);}
+div.btn_go div.sungsan    { position: absolute;  left: calc(598px - 5px); top: calc(1425px + 4px);}
+div.btn_go div.pyoseon    { position: absolute;  left: calc(526px - 5px); top: calc(1468px + 4px);}
+div.btn_go div.namwon     { position: absolute;  left: calc(442px - 5px); top: calc(1507px + 4px);}
+div.btn_go div.seogwipo   { position: absolute;  left: calc(313px - 5px); top: calc(1541px + 4px);}
+div.btn_go div.andeok     { position: absolute;  left: calc(186px - 5px); top: calc(1545px + 4px);}
+div.btn_go div.daejung    { position: absolute;  left: calc(113px - 5px); top: calc(1574px + 4px);}
+div.btn_go div.hangyeong  { position: absolute;  left: calc(100px - 5px); top: calc(1514px + 4px);}
+div.btn_go div.hanrim     { position: absolute;  left: calc(143px - 5px); top: calc(1469px + 4px);}
+div.btn_go div.aewol      { position: absolute;  left: calc(220px - 5px); top: calc(1433px + 4px);}
+div.btn_go div.udo        { position: absolute;  left: calc(691px - 5px); top: calc(1310px + 4px);}
 
 
 div.hotPlaceComp div.hotPlace_location{

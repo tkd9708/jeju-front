@@ -28,20 +28,6 @@ import img_s_hangyeong from "../../../image/land_s/hangyeong_s.png";
 import img_s_hanrim from "../../../image/land_s/hanrim_s.png";
 import img_s_aewol from "../../../image/land_s/aewol_s.png";
 import img_s_udo from "../../../image/land_s/udo_s.png";
-
-import img_jeju from "../../../image/land/jeju.png";
-import img_jocheon from "../../../image/land/jocheon.png";
-import img_gujwa from "../../../image/land/gujwa.png";
-import img_sungsan from "../../../image/land/sungsan.png";
-import img_pyoseon from "../../../image/land/pyoseon.png";
-import img_namwon from "../../../image/land/namwon.png";
-import img_seogwipo from "../../../image/land/seogwipo.png";
-import img_andeok from "../../../image/land/andeok.png";
-import img_daejung from "../../../image/land/daejung.png";
-import img_hangyeong from "../../../image/land/hangyeong.png";
-import img_hanrim from "../../../image/land/hanrim.png";
-import img_aewol from "../../../image/land/aewol.png";
-import img_udo from "../../../image/land/udo.png";
 import img_wholeMap from "../../../image/land/jejuisland_d.png";
 
 function TabPanel(props) {
@@ -158,19 +144,19 @@ export default function HotPlaceComp() {
                         ))
                     }
 
-                    <img id="btn_go_jeju" src={img_s_jeju}/>
-                    <img id="btn_go_jocheon" src={img_s_jocheon}/>
-                    <img id="btn_go_gujwa" src={img_s_gujwa}/>
-                    <img id="btn_go_sungsan" src={img_s_sungsan}/>
-                    <img id="btn_go_pyoseon" src={img_s_pyoseon}/>
-                    <img id="btn_go_namwon" src={img_s_namwon}/>
-                    <img id="btn_go_andeok" src={img_s_andeok}/>
-                    <img id="btn_go_daejung" src={img_s_daejung}/>
-                    <img id="btn_go_hangyeong" src={img_s_hangyeong}/>
-                    <img id="btn_go_hanrim" src={img_s_hanrim}/>
-                    <img id="btn_go_aewol" src={img_s_aewol}/>
-                    <img id="btn_go_udo" src={img_s_udo}/>
-                    <img id="btn_go_seogwipo" src={img_s_seogwipo}/>
+                    <img id="btn_go_jeju"       src={img_s_jeju}        />
+                    <img id="btn_go_jocheon"    src={img_s_jocheon}     />
+                    <img id="btn_go_gujwa"      src={img_s_gujwa}       />
+                    <img id="btn_go_sungsan"    src={img_s_sungsan}     />
+                    <img id="btn_go_pyoseon"    src={img_s_pyoseon}     />
+                    <img id="btn_go_namwon"     src={img_s_namwon}      />
+                    <img id="btn_go_andeok"     src={img_s_andeok}      />
+                    <img id="btn_go_daejung"    src={img_s_daejung}     />
+                    <img id="btn_go_hangyeong"  src={img_s_hangyeong}   />
+                    <img id="btn_go_hanrim"     src={img_s_hanrim}      />
+                    <img id="btn_go_aewol"      src={img_s_aewol}       />
+                    <img id="btn_go_udo"        src={img_s_udo}         />
+                    <img id="btn_go_seogwipo"   src={img_s_seogwipo}    />
 
                 </div>
             </div>

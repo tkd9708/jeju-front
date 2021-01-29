@@ -54,7 +54,7 @@
 <script>
     function moveElement(x, y) {
         // var strSelector = "div.hotPlace_location div.btn_go";
-        var strSelector = "#btn_go_jeju123";
+        var strSelector = "div.hotPlaceComp div.hotPlace_location div.btn_go img.img_wholeMap";
         var element = document.querySelector(strSelector);
         var elementRectInfo = null;
 
@@ -85,7 +85,7 @@
     window.addEventListener('keydown', function (e) {
         var offset = [0,0];
         // var divOverlay = document.getElementById ("btn_go_jeju");
-        var divOverlay = document.querySelector("div.btn_go div.andeok123");
+        var divOverlay = document.querySelector("div.hotPlaceComp div.hotPlace_location div.btn_go img.img_wholeMap");
         console.log(divOverlay);
         var isDown = false;
         divOverlay.addEventListener('mousedown', function(e) {
