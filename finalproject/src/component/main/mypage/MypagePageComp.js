@@ -13,6 +13,8 @@ import MyWishlist from './MyWishlist';
 import './style/MyinfoCss.css';
 import userImg from '../../../image/user.png';
 import Paper from '@material-ui/core/Paper';
+import PassCheck from './PassCheck';
+import store from "../../../redux/store";
 
 class MypagePageComp extends Component {
     
@@ -24,7 +26,8 @@ class MypagePageComp extends Component {
             memberData: [],
             pageNum: '0',
             value: 0,
-            wishCount: 0
+            wishCount: 0,
+            passOk: false
         }
     }
     tabProps = (index) => {
@@ -39,7 +42,7 @@ class MypagePageComp extends Component {
     // 스프링에서 목록 가져오기
     // member
     getMyData = () => {
-        let url = URL + '/member/getdata?id=sanghee';
+        let url = URL + '/member/getdata?id=' + store.getState().loginId;
         axios.get(url)
             .then(response => {
                 this.setState({
@@ -49,7 +52,7 @@ class MypagePageComp extends Component {
             console.log("목록 오류:" + err);
         })
 
-        url = URL + '/wish/wishcount?memId=sanghee';
+        url = URL + '/wish/wishcount?memId=' + store.getState().loginId;
         axios.get(url)
             .then(res=>{
                 this.setState({
@@ -64,26 +67,98 @@ class MypagePageComp extends Component {
         this.getMyData(); //처음 시작시 백엔드로부터 데이타 가져오기
     }
 
+    passOk=(ok)=>{
+        this.setState({
+            passOk: ok
+        })
+        if(ok==false)
+            this.getMyData();
+    }
+
     render() {
         // console.log("MypagePageComp render()", this.props);
         const url = URL + "/";
         const userimg = this.state.memberData.photo==null?userImg:url+this.state.memberData.photo;
         const address = this.state.memberData.addrdetail!==null?"(" + this.state.memberData.addrdetail + ")":"";
-
+        const passOkTab = this.state.passOk==true?<MemberUpdateFormComp num={this.state.memberData} passOk={this.passOk.bind(this)} history={this.props.history}/>:<PassCheck passOk={this.passOk.bind(this)}/>;
+        
         return (
             <div>
                 <div id="mypageInfo" style={{width: '100%', backgroundColor: '#f7f7f7', position: 'relative'}}>
                     <p id="mypageInfoTitle">내 정보 관리</p>
-                    {/* <button type="button" id="mypageInfoBtn" style={{border: 'none', borderRadius: '10px', position:'absolute'}}
-                                    onClick={
-                                        ()=>{
-                                            this.props.history.push("/mypage/update");
-                                        }
-                                    }><b>정보수정</b></button> */}
-                    <table>
+                    <Box
+                        display="flex"
+                        flexWrap="wrap"
+                        // p={1}
+                        // m={1}
+                        justifyContent="center"
+                        width="100%"
+                    >
+
+                        <Box className="mypageInfoCol" width="20%" alignSelf="center">
+                            <img src={userImg} alt="이미지없음" id="mypageUserImg"/>
+                        </Box>
+                        <Box m={1} bgcolor="#fff" width="50%" className="mypageInfoCol">
+                            <table>
+                                    <tr style={{borderBottom: '1px dotted #eee'}}>
+                                        <td>
+                                            <span class="fas fa-bookmark"></span>
+                                        </td>
+                                        <td style={{paddingLeft: '10px'}}>
+                                            {this.state.memberData.id}
+                                        </td>
+                                    </tr>
+                                    <tr style={{borderBottom: '1px dotted #eee'}}>
+                                        <td>
+                                        <span class="fas fa-user-alt"></span>
+                                        </td>
+                                        <td style={{paddingLeft: '10px'}}>
+                                            {this.state.memberData.name}
+                                        </td>
+                                    </tr>
+                                    <tr style={{borderBottom: '1px dotted #eee'}}>
+                                        <td>
+                                        <span class="fas fa-phone-alt"></span>
+                                        </td>
+                                        <td style={{paddingLeft: '10px'}}>
+                                            {this.state.memberData.hp}
+                                        </td>
+                                    </tr>
+                                    <tr style={{borderBottom: '1px dotted #eee'}}>
+                                        <td>
+                                            <span class="fas fa-envelope-open-text"></span>
+                                        </td>
+                                        <td style={{paddingLeft: '10px'}}>
+                                            {this.state.memberData.email}@{this.state.memberData.email2}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        <span class="fas fa-home"></span>
+                                        </td>
+                                        <td style={{paddingLeft: '10px'}}>
+                                            {this.state.memberData.address}<br/>{address}
+                                        </td>
+                                    </tr>
+                                </table>
+                        </Box>
+                        <Box width="20%" alignSelf="center">
+                            <Box m={1} bgcolor="#fff" className="mypageInfoCol" style={{textAlign: 'center'}}>
+                                <span className="mypageInfoSubtitle">일정</span><br/>
+                                <span className="mypageInfoSubContent">{this.state.wishCount}</span>
+                            </Box>
+                            <Box m={1} bgcolor="#fff" className="mypageInfoCol" style={{textAlign: 'center'}}>
+                                <span className="mypageInfoSubtitle">공유한 일정</span><br/>
+                                <span className="mypageInfoSubContent">0</span>
+                            </Box>
+                        </Box>
+                        
+                    </Box>
+
+                    {/* <table>
                         <tr id="mypageInfoRow" bgcolor="#fff">
                             <td className="mypageInfoCol" style={{width:'20%', textAlign: 'center'}}>
-                                <img src={userimg} alt="이미지없음" id="mypageUserImg"/><br/>
+                                <img src={userImg} alt="이미지없음" id="mypageUserImg"/><br/>
                             </td>
                             <td className="mypageInfoCol" style={{width:'40%'}}>
                                 <table>
@@ -138,7 +213,7 @@ class MypagePageComp extends Component {
                                 <span className="mypageInfoSubContent">0</span>
                             </td>
                         </tr>
-                    </table>
+                    </table> */}
                 </div>
                 
                 <Paper square style={{marginTop: '100px'}}>
@@ -163,8 +238,9 @@ class MypagePageComp extends Component {
                     <TabPanel value={this.state.value} index={2}>
                         <MyWishlist/>
                     </TabPanel>
-                    <TabPanel value={this.state.value} index={2}>
-                        <MemberUpdateFormComp/>
+                    <TabPanel value={this.state.value} index={3}>
+                        {/* <MemberUpdateFormComp/> */}
+                        {passOkTab}
                     </TabPanel>
                 </Paper>
                 

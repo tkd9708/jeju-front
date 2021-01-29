@@ -3,6 +3,9 @@ import axios from 'axios';
 import './style/RCA.css';
 import {URL} from "../../../redux/config";
 import Header from './Header';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 
 //import Subject from './Subject';
@@ -14,11 +17,19 @@ class DayDetail extends Component {
         super(props);
 
         this.state={
-           list:''
+           list:'',
+        //    open : false,
+        //    setOpen : false
             
         };
 
     }
+
+    // handleClose = () => {
+    //     this.setState({
+    //         open: false
+    //     })
+    //   };
     // rendervalue=()=>{
     //     return this.props.row.shareNum===null?0:'';
     // }
@@ -39,7 +50,7 @@ class DayDetail extends Component {
         let url=URL+"/wish/spottitle?contentsid="+ this.props.row.spotId;
         axios.get(url)
         .then(res=>{
-            console.log(res.data);
+            // console.log(res.data);
             this.setState({
                 list:res.data
             });
@@ -86,32 +97,8 @@ class DayDetail extends Component {
         
         return (
             <div>
-            {/* <div className="category">{wishday===day &&category==='카페'?<FaMugHot></FaMugHot>:
-                    wishday===day &&category==='숙박'?<FaHotel></FaHotel>:wishday===day &&category==='음식점'?
-                <FaHamburger></FaHamburger>:''}</div> */}
-                {/* {aroundId!==null?content.split(",")[0]==="음식점"
-                ?<FaHamburger></FaHamburger>:content.split(",")[0]==="숙박"?
-                <FaHotel></FaHotel>:<FaMugHot></FaMugHot>:''}{aroundId}
-                {shareNum!==null?<FcRating></FcRating>:''}
-                {spotId!==null?<FcBookmark></FcBookmark>:''}
-                {this.state.list} */}
-                {/* <br/><FcCheckmark></FcCheckmark> */}
-                {/* {shareNum===null&&aroundId===null&&spotId===null?'🌳':''}
-                {content} */}
+
                 {tag}
-                
-                {/* {this.state.list.map((row,idx)=>(
-                <DaySubject row={row} key={idx}></DaySubject>
-                
-                 ))} */}
-                
-            {/* <div className="title">
-               <div>
-               {subject}
-                </div>
-                <br/>
-              </div>   */}
-                 
             </div>
         );
     }

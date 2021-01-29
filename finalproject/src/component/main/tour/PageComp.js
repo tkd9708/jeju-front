@@ -24,7 +24,7 @@ class PageComp extends Component {
 
         let pages = page.map(function (num, idx) {
             return (
-                <li className="page-item">
+                <li className="page-item" key={idx}>
                     <a className="page-link"
                        style={{
                            color: num == currentPage ? "#D1CC38" : "black",
