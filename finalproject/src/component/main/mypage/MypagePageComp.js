@@ -84,13 +84,76 @@ class MypagePageComp extends Component {
             <div>
                 <div id="mypageInfo" style={{width: '100%', backgroundColor: '#f7f7f7', position: 'relative'}}>
                     <p id="mypageInfoTitle">내 정보 관리</p>
-                    {/* <button type="button" id="mypageInfoBtn" style={{border: 'none', borderRadius: '10px', position:'absolute'}}
-                                    onClick={
-                                        ()=>{
-                                            this.props.history.push("/mypage/update");
-                                        }
-                                    }><b>정보수정</b></button> */}
-                    <table>
+                    <Box
+                        display="flex"
+                        flexWrap="wrap"
+                        // p={1}
+                        // m={1}
+                        justifyContent="center"
+                        width="100%"
+                    >
+
+                        <Box className="mypageInfoCol" width="20%" alignSelf="center">
+                            <img src={userImg} alt="이미지없음" id="mypageUserImg"/>
+                        </Box>
+                        <Box m={1} bgcolor="#fff" width="50%" className="mypageInfoCol">
+                            <table>
+                                    <tr style={{borderBottom: '1px dotted #eee'}}>
+                                        <td>
+                                            <span class="fas fa-bookmark"></span>
+                                        </td>
+                                        <td style={{paddingLeft: '10px'}}>
+                                            {this.state.memberData.id}
+                                        </td>
+                                    </tr>
+                                    <tr style={{borderBottom: '1px dotted #eee'}}>
+                                        <td>
+                                        <span class="fas fa-user-alt"></span>
+                                        </td>
+                                        <td style={{paddingLeft: '10px'}}>
+                                            {this.state.memberData.name}
+                                        </td>
+                                    </tr>
+                                    <tr style={{borderBottom: '1px dotted #eee'}}>
+                                        <td>
+                                        <span class="fas fa-phone-alt"></span>
+                                        </td>
+                                        <td style={{paddingLeft: '10px'}}>
+                                            {this.state.memberData.hp}
+                                        </td>
+                                    </tr>
+                                    <tr style={{borderBottom: '1px dotted #eee'}}>
+                                        <td>
+                                            <span class="fas fa-envelope-open-text"></span>
+                                        </td>
+                                        <td style={{paddingLeft: '10px'}}>
+                                            {this.state.memberData.email}@{this.state.memberData.email2}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        <span class="fas fa-home"></span>
+                                        </td>
+                                        <td style={{paddingLeft: '10px'}}>
+                                            {this.state.memberData.address}<br/>{address}
+                                        </td>
+                                    </tr>
+                                </table>
+                        </Box>
+                        <Box width="20%" alignSelf="center">
+                            <Box m={1} bgcolor="#fff" className="mypageInfoCol" style={{textAlign: 'center'}}>
+                                <span className="mypageInfoSubtitle">일정</span><br/>
+                                <span className="mypageInfoSubContent">{this.state.wishCount}</span>
+                            </Box>
+                            <Box m={1} bgcolor="#fff" className="mypageInfoCol" style={{textAlign: 'center'}}>
+                                <span className="mypageInfoSubtitle">공유한 일정</span><br/>
+                                <span className="mypageInfoSubContent">0</span>
+                            </Box>
+                        </Box>
+                        
+                    </Box>
+
+                    {/* <table>
                         <tr id="mypageInfoRow" bgcolor="#fff">
                             <td className="mypageInfoCol" style={{width:'20%', textAlign: 'center'}}>
                                 <img src={userImg} alt="이미지없음" id="mypageUserImg"/><br/>
@@ -148,7 +211,7 @@ class MypagePageComp extends Component {
                                 <span className="mypageInfoSubContent">0</span>
                             </td>
                         </tr>
-                    </table>
+                    </table> */}
                 </div>
                 
                 <Paper square style={{marginTop: '100px'}}>
