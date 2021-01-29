@@ -81,7 +81,7 @@ import './style/RCA.css';
                 >
                     <Fade in={this.state.open}>
                     <div className="calPaper">
-                        <h2 id="transition-modal-title">일정 목록</h2>
+                        <h2 id="transition-modal-title">일정 목록</h2><br/>
                         <p id="transition-modal-description">⭕</p>
                     </div>
                     </Fade>
