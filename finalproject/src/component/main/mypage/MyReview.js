@@ -13,7 +13,7 @@ class MyReview extends Component {
 
     constructor(props) {
         super(props);
-        console.log("MyReview constructor", props); 
+        // console.log("MyReview constructor", props); 
     }
     state = {
         reviewList: []
@@ -35,7 +35,7 @@ class MyReview extends Component {
         this.getMyReview();
     }
     render() {
-        console.log("MyReview render()", this.props);
+        // console.log("MyReview render()", this.props);
         return (
             <Paper>
                 <Table>

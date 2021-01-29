@@ -48,7 +48,7 @@ class MemberUpdateFormComp extends Component {
         axios.post(url, {id, pass})
             .then(res=>{
                 if(res.data){
-                    this.props.passOk();
+                    this.props.passOk(true);
                 }
                 else{
                     alert("비밀번호가 맞지 않습니다.");
@@ -69,7 +69,7 @@ class MemberUpdateFormComp extends Component {
                 </div>
                 <br/>
                 <div className="detailIntro" style={{color: "#888", textAlign: 'center', marginBottom: '0px'}}>
-                    현재 비밀번호를 입력해주세요.
+                    정보 수정을 위해 현재 비밀번호를 입력해주세요.
                 </div>
                 <div style={{textAlign: 'center', marginTop: '10px'}}>
                     <FormControl className="mypagePassMargin mypageTextField" variant="outlined">

@@ -67,10 +67,12 @@ class MypagePageComp extends Component {
         this.getMyData(); //처음 시작시 백엔드로부터 데이타 가져오기
     }
 
-    passOk=()=>{
+    passOk=(ok)=>{
         this.setState({
-            passOk: true
+            passOk: ok
         })
+        if(ok==false)
+            this.getMyData();
     }
 
     render() {
@@ -78,7 +80,7 @@ class MypagePageComp extends Component {
         const url = URL + "/";
         const userimg = this.state.memberData.photo==null?userImg:url+this.state.memberData.photo;
         const address = this.state.memberData.addrdetail!==null?"(" + this.state.memberData.addrdetail + ")":"";
-        const passOkTab = this.state.passOk==true?<MemberUpdateFormComp num={this.state.memberData}/>:<PassCheck passOk={this.passOk.bind(this)}/>;
+        const passOkTab = this.state.passOk==true?<MemberUpdateFormComp num={this.state.memberData} passOk={this.passOk.bind(this)} history={this.props.history}/>:<PassCheck passOk={this.passOk.bind(this)}/>;
         
         return (
             <div>
