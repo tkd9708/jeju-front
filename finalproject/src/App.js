@@ -29,6 +29,7 @@ import store from "./redux/store";
 import {actionType} from "./redux/config";
 import SearchResultComp from "./component/main/mainpage/SearchResultComp";
 import MemberUpdateFormComp from "./component/main/mypage/MemberUpdateFormComp";
+import SharePlanPageComp from "./component/main/SharePlan/SharePlanPageComp";
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -185,6 +186,7 @@ class App extends Component {
                         <Route path="/notice/content/:num?" component={NoticeContent}/>
                         <Route path="/reservation/:name?" component={ReservationPageComp}/>
                         <Route path="/tourlist/:name?/:pageNum?" component={TourPageComp}/>
+                        <Route path="/shareplan/:name?/" component={SharePlanPageComp}/>
                     </Switch>
                     <div className="footerComp"
                     >

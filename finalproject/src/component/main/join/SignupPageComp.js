@@ -94,6 +94,7 @@ class SignupPageComp extends Component {
             address : '',
             addrdetail: '',
             email : '',
+            email2:'',
             hp : "",
             idcanUse: false,//중복된 아이디찾기 true여야 로그인가능
             files: [],
@@ -298,6 +299,12 @@ class SignupPageComp extends Component {
         });
     }
 
+    changeEmail = (e) => {
+        this.setState({
+            email2: e.target.value
+        })
+    }
+
     onStatusChange = (event) => {
         const file = event.affectedFiles[0];
 
@@ -328,24 +335,29 @@ class SignupPageComp extends Component {
                 <TextField id="standard-secondary" label="이메일" color="secondary" 
                 type="email" name="email" value={ this.state.email }
                 onChange = { this.changeEvent.bind(this) } />
+                @
+                <TextField id="standard-secondary2" color="secondary" 
+                type="email" name="email2" value={ this.state.email2 }
+                onChange = { this.changeEvent.bind(this) } />
+                <select name="selectemail" onChange={this.changeEmail.bind(this)}>
+                    <option disabled>선택하세요</option>
+                    <option value="">직접입력</option>
+                    <option value="naver.com">naver.com</option>
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="nate.com">nate.com</option> 
+                </select><br/>
                 
-                {/* <label>이메일</label>
-                <input type="email" name = "email" value = { this.state.email } onChange={this.changeEvent.bind(this)} /> */}
+                
                 <br />
                 
-                {/* <label>이름</label>
-                <input type="text" name = "name" value = { this.state.name } onChange={this.changeEvent.bind(this)} /> */}
+                
                 
                 <TextField id="standard-secondary" label="이름" color="secondary" 
                 type="text" name="name" value={ this.state.name }
                 onChange = { this.changeEvent.bind(this) } />
 
                 <br />
-                {/* 아이디 :
-                <input type="text" name="id"
-                onChange={this.changeEvent.bind(this)}
-                value={this.state.id}
-                /> */}
+                
                 <TextField id="standard-secondary" label="아이디" color="secondary" 
                 type="text" name="id" value={ this.state.id }
                 onChange = { this.changeEvent.bind(this) } />
@@ -355,36 +367,19 @@ class SignupPageComp extends Component {
                     아이디 확인
                 </button>
                 <br />
-                {/* <label>비밀번호</label>
-                <input type="password" name="pass"
-                onChange={this.changeEvent.bind(this)}
-                value={this.state.pass}
-                autoComplete="new-password"
-                /> */}
+                
                 <TextField id="standard-secondary" label="비밀번호" color="secondary" 
                 type="password" name="pass" value={ this.state.pass }
                 onChange = { this.changeEvent.bind(this) } />
 
                 <br />
-                {/* <label>비밀번호 확인</label>
-                <input
-                type = "password"
-                name = "pwCheck"
-                value = { this.state.pwCheck }
-                onChange = { this.changeEvent.bind(this) }
-                /> */}
+                
                 <TextField id="standard-secondary" label="비밀번호 확인" color="secondary" 
                 type="password" name="pwCheck" value={ this.state.pwCheck }
                 onChange = { this.changeEvent.bind(this) } />
 
                 <br />
-                {/* <select name="gender"
-                onChange = {this.changeEvent.bind(this)}
-                value = { this.state.gender }>
-                    <option value="">성별선택</option>
-                    <option value="여성">여성</option>
-                    <option value="남성">남성</option>
-                </select> */}
+                
 
                 <InputLabel id="demo-simple-select-label">성별</InputLabel>
                 <Select
@@ -418,7 +413,7 @@ class SignupPageComp extends Component {
                         onProgress={this.onProgress}
                         onStatusChange={this.onSatusChange}
                         withCredentials={false}
-                        // saveUrl={URL + '/member/upload'}
+                        saveUrl={URL + '/member/upload'}
                         removeUrl={'https://demos.telerik.com/kendo-ui/service-v4/upload/remove'}
                         onChange={this.imageUpload.bind(this)}
                     />
@@ -447,36 +442,26 @@ class SignupPageComp extends Component {
 
 
                 <br />
-                {/* 주소 : &nbsp;
-                <input type="text" name="address"
-                onChange={this.changeEvent.bind(this)}
-                value = { this.state.address }></input> */}
+                
 
                 <TextField id="standard-secondary" label="주소" color="secondary" 
                 type="text" name="address" value={ this.state.address }
                 onChange = { this.changeEvent.bind(this) } />
 
-                {/* <input type="text" name="addrdetail"
-                onChange={this.changeEvent.bind(this)}
-                value = { this.state.addrdetail }></input> */}
+                
                 
                 <TextField id="standard-secondary" label="상세주소" color="secondary" 
                 type="text" name="addrdetail" value={ this.state.addrdetail }
                 onChange = { this.changeEvent.bind(this) } />
 
                 <br />
-                {/* 휴대폰 : &nbsp;
-                <input type="text" name="hp"
-                onChange={this.changeEvent.bind(this)}
-                value = { this.state.hp }></input> */}
+                
 
                 <TextField id="standard-secondary" label="휴대폰" color="secondary" 
                 type="text" name="hp" value={ this.state.hp }
                 onChange = { this.changeEvent.bind(this) } />
                 <br />
-                {/* <MyRipples>
-                <button type = "submit">회원 가입</button>
-                </MyRipples> */}
+                
                 <RippleBtn2 />
                 </form>
             </div>

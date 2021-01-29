@@ -113,7 +113,7 @@ class Tourintro extends Component {
                     : (
                         <div>
                             <div className="tourIntroTitle">
-                                <span className="tourIntroTitleContent" style={{backgroundColor: 'white', color: '#3073BD'}}>
+                                <span className="tourIntroTitleContent" style={{backgroundColor: 'white', color: '#036E38'}}>
                                     &nbsp;&nbsp;&nbsp;{intro}&nbsp;&nbsp;&nbsp;
                                 </span>
                             </div>

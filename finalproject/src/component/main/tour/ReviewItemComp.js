@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import Chip from '@material-ui/core/Chip';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import store from '../../../redux/store';
 
 const reviewcustomIcons = {
     1: {
@@ -168,7 +169,8 @@ class ReviewItemComp extends Component {
                                             onDelete={this.handleDelete.bind(this)}
                                         />;
         // 로그인 아이디가 맞으면 출력
-        //const edit = 
+        const edit = store.getState().loginId===row.memNum ? <div style={{position: 'absolute', top: '10px', right: '10px', cursor: 'pointer'}} class="fas fa-tools" onClick={this.updateClick.bind(this)}></div>
+                :   "";
 
         const tag = this.state.update==false?
             <td style={{width:'75%', padding: '10px', position: 'relative'}} align="left" colSpan={w}>
@@ -177,8 +179,8 @@ class ReviewItemComp extends Component {
                 &nbsp; &nbsp;<b>{row.memNum}</b><span style={{color: '#999'}}>님이 작성하신 후기입니다.</span>
                 <br/><br/>
                 <p>{row.content}</p>
-                {/* {edit} */}
-                <div style={{position: 'absolute', top: '10px', right: '10px', cursor: 'pointer'}} class="fas fa-tools" onClick={this.updateClick.bind(this)}></div>
+                {edit}
+                
                 <div style={{float: 'right', color: '#aaa'}}>
                     {row.writeday}
                 </div>

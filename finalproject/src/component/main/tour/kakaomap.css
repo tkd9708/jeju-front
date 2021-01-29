@@ -79,17 +79,18 @@
         margin-top: 30px;
     }
     #placeListTable{
-        width: 300px;
+        width: 90vw;
     }
     #placesList .item p {
         font-size: 10pt;
         font-weight: 700;
     }
     #menu_wrap {
-        width:300px;
+        width:90vw;
         /* height:300px; */
         max-height: 300px;
         font-size:8px;
+        overflow-x: auto;
     }
     /* 모달 */
     .aroundmodalTitle {
