@@ -64,7 +64,7 @@ class MemberUpdateFormComp extends Component {
                 password: response.data.pass,
                 gender: response.data.gender,
                 photo: response.data.photo,
-                address: response.data.address,
+                fullAddress: response.data.address,
                 addrdetail: response.data.addrdetail,
                 email: response.data.email,
                 email2: response.data.email2,
@@ -119,28 +119,28 @@ class MemberUpdateFormComp extends Component {
     }
 
     onUpdateMember = () => {
-        let data = {
-            id: this.state.id,
-            name: this.state.name,
-            pass: this.state.password,
-            gender: this.state.gender,
-            photo: this.state.photo,
-            address: this.state.fullAddress,
-            addrdetail: this.state.addrdetail,
-            email: this.state.email,
-            email2: this.state.email2,
-            hp: this.state.hp
-          }
+        var id = this.state.id;
+        var name = this.state.name;
+        var pass = this.state.password;
+        var gender = this.state.gender;
+        var photo = this.state.photo;
+        var address = this.state.fullAddress;
+        var addrdetail = this.state.addrdetail;
+        var email = this.state.email;
+        var email2 = this.state.email2;
+        var hp = this.state.hp;
         
         let url = URL + "/member/update";
 
-        if(this.state.id.trim()==='' || this.state.name.trim()==='' || this.state.pass.trim()==='' 
-            || this.state.gender.trim()==='' || this.state.fullAddress.trim()==='' || this.state.addrdetail.trim()==='' ||
-            this.state.email.trim()==='' || this.state.email2.trim()==='' || this.state.hp.trim()===''){
+        if(id.trim()==='' || name.trim()==='' || pass.trim()==='' 
+            || gender.trim()==='' || address.trim()==='' || addrdetail.trim()==='' ||
+            email.trim()==='' || email2.trim()==='' || hp.trim()===''){
                 alert("정보를 모두 입력해주세요.")
         }
         else {
-            axios.post(url, data)
+            axios.post(url, {
+                id, name, pass, gender, photo, address, addrdetail, email, email2, hp
+            })
             .then(response => {
                 this.props.passOk(false);
                 window.scrollTo(0,0);
