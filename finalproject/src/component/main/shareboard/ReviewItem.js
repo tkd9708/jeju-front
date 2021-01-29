@@ -2,6 +2,7 @@ import React, {Component, useState} from 'react';
 import {actionType, URL} from "../../../redux/config";
 import axios from "axios";
 import store from "../../../redux/store";
+import { MDBBtn } from "mdbreact";
 
 class ReviewItem extends Component {
 
@@ -145,34 +146,34 @@ class ReviewItem extends Component {
                 <div style={{border: "1px solid", margin: "5px"}}>
                     {row.content}
                 </div>
-                <button type="button"
+                <MDBBtn size="sm" color="deep-orange" 
                         onClick={this.onTriggerInput.bind(this, "insert")}
                         disabled={row.content.includes("삭제된 글입니다.") ? true : false}
-                >댓글 쓰기
-                </button>
+                ><b style={{fontSize:'12px'}}>댓글 쓰기</b>
+                </MDBBtn>
                 &nbsp;
-                <button type="button"
+                <MDBBtn size="sm" color="deep-orange" 
                         onClick={this.onTriggerInput.bind(this, "update")}
                         disabled={row.content.includes("삭제된 글입니다.") ? true : false}
-                >댓글 수정
-                </button>
+                ><b style={{fontSize:'12px'}}>댓글 수정</b>
+                </MDBBtn>
                 &nbsp;
-                <button type="button"
+                <MDBBtn size="sm" color="deep-orange" 
                         onClick={this.onDeleteSubAnswer.bind(this)}
                         disabled={row.content.includes("삭제된 글입니다.") ? true : false}
-                >댓글 삭제
-                </button>
+                ><b style={{fontSize:'12px'}}>댓글 삭제</b>
+                </MDBBtn>
 
                 {/*댓글 입력창 on/off*/}
-                <div style={{display: 'none'}} className={`input_answer_${row.regroup}_${row.relevel}_${row.restep}`}>
-                    <textarea placeholder="댓글을 입력하세요"
-                              style={{width: '800px', height: '100px'}}
+                <div className={`input_answer_${row.regroup}_${row.relevel}_${row.restep}`}>
+                    <textarea placeholder="댓글을 입력하세요" className="form-control"
+                              style={{width: '800px', height: '100px',float:'left'}}
                               ref="content"
                     />
-                    <button type="button"
+                    <MDBBtn  size="sm" color="deep-orange" style={{width:'160px',height:'90px',marginLeft:'13px'}}
                             onClick={this.onSaveButton.bind(this)}
-                    >저장
-                    </button>
+                    ><b style={{fontSize:'18px'}}>저 장</b>
+                    </MDBBtn>
                 </div>
                 <hr/>
             </div>

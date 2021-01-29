@@ -6,11 +6,11 @@ class MyWishlist extends Component {
 
     constructor(props) {
         super(props);
-        console.log("MyWishlist constructor", props);
+        // console.log("MyWishlist constructor", props);
 
     }
     render() {
-        console.log("MyWishlist render()", this.props);
+        // console.log("MyWishlist render()", this.props);
 
         return (
             <div>

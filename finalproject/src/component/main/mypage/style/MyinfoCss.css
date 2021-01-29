@@ -1,4 +1,4 @@
-@media only screen and (max-width:400px){
+@media only screen and (max-width:450px){
     div#mypageInfo {
         padding: 10px 10px 10px 10px;
         /* height: 300px; */
@@ -8,7 +8,7 @@
         font-weight: 900;
         font-size: 13pt;
     }
-    td.mypageInfoCol {
+    .mypageInfoCol {
         padding: 10px; 
         line-height: 15px;
         font-size: 6pt;
@@ -44,9 +44,9 @@
         font-size: 9pt !important;
     }
 }
-@media only screen and (min-width:400px) and (max-width:770px){
+@media only screen and (min-width:450px) and (max-width:770px){
     div#mypageInfo {
-        padding: 20px 30px 20px 30px;
+        padding: 10px 20px 20px 10px;
         /* height: 300px; */
         margin-top: 50px;
     }
@@ -54,14 +54,14 @@
         font-weight: 900;
         font-size: 18pt;
     }
-    td.mypageInfoCol {
-        padding: 15px; 
+    .mypageInfoCol {
+        padding: 10px; 
         line-height: 20px;
         font-size: 8pt;
     }
     img#mypageUserImg {
-        width: 90px;
-        height: 90px;
+        width: 80px;
+        height: 80px;
         border: 1px solid #ddd;
         border-radius: 100%;
     }
@@ -100,7 +100,7 @@
         font-weight: 900;
         font-size: 20pt;
     }
-    td.mypageInfoCol {
+    .mypageInfoCol {
         padding: 10px; 
         line-height: 25px;
         font-size: 10pt;
@@ -142,9 +142,9 @@
         font-weight: 900;
         font-size: 25pt;
     }
-    td.mypageInfoCol {
-        padding: 20px; 
-        line-height: 30px;
+    .mypageInfoCol {
+        padding: 20px !important; 
+        line-height: 35px;
     }
     img#mypageUserImg {
         width: 150px;
@@ -175,4 +175,5 @@
         font-weight: 900;
         font-size: 15pt !important;
     }
+
 }

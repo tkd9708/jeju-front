@@ -9,9 +9,12 @@ import store from "../../../redux/store";
 import Box from '@material-ui/core/Box';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import BuildIcon from '@material-ui/icons/Build';
+import BuildIcon from '@material-ui/icons/Build';   
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
-
+import Rating from '@material-ui/lab/Rating';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import { withStyles } from '@material-ui/core/styles';
+import { MDBBtn } from "mdbreact";
 import './Share.css';
 
 /*
@@ -29,6 +32,17 @@ row:
     subject: "제주도 맛집맛집"
     writeday: "2021-01-22"
  */
+
+const StyledRating = withStyles({
+    iconFilled: {
+      color: '#ff6d75',
+    },
+    iconHover: {
+      color: '#ff3d47',
+    },
+  })(Rating);
+
+
 class ShareBoardRowItem extends Component {
 
     state = {
@@ -140,6 +154,7 @@ class ShareBoardRowItem extends Component {
             scrollTop
         } = this.state
 
+
        
 
          
@@ -162,11 +177,27 @@ class ShareBoardRowItem extends Component {
                         </div>
 
                         <div id="ShareContentDiv">
-                            <div id="ShareContent">평점:{row.star}</div>
-                            <div>주소:{row.addr}</div>
+                            
+                            
+                            
+                            <Box>
+                                
+                              <Rating style={{marginTop:'13px'}}
+                            
+                              defaultValue={row.star}
+                              
+                              emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                        
+                              />
+                            </Box>
+                            
+                           
+                        
+                            <div style={{marginTop:'10px'}}>주소:{row.addr}</div>
                         </div>
+                        
                         <div>
-                            <div style={{width: '400px', height: '65px',backgroundColor:'#FaFaFa'}}>
+                            <div style={{width: '400px', height: '55px',backgroundColor:'#FaFaFa'}}>
                               {/* 좋아요 버튼 */}
                               <ThumbUpAltIcon id="ShareThumbIcon"/>
 
@@ -183,7 +214,7 @@ class ShareBoardRowItem extends Component {
                             </div>
                         </div>
                     </div>
-                    </Box>
+                  </Box>
                    
 
                     {/* //header 부분에 텍스트를 입력한다. */}
@@ -199,7 +230,7 @@ class ShareBoardRowItem extends Component {
                                  
                                 <p style={{marginTop:"10px",marginBottom:'45px'}}>(작성자) 님이 공유하신 맛집입니다.</p>
 
-                                <b>맛집이름:{row.subject}</b>
+                                <b style={{fontSize:'15px'}}>{row.subject}</b>
                                 </div>
                                 
                                 {/* 찜하기 버튼 */}
@@ -213,7 +244,18 @@ class ShareBoardRowItem extends Component {
                                    
                                 
                                 <div id="ShareModalContent">
-                                    <div id="ShareModalContent1">평점:{row.star}</div>
+                                    <div id="ShareModalContent1">
+                                    <Box>
+                                
+                                    <Rating 
+                              
+                                     defaultValue={row.star}
+                                
+                                     emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                          
+                                     />
+                                    </Box>
+                              </div>
                                     <div id="ShareModalContent2">주소:{row.addr}</div>
                                     <div id="ShareModalContent3">리뷰:{row.content}</div>
                                     <div id="ShareModalContent4">작성일:{row.writeday}</div>
@@ -230,16 +272,18 @@ class ShareBoardRowItem extends Component {
                                 </div>
 
                                 <div>
-                                    <div>
-                                        <textarea placeholder="댓글을 입력하세요"
+                                    <div> 
+                                        <textarea placeholder="댓글을 입력하세요" className="form-control"
                                                   style={{width: '900px', height: '100px', float: 'left'}}
                                                   ref="content"
                                         />
                                     </div>
 
                                     <div>
-                                    <button type="button" className="btn btn-warning" id="ShareReviewSave" 
-                                    onClick={this.onInsertAnswer.bind(this)}><b>작&nbsp;성</b></button>
+                                    <MDBBtn color="deep-orange"  id="ShareReviewSave" 
+                                    onClick={this.onInsertAnswer.bind(this)}>
+                                        <b style={{fontSize:'17px'}}>작&nbsp;성</b>
+                                    </MDBBtn>
                                     </div>
                                 </div>
                             </div>

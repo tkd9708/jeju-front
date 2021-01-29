@@ -3,6 +3,9 @@ import axios from 'axios';
 import './style/RCA.css';
 import {URL} from "../../../redux/config";
 import Header from './Header';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 
 //import Subject from './Subject';
@@ -14,11 +17,19 @@ class DayDetail extends Component {
         super(props);
 
         this.state={
-           list:''
+           list:'',
+        //    open : false,
+        //    setOpen : false
             
         };
 
     }
+
+    // handleClose = () => {
+    //     this.setState({
+    //         open: false
+    //     })
+    //   };
     // rendervalue=()=>{
     //     return this.props.row.shareNum===null?0:'';
     // }
@@ -86,6 +97,7 @@ class DayDetail extends Component {
         
         return (
             <div>
+
                 {tag}
             </div>
         );
