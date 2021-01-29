@@ -1,8 +1,9 @@
-import React, {Component} from "react";
+import React, {Component,Fragment} from "react";
 import {Route, Link} from "react-router-dom";
 import ShareBoardFormComp from "./ShareBoardFormComp";
 import ShareBoardRowItem from "./ShareBoardRowItem";
 import {URL, actionType} from '../../../redux/config';
+import { MDBBtn } from "mdbreact";
 import axios from "axios";
 import store from "../../../redux/store";
 
@@ -65,28 +66,39 @@ class ShareBoardPageComp extends Component {
         return (
             <div>
                 {/* 제목 */}
-                <div>
-                    <b>맛집 공유게시판</b>
+                <div style={{margin:"0 auto",marginLeft:"45%",marginTop:'1%',marginBottom:'4%'}}>
+                    <h3 id="sharesubject">맛집 공유게시판</h3>
                 </div>
 
                 {/*/!* 공유버튼 *!/*/}
+               
                 <div>
+                    
                     <Link to="/share/insert">
-                        <button type="button">맛집공유</button>
+                        <MDBBtn size="sm" color="deep-orange" type="button" variant="warning" style={{float:'right',marginRight:'7%'}}>
+                            <b style={{fontSize:'15px'}}>맛집공유</b>
+                        </MDBBtn>
                     </Link>
-                    &nbsp;
-                    <button type="button"
-                            onClick={this.getShareListByPaging.bind(this)}
-                    >전 체 글
-                    </button>
-                    &nbsp;
-                    <input type="text" placeholder="검색할 단어를 입력하세요." ref="search"/>
-                    &nbsp;
-                    <button type="button"
-                            onClick={this.searchShareList.bind(this)}
-                    >검 색
-                    </button>
+                    
+                    
+                   
+                    <MDBBtn outline size="sm" color="deep-orange" 
+                            onClick={this.getShareListByPaging.bind(this)} style={{float:'left',marginLeft:'7%'}}>
+                    <b style={{fontSize:'15px'}}>전체글</b>
+                    </MDBBtn>
+                   
+                    
+                    
+                   
+                    <input type="search" className="form-control" ref="search" style={{float:'left', marginLeft:'7%' ,width:'200px',height:'40px',marginTop:'5px'}}/>
+                        
+                    <MDBBtn outline size="sm" color="deep-orange" onClick={this.searchShareList.bind(this)}>
+                        <b style={{fontSize:'15px'}}>검색</b>
+                    </MDBBtn>
+                    
                 </div>
+
+               
 
                 {/* 게시판 폼 */}
                 <div>
