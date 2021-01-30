@@ -1,0 +1,50 @@
+@media only screen and (max-width:400px){
+    #mypageReview {
+        width: 80vw;
+        margin: 100px auto;
+    }
+    .mypageReCol {
+        font-size: 7pt !important;
+    }
+    .mypageReCol > img {
+        width: 30px;
+    }
+}
+@media only screen and (min-width:400px) and (max-width:770px){
+    #mypageReview {
+        width: 80vw;
+        margin: 90px auto;
+    }
+    .mypageReCol {
+        font-size: 8pt !important;
+    }
+    .mypageReCol > img {
+        width: 40px;
+    }
+}
+@media only screen and (min-width:770px) and (max-width:1023px){
+    #mypageReview {
+        width: 80vw;
+        margin: 100px auto;
+    }
+    .mypageReCol > img {
+        width: 60px;
+    }
+}
+@media only screen and (min-width:1023px){
+    #mypageReview {
+        width: 80vw;
+        margin: 100px auto;
+    }
+    .mypageReCol > img {
+        width: 100px;
+    }
+}
+
+#mypageReviewLink {
+    color: black;
+}
+#mypageReviewLink:hover {
+    color: #036E38;
+    font-weight: 700;
+}

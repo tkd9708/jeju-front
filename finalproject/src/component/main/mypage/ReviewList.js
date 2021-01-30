@@ -4,6 +4,7 @@ import TableCell from '@material-ui/core/TableCell';
 import axios from 'axios';
 import {URL} from '../../../redux/config';
 import {Route, Link} from "react-router-dom";
+import './style/MyReviewCss.css';
 
 class ReviewList extends Component {
     updateLikes = () =>{
@@ -17,22 +18,23 @@ class ReviewList extends Component {
             })
     }
     render() {
+        
         const {row}=this.props;
+        const date = row.writeday.split(" ")[0];
+        const photo = row.photo=="no"?"x":<img src={row.photo} alt="profile"/>;
         return (
            
-                <TableRow style={{cursor: 'pointer'}}> 
+                <TableRow> 
                 
-                <TableCell>{this.props.num}</TableCell>
-                <TableCell><img src={this.props.photo} alt="profile"/></TableCell>
-                <TableCell> 
-                    <Link to={`/tour/${this.props.contentsid}`}>
-                        {this.props.content}
+                <TableCell align="center" className="mypageReCol">{this.props.idx + 1}</TableCell>
+                <TableCell align="center" className="mypageReCol">{photo}</TableCell>
+                <TableCell className="mypageReCol"> 
+                    <Link to={`/tour/${row.contentsid}`} id="mypageReviewLink">
+                        {row.content}
                     </Link>   
                 </TableCell>
-                <TableCell>{this.props.memNum}</TableCell>
-                <TableCell>{this.props.star}</TableCell>
-                <TableCell>{this.props.likes}</TableCell>
-                <TableCell>{this.props.writeday}</TableCell>
+                <TableCell align="center" className="mypageReCol">{row.star}</TableCell>
+                <TableCell align="center" width="20%" className="mypageReCol">{date}</TableCell>
                 
                 </TableRow>
            
