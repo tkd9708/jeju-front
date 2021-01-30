@@ -95,7 +95,6 @@ class DetailTourComp extends Component {
         this.setState({
             alertOpen: false
         })
-        this.refs.thumbHeart.className="spotheart spotclickheart";
     };
 
     insertWish=()=>{
