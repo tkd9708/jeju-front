@@ -80,6 +80,7 @@ class Week extends Component {
       })
     };
 
+
       getData=()=>{
 
             let url = URL + "/wish/list?memId=sanghee";
@@ -108,7 +109,22 @@ class Week extends Component {
           }).catch(err=>{
             console.log("목록 오류:"+err);
           })
-    } 
+    }
+    
+      // onDelete=()=>{
+      //   let url=URL+"/wish/delete?num="+this.num;
+      //   axios.get(url)
+      //   .then(res=>{
+          
+      //   }).catch(err=>{
+      //     console.log("삭제시 오류:"+err);
+      //   });
+      // }
+    
+   
+
+
+
 
   componentDidMount(){
     this.getData();
@@ -158,6 +174,7 @@ class Week extends Component {
       }
    
       const category=this.state.memId;
+      const num=this.state.list.num;
       const day=this.props.ymOfThisCalendar+"-"+dayInfo.getDay;
       const wishday=this.state.wishday;
       
@@ -177,6 +194,7 @@ class Week extends Component {
                 open: true
               })
               this.getList(dayInfo.yearMonthDayFormat);
+
             }}>
               <label className="RCA-calendar-day-label">
                 {dayInfo.getDay}
@@ -197,6 +215,11 @@ class Week extends Component {
     
 
   render() {
+
+    var content=this.state.clist.content;
+   
+
+
     return (
       <div className="RCA-calendar-week">
         
@@ -223,9 +246,22 @@ class Week extends Component {
                         {/* <h2 id="transition-modal-title">일정 목록</h2>
                         <p id="transition-modal-description"></p> */}
                         
+
+                        <h2 id="transition-modal-title">{this.props.selected}</h2>
+                        
+                        <br/>
                         {this.state.clist.map((row)=>(
-                          <div>{row.title}</div>
+                          <div>{row.content==="spot"?<div>🗼{row.title}❌</div>:
+                          row.content==="myplan"?<div>🌳{row.title}❌</div>:
+                          row.content==="share"?<div>✔{row.title}❌</div>:
+                          row.content.split(",")[0]==="카페"?<div>☕{row.title}❌</div>:
+                          row.content.split(",")[0]==="음식점"?<div>🍽{row.title}❌</div>:
+                          row.content.split(",")[0]==="숙박"?<div>🏟{row.title}❌</div>:''}<br/></div>
+                          
+                          
+
                         ))}
+                        
                     </div>
                     </Fade>
                     
