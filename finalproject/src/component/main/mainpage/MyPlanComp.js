@@ -114,7 +114,7 @@ class MyPlanComp extends Component {
                 {list}
             </div>
             
-            :<h2>로그인 안하면 무엇을 넣을까요</h2>
+            :<h2>로그인 안하면 무엇을 넣을까요 날씨넣는다메요</h2>
 
         return (
             <div className="myPlanComp myPlanParent">
