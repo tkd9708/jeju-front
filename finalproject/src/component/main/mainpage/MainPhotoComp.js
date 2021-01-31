@@ -79,15 +79,15 @@ class MainPhotoComp extends Component {
                 <div>
                     <img className="mainPhotoComp_img1" src={jeju1}/>
                 </div>
-                <div>
-                    <img className="mainPhotoComp_img2" src={jeju2}/>
-                </div>
-                <div>
-                    <img className="mainPhotoComp_img3" src={jeju3}/>
-                </div>
-                <div>
-                    <img className="mainPhotoComp_img4" src={udo1}/>
-                </div>
+                {/*<div>*/}
+                {/*    <img className="mainPhotoComp_img2" src={jeju2}/>*/}
+                {/*</div>*/}
+                {/*<div>*/}
+                {/*    <img className="mainPhotoComp_img3" src={jeju3}/>*/}
+                {/*</div>*/}
+                {/*<div>*/}
+                {/*    <img className="mainPhotoComp_img4" src={udo1}/>*/}
+                {/*</div>*/}
             </div>
         );
     }

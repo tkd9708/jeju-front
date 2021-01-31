@@ -9,39 +9,42 @@ div.mainPageComp {
 div.mainPhotoComp {
     max-height: 600px;
     overflow: hidden;
-    background-color: gold;
+    /*background-color: gold;*/
 }
 
 div.mainPhotoComp div {
     max-height: 600px;
-    margin: 0px;
     overflow: hidden;
-    position: relative;
-    text-align: center;
+    /*margin: 0px;*/
+    /*position: relative;*/
+    /*text-align: center;*/
 }
 
-div.mainPhotoComp div:nth-child(1) {
-    top: 0px;
-}
+/*div.mainPhotoComp div:nth-child(1) {*/
+/*    top: 0px;*/
+/*}*/
 
-div.mainPhotoComp div:nth-child(2) {
-    top: calc(-600px);
-}
+/*div.mainPhotoComp div:nth-child(2) {*/
+/*    top: calc(-600px);*/
+/*}*/
 
-div.mainPhotoComp div:nth-child(3) {
-    top: calc(-600px * 2);
-}
+/*div.mainPhotoComp div:nth-child(3) {*/
+/*    top: calc(-600px * 2);*/
+/*}*/
 
-div.mainPhotoComp div:nth-child(4) {
-    top: calc(-600px * 3);
-}
+/*div.mainPhotoComp div:nth-child(4) {*/
+/*    top: calc(-600px * 3);*/
+/*}*/
 
 div.mainPhotoComp div img {
-    position: relative;
-    top: -300px;
+    /*position: relative;*/
+    /*top: -300px;*/
     /*transform: scale(1.5);*/
-    min-width: 1920px;
-    max-width: 2560px;
+    /*min-width: 1920px;*/
+    /*max-width: 2560px;*/
+    max-height: initial;
+    margin-top: -15%;
+    width: 100%;
 }
 
 
