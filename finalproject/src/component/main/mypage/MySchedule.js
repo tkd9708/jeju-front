@@ -14,7 +14,7 @@ class MySchedule extends Component {
         console.log("MySchedule constructor", props);
 
         this.state={
-            list:[],
+            // list:[],
             calendarYM : moment(),
             today : moment(),
             selected : moment().format("YYYY-MM-DD"),
@@ -29,21 +29,21 @@ class MySchedule extends Component {
 
       
 
-      getData1=()=>{
+//       getData1=()=>{
 
-        let url = URL + "/wish/list?memId=sanghee";
+//         let url = URL + "/wish/list?memId=sanghee";
 
-        axios.get(url)
-        .then(response=>{
-          //console.log("캘린더 출력 : " + response.data); 
-          this.setState({
-            list: response.data
+//         axios.get(url)
+//         .then(response=>{
+//           //console.log("캘린더 출력 : " + response.data); 
+//           this.setState({
+//             list: response.data
 
-          });
-        }).catch(err=>{
-          console.log("캘린더 목록 오류:"+err);
-        })
-  }
+//           });
+//         }).catch(err=>{
+//           console.log("캘린더 목록 오류:"+err);
+//         })
+//   }
 
 //   componentWillMount(){
 //       this.getData1();
@@ -94,9 +94,9 @@ class MySchedule extends Component {
                         selected={this.state.selected}
                         changeSelected={this.changeSelected}
                     />
-                    {this.state.list.map((row)=>(
+                    {/* {this.state.list.map((row)=>(
                         <Calendar row={row}></Calendar>
-                    ))}
+                    ))} */}
 
                 </div>
         
