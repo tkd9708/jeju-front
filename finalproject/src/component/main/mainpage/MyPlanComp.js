@@ -97,7 +97,7 @@ class MyPlanComp extends Component {
                         )):this.state.nextList!=''?this.state.nextList.map((row)=>(
                             <MyPlanLeftItem row={row}/>
                         )):
-                        <ListItem>등록하신 일정이 없습니다.<br/>새로운 일정을 계획해보아요!</ListItem>}
+                        <ListItem>등록하신 일정이 없습니다.<br/>새로운 일정을 계획하러 갑시다.</ListItem>}
                     </List>
                 </div>:"";
 
