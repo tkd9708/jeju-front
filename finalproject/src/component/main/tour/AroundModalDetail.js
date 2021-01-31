@@ -10,6 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import UseModal from './UseModal';
 import {Route, Link} from "react-router-dom";
+import store from '../../../redux/store';
 
 const AroundModalDetail=(props)=> {
 
@@ -22,7 +23,7 @@ const AroundModalDetail=(props)=> {
 
     const insertAround=()=>{
         let url = URL + "/wish/insertaround";
-        let memId = 'sanghee'; // 나중에 로그인 아이디로 넣기
+        let memId = store.getState().loginId;
         let category = props.category=='FD6'?'음식점':props.category=='CE7'?'카페':'숙박';
         let aroundId = props.wishTitle;
         let content = category + "," + props.wishContent;

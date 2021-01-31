@@ -14,7 +14,7 @@ class MySchedule extends Component {
         console.log("MySchedule constructor", props);
 
         this.state={
-            list:[],
+            // list:[],
             calendarYM : moment(),
             today : moment(),
             selected : moment().format("YYYY-MM-DD"),

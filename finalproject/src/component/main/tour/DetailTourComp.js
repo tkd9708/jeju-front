@@ -99,7 +99,7 @@ class DetailTourComp extends Component {
 
     insertWish=()=>{
         let url = URL + "/wish/insertspot";
-        let memId = 'sanghee'; // 나중에 로그인 아이디로 넣기
+        let memId = store.getState().loginId;
         let spotId = this.state.contentsid;
         let content = this.state.spotdata.roadaddr;
         let wishday = this.refs.wishday.value;

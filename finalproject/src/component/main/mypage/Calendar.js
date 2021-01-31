@@ -9,6 +9,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import './style/RCA.css';
 import { TiTimes } from "react-icons/ti";
+import ClistItem from './ClistItem';
 
 class DateHeader extends Component {
 
@@ -114,15 +115,6 @@ class Week extends Component {
           })
     }
     
-      onDelete=()=>{
-        let url=URL+"/wish/delete?num="+this.props.row.num;
-        axios.get(url)
-        .then(res=>{
-          
-        }).catch(err=>{
-          console.log("삭제시 오류:"+err);
-        });
-      }
     
    
 
@@ -222,8 +214,6 @@ class Week extends Component {
   render() {
 
     var content=this.state.clist.content;
-   const {row}=this.props;
-
 
     return (
       <div className="RCA-calendar-week">
@@ -256,15 +246,7 @@ class Week extends Component {
                         
                         <br/>
                         {this.state.clist.map((row)=>(
-                          <div>{row.content==="spot"?<div>🗼{row.title}<button className="delete" type="button" onClick={this.onDelete.bind(this)}>❌</button></div>:
-                          row.content==="myplan"?<div>🌳{row.title}<button  className="delete" type="button" onClick={this.onDelete.bind(this)}>❌</button></div>:
-                          row.content==="share"?<div>✔{row.title}<button  className="delete" type="button" onClick={this.onDelete.bind(this)}>❌</button></div>:
-                          row.content.split(",")[0]==="카페"?<div>☕{row.title}<button  className="delete" type="button" onClick={this.onDelete.bind(this)}>❌</button></div>:
-                          row.content.split(",")[0]==="음식점"?<div>🍽{row.title}<button  className="delete" type="button" onClick={this.onDelete.bind(this)}>❌</button></div>:
-                          row.content.split(",")[0]==="숙박"?<div>🏟{row.title}<button  className="delete" type="button" onClick={this.onDelete.bind(this)}>❌</button></div>:''}<br/></div>
-                          
-                          
-
+                            <ClistItem row={row}/>
                         ))}
                         
                     </div>
