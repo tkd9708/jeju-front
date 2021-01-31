@@ -8,6 +8,8 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import './style/RCA.css';
+import { TiTimes } from "react-icons/ti";
+import ClistItem from './ClistItem';
 
 class DateHeader extends Component {
 
@@ -72,6 +74,8 @@ class Week extends Component {
         open: false,
         setOpen: false      
       };
+
+      
     }
 
     handleClose = () => {
@@ -111,19 +115,12 @@ class Week extends Component {
           })
     }
     
-      // onDelete=()=>{
-      //   let url=URL+"/wish/delete?num="+this.num;
-      //   axios.get(url)
-      //   .then(res=>{
-          
-      //   }).catch(err=>{
-      //     console.log("삭제시 오류:"+err);
-      //   });
-      // }
     
    
 
-
+  // componentWillMount(){
+  //   this.onDelete();
+  // }
 
 
   componentDidMount(){
@@ -173,10 +170,10 @@ class Week extends Component {
         
       }
    
-      const category=this.state.memId;
-      const num=this.state.list.num;
-      const day=this.props.ymOfThisCalendar+"-"+dayInfo.getDay;
-      const wishday=this.state.wishday;
+      // const category=this.state.memId;
+      // const num=this.state.list.num;
+      // const day=this.props.ymOfThisCalendar+"-"+dayInfo.getDay;
+      // const wishday=this.state.wishday;
       
         var date = new Date(); 
         var year = date.getFullYear(); 
@@ -185,7 +182,7 @@ class Week extends Component {
         var today = new Date(year, month, days);
         var selectDay = new Date(dayInfo.getYear, dayInfo.getMonth-1, dayInfo.getDay);
         var betweenDay = selectDay.getTime() - today.getTime();
-        
+      
        return(
           <div className={"RCA-calendar-day " + className} key={`RCA-${dayInfo.weekIndex}-${i}-day`}
             onClick={() => {
@@ -194,7 +191,7 @@ class Week extends Component {
                 open: true
               })
               this.getList(dayInfo.yearMonthDayFormat);
-
+              
             }}>
               <label className="RCA-calendar-day-label">
                 {dayInfo.getDay}
@@ -217,8 +214,6 @@ class Week extends Component {
   render() {
 
     var content=this.state.clist.content;
-   
-
 
     return (
       <div className="RCA-calendar-week">
@@ -251,15 +246,7 @@ class Week extends Component {
                         
                         <br/>
                         {this.state.clist.map((row)=>(
-                          <div>{row.content==="spot"?<div>🗼{row.title}❌</div>:
-                          row.content==="myplan"?<div>🌳{row.title}❌</div>:
-                          row.content==="share"?<div>✔{row.title}❌</div>:
-                          row.content.split(",")[0]==="카페"?<div>☕{row.title}❌</div>:
-                          row.content.split(",")[0]==="음식점"?<div>🍽{row.title}❌</div>:
-                          row.content.split(",")[0]==="숙박"?<div>🏟{row.title}❌</div>:''}<br/></div>
-                          
-                          
-
+                            <ClistItem row={row}/>
                         ))}
                         
                     </div>

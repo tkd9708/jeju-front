@@ -31,6 +31,7 @@
         max-width: 400px;
         height: 500px;
         padding: 20px;
+        overflow: scroll;
     }
     .myPlanRight {
         height: 500px;
