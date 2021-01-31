@@ -17,8 +17,8 @@ class MyPlanRightItem extends Component {
 
         return (
             <Paper elevation={3}>
-                <img src={row.thumbnail} alt="" style={{width: '100px'}}/><br/>
-                {row.title}
+                <img src={row.thumbnail} alt="" style={{width: '300px'}}/><br/>
+                <div id="myplanRightThumb">{row.title}</div>
             </Paper>
         )
     }

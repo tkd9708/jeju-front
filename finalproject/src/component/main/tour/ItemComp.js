@@ -45,6 +45,7 @@ class ItemComp extends Component {
                     {/* <span id="itemAddr" style={{float:'right', overflow:'hidden', whiteSpace:'nowrap', textOverflow:'ellipsis'}}>
                         <LocationOnIcon id="tourLocationIcon"/>&nbsp;{addr[addr.length-2]}&nbsp;{addr[addr.length-1]}
                     </span> */}
+                    <span style={{float:'right'}}><span class="fas fa-star" style={{color: "#F0CD58"}}></span>&nbsp;{row.star}</span>
                 </div>
             </Box>
         );

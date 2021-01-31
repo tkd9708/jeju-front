@@ -138,7 +138,7 @@ class SearchResultComp extends Component {
 
                 {/* list 출력 */}
                 <div className="tourIntroTitle">
-                    <span className="tourIntroTitleContent" style={{backgroundColor: 'white', color: '#3073BD'}}>
+                    <span className="tourIntroTitleContent" style={{backgroundColor: 'white', color: '#036E38'}}>
                         &nbsp;&nbsp;&nbsp;"{this.state.searchVal}" 의 검색 결과&nbsp;&nbsp;&nbsp;
                     </span>
                 </div>

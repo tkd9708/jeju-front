@@ -49,9 +49,21 @@ class DetailTourComp extends Component {
             })
     }
 
+    setAvgStar=()=>{
+        
+        let url = URL + "/spot/updatestar?contentsid=" + this.state.contentsid;
+
+        axios.get(url)
+            .then(res=>{
+                this.getData();
+            }).catch(err=>{
+                console.log("DetailTourComp setAvgStar 오류 : " + err);
+            })
+    }
+
     componentWillMount(){
         console.log("DetailTourComp render()", this.props);
-        this.getData();
+        this.setAvgStar();
     }
 
     // heartClick=(e)=>{
@@ -135,8 +147,11 @@ class DetailTourComp extends Component {
             :this.state.spotdata.star==2?
             <span id="thumbStar" style={{color: "#F0CD58"}}><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="far fa-star"></span>
                                                             <span class="far fa-star"></span><span class="far fa-star"></span></span>
-            :<span id="thumbStar" style={{color: "#F0CD58"}}><span class="fas fa-star"></span><span class="far fa-star"></span><span class="far fa-star"></span>
-                                                            <span class="far fa-star"></span><span class="far fa-star"></span></span>;
+            :this.state.spotdata.star==1?
+            <span id="thumbStar" style={{color: "#F0CD58"}}><span class="fas fa-star"></span><span class="far fa-star"></span><span class="far fa-star"></span>
+                                                            <span class="far fa-star"></span><span class="far fa-star"></span></span>
+            :<span id="thumbStar" style={{color: "#F0CD58"}}><span class="far fa-star"></span><span class="far fa-star"></span><span class="far fa-star"></span>
+            <span class="far fa-star"></span><span class="far fa-star"></span></span>;
         
         return (
             <div>
