@@ -24,11 +24,13 @@ class MainPageComp extends Component {
             shareBoardList: [],
             noticeList: [],
         }
+
     }
 
     componentWillMount() {
         this.getNoticeList.bind(this)();
         this.getShareBoardList.bind(this)();
+        window.scrollTo(0,0);
     }
 
     getNoticeList = () => {

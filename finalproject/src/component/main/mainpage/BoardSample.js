@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     paperRoot: {
         display: "flex",
         // flexWrap: "wrap",
-        overflow: "scroll",
+        overflow: "auto",
         "& > *": {
             // flexShrink: "0",
             // margin: "10px",

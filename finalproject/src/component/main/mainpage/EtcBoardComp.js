@@ -127,7 +127,7 @@ export default function EtcBoardComp(props) {
             <TabPanel value={selectedTabValue} index={0}>
                 <div style={{
                     display: "flex",
-                    overflow: "scroll",
+                    overflow: "auto",
                     // flexWrap: "wrap"
                 }}>
                     {
@@ -142,7 +142,7 @@ export default function EtcBoardComp(props) {
             <TabPanel value={selectedTabValue} index={1}>
                 <div style={{
                     display: "flex",
-                    overflow: "scroll",
+                    overflow: "auto",
                     // flexWrap: "wrap"
 
                 }}>

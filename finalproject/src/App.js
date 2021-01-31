@@ -82,15 +82,16 @@ class App extends Component {
 
         }
 
-        window.onmousewheel = function (e) {
-            // console.log(window.scrollY);
-            this.showHeader(window.scrollY);
-        }.bind(this);
-        window.onscroll = function (e) {
-            // console.log(window.scrollY);
-            this.showHeader(window.scrollY);
-        }.bind(this);
+        // window.onmousewheel = function (e) {
+        //     // console.log(window.scrollY);
+        //     this.showHeader(window.scrollY);
+        // }.bind(this);
+        // window.onscroll = function (e) {
+        //     // console.log(window.scrollY);
+        //     this.showHeader(window.scrollY);
+        // }.bind(this);
 
+        window.addEventListener("scroll", this.showHeader);
 
         if (confirmLs !== undefined) {
             this.setState({
@@ -108,7 +109,8 @@ class App extends Component {
     }
 
 
-    showHeader = (scrollVal) => {
+    showHeader = () => {
+        let scrollVal = window.scrollY;
         const isStaticHeader = this.state.isStaticHeader;
         if (scrollVal > 0) {
             if (!isStaticHeader) {
@@ -163,7 +165,8 @@ class App extends Component {
                 <Menu logged={logged}
                       type="normal"
                 />
-                <div className="mainFrame"  >
+                <div className="mainFrame"
+                >
                     <Switch>
                         <Route exact path="/" component={MainPageComp}/>
 
