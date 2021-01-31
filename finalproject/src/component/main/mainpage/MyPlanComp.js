@@ -28,7 +28,8 @@ class MyPlanComp extends Component {
             todayList: [], // 오늘 전부 plan
             todayAfterList: [], // 오늘 현재 시간 이후 plan
             nextList: [], // 오늘 이후 plan
-            spotList: []
+            spotList: [],
+            hotspotList: []
         }
 
         let date = new Date();
@@ -83,6 +84,8 @@ class MyPlanComp extends Component {
                 // console.log(this.state.count);
                 if(this.state.count != 0)
                     this.getSpotList("nextDay");
+                else
+                    this.getHotspotList();
                     
             }).catch(err=>{
                 console.log("myplan getNextDayPlan 오류 : " + err);
@@ -103,11 +106,25 @@ class MyPlanComp extends Component {
             })
     }
 
+    // 아예 뒷 일정이 없을 경우
+    getHotspotList=()=>{
+        let url = URL + "/spot/hotspotlist";
+        
+        axios.get(url)
+            .then(res=>{
+                this.setState({
+                    hotspotList: res.data
+                })  
+            }).catch(err=>{
+                console.log("myplan getHotspotList 오류 : " + err);
+            })
+    }
+
     render(){
         // login시에만 왼쪽 블럭 출력
         const leftTag = store.getState().logged==true?
             <div className="myPlanLeft" style={{borderRight: '1px solid black'}}>
-                    {this.state.todayList!=''?<span>MyPlan on {this.today}</span>:<span>MyPlan on </span>}
+                    {this.state.todayList!=''?<span>MyPlan on {this.today}</span>:<span>MyPlan</span>}
                     <br/>
                     {this.state.todayList!=''?<span>TODAY</span>:""}
                     <List style={{width: '100%'}}>
@@ -127,12 +144,16 @@ class MyPlanComp extends Component {
                     <MyPlanRightItem row={row}/>
                 ))}
             </div>
-        :<span><br/>추천 spot list</span>;
+        :<div className="myPlanpagesRoot">
+            {this.state.hotspotList.map((row)=>(
+                <MyPlanRightItem row={row}/>
+            ))}
+        </div>;
 
         // 로그인 시, plan list 출력 / 없을 시, 뭐넣지
         const rightTag = store.getState().logged==true?
             <div className="myPlanRight">
-                {this.state.todayList!=''?<span>오늘의 Spot</span>:this.state.nextList!=''?<span>다가오는 Spot</span>:<span>추천 Spot</span>}
+                {this.state.todayList!=''?<span>오늘의 Spot</span>:this.state.nextList!=''?<span>다가오는 Spot</span>:<span>오늘의 TOP5</span>}
                 {list}
             </div>
             :<h2>오늘의 날씨</h2>
