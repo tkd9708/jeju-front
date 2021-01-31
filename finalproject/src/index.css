@@ -27,6 +27,6 @@ body {
 ::-webkit-scrollbar{width: 5px; height: 5px;}
 /* ::-webkit-scrollbar-track {background-color:#f1f1f1;} */
 ::-webkit-scrollbar-thumb {background-color:#ddd;border-radius: 10px;}
-::-webkit-scrollbar-thumb:hover {background: #555;}
+::-webkit-scrollbar-thumb:hover {background: #036E38;}
 /* ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
 width:16px;height:16px;background:#f1ef79;}  */
