@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import './style/RCA.css';
 import moment from 'moment';
+import axios from 'axios';
+import {URL} from "../../../redux/config";
 import Header from './Header';
 import Calendar from './Calendar';
 
@@ -11,13 +13,41 @@ class MySchedule extends Component {
         super(props);
         console.log("MySchedule constructor", props);
 
+        this.state={
+            list:[],
+            calendarYM : moment(),
+            today : moment(),
+            selected : moment().format("YYYY-MM-DD"),
+        }
+
     }
       state={
-        calendarYM : moment(),
-        today : moment(),
-        selected : moment().format("YYYY-MM-DD")
+       
+        
 
       }
+
+      
+
+      getData1=()=>{
+
+        let url = URL + "/wish/list?memId=sanghee";
+
+        axios.get(url)
+        .then(response=>{
+          //console.log("캘린더 출력 : " + response.data); 
+          this.setState({
+            list: response.data
+
+          });
+        }).catch(err=>{
+          console.log("캘린더 목록 오류:"+err);
+        })
+  }
+
+//   componentWillMount(){
+//       this.getData1();
+//   }
 
       static defaultProps = {
         clickFn : ()=>{}
@@ -47,6 +77,7 @@ class MySchedule extends Component {
         }else if(moment(clickedDate).isAfter(this.state.calendarYM,'month')){
             this.moveMonth(1)
         }
+       
     }
     render(){
         return(
@@ -63,6 +94,10 @@ class MySchedule extends Component {
                         selected={this.state.selected}
                         changeSelected={this.changeSelected}
                     />
+                    {this.state.list.map((row)=>(
+                        <Calendar row={row}></Calendar>
+                    ))}
+
                 </div>
         
     

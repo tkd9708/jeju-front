@@ -224,10 +224,10 @@ class MypagePageComp extends Component {
                         onChange={this.handleChange}
                         aria-label="disabled tabs example"
                     >
-                        <Tab label="나의 일정" {...this.tabProps(0)}/>
-                        <Tab label="나의 후기" {...this.tabProps(1)}/>
-                        <Tab label="나의 예약" {...this.tabProps(2)}/>
-                        <Tab label="나의 정보" {...this.tabProps(3)}/>
+                        <Tab label="My Plan" {...this.tabProps(0)}/>
+                        <Tab label="My Review" {...this.tabProps(1)}/>
+                        <Tab label="My Reservation" {...this.tabProps(2)}/>
+                        <Tab label="My Info" {...this.tabProps(3)}/>
                     </Tabs>
                     <TabPanel value={this.state.value} index={0}>
                         <MySchedule/>

@@ -63,7 +63,7 @@ class MemberUpdateFormComp extends Component {
         return (
             <div id="mypagePassCheck">
                 <div className="detailTitle">
-                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#3073BD'}}>
+                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
                         &nbsp;&nbsp;&nbsp;비밀번호 확인&nbsp;&nbsp;&nbsp;
                     </span>
                 </div>

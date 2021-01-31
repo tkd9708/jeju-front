@@ -1,0 +1,39 @@
+.myPlanpagesRoot {
+    display: flex;
+    flex-wrap: wrap;
+}
+.myPlanRight {
+    flex-grow: 1;
+    overflow: scroll;
+}
+.myPlanParent {
+    display: flex;
+}
+@media only screen and (max-width:400px){
+    
+}
+@media only screen and (min-width:400px) and (max-width:770px){
+    
+}
+@media only screen and (min-width:770px) and (max-width:1023px){
+    
+}
+@media only screen and (min-width:1023px){   
+    .myPlanpagesRoot > * {
+        margin: 10px;
+        padding: 10px;
+        width: 300px;
+        height: 400px;
+        overflow: hidden;
+    }
+    .myPlanLeft {
+        min-width: 400px;
+        max-width: 400px;
+        height: 500px;
+        padding: 20px;
+    }
+    .myPlanRight {
+        height: 500px;
+        padding: 20px;
+    }
+}
