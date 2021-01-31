@@ -40,7 +40,9 @@ class MyPlanComp extends Component {
 
     // todayList, todayAfterList 가져오기
     getPlanList = () => {
-        let url = URL + "/wish/planlist?memId=" + store.getState().loginId + "&day=" + this.today + "&category=today&perPage=5";
+        let url = URL + "/wish/planlist?memId=" + store.getState().loginId + "&day=" + this.today + "&category=today";
+        
+        // let url = URL + "/wish/planlist?memId=sanghee&day=" + this.today + "&category=today&perPage=5";
         
         // let url = URL + "/wish/planlist?memId=sanghee&day=2020-12-15&category=today&perPage=5";
         
@@ -86,11 +88,16 @@ class MyPlanComp extends Component {
         // login시에만 왼쪽 블럭 출력
         const leftTag = store.getState().logged==true?
             <div className="myPlanLeft" style={{borderRight: '1px solid black'}}>
-                    <span>MyPlan on {this.today}</span>
+                    {this.state.todayList!=''?<span>MyPlan on {this.today}</span>:<span>MyPlan on </span>}
+                    <br/>
+                    {this.state.todayList!=''?<span>TODAY</span>:""}
                     <List style={{width: '100%'}}>
-                        {this.state.todayAfterList.map((row)=>(
+                        {this.state.todayList!=''?this.state.todayList.map((row)=>(
                             <MyPlanLeftItem row={row}/>
-                        ))}
+                        )):this.state.nextList!=''?this.state.nextList.map((row)=>(
+                            <MyPlanLeftItem row={row}/>
+                        )):
+                        <ListItem>등록하신 일정이 없습니다.<br/>새로운 일정을 계획해보아요!</ListItem>}
                     </List>
                 </div>:"";
 
@@ -114,20 +121,12 @@ class MyPlanComp extends Component {
                 {list}
             </div>
             
-            :<h2>로그인 안하면 무엇을 넣을까요 날씨넣는다메요</h2>
+            :<h2>오늘의 날씨</h2>
 
         return (
             <div className="myPlanComp myPlanParent">
                 {leftTag}
                 {rightTag}
-                {/* <div className="myPlanRight">
-                    {myplan}
-                    <div className="myPlanpagesRoot">
-                        {this.state.planList.map((row)=>(
-                            <MyPlanItem row={row}/>
-                        ))}
-                    </div>
-                </div> */}
             </div>
         )
     }
