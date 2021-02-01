@@ -1,16 +1,14 @@
 import { getSuggestedQuery } from '@testing-library/react';
 import React , { Component, useEffect, useState } from 'react';
 import reactDOM from 'react-dom';
-import GoogleLogin from 'react-google-login';
 import { refreshTokenSetup } from "./refreshToken";
 import { URL } from "../../../redux/config";
+import axios from 'axios';
 
 //window에 있는 naver 비구조화 할당하여 선언한다.
 //window객체에서 뽑아야 하는 naver 파라미터는 global로
 //선언해주지않으면사용이불가한다.
 const { naver } = window;
-
-
 
 export default function NaverLoginBtnComp () {
     
@@ -32,8 +30,6 @@ export default function NaverLoginBtnComp () {
     //height: 배너 및 버튼 높이 (사용자 지정값 px)
     const Naver = () => {
         
-        
-
         let naverLogin = new naver.LoginWithNaverId({
             clientId: 'dPXRHN5aH3Xl6lXxm7bn',
             callbackUrl: "http://localhost:3000/login?naver=true",
@@ -43,14 +39,9 @@ export default function NaverLoginBtnComp () {
             // callback 페이지가 분리되었을 경우에 callback 페이지에서는 callback처리를 해줄수 있도록 설정합니다
         });
         
-
         // 설정정보를 초기화하고 연동을 준비
         naverLogin.init();
         console.log(naverLogin.getLoginStatus());
-
-        
-
-        
 
         naverLogin.getLoginStatus((status) => {
             if (status) {
@@ -58,11 +49,9 @@ export default function NaverLoginBtnComp () {
                 const email = naverLogin.user.getEmail();
                 const name = naverLogin.user.getNickName();
                 const profileImage = naverLogin.user.getProfileImage();
-                const birthday = naverLogin.user.getBirthday();
                 const id = naverLogin.user.getId();
-                const age = naverLogin.user.getAge();
                 const hp = naverLogin.user.getMobile();
-                console.log("네이버로그인상태 : " + email, name, profileImage, birthday, id, age, hp);
+                console.log("네이버로그인상태 : " + email, name, profileImage, id, hp);
                 
             } else {
                 console.log('AccessToken이 올바르지 않습니다.');
@@ -76,25 +65,24 @@ export default function NaverLoginBtnComp () {
                     var email = naverLogin.user.getEmail();
                     var name = naverLogin.user.getNickName();
                     var profileImage = naverLogin.user.getProfileImage();
-                    var birthday = naverLogin.user.getBirthday();
                     var id = naverLogin.user.getId();
-                    var age = naverLogin.user.getAge();
                     var hp = naverLogin.user.getMobile();
                     
+                    let url = URL + "/member/insertsosial";
+
+                    axios.post(url, {id:email, name:name, provider:id, 
+                        photo:profileImage, email:email.split("@")[0], email2:'naver.com'})
+                            .then(result=>{
+
+                            }).catch(err=>{
+                                console.log("naver db 저장 실패 : " + err);
+                            })
                     if( email == undefined || email == null ) {
                         alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
                         // 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함
                         naverLogin.reprompt();
                         return;
                     }
-                    
-                    alert(email);
-                    alert(name);
-                    alert(profileImage);
-                    alert(birthday);
-                    alert(id);
-                    alert(hp);
-                    alert(age+ "세");
                     // 처리후 되돌아갈 곳
                     // window.location.replace("http://localhost:3000/login?naver=true");
                     
@@ -149,8 +137,6 @@ export default function NaverLoginBtnComp () {
             .catch(err => console.log("err : ", err));
         }
     };
-
-    
 
     return (
         //네이버 아이디로 로그인 버튼 생성
