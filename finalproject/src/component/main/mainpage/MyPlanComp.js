@@ -38,6 +38,7 @@ class MyPlanComp extends Component {
 
     componentWillMount(){
         this.getPlanList();
+        this.getWeather();
     }
 
     // todayList, todayAfterList 가져오기
@@ -115,6 +116,11 @@ class MyPlanComp extends Component {
             })
     }
 
+    getWeather = () => {
+        let url = 'http://apis.data.go.kr/1360000/TourStnInfoService/getCityTourClmIdx';
+        let queryParams ='?' + encodeURIComponent('ServiceKey') + '=' + '서비스키';
+    }
+
     render(){
         // login시에만 왼쪽 블럭 출력
         const leftTag = store.getState().logged==true?
@@ -159,7 +165,7 @@ class MyPlanComp extends Component {
                 {list}
             </div>
             :<h2>오늘의 날씨</h2>
-
+            
         return (
             <div className="myPlanComp myPlanParent">
                 {leftTag}
