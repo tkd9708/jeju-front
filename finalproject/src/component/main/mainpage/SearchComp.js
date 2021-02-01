@@ -7,6 +7,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import {actionType, URL} from "../../../redux/config";
+import axios from "axios";
+import store from "../../../redux/store";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,11 +31,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function SearchComp() {
+export default function SearchComp(props) {
 
     const classes = useStyles();
     const [category, setCategory] = React.useState("all");
     const [searchVal, setSearchVal] = React.useState("");
+    const [searchDataList, setSearchDataList] = React.useState(null);
+    // console.log("SearchComp props", props);
 
     const setCategoryHandler = (e) => {
         // console.log(e.target.value);
@@ -49,7 +54,7 @@ export default function SearchComp() {
     const updateButtonType = () => {
         const searchButton = document.querySelector(".searchButton");
 
-        if(searchButton == null){   //초반에 null일경우 스킵.
+        if (searchButton == null) {   //초반에 null일경우 스킵.
             return;
         }
 
@@ -63,13 +68,57 @@ export default function SearchComp() {
     }
 
     const doSearchHandler = () => {
-        // console.log(category, searchVal);
+        console.log(category, searchVal);
 
+        store.dispatch({
+            type: actionType.setSearchResultDataList,
+            category: category,
+            searchVal: searchVal,
+            searchResultDataList: [],
+        });
+
+        ///search/:category?/:keyword?
+        props.history.push(`/search/${category}/${searchVal}/1`);
+
+        /*
         //search action.
+        let perPage = 10;
+        let url = URL + "/spot/searchlist" +
+            "?start=0" +
+            "&perPage=" + perPage +
+            "&category=" + category +
+            "&search=" + searchVal;
+
+        console.log(url);
+
+        axios.get(url
+        ).then(res => {
+            console.log("doSearchHandler() res:", res.data, searchDataList);
+            setSearchDataList(res.data);
+
+            //dispatch
+            store.dispatch({
+                type: actionType.setSearchResultDataList,
+                category: category,
+                searchVal: searchVal,
+                searchResultDataList: res.data,
+            });
+
+            ///search/:category?/:keyword?
+            props.history.push(`/search/${category}/${searchVal}/1`);
+        }).catch(err => {
+            console.log("doSearchHandler() err:", err);
+        });
+
+        */
     }
 
     return (
-        <div className="searchComp" style={{height: "500px", padding: "20px"}}>
+        // <div className="searchComp"
+        //      style={{height: "500px", padding: "20px"}}
+        // >
+        <div className="searchComp"
+        >
             <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
                 <Select
@@ -82,8 +131,8 @@ export default function SearchComp() {
                     <MenuItem value="all">
                         <em>All</em>
                     </MenuItem>
-                    <MenuItem value="location">Location</MenuItem>
-                    <MenuItem value="tour">Tour</MenuItem>
+                    <MenuItem value="area">Area</MenuItem>
+                    <MenuItem value="spot">Spot</MenuItem>
                     <MenuItem value="tag">Tag</MenuItem>
                 </Select>
             </FormControl>
@@ -92,6 +141,11 @@ export default function SearchComp() {
                        autoComplete="off" className={classes.root}
                        value={searchVal}
                        onChange={setSearchValHandler}
+                       onKeyDown={(e)=>{
+                           if(e.code == "Enter"){
+                               doSearchHandler();
+                           }
+                       }}
             />
             <br/><br/>
             <Button variant="contained" color="primary" className="searchButton"

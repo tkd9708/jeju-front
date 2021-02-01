@@ -24,12 +24,49 @@ import FooterComp from "./component/footer/FooterComp";
 import DetailTourComp from "./component/main/tour/DetailTourComp";
 import ShareBoardFormComp from "./component/main/shareboard/ShareBoardFormComp";
 import ShareBoardUpdateForm from "./component/main/shareboard/ShareBoardUpdateForm";
-import NoticeContent from './component/main/notice/NoticeContent';
+import NoticeContent from "./component/main/notice/NoticeContent";
 import Noticeinsert from './component/main/notice/Noticeinsert';
 import store from "./redux/store";
 import {actionType} from "./redux/config";
+import SearchResultComp from "./component/main/mainpage/SearchResultComp";
+import MemberUpdateFormComp from "./component/main/mypage/MemberUpdateFormComp";
+import SharePlanPageComp from "./component/main/SharePlan/SharePlanPageComp";
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
+
+const footerStyle = {
+    sizeIn: {
+        position: "absolute",
+        width: "100%",
+        bottom: "2.0%",
+    },
+    sizeOver: {
+        width: "100%",
+    }
+}
+
+const setPositionFooter = () => {
+    let menuElement = document.querySelector(".menu");
+    let mainFrameElement = document.querySelector(".mainFrame");
+
+    let menuHeight = (menuElement) ? menuElement.offsetHeight : 0;
+    let mainFrameHeight = (mainFrameElement) ? mainFrameElement.offsetHeight : 0;
+    let footerComp = document.querySelector(".footerComp");
+    let topContentHeight = menuHeight + mainFrameHeight;
+    // console.log(mainFrameHeight, menuHeight, topContentHeight, window.visualViewport.height);
+
+    if (footerComp) {
+        if (window.visualViewport.height > topContentHeight) {
+            footerComp.style.width = footerStyle.sizeIn.width;
+            footerComp.style.position = footerStyle.sizeIn.position;
+            footerComp.style.bottom = footerStyle.sizeIn.bottom;
+        } else {
+            footerComp.style.width = footerStyle.sizeOver.width;
+            footerComp.style.position = "";
+            footerComp.style.bottom = "";
+        }
+    }
+}
 
 class App extends Component {
     constructor(props) {
@@ -46,15 +83,16 @@ class App extends Component {
 
         }
 
-        window.onmousewheel = function (e) {
-            // console.log(window.scrollY);
-            this.showHeader(window.scrollY);
-        }.bind(this);
-        window.onscroll = function (e) {
-            // console.log(window.scrollY);
-            this.showHeader(window.scrollY);
-        }.bind(this);
+        // window.onmousewheel = function (e) {
+        //     // console.log(window.scrollY);
+        //     this.showHeader(window.scrollY);
+        // }.bind(this);
+        // window.onscroll = function (e) {
+        //     // console.log(window.scrollY);
+        //     this.showHeader(window.scrollY);
+        // }.bind(this);
 
+        window.addEventListener("scroll", this.showHeader);
 
         if (confirmLs !== undefined) {
             this.setState({
@@ -65,10 +103,15 @@ class App extends Component {
                 logged: false,
             });
         }
+
+        // store.subscribe(()=>{
+        //     window.setTimeout(setPositionFooter, 100);
+        // });
     }
 
 
-    showHeader = (scrollVal) => {
+    showHeader = () => {
+        let scrollVal = window.scrollY;
         const isStaticHeader = this.state.isStaticHeader;
         if (scrollVal > 0) {
             if (!isStaticHeader) {
@@ -109,9 +152,16 @@ class App extends Component {
     componentDidMount() {
         store.dispatch({
             type:actionType.setMainView,
-        })
+        });
     }
 
+    componentWillMount() {
+        window.setTimeout(setPositionFooter, 1000);
+    }
+
+    componentWillUpdate(nextProps, nextState, nextContext) {
+        window.setTimeout(setPositionFooter, 1000);
+    }
 
     render() {
         let {logged} = this.state;
@@ -124,27 +174,31 @@ class App extends Component {
                 <Menu logged={logged}
                       type="normal"
                 />
-                <div className="mainFrame"  >
+                <div className="mainFrame"
+                >
                     <Switch>
                         <Route exact path="/" component={MainPageComp}/>
+
+                        {/*test*/}
+                        <Route path="/search/:category?/:keyword?/:pageNum?" component={SearchResultComp}/>
+
                         <Route path="/admin/:name?" component={MemberListPageComp}/>
                         <Route path="/login/:name?">
-                            <LoginPageComp
-                                logged={logged}
-                                onLogin={this.onLogin}
-                            />
+                            <LoginPageComp/>
                         </Route>
                         <Route path="/join/:name?" component={SignupPageComp}/>
-                        <Route path="/mypage/:name?" component={MypagePageComp}/>
-                        <Route exact path="/share" component={ShareBoardPageComp}/>
+                        <Route exact path="/mypage" component={MypagePageComp}/>
+                        <Route path="/mypage/update/:num?" component={MemberUpdateFormComp}/>
+                        <Route path="/share/:pageNum?" component={ShareBoardPageComp}/>
                         <Route path="/share/insert" component={ShareBoardFormComp}/>
                         <Route path="/share/update/:num?" component={ShareBoardUpdateForm}/>
-                        <Route path="/tour/:name?/:pageNum?" component={DetailTourComp}/>
+                        <Route path="/tour/:name?" component={DetailTourComp}/>
                         <Route exact path="/notice" component={NoticePageComp}/>
                         <Route path="/notice/insert" component={Noticeinsert}/>
                         <Route path="/notice/content/:num?" component={NoticeContent}/>
                         <Route path="/reservation/:name?" component={ReservationPageComp}/>
-                        <Route path="/tourlist/:name?" component={TourPageComp}/>
+                        <Route path="/tourlist/:name?/:pageNum?" component={TourPageComp}/>
+                        <Route path="/shareplan/:name?/" component={SharePlanPageComp}/>
                     </Switch>
                     <div className="footerComp"
                     >
@@ -157,35 +211,4 @@ class App extends Component {
 }
 
 export default App;
-/*
-    HeaderComp
-        Title
-            Home
-            Notice
-            Reservation
-            Tour
-                TourList
-            ShareBoard
-            MyPage
-            Login / Logout
-    MainComp
-        Home
-            -
-            -
-        검색
-            - 검색 카테고리 select/option
-            - 단어검색어 input
-            - 검색 button
-        관광명소 - 지도 클릭
-            - 제주시 명소 링크.
-            - 애월읍 명소 링크.
-            ...
-        공지사항
-            - +버튼 -> 공지사항 페이지 이동. -button 안에 img
-            - 공지사항 리스트중 하나 클릭. -table td a tag 안에 span 문자열
-        공유게시판
-            - +버튼 -> 공유게시판 페이지 이동. -button 안에 img
-            - 공유게시판 리스트중 하나 클릭. -table td a tag 안에 span 문자열
-    footer
-        회사 정보
- */
+

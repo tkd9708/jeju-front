@@ -42,9 +42,10 @@ class ItemComp extends Component {
                 
                 <div id="itemLikes" style={{backgroundColor:'#FaFaFa', color:'#aaa'}}>
                     <ThumbUpAltIcon id="tourThumbIcon" style={{cursor: 'pointer'}} onClick={this.updateLikes.bind(this)}/>&nbsp;&nbsp;{row.likes}
-                    <span id="itemAddr" style={{float:'right', overflow:'hidden', whiteSpace:'nowrap', textOverflow:'ellipsis'}}>
+                    {/* <span id="itemAddr" style={{float:'right', overflow:'hidden', whiteSpace:'nowrap', textOverflow:'ellipsis'}}>
                         <LocationOnIcon id="tourLocationIcon"/>&nbsp;{addr[addr.length-2]}&nbsp;{addr[addr.length-1]}
-                    </span>
+                    </span> */}
+                    <span style={{float:'right'}}><span class="fas fa-star" style={{color: "#F0CD58"}}></span>&nbsp;{row.star}</span>
                 </div>
             </Box>
         );

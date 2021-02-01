@@ -12,8 +12,8 @@ import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import './TourDetailCss.css';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Chip from '@material-ui/core/Chip';
+import store from '../../../redux/store';
 
 const customIcons = {
     1: {
@@ -69,26 +69,31 @@ class DetailReviewComp extends Component {
     }
 
     insertReview=()=>{
-        let memNum = 'sanghee'; // 나중에 로그인상태의 아이디 집어넣기
-        let star = this.state.star;
-        let content = this.state.content;
-        let contentsid = this.contentsid;
+        if(!store.getState().logged){
+            alert("로그인이 필요한 서비스입니다.")
+        }
+        else{
+            let memNum = store.getState().loginId; // 나중에 로그인상태의 아이디 집어넣기
+            let star = this.state.star;
+            let content = this.state.content;
+            let contentsid = this.contentsid;
 
-        // let url = "http://localhost:9002/sreview/insert";
-        let url = URL + "/sreview/insert";
+            // let url = "http://localhost:9002/sreview/insert";
+            let url = URL + "/sreview/insert";
 
-        axios.post(url, {contentsid, memNum, star, content})
-            .then(res=>{
-                this.setState({
-                    content : "",
-                    upload: ''
+            axios.post(url, {contentsid, memNum, star, content})
+                .then(res=>{
+                    this.setState({
+                        content : "",
+                        upload: ''
+                    })
+                    //window.location.reload();
+                    this.props.getList();
+                }).catch(err=>{
+                    console.log("DetailReviewComp insert 오류 : " + err);
                 })
-                //window.location.reload();
-                this.props.getList();
-            }).catch(err=>{
-                console.log("DetailReviewComp insert 오류 : " + err);
-            })
 
+        }
     }
 
     uploadImage=(e)=>{
@@ -165,20 +170,20 @@ class DetailReviewComp extends Component {
                             
                             <textarea name="content" id="srContent" style={{resize: 'none'}} value={this.state.content} 
                                     className="form-control" onChange={this.changeHandler.bind(this)}></textarea>
-                            <input style={{display:'none'}} id="icon-button-file" type="file" onChange={this.uploadImage.bind(this)}/>
-                                    <label htmlFor="icon-button-file">
+                            <input style={{display:'none'}} id="review-icon-button-file" type="file" onChange={this.uploadImage.bind(this)}/>
+                                    <label htmlFor="review-icon-button-file">
                                         
                                         <IconButton color="primary" aria-label="upload picture" component="span" style={{marginBottom: '10px'}}>
                                             <PhotoCamera />
                                         </IconButton>  
                                         {/* <span style={{display:'inline-block', paddingBottom: '20px'}}>{this.state.upload}</span> */}
-                                        {chip}
                                     </label>
+                                    {chip}
                             </label>
                                     
                         </Box>
-                        <Box m={1}>
-                            <button type="button" className="btn btn-warning" id="btnInsertReview" style={{marginTop: '21px'}}
+                        <Box m={1} id="btnInsertBox">
+                            <button type="button" className="btn btn-warning" id="btnInsertReview"
                                     onClick={this.insertReview.bind(this)}><b>작&nbsp;성</b></button>
                         </Box>
                 </Box>

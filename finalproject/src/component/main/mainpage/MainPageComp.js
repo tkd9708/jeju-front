@@ -24,11 +24,13 @@ class MainPageComp extends Component {
             shareBoardList: [],
             noticeList: [],
         }
+
     }
 
     componentWillMount() {
         this.getNoticeList.bind(this)();
         this.getShareBoardList.bind(this)();
+        window.scrollTo(0,0);
     }
 
     getNoticeList = () => {
@@ -74,7 +76,7 @@ class MainPageComp extends Component {
             <div className="mainPageComp">
                 <MainPhotoComp/>
                 <div className="search-myplan">
-                    <SearchComp/>
+                    <SearchComp history={this.props.history}/>
                     <MyPlanComp/>
                 </div>
                 <HotPlaceComp history={this.props.history}/>

@@ -23,7 +23,7 @@ class MainPhotoComp extends Component {
     setImageScroll = (photoNum, preNum = 4) => {
         const duration = 3;
         const imgCnt = 4;
-        let arrImg = new Array();
+        let arrImg = [];
 
         //over index setting
         if (photoNum > imgCnt) {
@@ -70,24 +70,22 @@ class MainPhotoComp extends Component {
         for (let i = 0; i < 4; i++) {
             gsap.killTweensOf(`.mainPhotoComp_img${i + 1}`);
         }
-        this.setImageScroll(1, 4);
+        // this.setImageScroll(1, 4);
     }
 
     render() {
         return (
             <div className="mainPhotoComp">
-                <div>
                     <img className="mainPhotoComp_img1" src={jeju1}/>
-                </div>
-                <div>
-                    <img className="mainPhotoComp_img2" src={jeju2}/>
-                </div>
-                <div>
-                    <img className="mainPhotoComp_img3" src={jeju3}/>
-                </div>
-                <div>
-                    <img className="mainPhotoComp_img4" src={udo1}/>
-                </div>
+                {/*<div>*/}
+                {/*    <img className="mainPhotoComp_img2" src={jeju2}/>*/}
+                {/*</div>*/}
+                {/*<div>*/}
+                {/*    <img className="mainPhotoComp_img3" src={jeju3}/>*/}
+                {/*</div>*/}
+                {/*<div>*/}
+                {/*    <img className="mainPhotoComp_img4" src={udo1}/>*/}
+                {/*</div>*/}
             </div>
         );
     }

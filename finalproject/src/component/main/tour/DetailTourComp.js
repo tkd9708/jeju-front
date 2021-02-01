@@ -4,6 +4,7 @@ import MapComp from './MapComp';
 import ReviewListComp from './ReviewListComp';
 import {URL} from '../../../redux/config';
 import './TourDetailCss.css';
+import './TourCss.css';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -13,6 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import store from '../../../redux/store';
 
 class DetailTourComp extends Component {
 
@@ -47,26 +49,45 @@ class DetailTourComp extends Component {
             })
     }
 
-    componentWillMount(){
-        this.getData();
+    setAvgStar=()=>{
+        
+        let url = URL + "/spot/updatestar?contentsid=" + this.state.contentsid;
+
+        axios.get(url)
+            .then(res=>{
+                this.getData();
+            }).catch(err=>{
+                console.log("DetailTourComp setAvgStar 오류 : " + err);
+            })
     }
 
-    heartClick=(e)=>{
-        if(e.target.className == 'heart clickheart'){
-            e.target.className = 'heart';       
-        }
-        else{
-            // e.target.className = 'heart clickheart';
-            this.handleOpen();
-        }
-            
+    componentWillMount(){
+        console.log("DetailTourComp render()", this.props);
+        this.setAvgStar();
     }
+
+    // heartClick=(e)=>{
+    //     if(e.target.className == 'heart clickheart'){
+    //         e.target.className = 'heart';       
+    //     }
+    //     else{
+    //         // e.target.className = 'heart clickheart';
+    //         this.handleOpen();
+    //     }
+            
+    // }
 
     // modal 함수
     handleOpen = () => {
-        this.setState({
-            open: true
-        })
+        if(!store.getState().logged){
+            alert("로그인이 필요한 서비스입니다.");
+        }
+        else{
+            this.setState({
+                open: true
+            })
+        }
+        
     };
 
     handleClose = () => {
@@ -86,14 +107,11 @@ class DetailTourComp extends Component {
         this.setState({
             alertOpen: false
         })
-        this.refs.thumbHeart.className="heart clickheart";
     };
 
     insertWish=()=>{
-        // console.log(this.refs.wishday.value);
-
         let url = URL + "/wish/insertspot";
-        let memId = 'sanghee'; // 나중에 로그인 아이디로 넣기
+        let memId = store.getState().loginId;
         let spotId = this.state.contentsid;
         let content = this.state.spotdata.roadaddr;
         let wishday = this.refs.wishday.value;
@@ -115,7 +133,6 @@ class DetailTourComp extends Component {
         }
         
     }
-      
 
     render() {
         var star = this.state.spotdata.star==5?
@@ -130,19 +147,24 @@ class DetailTourComp extends Component {
             :this.state.spotdata.star==2?
             <span id="thumbStar" style={{color: "#F0CD58"}}><span class="fas fa-star"></span><span class="fas fa-star"></span><span class="far fa-star"></span>
                                                             <span class="far fa-star"></span><span class="far fa-star"></span></span>
-            :<span id="thumbStar" style={{color: "#F0CD58"}}><span class="fas fa-star"></span><span class="far fa-star"></span><span class="far fa-star"></span>
-                                                            <span class="far fa-star"></span><span class="far fa-star"></span></span>;
+            :this.state.spotdata.star==1?
+            <span id="thumbStar" style={{color: "#F0CD58"}}><span class="fas fa-star"></span><span class="far fa-star"></span><span class="far fa-star"></span>
+                                                            <span class="far fa-star"></span><span class="far fa-star"></span></span>
+            :<span id="thumbStar" style={{color: "#F0CD58"}}><span class="far fa-star"></span><span class="far fa-star"></span><span class="far fa-star"></span>
+            <span class="far fa-star"></span><span class="far fa-star"></span></span>;
         
         return (
             <div>
                 {/* 이미지, spot 정보 */}
-                <img src={this.state.spotdata.img} alt="이미지 없음" style={{width: '100%'}}/>
+                <img src={this.state.spotdata.img} alt="이미지 없음" style={{width: '100%'}}>
+                    
+                </img>
                 <div style={{color: 'whitesmoke'}} class="thumbText">
                     <b id="thumbTitle">{this.state.spotdata.title}</b><br/>
                     <span id="thumbTag" style={{color: '#bbb'}}>{this.state.spotdata.tag}</span><br/>
                     <span id="thumbRoad" style={{color: '#bbb'}}><span class="fa fa-map-marker"></span>&nbsp;&nbsp;{this.state.spotdata.roadaddr}</span><br/>
-                    
-                    <span id="thumbHeart" ref="thumbHeart" className='heart' style={{position: 'absolute', cursor: 'pointer'}} onClick={this.heartClick.bind(this)}></span>
+                    <Button variant="outlined" id="thumbAddBtn" style={{color: 'white', border: '1px solid #aaa'}} onClick={this.handleOpen.bind(this)}>일정추가</Button>
+                    {/* <span id="thumbHeart" ref="thumbHeart" className='heart' style={{position: 'absolute', cursor: 'pointer'}} onClick={this.heartClick.bind(this)}></span> */}
                 </div>
                 <br/><br/>
 
@@ -177,21 +199,27 @@ class DetailTourComp extends Component {
 
                 {/* 소개 */}
                 <div className="detailTitle">
-                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#3073BD'}}>
+                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
                         &nbsp;&nbsp;&nbsp;소개&nbsp;&nbsp;&nbsp;
                     </span>
                 </div>
                 <br/>
-                <div id="thumbIntro">
+                <div id="thumbIntro" style={{color: '#888'}}>
                     {star}<br/>
-                    {this.state.spotdata.introduction}
+                    {this.state.spotdata.introduction}<br/>
+                    
+                    
+                    {/* <span id="thumbHeart" ref="thumbHeart" className='spotheart' style={{ cursor: 'pointer', position: 'absolute'}} onClick={this.heartClick.bind(this)}></span> */}
                 </div>
                 
                 {/* 주변 정보 */}
                 <div className="detailTitle">
-                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#3073BD'}}>
-                        &nbsp;&nbsp;주변 정보&nbsp;&nbsp;
+                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
+                        &nbsp;&nbsp;가보고 싶은 그 곳, {this.state.spotdata.title} &nbsp;&nbsp;
                     </span>
+                </div>
+                <div className="detailIntro" style={{color: "#888"}}>
+                    다양한 "{this.state.spotdata.title}"의 주변 정보를 소개합니다.
                 </div>
                 <br/>
                 
@@ -201,13 +229,16 @@ class DetailTourComp extends Component {
                 <br/><br/>
 
                 <div className="detailTitle">
-                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#3073BD'}}>
+                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
                         &nbsp;&nbsp;&nbsp;후기&nbsp;&nbsp;&nbsp;
                     </span>
                 </div>
-                <br/>
 
                 {/* 후기 */}
+                <div className="detailIntro" style={{color: "#888"}}>
+                    직접 다녀온 회원분들의 다양한 후기를 확인해보세요.<br/> 
+                    여러분들의 생생한 후기를 남길 수 있습니다.
+                </div>
                 <ReviewListComp contentsid={this.state.contentsid}/>
 
                 {/* alert 창 */}
@@ -232,7 +263,6 @@ class DetailTourComp extends Component {
                             this.setState({
                                 alertOpen: false
                             })
-                            this.refs.thumbHeart.className="heart clickheart";
                             this.props.history.push("/mypage");
                         }
                     } color="primary" autoFocus>

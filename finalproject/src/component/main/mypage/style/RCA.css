@@ -39,17 +39,23 @@
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;
+    
 }
 
 
 .move{
     position: relative;
     
+    
 }
 
 
 .RCA-header-middle{
     line-height: 50px;
+}
+
+.RCA-header-list{
+    cursor: pointer;
 }
 
 .RCA-header-calendarYM{
@@ -194,3 +200,24 @@ div.title{
     right: 25px;
     font-size: 12px;
 }
+
+.calModal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.calPaper {
+    background-color: #fff;
+    border: 2px solid #000;
+    width: 500px;
+    height: 500px;
+    /* boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3), */
+}
+
+#transition-modal-title{
+    text-align: center;
+}
+

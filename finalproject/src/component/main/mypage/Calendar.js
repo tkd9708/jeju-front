@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import moment from 'moment';
-import {FaUtensils,FaMugHot,FaHotel,FaHamburger} from 'react-icons/fa';
 import axios from 'axios';
 import {URL} from "../../../redux/config";
 import DayItem from './DayItem';
-//import Subject from './Subject';
+import Header from './Header';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import './style/RCA.css';
+import { TiTimes } from "react-icons/ti";
+import ClistItem from './ClistItem';
 
 class DateHeader extends Component {
 
@@ -59,71 +64,94 @@ class DateHeader extends Component {
 }
 
 class Week extends Component {
+    constructor(props){
+      super(props);
 
+      this.ym = this.props.ymOfThisCalendar;
+      this.state={
+        list:[],
+        clist:[],
+        open: false,
+        setOpen: false      
+      };
 
-  constructor(props){
-    super(props);
+      
+    }
 
-    
-
-    this.ym = this.props.ymOfThisCalendar;
-    this.state={
-       list:[]
-       
-       
-    };
-  }
-
-  getData=()=>{
-
-    let url = URL + "/wish/list?memId=sanghee";
-
-    axios.get(url)
-    .then(response=>{
-      //console.log("캘린더 출력 : " + response.data); 
+    handleClose = () => {
       this.setState({
-        list: response.data
+          open: false
+      })
+    };
 
-      });
-    }).catch(err=>{
-      console.log("캘린더 목록 오류:"+err);
-    })
-  }
 
-  
+      getData=()=>{
+
+            let url = URL + "/wish/list?memId=sanghee";
+
+            axios.get(url)
+            .then(response=>{
+              //console.log("캘린더 출력 : " + response.data); 
+              this.setState({
+                list: response.data
+
+              });
+            }).catch(err=>{
+              console.log("캘린더 목록 오류:"+err);
+            })
+      }
+
+      getList=(day)=>{
+            let url = URL + "/wish/daylist?memId=sanghee" + "&day=" + day ;
+            
+            axios.get(url)
+            .then(res=>{
+              console.log("출력:"+res.data);
+              this.setState({
+                  clist:res.data
+              });
+          }).catch(err=>{
+            console.log("목록 오류:"+err);
+          })
+    }
+    
+    
+   
+
+  // componentWillMount(){
+  //   this.onDelete();
+  // }
+
 
   componentDidMount(){
     this.getData();
     
+    
   }
 
-  
-
-  
-
   Days = (firstDayFormat,weekIndex) => {
-    const _days = [];
-    
+      const _days = [];
+      
 
-    for (let i = 0; i < 7; i++) {
+      for (let i = 0; i < 7; i++) {
 
-      const Day = moment(firstDayFormat).add(i,'d');
-      _days.push({
-        yearMonthDayFormat: Day.format("YYYY-MM-DD"),
-        getYear: Day.format('Y'),
-        getMonth: Day.format('M'),
-        getDay: Day.format('D'),
-        isHolyDay: false,
-        weekIndex
-      });
-    }
+        const Day = moment(firstDayFormat).add(i,'d');
+        _days.push({
+          yearMonthDayFormat: Day.format("YYYY-MM-DD"),
+          getYear: Day.format('Y'),
+          getMonth: Day.format('M'),
+          getDay: Day.format('D'),
+          isHolyDay: false,
+          weekIndex
+        });
+      }
 
-    return _days;
+      return _days;
   }
 
   mapDaysToComponents = (Days,calendarMonthYear ,selectedDayFormat ,fn = () => { }) => {
 
-    const thisMonth = moment(calendarMonthYear); 
+    const thisMonth = moment(calendarMonthYear);
 
     return Days.map((dayInfo, i) => {
 
@@ -139,50 +167,54 @@ class Week extends Component {
 
       if(moment(dayInfo.yearMonthDayFormat).isSame(selectedDayFormat,'day')){
         className = "selected"
+        
       }
-
-      const category=this.state.memId;
-      const day=this.props.ymOfThisCalendar+"-"+dayInfo.getDay;
-      const wishday=this.statewishday;
-    //   console.log(category);
-
+   
+      // const category=this.state.memId;
+      // const num=this.state.list.num;
+      // const day=this.props.ymOfThisCalendar+"-"+dayInfo.getDay;
+      // const wishday=this.state.wishday;
+      
         var date = new Date(); 
         var year = date.getFullYear(); 
         var month = new String(date.getMonth()); 
         var days = new String(date.getDate());
-        // var today = year + "-" + month + "-" + days;
         var today = new Date(year, month, days);
         var selectDay = new Date(dayInfo.getYear, dayInfo.getMonth-1, dayInfo.getDay);
         var betweenDay = selectDay.getTime() - today.getTime();
-        // console.log(betweenDay);
-
+      
        return(
-          <div className={"RCA-calendar-day " + className} key={`RCA-${dayInfo.weekIndex}-${i}-day`}onClick={() => fn(dayInfo.yearMonthDayFormat)}>
-            <label className="RCA-calendar-day-label">
-              {dayInfo.getDay}
-            
-            </label>
-            {this.state.list.map((row,idx)=>(
-                <DayItem row={row} key={idx} className={className} dayInfo={dayInfo} i={i} fn={fn}></DayItem>
-                
-            ))}
-            
+          <div className={"RCA-calendar-day " + className} key={`RCA-${dayInfo.weekIndex}-${i}-day`}
+            onClick={() => {
+              fn(dayInfo.yearMonthDayFormat);
+              this.setState({
+                open: true
+              })
+              this.getList(dayInfo.yearMonthDayFormat);
               
-
+            }}>
+              <label className="RCA-calendar-day-label">
+                {dayInfo.getDay}
+               
               
-            </div>
-            
-            
-       )
+              </label>
+              {this.state.list.map((row,idx)=>(
+                  <DayItem row={row} key={idx} className={className} dayInfo={dayInfo} i={i} fn={fn}></DayItem>
+                  
+              ))}
 
-       
-      })    
-        
+          </div>
+          
+       )      
+      })         
     }
 
-
+    
 
   render() {
+
+    var content=this.state.clist.content;
+
     return (
       <div className="RCA-calendar-week">
         
@@ -191,7 +223,36 @@ class Week extends Component {
         this.props.selected,
         this.props.fn
         )}
-        
+
+                <Modal
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    className="calModal"
+                    open={this.state.open}
+                    onClose={this.handleClose.bind(this)}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                    timeout: 500,
+                    }}
+                  >
+                    <Fade in={this.state.open}>
+                    <div className="calPaper">
+                        {/* <h2 id="transition-modal-title">일정 목록</h2>
+                        <p id="transition-modal-description"></p> */}
+                        
+
+                        <h2 id="transition-modal-title">{this.props.selected}</h2>
+                        
+                        <br/>
+                        {this.state.clist.map((row)=>(
+                            <ClistItem row={row}/>
+                        ))}
+                        
+                    </div>
+                    </Fade>
+                    
+                </Modal>
       </div>
     )
   }

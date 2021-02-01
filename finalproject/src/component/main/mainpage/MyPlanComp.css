@@ -1,0 +1,53 @@
+.myPlanpagesRoot {
+    display: flex;
+    /* flex-wrap: wrap; */
+    /* width: 500px; */
+    overflow-x: scroll;
+}
+.myPlanRight {
+    flex-grow: 1;
+}
+.myPlanParent {
+    display: flex;
+}
+@media only screen and (max-width:400px){
+    
+}
+@media only screen and (min-width:400px) and (max-width:770px){
+    
+}
+@media only screen and (min-width:770px) and (max-width:1023px){
+    
+}
+@media only screen and (min-width:1023px){   
+    .myPlanpagesRoot > * {
+        /* margin: 10px; */
+        /* padding: 10px; */
+        width: 30vw;
+        height: 300px;
+        /* overflow: hidden; */
+    }
+    .myPlanLeft {
+        width: 30vw;
+        height: 300px;
+        padding: 20px;
+        overflow: scroll;
+    }
+    .myPlanRight {
+        width: 30vw;
+        height: 300px;
+        padding: 20px;
+    }
+    .searchComp {
+        width: 30vw;
+    }
+    .myplanRightItemBox {
+
+    }
+    .myplanRightItemImg {
+
+    }
+    .myplanRightTitle {
+
+    }
+}

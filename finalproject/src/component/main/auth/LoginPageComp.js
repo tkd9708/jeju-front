@@ -6,6 +6,14 @@ import store from "../../../redux/store";
 import { URL, actionType, mainViewType } from "../../../redux/config";
 import NaverLoginBtnComp from "./NaverLoginBtnComp";
 import FaceBookLoginBtnComp from "./FaceBookLoginBtnComp";
+import KakaoLoginBtnComp from "./KakaoLoginBtnComp";
+import KakaoLoginBtnComp3 from "./KakaoLoginBtnComp3";
+
+import TextField from "@material-ui/core/TextField";
+
+import MakeLoginBtn from "./MakeLoginBtn";
+import { FaThemeisle } from "react-icons/fa";
+import {Route, Link, withRouter } from "react-router-dom";
 
 class LoginPageComp extends Component {
 
@@ -24,18 +32,19 @@ class LoginPageComp extends Component {
             address : "",
             idcanUse: false,//중복된 아이디찾기 true여야 로그인가능
             logged:this.props.logged,
+            onLogin:this.onLogin,
         }
 
         //함수 선언
     }
-
 
     setLoginId = (loginId) => {
         console.log("LoginPage setLoginId()");
         store.dispatch({
             type: actionType.LOG_IN,
             // mainView: mainViewType.MainPage
-            loginId: loginId
+            loginId: loginId,
+            logged: true
         });
     }
 
@@ -44,16 +53,15 @@ class LoginPageComp extends Component {
     // 이벤트
     changeEvent=(e)=>{
         
-        console.log(e.target.id+":"+e.target.value);
+        // console.log(e.target.id+":"+e.target.value);
         // 만약 엔터 누를때만 변경되도록 하고 싶으면
         this.setState({
             [e.target.name]:e.target.value
         })
     }
 
-
     onLogin=()=>{
-        console.log("로그인할 아이디는 " + this.state.id + "비밀번호는 " + this.state.pass);
+        // console.log("로그인할 아이디는 " + this.state.id + "비밀번호는 " + this.state.pass);
         const data = {
             id: this.state.id,
             pass: this.state.pass
@@ -62,14 +70,18 @@ class LoginPageComp extends Component {
 
         axios.post(url, data)
         .then(response => {
+            console.log(response.data);
             if(response.data){
-                this.props.onLogin();
-                this.setLoginId();
-                alert(store.loginId+ "가 스토어에 저장된 아이디입니다");
+                // this.props.onLogin();
+                this.setLoginId(data.id);
+                // alert(store.getState().loginId+ "가 스토어에 저장된 아이디입니다");
                 this.props.history.push("/");
             }
             else{
                 alert("아이디와 비밀번호가 맞지않습니다.");
+                this.setState({
+                    pass: '',
+                })
             }
         }).catch(err => {
             console.log("로그인시 오류남:"+err);
@@ -77,7 +89,9 @@ class LoginPageComp extends Component {
     }
 
     render() {
-        console.log("LoginPageComp render()", this.props);
+        // console.log("LoginPageComp render()", this.props);
+        // console.log("스토어에 있는 로그인 아이디 상태는 : " + store.getState().loginId);
+        const parentOnLoginHandler = this.onLogin.bind(this);
         return (
             <div>
                 <h4>로그인</h4>
@@ -86,26 +100,32 @@ class LoginPageComp extends Component {
                     <h4 className="showIdResult">{this.state.showIdResult}</h4>
                 </div>
                 <br />
-                아이디 :
-                <input type="text" name="id"
-                onChange={this.changeEvent.bind(this)}
-                value={this.state.id}
-                />
+                
+                <TextField id="standard-secondary" label="아이디" color="secondary" 
+                type="text" name="id" value={ this.state.id }
+                onChange = { this.changeEvent.bind(this) } />
+
                 <br />
-                비밀번호 : 
-                <input type="password" name="pass"
-                onChange={this.changeEvent.bind(this)}
-                value={this.state.pass}
-                />
+
+                <TextField id="standard-secondary" label="비밀번호" color="secondary" 
+                type="password" name="pass" value={ this.state.pass }
+                onChange = { this.changeEvent.bind(this) } />
+
                 <br />
                 <button type="button"
                 onClick={this.onLogin.bind(this)}>
                     Sign in
                 </button>
+                <MakeLoginBtn 
+                parentOnLoginHandler={parentOnLoginHandler} />
                 <h5>
                     내 아이디는 {this.state.id} 입니다
                     내 비밀번호는 {this.state.pass} 입니다
                 </h5>
+                {/* 회원가입 */}
+                <Link to="/join"><button type="button" className="btn btn-warning">회원가입</button></Link>
+                
+                
                 <GoogleLoginBtnComp />
                 <GoogleLogoutBtnComp />
                 <br />
@@ -113,10 +133,14 @@ class LoginPageComp extends Component {
                 <NaverLoginBtnComp />
                 <br />
                 <FaceBookLoginBtnComp />
+                <br />
+                {/* <KakaoLoginBtnComp /> */}
+                <br />
+                <KakaoLoginBtnComp3 />
             </div>
         )
     }
 
 }
 
-export default LoginPageComp;
+export default withRouter(LoginPageComp);

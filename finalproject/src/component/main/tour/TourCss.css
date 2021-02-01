@@ -71,59 +71,150 @@
 
 
 /* spot List */
-@media only screen and (max-width:400px){
+.tourIntroTitle{
+    background-image: url('../../../image/titleLine.PNG');
+    background-size: 100% 100%;
+}
+@media only screen and (max-width:350px){
     #selectTourList{
         float: right;
-        margin-right: 10px;
+        margin: 0 !important;
+        font-size: 5pt !important;
+    }
+    #selectTour{
+        font-size: 5pt !important;
     }
     #itemBox{
         text-align: center;
         border: 1px solid #eee;
-        width: 150px;
+        width: 40vw;
         text-align: left;
     }
     #itemImg{
-        width: 150px;
-        height: 150px;
+        width: 40vw;
+        height: 40vw;
     }
     #itemTitle{
-        font-size: 8pt;
+        font-size: 5pt;
         margin-left: 10px;
         margin-right: 10px;
         margin-bottom: 10px;
         margin-top: 10px;
     }
     #itemContentDiv{
-        font-size: 0.4em;
+        font-size: 0.2em;
         margin-bottom: 10px;
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
     }
     #itemContent{
         height: 27px;
     }
     #itemLikes{
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 5px;
+        padding-right: 5px;
         padding-top: 5px;
         padding-bottom: 5px;
     }
     #tourThumbIcon, #tourLocationIcon{
-        font-size: 10pt;
+        font-size: 5pt;
     }
     #itemLikes{
-        font-size: 7pt;
+        font-size: 5pt;
     }
     #itemAddr{
-        font-size: 0.8em;
+        font-size: 0.2em;
         width: 100px;
         text-align: right;
     }
+    .tourIntroTitle{
+        margin-top: 50px;
+        margin-bottom: 20px;
+        font-size: 13pt;
+        font-weight: 700;
+        text-align: center;
+    }
+    .tourIntroContent {
+        margin: 0 10px;
+        color: #999;
+        line-height: 20px;
+        font-size: 7pt;
+    }
 }
-@media only screen and (min-width:400px) and (max-width:770px){
+@media only screen and (min-width:350px) and (max-width:450px){
+    #selectTourList{
+        float: right;
+        margin: 0 !important;
+        font-size: 7pt !important;
+    }
+    #selectTour{
+        font-size: 7pt !important;
+    }
+    #itemBox{
+        text-align: center;
+        border: 1px solid #eee;
+        width: 40vw;
+        text-align: left;
+    }
+    #itemImg{
+        width: 40vw;
+        height: 40vw;
+    }
+    #itemTitle{
+        font-size: 5pt;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+    #itemContentDiv{
+        font-size: 0.2em;
+        margin-bottom: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    #itemContent{
+        height: 27px;
+    }
+    #itemLikes{
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    #tourThumbIcon, #tourLocationIcon{
+        font-size: 5pt;
+    }
+    #itemLikes{
+        font-size: 5pt;
+    }
+    #itemAddr{
+        font-size: 0.2em;
+        width: 100px;
+        text-align: right;
+    }
+    .tourIntroTitle{
+        margin-top: 50px;
+        margin-bottom: 20px;
+        font-size: 13pt;
+        font-weight: 700;
+        text-align: center;
+    }
+    .tourIntroContent {
+        margin: 0 10px;
+        color: #999;
+        line-height: 20px;
+        font-size: 7pt;
+    }
+}
+@media only screen and (min-width:450px) and (max-width:770px){
     #selectTourList{
         float: right;
         margin-right: 30px;
+        font-size: 9pt !important;
+    }
+    #selectTour{
+        font-size: 9pt !important;
     }
     #itemBox{
         text-align: center;
@@ -132,8 +223,8 @@
         text-align: left;
     }
     #itemImg{
-        width: 190px;
-        height: 190px;
+        width: 200px;
+        height: 200px;
     }
     #itemTitle{
         font-size: 10pt;
@@ -168,6 +259,19 @@
         font-size: 0.8em;
         width: 140px;
         text-align: right;
+    }
+    .tourIntroTitle{
+        margin-top: 50px;
+        margin-bottom: 20px;
+        font-size: 20pt;
+        font-weight: 700;
+        text-align: center;
+    }
+    .tourIntroContent {
+        margin: 0 50px;
+        color: #999;
+        line-height: 30px;
+        font-size: 10pt;
     }
 }
 @media only screen and (min-width:770px){
@@ -222,6 +326,18 @@
         width: 250px;
         text-align: right;
     }
+    .tourIntroTitle{
+        margin-top: 50px;
+        margin-bottom: 20px;
+        font-size: 25pt;
+        font-weight: 700;
+        text-align: center;
+    }
+    .tourIntroContent {
+        margin: 0 100px;
+        color: #999;
+        line-height: 30px;
+    }
 }
 
 /* detailTour */
@@ -232,12 +348,10 @@
 
 @media only screen and (max-width:400px){
     .detailTitle{
-        margin-top: 30px;
+        margin-top: 10px;
         font-size: 13pt;
         font-weight: 800;
-    }
-    .detailTitleContent{
-        margin-left: 20px;
+        text-align: center;
     }
 }
 @media only screen and (min-width:400px) and (max-width:770px){
@@ -245,18 +359,22 @@
         margin-top: 50px;
         font-size: 18pt;
         font-weight: 700;
+        text-align: center;
     }  
-    .detailTitleContent{
-        margin-left: 30px;
-    }
 }
-@media only screen and (min-width:770px){
+@media only screen and (min-width:770px) and (max-width:1023px){
     .detailTitle{
-        margin-top: 100px;
+        margin-top: 80px;
         font-size: 20pt;
         font-weight: 900;
+        text-align: center;
     }
-    .detailTitleContent{
-        margin-left: 50px;
+}
+@media only screen and (min-width:1023px){
+    .detailTitle{
+        margin-top: 100px;
+        font-size: 25pt;
+        font-weight: 900;
+        text-align: center;
     }
 }

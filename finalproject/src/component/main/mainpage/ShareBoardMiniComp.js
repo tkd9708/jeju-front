@@ -39,7 +39,7 @@ class ShareBoardMiniComp extends Component {
                                 </tr>
                             );
                         } else {
-                            return;
+
                         }
                     })}
                     </tbody>

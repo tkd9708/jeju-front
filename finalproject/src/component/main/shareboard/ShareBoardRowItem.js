@@ -10,6 +10,11 @@ import Box from '@material-ui/core/Box';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import BuildIcon from '@material-ui/icons/Build';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import Rating from '@material-ui/lab/Rating';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import {withStyles} from '@material-ui/core/styles';
+import {MDBBtn} from "mdbreact";
 import './Share.css';
 
 /*
@@ -27,6 +32,17 @@ row:
     subject: "제주도 맛집맛집"
     writeday: "2021-01-22"
  */
+
+const StyledRating = withStyles({
+    iconFilled: {
+        color: '#ff6d75',
+    },
+    iconHover: {
+        color: '#ff3d47',
+    },
+})(Rating);
+
+
 class ShareBoardRowItem extends Component {
 
     state = {
@@ -138,99 +154,130 @@ class ShareBoardRowItem extends Component {
             scrollTop
         } = this.state
 
-         
 
         return (
-            
-            <div>
+
+            // <div>
                 <React.Fragment>
-                  
-                   <Box m={1} id="ShareListBox">
-                    <div>
-                     {/* onClick={this.openModal.bind(this)}  */}
-                        
-                        <div id="ShareImg" onClick={this.openModal.bind(this)}>
-                              {row.photo}
-                        </div>
-                             
-                        <div id="ShareListSubject"  onClick={this.openModal.bind(this)}>
-                              {row.subject}      
-                        </div>
 
-                        <div id="ShareContentDiv">
-                            <div id="ShareContent">평점:{row.star}</div>
-                            <div>주소:{row.addr}</div>
-                        </div>
+                    <Box m={1} id="ShareListBox">
                         <div>
-                            <div style={{width: '400px', height: '50px'}}>
-                              {/* 좋아요 버튼 */}
-                              <ThumbUpAltIcon id="ShareThumbIcon"/>
+                            {/* onClick={this.openModal.bind(this)}  */}
 
-                              
-                              {/* 삭제 버튼 */}
-                              <DeleteForeverIcon  id="DeleteButton" onClick={this.onDeleteData.bind(this)}/>
-                             
+                            <div id="ShareImg" onClick={this.openModal.bind(this)}>
+                                {row.photo}
+                            </div>
 
-                              <Link to={`/share/update/${this.props.row.num}`}>
-                              <BuildIcon id="UpdateButton"/>
-                              </Link>
-                              
-                                              
+                            <div id="ShareListSubject" onClick={this.openModal.bind(this)}>
+                                {row.subject}
+                            </div>
+
+                            <div id="ShareContentDiv">
+
+
+                                <Box>
+
+                                    <Rating style={{marginTop: '13px'}}
+
+                                            defaultValue={row.star}
+
+                                            emptyIcon={<StarBorderIcon fontSize="inherit"/>}
+
+                                    />
+                                </Box>
+
+
+                                <div style={{marginTop: '10px'}}>주소:{row.addr}</div>
+                            </div>
+
+                            <div>
+                                <div style={{width: '400px', height: '55px', backgroundColor: '#FaFaFa'}}>
+                                    {/* 좋아요 버튼 */}
+                                    <ThumbUpAltIcon id="ShareThumbIcon"/>
+
+
+                                    {/* 삭제 버튼 */}
+                                    <DeleteForeverIcon id="DeleteButton" onClick={this.onDeleteData.bind(this)}/>
+
+
+                                    <Link to={`/share/update/${this.props.row.num}`}>
+                                        <BuildIcon id="UpdateButton"/>
+                                    </Link>
+
+
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </Box>
-                   
+
 
                     {/* //header 부분에 텍스트를 입력한다. */}
                     <Modal open={this.state.modalOpen} close={this.closeModal.bind(this)} title="share">
 
                         {/* // Modal.js <main> { props.children } </main>에 내용이 입력된다.  */}
                         <div id="ShareModalAll" ref={this.myRef} onScroll={this.onScroll}>
-                             
-                            <div>
-                                 {/* 좋아요 버튼 */}
-                                 <ThumbUpAltIcon id="ShareModalThumbIcon"/>
-                                <div style={{marginTop:"15px"}}>(작성자) 님이 공유하신 맛집입니다.</div>
-                                <span id="ShareHeart" className='heart'></span>
+
+                            <div style={{width: "1150px", height: "140px"}}>
+                                <div style={{float: 'left'}}>
+                                    {/* 좋아요 버튼 */}
+                                    <ThumbUpAltIcon id="ShareModalThumbIcon"/>
+
+                                    <p style={{marginTop: "10px", marginBottom: '45px'}}>(작성자) 님이 공유하신 맛집입니다.</p>
+
+                                    <b style={{fontSize: '15px'}}>{row.subject}</b>
+                                </div>
+
+                                {/* 찜하기 버튼 */}
+                                <div id="ShareHeart" className="heart"></div>
+
+
                             </div>
 
                             <div id="ShareModalMidBox">
                                 <div id="ShareModalImg">{row.photo}</div>
-                                   
-                                
+
+
                                 <div id="ShareModalContent">
-                                    <div>평점:{row.star}</div>
-                                    <div>주소:{row.addr}</div>
-                                    <div>리뷰:{row.content}</div>
-                                    <div>작성일:{row.writeday}</div>
+                                    <div id="ShareModalContent1">
+                                        <Box>
+
+                                            <Rating
+
+                                                defaultValue={row.star}
+
+                                                emptyIcon={<StarBorderIcon fontSize="inherit"/>}
+
+                                            />
+                                        </Box>
+                                    </div>
+                                    <div id="ShareModalContent2">주소:{row.addr}</div>
+                                    <div id="ShareModalContent3">리뷰:{row.content}</div>
+                                    <div id="ShareModalContent4">작성일:{row.writeday}</div>
                                 </div>
                             </div>
 
 
-                            <div style={{
-                                borderBottom: '1px solid black',
-                                width: '1150px',
-                                height: '130px',
-                                marginTop: '20px'
-                            }}>
-                                <div style={{marginLeft: "20px"}}>
-                                    <div style={{float: 'left'}}>id</div>
+                            <div id="ShareReviewWrite">
+                                <div>
+                                    <div style={{float: 'left'}}>ID</div>
 
-                                    <div style={{float: 'left', marginRight: '100px'}}>
-                                        <input type="button" className="glyphicon glyphicon-camera" value="이미지"/>
-                                    </div>
+                                    {/* 댓글 이미지 추가 아이콘 */}
+                                    <AddAPhotoIcon id="ShareReviewPhotoIcon"/>
                                 </div>
 
                                 <div>
                                     <div>
-                                        <textarea placeholder="댓글을 입력하세요"
-                                                  style={{width: '800px', height: '100px', float: 'left'}}
+                                        <textarea placeholder="댓글을 입력하세요" className="form-control"
+                                                  style={{width: '900px', height: '100px', float: 'left'}}
                                                   ref="content"
                                         />
                                     </div>
-                                    <div style={{float: 'left', marginLeft: '50px'}}>
-                                        <button type="button" onClick={this.onInsertAnswer.bind(this)}>저장</button>
+
+                                    <div>
+                                        <MDBBtn color="deep-orange" id="ShareReviewSave"
+                                                onClick={this.onInsertAnswer.bind(this)}>
+                                            <b style={{fontSize: '17px'}}>작&nbsp;성</b>
+                                        </MDBBtn>
                                     </div>
                                 </div>
                             </div>
@@ -241,7 +288,7 @@ class ShareBoardRowItem extends Component {
                         </div>
                     </Modal>
                 </React.Fragment>
-            </div>
+            // </div>
         )
     }
 
