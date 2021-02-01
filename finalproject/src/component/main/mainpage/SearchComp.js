@@ -141,6 +141,11 @@ export default function SearchComp(props) {
                        autoComplete="off" className={classes.root}
                        value={searchVal}
                        onChange={setSearchValHandler}
+                       onKeyDown={(e)=>{
+                           if(e.code == "Enter"){
+                               doSearchHandler();
+                           }
+                       }}
             />
             <br/><br/>
             <Button variant="contained" color="primary" className="searchButton"

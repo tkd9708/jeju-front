@@ -103,9 +103,9 @@ class App extends Component {
             });
         }
 
-        store.subscribe(()=>{
-            window.setTimeout(setPositionFooter, 100);
-        });
+        // store.subscribe(()=>{
+        //     window.setTimeout(setPositionFooter, 100);
+        // });
     }
 
 
@@ -152,6 +152,14 @@ class App extends Component {
         store.dispatch({
             type:actionType.setMainView,
         });
+    }
+
+    componentWillMount() {
+        window.setTimeout(setPositionFooter, 1000);
+    }
+
+    componentWillUpdate(nextProps, nextState, nextContext) {
+        window.setTimeout(setPositionFooter, 1000);
     }
 
     render() {
