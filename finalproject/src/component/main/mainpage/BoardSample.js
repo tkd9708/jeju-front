@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     paperRoot: {
         display: "flex",
         // flexWrap: "wrap",
-        overflow: "scroll",
+        overflow: "auto",
         "& > *": {
             // flexShrink: "0",
             // margin: "10px",
@@ -65,8 +65,15 @@ export default function BoardSample(props) {
     const [spotList, setSpotList] = useState([]);
     const idx = props.idx;
 
-    useEffect(()=>{
+    useEffect(() => {
         getList();
+
+        return () => {
+            let divTemp = document.querySelector(".hotPlace_sample div div");
+            if (divTemp) {
+                divTemp.scrollTo(0, 0);
+            }
+        }
     }, [idx]);
 
 
@@ -92,7 +99,6 @@ export default function BoardSample(props) {
 
     return (
         <div>
-            <hr/>
             <h1>&nbsp;&nbsp;&nbsp;&nbsp;{arrJejuLoc_ko[idx]}</h1>
             <hr/>
             <div className={classes.paperRoot}>

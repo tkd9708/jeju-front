@@ -1,4 +1,4 @@
-import React, {Component, useState} from "react";
+import React, {Component, useEffect, useLayoutEffect, useState} from "react";
 import {NavLink, Route} from "react-router-dom";
 import store from "../../../redux/store";
 import {actionType, arrJejuLoc_en, arrJejuLoc_ko, mainViewType} from "../../../redux/config";
@@ -14,6 +14,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import BoardSample from "./BoardSample";
+import "../tour/TourCss.css"
+import gsap from "gsap";
 
 import img_s_jeju from "../../../image/land_s/jeju_s.png";
 import img_s_jocheon from "../../../image/land_s/jocheon_s.png";
@@ -30,58 +32,69 @@ import img_s_aewol from "../../../image/land_s/aewol_s.png";
 import img_s_udo from "../../../image/land_s/udo_s.png";
 import img_wholeMap from "../../../image/land/jejuisland_d.png";
 
-function TabPanel(props) {
-    const {children, value, index, ...other} = props;
-
-    // photos, setPhotos 비구조화 할당
-    let [photos, setPhotos] = useState([]);
-
-    // 통신 메서드
-    function searchApi() {
-        const url = URL + '/spot/list';
-
-        axios.get(url
-        ).then(function (response) {
-            setPhotos(response.data);
-            console.log("/spot/list", response);
-        }).catch(function (error) {
-            console.log("/spot/list", error);
-        })
-    }
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box p={3}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
-}
-
-TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.any.isRequired,
-    value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
-}
+// function TabPanel(props) {
+//     const {children, value, index, ...other} = props;
+//
+//     // photos, setPhotos 비구조화 할당
+//     let [photos, setPhotos] = useState([]);
+//
+//     // 통신 메서드
+//     function searchApi() {
+//         const url = URL + '/spot/list';
+//
+//         axios.get(url
+//         ).then(function (response) {
+//             setPhotos(response.data);
+//             console.log("/spot/list", response);
+//         }).catch(function (error) {
+//             console.log("/spot/list", error);
+//         })
+//     }
+//
+//     return (
+//         <div
+//             role="tabpanel"
+//             hidden={value !== index}
+//             id={`simple-tabpanel-${index}`}
+//             aria-labelledby={`simple-tab-${index}`}
+//             {...other}
+//         >
+//             {value === index && (
+//                 <Box p={3}>
+//                     <Typography>{children}</Typography>
+//                 </Box>
+//             )}
+//         </div>
+//     );
+// }
+//
+// TabPanel.propTypes = {
+//     children: PropTypes.node,
+//     index: PropTypes.any.isRequired,
+//     value: PropTypes.any.isRequired,
+// };
+//
+// function a11yProps(index) {
+//     return {
+//         id: `simple-tab-${index}`,
+//         'aria-controls': `simple-tabpanel-${index}`,
+//     };
+// }
 
 export default function HotPlaceComp(props) {
     const [value, setValue] = React.useState(2);
     const [selectedLocationIdx, setSelectedLocationIdx] = React.useState(0);
+    const [isLocationOn, setIsLocationOn] = React.useState(false);
+    const [scrollYVal, setScrollYVal] = React.useState(0);
+
+    window.addEventListener("scroll", () => {
+        setScrollYVal(window.scrollY);
+    });
+
+
+    useEffect(() => {
+        setActionLocationEvent();
+    }, [scrollYVal])
 
     const handleChange = (event, newValue) => {
         // console.log(event, newValue);
@@ -102,24 +115,123 @@ export default function HotPlaceComp(props) {
 
     }
 
-    const setActionEvent = () => {
+    // window.onmousewheel = function (e) {
+    //     // console.log(window.scrollY);
+    //     setActionLocationEvent(window.scrollY);
+    // }.bind(this);
+    //
+    // window.onscroll = function (e) {
+    //     // console.log(window.scrollY);
+    //     setActionLocationEvent(window.scrollY);
+    // }.bind(this);
 
+    const setActionLocationEvent = () => {
+        let scrollVal = window.scrollY;
+        // console.log(isLocationOn);
+        if (scrollVal > 550) {
+            if (!isLocationOn) {
+                setIsLocationOn(true);
+                let timeStack = 0;
+                let timeSnap = 0.1;
+
+                //land part img on
+                for (let i = 2; i <= 14; i++) {
+                    let _tempStr = `div.btn_go img:nth-child(${i})`;
+                    gsap.killTweensOf(_tempStr);
+
+                    // console.log(_tempStr, document.querySelector(_tempStr));
+                    document.querySelector(_tempStr).style.visibility = "visible";
+                    document.querySelector(_tempStr).style.opacity = 0;
+                    gsap.fromTo(_tempStr, {
+                        y: 50,
+                    }, {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1,
+                        delay: (timeSnap * (i - 1)),
+                    });
+                }
+
+                timeStack = timeSnap * 13 + 0.5;
+
+                //img_wholeMap on
+                gsap.killTweensOf("div.btn_go img.img_wholeMap");
+                gsap.to("div.btn_go img.img_wholeMap", {
+                    opacity: 1,
+                    duration: 1,
+                    delay: timeStack,
+                });
+
+                timeStack += 0.5;
+                //land part img off
+                for (let i = 2; i <= 14; i++) {
+                    let _tempStr = `div.btn_go img:nth-child(${i})`;
+                    // console.log(_tempStr, document.querySelector(_tempStr));
+                    gsap.to(_tempStr, {
+                        opacity: 0,
+                        duration: 1,
+                        delay: timeStack,
+                    });
+                }
+
+                //land caption div on
+                gsap.killTweensOf("div.hotPlace_location div.btn_go div");
+                gsap.to("div.hotPlace_location div.btn_go div", {
+                    opacity: 1,
+                    duration: 1,
+                    delay: timeStack,
+                });
+            }
+        } else {
+            setIsLocationOn(false);
+            // console.log("setIsLocationOn(false);");
+
+            //land part img off
+            for (let i = 2; i <= 14; i++) {
+                let _tempStr = `div.btn_go img:nth-child(${i})`;
+                gsap.killTweensOf(_tempStr);
+                // console.log(_tempStr, document.querySelector(_tempStr));
+                document.querySelector(_tempStr).style.visibility = "visible";
+                document.querySelector(_tempStr).style.opacity = 0;
+            }
+
+            //img_wholeMap off
+            gsap.killTweensOf("div.btn_go img.img_wholeMap");
+            document.querySelector("div.btn_go img.img_wholeMap").style.opacity = 0;
+
+            //land caption div off
+            gsap.killTweensOf("div.hotPlace_location div.btn_go div");
+            // console.log(document.querySelectorAll("div.hotPlace_location div.btn_go div"));
+            document.querySelectorAll("div.hotPlace_location div.btn_go div")
+                .forEach((e, i, all) => {
+                    e.style.opacity = 0;
+                });
+        }
     }
+
 
     const mouseOverEventJejuMap = (e) => {
         // console.log("mouseOverEventJejuMap", e.target.dataset);
 
-        let selectedLoc = document.getElementById("btn_go_" + e.target.dataset.location_en);
+        // let selectedLoc = document.getElementById("btn_go_" + e.target.dataset.location_en);
         // console.log(selectedLoc);
-        selectedLoc.style.visibility = "visible";
+        // selectedLoc.style.visibility = "visible";
+        gsap.to("#btn_go_" + e.target.dataset.location_en, {
+            opacity: 1,
+            duration: 0.3,
+        });
     }
 
     const mouseLeaveEventJejuMap = (e) => {
         // console.log("mouseLeaveEventJejuMap", e.target.dataset);
 
-        let selectedLoc = document.getElementById("btn_go_" + e.target.dataset.location_en);
+        // let selectedLoc = document.getElementById("btn_go_" + e.target.dataset.location_en);
         // console.log(selectedLoc);
-        selectedLoc.style.visibility = "hidden";
+        // selectedLoc.style.visibility = "hidden";
+        gsap.to("#btn_go_" + e.target.dataset.location_en, {
+            opacity: 0,
+            duration: 0.3,
+        });
     }
 
 
@@ -128,6 +240,19 @@ export default function HotPlaceComp(props) {
             <div className="hotPlace_location">
                 <div className="btn_go">
                     <img className="img_wholeMap" src={img_wholeMap}/>
+                    <img id="btn_go_jeju"       src={img_s_jeju}        />
+                    <img id="btn_go_jocheon"    src={img_s_jocheon}     />
+                    <img id="btn_go_gujwa"      src={img_s_gujwa}       />
+                    <img id="btn_go_sungsan"    src={img_s_sungsan}     />
+                    <img id="btn_go_pyoseon"    src={img_s_pyoseon}     />
+                    <img id="btn_go_namwon"     src={img_s_namwon}      />
+                    <img id="btn_go_seogwipo"   src={img_s_seogwipo}    />
+                    <img id="btn_go_andeok"     src={img_s_andeok}      />
+                    <img id="btn_go_daejung"    src={img_s_daejung}     />
+                    <img id="btn_go_hangyeong"  src={img_s_hangyeong}   />
+                    <img id="btn_go_hanrim"     src={img_s_hanrim}      />
+                    <img id="btn_go_aewol"      src={img_s_aewol}       />
+                    <img id="btn_go_udo"        src={img_s_udo}         />
 
                     {
                         arrJejuLoc_en.map((e, i) => (
@@ -144,21 +269,6 @@ export default function HotPlaceComp(props) {
                             </div>
                         ))
                     }
-
-                    <img id="btn_go_jeju"       src={img_s_jeju}        />
-                    <img id="btn_go_jocheon"    src={img_s_jocheon}     />
-                    <img id="btn_go_gujwa"      src={img_s_gujwa}       />
-                    <img id="btn_go_sungsan"    src={img_s_sungsan}     />
-                    <img id="btn_go_pyoseon"    src={img_s_pyoseon}     />
-                    <img id="btn_go_namwon"     src={img_s_namwon}      />
-                    <img id="btn_go_andeok"     src={img_s_andeok}      />
-                    <img id="btn_go_daejung"    src={img_s_daejung}     />
-                    <img id="btn_go_hangyeong"  src={img_s_hangyeong}   />
-                    <img id="btn_go_hanrim"     src={img_s_hanrim}      />
-                    <img id="btn_go_aewol"      src={img_s_aewol}       />
-                    <img id="btn_go_udo"        src={img_s_udo}         />
-                    <img id="btn_go_seogwipo"   src={img_s_seogwipo}    />
-
                 </div>
             </div>
             <div className="hotPlace_sample">
@@ -166,11 +276,24 @@ export default function HotPlaceComp(props) {
                              history={props.history}
                 />
             </div>
-            {/*{setActionEvent}*/}
         </div>
     )
 }
-
+/*
+<img id="btn_go_jeju"       src={img_s_jeju}        />
+<img id="btn_go_jocheon"    src={img_s_jocheon}     />
+<img id="btn_go_gujwa"      src={img_s_gujwa}       />
+<img id="btn_go_sungsan"    src={img_s_sungsan}     />
+<img id="btn_go_pyoseon"    src={img_s_pyoseon}     />
+<img id="btn_go_namwon"     src={img_s_namwon}      />
+<img id="btn_go_andeok"     src={img_s_andeok}      />
+<img id="btn_go_daejung"    src={img_s_daejung}     />
+<img id="btn_go_hangyeong"  src={img_s_hangyeong}   />
+<img id="btn_go_hanrim"     src={img_s_hanrim}      />
+<img id="btn_go_aewol"      src={img_s_aewol}       />
+<img id="btn_go_udo"        src={img_s_udo}         />
+<img id="btn_go_seogwipo"   src={img_s_seogwipo}    />
+*/
 /*
                     <div className="jeju">     <a href="#"  onMouseLeave={mouseLeaveEventJejuMap}  onMouseOver={mouseOverEventJejuMap}   onClick={clickLocation.bind(this)} data-location_en="jeju     "  data-location_kr="제주"  >제주   </a> </div>   <img id="btn_go_jeju"       src={img_s_jeju       }/>
                     <div className="jocheon">  <a href="#"  onMouseLeave={mouseLeaveEventJejuMap}  onMouseOver={mouseOverEventJejuMap}   onClick={clickLocation.bind(this)} data-location_en="jocheon  "  data-location_kr="조천"  >조천   </a> </div>   <img id="btn_go_jocheon"    src={img_s_jocheon    }/>

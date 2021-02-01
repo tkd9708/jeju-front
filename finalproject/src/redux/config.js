@@ -4,8 +4,13 @@ import React, {useEffect} from "react";
 import {} from "../component/main/admin/MemberListPageComp";
 
 
-//  export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot";
+
+//export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot2";
 export const URL = "http://localhost:9002";
+
+//  export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot";
+//export const URL = "http://localhost:9002";
+
 
 export const arrJejuLoc_en = [
     "jeju",
@@ -52,6 +57,8 @@ export const actionType = {
     MB_LIST_F: "MB_LIST_F", // 회원 리스트 요청 실패
     shareBoardUpdate: "shareBoardUpdate",
     setSearchResultDataList: "setSearchResultDataList",
+    googleLogin: "googleLogin",
+    googleLogout: "googleLogout",
 }
 
 export const mainViewType = {

@@ -4,6 +4,7 @@ import GoogleLogin from 'react-google-login';
 import { refreshTokenSetup } from "./refreshToken";
 import store from "../../../redux/store";
 import { URL, actionType, mainViewType } from "../../../redux/config";
+import axios from 'axios';
 
 class GoogleLoginBtnComp extends Component
 {
@@ -14,7 +15,10 @@ class GoogleLoginBtnComp extends Component
             id: '',
             name: '',
             provider: '',
-            accessToken: ''
+            accessToken: '',
+            email: '',
+            email2: '',
+            photo: '',
         }
     }
 
@@ -34,36 +38,51 @@ class GoogleLoginBtnComp extends Component
             googleOn: true
         });
     }
+    
+    // 로그인에 실패한 경우에는 에러를 넘겨줌 => onFailure함수에서 error 출력
+    onFailure = (res) => {
+        console.log('[Login failed] res:', res);
+    };
 
-    render() {
-        const responseGoogle = (response) => {
-            console.log(response);
-        }
-        
-        // 로그인에 성공하면 json을 반환해줌 => onSuccess함수에서 state에 id, name을 저장
-        const onSuccess = (res) => {
-            console.log('[Login Success] 로그인한 사용자:', res.profileObj);
-            console.log('로그인한 사용자 id : ' +  res.googleId);
+    responseGoogle = (response) => {
+        console.log(response);
+    }
+    
+    // 로그인에 성공하면 json을 반환해줌 => onSuccess함수에서 state에 id, name을 저장
+    onSuccess = (res) => {
+        console.log('[Login Success] 로그인한 사용자:', res);
+        // console.log('로그인한 사용자 id : ' +  res.googleId);
 
-            this.setState({
-                id: res.googleId,
-                name: res.profileObj.name,
-                provider: 'google'
-            });
+        this.setState({
+            id: res.googleId,
+            name: res.profileObj.name,
+            email: res.profileObj.email,
+            email2: 'gmail.com',
+            photo: res.profileObj.imageUrl,
+        });
+        let url = URL + "/member/insertsosial";
 
-            this.setGoogleOn();
+        axios.post(url, {id:this.state.email, name:this.state.name, provider:this.state.id, 
+            photo:this.state.photo, email:this.state.email.split("@")[0], email2:this.state.email2})
+                .then(result=>{
 
-            alert("스토어에 저장된 구글로그인 상태 : " + store.getState().googleOn);
+                }).catch(err=>{
+                    console.log("google db 저장 실패 : " + err);
+                })
+        this.setGoogleOn();
 
-            // initializing the setup
-            refreshTokenSetup(res);
+        alert("스토어에 저장된 구글로그인 상태 : " + store.getState().googleOn);
+
+        // initializing the setup
+        refreshTokenSetup(res);
         };
 
         // 로그인에 실패한 경우에는 에러를 넘겨줌 => onFailure함수에서 error 출력
-        const onFailure = (res) => {
+        onFailure = (res) => {
             console.log('[Login failed] res:', res);
         };
 
+    render() {
         return (
             <>
             <br />
@@ -71,14 +90,15 @@ class GoogleLoginBtnComp extends Component
             <GoogleLogin
                 clientId="256166181377-83u2uuteqgosooa3um2i3o36ho1325md.apps.googleusercontent.com"
                 buttonText="Login"
-                onSuccess={onSuccess}
-                onFailure={onFailure}
+                onSuccess={this.onSuccess.bind(this)}
+                onFailure={this.onFailure.bind(this)}
                 cookiePolicy={'single_host_origin'}
                 isSignedIn={true}
             />
             </>
         );
-    }
+    };
+
 }
 
 export default GoogleLoginBtnComp;

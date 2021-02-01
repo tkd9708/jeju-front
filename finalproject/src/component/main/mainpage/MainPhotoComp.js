@@ -76,9 +76,7 @@ class MainPhotoComp extends Component {
     render() {
         return (
             <div className="mainPhotoComp">
-                <div>
                     <img className="mainPhotoComp_img1" src={jeju1}/>
-                </div>
                 {/*<div>*/}
                 {/*    <img className="mainPhotoComp_img2" src={jeju2}/>*/}
                 {/*</div>*/}

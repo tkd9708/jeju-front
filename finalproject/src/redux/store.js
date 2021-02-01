@@ -8,9 +8,6 @@ const persistConfig = {
     storage
 }
 
-
-
-
 const reducer = function (state, action) {
 
     //state 초기화.
@@ -49,9 +46,9 @@ const reducer = function (state, action) {
     } else if (action.type === actionType.LOG_IN) {
         newState = Object.assign({}, state, {
             loginId: action.loginId,
-        logged: action.logged
-            });
-        } else if (action.type === actionType.LOG_OUT) {
+            logged: action.logged
+        });
+    } else if (action.type === actionType.LOG_OUT) {
             newState = Object.assign({}, state, {
                 loginId: action.loginId,
                 logged: action.logged});
@@ -74,6 +71,10 @@ const reducer = function (state, action) {
     } else if (action.type === actionType.shareBoardUpdate) {
         newState = Object.assign({}, state);
     } else if (action.type === actionType.googleLogin) {
+        newState = Object.assign({}, state, {
+            googleOn: action.googleOn
+        })
+    } else if (action.type === actionType.googleLogout) {
         newState = Object.assign({}, state, {
             googleOn: action.googleOn
         })

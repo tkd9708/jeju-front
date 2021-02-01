@@ -17,6 +17,7 @@ import axios from 'axios';
 import {URL} from '../../../redux/config';
 import MyPlanRightItem from './MyPlanRightItem';
 import MyPlanLeftItem from './MyPlanLeftItem';
+import Weather from "./Weather";
 
 class MyPlanComp extends Component {
     
@@ -27,11 +28,13 @@ class MyPlanComp extends Component {
             count: 0,
             todayList: [], // 오늘 전부 plan
             todayAfterList: [], // 오늘 현재 시간 이후 plan
-            nextList: [] // 오늘 이후 plan
+            nextList: [], // 오늘 이후 plan
+            spotList: [],
+            hotspotList: []
         }
 
         let date = new Date();
-        this.today = date.getFullYear() + "-" + date.getMonth()+1 + "-" + date.getDate();
+        this.today = date.getFullYear() + "-" + Number(date.getMonth()+1) + "-" + date.getDate();
     }
 
     componentWillMount(){
@@ -55,11 +58,11 @@ class MyPlanComp extends Component {
                     todayList: res.data,
                     todayAfterList: res.data.filter(item => item.wishtime > now)
                 })
-                this.setState({
-                    count: this.state.todayAfterList.length
-                })
-                if(this.state.count == 0)
+
+                if(this.state.todayList == '')
                     this.getNextDayPlan();
+                else
+                    this.getSpotList("today");
             }).catch(err=>{
                 console.log("myplan getPlanList 오류 : " + err);
             })
@@ -67,61 +70,96 @@ class MyPlanComp extends Component {
 
     // 오늘 일정 없을 시, 오늘 이후 plan 가져오기
     getNextDayPlan = () => {
-        let url = URL + "/wish/planlist?memId=" + store.getState().loginId + "&day=" + this.today + "&category=nextDay&perPage=5";
+        let url = URL + "/wish/planlist?memId=" + store.getState().loginId + "&day=" + this.today + "&category=nextDay";
         
         axios.get(url)
             .then(res=>{
                 this.setState({
                     nextList: res.data
                 })
-                this.setState({
-                    count : this.state.nextList.length
-                })
-                // console.log(this.state.count);
+
+                if(this.state.nextList != '')
+                    this.getSpotList("nextDay");
+                else
+                    this.getHotspotList();
                     
             }).catch(err=>{
                 console.log("myplan getNextDayPlan 오류 : " + err);
             })
     }
 
+    // 카테고리별 spotlsit 가져오기
+    getSpotList = (category) => {
+        let url = URL + "/wish/spotlist?memId=" + store.getState().loginId + "&day=" + this.today + "&category=" + category;
+        
+        axios.get(url)
+            .then(res=>{
+                this.setState({
+                    spotList: res.data
+                })  
+            }).catch(err=>{
+                console.log("myplan getSpotList 오류 : " + err);
+            })
+    }
+
+    // 아예 뒷 일정이 없을 경우
+    getHotspotList=()=>{
+        let url = URL + "/spot/hotspotlist";
+        
+        axios.get(url)
+            .then(res=>{
+                this.setState({
+                    hotspotList: res.data
+                })  
+            }).catch(err=>{
+                console.log("myplan getHotspotList 오류 : " + err);
+            })
+    }
+
     render(){
         // login시에만 왼쪽 블럭 출력
         const leftTag = store.getState().logged==true?
-            <div className="myPlanLeft" style={{borderRight: '1px solid black'}}>
-                    {this.state.todayList!=''?<span>MyPlan on {this.today}</span>:<span>MyPlan on </span>}
-                    <br/>
-                    {this.state.todayList!=''?<span>TODAY</span>:""}
-                    <List style={{width: '100%'}}>
-                        {this.state.todayList!=''?this.state.todayList.map((row)=>(
-                            <MyPlanLeftItem row={row}/>
-                        )):this.state.nextList!=''?this.state.nextList.map((row)=>(
-                            <MyPlanLeftItem row={row}/>
-                        )):
-                        <ListItem>등록하신 일정이 없습니다.<br/>새로운 일정을 계획해보아요!</ListItem>}
-                    </List>
-                </div>:"";
+            // <Box p={1} className="myPlanLeft" style={{borderRight: '1px solid black'}}>
+                
+            // </Box>
+            <div className="myPlanLeft" style={{borderRight: '1px solid #aaa'}}>
+                {this.state.todayList!=''?<span style={{color: '#bbb'}}>MyPlan on {this.today}</span>:<span>MyPlan</span>}
+                        <br/>
+                        {this.state.todayList!=''?<span>TODAY</span>:""}
+                        <List style={{width: '100%', overflow: 'scroll'}}>
+                            {this.state.todayList!=''?this.state.todayList.map((row)=>(
+                                <MyPlanLeftItem row={row}/>
+                            )):this.state.nextList!=''?this.state.nextList.map((row)=>(
+                                <MyPlanLeftItem row={row}/>
+                            )):
+                            <ListItem>등록하신 일정이 없습니다.<br/>새로운 일정을 계획해보아요.</ListItem>}
+                        </List>        
+            </div>
+                :"";
 
-        // 오른쪽 블럭 : 오늘 현재시간 이후 list 출력 / 없을 시, 오늘 이후 일정 출력 / 없을 시, 추천 spot 보여주기
-        const list = this.state.todayAfterList!=''?
+        // 오른쪽 블럭 : 오늘 spot 출력 / 없을 시, 오늘 이후 spot 출력 / 없을 시, 추천 spot 보여주기
+        const list = this.state.spotList!=''?
             <div className="myPlanpagesRoot">
-                {this.state.todayAfterList.map((row)=>(
+                {this.state.spotList.map((row)=>(
                     <MyPlanRightItem row={row}/>
                 ))}
             </div>
-        :this.state.nextList!=''?<div className="myPlanpagesRoot">
-                                    {this.state.nextList.map((row)=>(
-                                        <MyPlanRightItem row={row}/>
-                                    ))}
-                                </div>:<span>일정 없으면 추천 spot 보여주기</span>;
+        :<div className="myPlanpagesRoot">
+            {this.state.hotspotList.map((row)=>(
+                <MyPlanRightItem row={row}/>
+            ))}
+        </div>;
 
         // 로그인 시, plan list 출력 / 없을 시, 뭐넣지
         const rightTag = store.getState().logged==true?
+            // <Box p={1} className="myPlanRight" style={{borderRight: '1px solid black'}}>
+                
+            // </Box>
             <div className="myPlanRight">
-                <span>MyPlan</span>
+                {this.state.todayList!=''?<span>오늘의 Spot</span>:this.state.nextList!=''?<span>다가오는 Spot</span>:<span>오늘의 TOP5</span>}
                 {list}
             </div>
-            
-            :<h2>오늘의 날씨</h2>
+            :<h2><Weather/></h2>
 
         return (
             <div className="myPlanComp myPlanParent">

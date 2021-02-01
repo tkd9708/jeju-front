@@ -13,6 +13,8 @@ import "./App.css";
 
 import MainPageComp from "./component/main/mainpage/MainPageComp";
 import ReservationPageComp from "./component/main/reservation/ReservationPageComp";
+import RentCarPageComp from "./component/main/reservation/RentCarPageComp";
+import ShipPageComp from "./component/main/reservation/ShipPageComp";
 import NoticePageComp from "./component/main/notice/NoticePageComp";
 import ShareBoardPageComp from "./component/main/shareboard/ShareBoardPageComp";
 import LoginPageComp from "./component/main/auth/LoginPageComp";
@@ -25,6 +27,7 @@ import DetailTourComp from "./component/main/tour/DetailTourComp";
 import ShareBoardFormComp from "./component/main/shareboard/ShareBoardFormComp";
 import ShareBoardUpdateForm from "./component/main/shareboard/ShareBoardUpdateForm";
 import NoticeContent from "./component/main/notice/NoticeContent";
+import Noticeinsert from './component/main/notice/Noticeinsert';
 import store from "./redux/store";
 import {actionType} from "./redux/config";
 import SearchResultComp from "./component/main/mainpage/SearchResultComp";
@@ -82,15 +85,16 @@ class App extends Component {
 
         }
 
-        window.onmousewheel = function (e) {
-            // console.log(window.scrollY);
-            this.showHeader(window.scrollY);
-        }.bind(this);
-        window.onscroll = function (e) {
-            // console.log(window.scrollY);
-            this.showHeader(window.scrollY);
-        }.bind(this);
+        // window.onmousewheel = function (e) {
+        //     // console.log(window.scrollY);
+        //     this.showHeader(window.scrollY);
+        // }.bind(this);
+        // window.onscroll = function (e) {
+        //     // console.log(window.scrollY);
+        //     this.showHeader(window.scrollY);
+        // }.bind(this);
 
+        window.addEventListener("scroll", this.showHeader);
 
         if (confirmLs !== undefined) {
             this.setState({
@@ -102,13 +106,14 @@ class App extends Component {
             });
         }
 
-        store.subscribe(()=>{
-            window.setTimeout(setPositionFooter, 100);
-        });
+        // store.subscribe(()=>{
+        //     window.setTimeout(setPositionFooter, 100);
+        // });
     }
 
 
-    showHeader = (scrollVal) => {
+    showHeader = () => {
+        let scrollVal = window.scrollY;
         const isStaticHeader = this.state.isStaticHeader;
         if (scrollVal > 0) {
             if (!isStaticHeader) {
@@ -152,6 +157,14 @@ class App extends Component {
         });
     }
 
+    componentWillMount() {
+        window.setTimeout(setPositionFooter, 1000);
+    }
+
+    componentWillUpdate(nextProps, nextState, nextContext) {
+        window.setTimeout(setPositionFooter, 1000);
+    }
+
     render() {
         let {logged} = this.state;
 
@@ -163,7 +176,8 @@ class App extends Component {
                 <Menu logged={logged}
                       type="normal"
                 />
-                <div className="mainFrame"  >
+                <div className="mainFrame"
+                >
                     <Switch>
                         <Route exact path="/" component={MainPageComp}/>
 
@@ -177,14 +191,16 @@ class App extends Component {
                         <Route path="/join/:name?" component={SignupPageComp}/>
                         <Route exact path="/mypage" component={MypagePageComp}/>
                         <Route path="/mypage/update/:num?" component={MemberUpdateFormComp}/>
-                        <Route exact path="/share" component={ShareBoardPageComp}/>
+                        <Route path="/share/:pageNum?" component={ShareBoardPageComp}/>
                         <Route path="/share/insert" component={ShareBoardFormComp}/>
                         <Route path="/share/update/:num?" component={ShareBoardUpdateForm}/>
                         <Route path="/tour/:name?" component={DetailTourComp}/>
                         <Route exact path="/notice" component={NoticePageComp}/>
-                        <Route path="/notice/content/:num?" component={NoticeContent}/>
+                        <Route path="/notice/insert" component={Noticeinsert}/>
                         <Route path="/notice/content/:num?" component={NoticeContent}/>
                         <Route path="/reservation/:name?" component={ReservationPageComp}/>
+                        <Route path="/carReservation/:name?" component={RentCarPageComp}/>
+                        <Route path="/shipReservation/:name?" component={ShipPageComp}/>
                         <Route path="/tourlist/:name?/:pageNum?" component={TourPageComp}/>
                         <Route path="/shareplan/:name?/" component={SharePlanPageComp}/>
                     </Switch>
@@ -199,35 +215,4 @@ class App extends Component {
 }
 
 export default App;
-/*
-    HeaderComp
-        Title
-            Home
-            Notice
-            Reservation
-            Tour
-                TourList
-            ShareBoard
-            MyPage
-            Login / Logout
-    MainComp
-        Home
-            -
-            -
-        검색
-            - 검색 카테고리 select/option
-            - 단어검색어 input
-            - 검색 button
-        관광명소 - 지도 클릭
-            - 제주시 명소 링크.
-            - 애월읍 명소 링크.
-            ...
-        공지사항
-            - +버튼 -> 공지사항 페이지 이동. -button 안에 img
-            - 공지사항 리스트중 하나 클릭. -table td a tag 안에 span 문자열
-        공유게시판
-            - +버튼 -> 공유게시판 페이지 이동. -button 안에 img
-            - 공유게시판 리스트중 하나 클릭. -table td a tag 안에 span 문자열
-    footer
-        회사 정보
- */
+

@@ -47,7 +47,7 @@ class Menu extends Component {
 
     setLogOut = () => {
         console.log("Menu setLogOut()");
-        
+
         store.dispatch({
             type: actionType.LOG_IN,
             // mainView: mainViewType.MainPage
@@ -59,13 +59,13 @@ class Menu extends Component {
     handleDrawerOpen = () => {
         this.setState({
             drawerOpen: true
-        })  
+        })
     };
 
     handleDrawerClose = () => {
         this.setState({
             drawerOpen: false
-        })  
+        })
     };
 
     drawer = ()=> (
@@ -100,11 +100,11 @@ class Menu extends Component {
               <ListItem><a href="/tourlist/hangyeong/1">한경</a></ListItem>
               <ListItem><a href="/tourlist/hanrim/1">한림</a></ListItem>
               <ListItem><a href="/tourlist/aewol/1">애월</a></ListItem>
-              <ListItem><a href="/tourlist/udo/1">우도</a></ListItem>    
+              <ListItem><a href="/tourlist/udo/1">우도</a></ListItem>
           </List>
           <Divider />
           <List>
-              <ListItem><a href="/share">맛집 공유</a></ListItem>
+              <ListItem><a href="/share/1">맛집 공유</a></ListItem>
               <ListItem><a href="/shareplan">일정 공유</a></ListItem>
           </List>
           <Divider />
@@ -127,7 +127,7 @@ class Menu extends Component {
           </List>
         </div>
       );
-    
+
     render() {
         // console.log("메뉴에서 스토어 상태 : " + store.getState().loginId);
         // console.log("메뉴에서 스토어 로그인 상태 : " + store.getState().logged);
@@ -172,7 +172,7 @@ class Menu extends Component {
                             }}
                     >Join</NavLink>
                 </li> */}
-                
+
                 <li className="dropdown">
                     <a className="dropdownTitle">Tour</a>
                         {/*<div class="dropdown-content" >*/}
@@ -205,17 +205,23 @@ class Menu extends Component {
                 <li className="dropdown">
                     <a className="dropdownTitle">Share</a>
                         <div className="dropdown-content" >
-                            <a href="/share">맛집 공유</a>
+                            <a href="/share/1">맛집 공유</a>
                             <a href="/shareplan">일정 공유</a>
                         </div>
                 </li>
-                <li>
-                    <NavLink exact to="/reservation"
+                <li className="dropdown">
+                    <a className="dropdownTitle">Reservation</a>
+                        <div className="dropdown-content" >
+                            <a href="/reservation">Air</a>
+                            <a href="/carReservation">Rentcar</a>
+                            <a href="/shipReservation">Ship</a>
+                        </div>
+                    {/* <NavLink exact to="/reservation"
                             onClick={() => {
                                 console.log("Reservation NavLink onClick");
                                 this.setMainView(mainViewType.Reservation);
                             }}
-                    >Reservation</NavLink>
+                    >Reservation</NavLink> */}
                 </li>
                 <li>
                     <NavLink exact to="/notice"
@@ -237,7 +243,7 @@ class Menu extends Component {
                                     this.setLogOut();
                                 }
                             }>Logout</a>
-                            
+
                         </div>
                     </li>:
                     <li>
