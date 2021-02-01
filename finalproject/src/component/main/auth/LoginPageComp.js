@@ -33,9 +33,14 @@ class LoginPageComp extends Component {
             idcanUse: false,//중복된 아이디찾기 true여야 로그인가능
             logged:this.props.logged,
             onLogin:this.onLogin,
+            googleOn : store.getState().googleOn
         }
 
-        //함수 선언
+        store.subscribe(function () {
+            this.setState({
+                googleOn: store.getState().googleOn,
+            });
+        }.bind(this));
     }
 
     setLoginId = (loginId) => {
@@ -125,14 +130,16 @@ class LoginPageComp extends Component {
                 {/* 회원가입 */}
                 <Link to="/join"><button type="button" className="btn btn-warning">회원가입</button></Link>
                 
-                
-                <GoogleLoginBtnComp />
-                <GoogleLogoutBtnComp />
+                {
+                    this.state.googleOn ==true ?
+                        <GoogleLogoutBtnComp /> : 
+                        <GoogleLoginBtnComp />
+                }
                 <br />
                 <br />
                 <NaverLoginBtnComp />
                 <br />
-                <FaceBookLoginBtnComp />
+                {/* <FaceBookLoginBtnComp /> */}
                 <br />
                 {/* <KakaoLoginBtnComp /> */}
                 <br />

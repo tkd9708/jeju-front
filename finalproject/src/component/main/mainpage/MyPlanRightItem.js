@@ -16,10 +16,16 @@ class MyPlanRightItem extends Component {
         const {row} = this.props;
 
         return (
-            <Paper elevation={3}>
-                <img src={row.thumbnail} alt="" style={{width: '300px'}}/><br/>
-                <div id="myplanRightThumb">{row.title}</div>
-            </Paper>
+            <div style={{position: 'relative'}} className="myplanRightItemBox">
+                <div><img src={row.thumbnail} alt="" class="myplanRightItemImg"/></div>
+                <div class="myplanRightTitle" style={{position: 'absolute', bottom: '5%', left: '30%', color: 'white', textAlign: 'center'}}>
+                    {row.title}
+                </div>
+            </div>
+            // <Paper elevation={3}>
+            //     <br/>
+            //     <div id="myplanRightThumb"></div>
+            // </Paper>
         )
     }
 }

@@ -14,7 +14,9 @@ class PageComp extends Component {
                        ? `/tourlist/${area}/${startPage - 1}`
                        : (type == "search")
                            ? `/search/${category}/${search}/${startPage - 1}`
-                           : ""}
+                           : (type == "share_restaurant")
+                               ? `/share/${startPage - 1}`
+                               : ""}
                 >◀</a>
             </li> : "";
 
@@ -25,7 +27,9 @@ class PageComp extends Component {
                        ? `/tourlist/${area}/${endPage + 1}`
                        : (type == "search")
                            ? `/search/${category}/${search}/${endPage + 1}`
-                           : ""}
+                           : (type == "share_restaurant")
+                               ? `/share/${endPage + 1}`
+                               : ""}
                 >▶</a>
             </li> : "";
 
@@ -47,7 +51,9 @@ class PageComp extends Component {
                            ? `/tourlist/${area}/${num}`
                            : (type == "search")
                                ? `/search/${category}/${search}/${num}`
-                               : ""}
+                               : (type == "share_restaurant")
+                                   ? `/share/${num}`
+                                   : ""}
                     >{num}</a>
                 </li>
             )

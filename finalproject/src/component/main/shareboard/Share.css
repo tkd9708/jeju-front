@@ -1,27 +1,22 @@
 /* shareboardlist css */
 
     #ShareListBox{
-        
         border: 1px solid #eee;
         margin-top: 2%;
-        margin-left: 9%;
+        margin-left: 1%;
         float: left;
         cursor: pointer;
-        
-          
-       
-
-         
     }
+
     #ShareImg{
         border-bottom: 1px solid #eee;
         width: 400px;
         height: 280px;
         text-align: center;
-        
-        
-        
-        
+
+
+
+
     }
     #ShareListSubject{
         font-size: 15pt;
@@ -31,24 +26,24 @@
         border-bottom: 1px solid #eee;
         margin-top: 15px;
         text-align: center;
-       
+
     }
     #ShareContentDiv{
-    
+
         font-size: 1em;
         border-bottom: 1px solid #eee;
-        width: 400px; 
+        width: 400px;
         height: 100px;
         color: #888;
         text-align: center;
-        
-        
-        
-      
-        
-      
+
+
+
+
+
+
     }
- 
+
 
     #ShareThumbIcon{
         font-size: 15pt;
@@ -71,7 +66,7 @@
         margin-top: 16px;
         margin-right: 15px;
         color:black;
-        
+
     }
 
 
@@ -98,10 +93,10 @@
         cursor: pointer;
         margin-top: 10px;
         /* float: left;  */
-       
+
     }
 
- 
+
 
     /* 찜하기 heart 애니메이션 */
     .heart {
@@ -125,25 +120,25 @@
           background-position: -2800px 0;
         }
       }
-      
+
       /* #ShareHeart{
-          
-        float: right;  
+
+        float: right;
         margin-top: 50px;
-      
+
       } */
-   
-    
-    
-    
-    
+
+
+
+
+
     #ShareModalMidBox{
-        
-        width: 1150px; 
+
+        width: 1150px;
         height: 400px;
 
     }
-    
+
     #ShareModalImg{
         border: 1px solid #eee;
         width: 550px;
@@ -154,31 +149,31 @@
     }
 
     #ShareModalContent{
-        
+
         width: 550px;
         height: 400px;
         float: right;
     }
     #ShareModalContent1{
-        
+
         width: 550px;
         height: 75px;
         float: left;
     }
     #ShareModalContent2{
-       
+
         width: 550px;
         height: 75px;
         float: left;
     }
     #ShareModalContent3{
-        
+
         width: 550px;
         height: 200px;
         float: left;
     }
     #ShareModalContent4{
-        
+
         width: 550px;
         height: 50px;
         float: left;
@@ -204,8 +199,8 @@
         height: 90px;
         margin-bottom: 10px;
         margin-left: 15px;
-        
-             
+
+
     }
 
 
@@ -219,7 +214,7 @@
         margin: 0 auto;
         margin-left: 47.5%;
         margin-top: 20px;
-                 
+
     }
 
     #sharesubject{
@@ -235,14 +230,14 @@
         height: 580px;
         margin: 0 auto;
         margin-top: 15px;
-              
- 
+
+
     }
 
-   
-    
+
+
     #shareth{
-        
+
         text-align: center;
         border-bottom: 2px solid lightsalmon;
         padding-right: 20px;
@@ -262,23 +257,23 @@
     input{
         margin-top: 7px;
     }
- 
+
 
     #ShareFormButton{
         margin:0 auto;
         margin-left: 45%;
         margin-top: 20px;
-        
+
     }
 
 
 
 
-    
+
     /* shareupdateform css */
-    
- 
-  
+
+
+
 
 
 
