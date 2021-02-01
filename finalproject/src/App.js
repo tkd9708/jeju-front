@@ -180,7 +180,7 @@ class App extends Component {
                         <Route path="/join/:name?" component={SignupPageComp}/>
                         <Route exact path="/mypage" component={MypagePageComp}/>
                         <Route path="/mypage/update/:num?" component={MemberUpdateFormComp}/>
-                        <Route exact path="/share" component={ShareBoardPageComp}/>
+                        <Route path="/share/:pageNum?" component={ShareBoardPageComp}/>
                         <Route path="/share/insert" component={ShareBoardFormComp}/>
                         <Route path="/share/update/:num?" component={ShareBoardUpdateForm}/>
                         <Route path="/tour/:name?" component={DetailTourComp}/>
