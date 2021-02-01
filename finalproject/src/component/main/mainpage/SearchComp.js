@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import {actionType, URL} from "../../../redux/config";
 import axios from "axios";
 import store from "../../../redux/store";
+import './MyPlanComp.css';
 
 
 const useStyles = makeStyles((theme) => ({
