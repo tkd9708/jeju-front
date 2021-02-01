@@ -19,7 +19,7 @@ class MyPlanLeftItem extends Component {
         }
 
         let date = new Date();
-        this.today = date.getFullYear() + "-" + date.getMonth()+1 + "-" + date.getDate();
+        this.today = date.getFullYear() + "-" + Number(date.getMonth()+1) + "-" + date.getDate();
     }
 
     getSpotTitle = () => {
