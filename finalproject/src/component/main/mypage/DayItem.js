@@ -60,7 +60,7 @@ class DayItem extends Component {
         var today = new Date(y, m-1, d);
         var betweenDay = selectDay.getTime() - today.getTime();  // 이게 0이여야 해당하는 날짜랑 wishday랑 맞는거에요!
         var tag = betweenDay==0?<DayDetail row={this.props.row}/>:"";
-        var header=betweenDay==0?<Header row={this.props.row}/>:"";
+        
         return (
             <div>
                 {tag}

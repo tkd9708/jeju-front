@@ -32,7 +32,8 @@
 .move-button{
     width: 40px;
     height: 40px;
-    display: inline-block;
+   
+
 }
 
 .icon{
@@ -43,11 +44,10 @@
 }
 
 
-.move{
-    position: relative;
-    
-    
-}
+
+
+
+
 
 
 .RCA-header-middle{
@@ -219,5 +219,56 @@ div.title{
 
 #transition-modal-title{
     text-align: center;
+}
+
+.addlistpaper{
+    background-color: #fff;
+    border: 2px solid #000;
+    width: 400px;
+    height: 450px;
+}
+
+.addlistmodal{
+    width: 500px;
+    height: 600px;
+    background-color: #fff;
+    border: 2px solid #000;
+}
+
+#addschedule{
+        text-align: center;
+       position: relative;
+       left: 60px;
+       
+        
+        color: lightsalmon;
+        text-shadow: wheat;
+        font-weight: 600;
+        font-size: 1.2em;
+}
+
+#addwish{
+    position: relative;
+    left: 80px;
+    
+}
+
+#addtitle{
+    top: 40px;
+    position: relative;
+    left: 60px;
+    color: lightsalmon;
+    text-shadow: wheat;
+    font-weight: 600;
+    font-size: 1.2em;
+}
+
+#addcontent{
+    position: relative;
+    left: 120px;
+}
+
+input{
+    margin-top: 7px;
 }
 

@@ -10,6 +10,7 @@ import Fade from '@material-ui/core/Fade';
 import './style/RCA.css';
 import { TiTimes } from "react-icons/ti";
 import ClistItem from './ClistItem';
+import store from '../../../redux/store';
 
 class DateHeader extends Component {
 
@@ -87,7 +88,7 @@ class Week extends Component {
 
       getData=()=>{
 
-            let url = URL + "/wish/list?memId=sanghee";
+            let url = URL + "/wish/list?memId="+store.getState().loginId;
 
             axios.get(url)
             .then(response=>{
@@ -102,7 +103,7 @@ class Week extends Component {
       }
 
       getList=(day)=>{
-            let url = URL + "/wish/daylist?memId=sanghee" + "&day=" + day ;
+            let url = URL + "/wish/daylist?memId="+store.getState().loginId + "&day=" + day ;
             
             axios.get(url)
             .then(res=>{
@@ -202,6 +203,7 @@ class Week extends Component {
                   <DayItem row={row} key={idx} className={className} dayInfo={dayInfo} i={i} fn={fn}></DayItem>
                   
               ))}
+              
 
           </div>
           
@@ -248,6 +250,9 @@ class Week extends Component {
                         {this.state.clist.map((row)=>(
                             <ClistItem row={row}/>
                         ))}
+                        {/* {this.state.list.map((row1)=>(
+                          <ClistItem row1={row1}></ClistItem>
+                        ))} */}
                         
                     </div>
                     </Fade>
