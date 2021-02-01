@@ -42,8 +42,8 @@ class GoogleLoginBtnComp extends Component
         
         // 로그인에 성공하면 json을 반환해줌 => onSuccess함수에서 state에 id, name을 저장
         const onSuccess = (res) => {
-            console.log('[Login Success] 로그인한 사용자:', res.profileObj);
-            console.log('로그인한 사용자 id : ' +  res.googleId);
+            console.log('[Login Success] 로그인한 사용자:', res);
+            // console.log('로그인한 사용자 id : ' +  res.googleId);
 
             this.setState({
                 id: res.googleId,
