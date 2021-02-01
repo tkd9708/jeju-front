@@ -27,7 +27,7 @@ componentWillMount() {
     this.onSelectData();
 }
     render(){
-        let url=document.getElementById("url").textContent
+        // let url=document.getElementById("url").textContent
         const {selectData}=this.state;
 
 

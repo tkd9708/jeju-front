@@ -4,50 +4,244 @@
     /* width: 500px; */
     overflow-x: scroll;
 }
-.myPlanRight {
+/* .myPlanRight {
     flex-grow: 1;
-}
+} */
 .myPlanParent {
     display: flex;
 }
 @media only screen and (max-width:400px){
-    
+    .myPlanpagesRoot > * {
+        /* margin: 10px; */
+        /* padding: 10px; */
+        width: 30vw;
+        /* height: 300px; */
+        /* overflow: hidden; */
+    }
+    .myPlanLeft {
+        width: 45vw;
+        height: 200px;
+        padding: 5px;
+        overflow: scroll;
+    }
+    .myplanLeftList {
+        padding: 0px !important;
+    }
+    .myplanLeftList span {
+        font-size: 0.7rem !important;
+        font-weight: 500;
+    }
+    .myplanLeftList p {
+        font-size: 0.5rem !important;
+    }
+    .myplanLeftList div.MuiListItemAvatar-root {
+        min-width: 10px !important;
+    }
+    .myplanLeftList div.MuiAvatar-root {
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 0.7rem !important;
+        margin-right: 10px;
+    }
+    .myPlanRight {
+        width: 45vw;
+        height: 200px;
+        padding: 5px;
+    }
+    .myPlanRight > span, .myPlanLeft > span {
+        font-size: 0.7rem;
+        font-weight: 900;
+        color: #036E38;
+    }
+    .myplanRightItemBox {
+        padding: 10px;
+        margin-right: 20px;
+        width: 150px;
+        /* width: 40vw; */
+    }
+    .myplanRightItemImg {
+        width: 150px;
+        height: 120px;
+    }
+    .myplanRightTitle {
+        padding: 5px 10px;
+        width: 60%;
+        background-color: rgba(10, 10, 10, 0.788);
+        font-size: 0.5rem;
+    }
+    #demo-simple-select-outlined, #outlined-basic, .searchButton {
+        font-size: 0.5rem !important;
+    }
 }
 @media only screen and (min-width:400px) and (max-width:770px){
-    
+    .myPlanpagesRoot > * {
+        /* margin: 10px; */
+        /* padding: 10px; */
+        width: 30vw;
+        /* height: 300px; */
+        /* overflow: hidden; */
+    }
+    .myPlanLeft {
+        width: 45vw;
+        height: 250px;
+        padding: 10px;
+        overflow: scroll;
+    }
+    .myplanLeftList {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    .myplanLeftList span {
+        font-size: 0.7rem !important;
+        font-weight: 500;
+    }
+    .myplanLeftList p {
+        font-size: 0.5rem !important;
+    }
+    .myplanLeftList div.MuiListItemAvatar-root {
+        min-width: 10px !important;
+    }
+    .myplanLeftList div.MuiAvatar-root {
+        width: 25px !important;
+        height: 25px !important;
+        font-size: 0.7rem !important;
+        margin-right: 10px;
+    }
+    .myPlanRight {
+        width: 45vw;
+        height: 250px;
+        padding: 10px;
+    }
+    .myPlanRight > span, .myPlanLeft > span {
+        font-size: 1rem;
+        font-weight: 900;
+        color: #036E38;
+    }
+    .myplanRightItemBox {
+        padding: 20px;
+        margin-right: 30px;
+        width: 200px;
+        /* width: 40vw; */
+    }
+    .myplanRightItemImg {
+        width: 200px;
+        height: 170px;
+    }
+    .myplanRightTitle {
+        padding: 10px 20px;
+        width: 60%;
+        background-color: rgba(10, 10, 10, 0.788);
+        font-size: 0.6rem;
+    }
 }
 @media only screen and (min-width:770px) and (max-width:1023px){
-    
+    .myPlanpagesRoot > * {
+        /* margin: 10px; */
+        /* padding: 10px; */
+        width: 30vw;
+        /* height: 300px; */
+        /* overflow: hidden; */
+    }
+    .myPlanLeft {
+        width: 45vw;
+        height: 350px;
+        padding: 20px;
+        overflow: scroll;
+    }
+    .myplanLeftList {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    .myplanLeftList span {
+        font-size: 0.9rem !important;
+        font-weight: 500;
+    }
+    .myplanLeftList p {
+        font-size: 0.7rem !important;
+    }
+    .myplanLeftList div.MuiListItemAvatar-root {
+        min-width: 10px !important;
+    }
+    .myplanLeftList div.MuiAvatar-root {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 0.9rem !important;
+        margin-right: 10px;
+    }
+    .myPlanRight {
+        width: 45vw;
+        height: 350px;
+        padding: 10px;
+    }
+    .myPlanRight > span, .myPlanLeft > span {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #036E38;
+    }
+    .myplanRightItemBox {
+        padding: 30px;
+        margin-right: 40px;
+        width: 250px;
+        /* width: 40vw; */
+    }
+    .myplanRightItemImg {
+        width: 250px;
+        height: 220px;
+    }
+    .myplanRightTitle {
+        padding: 10px 20px;
+        width: 60%;
+        background-color: rgba(10, 10, 10, 0.788);
+        font-size: 0.8rem;
+    }
 }
 @media only screen and (min-width:1023px){   
     .myPlanpagesRoot > * {
         /* margin: 10px; */
         /* padding: 10px; */
         width: 30vw;
-        height: 300px;
+        /* height: 300px; */
         /* overflow: hidden; */
     }
     .myPlanLeft {
         width: 30vw;
-        height: 300px;
+        height: 400px;
         padding: 20px;
         overflow: scroll;
     }
+    .myplanLeftList {
+        font-size: 1rem !important;
+        font-weight: 500;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    .myplanLeftList p {
+        font-size: 0.8rem !important;
+    }
     .myPlanRight {
         width: 30vw;
-        height: 300px;
+        height: 400px;
         padding: 20px;
     }
-    .searchComp {
-        width: 30vw;
+    .myPlanRight > span, .myPlanLeft > span {
+        font-size: 1.4rem;
+        font-weight: 900;
+        color: #036E38;
     }
     .myplanRightItemBox {
-
+        padding: 30px;
+        margin-right: 40px;
+        width: 300px;
+        /* width: 40vw; */
     }
     .myplanRightItemImg {
-
+        width: 300px;
+        height: 270px;
     }
     .myplanRightTitle {
-
+        padding: 10px 20px;
+        width: 60%;
+        background-color: rgba(10, 10, 10, 0.788);
+        font-size: 0.8rem;
     }
 }

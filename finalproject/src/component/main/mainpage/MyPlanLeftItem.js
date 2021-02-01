@@ -63,17 +63,19 @@ class MyPlanLeftItem extends Component {
             :row.aroundId!=null&row.content.split(",")[0]=="음식점"?"🍔":row.aroundId!=null&row.content.split(",")[0]=="카페"?"☕":"🛌";
 
         var betweenDay = parseInt((new Date(row.wishday) - new Date(this.today))/ (24*60*60*1000));
-
+        var isToday = Number(this.today.split("-")[0]) == Number(row.wishday.split("-")[0]) ?
+                     Number(this.today.split("-")[1]) == Number(row.wishday.split("-")[1]) ? 
+                     Number(this.today.split("-")[2]) == Number(row.wishday.split("-")[2]) ? true: false: false: false;
         return (
             <div>
-                <ListItem>
+                <ListItem className="myplanLeftList">
                     <ListItemAvatar>
                         <Avatar>
                             {/* <ImageIcon/> */}
                             {icon}
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={title} secondary={row.wishday==this.today?`예정시간 ${row.wishtime}`:`D-${betweenDay}`}/>
+                    <ListItemText primary={title} secondary={isToday==true?`예정시간 ${row.wishtime}`:`D-${betweenDay}`}/>
                 </ListItem>
                 <Divider variant="inset" component="li"/>
             </div>

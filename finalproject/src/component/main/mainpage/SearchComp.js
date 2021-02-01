@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import {actionType, URL} from "../../../redux/config";
 import axios from "axios";
 import store from "../../../redux/store";
+import './MyPlanComp.css';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -141,6 +142,11 @@ export default function SearchComp(props) {
                        autoComplete="off" className={classes.root}
                        value={searchVal}
                        onChange={setSearchValHandler}
+                       onKeyDown={(e)=>{
+                           if(e.code == "Enter"){
+                               doSearchHandler();
+                           }
+                       }}
             />
             <br/><br/>
             <Button variant="contained" color="primary" className="searchButton"

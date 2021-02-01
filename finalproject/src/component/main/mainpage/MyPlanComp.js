@@ -121,7 +121,7 @@ class MyPlanComp extends Component {
             // <Box p={1} className="myPlanLeft" style={{borderRight: '1px solid black'}}>
                 
             // </Box>
-            <div className="myPlanLeft" style={{borderRight: '1px solid black'}}>
+            <div className="myPlanLeft" style={{borderRight: '1px solid #aaa'}}>
                 {this.state.todayList!=''?<span>MyPlan on {this.today}</span>:<span>MyPlan</span>}
                         <br/>
                         {this.state.todayList!=''?<span>TODAY</span>:""}
@@ -131,7 +131,7 @@ class MyPlanComp extends Component {
                             )):this.state.nextList!=''?this.state.nextList.map((row)=>(
                                 <MyPlanLeftItem row={row}/>
                             )):
-                            <ListItem>등록하신 일정이 없습니다.<br/>새로운 일정을 계획하러 갑시다.</ListItem>}
+                            <ListItem>등록하신 일정이 없습니다.<br/>새로운 일정을 계획해보아요.</ListItem>}
                         </List>        
             </div>
                 :"";

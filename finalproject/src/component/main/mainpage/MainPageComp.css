@@ -13,7 +13,7 @@ div.mainPageComp div {
 @media only screen and (min-width: 1023px) {
     div.mainPhotoComp {
         max-height: 600px;
-        min-height: 600px;
+        /* min-height: 600px; */
         overflow: hidden;
     }
 
@@ -90,9 +90,10 @@ div.search-myplan div {
     }
 
     div.search-myplan .searchComp {
-        border-right: 1px solid black;
-        height: 500px;
+        border-right: 1px solid #aaa;
+        height: 400px;
         padding: 20px;
+        width: 30vw;
     }
 
 }
@@ -101,8 +102,9 @@ div.search-myplan div {
     div.search-myplan {
         display: flex;
         flex-wrap: wrap;
-        padding: 30px;
+        padding: 20px;
         margin: 0px;
+        /* font-size: 0.8rem; */
     }
 
     div.search-myplan .searchComp {
@@ -117,8 +119,33 @@ div.search-myplan div {
         min-width: 770px;
         max-width: 1023px;
     }
+}
+@media only screen and (max-width:770px){
+    div.search-myplan {
+        padding: 10px;
+    }
+}
+@media only screen and (max-width:400px){
+    div.search-myplan {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 10px;
+        margin: 0px;
+        /* font-size: 0.6rem; */
+    }
 
+    div.search-myplan .searchComp {
+        flex-grow: 0;
+        height: 150px;
+        /*min-width: 770px;*/
+        max-width: 1023px;
+    }
 
+    div.search-myplan .myPlanComp {
+        height: 500px;
+        min-width: 770px;
+        max-width: 1023px;
+    }
 }
 
 
@@ -152,7 +179,7 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div{
     div.hotPlaceComp {
         display: flex;
         height: 750px;
-        border-top: 1px solid black;
+        border-top: 1px solid #aaa;
         padding: 20px;
     }
 
