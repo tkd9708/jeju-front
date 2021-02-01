@@ -38,6 +38,11 @@ class GoogleLoginBtnComp extends Component
             googleOn: true
         });
     }
+    
+    // 로그인에 실패한 경우에는 에러를 넘겨줌 => onFailure함수에서 error 출력
+    onFailure = (res) => {
+        console.log('[Login failed] res:', res);
+    };
 
     render() {
         const responseGoogle = (response) => {
@@ -49,38 +54,29 @@ class GoogleLoginBtnComp extends Component
             console.log('[Login Success] 로그인한 사용자:', res);
             // console.log('로그인한 사용자 id : ' +  res.googleId);
 
-        this.setState({
-            id: res.googleId,
-            name: res.profileObj.name,
-            email: res.profileObj.email,
-            email2: 'gmail.com',
-            photo: res.profileObj.imageUrl,
-        });
-        let url = URL + "/member/insertsosial";
+            this.setState({
+                id: res.googleId,
+                name: res.profileObj.name,
+                email: res.profileObj.email,
+                email2: 'gmail.com',
+                photo: res.profileObj.imageUrl,
+            });
+            let url = URL + "/member/insertsosial";
 
-        axios.post(url, {id:this.state.email, name:this.state.name, provider:this.state.id, 
-            photo:this.state.photo, email:this.state.email.split("@")[0], email2:this.state.email2})
-                .then(result=>{
+            axios.post(url, {id:this.state.email, name:this.state.name, provider:this.state.id, 
+                photo:this.state.photo, email:this.state.email.split("@")[0], email2:this.state.email2})
+                    .then(result=>{
 
-                }).catch(err=>{
-                    console.log("google db 저장 실패 : " + err);
-                })
-        this.setGoogleOn();
+                    }).catch(err=>{
+                        console.log("google db 저장 실패 : " + err);
+                    })
+            this.setGoogleOn();
 
-        alert("스토어에 저장된 구글로그인 상태 : " + store.getState().googleOn);
+            alert("스토어에 저장된 구글로그인 상태 : " + store.getState().googleOn);
 
-        // initializing the setup
-        refreshTokenSetup(res);
-    };
-
-    // 로그인에 실패한 경우에는 에러를 넘겨줌 => onFailure함수에서 error 출력
-    onFailure = (res) => {
-        console.log('[Login failed] res:', res);
-    };
-
-    render() {
-        
-
+            // initializing the setup
+            refreshTokenSetup(res);
+        }
         return (
             <>
             <br />
@@ -95,7 +91,8 @@ class GoogleLoginBtnComp extends Component
             />
             </>
         );
-    }
+    };
+
 }
 
 export default GoogleLoginBtnComp;

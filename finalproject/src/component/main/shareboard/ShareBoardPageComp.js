@@ -149,14 +149,24 @@ class ShareBoardPageComp extends Component {
         return (
             <div>
                 {/* 제목 */}
-                <div style={{margin: "0 auto", marginLeft: "45%", marginTop: '1%', marginBottom: '4%'}}>
+                {/* <div style={{margin: "0 auto", marginLeft: "45%", marginTop: '1%', marginBottom: '4%'}}>
                     <h3 id="sharesubject">맛집 공유게시판</h3>
+                </div> */}
+                <div className="detailTitle">
+                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
+                        &nbsp;&nbsp;맛집 공유게시판&nbsp;&nbsp;
+                    </span>
                 </div>
+                <div className="detailIntro" style={{color: "#888"}}>
+                    나만 아는 숨음 맛집! 돈쭐 내주고 싶은 맛집!<br/>
+                    회원분들끼리 공유하는 공간입니다.
+                </div>
+                <br/>
 
                 {/*/!* 공유버튼 *!/*/}
                 <div>
                     <Link to="/share/insert">
-                        <MDBBtn size="sm" color="deep-orange" type="button" variant="warning"
+                        <MDBBtn size="sm" color="dark-green" type="button"
                                 style={{float: 'right', marginRight: '7%'}}>
                             <b style={{fontSize: '15px'}}>맛집공유</b>
                         </MDBBtn>
