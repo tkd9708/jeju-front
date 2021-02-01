@@ -33,7 +33,7 @@ class MyPlanComp extends Component {
         }
 
         let date = new Date();
-        this.today = date.getFullYear() + "-" + date.getMonth()+1 + "-" + date.getDate();
+        this.today = date.getFullYear() + "-" + Number(date.getMonth()+1) + "-" + date.getDate();
     }
 
     componentWillMount(){
@@ -57,10 +57,8 @@ class MyPlanComp extends Component {
                     todayList: res.data,
                     todayAfterList: res.data.filter(item => item.wishtime > now)
                 })
-                this.setState({
-                    count: this.state.todayAfterList.length
-                })
-                if(this.state.count == 0)
+
+                if(this.state.todayList == '')
                     this.getNextDayPlan();
                 else
                     this.getSpotList("today");
@@ -78,11 +76,8 @@ class MyPlanComp extends Component {
                 this.setState({
                     nextList: res.data
                 })
-                this.setState({
-                    count : this.state.nextList.length
-                })
-                // console.log(this.state.count);
-                if(this.state.count != 0)
+
+                if(this.state.nextList != '')
                     this.getSpotList("nextDay");
                 else
                     this.getHotspotList();
@@ -123,19 +118,23 @@ class MyPlanComp extends Component {
     render(){
         // login시에만 왼쪽 블럭 출력
         const leftTag = store.getState().logged==true?
+            // <Box p={1} className="myPlanLeft" style={{borderRight: '1px solid black'}}>
+                
+            // </Box>
             <div className="myPlanLeft" style={{borderRight: '1px solid black'}}>
-                    {this.state.todayList!=''?<span>MyPlan on {this.today}</span>:<span>MyPlan</span>}
-                    <br/>
-                    {this.state.todayList!=''?<span>TODAY</span>:""}
-                    <List style={{width: '100%'}}>
-                        {this.state.todayList!=''?this.state.todayList.map((row)=>(
-                            <MyPlanLeftItem row={row}/>
-                        )):this.state.nextList!=''?this.state.nextList.map((row)=>(
-                            <MyPlanLeftItem row={row}/>
-                        )):
-                        <ListItem>등록하신 일정이 없습니다.<br/>새로운 일정을 계획하러 갑시다.</ListItem>}
-                    </List>
-                </div>:"";
+                {this.state.todayList!=''?<span>MyPlan on {this.today}</span>:<span>MyPlan</span>}
+                        <br/>
+                        {this.state.todayList!=''?<span>TODAY</span>:""}
+                        <List style={{width: '100%'}}>
+                            {this.state.todayList!=''?this.state.todayList.map((row)=>(
+                                <MyPlanLeftItem row={row}/>
+                            )):this.state.nextList!=''?this.state.nextList.map((row)=>(
+                                <MyPlanLeftItem row={row}/>
+                            )):
+                            <ListItem>등록하신 일정이 없습니다.<br/>새로운 일정을 계획하러 갑시다.</ListItem>}
+                        </List>        
+            </div>
+                :"";
 
         // 오른쪽 블럭 : 오늘 spot 출력 / 없을 시, 오늘 이후 spot 출력 / 없을 시, 추천 spot 보여주기
         const list = this.state.spotList!=''?
@@ -152,6 +151,9 @@ class MyPlanComp extends Component {
 
         // 로그인 시, plan list 출력 / 없을 시, 뭐넣지
         const rightTag = store.getState().logged==true?
+            // <Box p={1} className="myPlanRight" style={{borderRight: '1px solid black'}}>
+                
+            // </Box>
             <div className="myPlanRight">
                 {this.state.todayList!=''?<span>오늘의 Spot</span>:this.state.nextList!=''?<span>다가오는 Spot</span>:<span>오늘의 TOP5</span>}
                 {list}
