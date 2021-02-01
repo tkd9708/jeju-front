@@ -209,13 +209,19 @@ class Menu extends Component {
                             <a href="/shareplan">일정 공유</a>
                         </div>
                 </li>
-                <li>
-                    <NavLink exact to="/reservation"
+                <li className="dropdown">
+                    <a className="dropdownTitle">Reservation</a>
+                        <div className="dropdown-content" >
+                            <a href="/reservation">Air</a>
+                            <a href="/carReservation">Rentcar</a>
+                            <a href="/shipReservation">Ship</a>
+                        </div>
+                    {/* <NavLink exact to="/reservation"
                             onClick={() => {
                                 console.log("Reservation NavLink onClick");
                                 this.setMainView(mainViewType.Reservation);
                             }}
-                    >Reservation</NavLink>
+                    >Reservation</NavLink> */}
                 </li>
                 <li>
                     <NavLink exact to="/notice"

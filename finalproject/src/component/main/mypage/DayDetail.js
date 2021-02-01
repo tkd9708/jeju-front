@@ -86,6 +86,7 @@ class DayDetail extends Component {
         var shareNum=row.shareNum;
         var spotId=row.spotId;
         
+        
       
         var around = aroundId!==null?content.split(",")[0]==="음식점"
             ?<div>🍽{aroundId}</div>:content.split(",")[0]==="숙박"?<div>🏟{aroundId}</div>:<div>☕{aroundId}</div>

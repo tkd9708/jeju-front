@@ -5,6 +5,7 @@ import axios from 'axios';
 import {URL} from "../../../redux/config";
 import Header from './Header';
 import Calendar from './Calendar';
+import store from '../../../redux/store';
 
 
 class MySchedule extends Component {
@@ -14,7 +15,7 @@ class MySchedule extends Component {
         console.log("MySchedule constructor", props);
 
         this.state={
-            // list:[],
+            clist:[],
             calendarYM : moment(),
             today : moment(),
             selected : moment().format("YYYY-MM-DD"),
@@ -27,11 +28,25 @@ class MySchedule extends Component {
 
       }
 
+      getList=()=>{
+        let url = URL + "/wish/schedulelist?memId="+store.getState().loginId + "&wishday=" + this.state.calendarYM.format("YYYY-MM") ;
+        console.log("월별 가져오기 : " +  this.state.calendarYM.format("YYYY-MM"));
+        
+        axios.get(url)
+        .then(res=>{
+          console.log(" schedulelist 출력:"+res.data);
+          this.setState({
+              clist:res.data
+          });
+      }).catch(err=>{
+        console.log("목록 오류:"+err);
+      })
+}
+
       
+//       getData=()=>{
 
-//       getData1=()=>{
-
-//         let url = URL + "/wish/list?memId=sanghee";
+//         let url = URL + "/wish/list?memId="+store.getState().loginId;
 
 //         axios.get(url)
 //         .then(response=>{
@@ -45,9 +60,12 @@ class MySchedule extends Component {
 //         })
 //   }
 
-//   componentWillMount(){
-//       this.getData1();
-//   }
+  componentDidMount(){
+    this.getList();
+    
+    
+  }
+
 
       static defaultProps = {
         clickFn : ()=>{}
@@ -86,22 +104,21 @@ class MySchedule extends Component {
                
                 <Header calendarYM={this.state.calendarYM.format("YYYY년 MM월")}
                         today={this.state.today.format("현재: YYYY - MM - DD")}
-                        
-                        moveMonth={this.moveMonth}/>
+                        moveMonth={this.moveMonth} clist={this.state.clist} />
                     
                      
                     <Calendar YM={this.state.calendarYM.format("YYYY-MM-DD")}
                         selected={this.state.selected}
                         changeSelected={this.changeSelected}
                     />
-                    {/* {this.state.list.map((row)=>(
-                        <Calendar row={row}></Calendar>
-                    ))} */}
+                    
 
                 </div>
-        
-    
-    </div>
+                {/* {this.state.clist.map((row)=>(
+                    <Header row={row}></Header>
+              ))} */}
+           
+        </div>
         )
     }
     

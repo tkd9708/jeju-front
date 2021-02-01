@@ -13,6 +13,8 @@ import "./App.css";
 
 import MainPageComp from "./component/main/mainpage/MainPageComp";
 import ReservationPageComp from "./component/main/reservation/ReservationPageComp";
+import RentCarPageComp from "./component/main/reservation/RentCarPageComp";
+import ShipPageComp from "./component/main/reservation/ShipPageComp";
 import NoticePageComp from "./component/main/notice/NoticePageComp";
 import ShareBoardPageComp from "./component/main/shareboard/ShareBoardPageComp";
 import LoginPageComp from "./component/main/auth/LoginPageComp";
@@ -197,6 +199,8 @@ class App extends Component {
                         <Route path="/notice/insert" component={Noticeinsert}/>
                         <Route path="/notice/content/:num?" component={NoticeContent}/>
                         <Route path="/reservation/:name?" component={ReservationPageComp}/>
+                        <Route path="/carReservation/:name?" component={RentCarPageComp}/>
+                        <Route path="/shipReservation/:name?" component={ShipPageComp}/>
                         <Route path="/tourlist/:name?/:pageNum?" component={TourPageComp}/>
                         <Route path="/shareplan/:name?/" component={SharePlanPageComp}/>
                     </Switch>

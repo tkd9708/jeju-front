@@ -22,7 +22,10 @@
         width: 45vw;
         height: 200px;
         padding: 5px;
-        overflow: scroll;
+        /* overflow: scroll; */
+    }
+    .myPlanLeft > ul {
+        height: 130px;
     }
     .myplanLeftList {
         padding: 0px !important;
@@ -85,7 +88,10 @@
         width: 45vw;
         height: 250px;
         padding: 10px;
-        overflow: scroll;
+        /* overflow: scroll; */
+    }
+    .myPlanLeft > ul {
+        height: 200px;
     }
     .myplanLeftList {
         padding-left: 0px !important;
@@ -146,7 +152,10 @@
         width: 45vw;
         height: 350px;
         padding: 20px;
-        overflow: scroll;
+        /* overflow: scroll; */
+    }
+    .myPlanLeft > ul {
+        height: 250px;
     }
     .myplanLeftList {
         padding-left: 0px !important;
@@ -207,7 +216,10 @@
         width: 30vw;
         height: 400px;
         padding: 20px;
-        overflow: scroll;
+        /* overflow: scroll; */
+    }
+    .myPlanLeft > ul {
+        height: 300px;
     }
     .myplanLeftList {
         font-size: 1rem !important;
