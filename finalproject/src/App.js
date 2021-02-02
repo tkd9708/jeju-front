@@ -191,9 +191,9 @@ class App extends Component {
                         <Route path="/join/:name?" component={SignupPageComp}/>
                         <Route exact path="/mypage" component={MypagePageComp}/>
                         <Route path="/mypage/update/:num?" component={MemberUpdateFormComp}/>
+                        <Route exact path="/share/insert" component={ShareBoardFormComp}/>
+                        <Route path="/share/update/:num?/:pageNum?" component={ShareBoardUpdateForm}/>
                         <Route path="/share/:pageNum?" component={ShareBoardPageComp}/>
-                        <Route path="/share/insert" component={ShareBoardFormComp}/>
-                        <Route path="/share/update/:num?" component={ShareBoardUpdateForm}/>
                         <Route path="/tour/:name?" component={DetailTourComp}/>
                         <Route exact path="/notice" component={NoticePageComp}/>
                         <Route path="/notice/insert" component={Noticeinsert}/>
