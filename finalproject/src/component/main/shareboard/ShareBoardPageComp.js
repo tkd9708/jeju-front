@@ -170,12 +170,12 @@ class ShareBoardPageComp extends Component {
                             style={{float: 'right', marginRight: '7%'}}
                             onClick={() => {
                                 console.log("share Restaurant");
-                                if(store.getState().loginId != null && store.getState().loginId != ""){
+                                if (store.getState().loginId != null && store.getState().loginId != "") {
                                     this.props.history.push("/share/insert");
-                                } else{
+                                } else {
                                     let _result = window.confirm("로그인이 필요한 서비스 입니다.\n로그인 하시겠습니까?");
 
-                                    if(_result){
+                                    if (_result) {
                                         this.props.history.push("/login");
                                     }
                                 }
@@ -195,6 +195,24 @@ class ShareBoardPageComp extends Component {
                                     this.getTotalCount();
                                     this.refs.search.value = "";
                                 }
+                                /*() => {
+                                    var url = 'http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst'; /!*URL*!/
+                                    var queryParams = '?' + encodeURIComponent('ServiceKey') + '=' + 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D'; /!*Service Key*!/
+                                    queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /!**!/
+                                    queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /!**!/
+                                    queryParams += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('json'); /!**!/
+                                    queryParams += '&' + encodeURIComponent('CURRENT_DATE') + '=' + encodeURIComponent('2021020210'); /!**!/
+                                    queryParams += '&' + encodeURIComponent('HOUR') + '=' + encodeURIComponent('24'); /!**!/
+                                    queryParams += '&' + encodeURIComponent('COURSE_ID') + '=' + encodeURIComponent('1'); /!**!/
+                                    console.log("/getTourStnVilageFcst" + queryParams);
+                                    axios.get("/getTourStnVilageFcst" + queryParams)
+                                        .then(res => {
+                                            console.log(res);
+                                        })
+                                        .catch(err => {
+                                            console.log(err);
+                                        });
+                                }*/
                             }
                             style={{float: 'left', marginLeft: '7%'}}>
                         <b style={{fontSize: '15px'}}>전체글</b>
