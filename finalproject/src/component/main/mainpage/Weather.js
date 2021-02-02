@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 class Weather extends Component {
 
@@ -26,18 +27,23 @@ class Weather extends Component {
         queryParams += '&' + encodeURIComponent('HOUR') + '=' + encodeURIComponent(callHour);
         queryParams += '&' + encodeURIComponent('COURSE_ID') + '=' + encodeURIComponent('1'); // 관광 코스ID
         
+        url = url + queryParams;
+
+        axios.get(url)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
     
-    
-
     render(){
-
+        this.getWeatherList();
+        
         return (
             <div>
                 <h4>Weather</h4>
-                <p>
-                    {this.getWeatherList()}
-                </p>
             </div>
         )
     }
