@@ -165,12 +165,24 @@ class ShareBoardPageComp extends Component {
 
                 {/*/!* 공유버튼 *!/*/}
                 <div>
-                    <Link to="/share/insert">
-                        <MDBBtn size="sm" color="dark-green" type="button"
-                                style={{float: 'right', marginRight: '7%'}}>
-                            <b style={{fontSize: '15px'}}>맛집공유</b>
-                        </MDBBtn>
-                    </Link>
+                    {/*<Link to="/share/insert">*/}
+                    <MDBBtn size="sm" color="dark-green" type="button"
+                            style={{float: 'right', marginRight: '7%'}}
+                            onClick={() => {
+                                console.log("share Restaurant");
+                                if (store.getState().loginId != null && store.getState().loginId != "") {
+                                    this.props.history.push("/share/insert");
+                                } else {
+                                    let _result = window.confirm("로그인이 필요한 서비스 입니다.\n로그인 하시겠습니까?");
+
+                                    if (_result) {
+                                        this.props.history.push("/login");
+                                    }
+                                }
+                            }}
+                    > <b style={{fontSize: '15px'}}>맛집공유</b>
+                    </MDBBtn>
+                    {/*</Link>*/}
 
                     {/*onClick={this.getShareListByPaging.bind(this)}*/}
                     <MDBBtn outline size="sm" color="deep-orange"
@@ -183,6 +195,24 @@ class ShareBoardPageComp extends Component {
                                     this.getTotalCount();
                                     this.refs.search.value = "";
                                 }
+                                /*() => {
+                                    var url = 'http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst'; /!*URL*!/
+                                    var queryParams = '?' + encodeURIComponent('ServiceKey') + '=' + 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D'; /!*Service Key*!/
+                                    queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /!**!/
+                                    queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /!**!/
+                                    queryParams += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('json'); /!**!/
+                                    queryParams += '&' + encodeURIComponent('CURRENT_DATE') + '=' + encodeURIComponent('2021020210'); /!**!/
+                                    queryParams += '&' + encodeURIComponent('HOUR') + '=' + encodeURIComponent('24'); /!**!/
+                                    queryParams += '&' + encodeURIComponent('COURSE_ID') + '=' + encodeURIComponent('1'); /!**!/
+                                    console.log("/getTourStnVilageFcst" + queryParams);
+                                    axios.get("/getTourStnVilageFcst" + queryParams)
+                                        .then(res => {
+                                            console.log(res);
+                                        })
+                                        .catch(err => {
+                                            console.log(err);
+                                        });
+                                }*/
                             }
                             style={{float: 'left', marginLeft: '7%'}}>
                         <b style={{fontSize: '15px'}}>전체글</b>
@@ -233,6 +263,7 @@ class ShareBoardPageComp extends Component {
                             <ShareBoardRowItem row={row} key={idx}
                                                list={this.getShareListByPaging.bind(this)}
                                                history={this.props.history}
+                                               currentPage={this.currentPage}
                             />
                         ))
                     }
