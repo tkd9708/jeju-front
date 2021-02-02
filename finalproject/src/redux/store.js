@@ -51,7 +51,9 @@ const reducer = function (state, action) {
     } else if (action.type === actionType.LOG_OUT) {
             newState = Object.assign({}, state, {
                 loginId: action.loginId,
-                logged: action.logged});
+                logged: action.logged,
+                googleOn: false
+            });
     } else if (action.type === actionType.LOGIN_REQUEST) {
         newState = Object.assign({}, state, {});
     } else if (action.type === actionType.LOGIN_SUCCESS) {
@@ -72,7 +74,9 @@ const reducer = function (state, action) {
         newState = Object.assign({}, state);
     } else if (action.type === actionType.googleLogin) {
         newState = Object.assign({}, state, {
-            googleOn: action.googleOn
+            googleOn: action.googleOn,
+            loginId: action.loginId,
+            logged: action.logged
         })
     } else if (action.type === actionType.googleLogout) {
         newState = Object.assign({}, state, {
