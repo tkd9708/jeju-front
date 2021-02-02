@@ -118,6 +118,7 @@ class SignupPageComp extends Component {
 
     onInsertMember = () => {
         var id = this.state.id;
+        var provider = 'no';
         var name = this.state.name;
         var pass = this.state.password;
         var pwCheck = this.state.pwCheck;
