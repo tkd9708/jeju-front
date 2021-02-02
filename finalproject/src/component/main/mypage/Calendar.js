@@ -171,11 +171,6 @@ class Week extends Component {
         
       }
    
-      // const category=this.state.memId;
-      // const num=this.state.list.num;
-      // const day=this.props.ymOfThisCalendar+"-"+dayInfo.getDay;
-      // const wishday=this.state.wishday;
-      
         var date = new Date(); 
         var year = date.getFullYear(); 
         var month = new String(date.getMonth()); 
@@ -266,21 +261,33 @@ class Week extends Component {
 class Calendar extends Component {
 
   Weeks = (monthYear,selected,clickFn) => {
+    const selectMonth = Number(this.props.selectMonth);
     const firstDayOfMonth = moment(monthYear).startOf('month');
     const firstDateOfMonth = firstDayOfMonth.get('d');
 
     const firstDayOfWeek = firstDayOfMonth.clone().add(-firstDateOfMonth,'d');
 
     const _Weeks = [];
-
+    
     for (let i = 0; i < 6; i++) {
+
+      if(selectMonth < Number(firstDayOfWeek.clone().add(i * 7,'d').format("M"))){
+        if(selectMonth==1 && Number(firstDayOfWeek.clone().add(i * 7,'d').format("M"))==12){
+
+        }else{
+          break;
+        }
+      }
+      else if (selectMonth==12 && Number(firstDayOfWeek.clone().add(i * 7,'d').format("M"))==1)
+        break;
+      
       _Weeks.push((
         <Week key={`RCA-calendar-week-${i}`}
-        weekIndex={i}
-        ymOfThisCalendar={firstDayOfMonth.format("YYYY-MM")}
-        firstDayOfThisWeekformat={firstDayOfWeek.clone().add(i * 7,'d').format("YYYY-MM-DD")}
-        selected={selected}
-        fn={clickFn}
+          weekIndex={i}
+          ymOfThisCalendar={firstDayOfMonth.format("YYYY-MM")}
+          firstDayOfThisWeekformat={firstDayOfWeek.clone().add(i * 7,'d').format("YYYY-MM-DD")}
+          selected={selected}
+          fn={clickFn}
         />
       ))
     }

@@ -4,16 +4,17 @@
 
 .test-layout{
     
-    height: 80vh;
-    border: 1px solid black;
 }
 /* this test-layout class for test it will be terminated */
 
 .RCA-app-container{
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
+    width: 90vw;
+    height: 80vh;
+    /* border: 1px solid #ddd; */
+    margin: 100px auto;
+    margin-bottom: 200px;
 }
 .RCA-app-container button{
     width: 100px;
@@ -23,41 +24,47 @@
 
 /* header */
 .RCA-header-container{
-    flex-basis: 50px;
-    background-color: rgb(224, 215, 202);
-    display: flex;
-
+    /* flex-basis: 50px; */
+    background-color: white;
+    /* display: flex; */
+    width: 100%;
 }
-
 .move-button{
     width: 40px;
     height: 40px;
-   
-
 }
-
 .icon{
     background-size: contain;
     background-repeat: no-repeat;
-    cursor: pointer;
-    
+    cursor: pointer;   
 }
-
-
-
-
-
-
-
-
+.RCA-header-Title {
+    padding: 10px;
+    font-size: 1.2rem;
+}
 .RCA-header-middle{
     line-height: 50px;
+    display: inline-block;
+    /* margin: 0 auto !important; */
 }
-
 .RCA-header-list{
     cursor: pointer;
 }
-
+.RCA-title-year {
+    margin-right: 15px;
+    color: #aaa;
+    font-weight: 100;
+}
+.RCA-title-month {
+    margin-left: 15px;
+    color: #aaa;
+    font-weight: 100;
+}
+.move {
+    margin: 0 10px;
+    font-size: 3rem !important;
+    font-weight: 900;
+}
 .RCA-header-calendarYM{
     box-sizing: border-box;
     padding-left: 5px;
@@ -65,12 +72,12 @@
 }
 
 .RCA-header-buttons{
-    flex-basis: 120px;
-    padding-left: 0;
-    padding-top: 4px;
-    display: block;
+    /* flex-basis: 120px; */
+    /* padding-left: 0; */
+    /* padding-top: 4px; */
+    /* display: block; */
     list-style-type: none;
-    margin: 0;
+    margin: 10px;
 }
 
 .RCA-header-buttons li{
@@ -84,7 +91,7 @@
 
 .RCA-calendar-container{
     flex-grow: 1;
-    background-color:  rgb(127, 184, 127); 
+    /* background-color:  rgb(127, 184, 127);  */
     display: flex;
     flex-direction: column;
 }
@@ -94,7 +101,7 @@
 .RCA-calendar-date-header{
     display: flex;
     height: 50px;
-    background-color: green;
+    background-color: white;
 }
 
 
@@ -102,9 +109,10 @@
     width: 14.2857143%;
     text-align: center;
     box-sizing: border-box;
-    background-color: rgb(107, 107, 108);
-    border: 0.1px solid white;
-    font-size : 1.5rem;
+    /* background-color: rgb(107, 107, 108); */
+    /* border: 0.1px solid white; */
+    /* border-bottom: 0.1px solid #ddd; */
+    font-size : 1.2rem;
     line-height: 50px;
 }
 
@@ -114,15 +122,19 @@
 }
 
 .date-weekday{
-    color : rgba(255, 255, 255, 0.603)
+    /* color : rgba(255, 255, 255, 0.603); */
+    color: #ccc;
+    border-bottom: 0.1px solid #ddd;
 }
 
 .date-sun{
     color: tomato;
+    border-bottom: 0.1px solid #ddd;
 }
 
 .date-sat{
     color: skyblue;
+    border-bottom: 0.1px solid #ddd;
 }
 
 /* calendar */
@@ -141,6 +153,13 @@
     background-color: white;
     height: 100px;
     overflow-y: auto;
+    font-size: 0.8rem;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 30px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x:auto;
 }
 
 .RCA-calendar-week{
@@ -155,7 +174,7 @@
 
 .RCA-calendar-day-label{
     display: inline-block;
-    font-size: 1.2rem;
+    font-size: 1rem;
     position: absolute;
     text-align: center;
     line-height: 25px;
@@ -272,3 +291,29 @@ input{
     margin-top: 7px;
 }
 
+.myPlanpagesRoot {
+    display: flex;
+    /* flex-wrap: wrap; */
+    /* width: 500px; */
+    overflow-x: scroll;
+}
+/* .myPlanRight {
+    flex-grow: 1;
+} */
+.myPlanParent {
+    display: flex;
+}
+
+@media only screen and (max-width:400px){
+    
+}
+@media only screen and (min-width:400px) and (max-width:770px){
+    
+}
+@media only screen and (min-width:770px) and (max-width:1023px){
+    
+}
+@media only screen and (min-width:1023px){   
+    
+
+}

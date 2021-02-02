@@ -89,11 +89,11 @@ class DayDetail extends Component {
         
       
         var around = aroundId!==null?content.split(",")[0]==="음식점"
-            ?<div>🍽{aroundId}</div>:content.split(",")[0]==="숙박"?<div>🏟{aroundId}</div>:<div>☕{aroundId}</div>
+            ?<div>🍔{aroundId}</div>:content.split(",")[0]==="숙박"?<div>🛌{aroundId}</div>:<div>☕{aroundId}</div>
             :'';
-        var share = shareNum!=null?<div>✔{this.state.list}</div>:'';
-        var spot = spotId!=null?<div>🗼{this.state.list}</div>:'';
-        var myTodo = (aroundId==null&&shareNum==null&&spotId==null)?<div>🌳{content}</div>:'';
+        var share = shareNum!=null?<div>👨‍🍳{this.state.list}</div>:'';
+        var spot = spotId!=null?<div>🛕{this.state.list}</div>:'';
+        var myTodo = (aroundId==null&&shareNum==null&&spotId==null)?<div>📅{content}</div>:'';
         var tag = aroundId!==null?around:shareNum!==null?share:spotId!==null?spot:myTodo;
         
         return (

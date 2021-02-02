@@ -22,11 +22,6 @@ class MySchedule extends Component {
         }
 
     }
-      state={
-       
-        
-
-      }
 
       getList=()=>{
         let url = URL + "/wish/schedulelist?memId="+store.getState().loginId + "&wishday=" + this.state.calendarYM.format("YYYY-MM") ;
@@ -43,22 +38,6 @@ class MySchedule extends Component {
       })
 }
 
-      
-//       getData=()=>{
-
-//         let url = URL + "/wish/list?memId="+store.getState().loginId;
-
-//         axios.get(url)
-//         .then(response=>{
-//           //console.log("캘린더 출력 : " + response.data); 
-//           this.setState({
-//             list: response.data
-
-//           });
-//         }).catch(err=>{
-//           console.log("캘린더 목록 오류:"+err);
-//         })
-//   }
 
   componentDidMount(){
     this.getList();
@@ -101,14 +80,26 @@ class MySchedule extends Component {
     render(){
         return(
             <div className="test-layout">
+                
+               <div className="detailTitle">
+                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
+                        &nbsp;&nbsp; 나의 일정 &nbsp;&nbsp;
+                    </span>
+                </div>
+                <div className="detailIntro" style={{color: "#888"}}>
+                    여러분만의 제주도 일정을 제작해보세요.
+                </div>
+
                <div className="RCA-app-container">
                
-                <Header calendarYM={this.state.calendarYM.format("YYYY년 MM월")}
+                <Header year={this.state.calendarYM.format("YYYY")}
+                        month = {this.state.calendarYM.format("M")}
                         today={this.state.today.format("현재: YYYY - MM - DD")}
                         moveMonth={this.moveMonth} clist={this.state.clist} />
                     
                      
                     <Calendar YM={this.state.calendarYM.format("YYYY-MM-DD")}
+                        selectMonth = {this.state.calendarYM.format("M")}
                         selected={this.state.selected}
                         changeSelected={this.changeSelected}
                     />

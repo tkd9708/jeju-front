@@ -138,6 +138,15 @@ class MyPlanComp extends Component {
                             :""}
                         </List>        
             </div>:"";
+                            
+
+        const settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1
+        };
 
         // 오른쪽 블럭 : 오늘 spot 출력 / 없을 시, 오늘 이후 spot 출력 / 없을 시, 추천 spot 보여주기
         const list = this.state.spotList!=''?

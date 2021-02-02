@@ -51,18 +51,6 @@ class ClistItem extends Component {
 
        }
 
-    //    onWishCount=()=>{
-    //        let url=URL+"/wish/wishcount?memId="+store.getState().loginId + "&wishday="+this.props.row.wishday;
-    //        console.log(this.props.row.wishday);
-    //        axios.get(url)
-          
-    //        .then(res=>{
-
-    //        }).catch(err=>{
-    //            console.log("출력 오류:"+err);
-    //        });
-    //    }
-
     render() {
         
         const {row} = this.props;
@@ -70,17 +58,17 @@ class ClistItem extends Component {
         return (
             <div>
                 {
-                    row.content==="spot"?<div>🗼{row.title}<IconButton aria-label="delete"  onClick={this.onDelete.bind(this)}><DeleteIcon/></IconButton>{row.wishtime}
+                    row.content==="spot"?<div>🛕{row.title}<IconButton aria-label="delete"  onClick={this.onDelete.bind(this)}><DeleteIcon/></IconButton>{row.wishtime}
                      <Button variant="warning" onClick={this.onData.bind(this)}>일정공유</Button></div>:
-                    row.content==="myplan"?<div>🌳{row.title}<IconButton aria-label="delete"  onClick={this.onDelete.bind(this)}><DeleteIcon/></IconButton>{row.wishtime}
+                    row.content==="myplan"?<div>📅{row.title}<IconButton aria-label="delete"  onClick={this.onDelete.bind(this)}><DeleteIcon/></IconButton>{row.wishtime}
                     <Button variant="warning" onClick={this.onData.bind(this)}>일정공유</Button></div>:
-                    row.content==="share"?<div>✔{row.title}<IconButton aria-label="delete"  onClick={this.onDelete.bind(this)}><DeleteIcon/></IconButton>{row.wishtime}
+                    row.content==="share"?<div>👨‍🍳{row.title}<IconButton aria-label="delete"  onClick={this.onDelete.bind(this)}><DeleteIcon/></IconButton>{row.wishtime}
                     <Button variant="warning" onClick={this.onData.bind(this)}>일정공유</Button></div>:
                     row.content.split(",")[0]==="카페"?<div>☕{row.title}<IconButton aria-label="delete"  onClick={this.onDelete.bind(this)}><DeleteIcon/></IconButton>{row.wishtime}
                     <Button variant="warning" onClick={this.onData.bind(this)}>일정공유</Button></div>:
-                    row.content.split(",")[0]==="음식점"?<div>🍽{row.title}<IconButton aria-label="delete"  onClick={this.onDelete.bind(this)}><DeleteIcon/></IconButton>{row.wishtime}
+                    row.content.split(",")[0]==="음식점"?<div>🍔{row.title}<IconButton aria-label="delete"  onClick={this.onDelete.bind(this)}><DeleteIcon/></IconButton>{row.wishtime}
                     <Button variant="warning" onClick={this.onData.bind(this)}>일정공유</Button></div>:
-                    row.content.split(",")[0]==="숙박"?<div>🏟{row.title}<IconButton aria-label="delete"  onClick={this.onDelete.bind(this)}><DeleteIcon/></IconButton>{row.wishtime}
+                    row.content.split(",")[0]==="숙박"?<div>🛌{row.title}<IconButton aria-label="delete"  onClick={this.onDelete.bind(this)}><DeleteIcon/></IconButton>{row.wishtime}
                     <Button variant="warning" onClick={this.onData.bind(this)}>일정공유</Button></div>:''
                 }
             </div>

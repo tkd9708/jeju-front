@@ -13,6 +13,7 @@ import ScheduleAdd  from './ScheduleAdd';
 import ScheduleList from './ScheduleList';
 import store from '../../../redux/store';
 import moment from 'moment';
+import {MDBIcon} from 'mdbreact';
 
  class Header extends React.Component {
     constructor(props){
@@ -28,43 +29,6 @@ import moment from 'moment';
         
     }
 
-//     getList=()=>{
-//         let url = URL + "/wish/daylist?memId="+store.getState().loginId + "&day=" + this.props.row.wishday ;
-        
-//         axios.get(url)
-//         .then(res=>{
-//           console.log("출력:"+res.data);
-//           this.setState({
-//               clist:res.data
-//           });
-//       }).catch(err=>{
-//         console.log("목록 오류:"+err);
-//       })
-// }
-
-
-// getData=()=>{
-
-//     let url = URL + "/wish/list?memId="+store.getState().loginId;
-
-//     axios.get(url)
-//     .then(response=>{
-//       //console.log("캘린더 출력 : " + response.data); 
-//       this.setState({
-//         list: response.data
-
-//       });
-//     }).catch(err=>{
-//       console.log("캘린더 목록 오류:"+err);
-//     })
-// }
-
-// componentDidMount(){
-//     this.getData();
-// }
-
-  
-
     handleClose = () => {
         this.setState({
             open: false,
@@ -72,20 +36,56 @@ import moment from 'moment';
         })
       };
     render() {
-        // const [getMoment, setMoment]=useState(moment());     
-        // const today = getMoment;   
         const {clist}=this.props;
-        //console.log(clist);
-        // var wishday=row.wishday;
-
-       //var wishday=row.wishday;
-       
+        const month = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
         return (
             <div className="RCA-header-container">
-                <h2 className="RCA-header-calendarYM RCA-header-middle">
-                    {this.props.calendarYM}
-                    <div className="RCA-header-list">
+                <div className="RCA-header-Title" style={{textAlign: 'center', position:'relative'}}>
+                    <MDBIcon icon="align-justify" style={{float: 'left'}} onClick={
+                            ()=>{
+                                this.setState({
+                                     listopen:true   
+                                })
+                            }
+                        } />
+                        <ul className="RCA-header-buttons RCA-header-middle">
+                            <li className="RCA-title-year">
+                                {this.props.year}
+                            </li>
+                            <li>
+                            <i className="move-button left icon" onClick={()=>{this.props.moveMonth(-1)}}>
+                                {/* <FcPrevious/>    */}
+                                <MDBIcon icon="angle-left" />
+                            </i>
+                            </li>
+                            <li className="move">
+                                {this.props.month}
+                            </li>
+                            <li>
+                            <i className="move-button right icon" onClick={()=>{this.props.moveMonth(1)}}>
+                                <MDBIcon icon="angle-right" />
+                            </i>
+                            </li>
+                            <li className="RCA-title-month">
+                                {month[Number(this.props.month)-1]}
+                            </li>
+                        </ul>
+
+                        <Button variant="outlined" className="add-list"  style={{float: 'right'}} onClick={
+                            ()=>{
+                                this.setState({
+                                    open:true
+                                })
+                            }
+                        }>
+                        일정추가
+                        </Button>
+                    </div>
+                    
+                {/* <h2 className="RCA-header-calendarYM RCA-header-middle"> */}
+                    {/* {this.props.calendarYM} */}
+                    {/* <div className="RCA-header-list">
                         
                         <FcList onClick={
                             ()=>{
@@ -94,42 +94,37 @@ import moment from 'moment';
                                 })
                             }
                         }/>
-                               
-                          
                         
                         <Button variant="outlined"  className="add-list" onClick={
                             ()=>{
                                 this.setState({
                                     open:true
                                 })
-                                
                             }
                         }>
                         일정추가
                         </Button>
-                        
-                       
                     </div>
 
-                </h2>
-                <h3 className="RCA-header-today RCA-header-middle" style={{marginRight:30}}>
+                </h2> */}
+                {/* <h3 className="RCA-header-today RCA-header-middle" style={{marginRight:30}}>
                     {this.props.today}
-                </h3>
-                <ul className="RCA-header-buttons RCA-header-middle">
+                </h3> */}
+                {/* <ul className="RCA-header-buttons RCA-header-middle">
                     <li>
                     <i className="move-button left icon" onClick={()=>{this.props.moveMonth(-1)}}>
                         <FcPrevious/>   
                     </i>
                     </li>
                     <li className="move" style={{fontSize:28}}>
-                        이동
+                        {this.props.month}
                     </li>
                     <li>
                     <i className="move-button right icon" onClick={()=>{this.props.moveMonth(1)}}>
                         <FcNext/>
                     </i>
                     </li>
-                </ul>
+                </ul> */}
                         
 
                 <Modal
@@ -156,34 +151,26 @@ import moment from 'moment';
                 </Modal>
 
                 <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className="calModal"
-                open={this.state.listopen}
-                onClose={this.handleClose.bind(this)}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                timeout: 500,
-                }}
-                >
-                <Fade in={this.state.listopen}>
-                  
-                <div className="addlistmodal">
-                    <h2 style={{textAlign:'center'}}>일정목록</h2><hr/>
-                    {this.props.clist.map((row)=>(
-                        <ScheduleList row={row} ></ScheduleList>
-                    ))}
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    className="calModal"
+                    open={this.state.listopen}
+                    onClose={this.handleClose.bind(this)}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                    timeout: 500,
+                    }}
+                    >
+                    <Fade in={this.state.listopen}>
                     
-                    
-                    
-                    
-                    
-                </div>
-                 
-
-                </Fade>
-
+                    <div className="addlistmodal">
+                        <h2 style={{textAlign:'center'}}>일정목록</h2><hr/>
+                        {this.props.clist.map((row)=>(
+                            <ScheduleList row={row} ></ScheduleList>
+                        ))}
+                    </div>
+                    </Fade>
                 </Modal>
                 
             </div>
