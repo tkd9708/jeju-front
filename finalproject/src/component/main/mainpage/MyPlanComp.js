@@ -118,24 +118,26 @@ class MyPlanComp extends Component {
 
     render(){
         // login시에만 왼쪽 블럭 출력
-        const leftTag = store.getState().logged==true?
+        const leftTag = store.getState().logged==true && (this.state.todayList!='' || this.state.nextList!='')?
             // <Box p={1} className="myPlanLeft" style={{borderRight: '1px solid black'}}>
                 
             // </Box>
             <div className="myPlanLeft" style={{borderRight: '1px solid #aaa'}}>
                 {this.state.todayList!=''?<span style={{color: '#bbb'}}>MyPlan on {this.today}</span>:<span>MyPlan</span>}
                         <br/>
-                        {this.state.todayList!=''?<span>TODAY</span>:""}
+                        {this.state.todayList!=''?
+                            <span>TODAY</span>
+                        :""}
                         <List style={{width: '100%', overflow: 'scroll'}}>
                             {this.state.todayList!=''?this.state.todayList.map((row)=>(
                                 <MyPlanLeftItem row={row}/>
                             )):this.state.nextList!=''?this.state.nextList.map((row)=>(
                                 <MyPlanLeftItem row={row}/>
-                            )):
-                            <ListItem>등록하신 일정이 없습니다.<br/>새로운 일정을 계획해보아요.</ListItem>}
+                            ))
+                            // :<ListItem className="myplanLeftList">등록하신 일정이 없습니다.<br/>새로운 일정을 계획해보아요.</ListItem>
+                            :""}
                         </List>        
-            </div>
-                :"";
+            </div>:"";
 
         // 오른쪽 블럭 : 오늘 spot 출력 / 없을 시, 오늘 이후 spot 출력 / 없을 시, 추천 spot 보여주기
         const list = this.state.spotList!=''?
@@ -155,10 +157,19 @@ class MyPlanComp extends Component {
             // <Box p={1} className="myPlanRight" style={{borderRight: '1px solid black'}}>
                 
             // </Box>
-            <div className="myPlanRight">
-                {this.state.todayList!=''?<span>오늘의 Spot</span>:this.state.nextList!=''?<span>다가오는 Spot</span>:<span>오늘의 TOP5</span>}
-                {list}
-            </div>
+            this.state.todayList!=''?
+                <div className="myPlanRight">
+                    <span>오늘의 Spot</span>
+                    {list}
+                </div>
+                :this.state.nextList!=''?
+                    <div className="myPlanRight">
+                        <span>다가오는 Spot</span>
+                        {list}
+                    </div>:<div className="myPlanRight myPlanTop5">
+                            <span>오늘의 TOP5</span>
+                                {list}
+                            </div>
             :<h2><Weather/></h2>
 
         return (
