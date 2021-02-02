@@ -186,6 +186,25 @@
         border: 1px solid #000000;
         overflow: auto;
     }
+
+    /* 로그인 */
+    #LoginForm{
+        margin: 40px auto;
+        width: 80vw;
+    }
+    #LoginForm p {
+        font-size: 0.6rem;
+    }
+    #LoginForm input, #LoginForm table td{
+        font-size: 0.8em;
+    }
+    #googleLogin button, #naverIdLogin, #naverIdLogin img{
+        width: 80vw !important;
+    }
+    #googleLogin span {
+        font-weight: 700 !important;
+        font-size: 0.8rem;
+    }
 }
 @media only screen and (min-width:400px) and (max-width:770px){
     #SignupForm{
@@ -229,6 +248,23 @@
         border: 1px solid #000000;
         overflow: hidden;
     }
+
+    /* 로그인 */
+    #LoginForm{
+        margin: 50px auto;
+        width: 50vw;
+        font-size: 0.9rem;
+    }
+    #LoginForm p {
+        font-size: 0.8rem;
+    }
+    #googleLogin button, #naverIdLogin, #naverIdLogin img{
+        width: 50vw !important;
+    }
+    #googleLogin span {
+        font-weight: 700 !important;
+        font-size: 0.8rem;
+    }
 }
 @media only screen and (min-width:770px) and (max-width:1023px){
     #SignupForm{
@@ -271,6 +307,22 @@
         z-index: 100;
         border: 1px solid #000000;
         overflow: hidden;
+    }
+
+    /* 로그인 */
+    #LoginForm{
+        margin: 80px auto;
+        width: 40vw;
+    }
+    #LoginForm p {
+        font-size: 0.8rem;
+    }
+    #googleLogin button, #naverIdLogin, #naverIdLogin img{
+        width: 40vw !important;
+    }
+    #googleLogin span {
+        font-weight: 700 !important;
+        font-size: 1rem;
     }
 }
 @media only screen and (min-width:1023px){
@@ -318,4 +370,20 @@
         margin: 80px auto;
         width: 30vw;
     }
+    #LoginForm p {
+        font-size: 0.8rem;
+    }
+    #googleLogin button, #naverIdLogin, #naverIdLogin img{
+        width: 30vw !important;
+    }
+    #googleLogin span {
+        font-weight: 700 !important;
+        font-size: 1rem;
+    }
+}
+
+
+#LoginForm p:hover {
+    color: black;
+    font-weight: 700;
 }

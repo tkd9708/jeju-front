@@ -151,38 +151,25 @@ class LoginPageComp extends Component {
                             </td>
                         </tr>
                     </table>
-                    {/* <TextField id="standard-secondary" label="아이디" color="secondary" 
-                    type="text" name="id" value={ this.state.id }
-                    onChange = { this.changeEvent.bind(this) } />
-
-                    <br />
-
-                    <TextField id="standard-secondary" label="비밀번호" color="secondary" 
-                    type="password" name="pass" value={ this.state.pass }
-                    onChange = { this.changeEvent.bind(this) } /> */}
-
-                    <br />
-                    {/* <button type="button"
-                    onClick={this.onLogin.bind(this)}>
-                        Sign in
-                    </button>
-                    <MakeLoginBtn 
-                    parentOnLoginHandler={parentOnLoginHandler} />
-                    <h5>
-                        내 아이디는 {this.state.id} 입니다
-                        내 비밀번호는 {this.state.pass} 입니다
-                    </h5> */}
-                    {/* 회원가입 */}
-                    <Link to="/join"><button type="button" className="btn btn-warning">회원가입</button></Link>
-                    
+                    <hr/>
+                    <p style={{float: 'right', color: '#aaa', cursor: 'pointer'}} onClick={()=>{
+                                this.props.history.push("/join");
+                            }}>회원가입</p>
+                    <br/>
+                    <div className="detailTitle">
+                        <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
+                            &nbsp;&nbsp;소셜 로그인&nbsp;&nbsp;
+                        </span>
+                    </div>
+                    <hr/>
                     {
                         this.state.googleOn ==true ?
                             <GoogleLogoutBtnComp /> : 
                             <GoogleLoginBtnComp />
                     }
-                    <br />
-                    <br />
+                    <br/>
                     <NaverLoginBtnComp />
+                    <br/><br/>
                 </div>
                 
             </div>

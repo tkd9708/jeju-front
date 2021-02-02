@@ -5,6 +5,7 @@ import { refreshTokenSetup } from "./refreshToken";
 import store from "../../../redux/store";
 import { URL, actionType, mainViewType } from "../../../redux/config";
 import axios from 'axios';
+import '../join/SignupCss.css';
 
 class GoogleLoginBtnComp extends Component
 {
@@ -84,18 +85,16 @@ class GoogleLoginBtnComp extends Component
 
     render() {
         return (
-            <>
-            <br />
-            <br />
+            <div id="googleLogin">
             <GoogleLogin
                 clientId="256166181377-83u2uuteqgosooa3um2i3o36ho1325md.apps.googleusercontent.com"
-                buttonText="Login"
+                buttonText="구글 아이디로 로그인"
                 onSuccess={this.onSuccess.bind(this)}
                 onFailure={this.onFailure.bind(this)}
                 cookiePolicy={'single_host_origin'}
                 isSignedIn={true}
             />
-            </>
+            </div>
         );
     };
 
