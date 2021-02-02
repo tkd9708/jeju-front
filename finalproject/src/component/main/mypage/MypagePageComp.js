@@ -15,6 +15,7 @@ import userImg from '../../../image/user.png';
 import Paper from '@material-ui/core/Paper';
 import PassCheck from './PassCheck';
 import store from "../../../redux/store";
+import SocialUpdateForm from './SocialUpdateForm';
 
 class MypagePageComp extends Component {
     
@@ -27,7 +28,8 @@ class MypagePageComp extends Component {
             pageNum: '0',
             value: 0,
             wishCount: 0,
-            passOk: false
+            passOk: false,
+            photo: ''
         }
     }
     tabProps = (index) => {
@@ -46,7 +48,8 @@ class MypagePageComp extends Component {
         axios.get(url)
             .then(response => {
                 this.setState({
-                    memberData: response.data
+                    memberData: response.data,
+                    photo : response.data.photo
                 })
             }).catch(err => {
             console.log("목록 오류:" + err);
@@ -78,9 +81,11 @@ class MypagePageComp extends Component {
     render() {
         // console.log("MypagePageComp render()", this.props);
         const url = URL + "/";
-        const userimg = this.state.memberData.photo=="no"?userImg:url+this.state.memberData.photo;
+        const userimg = this.state.photo=="no"?userImg:
+            this.state.photo.split(":")[0]=='https'?this.state.memberData.photo: url + this.state.memberData.photo;
         const address = this.state.memberData.addrdetail!==null?"(" + this.state.memberData.addrdetail + ")":"";
-        const passOkTab = this.state.passOk==true?<MemberUpdateFormComp num={this.state.memberData} passOk={this.passOk.bind(this)} history={this.props.history}/>:<PassCheck passOk={this.passOk.bind(this)}/>;
+        const passOkTab = this.state.memberData.provider!='no'?<SocialUpdateForm/>:this.state.passOk==true?<MemberUpdateFormComp num={this.state.memberData} passOk={this.passOk.bind(this)} history={this.props.history}/>
+            :<PassCheck passOk={this.passOk.bind(this)}/>;
         
         return (
             <div>
@@ -155,65 +160,6 @@ class MypagePageComp extends Component {
                         
                     </Box>
 
-                    {/* <table>
-                        <tr id="mypageInfoRow" bgcolor="#fff">
-                            <td className="mypageInfoCol" style={{width:'20%', textAlign: 'center'}}>
-                                <img src={userImg} alt="이미지없음" id="mypageUserImg"/><br/>
-                            </td>
-                            <td className="mypageInfoCol" style={{width:'40%'}}>
-                                <table>
-                                    <tr style={{borderBottom: '1px dotted #eee'}}>
-                                        <td>
-                                            <span class="fas fa-bookmark"></span>
-                                        </td>
-                                        <td style={{paddingLeft: '10px'}}>
-                                            {this.state.memberData.id}
-                                        </td>
-                                    </tr>
-                                    <tr style={{borderBottom: '1px dotted #eee'}}>
-                                        <td>
-                                        <span class="fas fa-user-alt"></span>
-                                        </td>
-                                        <td style={{paddingLeft: '10px'}}>
-                                            {this.state.memberData.name}
-                                        </td>
-                                    </tr>
-                                    <tr style={{borderBottom: '1px dotted #eee'}}>
-                                        <td>
-                                        <span class="fas fa-phone-alt"></span>
-                                        </td>
-                                        <td style={{paddingLeft: '10px'}}>
-                                            {this.state.memberData.hp}
-                                        </td>
-                                    </tr>
-                                    <tr style={{borderBottom: '1px dotted #eee'}}>
-                                        <td>
-                                            <span class="fas fa-envelope-open-text"></span>
-                                        </td>
-                                        <td style={{paddingLeft: '10px'}}>
-                                            {this.state.memberData.email}@{this.state.memberData.email2}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <span class="fas fa-home"></span>
-                                        </td>
-                                        <td style={{paddingLeft: '10px'}}>
-                                            {this.state.memberData.address}<br/>{address}
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td style={{width:'20%', textAlign: 'center'}}>
-                                <span className="mypageInfoSubtitle">일정</span><br/>
-                                <span className="mypageInfoSubContent">{this.state.wishCount}</span>
-                            </td>
-                            <td style={{width:'20%', textAlign: 'center'}}>
-                                <span className="mypageInfoSubtitle">공유한 일정</span><br/>
-                                <span className="mypageInfoSubContent">0</span>
-                            </td>
-                        </tr>
-                    </table> */}
                 </div>
                 
                 <Paper square style={{marginTop: '100px'}}>

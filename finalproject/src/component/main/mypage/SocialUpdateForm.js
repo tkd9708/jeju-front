@@ -2,17 +2,10 @@ import React, {Component} from "react";
 import axios from 'axios';
 import {URL} from "../../../redux/config";
 import './style/UpdateFormCss.css';
-import IconButton from '@material-ui/core/IconButton';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormControl from '@material-ui/core/FormControl';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import DaumPostcode from 'react-daum-postcode';
 import store from '../../../redux/store';
 
-class MemberUpdateFormComp extends Component {
+class SocialUpdateForm extends Component {
 
     constructor(props) {
         super(props);
@@ -37,22 +30,6 @@ class MemberUpdateFormComp extends Component {
         }
     }    
     
-    handleClickShowPassword=()=>{
-        var s = this.state.showPassword
-        this.setState({
-            showPassword: !s
-        })
-    }
-
-    handleMouseDownPassword=(e)=>{
-        e.preventDefault();
-    }
-
-    passChange = (prop) => (e) => {
-        this.setState({
-            [prop] : e.target.value
-        });
-    }
 
     // 스프링에서 목록 가져오기
     getData = () => {
@@ -62,7 +39,6 @@ class MemberUpdateFormComp extends Component {
             this.setState({
                 id: response.data.id,
                 name: response.data.name,
-                password: response.data.pass,
                 gender: response.data.gender,
                 photo: response.data.photo,
                 fullAddress: response.data.address,
@@ -122,7 +98,6 @@ class MemberUpdateFormComp extends Component {
     onUpdateMember = () => {
         var id = this.state.id;
         var name = this.state.name;
-        var pass = this.state.password;
         var gender = this.state.gender;
         var photo = this.state.photo;
         var address = this.state.fullAddress;
@@ -133,17 +108,16 @@ class MemberUpdateFormComp extends Component {
         
         let url = URL + "/member/update";
 
-        if(id.trim()==='' || name.trim()==='' || pass.trim()==='' 
-            || gender.trim()==='' || address.trim()==='' || addrdetail.trim()==='' ||
-            email.trim()==='' || email2.trim()==='' || hp.trim()===''){
+        if(name.trim()==null
+            || gender==null || address==null || addrdetail==null ||
+            email==null || email2==null || hp==null){
                 alert("정보를 모두 입력해주세요.")
         }
         else {
             axios.post(url, {
-                id, name, pass, gender, photo, address, addrdetail, email, email2, hp
+                id, name, gender, photo, address, addrdetail, email, email2, hp
             })
             .then(response => {
-                this.props.passOk(false);
                 window.scrollTo(0,0);
                 alert("정보가 수정되었습니다.");
             }).catch(err=>{
@@ -245,33 +219,6 @@ class MemberUpdateFormComp extends Component {
                         <td colSpan="2"> <span class="fas fa-user-alt"></span>&nbsp;&nbsp;{this.state.id}</td>
                         </tr>
                         <tr>
-                            <td colSpan="2">
-                                {/* <input type="password" name="pass" class="form-control" value = {this.state.pass} onChange={this.handleChange} required/> */}
-                                <FormControl variant="outlined">
-                                    <InputLabel htmlFor="mypageUpdatePassword">Password</InputLabel>
-                                    <OutlinedInput
-                                        id="mypageUpdatePassword"
-                                        type={this.state.showPassword ? 'text' : 'password'}
-                                        value={this.state.password}
-                                        onChange={this.passChange('password').bind(this)}
-                                        endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={this.handleClickShowPassword.bind(this)}
-                                            onMouseDown={this.handleMouseDownPassword.bind(this)}
-                                            edge="end"
-                                            >
-                                            {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                        }
-                                        labelWidth={70}
-                                    />
-                                </FormControl>  
-                            </td>
-                        </tr>
-                        <tr>
                             <td colSpan="2"><input type="text" name = "name" class="form-control" value = {this.state.name} onChange={this.handleChange} placeholder="이름"/></td>
                         </tr>
                         <tr>
@@ -285,7 +232,7 @@ class MemberUpdateFormComp extends Component {
                             <td colSpan="2">
                                 <input type="text" name = "address" class="form-control" value = {this.state.fullAddress} disabled  placeholder="주소"/>
                                 <br/>
-                                <input type="text" name = "addrdetail" class="form-control" value = {this.state.addrdetail} onChange={this.handleChange} placeholder="상세주소"/>
+                                <input type="text" name = "addrdetail" class="form-control" value = {this.state.addrdetail} onChange={this.handleChange} placeholder="상세 주소"/>
                                 
                             </td>
                         </tr>
@@ -319,7 +266,8 @@ class MemberUpdateFormComp extends Component {
                             </td>
                         </tr>
                         <tr>
-                            <td colSpan="2"><input type="text" class="form-control" name = "hp" value = {this.state.hp} onChange={this.handleChange} placeholder="전화번호"/></td>
+                            <td colSpan="2"><input type="text" class="form-control" name = "hp" value = {this.state.hp} 
+                                placeholder="휴대폰" onChange={this.handleChange} required/></td>
                         </tr>
                         <tr>
                             <td className="mypageUpdateBtn">
@@ -336,4 +284,4 @@ class MemberUpdateFormComp extends Component {
     }
 }
 
-export default MemberUpdateFormComp;
+export default SocialUpdateForm;
