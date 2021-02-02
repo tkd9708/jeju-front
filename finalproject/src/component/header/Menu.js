@@ -49,10 +49,11 @@ class Menu extends Component {
         console.log("Menu setLogOut()");
 
         store.dispatch({
-            type: actionType.LOG_IN,
+            type: actionType.LOG_OUT,
             // mainView: mainViewType.MainPage
             loginId: '',
-            logged: false
+            logged: false,
+            googleOn: false
         });
     }
 
