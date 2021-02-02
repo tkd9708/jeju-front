@@ -9,13 +9,35 @@ class Weather extends Component {
         queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
         queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10');
         queryParams += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('XML');
+        let today = new Date();
+
+        let year = today.getFullYear(); // 년도
+        let month = today.getMonth() + 1; // 월
+        let date = today.getDate(); // 날짜
+        let day = today.getDay(); // 요일
+
+        let hours = today.getHours(); // 시
+        month = month < 10 ? '0' + month : month;
+        date = date < 10 ? '0' + date : date;
+        hours = hours < 10 ? '0' + hours : hours;
+        // document.write(year+month+date+hours);
+        queryParams += '&' + encodeURIComponent('CURRENT_DATE') + '=' + encodeURIComponent(year+month+date+hours);
+        let callHour = String(24 * 8); // CURRENT_DATE부터 8일 후까지의 자료 호출
+        queryParams += '&' + encodeURIComponent('HOUR') + '=' + encodeURIComponent(callHour);
+        queryParams += '&' + encodeURIComponent('COURSE_ID') + '=' + encodeURIComponent('1'); // 관광 코스ID
+        
     }
     
+    
+
     render(){
 
         return (
             <div>
                 <h4>Weather</h4>
+                <p>
+                    {this.getWeatherList()}
+                </p>
             </div>
         )
     }
