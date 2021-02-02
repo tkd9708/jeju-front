@@ -17,6 +17,16 @@ import Box from '@material-ui/core/Box';
 
 
 
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import ListSubheader from "@material-ui/core/ListSubheader";
+
+
+
+
+
 
 
 class ReservationPageComp extends Component { 
@@ -25,11 +35,32 @@ class ReservationPageComp extends Component {
         super(props);
         console.log("ReservationPageComp constructor", props);
         this.state = {
-            value: 0
+            value: 0,
+            seat: '',
+            open: false
+
+        
           }
 
     }
-
+    
+    handleChange = (e) => {
+        this.setState({
+            seat: e.target.value
+        })
+      };
+    
+    handleClose = () => {
+        this.setState({
+            open : false
+        })
+      };
+    
+    handleOpen = () => {
+        this.setState({
+            open : true
+        })
+      };
  
     
 
@@ -39,7 +70,7 @@ class ReservationPageComp extends Component {
           'aria-controls': `simple-tabpanel-${index}`,
         };
       }
-      handleChange = (event, newValue) => {
+      handleTabChange = (event, newValue) => {
         this.setState({ value: newValue });
       }
 
@@ -71,7 +102,7 @@ class ReservationPageComp extends Component {
 
                         {/* 편도 왕복 선택 tab */}
                          <AppBar position="static"  color="default">
-                           <Tabs value={this.state.value} onChange={this.handleChange} aria-label="full width tabs example" indicatorColor="primary" >
+                           <Tabs value={this.state.value} onChange={this.handleTabChange.bind(this)} aria-label="full width tabs example" indicatorColor="primary" >
                              <Tab label="편도" icon={<TrendingFlatIcon/>} {...this.a11yProps(0)} />
                              <Tab label="왕복" icon={<SyncAltIcon/>} {...this.a11yProps(1)} />
                            </Tabs>
@@ -94,19 +125,56 @@ class ReservationPageComp extends Component {
                                    
                          
                           
-                                   <div style={{float:'right',marginRight:'10px',marginBottom:'25px'}}>
-                                      <button type="button" className="btn btn-info" style={{fontSize:'15px',width:'150px',height:'70px'}}>항공권 검색</button>
+                                   <div style={{float:'right',marginRight:'10px',marginBottom:'25px',marginTop:'10px'}}>
+                                      <button type="button" className="btn btn-info" style={{fontSize:'15px',width:'150px',height:'80px'}}>항공권 검색</button>
                                    </div>
                               </div>
     
                        
                                <div>
-                                   <PersonIcon style={{marginLeft:'178px'}}/><input type="form" style={{width:'138px',marginRight:'50px'}}/>
-                                   <AirlineSeatReclineNormalIcon /><input type="form" style={{width:'145px'}}/>
+                                   {/* 인원선택 */}
+                                   <PersonIcon style={{marginLeft:'178px',marginTop:'25px'}}/>
+                                    <FormControl style={{width:'120px',paddingBottom:'20px',marginLeft:'20px',marginRight:'40px'}}>
+                                     <InputLabel>인원</InputLabel>
+                                       <Select
+                                       open={value.open}
+                                       onClose={this.handleClose.bind(this)}
+                                       onOpen={this.state.handleOpen}
+                                       value={value.seat}
+                                       onChange={this.handleChange.bind(this)}
+                                       >
+                                                                               
+                                            <option>성인</option>
+                                            <option>소아</option>
+                                            <option>유아</option>
+                                                                                       
+                                       </Select>
+                                   </FormControl>
+                                   
+                                  
+                                   {/* 좌석선택 */}
+                                   <AirlineSeatReclineNormalIcon style={{marginTop:'25px'}}/>
+                                  
+                                   <FormControl style={{width:'120px',paddingBottom:'20px',marginLeft:'20px'}}>
+                                     <InputLabel>좌석</InputLabel>
+                                       <Select
+                                       open={this.state.open}
+                                       onClose={this.handleClose.bind(this)}
+                                       onOpen={this.handleOpen.bind(this)}
+                                       value={this.state.seat}
+                                       onChange={this.handleChange.bind(this)}
+                                       >
+                                         <MenuItem value={"일반석"}>일반석</MenuItem>
+                                         <MenuItem >프리미엄 일반석</MenuItem>
+                                         <MenuItem >비지니스석</MenuItem>
+                                         <MenuItem >일등석</MenuItem>
+                                       </Select>
+                                   </FormControl>
+                                   
                                </div>
                             </div>
 
-                            <div style={{margin:'0 auto',textAlign:'center',marginTop:'80px'}}>
+                            <div style={{margin:'0 auto',textAlign:'center',marginTop:'50px'}}>
                                 <img src={img}/>
                             </div>
                         </TabPanel>
@@ -153,7 +221,9 @@ class ReservationPageComp extends Component {
 
 
 
-
+                   <div>
+            
+                   </div>
 
              
                 </div>

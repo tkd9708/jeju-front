@@ -79,11 +79,11 @@ class ShareBoardPageComp extends Component {
 
         axios.get(url)
             .then(res => {
-                console.log("getTotalCount res : " + res);
+                console.log("getTotalCount res : ", res);
                 this.totalCount = res.data;
                 this.getShareListByPaging();
             }).catch(err => {
-            console.log("getTotalCount err : " + err);
+            console.log("getTotalCount err : ", err);
         })
     }
 
@@ -129,11 +129,11 @@ class ShareBoardPageComp extends Component {
 
         axios.get(url)
             .then(res => {
-                console.log("getSearchTotalCount res : " + res);
+                console.log("getSearchTotalCount res : ", res);
                 this.totalCount = res.data;
                 this.getSearchShareListByPaging();
             }).catch(err => {
-            console.log("getSearchTotalCount err : " + err);
+            console.log("getSearchTotalCount err : ", err);
         })
     }
 
@@ -153,7 +153,7 @@ class ShareBoardPageComp extends Component {
                     <h3 id="sharesubject">맛집 공유게시판</h3>
                 </div> */}
                 <div className="detailTitle">
-                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
+                    <span className="detailTitleContent" style={{backgroundColor: 'white', color: '#036E38'}}>
                         &nbsp;&nbsp;맛집 공유게시판&nbsp;&nbsp;
                     </span>
                 </div>
@@ -190,9 +190,9 @@ class ShareBoardPageComp extends Component {
 
                     <input type="search" className="form-control" ref="search"
                            style={{float: 'left', marginLeft: '7%', width: '200px', height: '40px', marginTop: '5px'}}
-                           onKeyDown={(e)=>{
+                           onKeyDown={(e) => {
                                // console.log(e);
-                               if(e.code == "Enter"){
+                               if (e.code == "Enter") {
                                    this.setState({
                                        pageNum: 1,
                                    });
