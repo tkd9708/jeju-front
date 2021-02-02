@@ -75,6 +75,7 @@ class MySchedule extends Component {
         this.setState({
             calendarYM : this.state.calendarYM.add(month,'M')
         })
+        this.getList();
     }
 
     changeSelected = (clickedDate) =>{
