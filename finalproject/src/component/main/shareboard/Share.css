@@ -1,276 +1,224 @@
 /* shareboardlist css */
+#ShareListBox {
+    border: 1px solid #eee;
+    margin-top: 2%;
+    margin-left: 1%;
+    float: left;
+    cursor: pointer;
+}
 
-    #ShareListBox{
-        border: 1px solid #eee;
-        margin-top: 2%;
-        margin-left: 1%;
-        float: left;
-        cursor: pointer;
-    }
+#ShareImg {
+    border-bottom: 1px solid #eee;
+    width: 400px;
+    height: 280px;
+    text-align: center;
+}
 
-    #ShareImg{
-        border-bottom: 1px solid #eee;
-        width: 400px;
-        height: 280px;
-        text-align: center;
+#ShareListSubject {
+    font-size: 15pt;
+    width: 400px;
+    height: 50px;
+    color: #888;
+    border-bottom: 1px solid #eee;
+    margin-top: 15px;
+    text-align: center;
 
+}
 
+#ShareContentDiv {
+    font-size: 1em;
+    border-bottom: 1px solid #eee;
+    width: 400px;
+    height: 100px;
+    color: #888;
+    text-align: center;
+}
 
+/*아이템의 좋아요 수정 삭제 박스*/
+#DivItemLikeBox {
+    padding: 8px;
+    background-color: #FaFaFa;
+    color: #aaa;
+    font-size: 1.2em;
+}
 
-    }
-    #ShareListSubject{
-        font-size: 15pt;
-        width: 400px;
-        height: 50px;
-        color:#888;
-        border-bottom: 1px solid #eee;
-        margin-top: 15px;
-        text-align: center;
+#ShareThumbIcon {
+    transform: scale(0.9);
+    cursor: pointer;
+    /*font-size: 1.5em;*/
+}
 
-    }
-    #ShareContentDiv{
+#UpdateButton {
+    transform: scale(0.8);
+    /*font-size: 1.5em;*/
+    float: right;
+    /*margin-top: 5px;*/
+}
 
-        font-size: 1em;
-        border-bottom: 1px solid #eee;
-        width: 400px;
-        height: 100px;
-        color: #888;
-        text-align: center;
-
-
-
-
-
-
-    }
-
-
-    #ShareThumbIcon{
-        font-size: 15pt;
-        cursor: pointer;
-        margin-top: 15px;
-        margin-left: 15px;
-    }
-
-    #UpdateButton{
-        float: right;
-        margin-top: 16px;
-        margin-right: 15px;
-        color: black;
-        font-size: 22px;
-
-    }
-
-    #DeleteButton{
-        float: right;
-        margin-top: 16px;
-        margin-right: 15px;
-        color:black;
-
-    }
+#DeleteButton {
+    /*font-size: 1.5em;*/
+    float: right;
+    /*margin-top: 5px;*/
+}
 
 
 
 
 
+/* shareboard모달(detailpage) css */
+#ShareModalAll {
+    border: 1px solid #eee;
+    width: 1150px;
+    height: 800px;
+    margin: auto;
+    overflow: scroll;
+}
 
+#ShareModalThumbIcon {
+    font-size: 15pt;
+    cursor: pointer;
+    margin-top: 10px;
+    /* float: left;  */
+}
 
+/* 찜하기 heart 애니메이션 */
+.heart {
+    width: 100px;
+    height: 100px;
+    transform: translate(-10%, -10%);
+    background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    animation: fave-heart 1s steps(28);
+}
 
+.heart:hover {
+    background-position: -2800px 0;
+    transition: background 1s steps(28);
+}
 
-
- /* shareboard모달(detailpage) css */
-
-    #ShareModalAll{
-        border: 1px solid #eee;
-        width: 1150px;
-        height: 800px;
-        margin: auto;
-        overflow: scroll;
-    }
-
-    #ShareModalThumbIcon{
-        font-size: 15pt;
-        cursor: pointer;
-        margin-top: 10px;
-        /* float: left;  */
-
-    }
-
-
-
-    /* 찜하기 heart 애니메이션 */
-    .heart {
-        width: 50px;
-        height: 50px;
-        transform: translate(-10%, -10%);
-        background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
+@keyframes fave-heart {
+    0% {
         background-position: 0 0;
-        cursor: pointer;
-        animation: fave-heart 1s steps(28);
-      }
-      .heart:hover {
+    }
+    100% {
         background-position: -2800px 0;
-        transition: background 1s steps(28);
-      }
-      @keyframes fave-heart {
-        0% {
-          background-position: 0 0;
-        }
-        100% {
-          background-position: -2800px 0;
-        }
-      }
-
-      /* #ShareHeart{
-
-        float: right;
-        margin-top: 50px;
-
-      } */
-
-
-
-
-
-    #ShareModalMidBox{
-
-        width: 1150px;
-        height: 400px;
-
     }
+}
 
-    #ShareModalImg{
-        border: 1px solid #eee;
-        width: 550px;
-        height: 400px;
-        text-align: center;
-        float: left;
+#ShareModalMidBox {
+    width: 1150px;
+    height: 400px;
+}
 
-    }
+#ShareModalImg {
+    border: 1px solid #eee;
+    width: 550px;
+    height: 400px;
+    text-align: center;
+    float: left;
+}
 
-    #ShareModalContent{
+#ShareModalContent {
+    width: 550px;
+    height: 400px;
+    float: right;
+}
 
-        width: 550px;
-        height: 400px;
-        float: right;
-    }
-    #ShareModalContent1{
+#ShareModalContent1 {
+    width: 550px;
+    height: 75px;
+    float: left;
+}
 
-        width: 550px;
-        height: 75px;
-        float: left;
-    }
-    #ShareModalContent2{
+#ShareModalContent2 {
+    width: 550px;
+    height: 75px;
+    float: left;
+}
 
-        width: 550px;
-        height: 75px;
-        float: left;
-    }
-    #ShareModalContent3{
+#ShareModalContent3 {
+    width: 550px;
+    height: 200px;
+    float: left;
+}
 
-        width: 550px;
-        height: 200px;
-        float: left;
-    }
-    #ShareModalContent4{
+#ShareModalContent4 {
+    width: 550px;
+    height: 50px;
+    float: left;
+}
 
-        width: 550px;
-        height: 50px;
-        float: left;
-    }
+#ShareReviewWrite {
+    border: 1px solid #eee;
+    width: 1150px;
+    height: 130px;
+    margin-top: 20px;
+}
 
-    #ShareReviewWrite{
-        border: 1px solid #eee;
-        width: 1150px;
-        height: 130px;
-        margin-top: 20px;
+#ShareReviewPhotoIcon {
+    font-size: 15pt;
+    cursor: pointer;
+    margin-left: 15px;
+    margin-bottom: 3.5px;
+}
 
-    }
-
-    #ShareReviewPhotoIcon{
-        font-size: 15pt;
-        cursor: pointer;
-        margin-left: 15px;
-        margin-bottom: 3.5px;
-    }
-
-    #ShareReviewSave{
-        width: 160px;
-        height: 90px;
-        margin-bottom: 10px;
-        margin-left: 15px;
-
-
-    }
-
-
-
+#ShareReviewSave {
+    width: 160px;
+    height: 90px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+}
 
 
 
-    /* shareform css */
+/* shareform css */
+#ShareFormSubject {
+    margin: 0 auto;
+    margin-left: 47.5%;
+    margin-top: 20px;
+}
 
-    #ShareFormSubject{
-        margin: 0 auto;
-        margin-left: 47.5%;
-        margin-top: 20px;
+#sharesubject {
+    font-weight: 900;
+    font-size: 35px;
+    color: lightsalmon;
+}
 
-    }
+#ShareFormAll {
+    width: 750px;
+    height: 580px;
+    margin: 0 auto;
+    margin-top: 15px;
+}
 
-    #sharesubject{
-        font-weight: 900;
-        font-size: 35px;
-        color:lightsalmon;
+#shareth {
+    text-align: center;
+    border-bottom: 2px solid lightsalmon;
+    padding-right: 20px;
+    color: lightsalmon;
+    text-shadow: wheat;
+    font-weight: 600;
+    font-size: 1.2em;
+}
 
-    }
+#sharetd {
+    border-bottom: 2px solid lightsalmon;
+    padding-left: 20px;
+}
 
+input {
+    margin-top: 7px;
+}
 
-    #ShareFormAll{
-        width: 750px;
-        height: 580px;
-        margin: 0 auto;
-        margin-top: 15px;
-
-
-    }
-
-
-
-    #shareth{
-
-        text-align: center;
-        border-bottom: 2px solid lightsalmon;
-        padding-right: 20px;
-        color: lightsalmon;
-        text-shadow: wheat;
-        font-weight: 600;
-        font-size: 1.2em;
-
-    }
-
-    #sharetd{
-        border-bottom: 2px solid lightsalmon;
-        padding-left: 20px;
-
-    }
-
-    input{
-        margin-top: 7px;
-    }
+#ShareFormButton {
+    margin: 0 auto;
+    margin-left: 45%;
+    margin-top: 20px;
+}
 
 
-    #ShareFormButton{
-        margin:0 auto;
-        margin-left: 45%;
-        margin-top: 20px;
-
-    }
-
-
-
-
-
-    /* shareupdateform css */
+/* shareupdateform css */
 
 
 

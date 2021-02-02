@@ -9,7 +9,6 @@ const persistConfig = {
 }
 
 const reducer = function (state, action) {
-
     //state 초기화.
     if (state === undefined) {
         return {
