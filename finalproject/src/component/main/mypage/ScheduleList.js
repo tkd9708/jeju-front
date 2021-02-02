@@ -24,7 +24,7 @@ class ScheduleList extends Component{
             
             <div>
 
-                    {wishday}
+                    <FcOk></FcOk>{wishday}
                      &nbsp;&nbsp;{row.title}
 
             </div>
