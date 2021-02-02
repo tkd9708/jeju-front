@@ -70,11 +70,20 @@ div.hide {
 }
 
 @media only screen and (max-width:450px){
-    ul.mobilemenu li {
-        width: calc(100%/3);
-        background: rgba(255,255,255);
-        /* transition: 0.7s; */
+    .mobildMenuDrawer a {
+        color: #036E38;
     }
+    .mobildMenuDrawer .MuiAccordion-rounded:last-child {
+        border-radius: 0;
+    }
+    .mobildMenuDrawer .MuiPaper-elevation1 {
+        box-shadow: 0px 0px 0px 0px ;
+    }
+    /* ul.mobilemenu li {
+        width: calc(100%/3);
+        background: rgba(255,255,255); */
+        /* transition: 0.7s; */
+    /* }
     ul.mobilemenu {
         display: flex;
         list-style: none;
@@ -89,7 +98,7 @@ div.hide {
         text-decoration: none;
         box-sizing: border-box;
         text-align: right;
-    }
+    } */
     /* ul.mobilemenu li:hover {
         width: 25%;
         background:#036E38;

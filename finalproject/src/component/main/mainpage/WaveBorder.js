@@ -6,6 +6,7 @@ import jeju2 from "../../../image/jeju2.jpg";
 import jeju3 from "../../../image/jeju3.jpeg";
 import udo1 from "../../../image/udo1.jpg";
 import Logo2 from "../../../image/logo2.png";
+import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 
 const styles = {
     waves: {
@@ -72,9 +73,9 @@ function WaveBorder(props) {
                 </g>
             </svg>
             {/*<div className="footerComp">*/}
-            <div>
+            {/* <div> */}
                 {/* <hr/> */}
-                <div className="content">
+                {/* <div className="content">
                     <br/>
                     <img src={Logo2}
                          style={{width: "150px"}}
@@ -83,7 +84,41 @@ function WaveBorder(props) {
                     (주)멘도롱소랑 | 경기도 서초구 강남대로 459 (서초동 1300-34)<br/>
                     사업자 번호 147-14-12345 | 전화번호:02-123-1234 | 팩스 02-1234-1234 | 이메일 help@naver.com
                 </div>
-            </div>
+            </div> */}
+            <MDBFooter color="unique-color-dark" className="font-small pt-4 mt-4">
+                <MDBContainer fluid className="text-center text-md-left">
+                    <MDBRow>
+                    <MDBCol md="6" style={{color: '#eee'}}>
+                        <h5 className="title">(주)제주일상</h5>
+                        <p>
+                        경기도 서초구 강남대로 459 (서초동 1300-34)
+                        </p>
+                    </MDBCol>
+                    <MDBCol md="6">
+                        {/* <h5 className="title">Links</h5> */}
+                        <ul>
+                        <li className="list-unstyled">
+                            <a href="#!" style={{color: '#aaa'}}>사업자 번호 147-14-12345</a>
+                        </li>
+                        <li className="list-unstyled">
+                            <a href="#!" style={{color: '#aaa'}}>전화번호:02-123-1234</a>
+                        </li>
+                        <li className="list-unstyled">
+                            <a href="#!" style={{color: '#aaa'}}>팩스 02-1234-1234</a>
+                        </li>
+                        <li className="list-unstyled">
+                            <a href="#!" style={{color: '#aaa'}}>이메일 help@naver.com</a>
+                        </li>
+                        </ul>
+                    </MDBCol>
+                    </MDBRow>
+                </MDBContainer>
+                <div className="footer-copyright text-center py-3">
+                    <MDBContainer fluid>
+                    &copy; {new Date().getFullYear()} Copyright: <a href="https://www.mdbootstrap.com"> MDBootstrap.com </a>
+                    </MDBContainer>
+                </div>
+                </MDBFooter>
         </div>
     );
 }

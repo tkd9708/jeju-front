@@ -14,6 +14,8 @@ import TextField from "@material-ui/core/TextField";
 import MakeLoginBtn from "./MakeLoginBtn";
 import { FaThemeisle } from "react-icons/fa";
 import {Route, Link, withRouter } from "react-router-dom";
+import '../join/SignupCss.css';
+import jejuImg from '../../../image/jeju8.jpg';
 
 class LoginPageComp extends Component {
 
@@ -99,51 +101,77 @@ class LoginPageComp extends Component {
         const parentOnLoginHandler = this.onLogin.bind(this);
         return (
             <div>
-                <h4>로그인</h4>
-                <div>
+                 {/* 날라가는 새 애니메이션 */}
+                 <div class="signImg">
+                    <img src={jejuImg} alt=""/>
+                </div>
+                <div class="container">
+                    <div class="bird-container bird-container--one">
+                        <div class="bird bird--one"></div>
+                    </div>
+                    <div class="bird-container bird-container--two">
+                        <div class="bird bird--two"></div>
+                    </div>
+                    <div class="bird-container bird-container--three">
+                        <div class="bird bird--three"></div>
+                    </div>
+                    <div class="bird-container bird-container--four">
+                        <div class="bird bird--four"></div>
+                    </div>
+                </div>
+                
+                <div className="detailTitle">
+                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
+                        &nbsp;&nbsp;로그인&nbsp;&nbsp;
+                    </span>
+                </div>
+                {/* <div>
                     {this.state.id}
                     <h4 className="showIdResult">{this.state.showIdResult}</h4>
+                </div> */}
+                <br />
+                
+                <div id="LoginForm">
+                    <table class="table table-bordered" style={{textAlign: 'center'}}>
+                        <tr>
+                            <td>
+                                <input type="text" name = "id" class="form-control" value = {this.state.id} onChange={this.changeEvent.bind(this)} 
+                                    placeholder="아이디"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="password" name = "pass" class="form-control" value = {this.state.pass} onChange={this.changeEvent.bind(this)} 
+                                    placeholder="비밀번호"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="loginBtn" style={{backgroundColor: '#036E38', color: 'white', cursor: 'pointer'}} onClick={this.onLogin.bind(this)}>
+                                <span>로그인</span>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr/>
+                    <p style={{float: 'right', color: '#aaa', cursor: 'pointer'}} onClick={()=>{
+                                this.props.history.push("/join");
+                            }}>회원가입</p>
+                    <br/>
+                    <div className="detailTitle">
+                        <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
+                            &nbsp;&nbsp;소셜 로그인&nbsp;&nbsp;
+                        </span>
+                    </div>
+                    <hr/>
+                    {
+                        this.state.googleOn ==true ?
+                            <GoogleLogoutBtnComp /> : 
+                            <GoogleLoginBtnComp />
+                    }
+                    <br/>
+                    <NaverLoginBtnComp />
+                    <br/><br/>
                 </div>
-                <br />
                 
-                <TextField id="standard-secondary" label="아이디" color="secondary" 
-                type="text" name="id" value={ this.state.id }
-                onChange = { this.changeEvent.bind(this) } />
-
-                <br />
-
-                <TextField id="standard-secondary" label="비밀번호" color="secondary" 
-                type="password" name="pass" value={ this.state.pass }
-                onChange = { this.changeEvent.bind(this) } />
-
-                <br />
-                <button type="button"
-                onClick={this.onLogin.bind(this)}>
-                    Sign in
-                </button>
-                <MakeLoginBtn 
-                parentOnLoginHandler={parentOnLoginHandler} />
-                <h5>
-                    내 아이디는 {this.state.id} 입니다
-                    내 비밀번호는 {this.state.pass} 입니다
-                </h5>
-                {/* 회원가입 */}
-                <Link to="/join"><button type="button" className="btn btn-warning">회원가입</button></Link>
-                
-                {
-                    this.state.googleOn ==true ?
-                        <GoogleLogoutBtnComp /> : 
-                        <GoogleLoginBtnComp />
-                }
-                <br />
-                <br />
-                <NaverLoginBtnComp />
-                <br />
-                {/* <FaceBookLoginBtnComp /> */}
-                <br />
-                {/* <KakaoLoginBtnComp /> */}
-                <br />
-                <KakaoLoginBtnComp3 />
             </div>
         )
     }
