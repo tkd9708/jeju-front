@@ -17,6 +17,8 @@ import Box from '@material-ui/core/Box';
 
 
 
+
+
 class ReservationPageComp extends Component { 
 
     constructor(props) {
@@ -147,6 +149,9 @@ class ReservationPageComp extends Component {
                             </div>
                         </TabPanel>
                     </div>
+
+
+
 
 
 

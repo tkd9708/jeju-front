@@ -312,4 +312,10 @@
         border: 1px solid #000000;
         overflow: hidden;
     }
+
+    /* 로그인 */
+    #LoginForm{
+        margin: 80px auto;
+        width: 30vw;
+    }
 }
