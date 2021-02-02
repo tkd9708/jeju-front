@@ -38,7 +38,8 @@ class MypagePageComp extends Component {
           'aria-controls': `simple-tabpanel-${index}`,
         };
       }
-      handleChange = (event, newValue) => {
+
+      handleTabChange = (event,newValue) => {
         this.setState({ value: newValue });
       }
     // 스프링에서 목록 가져오기
@@ -84,7 +85,8 @@ class MypagePageComp extends Component {
         const userimg = this.state.photo=="no"?userImg:
             this.state.photo.split(":")[0]=='https'?this.state.memberData.photo: url + this.state.memberData.photo;
         const address = this.state.memberData.addrdetail!==null?"(" + this.state.memberData.addrdetail + ")":"";
-        const passOkTab = this.state.memberData.provider!='no'?<SocialUpdateForm/>:this.state.passOk==true?<MemberUpdateFormComp num={this.state.memberData} passOk={this.passOk.bind(this)} history={this.props.history}/>
+        const passOkTab = this.state.memberData.provider!='no'?<SocialUpdateForm/>
+            :this.state.passOk==true?<MemberUpdateFormComp num={this.state.memberData} passOk={this.passOk.bind(this)} history={this.props.history}/>
             :<PassCheck passOk={this.passOk.bind(this)}/>;
         
         return (
@@ -167,7 +169,7 @@ class MypagePageComp extends Component {
                         value={this.state.value}
                         indicatorColor="primary"
                         textColor="primary"
-                        onChange={this.handleChange}
+                        onChange={this.handleTabChange}
                         aria-label="disabled tabs example"
                     >
                         <Tab label="My Plan" {...this.tabProps(0)}/>
