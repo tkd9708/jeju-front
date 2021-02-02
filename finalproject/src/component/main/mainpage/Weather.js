@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import axios from "axios";
+import axios from 'axios';
 
 class Weather extends Component {
 
@@ -23,9 +23,19 @@ class Weather extends Component {
         hours = hours < 10 ? '0' + hours : hours;
         // document.write(year+month+date+hours);
         queryParams += '&' + encodeURIComponent('CURRENT_DATE') + '=' + encodeURIComponent(year+month+date+hours);
-        let callHour = String(24 * 8); // CURRENT_DATE부터 8일 후까지의 자료 호출
-        queryParams += '&' + encodeURIComponent('HOUR') + '=' + encodeURIComponent(callHour);
+        let callHour = String(24 * 8); // 8일
+        queryParams += '&' + encodeURIComponent('HOUR') + '=' + encodeURIComponent(callHour); // CURRENT_DATE부터 8일 후까지의 자료 호출
         queryParams += '&' + encodeURIComponent('COURSE_ID') + '=' + encodeURIComponent('1'); // 관광 코스ID
+
+        url = url + queryParams;
+
+        axios.get(url)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         */
 
         var url = 'http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst';
@@ -56,9 +66,6 @@ class Weather extends Component {
         return (
             <div>
                 <h4>Weather</h4>
-                <p>
-                    {this.getWeatherList()}
-                </p>
             </div>
         )
     }
