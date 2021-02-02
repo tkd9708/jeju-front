@@ -170,6 +170,7 @@ import moment from 'moment';
                 <Fade in={this.state.listopen}>
                   
                 <div className="addlistmodal">
+                    <h2 style={{textAlign:'center'}}>일정목록</h2><hr/>
                     {this.props.clist.map((row)=>(
                         <ScheduleList row={row} ></ScheduleList>
                     ))}

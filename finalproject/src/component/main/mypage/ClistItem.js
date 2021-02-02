@@ -31,17 +31,17 @@ class ClistItem extends Component {
         });
        }
 
-       onWishCount=()=>{
-           let url=URL+"/wish/wishcount?memId="+store.getState().loginId + "&wishday="+this.props.row.wishday;
-           console.log(this.props.row.wishday);
-           axios.get(url)
+    //    onWishCount=()=>{
+    //        let url=URL+"/wish/wishcount?memId="+store.getState().loginId + "&wishday="+this.props.row.wishday;
+    //        console.log(this.props.row.wishday);
+    //        axios.get(url)
           
-           .then(res=>{
+    //        .then(res=>{
 
-           }).catch(err=>{
-               console.log("출력 오류:"+err);
-           });
-       }
+    //        }).catch(err=>{
+    //            console.log("출력 오류:"+err);
+    //        });
+    //    }
 
     render() {
         
