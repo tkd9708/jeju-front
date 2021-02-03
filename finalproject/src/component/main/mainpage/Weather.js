@@ -36,6 +36,10 @@ class Weather extends Component {
         // 리덕스를 안쓰고 클래스 내부 state를 씁니다
     }
 
+    componentWillMount(){
+        this.getWeatherList();
+    }
+
     getWeatherList = () => {
         /*
         let url = 'http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst';

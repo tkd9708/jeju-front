@@ -23,6 +23,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import ListSubheader from "@material-ui/core/ListSubheader";
 
+import { MDBSelect, MDBSelectInput, MDBSelectOptions, MDBSelectOption } from "mdbreact";
+import './Reservation.css';
+
 
 
 
@@ -43,7 +46,22 @@ class ReservationPageComp extends Component {
           }
 
     }
-    
+   
+    // 인원 선택버튼 숫자증가
+    state = {
+      value: 0
+    }
+  
+    decrease = () => {
+      this.setState({ value: this.state.value - 1 });
+    }
+  
+    increase = () => {
+      this.setState({ value: this.state.value + 1 });
+    }
+
+
+    // 좌석 선택버튼
     handleChange = (e) => {
         this.setState({
             seat: e.target.value
@@ -63,7 +81,7 @@ class ReservationPageComp extends Component {
       };
  
     
-
+    // 탭 버튼
     a11yProps = (index) => {
         return {
           id: `simple-tab-${index}`,
@@ -111,7 +129,7 @@ class ReservationPageComp extends Component {
 
                         {/* 편도 */}
                          <TabPanel value={this.state.value} index={0}>
-                            <div style={{border:'1px solid black',textAlign:'center',marginBottom:'50px'}}>
+                            <div style={{textAlign:'center',marginBottom:'50px'}}>
                                     <b style={{fontSize:'40px',marginRight:'30px'}}>김포</b>
                                     <FlightTakeoffIcon style={{width:'50px',height:'50px',color:'#00bfff',marginBottom:'25px'}}  />
                                     <b style={{fontSize:'40px',marginLeft:'30px'}}>제주</b>
@@ -133,8 +151,10 @@ class ReservationPageComp extends Component {
                        
                                <div>
                                    {/* 인원선택 */}
-                                   <PersonIcon style={{marginLeft:'178px',marginTop:'25px'}}/>
+                                   <PersonIcon style={{marginLeft:'150px',marginTop:'25px'}}/>
+                                    
                                     <FormControl style={{width:'120px',paddingBottom:'20px',marginLeft:'20px',marginRight:'40px'}}>
+                                     
                                      <InputLabel>인원</InputLabel>
                                        <Select
                                        open={value.open}
@@ -144,10 +164,17 @@ class ReservationPageComp extends Component {
                                        onChange={this.handleChange.bind(this)}
                                        >
                                                                                
-                                            <option>성인</option>
-                                            <option>소아</option>
-                                            <option>유아</option>
-                                                                                       
+                                         <MenuItem>
+                                             <div className="def-number-input number-input">
+                                                <button onClick={this.decrease.bind(this)} className="minus"></button>
+                                                <input className="quantity" name="quantity" value={this.state.value} onChange={()=> console.log('change')}
+                                                type="number" />
+                                                <button onClick={this.increase.bind(this)} className="plus"></button>
+                                             </div>
+                                         </MenuItem>
+                                         <MenuItem value={"프리미엄 일반석"}>프리미엄 일반석</MenuItem>
+                                         <MenuItem value={"비지니스석"}>비지니스석</MenuItem>
+                                         <MenuItem value={"일등석"}>일등석</MenuItem>
                                        </Select>
                                    </FormControl>
                                    
@@ -155,7 +182,7 @@ class ReservationPageComp extends Component {
                                    {/* 좌석선택 */}
                                    <AirlineSeatReclineNormalIcon style={{marginTop:'25px'}}/>
                                   
-                                   <FormControl style={{width:'120px',paddingBottom:'20px',marginLeft:'20px'}}>
+                                   <FormControl style={{width:'170px',paddingBottom:'20px',marginLeft:'20px'}}>
                                      <InputLabel>좌석</InputLabel>
                                        <Select
                                        open={this.state.open}
@@ -165,9 +192,10 @@ class ReservationPageComp extends Component {
                                        onChange={this.handleChange.bind(this)}
                                        >
                                          <MenuItem value={"일반석"}>일반석</MenuItem>
-                                         <MenuItem >프리미엄 일반석</MenuItem>
-                                         <MenuItem >비지니스석</MenuItem>
-                                         <MenuItem >일등석</MenuItem>
+                                         <MenuItem value={"프리미엄 일반석"}>프리미엄 일반석</MenuItem>
+                                         <MenuItem value={"비지니스석"}>비지니스석</MenuItem>
+                                         <MenuItem value={"일등석"}>일등석</MenuItem>
+                                        
                                        </Select>
                                    </FormControl>
                                    
@@ -186,7 +214,7 @@ class ReservationPageComp extends Component {
 
                         {/* 왕복 */}
                         <TabPanel value={this.state.value} index={1}>
-                            <div style={{border:'1px solid black',textAlign:'center',marginBottom:'50px'}}>
+                            <div style={{textAlign:'center',marginBottom:'50px'}}>
                                  <b style={{fontSize:'40px',marginRight:'30px'}}>김포</b>
                                  <FlightTakeoffIcon style={{width:'50px',height:'50px',color:'#00bfff',marginBottom:'25px'}}  />
                                  <b style={{fontSize:'40px',marginLeft:'30px'}}>제주</b>
@@ -196,10 +224,11 @@ class ReservationPageComp extends Component {
                             <div style={{border:'1px solid black'}}>
                                <div  style={{marginBottom:'20px'}}>
                           
+                                   {/* 날짜선택 */}
                                    <input type="date" style={{marginRight:'60px',marginLeft:'180px'}}/>
                                    <input type="date" />
                          
-                          
+                                    
                                    <div style={{float:'right',marginRight:'10px',marginBottom:'25px'}}>
                                       <button type="button" className="btn btn-info" style={{fontSize:'15px',width:'150px',height:'70px'}}>항공권 검색</button>
                                    </div>
@@ -207,20 +236,38 @@ class ReservationPageComp extends Component {
     
                        
                                <div>
-                                   <PersonIcon style={{marginLeft:'178px'}}/><input type="form" style={{width:'138px',marginRight:'50px'}}/>
-                                   <AirlineSeatReclineNormalIcon /><input type="form" style={{width:'145px'}}/>
+                                   {/* 인원선택 */}
+                                   <PersonIcon style={{marginLeft:'150px'}}/><input type="form" style={{width:'138px',marginRight:'50px'}}/>
+                                  
+                                  {/* 좌석선택 */}
+                                  <AirlineSeatReclineNormalIcon style={{marginTop:'25px'}}/>
+                                  
+                                  <FormControl style={{width:'140px',paddingBottom:'20px',marginLeft:'20px'}}>
+                                    <InputLabel>좌석</InputLabel>
+                                      <Select
+                                      open={this.state.open}
+                                      onClose={this.handleClose.bind(this)}
+                                      onOpen={this.handleOpen.bind(this)}
+                                      value={this.state.seat}
+                                      onChange={this.handleChange.bind(this)}
+                                      >
+                                        <MenuItem value={"일반석"}>일반석</MenuItem>
+                                        <MenuItem value={"프리미엄 일반석"}>프리미엄 일반석</MenuItem>
+                                        <MenuItem value={"비지니스석"}>비지니스석</MenuItem>
+                                        <MenuItem value={"일등석"}>일등석</MenuItem>
+                                       
+                                      </Select>
+                                  </FormControl>
                                </div>
                             </div>
 
-                            <div style={{margin:'0 auto',textAlign:'center',marginTop:'80px'}}>
+                            <div style={{margin:'0 auto',textAlign:'center',marginTop:'50px'}}>
                                 <img src={img}/>
                             </div>
                         </TabPanel>
-                    </div>
-
-
-
-
+        
+                        </div>
+               
                    <div>
             
                    </div>
