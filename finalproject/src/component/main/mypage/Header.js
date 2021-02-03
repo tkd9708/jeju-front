@@ -94,13 +94,22 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
         return (
             <div className="RCA-header-container">
                 <div className="RCA-header-Title" style={{textAlign: 'center', position:'relative'}}>
-                    <MDBIcon icon="align-justify" style={{float: 'left', cursor: 'pointer'}} onClick={
+                    {/* <MDBIcon icon="align-justify" style={{float: 'left', cursor: 'pointer'}} onClick={
                             ()=>{
                                 this.setState({
                                      listopen:true   
                                 })
                             }
-                        } />
+                        } /> */}
+                        <Button variant="outlined" className="add-list"  style={{float: 'left'}} onClick={
+                            ()=>{
+                                this.setState({
+                                    open: true
+                                })
+                            }
+                        }>
+                        일정목록
+                        </Button>
                         <ul className="RCA-header-buttons RCA-header-middle">
                             <li className="RCA-title-year">
                                 {this.props.year}
@@ -136,8 +145,8 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
                     </div>
                     
                     {/* 일정 추가 모달 */}
-                    <MDBModal isOpen={this.state.open} toggle={this.toggle}>
-                        <MDBModalHeader toggle={this.toggle}>일정 추가</MDBModalHeader>
+                    <MDBModal isOpen={this.state.open} toggle={this.toggle} centered>
+                        <MDBModalHeader toggle={this.toggle} className="RCA-planAddModal">일정 추가</MDBModalHeader>
                         <MDBModalBody>
                             <div className="RCA-planAddModal">
                                 {/* <span className="addtitle">일정 추가</span><br/> */}
@@ -159,11 +168,11 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
                     </MDBModal>
 
                     {/* 일정 리스트 모달 */}
-                    <MDBModal isOpen={this.state.listopen} toggle={this.listToggle}>
-                        <MDBModalHeader toggle={this.listToggle}>일정 목록</MDBModalHeader>
+                    <MDBModal isOpen={this.state.listopen} toggle={this.listToggle} centered>
+                        <MDBModalHeader toggle={this.listToggle} className="RCA-planAddModal">일정 목록</MDBModalHeader>
                         <MDBModalBody>
                             <div className="RCA-planAddModal">
-                                {this.state.clist.map((row)=>(
+                                {this.props.clist.map((row)=>(
                                     <ScheduleList row={row} groupOfDay={this.groupOfDay} setGroupOfDay={this.setGroupOfDay}></ScheduleList>
                                 ))}
                             </div>

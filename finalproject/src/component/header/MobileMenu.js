@@ -4,22 +4,15 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import {NavLink, Route} from "react-router-dom";
 import {actionType, mainViewType} from "../../redux/config";
 import Slide from '@material-ui/core/Slide';
@@ -166,18 +159,9 @@ function MobileMenu(props) {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-            <NotificationsIcon />
-        </IconButton>
         <NavLink to="/mypage" onClick={handleMobileMenuClose} style={{color: 'black'}}> Mypage</NavLink>
       </MenuItem>
       <MenuItem>
-        <IconButton 
-          aria-label="account of current user"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
         <NavLink to="/" onClick={
                             ()=>{
                                 handleMobileMenuClose();
