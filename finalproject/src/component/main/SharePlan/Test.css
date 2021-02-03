@@ -1,0 +1,72 @@
+.react-body {
+    margin:0;
+    padding:0;
+    background-color:#fff;
+}
+
+.slide-list-bar {
+    display: flex;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0 10%;
+}
+
+.slide-list-bar .slide-list-box {
+    width: 100%;
+    height: auto;
+}
+
+.slide-list-bar .slide-list-box .slide-list-item {
+
+}
+.slick-prev:before { 
+    position: relative;
+    color: black;  
+    left: -70px;
+    font-size: 30px;
+}
+.slick-next:before {
+    color: black;
+    font-size: 30px;
+}
+
+.shareplan{
+    background-image: url('../../../image/titleLine.PNG');
+    background-size: 100% 100%;
+}
+
+@media only screen and (max-width:400px){
+.shareplan{
+    margin-top: 10px;
+    font-size: 13pt;
+    font-weight: 800;
+    text-align: center;
+}
+}
+
+@media only screen and (min-width:400px) and (max-width:770px){
+    .shareplan{
+        margin-top: 50px;
+        font-size: 18pt;
+        font-weight: 700;
+        text-align: center;
+    }  
+}
+@media only screen and (min-width:770px) and (max-width:1023px){
+    .shareplan{
+        margin-top: 80px;
+        font-size: 20pt;
+        font-weight: 900;
+        text-align: center;
+    }
+}
+@media only screen and (min-width:1023px){
+    .shareplan{
+        margin-top: 100px;
+        font-size: 25pt;
+        font-weight: 900;
+        text-align: center;
+    }
+}
+
+
