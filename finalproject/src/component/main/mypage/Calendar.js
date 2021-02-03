@@ -13,6 +13,12 @@ import ClistItem from './ClistItem';
 import store from '../../../redux/store';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 import Timeline from '@material-ui/lab/Timeline';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 
 class DateHeader extends Component {
 
@@ -75,7 +81,9 @@ class Week extends Component {
         // list:[],
         clist:[],
         open: false,
-        setOpen: false      
+        setOpen: false,
+        alertOpen: false,
+        alertSetOpen: false      
       };
 
       
@@ -87,7 +95,18 @@ class Week extends Component {
       })
     };
 
+    // alert 함수
+    alertOpen = () => {
+      this.setState({
+          alertOpen: true
+      })
+    };
 
+    alertClose = () => {
+      this.setState({
+          alertOpen: false
+      })
+    };
       
 
       getList=(day)=>{
@@ -104,19 +123,6 @@ class Week extends Component {
           })
     }
     
-    
-   
-
-  // componentWillMount(){
-  //   this.onDelete();
-  // }
-
-
-  componentDidMount(){
-    // this.getData();
-    
-    
-  }
 
   Days = (firstDayFormat,weekIndex) => {
       const _days = [];
@@ -195,28 +201,16 @@ class Week extends Component {
     }
 
     onData=()=>{
-      // let url= URL+"/plan/insert";
-      // let memId=store.getState().loginId;
-      // let title=this.row.title;
-      // let content=this.props.row.addr;
-      // let wishday=this.props.row.wishday;
-      // let wishtime=this.props.row.wishtime;
-
-      // axios.post(url,{memId,title,content,wishday,wishtime})
-      // .then(res=>{
-      //      //this.props.history.push("/shareplan");
-      // }).catch(err=>{
-      //  console.log("shareplan insert 오류 : " + err);
-      // })
-
+      
       let memId=store.getState().loginId;
       let wishday=this.props.selected;
       let url= URL+"/plan/groupinsert?memId="+ memId + "&wishday=" + wishday;
 
       axios.get(url)
       .then(res=>{
-          alert("공유 성공");
-           //this.props.history.push("/shareplan");
+          this.setState({
+            alertOpen: true
+          })
       }).catch(err=>{
        console.log("shareplan insert 오류 : " + err);
       })
@@ -255,6 +249,36 @@ class Week extends Component {
                   <MDBBtn color="dark-green" onClick={this.onData.bind(this)}>공유</MDBBtn>
               </MDBModalFooter>
           </MDBModal>
+
+                {/* alert 창 */}
+                <Dialog
+                    open={this.state.alertOpen}
+                    onClose={this.alertClose.bind(this)}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"공유 완료"}</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        공유 페이지로 이동하여 확인하시겠습니까?
+                    </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={this.alertClose.bind(this)} color="primary">
+                        NO
+                    </Button>
+                    <Button onClick={
+                        ()=>{
+                            this.setState({
+                                alertOpen: false
+                            })
+                            this.props.history.push("/shareplan");
+                        }
+                    } color="primary" autoFocus>
+                        YES
+                    </Button>
+                    </DialogActions>
+                </Dialog>
                 {/* <Modal
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"

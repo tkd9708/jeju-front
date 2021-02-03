@@ -121,6 +121,7 @@ class MySchedule extends Component {
                         selected={this.state.selected}
                         changeSelected={this.changeSelected}
                         list={this.state.list}
+                        history = {this.props.history}
                     />
                     
 
