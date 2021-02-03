@@ -3,7 +3,7 @@ import {Route, Link} from "react-router-dom";
 import ShareBoardUpdateForm from "./ShareBoardUpdateForm";
 import Modal from './Modal';
 import axios from "axios";
-import {actionType, URL} from '../../../redux/config';
+import {actionType, mainViewType, URL} from '../../../redux/config';
 import ShareReview from './ShareReview';
 import store from "../../../redux/store";
 import Box from '@material-ui/core/Box';
@@ -72,6 +72,11 @@ class ShareBoardRowItem extends Component {
         //스크롤
         this.myRef = React.createRef()
         this.state = {scrollTop: 0}
+
+        store.dispatch({
+            type: actionType.setMainView,
+            mainView: mainViewType.ShareBoard,
+        })
     }
 
 
@@ -106,7 +111,14 @@ class ShareBoardRowItem extends Component {
                 store.dispatch({
                     type: actionType.shareBoardUpdate,
                 });
-                this.props.history.push("/share");
+
+                //메인 페이지 또는 공유 페이지인지에 따라 다르게 적용.
+                // if(store.getState().mainView == mainViewType.ShareBoard){
+                //     this.props.history.goBack();
+                // } else{
+                    window.location.reload();
+                // }
+
             }).catch(err => {
                 console.log("onDeleteData() err", err);
             });
@@ -222,9 +234,9 @@ class ShareBoardRowItem extends Component {
             resultImg = (
                 <img
                     src={srcImg}
-                    onError={()=>{
+                    onError={(e) => {
                         console.log("img error");
-                        srcImg = imgX;
+                        e.target.src = imgX;
                     }}
                     style={{
                         width: "100%"
