@@ -97,6 +97,8 @@ class MyPlanComp extends Component {
                 this.setState({
                     spotList: res.data
                 })  
+                if(this.state.spotList == '')
+                    this.getHotspotList();
             }).catch(err=>{
                 console.log("myplan getSpotList 오류 : " + err);
             })
@@ -166,12 +168,12 @@ class MyPlanComp extends Component {
             // <Box p={1} className="myPlanRight" style={{borderRight: '1px solid black'}}>
                 
             // </Box>
-            this.state.todayList!=''?
+            this.state.todayList!='' && this.state.spotList!=''?
                 <div className="myPlanRight">
                     <span>오늘의 Spot</span>
                     {list}
                 </div>
-                :this.state.nextList!=''?
+                :this.state.nextList!='' && this.state.spotList!=''?
                     <div className="myPlanRight">
                         <span>다가오는 Spot</span>
                         {list}
