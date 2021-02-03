@@ -16,10 +16,7 @@
     margin: 100px auto;
     margin-bottom: 200px;
 }
-.RCA-app-container button{
-    width: 100px;
-    
-}
+
 
 
 /* header */
@@ -29,10 +26,7 @@
     /* display: flex; */
     width: 100%;
 }
-.move-button{
-    width: 40px;
-    height: 40px;
-}
+
 .icon{
     background-size: contain;
     background-repeat: no-repeat;
@@ -59,11 +53,6 @@
     margin-left: 15px;
     color: #aaa;
     font-weight: 100;
-}
-.move {
-    margin: 0 10px;
-    font-size: 3rem !important;
-    font-weight: 900;
 }
 .RCA-header-calendarYM{
     box-sizing: border-box;
@@ -112,8 +101,8 @@
     /* background-color: rgb(107, 107, 108); */
     /* border: 0.1px solid white; */
     /* border-bottom: 0.1px solid #ddd; */
-    font-size : 1.2rem;
-    line-height: 50px;
+    /* font-size : 1.2rem;
+    line-height: 50px; */
 }
 
 .RCA-calendar-date-component:nth-child(odd){
@@ -151,12 +140,9 @@
     border: 0.1px solid #ddd;
     border-top: none;
     background-color: white;
-    height: 100px;
+    
     overflow-y: auto;
-    font-size: 0.8rem;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 30px;
+    
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow-x:auto;
@@ -258,8 +244,7 @@ div.title{
         text-align: center;
        position: relative;
        left: 60px;
-       
-        
+    
         color: lightsalmon;
         text-shadow: wheat;
         font-weight: 600;
@@ -318,5 +303,32 @@ input{
     .RCA-planAddModal {
         padding: 30px;
         line-height: 30px;
+    }
+    /* 날짜 한칸 */
+    .RCA-calendar-day {
+        font-size: 0.8rem;
+        height: 100px;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 30px;
+    }
+    /* sun, mon, ,,, */
+    .RCA-calendar-date-component{
+        font-size : 1.2rem;
+        line-height: 50px;
+    }
+    /* 일정추가 버튼 */
+    .RCA-app-container .add-list{
+        width: 90px;
+    }
+    /* 헤더 버튼, 월 글씨 */
+    .move-button{
+        width: 40px;
+        height: 40px;
+    }
+    .move {
+        margin: 0 10px;
+        font-size: 3rem !important;
+        font-weight: 900;
     }
 }

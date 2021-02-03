@@ -42,11 +42,11 @@ class MySchedule extends Component {
 
       getList=()=>{
         let url = URL + "/wish/schedulelist?memId="+store.getState().loginId + "&wishday=" + this.state.calendarYM.format("YYYY-MM") ;
-        console.log("월별 가져오기 : " +  this.state.calendarYM.format("YYYY-MM"));
+        // console.log("월별 가져오기 : " +  this.state.calendarYM.format("YYYY-MM"));
         
         axios.get(url)
         .then(res=>{
-          console.log(" schedulelist 출력:"+res.data);
+        //   console.log(" schedulelist 출력:"+res.data);
           this.setState({
               clist:res.data
           });
@@ -121,7 +121,7 @@ class MySchedule extends Component {
                         selected={this.state.selected}
                         changeSelected={this.changeSelected}
                         list={this.state.list}
-                        history = {this.props.history}
+                        getMonthList={this.getData.bind(this)}
                     />
                     
 

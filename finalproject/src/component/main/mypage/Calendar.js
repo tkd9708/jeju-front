@@ -19,6 +19,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import {Link } from "react-router-dom";
 
 class DateHeader extends Component {
 
@@ -239,7 +240,7 @@ class Week extends Component {
                       <div className="RCA-planAddModal">
                         <Timeline align="alternate">
                           {this.state.clist.map((row)=>(
-                              <ClistItem row={row}/>
+                              <ClistItem row={row} getMonthList={this.props.getMonthList} toggle={this.toggle.bind(this)}/>
                           ))}
                         </Timeline>
                         
@@ -267,16 +268,17 @@ class Week extends Component {
                     <Button onClick={this.alertClose.bind(this)} color="primary">
                         NO
                     </Button>
-                    <Button onClick={
-                        ()=>{
-                            this.setState({
-                                alertOpen: false
-                            })
-                            this.props.history.push("/shareplan");
-                        }
-                    } color="primary" autoFocus>
-                        YES
+                    <Link to="/shareplan">
+                      <Button onClick={
+                          ()=>{
+                              this.setState({
+                                  alertOpen: false
+                              })
+                          }
+                      } color="primary" autoFocus>
+                          YES
                     </Button>
+                    </Link>
                     </DialogActions>
                 </Dialog>
                 {/* <Modal
@@ -345,6 +347,7 @@ class Calendar extends Component {
           selected={selected}
           fn={clickFn}
           list={this.props.list}
+          getMonthList={this.props.getMonthList}
         />
       ))
     }
