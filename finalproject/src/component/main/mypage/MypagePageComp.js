@@ -29,7 +29,7 @@ class MypagePageComp extends Component {
             value: 0,
             wishCount: 0,
             passOk: false,
-            photo: ''
+            photoCheck: false
         }
     }
     tabProps = (index) => {
@@ -48,9 +48,13 @@ class MypagePageComp extends Component {
         let url = URL + '/member/getdata?id=' + store.getState().loginId;
         axios.get(url)
             .then(response => {
+                if(response.data.photo.substring(0,4)=='http'){
+                    this.setState({
+                        photoCheck: true
+                    })
+                }
                 this.setState({
-                    memberData: response.data,
-                    photo : response.data.photo
+                    memberData: response.data
                 })
             }).catch(err => {
             console.log("목록 오류:" + err);
@@ -82,8 +86,8 @@ class MypagePageComp extends Component {
     render() {
         // console.log("MypagePageComp render()", this.props);
         const url = URL + "/";
-        const userimg = this.state.photo=="no"?userImg:
-            this.state.photo.split(":")[0]=='https'?this.state.memberData.photo: url + this.state.memberData.photo;
+        const userimg = this.state.memberData.photo=="no"?userImg:
+            this.state.photoCheck?this.state.memberData.photo: url + this.state.memberData.photo;
         const address = this.state.memberData.addrdetail!==null?"(" + this.state.memberData.addrdetail + ")":"";
         const passOkTab = this.state.memberData.provider!='no'?<SocialUpdateForm/>
             :this.state.passOk==true?<MemberUpdateFormComp num={this.state.memberData} passOk={this.passOk.bind(this)} history={this.props.history}/>

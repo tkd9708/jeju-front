@@ -11,6 +11,8 @@ import './style/RCA.css';
 import { TiTimes } from "react-icons/ti";
 import ClistItem from './ClistItem';
 import store from '../../../redux/store';
+import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
+import Timeline from '@material-ui/lab/Timeline';
 
 class DateHeader extends Component {
 
@@ -79,9 +81,9 @@ class Week extends Component {
       
     }
 
-    handleClose = () => {
+    toggle = () => {
       this.setState({
-          open: false
+          open: !this.state.open
       })
     };
 
@@ -192,6 +194,23 @@ class Week extends Component {
       })         
     }
 
+    onData=()=>{
+      let url= URL+"/plan/insert";
+      let memId=store.getState().loginId;
+      let title=this.row.title;
+      let content=this.props.row.addr;
+      let wishday=this.props.row.wishday;
+      let wishtime=this.props.row.wishtime;
+
+      axios.post(url,{memId,title,content,wishday,wishtime})
+      .then(res=>{
+           //this.props.history.push("/shareplan");
+      }).catch(err=>{
+       console.log("shareplan insert 오류 : " + err);
+      })
+
+  }
+
     
 
   render() {
@@ -207,7 +226,26 @@ class Week extends Component {
         this.props.fn
         )}
 
-                <Modal
+
+          {/* 일정 추가 모달 */}
+          <MDBModal isOpen={this.state.open} toggle={this.toggle}>
+              <MDBModalHeader toggle={this.toggle}>{this.props.selected} 일정</MDBModalHeader>
+                  <MDBModalBody>
+                      <div className="RCA-planAddModal">
+                        <Timeline align="alternate">
+                          {this.state.clist.map((row)=>(
+                              <ClistItem row={row}/>
+                          ))}
+                        </Timeline>
+                        
+                      </div>
+                  </MDBModalBody>
+              <MDBModalFooter>
+                  <MDBBtn color="primary">공유</MDBBtn>
+                  <MDBBtn color="dark-green">추가</MDBBtn>
+              </MDBModalFooter>
+          </MDBModal>
+                {/* <Modal
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"
                     className="calModal"
@@ -221,9 +259,6 @@ class Week extends Component {
                   >
                     <Fade in={this.state.open}>
                     <div className="calPaper">
-                        {/* <h2 id="transition-modal-title">일정 목록</h2>
-                        <p id="transition-modal-description"></p> */}
-                        
 
                         <h2 id="transition-modal-title">{this.props.selected}</h2>
                         
@@ -231,14 +266,11 @@ class Week extends Component {
                         {this.state.clist.map((row)=>(
                             <ClistItem row={row}/>
                         ))}
-                        {/* {this.state.list.map((row1)=>(
-                          <ClistItem row1={row1}></ClistItem>
-                        ))} */}
                         
                     </div>
                     </Fade>
                     
-                </Modal>
+                </Modal> */}
       </div>
     )
   }

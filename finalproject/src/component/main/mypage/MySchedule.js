@@ -15,7 +15,7 @@ class MySchedule extends Component {
         console.log("MySchedule constructor", props);
 
         this.state={
-            clist:[],
+            // clist:[],
             calendarYM : moment(),
             today : moment(),
             selected : moment().format("YYYY-MM-DD"),
@@ -40,25 +40,25 @@ class MySchedule extends Component {
         })
   }
 
-      getList=()=>{
-        let url = URL + "/wish/schedulelist?memId="+store.getState().loginId + "&wishday=" + this.state.calendarYM.format("YYYY-MM") ;
-        console.log("월별 가져오기 : " +  this.state.calendarYM.format("YYYY-MM"));
+    //   getList=()=>{
+    //     let url = URL + "/wish/schedulelist?memId="+store.getState().loginId + "&wishday=" + this.state.calendarYM.format("YYYY-MM") ;
+    //     console.log("월별 가져오기 : " +  this.state.calendarYM.format("YYYY-MM"));
         
-        axios.get(url)
-        .then(res=>{
-          console.log(" schedulelist 출력:"+res.data);
-          this.setState({
-              clist:res.data
-          });
-      }).catch(err=>{
-        console.log("목록 오류:"+err);
-      })
-}
+    //     axios.get(url)
+    //     .then(res=>{
+    //       console.log(" schedulelist 출력:"+res.data);
+    //       this.setState({
+    //           clist:res.data
+    //       });
+    //   }).catch(err=>{
+    //     console.log("목록 오류:"+err);
+    //   })
+    // }
 
 
   componentDidMount(){
       this.getData();
-      this.getList();
+    //   this.getList();
   }
 
 
@@ -111,7 +111,8 @@ class MySchedule extends Component {
                 <Header year={this.state.calendarYM.format("YYYY")}
                         month = {this.state.calendarYM.format("M")}
                         today={this.state.today.format("현재: YYYY - MM - DD")}
-                        moveMonth={this.moveMonth} clist={this.state.clist} 
+                        YM={this.state.calendarYM.format("YYYY-MM")}
+                        moveMonth={this.moveMonth} //clist={this.state.clist} 
                         getData={this.getData.bind(this)}/>
                     
                      

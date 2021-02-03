@@ -89,13 +89,13 @@ function NaverLoginBtnComp (props) {
                         return;
                     }
     
-                    let url = URL + "/member/insertsosial";
+                    let url = URL + "/member/insertsocial";
     
-                    axios.post(url, {id:email, name:name, provider:id, 
+                    axios.post(url, {id:email.split("@")[0], name:name, provider:id, 
                         photo:profileImage, email:email.split("@")[0], email2:'naver.com'})
                             .then(result=>{
                                 
-                                setLoginId(email);
+                                setLoginId(email.split("@")[0]);
                             }).catch(err=>{
                                 console.log("naver db 저장 실패 : " + err);
                             })

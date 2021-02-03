@@ -120,7 +120,8 @@ class MyPlanComp extends Component {
 
     render(){
         // login시에만 왼쪽 블럭 출력
-        const leftTag = store.getState().logged==true && (this.state.todayList!='' || this.state.nextList!='')?
+        const check = store.getState().logged==true && (this.state.todayList!='' || this.state.nextList!='');
+        const leftTag = check==true?
             // <Box p={1} className="myPlanLeft" style={{borderRight: '1px solid black'}}>
                 
             // </Box>
@@ -177,7 +178,10 @@ class MyPlanComp extends Component {
                     <div className="myPlanRight">
                         <span>다가오는 Spot</span>
                         {list}
-                    </div>:<div className="myPlanRight myPlanTop5">
+                    </div>:check==false?<div className="myPlanRight myPlanTop5">
+                            <span>오늘의 TOP5</span>
+                                {list}
+                            </div>:<div className="myPlanRight">
                             <span>오늘의 TOP5</span>
                                 {list}
                             </div>

@@ -23,7 +23,7 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
         this.state={
             open : false,
             setOpen : false,
-            clist:[],
+            clist: [],
             listopen:false,
             setlistOpen:false,
             // groupOfDay:''
@@ -31,6 +31,9 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
         this.groupOfDay='';
     }
 
+    componentWillMount(){
+        this.getList();
+    }
     toggle = () => {
         this.setState({
             open: !this.state.open
@@ -46,6 +49,21 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
       setGroupOfDay=(value)=>{
         this.groupOfDay = value;
       }
+
+      getList=()=>{
+        let url = URL + "/wish/schedulelist?memId="+store.getState().loginId + "&wishday=" + this.props.YM ;
+        console.log("월별 가져오기 : " +  this.props.YM);
+        
+        axios.get(url)
+        .then(res=>{
+        //   console.log(" schedulelist 출력:"+res.data);
+          this.setState({
+              clist: res.data
+          });
+      }).catch(err=>{
+        console.log("목록 오류:"+err);
+      })
+    }
 
       insertContent=()=>{
         let url=URL+"/wish/insertcontent";
@@ -70,8 +88,8 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
     }
 
     render() {
-        const {clist}=this.props;
         const month = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+        
 
         return (
             <div className="RCA-header-container">
@@ -145,7 +163,7 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
                         <MDBModalHeader toggle={this.listToggle}>일정 목록</MDBModalHeader>
                         <MDBModalBody>
                             <div className="RCA-planAddModal">
-                                {this.props.clist.map((row)=>(
+                                {this.state.clist.map((row)=>(
                                     <ScheduleList row={row} groupOfDay={this.groupOfDay} setGroupOfDay={this.setGroupOfDay}></ScheduleList>
                                 ))}
                             </div>
@@ -154,51 +172,6 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
                         <MDBBtn color="dark-green" onClick={this.listToggle}>닫기</MDBBtn>
                         </MDBModalFooter>
                     </MDBModal>
-                {/* <Modal
-                    aria-labelledby="transition-modal-title"
-                    aria-describedby="transition-modal-description"
-                    className="calModal"
-                    open={this.state.open}
-                    onClose={this.handleClose.bind(this)}
-                    closeAfterTransition
-                    BackdropComponent={Backdrop}
-                    BackdropProps={{
-                    timeout: 500,
-                    }}
-                >
-                    <Fade in={this.state.open}>
-                    <div className="addlistpaper">
-                        <ScheduleAdd></ScheduleAdd>
-                        
-                        
-                    </div>
-                    
-                    </Fade>
-                   
-                </Modal> */}
-
-                {/* <Modal
-                    aria-labelledby="transition-modal-title"
-                    aria-describedby="transition-modal-description"
-                    className="calModal"
-                    open={this.state.listopen}
-                    onClose={this.handleClose.bind(this)}
-                    closeAfterTransition
-                    BackdropComponent={Backdrop}
-                    BackdropProps={{
-                    timeout: 500,
-                    }}
-                    >
-                    <Fade in={this.state.listopen}>
-                    
-                    <div className="addlistmodal">
-                        <h2 style={{textAlign:'center'}}>일정목록</h2><hr/>
-                        {this.props.clist.map((row)=>(
-                            <ScheduleList row={row} ></ScheduleList>
-                        ))}
-                    </div>
-                    </Fade>
-                </Modal> */}
                 
             </div>
             
