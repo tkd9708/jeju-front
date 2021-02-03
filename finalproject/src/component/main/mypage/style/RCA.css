@@ -273,7 +273,7 @@ input{
     display: flex;
 }
 
-@media only screen and (max-width:400px){
+@media only screen and (max-width:450px){
     /* 날짜 한칸 */
     .RCA-calendar-day {
         font-size: 0.5rem;
@@ -329,6 +329,9 @@ input{
         width: 90vw;
         height: 80vh;
     }
+    .test-layout {
+        margin: 100px auto;
+    }
     /* 일정 선택 모달 */
     .RCA-planAddModal h4{
         font-size: 1.2rem;
@@ -347,7 +350,7 @@ input{
     }
     
 }
-@media only screen and (min-width:400px) and (max-width:770px){
+@media only screen and (min-width:450px) and (max-width:770px){
     /* 날짜 한칸 */
     .RCA-calendar-day {
         font-size: 0.6rem;

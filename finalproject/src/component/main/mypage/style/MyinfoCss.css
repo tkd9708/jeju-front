@@ -1,4 +1,4 @@
-@media only screen and (max-width:400px){
+@media only screen and (max-width:450px){
     #mypageTabs .MuiBox-root{
         padding: 0;
     }
@@ -6,6 +6,7 @@
         padding: 10px 10px 10px 10px;
         /* height: 300px; */
         margin-top: 40px;
+        margin-bottom: 200px;
     }
     p#mypageInfoTitle{
         font-weight: 900;
@@ -13,12 +14,15 @@
     }
     .mypageInfoCol {
         padding: 10px; 
-        line-height: 15px;
-        font-size: 6pt;
+        /* line-height: 15px; */
+    }
+    .mypageInfoCol td {
+        font-size: 0.5rem !important;
+        line-height: 20px;
     }
     img#mypageUserImg {
-        width: 40px;
-        height: 40px;
+        width: 100px;
+        height: 100px;
         border: 1px solid #ddd;
         border-radius: 100%;
     }
@@ -46,6 +50,9 @@
         font-weight: 900;
         font-size: 9pt !important;
     }
+    #mypagePassCheck {
+        margin-top: 100px;
+    }
 }
 @media only screen and (min-width:450px) and (max-width:770px){
     div#mypageInfo {
@@ -59,8 +66,10 @@
     }
     .mypageInfoCol {
         padding: 10px; 
-        line-height: 20px;
-        font-size: 8pt;
+    }
+    .mypageInfoCol td {
+        font-size: 0.6rem !important;
+        line-height: 25px;
     }
     img#mypageUserImg {
         width: 80px;
@@ -106,7 +115,9 @@
     .mypageInfoCol {
         padding: 10px; 
         line-height: 25px;
-        font-size: 10pt;
+    }
+    .mypageInfoCol td {
+        font-size: 0.7rem !important;
     }
     img#mypageUserImg {
         width: 100px;
@@ -126,7 +137,8 @@
         border-collapse: inherit;
     }
     span.mypageInfoSubtitle {
-        font-size: 12pt;
+        /* font-size: 12pt; */
+        font-size: 0.9rem;
         font-weight: 900;
     }
     span.mypageInfoSubContent {
