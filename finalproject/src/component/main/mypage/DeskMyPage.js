@@ -16,23 +16,93 @@ import Paper from '@material-ui/core/Paper';
 import PassCheck from './PassCheck';
 import store from "../../../redux/store";
 import SocialUpdateForm from './SocialUpdateForm';
-import DeskMyPage from './DeskMyPage';
-import MobileMyPage from './MobileMyPage';
 
-class MypagePageComp extends Component {
+class DeskMyPage extends Component {
     
-    
+    constructor(props) {
+        super(props);
+        console.log("MypagePageComp constructor", props);
+
+        this.state = {
+            memberData: [],
+            pageNum: '0',
+            value: 0,
+            wishCount: 0,
+            passOk: false,
+            photoCheck: false
+        }
+    }
+    tabProps = (index) => {
+        return {
+          id: `simple-tab-${index}`,
+          'aria-controls': `simple-tabpanel-${index}`,
+        };
+      }
+
+      handleTabChange = (event,newValue) => {
+        this.setState({ value: newValue });
+      }
+    // 스프링에서 목록 가져오기
+    // member
+    getMyData = () => {
+        let url = URL + '/member/getdata?id=' + store.getState().loginId;
+        axios.get(url)
+            .then(response => {
+                if(response.data.photo.substring(0,4)=='http'){
+                    this.setState({
+                        photoCheck: true
+                    })
+                }
+                this.setState({
+                    memberData: response.data
+                })
+            }).catch(err => {
+            console.log("목록 오류:" + err);
+        })
+
+        url = URL + '/wish/wishcount?memId=' + store.getState().loginId;
+        axios.get(url)
+            .then(res=>{
+                this.setState({
+                    wishCount: res.data
+                })
+            }).catch(err=>{
+                console.log("wishlist 일정갯수 가져오기 오류 : " + err);
+            })
+    }
+
+    componentDidMount() {
+        this.getMyData(); //처음 시작시 백엔드로부터 데이타 가져오기
+    }
+
+    passOk=(ok)=>{
+        this.setState({
+            passOk: ok
+        })
+        if(ok==false)
+            this.getMyData();
+    }
 
     render() {
 
+        const url = URL + "/";
+        const userimg = this.state.memberData.photo=="no"?userImg:
+            this.state.photoCheck?this.state.memberData.photo: url + this.state.memberData.photo;
+        const address = this.state.memberData.addrdetail!==null?"(" + this.state.memberData.addrdetail + ")":"";
+        const passOkTab = this.state.memberData.provider!='no'?<SocialUpdateForm/>
+            :this.state.passOk==true?<MemberUpdateFormComp num={this.state.memberData} passOk={this.passOk.bind(this)} history={this.props.history}/>
+            :<PassCheck passOk={this.passOk.bind(this)}/>;
+        
+
         return (
             <div>
-                {document.body.offsetWidth > 450?<DeskMyPage/>:<MobileMyPage/>}
-                {/* <div id="mypageInfo" style={{width: '100%', backgroundColor: '#f7f7f7', position: 'relative'}}>
+                <div id="mypageInfo" style={{width: '100%', backgroundColor: '#f7f7f7', position: 'relative'}}>
                     <p id="mypageInfoTitle">내 정보 관리</p>
                         <Box
                             display="flex"
                             flexWrap="wrap"
+                            // p={1}
+                            // m={1}
                             justifyContent="center"
                             width="100%"
                         >
@@ -122,9 +192,10 @@ class MypagePageComp extends Component {
                         <MyWishlist/>
                     </TabPanel>
                     <TabPanel value={this.state.value} index={3}>
+                        {/* <MemberUpdateFormComp/> */}
                         {passOkTab}
                     </TabPanel>
-                </Paper> */}
+                </Paper>
                 
             </div>
             
@@ -142,5 +213,5 @@ class TabPanel extends Component {
       );
     }
   }
-export default MypagePageComp;
+export default DeskMyPage;
 

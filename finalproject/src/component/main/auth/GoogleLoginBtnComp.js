@@ -5,6 +5,8 @@ import { refreshTokenSetup } from "./refreshToken";
 import store from "../../../redux/store";
 import { URL, actionType, mainViewType } from "../../../redux/config";
 import axios from 'axios';
+import '../join/SignupCss.css';
+import {withRouter } from "react-router-dom";
 
 class GoogleLoginBtnComp extends Component
 {
@@ -27,7 +29,7 @@ class GoogleLoginBtnComp extends Component
         store.dispatch({
             type: actionType.LOG_IN,
             // mainView: mainViewType.MainPage
-            loginId: loginId
+            loginId: this.state.id
         });
     }
 
@@ -35,8 +37,11 @@ class GoogleLoginBtnComp extends Component
         console.log("구글로 로그인했습니다");
         store.dispatch({
             type: actionType.googleLogin,
-            googleOn: true
+            googleOn: true,
+            loginId: this.state.email.split("@")[0],
+            logged: true
         });
+        this.props.history.push("/");
     }
     
     // 로그인에 실패한 경우에는 에러를 넘겨줌 => onFailure함수에서 error 출력
@@ -60,18 +65,18 @@ class GoogleLoginBtnComp extends Component
             email2: 'gmail.com',
             photo: res.profileObj.imageUrl,
         });
-        let url = URL + "/member/insertsosial";
+        let url = URL + "/member/insertsocial";
 
-        axios.post(url, {id:this.state.email, name:this.state.name, provider:this.state.id, 
+        axios.post(url, {id:this.state.email.split("@")[0], name:this.state.name, provider:this.state.id, 
             photo:this.state.photo, email:this.state.email.split("@")[0], email2:this.state.email2})
                 .then(result=>{
-
+                    
                 }).catch(err=>{
                     console.log("google db 저장 실패 : " + err);
                 })
-        this.setGoogleOn();
 
-        alert("스토어에 저장된 구글로그인 상태 : " + store.getState().googleOn);
+        this.setGoogleOn();
+        // alert("스토어에 저장된 구글로그인 상태 : " + store.getState().googleOn);
 
         // initializing the setup
         refreshTokenSetup(res);
@@ -84,21 +89,19 @@ class GoogleLoginBtnComp extends Component
 
     render() {
         return (
-            <>
-            <br />
-            <br />
+            <div id="googleLogin">
             <GoogleLogin
                 clientId="256166181377-83u2uuteqgosooa3um2i3o36ho1325md.apps.googleusercontent.com"
-                buttonText="Login"
+                buttonText="구글 아이디로 로그인"
                 onSuccess={this.onSuccess.bind(this)}
                 onFailure={this.onFailure.bind(this)}
                 cookiePolicy={'single_host_origin'}
-                isSignedIn={true}
+                // isSignedIn={true}
             />
-            </>
+            </div>
         );
     };
 
 }
 
-export default GoogleLoginBtnComp;
+export default withRouter(GoogleLoginBtnComp);

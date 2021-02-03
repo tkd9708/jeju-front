@@ -11,6 +11,15 @@ import './style/RCA.css';
 import { TiTimes } from "react-icons/ti";
 import ClistItem from './ClistItem';
 import store from '../../../redux/store';
+import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
+import Timeline from '@material-ui/lab/Timeline';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import {Link } from "react-router-dom";
 
 class DateHeader extends Component {
 
@@ -70,37 +79,36 @@ class Week extends Component {
 
       this.ym = this.props.ymOfThisCalendar;
       this.state={
-        list:[],
+        // list:[],
         clist:[],
         open: false,
-        setOpen: false      
+        setOpen: false,
+        alertOpen: false,
+        alertSetOpen: false      
       };
 
       
     }
 
-    handleClose = () => {
+    toggle = () => {
       this.setState({
-          open: false
+          open: !this.state.open
       })
     };
 
+    // alert 함수
+    alertOpen = () => {
+      this.setState({
+          alertOpen: true
+      })
+    };
 
-      getData=()=>{
-
-            let url = URL + "/wish/list?memId="+store.getState().loginId;
-
-            axios.get(url)
-            .then(response=>{
-              //console.log("캘린더 출력 : " + response.data); 
-              this.setState({
-                list: response.data
-
-              });
-            }).catch(err=>{
-              console.log("캘린더 목록 오류:"+err);
-            })
-      }
+    alertClose = () => {
+      this.setState({
+          alertOpen: false
+      })
+    };
+      
 
       getList=(day)=>{
             let url = URL + "/wish/daylist?memId="+store.getState().loginId + "&day=" + day ;
@@ -116,19 +124,6 @@ class Week extends Component {
           })
     }
     
-    
-   
-
-  // componentWillMount(){
-  //   this.onDelete();
-  // }
-
-
-  componentDidMount(){
-    this.getData();
-    
-    
-  }
 
   Days = (firstDayFormat,weekIndex) => {
       const _days = [];
@@ -171,11 +166,6 @@ class Week extends Component {
         
       }
    
-      // const category=this.state.memId;
-      // const num=this.state.list.num;
-      // const day=this.props.ymOfThisCalendar+"-"+dayInfo.getDay;
-      // const wishday=this.state.wishday;
-      
         var date = new Date(); 
         var year = date.getFullYear(); 
         var month = new String(date.getMonth()); 
@@ -199,7 +189,7 @@ class Week extends Component {
                
               
               </label>
-              {this.state.list.map((row,idx)=>(
+              {this.props.list.map((row,idx)=>(
                   <DayItem row={row} key={idx} className={className} dayInfo={dayInfo} i={i} fn={fn}></DayItem>
                   
               ))}
@@ -210,6 +200,22 @@ class Week extends Component {
        )      
       })         
     }
+
+    onData=()=>{
+      
+      let memId=store.getState().loginId;
+      let wishday=this.props.selected;
+      let url= URL+"/plan/groupinsert?memId="+ memId + "&wishday=" + wishday;
+
+      axios.get(url)
+      .then(res=>{
+          this.setState({
+            alertOpen: true
+          })
+      }).catch(err=>{
+       console.log("shareplan insert 오류 : " + err);
+      })
+  }
 
     
 
@@ -226,7 +232,56 @@ class Week extends Component {
         this.props.fn
         )}
 
-                <Modal
+
+          {/* 해당 날짜 출력 모달 */}
+          <MDBModal isOpen={this.state.open} toggle={this.toggle} centered className="RCA-planAddModal">
+              <MDBModalHeader toggle={this.toggle}>{this.props.selected} 일정</MDBModalHeader>
+                  <MDBModalBody>
+                      <div>
+                        <Timeline align="alternate">
+                          {this.state.clist.map((row)=>(
+                              <ClistItem row={row} getMonthList={this.props.getMonthList} toggle={this.toggle.bind(this)}/>
+                          ))}
+                        </Timeline>
+                        
+                      </div>
+                  </MDBModalBody>
+              <MDBModalFooter>
+                  <MDBBtn color="dark-green" onClick={this.onData.bind(this)}>공유</MDBBtn>
+              </MDBModalFooter>
+          </MDBModal>
+
+                {/* alert 창 */}
+                <Dialog
+                    open={this.state.alertOpen}
+                    onClose={this.alertClose.bind(this)}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"공유 완료"}</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        공유 페이지로 이동하여 확인하시겠습니까?
+                    </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={this.alertClose.bind(this)} color="primary">
+                        NO
+                    </Button>
+                    <Link to="/shareplan">
+                      <Button onClick={
+                          ()=>{
+                              this.setState({
+                                  alertOpen: false
+                              })
+                          }
+                      } color="primary" autoFocus>
+                          YES
+                    </Button>
+                    </Link>
+                    </DialogActions>
+                </Dialog>
+                {/* <Modal
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"
                     className="calModal"
@@ -240,9 +295,6 @@ class Week extends Component {
                   >
                     <Fade in={this.state.open}>
                     <div className="calPaper">
-                        {/* <h2 id="transition-modal-title">일정 목록</h2>
-                        <p id="transition-modal-description"></p> */}
-                        
 
                         <h2 id="transition-modal-title">{this.props.selected}</h2>
                         
@@ -250,14 +302,11 @@ class Week extends Component {
                         {this.state.clist.map((row)=>(
                             <ClistItem row={row}/>
                         ))}
-                        {/* {this.state.list.map((row1)=>(
-                          <ClistItem row1={row1}></ClistItem>
-                        ))} */}
                         
                     </div>
                     </Fade>
                     
-                </Modal>
+                </Modal> */}
       </div>
     )
   }
@@ -265,22 +314,40 @@ class Week extends Component {
 
 class Calendar extends Component {
 
+  constructor(props){
+    super(props);
+  }
+
   Weeks = (monthYear,selected,clickFn) => {
+    const selectMonth = Number(this.props.selectMonth);
     const firstDayOfMonth = moment(monthYear).startOf('month');
     const firstDateOfMonth = firstDayOfMonth.get('d');
 
     const firstDayOfWeek = firstDayOfMonth.clone().add(-firstDateOfMonth,'d');
 
     const _Weeks = [];
-
+    
     for (let i = 0; i < 6; i++) {
+
+      if(selectMonth < Number(firstDayOfWeek.clone().add(i * 7,'d').format("M"))){
+        if(selectMonth==1 && Number(firstDayOfWeek.clone().add(i * 7,'d').format("M"))==12){
+
+        }else{
+          break;
+        }
+      }
+      else if (selectMonth==12 && Number(firstDayOfWeek.clone().add(i * 7,'d').format("M"))==1)
+        break;
+      
       _Weeks.push((
         <Week key={`RCA-calendar-week-${i}`}
-        weekIndex={i}
-        ymOfThisCalendar={firstDayOfMonth.format("YYYY-MM")}
-        firstDayOfThisWeekformat={firstDayOfWeek.clone().add(i * 7,'d').format("YYYY-MM-DD")}
-        selected={selected}
-        fn={clickFn}
+          weekIndex={i}
+          ymOfThisCalendar={firstDayOfMonth.format("YYYY-MM")}
+          firstDayOfThisWeekformat={firstDayOfWeek.clone().add(i * 7,'d').format("YYYY-MM-DD")}
+          selected={selected}
+          fn={clickFn}
+          list={this.props.list}
+          getMonthList={this.props.getMonthList}
         />
       ))
     }

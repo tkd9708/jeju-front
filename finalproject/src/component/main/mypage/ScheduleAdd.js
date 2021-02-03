@@ -42,28 +42,40 @@ class ScheduleAdd extends Component {
         const {key}=this.props;
         return(
             <div>
-                <h2 id="transition-modal-title">일정 추가</h2><br/>
-                        <p id="transition-modal-description">
+                <span className="addtitle">일정 추가</span><br/>
+                📆&nbsp;&nbsp;나의 일정
+                <input type="text" className="form-control" style={{width: '200px', height: '50px'}} ref="content"></input>
+                🗓&nbsp;&nbsp;여행 날짜
+                <input type="date" class="form-control form-control-sm" ref="wishday"></input>
+                ⏰&nbsp;&nbsp;예정 시간
+                <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
+                <div style={{textAlign: 'center'}}>
+                    <button type="button" class="btn btn-warning planAddBtn" onClick={this.insertContent.bind(this)}><b>추가</b></button>
+                </div>
+            </div>
+            // <div>
+            //     <h2 id="transition-modal-title">일정 추가</h2><br/>
+            //             <p id="transition-modal-description">
                             
-                                    <span id="addtitle" >일정</span>
-                                    <span id="addcontent">
-                                    &nbsp;&nbsp;<input type="text" className="form-control" style={{width: '200px', height: '50px'}} ref="content"></input><br/><br/></span>
+            //                         <span id="addtitle" >일정</span>
+            //                         <span id="addcontent">
+            //                         &nbsp;&nbsp;<input type="text" className="form-control" style={{width: '200px', height: '50px'}} ref="content"></input><br/><br/></span>
 
                                   
                                 
-                                    <span id="addschedule" >날짜</span>
-                                    <span id="addwish">
-                                    &nbsp;&nbsp;<input type="date" ref="wishday"></input><br/><br/>
-                                    </span>
+            //                         <span id="addschedule" >날짜</span>
+            //                         <span id="addwish">
+            //                         &nbsp;&nbsp;<input type="date" ref="wishday"></input><br/><br/>
+            //                         </span>
                             
                                 
-                                    <span id="addschedule">시간</span>
-                                    <span id="addwish">
-                                    &nbsp;&nbsp; <input type="time" ref="wishtime"></input></span></p><br/><br/>
-                        <div style={{textAlign:'center'}}>
-                        <Button variant="warning" onClick={this.insertContent.bind(this)}><b>추가</b></Button>
-                        </div>
-            </div>
+            //                         <span id="addschedule">시간</span>
+            //                         <span id="addwish">
+            //                         &nbsp;&nbsp; <input type="time" ref="wishtime"></input></span></p><br/><br/>
+            //             <div style={{textAlign:'center'}}>
+            //             <Button variant="warning" onClick={this.insertContent.bind(this)}><b>추가</b></Button>
+            //             </div>
+            // </div>
         )
     }
 

@@ -19,51 +19,46 @@ class MySchedule extends Component {
             calendarYM : moment(),
             today : moment(),
             selected : moment().format("YYYY-MM-DD"),
+            list: []
         }
 
     }
-      state={
-       
-        
 
-      }
+    getData=()=>{
+
+        let url = URL + "/wish/list?memId="+store.getState().loginId;
+
+        axios.get(url)
+        .then(response=>{
+          //console.log("캘린더 출력 : " + response.data); 
+          this.setState({
+            list: response.data
+
+          });
+        }).catch(err=>{
+          console.log("캘린더 목록 오류:"+err);
+        })
+  }
 
       getList=()=>{
         let url = URL + "/wish/schedulelist?memId="+store.getState().loginId + "&wishday=" + this.state.calendarYM.format("YYYY-MM") ;
-        console.log("월별 가져오기 : " +  this.state.calendarYM.format("YYYY-MM"));
+        // console.log("월별 가져오기 : " +  this.state.calendarYM.format("YYYY-MM"));
         
         axios.get(url)
         .then(res=>{
-          console.log(" schedulelist 출력:"+res.data);
+        //   console.log(" schedulelist 출력:"+res.data);
           this.setState({
               clist:res.data
           });
       }).catch(err=>{
         console.log("목록 오류:"+err);
       })
-}
+    }
 
-      
-//       getData=()=>{
-
-//         let url = URL + "/wish/list?memId="+store.getState().loginId;
-
-//         axios.get(url)
-//         .then(response=>{
-//           //console.log("캘린더 출력 : " + response.data); 
-//           this.setState({
-//             list: response.data
-
-//           });
-//         }).catch(err=>{
-//           console.log("캘린더 목록 오류:"+err);
-//         })
-//   }
 
   componentDidMount(){
-    this.getList();
-    
-    
+      this.getData();
+      this.getList();
   }
 
 
@@ -75,6 +70,7 @@ class MySchedule extends Component {
         this.setState({
             calendarYM : this.state.calendarYM.add(month,'M')
         })
+        this.getList();
     }
 
     changeSelected = (clickedDate) =>{
@@ -100,16 +96,32 @@ class MySchedule extends Component {
     render(){
         return(
             <div className="test-layout">
+                
+               <div className="detailTitle">
+                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
+                        &nbsp;&nbsp; 나의 일정 &nbsp;&nbsp;
+                    </span>
+                </div>
+                <div className="detailIntro" style={{color: "#888"}}>
+                    여러분만의 제주도 일정을 제작해보세요.
+                </div>
+
                <div className="RCA-app-container">
                
-                <Header calendarYM={this.state.calendarYM.format("YYYY년 MM월")}
+                <Header year={this.state.calendarYM.format("YYYY")}
+                        month = {this.state.calendarYM.format("M")}
                         today={this.state.today.format("현재: YYYY - MM - DD")}
-                        moveMonth={this.moveMonth} clist={this.state.clist} />
+                        YM={this.state.calendarYM.format("YYYY-MM")}
+                        moveMonth={this.moveMonth} clist={this.state.clist} 
+                        getData={this.getData.bind(this)}/>
                     
                      
                     <Calendar YM={this.state.calendarYM.format("YYYY-MM-DD")}
+                        selectMonth = {this.state.calendarYM.format("M")}
                         selected={this.state.selected}
                         changeSelected={this.changeSelected}
+                        list={this.state.list}
+                        getMonthList={this.getData.bind(this)}
                     />
                     
 

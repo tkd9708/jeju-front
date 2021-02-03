@@ -29,6 +29,7 @@
     }
     .myplanLeftList {
         padding: 0px !important;
+        font-size: 0.7rem !important;
     }
     .myplanLeftList span {
         font-size: 0.7rem !important;
@@ -51,6 +52,9 @@
         height: 200px;
         padding: 5px;
     }
+    .myPlanTop5 {
+        width: 90vw !important;
+    }
     .myPlanRight > span, .myPlanLeft > span {
         font-size: 0.7rem;
         font-weight: 900;
@@ -62,15 +66,21 @@
         width: 150px;
         /* width: 40vw; */
     }
+    .myplanRightItemBox .view {
+        width: 150px !important;
+        font-size: 0.5rem;
+        text-align: center;
+    }
+    .myplanRightItemBox .mask p {
+        width: 150px !important;
+    }
+    .myplanRightItemBox .view .btn {
+        padding: 0.3rem 1.1rem;
+        font-size: 0.5rem;
+    }
     .myplanRightItemImg {
         width: 150px;
         height: 120px;
-    }
-    .myplanRightTitle {
-        padding: 5px 10px;
-        width: 60%;
-        background-color: rgba(10, 10, 10, 0.788);
-        font-size: 0.5rem;
     }
     #demo-simple-select-outlined, #outlined-basic, .searchButton {
         font-size: 0.5rem !important;
@@ -96,6 +106,7 @@
     .myplanLeftList {
         padding-left: 0px !important;
         padding-right: 0px !important;
+        font-size: 0.7rem !important;
     }
     .myplanLeftList span {
         font-size: 0.7rem !important;
@@ -118,6 +129,9 @@
         height: 250px;
         padding: 10px;
     }
+    .myPlanTop5 {
+        width: 95vw !important;
+    }
     .myPlanRight > span, .myPlanLeft > span {
         font-size: 1rem;
         font-weight: 900;
@@ -129,15 +143,21 @@
         width: 200px;
         /* width: 40vw; */
     }
+    .myplanRightItemBox .view {
+        width: 200px !important;
+        font-size: 0.6rem;
+        text-align: center;
+    }
+    .myplanRightItemBox .mask p {
+        width: 200px !important;
+    }
+    .myplanRightItemBox .view .btn {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.6rem;
+    }
     .myplanRightItemImg {
         width: 200px;
         height: 170px;
-    }
-    .myplanRightTitle {
-        padding: 10px 20px;
-        width: 60%;
-        background-color: rgba(10, 10, 10, 0.788);
-        font-size: 0.6rem;
     }
 }
 @media only screen and (min-width:770px) and (max-width:1023px){
@@ -160,6 +180,7 @@
     .myplanLeftList {
         padding-left: 0px !important;
         padding-right: 0px !important;
+        font-size: 0.9rem !important;
     }
     .myplanLeftList span {
         font-size: 0.9rem !important;
@@ -182,6 +203,9 @@
         height: 350px;
         padding: 10px;
     }
+    .myPlanTop5 {
+        width: 95vw !important;
+    }
     .myPlanRight > span, .myPlanLeft > span {
         font-size: 1.3rem;
         font-weight: 700;
@@ -193,15 +217,21 @@
         width: 250px;
         /* width: 40vw; */
     }
+    .myplanRightItemBox .view {
+        width: 250px !important;
+        font-size: 0.8rem;
+        text-align: center;
+    }
+    .myplanRightItemBox .mask p {
+        width: 250px !important;
+    }
+    .myplanRightItemBox .view .btn {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.8rem;
+    }
     .myplanRightItemImg {
         width: 250px;
         height: 220px;
-    }
-    .myplanRightTitle {
-        padding: 10px 20px;
-        width: 60%;
-        background-color: rgba(10, 10, 10, 0.788);
-        font-size: 0.8rem;
     }
 }
 @media only screen and (min-width:1023px){   
@@ -235,6 +265,9 @@
         height: 400px;
         padding: 20px;
     }
+    .myPlanTop5 {
+        width: 65vw !important;
+    }
     .myPlanRight > span, .myPlanLeft > span {
         font-size: 1.4rem;
         font-weight: 900;
@@ -246,14 +279,23 @@
         width: 300px;
         /* width: 40vw; */
     }
+    .myplanRightItemBox .view {
+        width: 300px !important;
+        font-size: 0.9rem;
+        text-align: center;
+    }
+    .myplanRightItemBox .mask p {
+        width: 300px !important;
+    }
     .myplanRightItemImg {
         width: 300px;
         height: 270px;
     }
-    .myplanRightTitle {
+    /* .myplanRightTitle {
         padding: 10px 20px;
         width: 60%;
         background-color: rgba(10, 10, 10, 0.788);
         font-size: 0.8rem;
-    }
+    } */
+
 }
