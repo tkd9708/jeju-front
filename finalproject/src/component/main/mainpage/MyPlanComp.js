@@ -97,6 +97,8 @@ class MyPlanComp extends Component {
                 this.setState({
                     spotList: res.data
                 })  
+                if(this.state.spotList == '')
+                    this.getHotspotList();
             }).catch(err=>{
                 console.log("myplan getSpotList 오류 : " + err);
             })
@@ -118,7 +120,8 @@ class MyPlanComp extends Component {
 
     render(){
         // login시에만 왼쪽 블럭 출력
-        const leftTag = store.getState().logged==true && (this.state.todayList!='' || this.state.nextList!='')?
+        const check = store.getState().logged==true && (this.state.todayList!='' || this.state.nextList!='');
+        const leftTag = check==true?
             // <Box p={1} className="myPlanLeft" style={{borderRight: '1px solid black'}}>
                 
             // </Box>
@@ -166,16 +169,19 @@ class MyPlanComp extends Component {
             // <Box p={1} className="myPlanRight" style={{borderRight: '1px solid black'}}>
                 
             // </Box>
-            this.state.todayList!=''?
+            this.state.todayList!='' && this.state.spotList!=''?
                 <div className="myPlanRight">
                     <span>오늘의 Spot</span>
                     {list}
                 </div>
-                :this.state.nextList!=''?
+                :this.state.nextList!='' && this.state.spotList!=''?
                     <div className="myPlanRight">
                         <span>다가오는 Spot</span>
                         {list}
-                    </div>:<div className="myPlanRight myPlanTop5">
+                    </div>:check==false?<div className="myPlanRight myPlanTop5">
+                            <span>오늘의 TOP5</span>
+                                {list}
+                            </div>:<div className="myPlanRight">
                             <span>오늘의 TOP5</span>
                                 {list}
                             </div>

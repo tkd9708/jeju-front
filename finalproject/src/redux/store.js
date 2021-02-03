@@ -15,8 +15,9 @@ const reducer = function (state, action) {
             mainView: mainViewType.MainPage,
             logged: false,
             memberData: [], // 회원목록
-            id: '',
-            loginId: '',
+            id: "",
+            loginId: "",
+            loginEmail: "",
             googleOn: false,
             mainSearch: {
                 category: "all",
@@ -48,11 +49,11 @@ const reducer = function (state, action) {
             logged: action.logged
         });
     } else if (action.type === actionType.LOG_OUT) {
-            newState = Object.assign({}, state, {
-                loginId: action.loginId,
-                logged: action.logged,
-                googleOn: false
-            });
+        newState = Object.assign({}, state, {
+            loginId: action.loginId,
+            logged: action.logged,
+            googleOn: false
+        });
     } else if (action.type === actionType.LOGIN_REQUEST) {
         newState = Object.assign({}, state, {});
     } else if (action.type === actionType.LOGIN_SUCCESS) {

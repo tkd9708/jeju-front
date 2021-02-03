@@ -19,9 +19,26 @@ class MySchedule extends Component {
             calendarYM : moment(),
             today : moment(),
             selected : moment().format("YYYY-MM-DD"),
+            list: []
         }
 
     }
+
+    getData=()=>{
+
+        let url = URL + "/wish/list?memId="+store.getState().loginId;
+
+        axios.get(url)
+        .then(response=>{
+          //console.log("캘린더 출력 : " + response.data); 
+          this.setState({
+            list: response.data
+
+          });
+        }).catch(err=>{
+          console.log("캘린더 목록 오류:"+err);
+        })
+  }
 
       getList=()=>{
         let url = URL + "/wish/schedulelist?memId="+store.getState().loginId + "&wishday=" + this.state.calendarYM.format("YYYY-MM") ;
@@ -36,13 +53,12 @@ class MySchedule extends Component {
       }).catch(err=>{
         console.log("목록 오류:"+err);
       })
-}
+    }
 
 
   componentDidMount(){
-    this.getList();
-    
-    
+      this.getData();
+      this.getList();
   }
 
 
@@ -95,13 +111,16 @@ class MySchedule extends Component {
                 <Header year={this.state.calendarYM.format("YYYY")}
                         month = {this.state.calendarYM.format("M")}
                         today={this.state.today.format("현재: YYYY - MM - DD")}
-                        moveMonth={this.moveMonth} clist={this.state.clist} />
+                        YM={this.state.calendarYM.format("YYYY-MM")}
+                        moveMonth={this.moveMonth} clist={this.state.clist} 
+                        getData={this.getData.bind(this)}/>
                     
                      
                     <Calendar YM={this.state.calendarYM.format("YYYY-MM-DD")}
                         selectMonth = {this.state.calendarYM.format("M")}
                         selected={this.state.selected}
                         changeSelected={this.changeSelected}
+                        list={this.state.list}
                     />
                     
 
