@@ -23,7 +23,7 @@ const reducer = function (state, action) {
                 searchVal: "",
                 searchResultDataList: [],
             },
-
+            weatherInfo: [], // 날씨정보
         }
     }
 
@@ -88,6 +88,10 @@ const reducer = function (state, action) {
                 searchVal: action.searchVal,
                 searchResultDataList: action.searchResultDataList,
             },
+        });
+    } else if (action.type === actionType.weatherUpdate) {
+        newState = Object.assign({}, state, {
+            weatherInfo: action.weatherInfo,
         });
     }
 

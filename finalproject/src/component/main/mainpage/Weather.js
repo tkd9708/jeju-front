@@ -1,7 +1,18 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import store from "../../../redux/store";
+import { URL, actionType } from "../../../redux/config";
 
 class Weather extends Component {
+
+    constructor(props) {
+        super(props);
+        console.log("Weather class 생성자", props);
+
+        store.subscribe(function() {
+            console.log("날씨 클래스 생성자에서 state 변경에 대한 변화를 구독합니다 변화를 확인했습니다 store에서 weatherInfo 값을 가져와 보여줍니다 : " + store.getState().weatherInfo[0].courseAreaName);
+        }.bind(this));
+    }
 
     getWeatherList = () => {
         /*
@@ -43,9 +54,19 @@ class Weather extends Component {
         queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
         queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10');
         queryParams += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('json');
-        queryParams += '&' + encodeURIComponent('CURRENT_DATE') + '=' + encodeURIComponent('2021020210');
-        queryParams += '&' + encodeURIComponent('HOUR') + '=' + encodeURIComponent('24');
-        queryParams += '&' + encodeURIComponent('COURSE_ID') + '=' + encodeURIComponent('1');
+        let today = new Date();
+        let year = today.getFullYear(); // 년도
+        let month = today.getMonth(); // 월
+        let date = today.getDate(); // 날짜
+
+        let hours = today.getHours(); // 시
+        month = month < 10 ? '0' + month : month;
+        date = date < 10 ? '0' + date : date;
+        hours = hours < 10 ? '0' + hours : hours;
+        queryParams += '&' + encodeURIComponent('CURRENT_DATE') + '=' + encodeURIComponent(year+month+date+hours);
+        let callHour = String(24 * 8); // 8일
+        queryParams += '&' + encodeURIComponent('HOUR') + '=' + encodeURIComponent(callHour); // CURRENT_DATE부터 8일 후까지의 자료 호출
+        queryParams += '&' + encodeURIComponent('COURSE_ID') + '=' + encodeURIComponent('1'); // 관광 코스ID
         console.log("/getTourStnVilageFcst" + queryParams);
 
         // 아래 url이 중간부터 있는 이유는 package.json 에
@@ -54,6 +75,10 @@ class Weather extends Component {
         axios.get("/getTourStnVilageFcst" + queryParams)
             .then(res => {
                 console.log("기상청 리턴값 res:", res);
+                store.dispatch({
+                    type: actionType.weatherUpdate,
+                    weatherInfo: res.data,
+                });
             })
             .catch(err => {
                 console.log("기상청 리턴값 err:", err);
@@ -62,7 +87,7 @@ class Weather extends Component {
 
 
     render() {
-
+        this.getWeatherList();
         return (
             <div>
                 <h4>Weather</h4>
