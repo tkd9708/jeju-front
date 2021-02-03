@@ -314,6 +314,9 @@ input{
     
 }
 @media only screen and (min-width:1023px){   
-    
-
+    /* 일정 추가 모달 */
+    .RCA-planAddModal {
+        padding: 30px;
+        line-height: 30px;
+    }
 }

@@ -70,7 +70,7 @@ class Week extends Component {
 
       this.ym = this.props.ymOfThisCalendar;
       this.state={
-        list:[],
+        // list:[],
         clist:[],
         open: false,
         setOpen: false      
@@ -86,21 +86,7 @@ class Week extends Component {
     };
 
 
-      getData=()=>{
-
-            let url = URL + "/wish/list?memId="+store.getState().loginId;
-
-            axios.get(url)
-            .then(response=>{
-              //console.log("캘린더 출력 : " + response.data); 
-              this.setState({
-                list: response.data
-
-              });
-            }).catch(err=>{
-              console.log("캘린더 목록 오류:"+err);
-            })
-      }
+      
 
       getList=(day)=>{
             let url = URL + "/wish/daylist?memId="+store.getState().loginId + "&day=" + day ;
@@ -125,7 +111,7 @@ class Week extends Component {
 
 
   componentDidMount(){
-    this.getData();
+    // this.getData();
     
     
   }
@@ -194,7 +180,7 @@ class Week extends Component {
                
               
               </label>
-              {this.state.list.map((row,idx)=>(
+              {this.props.list.map((row,idx)=>(
                   <DayItem row={row} key={idx} className={className} dayInfo={dayInfo} i={i} fn={fn}></DayItem>
                   
               ))}
@@ -260,6 +246,10 @@ class Week extends Component {
 
 class Calendar extends Component {
 
+  constructor(props){
+    super(props);
+  }
+
   Weeks = (monthYear,selected,clickFn) => {
     const selectMonth = Number(this.props.selectMonth);
     const firstDayOfMonth = moment(monthYear).startOf('month');
@@ -288,6 +278,7 @@ class Calendar extends Component {
           firstDayOfThisWeekformat={firstDayOfWeek.clone().add(i * 7,'d').format("YYYY-MM-DD")}
           selected={selected}
           fn={clickFn}
+          list={this.props.list}
         />
       ))
     }
