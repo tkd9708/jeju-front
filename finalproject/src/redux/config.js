@@ -53,6 +53,7 @@ export const actionType = {
     setSearchResultDataList: "setSearchResultDataList",
     googleLogin: "googleLogin",
     googleLogout: "googleLogout",
+    weatherUpdate: "weatherUpdate",
 }
 
 export const mainViewType = {
