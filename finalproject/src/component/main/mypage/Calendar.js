@@ -234,10 +234,10 @@ class Week extends Component {
 
 
           {/* 해당 날짜 출력 모달 */}
-          <MDBModal isOpen={this.state.open} toggle={this.toggle}>
+          <MDBModal isOpen={this.state.open} toggle={this.toggle} centered className="RCA-planAddModal">
               <MDBModalHeader toggle={this.toggle}>{this.props.selected} 일정</MDBModalHeader>
                   <MDBModalBody>
-                      <div className="RCA-planAddModal">
+                      <div>
                         <Timeline align="alternate">
                           {this.state.clist.map((row)=>(
                               <ClistItem row={row} getMonthList={this.props.getMonthList} toggle={this.toggle.bind(this)}/>

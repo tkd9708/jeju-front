@@ -2,28 +2,16 @@
     margin: 0;
 }
 
-.test-layout{
-    
-}
 /* this test-layout class for test it will be terminated */
 
 .RCA-app-container{
     display: flex;
     flex-direction: column;
-    width: 90vw;
-    height: 80vh;
-    /* border: 1px solid #ddd; */
-    margin: 100px auto;
-    margin-bottom: 200px;
 }
-
-
 
 /* header */
 .RCA-header-container{
-    /* flex-basis: 50px; */
     background-color: white;
-    /* display: flex; */
     width: 100%;
 }
 
@@ -31,10 +19,6 @@
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;   
-}
-.RCA-header-Title {
-    padding: 10px;
-    font-size: 1.2rem;
 }
 .RCA-header-middle{
     line-height: 50px;
@@ -73,7 +57,7 @@
     float: left;
     height: 40px;
     line-height: 40px;
-    font-size: 20px;
+    /* font-size: 20px; */
 }
 
 /* calendar component */
@@ -89,7 +73,7 @@
 
 .RCA-calendar-date-header{
     display: flex;
-    height: 50px;
+    /* height: 50px; */
     background-color: white;
 }
 
@@ -143,9 +127,9 @@
     
     overflow-y: auto;
     
-    white-space: nowrap;
+    /* white-space: nowrap;
     text-overflow: ellipsis;
-    overflow-x:auto;
+    overflow-x:auto; */
 }
 
 .RCA-calendar-week{
@@ -160,12 +144,12 @@
 
 .RCA-calendar-day-label{
     display: inline-block;
-    font-size: 1rem;
+    /* font-size: 1rem; */
     position: absolute;
     text-align: center;
-    line-height: 25px;
-    top : 5px;
-    right: 5px;
+    /* line-height: 25px; */
+    /* top : 5px; */
+    /* right: 5px; */
 }
 
 .date-weekday-label{
@@ -179,10 +163,10 @@
 
 
 .selected label{
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
     color: white;
-    width: 25px;
-    height: 25px;
+    /* width: 25px; */
+    /* height: 25px; */
     background-color: rgb(224, 62, 42);
     border-radius: 100%;
 }
@@ -290,20 +274,204 @@ input{
 }
 
 @media only screen and (max-width:400px){
+    /* 날짜 한칸 */
+    .RCA-calendar-day {
+        font-size: 0.5rem;
+        height: 80px;
+        padding-left: 3px;
+        padding-right: 3px;
+        padding-top: 25px;
+    }
+    .RCA-calendar-day-label{
+        font-size: 0.6rem;
+        line-height: 20px;
+        top : 1px;
+        right: 3px;
+    }
+    .selected label{
+        font-size: 0.6rem;
+        width: 18px;
+        height: 18px;
+    }
+    /* sun, mon, ,,, */
+    .RCA-calendar-date-component{
+        font-size : 0.7rem;
+        line-height: 30px;
+    }
+    /* 일정추가 버튼 */
+    .RCA-app-container .add-list{
+        width: 60px;
+        font-size: 0.5rem;
+        padding: 3px 5px;
+    }
+    /* 헤더 버튼, 월 글씨 */
+    .move-button{
+        font-size: 0.6rem;
+    }
+    .move {
+        margin: 0 10px;
+        font-size: 2rem !important;
+        font-weight: 900;
+    }
+    .RCA-title-year, .RCA-title-month {
+        font-size: 0.8rem;
+    }
+    .RCA-calendar-date-header{
+        height: 30px;
+    }
+    .RCA-header-Title {
+        padding: 5px;
+    }
+    /* 전체 틀 */
+    .RCA-app-container{
+        margin: 50px auto;
+        margin-bottom: 100px;
+        width: 90vw;
+        height: 80vh;
+    }
+    /* 일정 선택 모달 */
+    .RCA-planAddModal h4{
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+    .RCA-timelineDot {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+    .RCA-timelineTitle {
+        font-size: 0.7rem;
+    }
+    .RCA-timelineTitle:hover {
+        font-weight: 700;
+    }
     
 }
 @media only screen and (min-width:400px) and (max-width:770px){
-    
+    /* 날짜 한칸 */
+    .RCA-calendar-day {
+        font-size: 0.6rem;
+        height: 100px;
+        padding-left: 3px;
+        padding-right: 3px;
+        padding-top: 25px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow-x:auto;
+    }
+    .RCA-calendar-day-label{
+        font-size: 0.8rem;
+        line-height: 25px;
+        top : 3px;
+        right: 3px;
+    }
+    .selected label{
+        font-size: 0.8rem;
+        width: 22px;
+        height: 22px;
+    }
+    /* sun, mon, ,,, */
+    .RCA-calendar-date-component{
+        font-size : 1rem;
+        line-height: 50px;
+    }
+    /* 일정추가 버튼 */
+    .RCA-app-container .add-list{
+        width: 75px;
+        font-size: 0.6rem;
+    }
+    /* 헤더 버튼, 월 글씨 */
+    .move-button{
+        font-size: 0.8rem;
+    }
+    .move {
+        margin: 0 10px;
+        font-size: 2.5rem !important;
+        font-weight: 900;
+    }
+    .RCA-title-year, .RCA-title-month {
+        font-size: 1rem;
+    }
+    /* 일정 선택 모달 */
+    .RCA-planAddModal h4{
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+    .RCA-timelineDot {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+    .RCA-timelineTitle {
+        font-size: 0.7rem;
+    }
+    .RCA-timelineTitle:hover {
+        font-weight: 700;
+    }
 }
 @media only screen and (min-width:770px) and (max-width:1023px){
-    
+    /* 날짜 한칸 */
+    .RCA-calendar-day {
+        font-size: 0.7rem;
+        height: 100px;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 25px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow-x:auto;
+    }
+    .RCA-calendar-day-label{
+        font-size: 0.9rem;
+        line-height: 25px;
+        top : 5px;
+        right: 5px;
+    }
+    .selected label{
+        font-size: 0.9rem;
+        width: 23px;
+        height: 23px;
+    }
+    /* sun, mon, ,,, */
+    .RCA-calendar-date-component{
+        font-size : 1.1rem;
+        line-height: 50px;
+    }
+    /* 일정추가 버튼 */
+    .RCA-app-container .add-list{
+        width: 80px;
+        font-size: 0.7rem;
+    }
+    /* 헤더 버튼, 월 글씨 */
+    .move-button{
+        font-size: 1rem;
+    }
+    .move {
+        margin: 0 10px;
+        font-size: 2.8rem !important;
+        font-weight: 900;
+    }
+    .RCA-title-year, .RCA-title-month {
+        font-size: 1.2rem;
+    }
+    /* 일정 선택 모달 */
+    .RCA-planAddModal h4{
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+    .RCA-timelineDot {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    .RCA-timelineTitle {
+        font-size: 0.8rem;
+    }
+    .RCA-timelineTitle:hover {
+        font-weight: 700;
+    }
 }
 @media only screen and (min-width:1023px){   
-    /* 일정 추가 모달 */
-    .RCA-planAddModal {
-        padding: 30px;
-        line-height: 30px;
-    }
     /* 날짜 한칸 */
     .RCA-calendar-day {
         font-size: 0.8rem;
@@ -311,6 +479,20 @@ input{
         padding-left: 5px;
         padding-right: 5px;
         padding-top: 30px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow-x:auto;
+    }
+    .RCA-calendar-day-label{
+        font-size: 1rem;
+        line-height: 25px;
+        top : 5px;
+        right: 5px;
+    }
+    .selected label{
+        font-size: 1rem;
+        width: 23px;
+        height: 23px;
     }
     /* sun, mon, ,,, */
     .RCA-calendar-date-component{
@@ -330,5 +512,26 @@ input{
         margin: 0 10px;
         font-size: 3rem !important;
         font-weight: 900;
+    }
+    /* 일정 추가 모달 */
+    .RCA-planAddModal {
+        padding: 30px;
+        line-height: 30px;
+    }
+    
+    /* 일정 선택 모달 */
+    .RCA-planAddModal h4{
+        font-weight: 700;
+    }
+    .RCA-timelineDot {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    .RCA-timelineTitle {
+        font-size: 0.8rem;
+    }
+    .RCA-timelineTitle:hover {
+        font-weight: 700;
     }
 }

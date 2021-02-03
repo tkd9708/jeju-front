@@ -168,7 +168,7 @@ class MypagePageComp extends Component {
 
                 </div>
                 
-                <Paper square style={{marginTop: '100px'}}>
+                <Paper square style={{marginTop: '100px'}} id="mypageTabs">
                     <Tabs
                         value={this.state.value}
                         indicatorColor="primary"

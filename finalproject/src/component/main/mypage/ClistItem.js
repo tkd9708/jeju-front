@@ -92,14 +92,14 @@ class ClistItem extends Component {
         return (
             // <div>
                 
-                <TimelineItem>
+                <TimelineItem className="RCA-timeline">
                     <TimelineOppositeContent>
-                    <Typography variant="body2" color="textSecondary">
+                    <Typography variant="body2" color="textSecondary" className="RCA-timelineTitle">
                         {row.wishtime}
                     </Typography>
                     </TimelineOppositeContent>
                     <TimelineSeparator>
-                    <TimelineDot color="primary" variant="outlined" style={{width: '40px', height: '40px'}}>
+                    <TimelineDot color="primary" variant="outlined" className="RCA-timelineDot">
                         {/* <FastfoodIcon /> */}
                         {row.content=="spot"?"🛕":row.content==="myplan"?"📅":row.content==="share"?"👨‍🍳":
                             row.content.split(",")[0]==="카페"?"☕":row.content.split(",")[0]==="음식점"?"🍔":
@@ -107,11 +107,14 @@ class ClistItem extends Component {
                     </TimelineDot>
                     <TimelineConnector />
                     </TimelineSeparator>
-                    <TimelineContent>
-                    <Paper elevation={3} style={{padding: '6px 16px', cursor: 'pointer'}} onClick={this.alertOpen.bind(this)}>
+                    <TimelineContent className="RCA-timelineTitle">
+                        <div style={{cursor: 'pointer'}} onClick={this.alertOpen.bind(this)}>
+                            {row.title}
+                        </div>
+                    {/* <Paper elevation={3} className="RCA-timelineTitle" style={{cursor: 'pointer'}} onClick={this.alertOpen.bind(this)}>
 
-                        {row.title}
-                    </Paper>
+                        
+                    </Paper> */}
                     </TimelineContent>
 
                     {/* alert 창 */}
