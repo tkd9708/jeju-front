@@ -195,20 +195,31 @@ class Week extends Component {
     }
 
     onData=()=>{
-      let url= URL+"/plan/insert";
-      let memId=store.getState().loginId;
-      let title=this.row.title;
-      let content=this.props.row.addr;
-      let wishday=this.props.row.wishday;
-      let wishtime=this.props.row.wishtime;
+      // let url= URL+"/plan/insert";
+      // let memId=store.getState().loginId;
+      // let title=this.row.title;
+      // let content=this.props.row.addr;
+      // let wishday=this.props.row.wishday;
+      // let wishtime=this.props.row.wishtime;
 
-      axios.post(url,{memId,title,content,wishday,wishtime})
+      // axios.post(url,{memId,title,content,wishday,wishtime})
+      // .then(res=>{
+      //      //this.props.history.push("/shareplan");
+      // }).catch(err=>{
+      //  console.log("shareplan insert 오류 : " + err);
+      // })
+
+      let memId=store.getState().loginId;
+      let wishday=this.props.selected;
+      let url= URL+"/plan/groupinsert?memId="+ memId + "&wishday=" + wishday;
+
+      axios.get(url)
       .then(res=>{
+          alert("공유 성공");
            //this.props.history.push("/shareplan");
       }).catch(err=>{
        console.log("shareplan insert 오류 : " + err);
       })
-
   }
 
     
@@ -227,7 +238,7 @@ class Week extends Component {
         )}
 
 
-          {/* 일정 추가 모달 */}
+          {/* 해당 날짜 출력 모달 */}
           <MDBModal isOpen={this.state.open} toggle={this.toggle}>
               <MDBModalHeader toggle={this.toggle}>{this.props.selected} 일정</MDBModalHeader>
                   <MDBModalBody>
@@ -241,8 +252,7 @@ class Week extends Component {
                       </div>
                   </MDBModalBody>
               <MDBModalFooter>
-                  <MDBBtn color="primary">공유</MDBBtn>
-                  <MDBBtn color="dark-green">추가</MDBBtn>
+                  <MDBBtn color="dark-green" onClick={this.onData.bind(this)}>공유</MDBBtn>
               </MDBModalFooter>
           </MDBModal>
                 {/* <Modal
