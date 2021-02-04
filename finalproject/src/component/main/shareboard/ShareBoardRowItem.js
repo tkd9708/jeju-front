@@ -97,7 +97,7 @@ class ShareBoardRowItem extends Component {
         ).then(res => {
             console.log("getAnswerCount() res", res);
             this.setState({
-                answerCount : res.data
+                answerCount: res.data
             });
         }).catch(err => {
             console.log("getAnswerCount() err", err);
@@ -158,19 +158,19 @@ class ShareBoardRowItem extends Component {
         let relevel = this.props.row.relevel;
         let restep = this.props.row.restep;
         let content = this.refs.content.value;
+        let id = store.getState().loginId;
         let star = 0;
         let url = URL + "/share/insert" +
             "?" +
             "relevel=" + relevel +
             "&restep=" + restep +
             "&regroup=" + regroup;
+
         let data = {
             num: num,
-            // regroup: regroup,
-            // relevel: relevel,
-            // restep: restep,
             content: content,
             star: star,
+            id: id,
         }
 
         console.log(url, data);
@@ -316,7 +316,7 @@ class ShareBoardRowItem extends Component {
      */
     render() {
         const {row} = this.props;
-        console.log(store.getState().loginId, row.id);
+        // console.log(store.getState().loginId, row.id);
         let itemBottomBtnDiv = this.getItemBottomLikeBox(row);
         let ThumbnailImg = this.getThumbnailImg(row.photo);
 
