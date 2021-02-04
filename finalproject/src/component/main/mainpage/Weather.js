@@ -10,15 +10,9 @@ class Weather extends Component {
         console.log("Weather class 생성자", props);
 
         // 리덕스스토어에구독한다
-<<<<<<< HEAD
-        // store.subscribe(function() {
-        //     console.log("날씨 클래스 생성자에서 state 변경에 대한 변화를 구독합니다 변화를 확인했습니다 store에서 weatherInfo 값을 가져와 첫번째 courseAreaName을 보여줍니다 : " + store.getState().weatherInfo[0].courseName);
-        // }.bind(this));
-=======
         store.subscribe(function() {
             // console.log("날씨 클래스 생성자에서 state 변경에 대한 변화를 구독합니다 변화를 확인했습니다 store에서 weatherInfo 값을 가져와 첫번째 courseAreaName을 보여줍니다 : " + store.getState().weatherInfo[0].courseName);
         }.bind(this));
->>>>>>> 292fde36e621de44440ebeb69a4decd9fb985d22
         // 리덕스스토어에구독한다
 
         // 리덕스를 안쓰고 클래스 내부 state를 씁니다
@@ -117,10 +111,10 @@ class Weather extends Component {
                 });
                 // console.log(res.data);
                 // 날씨클래스 내부 state에 정보 저장한다
-                
+
                 // 리덕스스토어에 액션함수를 보낸다
                 let reduxWeather = res.data.response.body.items.item;
-                
+
                 store.dispatch({
                     type: actionType.weatherUpdate,
                     weatherInfo: reduxWeather,
@@ -155,7 +149,7 @@ class Weather extends Component {
 
                 // 리덕스스토어에 액션함수를 보낸다
                 let reduxWeather_2 = res2.data.response.body.items.item;
-                
+
                 store.dispatch({
                     type: actionType.weatherUpdate,
                     weatherInfo_2: reduxWeather_2,
@@ -178,7 +172,7 @@ class Weather extends Component {
 
         return (
             <div style={{ fontSize : '1rem' }}>
-                
+
                 총 데이타수:
                 {this.state.c_weatherInfo.length}
                 <br />
