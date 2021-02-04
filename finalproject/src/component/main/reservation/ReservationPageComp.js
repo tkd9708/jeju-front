@@ -23,10 +23,15 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import './Reservation.css';
+<<<<<<< HEAD
 
 import { MDBSelect, MDBSelectInput, MDBSelectOptions, MDBSelectOption } from "mdbreact";
 // import './Reservation.css';
 
+=======
+import { MDBSelect, MDBSelectInput, MDBSelectOptions, MDBSelectOption } from "mdbreact";
+// import './Reservation.css';
+>>>>>>> 1ed3a92a9efe27aad0538559a000ae61a315f017
 
 
 import Popover from '@material-ui/core/Popover';
@@ -41,7 +46,7 @@ import { Route } from "react-router-dom";
 
 
 
-class ReservationPageComp extends Component { 
+class ReservationPageComp extends Component {
 
     constructor(props) {
         super(props);
@@ -72,11 +77,11 @@ class ReservationPageComp extends Component {
             business: 0
 
 
-        
+
           }
 
     }
-   
+
     // 인원 선택버튼 숫자증가
     state = {
       value: 0
@@ -86,11 +91,11 @@ class ReservationPageComp extends Component {
           [e.target.name]: e.target.value
       })
     };
-  
+
     decrease = () => {
       this.setState({ value: this.state.value - 1 });
     }
-  
+
     increase = () => {
       this.setState({ value: this.state.value + 1 });
     }
@@ -102,20 +107,20 @@ class ReservationPageComp extends Component {
     //         seat: e.target.value
     //     })
     //   };
-    
+
     // 편도 좌석 인원 버튼
     handleClick = (event) => {
       this.setState({
         anchorEl : event.currentTarget
       })
     }
-    
+
     handleClose = () => {
         this.setState({
           anchorEl : null
         })
       };
-    
+
     handleOpen = () => {
         this.setState({
             open : true
@@ -126,28 +131,28 @@ class ReservationPageComp extends Component {
             seatopen : false
         })
       };
-    
+
     handleSeatOpen = () => {
         this.setState({
           seatopen : true
         })
       };
 
-    
-    
+
+
     // 왕복 좌석 인원 버튼
     handleTwoClick = (event) => {
       this.setState({
         twoanchorEl : event.currentTarget
       })
     }
-    
+
     handleTwoClose = () => {
         this.setState({
           twoanchorEl : null
         })
       };
-  
+
      handleTwoOpen = () => {
       this.setState({
           twoopen : true
@@ -158,14 +163,14 @@ class ReservationPageComp extends Component {
           twoseatopen : false
       })
     };
-  
+
     handleTwoSeatOpen = () => {
       this.setState({
         twoseatopen : true
       })
     };
- 
-    
+
+
     // 탭 버튼
     a11yProps = (index) => {
         return {
@@ -177,11 +182,11 @@ class ReservationPageComp extends Component {
         this.setState({ tabValue: newValue });
       }
 
-    
+
 
     render() {
 
-        
+
        //const { value } = this.state;
         console.log("ReservationPageComp render()", this.props);
         const open = Boolean(this.state.anchorEl);
@@ -197,9 +202,9 @@ class ReservationPageComp extends Component {
                 </div>
 
                 <div style={{border:'1px solid black',width:'800px',height:'550px',maring:'0 auto',marginLeft:'30%'}}>
-                    
+
                     <div>
-                         {/*                       
+                         {/*
                          <div style={{borderRight:"1px solid black", float:'left'}}>
                               <TrendingFlatIcon/><p>편도&nbsp;</p>
                          </div>
@@ -216,7 +221,7 @@ class ReservationPageComp extends Component {
                              <Tab label="왕복" icon={<SyncAltIcon/>} {...this.a11yProps(1)} />
                            </Tabs>
                          </AppBar>
-                      
+
 
                         {/* 편도 */}
                          <TabPanel value={this.state.tabValue} index={0}>
@@ -226,14 +231,14 @@ class ReservationPageComp extends Component {
                                     <b style={{fontSize:'40px',marginLeft:'30px'}}>제주</b>
                             </div>
 
-                   
+
                             <div>
                                <div  style={{marginBottom:'20px'}}>
-                          
+
                                    {/* 날짜선택 */}
                                    <input type="date" name="departDate" onChange={this.handleChange.bind(this)} style={{marginRight:'10px',marginLeft:'160px',width:'380px'}}/>
-                                   
-                         
+
+
                                    {/* 항공예약 버튼 */}
                                    <div style={{float:'right',marginRight:'10px',marginLeft:'10px',marginBottom:'25px',marginTop:'10px'}}>
                                       <button type="button" className="btn btn-info" style={{fontSize:'15px',width:'150px',height:'80px'}}
@@ -241,8 +246,8 @@ class ReservationPageComp extends Component {
                                       항공권 검색</button>
                                    </div>
                               </div>
-    
-                       
+
+
                                <div>
                                    {/* 인원선택 */}
                                    <PersonIcon style={{marginLeft:'110px',marginTop:'25px'}}/>
@@ -265,10 +270,10 @@ class ReservationPageComp extends Component {
                                           vertical: "top",
                                           horizontal: "center"
                                         }}>
-                           
- 
-                                       
-                                             <b>성인</b>                                             
+
+
+
+                                             <b>성인</b>
                                                <div className="def-number-input number-input">
                                                   <button onClick={()=>{this.setState({adult: this.state.adult-1, person: this.state.person-1})}} className="minus"></button>
                                                   <input className="quantity" name="adult" value={this.state.adult} onChange={this.handleChange.bind(this)}
@@ -276,9 +281,9 @@ class ReservationPageComp extends Component {
                                                   <button onClick={()=>{this.setState({adult: this.state.adult+1, person: this.state.person+1})}} className="plus"></button>
                                                </div>
 
-                                               
-                                       
-                                             <b>유아</b>                                             
+
+
+                                             <b>유아</b>
                                                <div className="def-number-input number-input">
                                                   <button onClick={()=>{this.setState({child: this.state.child-1, person: this.state.person-1})}} className="minus"></button>
                                                   <input className="quantity" name="child" value={this.state.child} onChange={this.handleChange.bind(this)}
@@ -286,9 +291,9 @@ class ReservationPageComp extends Component {
                                                   <button onClick={()=>{this.setState({child: this.state.child+1, person: this.state.person+1})}} className="plus"></button>
                                                </div>
 
-                                               
-                                       
-                                             <b>소아</b>                                             
+
+
+                                             <b>소아</b>
                                                <div className="def-number-input number-input">
                                                   <button onClick={()=>{this.setState({infant: this.state.infant-1, person: this.state.person-1})}} className="minus"></button>
                                                   <input className="quantity" name="infant" value={this.state.infant} onChange={this.handleChange.bind(this)}
@@ -296,12 +301,12 @@ class ReservationPageComp extends Component {
                                                   <button onClick={()=>{this.setState({infant: this.state.infant+1, person: this.state.person+1})}} className="plus"></button>
                                                </div>
 
-                                  
+
 
                                     </Popover>
-                                    
+
                                     {/* <FormControl style={{width:'120px',paddingBottom:'20px',marginLeft:'20px',marginRight:'40px'}}>
-                                     
+
                                      <InputLabel>인원</InputLabel>
                                        <Select
                                        open={this.state.open}
@@ -309,11 +314,11 @@ class ReservationPageComp extends Component {
                                        onOpen={this.handleOpen.bind(this)}
                                        value={this.state.person}
                                        name="person"
-                                      
-                                       
+
+
                                       //  onChange={this.handleChange.bind(this)}
                                        >
-                                                                               
+
                                          <MenuItem>
                                              <b>성인</b>
                                              <div className="def-number-input number-input">
@@ -344,10 +349,10 @@ class ReservationPageComp extends Component {
                                         </Select>
                                    </FormControl>
                                     */}
-                                  
+
                                    {/* 좌석선택 */}
                                    <AirlineSeatReclineNormalIcon style={{marginTop:'25px'}}/>
-                                  
+
                                    <FormControl style={{width:'170px',paddingBottom:'20px',marginLeft:'20px'}}>
                                      <InputLabel>좌석</InputLabel>
                                        <Select
@@ -358,15 +363,23 @@ class ReservationPageComp extends Component {
                                        name="seat"
                                        onChange={this.handleChange.bind(this)}
                                        >
+<<<<<<< HEAD
                                         
                                          <MenuItem name="all" value="YC">전체</MenuItem>
                                          <MenuItem name="general" value="Y">일반석</MenuItem>
                                          <MenuItem name="business" value="C">비지니스석</MenuItem>
                                          
                                         
+=======
+                                         <MenuItem value={"일반석"}>일반석</MenuItem>
+                                         <MenuItem value={"프리미엄 일반석"}>프리미엄 일반석</MenuItem>
+                                         <MenuItem value={"비지니스석"}>비지니스석</MenuItem>
+                                         <MenuItem value={"일등석"}>일등석</MenuItem>
+
+>>>>>>> 1ed3a92a9efe27aad0538559a000ae61a315f017
                                        </Select>
                                    </FormControl>
-                                   
+
                                </div>
                             </div>
 
@@ -388,16 +401,16 @@ class ReservationPageComp extends Component {
                                  <b style={{fontSize:'40px',marginLeft:'30px'}}>제주</b>
                             </div>
 
-                   
+
                             <div>
                                <div  style={{marginBottom:'20px'}}>
-                          
+
                                    {/* 날짜선택 */}
                                    {/* 출발날짜 */}
                                    <input type="date" name="startdepartDate" onChange={this.handleChange.bind(this)} style={{marginRight:'60px',marginLeft:'160px'}}/>
                                    {/* 도착날짜 */}
                                    <input type="date" name="arriverdepartDate" onChange={this.handleChange.bind(this)}/>
-                         
+
                                     {/* 항공예약 버튼 */}
                                    <div style={{float:'right',marginRight:'10px',marginBottom:'25px',marginTop:'10px'}}>
                                       <button type="button" className="btn btn-info" style={{fontSize:'15px',width:'150px',height:'80px'}}
@@ -405,8 +418,8 @@ class ReservationPageComp extends Component {
                                         항공권 검색</button>
                                    </div>
                               </div>
-    
-                       
+
+
                                <div>
                                    {/* 인원선택 */}
                                    <PersonIcon style={{marginLeft:'110px',marginTop:'25px'}}/>
@@ -429,10 +442,10 @@ class ReservationPageComp extends Component {
                                           vertical: "top",
                                           horizontal: "center"
                                         }}>
-                           
- 
-                                       
-                                             <b>성인</b>                                             
+
+
+
+                                             <b>성인</b>
                                                <div className="def-number-input number-input">
                                                   <button onClick={()=>{this.setState({twoadult: this.state.twoadult-1, twoperson: this.state.twoperson-1})}} className="minus"></button>
                                                   <input className="quantity" name="twoadult" value={this.state.twoadult} onChange={this.handleChange.bind(this)}
@@ -440,9 +453,9 @@ class ReservationPageComp extends Component {
                                                   <button onClick={()=>{this.setState({twoadult: this.state.twoadult+1, twoperson: this.state.twoperson+1})}} className="plus"></button>
                                                </div>
 
-                                               
-                                       
-                                             <b>유아</b>                                             
+
+
+                                             <b>유아</b>
                                                <div className="def-number-input number-input">
                                                   <button onClick={()=>{this.setState({twochild: this.state.twochild-1, twoperson: this.state.twoperson-1})}} className="minus"></button>
                                                   <input className="quantity" name="twochild" value={this.state.twochild} onChange={this.handleChange.bind(this)}
@@ -450,9 +463,9 @@ class ReservationPageComp extends Component {
                                                   <button onClick={()=>{this.setState({twochild: this.state.twochild+1, twoperson: this.state.twoperson+1})}} className="plus"></button>
                                                </div>
 
-                                               
-                                       
-                                             <b>소아</b>                                             
+
+
+                                             <b>소아</b>
                                                <div className="def-number-input number-input">
                                                   <button onClick={()=>{this.setState({twoinfant: this.state.twoinfant-1, twoperson: this.state.twoperson-1})}} className="minus"></button>
                                                   <input className="quantity" name="twoinfant" value={this.state.twoinfant} onChange={this.handleChange.bind(this)}
@@ -460,14 +473,14 @@ class ReservationPageComp extends Component {
                                                   <button onClick={()=>{this.setState({twoinfant: this.state.twoinfant+1, twoperson: this.state.twoperson+1})}} className="plus"></button>
                                                </div>
 
-                                  
+
 
                                     </Popover>
-                                    
 
-                                     
+
+
                                    {/* <FormControl style={{width:'120px',paddingBottom:'20px',marginLeft:'20px',marginRight:'40px'}}>
-                                     
+
                                      <InputLabel>인원</InputLabel>
                                        <Select
                                        open={this.state.twoopen}
@@ -477,7 +490,7 @@ class ReservationPageComp extends Component {
                                        name="twoperson"
                                        onChange={this.handleChange.bind(this)}
                                        >
-                                                                               
+
                                          <MenuItem>
                                              <b>성인</b>
                                              <div className="def-number-input number-input">
@@ -507,10 +520,10 @@ class ReservationPageComp extends Component {
                                          </MenuItem>
                                         </Select>
                                    </FormControl> */}
-                                  
+
                                   {/* 좌석선택 */}
                                   <AirlineSeatReclineNormalIcon style={{marginTop:'25px'}}/>
-                                  
+
                                   <FormControl style={{width:'170px',paddingBottom:'20px',marginLeft:'20px'}}>
                                      <InputLabel>좌석</InputLabel>
                                        <Select
@@ -521,10 +534,18 @@ class ReservationPageComp extends Component {
                                        name="twoseat"
                                        onChange={this.handleChange.bind(this)}
                                        >
+<<<<<<< HEAD
                                          <MenuItem name="all" value="YC">전체</MenuItem>
                                          <MenuItem name="general" value="Y">일반석</MenuItem>
                                          <MenuItem name="business" value="C">비지니스석</MenuItem>
                                         
+=======
+                                         <MenuItem value={"일반석"}>일반석</MenuItem>
+                                         <MenuItem value={"프리미엄 일반석"}>프리미엄 일반석</MenuItem>
+                                         <MenuItem value={"비지니스석"}>비지니스석</MenuItem>
+                                         <MenuItem value={"일등석"}>일등석</MenuItem>
+
+>>>>>>> 1ed3a92a9efe27aad0538559a000ae61a315f017
                                        </Select>
                                    </FormControl>
                                </div>
@@ -534,14 +555,14 @@ class ReservationPageComp extends Component {
                                 <img src={img}/>
                             </div>
                         </TabPanel>
-        
+
                         </div>
-               
+
                    <div>
-            
+
                    </div>
 
-             
+
                 </div>
             </div>
         )
