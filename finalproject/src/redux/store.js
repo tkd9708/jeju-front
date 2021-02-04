@@ -25,6 +25,7 @@ const reducer = function (state, action) {
                 searchResultDataList: [],
             },
             weatherInfo: [], // 날씨정보
+            weatherInfo_2: [], // 날씨정보_2
         }
     }
 
@@ -93,6 +94,7 @@ const reducer = function (state, action) {
     } else if (action.type === actionType.weatherUpdate) {
         newState = Object.assign({}, state, {
             weatherInfo: action.weatherInfo,
+            weatherInfo_2: action.weatherInfo_2,
         });
     }
 
