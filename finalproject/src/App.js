@@ -31,8 +31,13 @@ import Noticeinsert from './component/main/notice/Noticeinsert';
 import store from "./redux/store";
 import {actionType} from "./redux/config";
 import SearchResultComp from "./component/main/mainpage/SearchResultComp";
-import MemberUpdateFormComp from "./component/main/mypage/MemberUpdateFormComp";
 import SharePlanPageComp from "./component/main/SharePlan/SharePlanPageComp";
+import MySchedule from "./component/main/mypage/MySchedule";
+import MyReview from "./component/main/mypage/MyReview";
+import MyWishlist from "./component/main/mypage/MyWishlist";
+import PassCheck from "./component/main/mypage/PassCheck";
+import SocialUpdateForm from "./component/main/mypage/SocialUpdateForm";
+import MemberUpdateFormComp from "./component/main/mypage/MemberUpdateFormComp";
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -190,10 +195,15 @@ class App extends Component {
                         </Route>
                         <Route path="/join/:name?" component={SignupPageComp}/>
                         <Route exact path="/mypage" component={MypagePageComp}/>
+                        <Route path="/mypage/social/:num?" component={SocialUpdateForm}/>
                         <Route path="/mypage/update/:num?" component={MemberUpdateFormComp}/>
+                        <Route path="/mypage/plan/:num?" component={MySchedule}/>
+                        <Route path="/mypage/review/:num?" component={MyReview}/>
+                        <Route path="/mypage/reservation/:num?" component={MyWishlist}/>
+                        <Route path="/mypage/pass/:name?" component={PassCheck}/>
+                        <Route exact path="/share/insert" component={ShareBoardFormComp}/>
+                        <Route path="/share/update/:num?/:pageNum?" component={ShareBoardUpdateForm}/>
                         <Route path="/share/:pageNum?" component={ShareBoardPageComp}/>
-                        <Route path="/share/insert" component={ShareBoardFormComp}/>
-                        <Route path="/share/update/:num?" component={ShareBoardUpdateForm}/>
                         <Route path="/tour/:name?" component={DetailTourComp}/>
                         <Route exact path="/notice" component={NoticePageComp}/>
                         <Route path="/notice/insert" component={Noticeinsert}/>

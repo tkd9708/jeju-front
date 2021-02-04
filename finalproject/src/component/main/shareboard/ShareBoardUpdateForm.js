@@ -8,16 +8,18 @@ import {URL} from "../../../redux/config";
 import Box from '@material-ui/core/Box';
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-import { withStyles } from '@material-ui/core/styles';
-import { MDBBtn } from "mdbreact";
+import {withStyles} from '@material-ui/core/styles';
+import {MDBBtn} from "mdbreact";
 
 class ShareBoardUpdateForm extends Component {
     constructor(props) {
         super(props);
         console.log("ShareBoardUpdateForm constructor", this.props);
         this.num = this.props.match.params.num;
+        this.pageNum = this.props.match.params.pageNum;
         this.state = {
-            photoname: ''
+            photoname: '',
+            star: "0",
         }
     }
 
@@ -48,16 +50,20 @@ class ShareBoardUpdateForm extends Component {
     //num 에 해당하는 데이타 가져오기
     onSelectData = () => {
         let url = URL + "/share/select?num=" + this.num;
-        axios.get(url)
-            .then(res => {
-                this.refs.subject.value = res.data.subject;
-                this.refs.addr.value = res.data.addr;
-                this.refs.content.value = res.data.content;
-                //이미지명은 state 이므로
-                this.setState({
-                    photoname: res.data.photoname
-                })
+        axios.get(url
+        ).then(res => {
+            console.log(res);
+            this.refs.subject.value = res.data.subject;
+            this.refs.addr.value = res.data.addr;
+            this.refs.content.value = res.data.content;
+            this.refs.star.value = res.data.star;
+            //이미지명은 state 이므로
+            this.setState({
+                photoname: res.data.photoname
             })
+        }).catch(err => {
+            console.log(err);
+        })
 
     }
 
@@ -71,7 +77,7 @@ class ShareBoardUpdateForm extends Component {
         let subject = this.refs.subject.value;
         let addr = this.refs.addr.value;
         let content = this.refs.content.value;
-        let star = 0;
+        let star = this.state.star;
 
         //db 에 update
         let url = URL + "/share/update";
@@ -106,7 +112,7 @@ class ShareBoardUpdateForm extends Component {
         _promise.then(() => {
             alert('업데이트 하였습니다. 목록확인하세요 ' + this.state.subject);
         }).then(() => {
-            this.props.history.push("/share");
+            this.props.history.push(`/share/${this.pageNum}`);
         });
     }
 
@@ -117,13 +123,13 @@ class ShareBoardUpdateForm extends Component {
             <div>
 
                 <div id="ShareFormSubject">
-                <h3 id="sharesubject">맛집공유 수정</h3>
+                    <h3 id="sharesubject">맛집공유 수정</h3>
                 </div>
 
 
                 <table id="ShareFormAll">
                     <tr>
-                        <th id="shareth" style={{verticalAlign:'middle'}}><span>맛집이름 </span></th>
+                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>맛집이름 </span></th>
                         <td id="sharetd">
                             <input className="form-control" type="text" style={{width: '200px', height: '50px'}}
                                    placeholder="맛집이름을 적어주세요" ref="subject"/>
@@ -131,7 +137,7 @@ class ShareBoardUpdateForm extends Component {
                     </tr>
 
                     <tr>
-                        <th id="shareth" style={{verticalAlign:'middle'}}><span >맛집주소 </span></th>
+                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>맛집주소 </span></th>
                         <td id="sharetd">
                             <input className="form-control" type="text" style={{width: '400px', height: '50px'}}
                                    placeholder="맛집주소를 적어주세요" ref="addr"/>
@@ -139,7 +145,7 @@ class ShareBoardUpdateForm extends Component {
                     </tr>
 
                     <tr>
-                        <th id="shareth"  style={{verticalAlign:'middle'}}><span>이미지 </span></th>
+                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>이미지 </span></th>
                         <td id="sharetd">
                             <input type="file" onChange={this.uploadImage.bind(this)}/>
                             {/* <img src={url + this.state.photoname} alt="이미지없음" style={{width:'200px',height:'300px'}}/> */}
@@ -147,54 +153,54 @@ class ShareBoardUpdateForm extends Component {
                     </tr>
 
                     <tr>
-                        <th id="shareth" style={{verticalAlign:'middle'}}><span>리뷰 </span></th>
+                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>리뷰 </span></th>
                         <td id="sharetd">
                          <textarea maxLength="1000" className="form-control"
-                                   style={{width: '600px', height: '150px', resize: 'none',cursor:'auto'}}
+                                   style={{width: '600px', height: '150px', resize: 'none', cursor: 'auto'}}
                                    ref="content" placeholder="리뷰를 입력하세요">
                          </textarea>
                         </td>
                     </tr>
 
                     <tr>
-                        <th id="shareth" style={{verticalAlign:'middle'}}><span>평가 </span></th>
-                        
+                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>평가 </span></th>
+
                         <td id="sharetd">
-                        <Box style={{marginTop:"25px"}} component="fieldset" mb={3} borderColor="transparent">
-                        <Rating
-                         name="customized-empty"
-                         defaultValue={1}
-                         //precision={0.5}
-                         emptyIcon={<StarBorderIcon fontSize="inherit" />}
-                         onChange={
-                            (e)=>{
-                                this.setState({
-                                    star : e.target.value
-                                })
-                            }
-                        }
-                         />
-                        </Box>
+                            <Box style={{marginTop: "25px"}} component="fieldset" mb={3} borderColor="transparent">
+                                <Rating
+                                    name="customized-empty"
+                                    defaultValue={Number(this.refs.star.value)}
+                                    //precision={0.5}
+                                    emptyIcon={<StarBorderIcon fontSize="inherit"/>}
+                                    onChange={
+                                        (e) => {
+                                            this.setState({
+                                                star: e.target.defaultValue
+                                            })
+                                        }
+                                    }
+                                />
+                            </Box>
                         </td>
                     </tr>
 
                 </table>
-                
-                <div id="ShareFormButton">
-                <MDBBtn size="sm" color="deep-orange" 
-                        style={{color:'white',cursor:'pointer'}}
-                        onClick={this.handleSubmit.bind(this)}>
-                     <b style={{fontSize:'15px'}}>수정하기</b>
-                </MDBBtn>
 
-                <MDBBtn size="sm" color="deep-orange" 
-                    style={{color:'white',cursor:'pointer'}}
-                    onClick={() => {
-                        this.props.history.goBack();
-                    }}>
-                     <b style={{fontSize:'15px'}}>목록</b>
-                </MDBBtn>
-             
+                <div id="ShareFormButton">
+                    <MDBBtn size="sm" color="deep-orange"
+                            style={{color: 'white', cursor: 'pointer'}}
+                            onClick={this.handleSubmit.bind(this)}>
+                        <b style={{fontSize: '15px'}}>수정하기</b>
+                    </MDBBtn>
+
+                    <MDBBtn size="sm" color="deep-orange"
+                            style={{color: 'white', cursor: 'pointer'}}
+                            onClick={() => {
+                                this.props.history.goBack();
+                            }}>
+                        <b style={{fontSize: '15px'}}>목록</b>
+                    </MDBBtn>
+
                 </div>
             </div>
         )

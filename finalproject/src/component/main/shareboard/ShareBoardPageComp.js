@@ -165,12 +165,24 @@ class ShareBoardPageComp extends Component {
 
                 {/*/!* 공유버튼 *!/*/}
                 <div>
-                    <Link to="/share/insert">
-                        <MDBBtn size="sm" color="dark-green" type="button"
-                                style={{float: 'right', marginRight: '7%'}}>
-                            <b style={{fontSize: '15px'}}>맛집공유</b>
-                        </MDBBtn>
-                    </Link>
+                    {/*<Link to="/share/insert">*/}
+                    <MDBBtn size="sm" color="dark-green" type="button"
+                            style={{float: 'right', marginRight: '7%'}}
+                            onClick={() => {
+                                console.log("share Restaurant");
+                                if (store.getState().loginId != null && store.getState().loginId != "") {
+                                    this.props.history.push("/share/insert");
+                                } else {
+                                    let _result = window.confirm("로그인이 필요한 서비스 입니다.\n로그인 하시겠습니까?");
+
+                                    if (_result) {
+                                        this.props.history.push("/login");
+                                    }
+                                }
+                            }}
+                    > <b style={{fontSize: '15px'}}>맛집공유</b>
+                    </MDBBtn>
+                    {/*</Link>*/}
 
                     {/*onClick={this.getShareListByPaging.bind(this)}*/}
                     <MDBBtn outline size="sm" color="deep-orange"
@@ -233,6 +245,7 @@ class ShareBoardPageComp extends Component {
                             <ShareBoardRowItem row={row} key={idx}
                                                list={this.getShareListByPaging.bind(this)}
                                                history={this.props.history}
+                                               currentPage={this.currentPage}
                             />
                         ))
                     }

@@ -3,12 +3,12 @@ import {Route, Link} from "react-router-dom";
 import ShareBoardUpdateForm from "./ShareBoardUpdateForm";
 import Modal from './Modal';
 import axios from "axios";
-import {actionType, URL} from '../../../redux/config';
+import {actionType, mainViewType, URL} from '../../../redux/config';
 import ShareReview from './ShareReview';
 import store from "../../../redux/store";
 import Box from '@material-ui/core/Box';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import DeleteIcon from '@material-ui/icons/Delete';
 import BuildIcon from '@material-ui/icons/Build';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import Rating from '@material-ui/lab/Rating';
@@ -16,6 +16,9 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import {withStyles} from '@material-ui/core/styles';
 import {MDBBtn} from "mdbreact";
 import './Share.css';
+import {Delete} from "@material-ui/icons";
+// import "../tour/TourCss.css"
+import imgX from "../../../image/imgX.png";
 
 /*
 row:
@@ -31,6 +34,19 @@ row:
     star: "4"
     subject: "제주도 맛집맛집"
     writeday: "2021-01-22"
+
+    addr: ""
+    content: "맛있습니다"
+    id: null
+    likes: 0
+    num: "474"
+    photo: "jeju20210129150010.jpg"
+    regroup: 473
+    relevel: 0
+    restep: 0
+    star: "0"
+    subject: "해녀촌"
+    writeday: "2021-01-30"
  */
 
 const StyledRating = withStyles({
@@ -56,6 +72,11 @@ class ShareBoardRowItem extends Component {
         //스크롤
         this.myRef = React.createRef()
         this.state = {scrollTop: 0}
+
+        store.dispatch({
+            type: actionType.setMainView,
+            mainView: mainViewType.ShareBoard,
+        })
     }
 
 
@@ -90,7 +111,14 @@ class ShareBoardRowItem extends Component {
                 store.dispatch({
                     type: actionType.shareBoardUpdate,
                 });
-                this.props.history.push("/share");
+
+                //메인 페이지 또는 공유 페이지인지에 따라 다르게 적용.
+                // if(store.getState().mainView == mainViewType.ShareBoard){
+                //     this.props.history.goBack();
+                // } else{
+                    window.location.reload();
+                // }
+
             }).catch(err => {
                 console.log("onDeleteData() err", err);
             });
@@ -142,18 +170,119 @@ class ShareBoardRowItem extends Component {
         this.setState({modalOpen: false})
     }
 
-    // componentDidUpdate() {
-    //     console.log("state변경");
-    // }
+
+    getItemBottomLikeBox = (row) => {
+        let itemBottomBtnDiv = null;
+
+        if (store.getState().logged && store.getState().loginId == row.id) {
+            itemBottomBtnDiv = (
+                <div
+                    id="DivItemLikeBox"
+                >
+                    {/* 좋아요 버튼 */}
+                    <ThumbUpAltIcon
+                        id="ShareThumbIcon"
+                        onClick=""
+                    />&nbsp;{row.likes}
+
+                    {/* 삭제 버튼 */}
+                    <DeleteIcon
+                        id="DeleteButton"
+                        onClick={this.onDeleteData.bind(this)}
+                    />
+
+                    {/* modify 버튼 */}
+                    <BuildIcon
+                        id="UpdateButton"
+                        onClick={() => {
+                            this.props.history.push(`/share/update/${this.props.row.num}/${this.props.currentPage}`);
+                        }}
+                    />
+                </div>
+            )
+        } else {
+            itemBottomBtnDiv = (
+                <div
+                    id="DivItemLikeBox"
+                >
+                    {/* 좋아요 버튼 */}
+                    <ThumbUpAltIcon
+                        id="ShareThumbIcon"
+                        onClick=""
+                    />&nbsp;{row.likes}
+                </div>
+            )
+        }
+
+        return itemBottomBtnDiv;
+    }
+
+    getThumbnailImg = (_strSrc) => {
+        let resultImg = null;
+        let srcImg = URL + "/" + _strSrc;
+
+        if (_strSrc == "no") {
+            resultImg = (
+                <img
+                    src={imgX}
+                    style={{
+                        width: "100%"
+                    }}
+                />
+            )
+        } else {
+            resultImg = (
+                <img
+                    src={srcImg}
+                    onError={(e) => {
+                        console.log("img error");
+                        e.target.src = imgX;
+                    }}
+                    style={{
+                        width: "100%"
+                    }}
+                />
+            )
+        }
+
+        return resultImg;
+    }
 
 
+    /*
+    row:
+        addr: "제주시 제주동 제주읍 제주리 제주제주"
+        content: "맛있습니다. 맛있습니다. 맛있습니다. 맛있습니다.↵맛있습니다. 맛있습니다. 맛있습니다. 맛있습니다↵맛있습니다. 맛있습니다. 맛있습니다. 맛있습니다"
+        id: "hee0134"
+        likes: 0
+        num: "422"
+        photo: "jeju20210122102347.png"
+        regroup: 422
+        relevel: 0
+        restep: 0
+        star: "4"
+        subject: "제주도 맛집맛집"
+        writeday: "2021-01-22"
+
+    row:
+        addr: ""
+        content: "맛있습니다"
+        id: "yangyk7364"
+        likes: 0
+        num: "474"
+        photo: "jeju20210129150010.jpg"
+        regroup: 473
+        relevel: 0
+        restep: 0
+        star: "0"
+        subject: "해녀촌"
+        writeday: "2021-01-30"
+     */
     render() {
         const {row} = this.props;
-        //스크롤
-        const {
-            scrollTop
-        } = this.state
-
+        console.log(store.getState().loginId, row.id);
+        let itemBottomBtnDiv = this.getItemBottomLikeBox(row);
+        let ThumbnailImg = this.getThumbnailImg(row.photo);
 
         return (
             <React.Fragment>
@@ -163,17 +292,16 @@ class ShareBoardRowItem extends Component {
                         <div id="ShareImg"
                              onClick={this.openModal.bind(this)}
                              style={{
-                                 overflow:"hidden"
+                                 overflow: "hidden"
+                             }}
+                        >{ThumbnailImg}</div>
+                        <div id="ShareListSubject"
+                             onClick={this.openModal.bind(this)}
+                             style={{
+                                 fontSize: "25px",
+                                 fontWeight: "bold",
                              }}
                         >
-                            {/*{row.photo}*/}
-                            <img src={URL + "/" + row.photo}
-                                 style={{
-                                     width:"100%"
-                                 }}
-                            />
-                        </div>
-                        <div id="ShareListSubject" onClick={this.openModal.bind(this)}>
                             {row.subject}
                         </div>
                         <div id="ShareContentDiv">
@@ -181,26 +309,12 @@ class ShareBoardRowItem extends Component {
                                 <Rating style={{marginTop: '13px'}}
                                         defaultValue={row.star}
                                         emptyIcon={<StarBorderIcon fontSize="inherit"/>}
+                                        readOnly={true}
                                 />
                             </Box>
-                            <div style={{marginTop: '10px'}}>주소:{row.addr}</div>
+                            <div style={{marginTop: '10px'}}>{row.addr}</div>
                         </div>
-                        <div>
-                            <div style={{width: '400px', height: '55px', backgroundColor: '#FaFaFa'}}>
-                                {/* 좋아요 버튼 */}
-                                <ThumbUpAltIcon id="ShareThumbIcon"/>
-
-                                {/* 삭제 버튼 */}
-                                <DeleteForeverIcon
-                                    id="DeleteButton"
-                                    onClick={this.onDeleteData.bind(this)}
-                                />
-
-                                <Link to={`/share/update/${this.props.row.num}`}>
-                                    <BuildIcon id="UpdateButton"/>
-                                </Link>
-                            </div>
-                        </div>
+                        {itemBottomBtnDiv}
                     </div>
                 </Box>
 
@@ -215,7 +329,7 @@ class ShareBoardRowItem extends Component {
                             <div style={{float: 'left'}}>
                                 {/* 좋아요 버튼 */}
                                 <ThumbUpAltIcon id="ShareModalThumbIcon"/>
-                                <p style={{marginTop: "10px", marginBottom: '45px'}}>(작성자) 님이 공유하신 맛집입니다.</p>
+                                <p style={{marginTop: "10px", marginBottom: '45px'}}>({row.id}) 님이 공유하신 맛집입니다.</p>
                                 <b style={{fontSize: '15px'}}>{row.subject}</b>
                             </div>
 
@@ -226,15 +340,9 @@ class ShareBoardRowItem extends Component {
                         <div id="ShareModalMidBox">
                             <div id="ShareModalImg"
                                  style={{
-                                     overflow:"hidden"
+                                     overflow: "hidden"
                                  }}
-                            >
-                                {/*{row.photo}*/}
-                                <img src={URL + "/" + row.photo}
-                                     style={{
-                                         width:"100%"
-                                     }}
-                                />
+                            >{ThumbnailImg}
                             </div>
                             <div id="ShareModalContent">
                                 <div id="ShareModalContent1">
@@ -242,6 +350,7 @@ class ShareBoardRowItem extends Component {
                                         <Rating
                                             defaultValue={row.star}
                                             emptyIcon={<StarBorderIcon fontSize="inherit"/>}
+                                            readOnly={true}
                                         />
                                     </Box>
                                 </div>

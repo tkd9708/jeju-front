@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import MobileMenu from './MobileMenu';
 
 class Menu extends Component {
 
@@ -49,10 +50,11 @@ class Menu extends Component {
         console.log("Menu setLogOut()");
 
         store.dispatch({
-            type: actionType.LOG_IN,
+            type: actionType.LOG_OUT,
             // mainView: mainViewType.MainPage
             loginId: '',
-            logged: false
+            logged: false,
+            googleOn: false
         });
     }
 
@@ -259,54 +261,57 @@ class Menu extends Component {
             </div>:
             // 모바일 메누
             <div className={className_div_menu}>
-                <ul className="mobilemenu">
-                <li>
-                            <IconButton
-                                color="inherit"
-                                aria-label="open drawer"
-                                onClick={this.handleDrawerOpen.bind(this)}
-                                edge="start"
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <SwipeableDrawer
-                                anchor='left'
-                                open={this.state.drawerOpen}
-                                onClose={this.handleDrawerClose.bind(this)}
-                                onOpen={this.handleDrawerOpen.bind(this)}
-                            >
-                                {this.drawer()}
-                            </SwipeableDrawer>
-                        </li>
-                        <li style={{textAlign: 'center'}}>Title</li>
-                        {this.state.logged ?
-                            <li>
-                                <NavLink exact to="/mypage"
-                                        onClick={() => {
-                                            console.log("mypage NavLink onClick");
-                                            this.setMainView(mainViewType.MyPage);
-                                        }}
-                                >
-                                    <IconButton >
-                                        <AccountCircleIcon/>
-                                    </IconButton>
-                                </NavLink>
-                            </li>:
-                            <li>
-                                <NavLink exact to="/login"
-                                        onClick={() => {
-                                            console.log("Login NavLink onClick");
-                                            this.setMainView(mainViewType.Login);
-                                        }}
-                                >
-                                    <IconButton >
-                                        <AccountCircleIcon/>
-                                    </IconButton>
-                                </NavLink>
-                            </li>
-                            }
-                </ul>
+                <MobileMenu setMainView={this.setMainView.bind(this)} setLogOut={this.setLogOut.bind(this)} history={this.props.history}/>
             </div>
+            // <div className={className_div_menu}>
+            //     <ul className="mobilemenu">
+            //     <li>
+            //                 <IconButton
+            //                     color="inherit"
+            //                     aria-label="open drawer"
+            //                     onClick={this.handleDrawerOpen.bind(this)}
+            //                     edge="start"
+            //                 >
+            //                     <MenuIcon />
+            //                 </IconButton>
+            //                 <SwipeableDrawer
+            //                     anchor='left'
+            //                     open={this.state.drawerOpen}
+            //                     onClose={this.handleDrawerClose.bind(this)}
+            //                     onOpen={this.handleDrawerOpen.bind(this)}
+            //                 >
+            //                     {this.drawer()}
+            //                 </SwipeableDrawer>
+            //             </li>
+            //             <li style={{textAlign: 'center'}}>Title</li>
+            //             {this.state.logged ?
+            //                 <li>
+            //                     <NavLink exact to="/mypage"
+            //                             onClick={() => {
+            //                                 console.log("mypage NavLink onClick");
+            //                                 this.setMainView(mainViewType.MyPage);
+            //                             }}
+            //                     >
+            //                         <IconButton >
+            //                             <AccountCircleIcon/>
+            //                         </IconButton>
+            //                     </NavLink>
+            //                 </li>:
+            //                 <li>
+            //                     <NavLink exact to="/login"
+            //                             onClick={() => {
+            //                                 console.log("Login NavLink onClick");
+            //                                 this.setMainView(mainViewType.Login);
+            //                             }}
+            //                     >
+            //                         <IconButton >
+            //                             <AccountCircleIcon/>
+            //                         </IconButton>
+            //                     </NavLink>
+            //                 </li>
+            //                 }
+            //     </ul>
+            // </div>
             ;
         return (
             <div>

@@ -9,22 +9,22 @@ const persistConfig = {
 }
 
 const reducer = function (state, action) {
-
     //state 초기화.
     if (state === undefined) {
         return {
             mainView: mainViewType.MainPage,
             logged: false,
             memberData: [], // 회원목록
-            id: '',
-            loginId: '',
+            id: "",
+            loginId: "",
+            loginEmail: "",
             googleOn: false,
             mainSearch: {
                 category: "all",
                 searchVal: "",
                 searchResultDataList: [],
             },
-
+            weatherInfo: [], // 날씨정보
         }
     }
 
@@ -49,9 +49,11 @@ const reducer = function (state, action) {
             logged: action.logged
         });
     } else if (action.type === actionType.LOG_OUT) {
-            newState = Object.assign({}, state, {
-                loginId: action.loginId,
-                logged: action.logged});
+        newState = Object.assign({}, state, {
+            loginId: action.loginId,
+            logged: action.logged,
+            googleOn: false
+        });
     } else if (action.type === actionType.LOGIN_REQUEST) {
         newState = Object.assign({}, state, {});
     } else if (action.type === actionType.LOGIN_SUCCESS) {
@@ -72,7 +74,9 @@ const reducer = function (state, action) {
         newState = Object.assign({}, state);
     } else if (action.type === actionType.googleLogin) {
         newState = Object.assign({}, state, {
-            googleOn: action.googleOn
+            googleOn: action.googleOn,
+            loginId: action.loginId,
+            logged: action.logged
         })
     } else if (action.type === actionType.googleLogout) {
         newState = Object.assign({}, state, {
@@ -85,6 +89,10 @@ const reducer = function (state, action) {
                 searchVal: action.searchVal,
                 searchResultDataList: action.searchResultDataList,
             },
+        });
+    } else if (action.type === actionType.weatherUpdate) {
+        newState = Object.assign({}, state, {
+            weatherInfo: action.weatherInfo,
         });
     }
 

@@ -1,7 +1,7 @@
 @media only screen and (max-width:400px){
     #mypageReview {
         width: 90vw;
-        margin: 100px auto;
+        margin: 50px auto;
     }
     .mypageReCol {
         font-size: 6pt !important;
