@@ -2,6 +2,15 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import store from "../../../redux/store";
 import { URL, actionType } from "../../../redux/config";
+import ReactAnimatedWeather from 'react-animated-weather';
+import OPENNURI from "../../../image/img_opentype01.png";
+
+const defaults = {
+    icon: 'CLEAR_DAY',
+    color: 'goldenrod',
+    size: 64,
+    animate: true
+};
 
 class Weather extends Component {
 
@@ -39,7 +48,7 @@ class Weather extends Component {
         // 리덕스를 안쓰고 클래스 내부 state를 씁니다
     }
 
-    componentWillMount(){
+    componentDidMount(){
         this.getWeatherList();
     }
 
@@ -81,7 +90,7 @@ class Weather extends Component {
         var url = 'http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst';
         var queryParams = '?' + encodeURIComponent('ServiceKey') + '=' + 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D';
         queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
-        queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10');
+        queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('8'); // 한 페이지 결과 수
         queryParams += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('json');
         let today = new Date();
         let year = today.getFullYear(); // 년도
@@ -128,12 +137,12 @@ class Weather extends Component {
 
             let url_2 = 'http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnWthrIdx';
             let queryParams_2 = '?' + encodeURIComponent('ServiceKey') + '=' + 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D';
-            queryParams_2 = '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); // 페이지번호
-            queryParams_2 = '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); // 한 페이지 결과 수
-            queryParams_2 = '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
-            queryParams_2 = '&' + encodeURIComponent('CURRENT_DATE') + '=' + encodeURIComponent(year+month+date+hours); // 현재시각
-            queryParams_2 = '&' + encodeURIComponent('HOUR') + '=' + encodeURIComponent(callHour); // CURRENT_DATE부터 8일 후까지의 자료 호출
-            queryParams_2 = '&' + encodeURIComponent('COURSE_ID') + '=' + encodeURIComponent('1'); // 관광 코스ID
+            queryParams_2 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); // 페이지번호
+            queryParams_2 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('8'); // 한 페이지 결과 수
+            queryParams_2 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
+            queryParams_2 += '&' + encodeURIComponent('CURRENT_DATE') + '=' + encodeURIComponent(year+month+date+hours); // 현재시각
+            queryParams_2 += '&' + encodeURIComponent('HOUR') + '=' + encodeURIComponent(callHour); // CURRENT_DATE부터 8일 후까지의 자료 호출
+            queryParams_2 += '&' + encodeURIComponent('COURSE_ID') + '=' + encodeURIComponent('50'); // 관광 코스ID
 
             console.log("/getTourStnWthrIdx" + queryParams_2);
 
@@ -144,7 +153,7 @@ class Weather extends Component {
 
                 // 날씨클래스 내부 state에 정보 저장한다
                 this.setState({
-                    c_weatherInfo: res2.data.response.body.items.item,
+                    c_weatherInfo_2: res2.data.response.body.items.item,
                 });
                 // 날씨클래스 내부 state에 정보 저장한다
 
@@ -162,26 +171,24 @@ class Weather extends Component {
                 });
     }
 
-    componentDidUpdate() {
-        this.getWeatherList();
-    }
-
     render() {
         const { c_weatherInfo } = this.state;
 
-        const skyStatus = ['맑음', '구름조금', '구름많음', '흐림', '비', '비눈', '눈비', '눈'];
+        const skyStatus = ['CLEAR_DAY', 'PARTLY_CLOUDY_DAY', 'CLOUDY', 'FOG', 'RAIN', 'SLEET', 'SLEET', 'SNOW'];
+        const skyColor = ['goldenrod', 'grey', 'grey', 'black', 'grey', 'black', 'black', 'black'];
 
         return (
-            <div style={{ fontSize : '1rem' }}>
-
+            <div style={{ fontSize : '.8rem' }}>
+                
                 총 데이타수:
                 {this.state.c_weatherInfo.length}
                 <br />
 
                 '관광지-지역이름' &nbsp; '코스 명' &nbsp; '관광지명' &nbsp; '테마' &nbsp; '최고기온' &nbsp; '최저기온' &nbsp; '풍향' &nbsp; '풍속' &nbsp; '하늘상태' &nbsp; '습도' &nbsp; '강수확률' &nbsp; '강수량' &nbsp;
+                <br />
                 {
                     c_weatherInfo.map((row)=>(
-                        <div>
+                        <>
                         ({row.spotAreaName})
                         ({row.courseName})
                         ({row.spotName})
@@ -195,14 +202,32 @@ class Weather extends Component {
                                 sky : row.sky === index + 1 ? findName : ''
                             })
                         ))} */}
-                        ({skyStatus[row.sky-1]})
+                        <ReactAnimatedWeather
+                            icon={skyStatus[row.sky-1]}
+                            color={skyColor[row.sky-1]}
+                            size={defaults.size}
+                            animate={defaults.animate}
+                        />
+                        {/* ({skyStatus[row.sky-1]}) */}
                         ({row.rhm})
                         ({row.pop})
                         ({row.rn})
-                        </div>
+                        <br />
+                        </>
+                        ))
+                }
+
+                '체감온도'
+                <br />
+                {
+                    this.state.c_weatherInfo_2.map((row)=>(
+                        <>
+                        ({row.btIndex})
+                        </>
                         ))
                 }
                 <h4>Weather</h4>
+                <img src = { OPENNURI } />
             </div>
         )
     }
