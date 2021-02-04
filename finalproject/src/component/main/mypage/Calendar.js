@@ -11,6 +11,8 @@ import './style/RCA.css';
 import { TiTimes } from "react-icons/ti";
 import ClistItem from './ClistItem';
 import store from '../../../redux/store';
+import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
+import Timeline from '@material-ui/lab/Timeline';
 
 class DateHeader extends Component {
 
@@ -70,7 +72,7 @@ class Week extends Component {
 
       this.ym = this.props.ymOfThisCalendar;
       this.state={
-        list:[],
+        // list:[],
         clist:[],
         open: false,
         setOpen: false      
@@ -79,28 +81,14 @@ class Week extends Component {
       
     }
 
-    handleClose = () => {
+    toggle = () => {
       this.setState({
-          open: false
+          open: !this.state.open
       })
     };
 
 
-      getData=()=>{
-
-            let url = URL + "/wish/list?memId="+store.getState().loginId;
-
-            axios.get(url)
-            .then(response=>{
-              //console.log("캘린더 출력 : " + response.data); 
-              this.setState({
-                list: response.data
-
-              });
-            }).catch(err=>{
-              console.log("캘린더 목록 오류:"+err);
-            })
-      }
+      
 
       getList=(day)=>{
             let url = URL + "/wish/daylist?memId="+store.getState().loginId + "&day=" + day ;
@@ -125,7 +113,7 @@ class Week extends Component {
 
 
   componentDidMount(){
-    this.getData();
+    // this.getData();
     
     
   }
@@ -171,11 +159,6 @@ class Week extends Component {
         
       }
    
-      // const category=this.state.memId;
-      // const num=this.state.list.num;
-      // const day=this.props.ymOfThisCalendar+"-"+dayInfo.getDay;
-      // const wishday=this.state.wishday;
-      
         var date = new Date(); 
         var year = date.getFullYear(); 
         var month = new String(date.getMonth()); 
@@ -199,7 +182,7 @@ class Week extends Component {
                
               
               </label>
-              {this.state.list.map((row,idx)=>(
+              {this.props.list.map((row,idx)=>(
                   <DayItem row={row} key={idx} className={className} dayInfo={dayInfo} i={i} fn={fn}></DayItem>
                   
               ))}
@@ -210,6 +193,34 @@ class Week extends Component {
        )      
       })         
     }
+
+    onData=()=>{
+      // let url= URL+"/plan/insert";
+      // let memId=store.getState().loginId;
+      // let title=this.row.title;
+      // let content=this.props.row.addr;
+      // let wishday=this.props.row.wishday;
+      // let wishtime=this.props.row.wishtime;
+
+      // axios.post(url,{memId,title,content,wishday,wishtime})
+      // .then(res=>{
+      //      //this.props.history.push("/shareplan");
+      // }).catch(err=>{
+      //  console.log("shareplan insert 오류 : " + err);
+      // })
+
+      let memId=store.getState().loginId;
+      let wishday=this.props.selected;
+      let url= URL+"/plan/groupinsert?memId="+ memId + "&wishday=" + wishday;
+
+      axios.get(url)
+      .then(res=>{
+          alert("공유 성공");
+           //this.props.history.push("/shareplan");
+      }).catch(err=>{
+       console.log("shareplan insert 오류 : " + err);
+      })
+  }
 
     
 
@@ -226,7 +237,25 @@ class Week extends Component {
         this.props.fn
         )}
 
-                <Modal
+
+          {/* 해당 날짜 출력 모달 */}
+          <MDBModal isOpen={this.state.open} toggle={this.toggle}>
+              <MDBModalHeader toggle={this.toggle}>{this.props.selected} 일정</MDBModalHeader>
+                  <MDBModalBody>
+                      <div className="RCA-planAddModal">
+                        <Timeline align="alternate">
+                          {this.state.clist.map((row)=>(
+                              <ClistItem row={row}/>
+                          ))}
+                        </Timeline>
+                        
+                      </div>
+                  </MDBModalBody>
+              <MDBModalFooter>
+                  <MDBBtn color="dark-green" onClick={this.onData.bind(this)}>공유</MDBBtn>
+              </MDBModalFooter>
+          </MDBModal>
+                {/* <Modal
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"
                     className="calModal"
@@ -240,9 +269,6 @@ class Week extends Component {
                   >
                     <Fade in={this.state.open}>
                     <div className="calPaper">
-                        {/* <h2 id="transition-modal-title">일정 목록</h2>
-                        <p id="transition-modal-description"></p> */}
-                        
 
                         <h2 id="transition-modal-title">{this.props.selected}</h2>
                         
@@ -250,14 +276,11 @@ class Week extends Component {
                         {this.state.clist.map((row)=>(
                             <ClistItem row={row}/>
                         ))}
-                        {/* {this.state.list.map((row1)=>(
-                          <ClistItem row1={row1}></ClistItem>
-                        ))} */}
                         
                     </div>
                     </Fade>
                     
-                </Modal>
+                </Modal> */}
       </div>
     )
   }
@@ -265,22 +288,39 @@ class Week extends Component {
 
 class Calendar extends Component {
 
+  constructor(props){
+    super(props);
+  }
+
   Weeks = (monthYear,selected,clickFn) => {
+    const selectMonth = Number(this.props.selectMonth);
     const firstDayOfMonth = moment(monthYear).startOf('month');
     const firstDateOfMonth = firstDayOfMonth.get('d');
 
     const firstDayOfWeek = firstDayOfMonth.clone().add(-firstDateOfMonth,'d');
 
     const _Weeks = [];
-
+    
     for (let i = 0; i < 6; i++) {
+
+      if(selectMonth < Number(firstDayOfWeek.clone().add(i * 7,'d').format("M"))){
+        if(selectMonth==1 && Number(firstDayOfWeek.clone().add(i * 7,'d').format("M"))==12){
+
+        }else{
+          break;
+        }
+      }
+      else if (selectMonth==12 && Number(firstDayOfWeek.clone().add(i * 7,'d').format("M"))==1)
+        break;
+      
       _Weeks.push((
         <Week key={`RCA-calendar-week-${i}`}
-        weekIndex={i}
-        ymOfThisCalendar={firstDayOfMonth.format("YYYY-MM")}
-        firstDayOfThisWeekformat={firstDayOfWeek.clone().add(i * 7,'d').format("YYYY-MM-DD")}
-        selected={selected}
-        fn={clickFn}
+          weekIndex={i}
+          ymOfThisCalendar={firstDayOfMonth.format("YYYY-MM")}
+          firstDayOfThisWeekformat={firstDayOfWeek.clone().add(i * 7,'d').format("YYYY-MM-DD")}
+          selected={selected}
+          fn={clickFn}
+          list={this.props.list}
         />
       ))
     }

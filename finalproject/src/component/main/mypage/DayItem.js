@@ -62,7 +62,7 @@ class DayItem extends Component {
         var tag = betweenDay==0?<DayDetail row={this.props.row}/>:"";
         
         return (
-            <div>
+            <div style={{color: 'black', fontWeight: '500'}}>
                 {tag}
                
             </div>

@@ -29,7 +29,7 @@ class GoogleLoginBtnComp extends Component
         store.dispatch({
             type: actionType.LOG_IN,
             // mainView: mainViewType.MainPage
-            loginId: loginId
+            loginId: this.state.id
         });
     }
 
@@ -38,7 +38,7 @@ class GoogleLoginBtnComp extends Component
         store.dispatch({
             type: actionType.googleLogin,
             googleOn: true,
-            loginId: this.state.email,
+            loginId: this.state.email.split("@")[0],
             logged: true
         });
         this.props.history.push("/");
@@ -65,9 +65,9 @@ class GoogleLoginBtnComp extends Component
             email2: 'gmail.com',
             photo: res.profileObj.imageUrl,
         });
-        let url = URL + "/member/insertsosial";
+        let url = URL + "/member/insertsocial";
 
-        axios.post(url, {id:this.state.email, name:this.state.name, provider:this.state.id, 
+        axios.post(url, {id:this.state.email.split("@")[0], name:this.state.name, provider:this.state.id, 
             photo:this.state.photo, email:this.state.email.split("@")[0], email2:this.state.email2})
                 .then(result=>{
                     

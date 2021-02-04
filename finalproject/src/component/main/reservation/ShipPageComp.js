@@ -11,7 +11,7 @@ class ShipPageComp extends Component {
     render() {
         return (
             <div>
-                <h4>ShipPageComp</h4>
+                <img src="http://udoboat.smart9.net/m/images/sub3_1.jpg?2"/>
             </div>
         )
     }
