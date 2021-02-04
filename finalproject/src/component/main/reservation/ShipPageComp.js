@@ -93,7 +93,6 @@ class ShipPageComp extends Component {
                         <br/>{tag2}
                     </TabPanel>
                 </Paper>
-                <img src="http://udoboat.smart9.net/m/images/sub3_1.jpg?2"/>
             </div>
         )
     }
