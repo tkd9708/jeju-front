@@ -65,11 +65,6 @@ const StyledRating = withStyles({
 
 class ShareBoardRowItem extends Component {
 
-    state = {
-        modalOpen: false
-
-    }
-
     constructor(props) {
         super(props);
         console.log("constructor", this.props);
@@ -78,6 +73,10 @@ class ShareBoardRowItem extends Component {
         this.state = {
             scrollTop: 0,
             answerCount: 0,
+        }
+        this.state = {
+            modalOpen: false,
+            likes: 0,
         }
 
         store.dispatch({
@@ -199,8 +198,10 @@ class ShareBoardRowItem extends Component {
 
     getItemBottomLikeBox = (row) => {
         let itemBottomBtnDiv = null;
+        let isCondition = (this.props.currentPage != null && this.props.currentPage != undefined);
+        // console.log("getItemBottomLikeBox", this.props.currentPage, isCondition);
 
-        if (store.getState().logged && store.getState().loginId == row.id) {
+        if (store.getState().logged && store.getState().loginId == row.id && isCondition) {
             itemBottomBtnDiv = (
                 <div
                     id="DivItemLikeBox"
@@ -208,8 +209,8 @@ class ShareBoardRowItem extends Component {
                     {/* 좋아요 버튼 */}
                     <ThumbUpAltIcon
                         id="ShareThumbIcon"
-                        onClick=""
-                    />&nbsp;{row.likes}&nbsp;
+                        onClick={this.addLikes}
+                    />&nbsp;{row.likes + this.state.likes}&nbsp;
 
                     <SmsIcon
                         id="ShareThumbIcon"
@@ -226,7 +227,12 @@ class ShareBoardRowItem extends Component {
                     <BuildIcon
                         id="UpdateButton"
                         onClick={() => {
-                            this.props.history.push(`/share/update/${this.props.row.num}/${this.props.currentPage}`);
+                            // this.props.history.push(`/share/update/${this.props.row.num}/${this.props.currentPage}`);
+                            if (!this.props.currentPage) {
+                                window.location.href = `/share/update/${this.props.row.num}/0`;
+                            } else {
+                                window.location.href = `/share/update/${this.props.row.num}/${this.props.currentPage}`;
+                            }
                         }}
                     />
                 </div>
@@ -239,8 +245,8 @@ class ShareBoardRowItem extends Component {
                     {/* 좋아요 버튼 */}
                     <ThumbUpAltIcon
                         id="ShareThumbIcon"
-                        onClick=""
-                    />&nbsp;{row.likes}&nbsp;
+                        onClick={this.addLikes}
+                    />&nbsp;{row.likes + this.state.likes}&nbsp;
 
                     <SmsIcon
                         id="ShareThumbIcon"
@@ -282,6 +288,28 @@ class ShareBoardRowItem extends Component {
         }
 
         return resultImg;
+    }
+
+    addLikes = () => {
+        // /share/updatelikes
+        let num = this.props.row.num;
+        let url = URL + "/share/updatelikes" +
+            "?num=" + num;
+
+        console.log(url);
+
+        axios.get(url
+        ).then(res => {
+            console.log("addLikes res", res);
+            store.dispatch({
+                type: actionType.shareBoardUpdate,
+            });
+            this.setState({
+                likes: this.state.likes + 1,
+            })
+        }).catch(err => {
+            console.log("addLikes err", err);
+        })
     }
 
 
@@ -358,61 +386,19 @@ class ShareBoardRowItem extends Component {
                 {/* //header 부분에 텍스트를 입력한다. */}
                 <Box>
                     <Modal open={this.state.modalOpen} close={this.closeModal.bind(this)} title="share">
-
                         {/* // Modal.js <main> { props.children } </main>에 내용이 입력된다.  */}
                         <div id="ShareModalAll" ref={this.myRef} onScroll={this.onScroll}>
                             <p style={{margin: "10px"}}>({row.id}) 님이 공유하신 맛집입니다.</p>
-                            {/*
-                        <div style={{width: "1150px", height: "140px"}}>
-                            <div style={{float: 'left'}}>
-                                 좋아요 버튼
-                                <ThumbUpAltIcon id="ShareModalThumbIcon"/>
-                                <p style={{marginTop: "10px", marginBottom: '45px'}}>({row.id}) 님이 공유하신 맛집입니다.</p>
-                                <b style={{fontSize: '15px'}}>{row.subject}</b>
-                            </div>
-
-                             찜하기 버튼
-                            <div id="ShareHeart" className="heart"></div>
-                        </div>
-                        */}
-
                             <div
                                 id="ShareModalMidBox"
                                 style={{
                                     height: "580px",
                                 }}
                             >
-                                {/*
-                            <div id="ShareModalImg"
-                                 style={{
-                                     overflow: "hidden"
-                                 }}
-                            >{ThumbnailImg}
-                            </div>
-                            <div id="ShareModalContent">
-                                <div id="ShareModalContent1">
-                                    <Box>
-                                        <Rating
-                                            defaultValue={row.star}
-                                            emptyIcon={<StarBorderIcon fontSize="inherit"/>}
-                                            readOnly={true}
-                                        />
-                                    </Box>
-                                </div>
-                                <div id="ShareModalContent2">주소:{row.addr}</div>
-                                <div id="ShareModalContent3">리뷰:{row.content}</div>
-                                <div id="ShareModalContent4">작성일:{row.writeday}</div>
-                            </div>
-                            */}
-
                                 <table id="ShareFormAll">
                                     <tr>
                                         <th id="shareth" style={{verticalAlign: 'middle'}}><span>맛집이름 </span></th>
                                         <td id="sharetd">
-                                            {/*<input className="form-control" type="text"*/}
-                                            {/*       style={{width: '200px', height: '50px'}}*/}
-                                            {/*       placeholder="맛집이름을 적어주세요" ref="subject"*/}
-                                            {/*/>*/}
                                             <b
                                                 style={{fontSize: "1.3em"}}
                                             >{row.subject}</b>
@@ -422,9 +408,6 @@ class ShareBoardRowItem extends Component {
                                     <tr>
                                         <th id="shareth" style={{verticalAlign: 'middle'}}><span>맛집주소 </span></th>
                                         <td id="sharetd">
-                                            {/*<input className="form-control" type="text"*/}
-                                            {/*       style={{width: '400px', height: '50px'}}*/}
-                                            {/*       placeholder="맛집주소를 적어주세요" ref="addr"/>*/}
                                             <b
                                                 style={{fontSize: "1.3em"}}
                                             >{row.addr}</b>
@@ -434,8 +417,6 @@ class ShareBoardRowItem extends Component {
                                     <tr>
                                         <th id="shareth" style={{verticalAlign: 'middle'}}><span>이미지 </span></th>
                                         <td id="sharetd">
-                                            {/*<input type="file" onChange={this.uploadImage.bind(this)}/>*/}
-                                            {/* <img src={url + this.state.photoname} alt="이미지없음" style={{width:'200px',height:'300px'}}/> */}
                                             <div id="ShareModalImg"
                                                  style={{
                                                      overflow: "hidden",
@@ -446,11 +427,7 @@ class ShareBoardRowItem extends Component {
 
                                     <tr>
                                         <th id="shareth" style={{verticalAlign: 'middle'}}><span>리뷰 </span></th>
-                                        <td id="sharetd" style={{maxWidth:"600px"}}>
-                                            {/*<textarea maxLength="1000" className="form-control"*/}
-                                            {/*          style={{width: '600px', height: '150px', resize: 'none', cursor: 'auto'}}*/}
-                                            {/*          ref="content" placeholder="리뷰를 입력하세요">*/}
-                                            {/*</textarea>*/}
+                                        <td id="sharetd" style={{maxWidth: "600px"}}>
                                             <b
                                                 style={{fontSize: "1.3em"}}
                                             >{row.content}</b>
@@ -475,12 +452,6 @@ class ShareBoardRowItem extends Component {
                             </div>
 
                             <div id="ShareReviewWrite">
-                                {/*<div>*/}
-                                {/*    <div style={{float: 'left'}}>ID</div>*/}
-
-                                {/*    /!* 댓글 이미지 추가 아이콘 *!/*/}
-                                {/*    <AddAPhotoIcon id="ShareReviewPhotoIcon"/>*/}
-                                {/*</div>*/}
                                 <div>
                                     <div>
                                         <textarea

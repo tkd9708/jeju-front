@@ -17,6 +17,7 @@ class ShareBoardUpdateForm extends Component {
         console.log("ShareBoardUpdateForm constructor", this.props);
         this.num = this.props.match.params.num;
         this.pageNum = this.props.match.params.pageNum;
+        this.refs.star.value = 0;
         this.state = {
             photoname: '',
             star: "0",
@@ -112,7 +113,11 @@ class ShareBoardUpdateForm extends Component {
         _promise.then(() => {
             alert('업데이트 하였습니다. 목록확인하세요 ' + this.state.subject);
         }).then(() => {
-            this.props.history.push(`/share/${this.pageNum}`);
+            if (this.pageNum == 0) {
+                window.location.href = "/";
+            } else {
+                this.props.history.push(`/share/${this.pageNum}`);
+            }
         });
     }
 
@@ -169,7 +174,7 @@ class ShareBoardUpdateForm extends Component {
                             <Box style={{marginTop: "25px"}} component="fieldset" mb={3} borderColor="transparent">
                                 <Rating
                                     name="customized-empty"
-                                    defaultValue={Number(this.refs.star.value)}
+                                    defaultValue={0}
                                     //precision={0.5}
                                     emptyIcon={<StarBorderIcon fontSize="inherit"/>}
                                     onChange={
