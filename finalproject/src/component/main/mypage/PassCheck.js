@@ -18,7 +18,8 @@ class MemberUpdateFormComp extends Component {
 
         this.state={
             password: '',
-            showPassword: false
+            showPassword: false,
+           
         }
     }    
     
@@ -48,7 +49,10 @@ class MemberUpdateFormComp extends Component {
         axios.post(url, {id, pass})
             .then(res=>{
                 if(res.data){
-                    this.props.passOk(true);
+                    if(document.body.offsetWidth <= 450)
+                        this.props.history.push("/mypage/update")
+                    else
+                        this.props.passOk(true);
                 }
                 else{
                     alert("비밀번호가 맞지 않습니다.");

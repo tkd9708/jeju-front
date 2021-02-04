@@ -4,11 +4,12 @@ import HotPlaceComp from "./HotPlaceComp";
 import NoticeMiniComp from "./NoticeMiniComp";
 import ShareBoardMiniComp from "./ShareBoardMiniComp";
 import axios from "axios";
-import {URL} from "../../../redux/config";
+import {actionType, mainViewType, URL} from "../../../redux/config";
 import "./MainPageComp.css"
 import MainPhotoComp from "./MainPhotoComp";
 import MyPlanComp from "./MyPlanComp";
 import EtcBoardComp from "./EtcBoardComp";
+import store from "../../../redux/store";
 
 class MainPageComp extends Component {
 
@@ -25,12 +26,17 @@ class MainPageComp extends Component {
             noticeList: [],
         }
 
+        store.dispatch({
+            type: actionType.setMainView,
+            setMainView: mainViewType.MainPage,
+        })
+
     }
 
     componentWillMount() {
         this.getNoticeList.bind(this)();
         this.getShareBoardList.bind(this)();
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
     }
 
     getNoticeList = () => {

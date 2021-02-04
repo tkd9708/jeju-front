@@ -7,7 +7,6 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import store from '../../../redux/store';
 import {  FcCollaboration } from "react-icons/fc";
-import { Button } from 'react-bootstrap';
 import moment from 'moment';
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
@@ -22,16 +21,37 @@ import HotelIcon from '@material-ui/icons/Hotel';
 import RepeatIcon from '@material-ui/icons/Repeat';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 
 class ClistItem extends Component {
 
     constructor(props){
         super(props);
 
-        
+        this.state={
+            alertOpen: false,
+            alertSetOpen: false      
+        }
 
     }
 
+    // alert 함수
+    alertOpen = () => {
+        this.setState({
+            alertOpen: true
+        })
+    };
+
+    alertClose = () => {
+        this.setState({
+            alertOpen: false
+        })
+    };
     
     onDelete=()=>{
         let url=URL+"/wish/delete?num="+this.props.row.num;
@@ -40,8 +60,9 @@ class ClistItem extends Component {
         
         axios.get(url)
         .then(res=>{
-          window.location.reload()
-
+            this.alertClose();
+            this.props.toggle();
+            this.props.getMonthList();
         }).catch(err=>{
           console.log("삭제시 오류:"+err);
         });
@@ -71,14 +92,14 @@ class ClistItem extends Component {
         return (
             // <div>
                 
-                <TimelineItem>
+                <TimelineItem className="RCA-timeline">
                     <TimelineOppositeContent>
-                    <Typography variant="body2" color="textSecondary">
+                    <Typography variant="body2" color="textSecondary" className="RCA-timelineTitle">
                         {row.wishtime}
                     </Typography>
                     </TimelineOppositeContent>
                     <TimelineSeparator>
-                    <TimelineDot color="primary" variant="outlined" style={{width: '40px', height: '40px'}}>
+                    <TimelineDot color="primary" variant="outlined" className="RCA-timelineDot">
                         {/* <FastfoodIcon /> */}
                         {row.content=="spot"?"🛕":row.content==="myplan"?"📅":row.content==="share"?"👨‍🍳":
                             row.content.split(",")[0]==="카페"?"☕":row.content.split(",")[0]==="음식점"?"🍔":
@@ -86,12 +107,38 @@ class ClistItem extends Component {
                     </TimelineDot>
                     <TimelineConnector />
                     </TimelineSeparator>
-                    <TimelineContent>
-                    <Paper elevation={3} style={{padding: '6px 16px'}}>
+                    <TimelineContent className="RCA-timelineTitle">
+                        <div style={{cursor: 'pointer'}} onClick={this.alertOpen.bind(this)}>
+                            {row.title}
+                        </div>
+                    {/* <Paper elevation={3} className="RCA-timelineTitle" style={{cursor: 'pointer'}} onClick={this.alertOpen.bind(this)}>
 
-                        {row.title}
-                    </Paper>
+                        
+                    </Paper> */}
                     </TimelineContent>
+
+                    {/* alert 창 */}
+                    <Dialog
+                        open={this.state.alertOpen}
+                        onClose={this.alertClose.bind(this)}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">{row.title}</DialogTitle>
+                        <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            해당 일정을 삭제하시겠습니까?
+                        </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                        <Button onClick={this.alertClose.bind(this)} color="primary">
+                            NO
+                        </Button>
+                        <Button onClick={this.onDelete.bind(this)} color="primary" autoFocus>
+                            YES
+                        </Button>
+                        </DialogActions>
+                    </Dialog>
                 </TimelineItem>
                 
                 // {

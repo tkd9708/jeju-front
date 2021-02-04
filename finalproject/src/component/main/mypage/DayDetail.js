@@ -86,21 +86,29 @@ class DayDetail extends Component {
         var shareNum=row.shareNum;
         var spotId=row.spotId;
         
-        
+        var flag = ''
       
-        var around = aroundId!==null?content.split(",")[0]==="음식점"
-            ?<div>🍔{aroundId}</div>:content.split(",")[0]==="숙박"?<div>🛌{aroundId}</div>:<div>☕{aroundId}</div>
-            :'';
-        var share = shareNum!=null?<div>👨‍🍳{this.state.list}</div>:'';
-        var spot = spotId!=null?<div>🛕{this.state.list}</div>:'';
-        var myTodo = (aroundId==null&&shareNum==null&&spotId==null)?<div>📅{content}</div>:'';
+        var flag = aroundId!==null?content.split(",")[0]==="음식점"
+            ?'food':content.split(",")[0]==="숙박"?'bed':'coffee':'';
+
+        var around='';
+        if(flag==='food')
+            around = document.body.offsetWidth > 450?<div>🍔{aroundId}</div>:<span>🍔</span>;
+        else if(flag==='coffee')
+            around = document.body.offsetWidth > 450?<div>☕{aroundId}</div>:<span>☕</span>;
+        else 
+            around = document.body.offsetWidth > 450?<div>🛌{aroundId}</div>:<span>🛌</span>;
+
+        var share = shareNum!=null?document.body.offsetWidth > 450?<div>👨‍🍳{this.state.list}</div>:<span>👨‍🍳</span>:'';
+        var spot = spotId!=null?document.body.offsetWidth > 450?<div>🛕{this.state.list}</div>:<span>🛕</span>:'';
+        var myTodo = (aroundId==null&&shareNum==null&&spotId==null)?document.body.offsetWidth > 450?<div>📅{content}</div>:<span>📅</span>:'';
         var tag = aroundId!==null?around:shareNum!==null?share:spotId!==null?spot:myTodo;
         
         return (
-            <div>
+            <span style={{cursor: 'pointer'}}>
 
                 {tag}
-            </div>
+            </span>
         );
     }
 }

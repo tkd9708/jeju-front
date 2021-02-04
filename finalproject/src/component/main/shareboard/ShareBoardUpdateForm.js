@@ -50,16 +50,20 @@ class ShareBoardUpdateForm extends Component {
     //num 에 해당하는 데이타 가져오기
     onSelectData = () => {
         let url = URL + "/share/select?num=" + this.num;
-        axios.get(url)
-            .then(res => {
-                this.refs.subject.value = res.data.subject;
-                this.refs.addr.value = res.data.addr;
-                this.refs.content.value = res.data.content;
-                //이미지명은 state 이므로
-                this.setState({
-                    photoname: res.data.photoname
-                })
+        axios.get(url
+        ).then(res => {
+            console.log(res);
+            this.refs.subject.value = res.data.subject;
+            this.refs.addr.value = res.data.addr;
+            this.refs.content.value = res.data.content;
+            this.refs.star.value = res.data.star;
+            //이미지명은 state 이므로
+            this.setState({
+                photoname: res.data.photoname
             })
+        }).catch(err => {
+            console.log(err);
+        })
 
     }
 
@@ -165,7 +169,7 @@ class ShareBoardUpdateForm extends Component {
                             <Box style={{marginTop: "25px"}} component="fieldset" mb={3} borderColor="transparent">
                                 <Rating
                                     name="customized-empty"
-                                    defaultValue={1}
+                                    defaultValue={Number(this.refs.star.value)}
                                     //precision={0.5}
                                     emptyIcon={<StarBorderIcon fontSize="inherit"/>}
                                     onChange={
