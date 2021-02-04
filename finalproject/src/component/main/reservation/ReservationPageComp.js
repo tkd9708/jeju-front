@@ -22,9 +22,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+<<<<<<< HEAD
 
 
 import './Reservation.css';
+=======
+import { MDBSelect, MDBSelectInput, MDBSelectOptions, MDBSelectOption } from "mdbreact";
+// import './Reservation.css';
+>>>>>>> 292fde36e621de44440ebeb69a4decd9fb985d22
 
 
 import Popover from '@material-ui/core/Popover';

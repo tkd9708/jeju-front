@@ -19,7 +19,8 @@ class ShareReview extends Component {
 
     getAnswerList = () => {
         //댓글 출력하는 함수.
-        let url = URL + "/share/answer" + "?regroup=" + this.regroup;
+        let url = URL + "/share/answer" +
+            "?regroup=" + this.regroup;
         console.log(url);
 
         axios.get(url

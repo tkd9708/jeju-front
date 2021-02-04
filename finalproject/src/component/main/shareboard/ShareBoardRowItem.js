@@ -13,6 +13,10 @@ import BuildIcon from '@material-ui/icons/Build';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import SmsIcon from '@material-ui/icons/Sms';
+import TextsmsIcon from '@material-ui/icons/Textsms';
 import {withStyles} from '@material-ui/core/styles';
 import {MDBBtn} from "mdbreact";
 import './Share.css';
@@ -71,12 +75,33 @@ class ShareBoardRowItem extends Component {
         console.log("constructor", this.props);
         //스크롤
         this.myRef = React.createRef()
-        this.state = {scrollTop: 0}
+        this.state = {
+            scrollTop: 0,
+            answerCount: 0,
+        }
 
         store.dispatch({
             type: actionType.setMainView,
             mainView: mainViewType.ShareBoard,
-        })
+        });
+
+        this.getAnswerCount();
+    }
+
+    getAnswerCount = () => {
+        let num = this.props.row.num;
+        let url = URL + "/share/answercount" +
+            "?num=" + num;
+
+        axios.get(url
+        ).then(res => {
+            console.log("getAnswerCount() res", res);
+            this.setState({
+                answerCount: res.data
+            });
+        }).catch(err => {
+            console.log("getAnswerCount() err", err);
+        });
     }
 
 
@@ -116,7 +141,7 @@ class ShareBoardRowItem extends Component {
                 // if(store.getState().mainView == mainViewType.ShareBoard){
                 //     this.props.history.goBack();
                 // } else{
-                    window.location.reload();
+                window.location.reload();
                 // }
 
             }).catch(err => {
@@ -133,19 +158,19 @@ class ShareBoardRowItem extends Component {
         let relevel = this.props.row.relevel;
         let restep = this.props.row.restep;
         let content = this.refs.content.value;
+        let id = store.getState().loginId;
         let star = 0;
         let url = URL + "/share/insert" +
             "?" +
             "relevel=" + relevel +
             "&restep=" + restep +
             "&regroup=" + regroup;
+
         let data = {
             num: num,
-            // regroup: regroup,
-            // relevel: relevel,
-            // restep: restep,
             content: content,
             star: star,
+            id: id,
         }
 
         console.log(url, data);
@@ -156,6 +181,7 @@ class ShareBoardRowItem extends Component {
             store.dispatch({
                 type: actionType.shareBoardUpdate,
             });
+            this.getAnswerCount();
         }).catch(err => {
             console.log("onInsertAnswer err", err);
         })
@@ -183,7 +209,12 @@ class ShareBoardRowItem extends Component {
                     <ThumbUpAltIcon
                         id="ShareThumbIcon"
                         onClick=""
-                    />&nbsp;{row.likes}
+                    />&nbsp;{row.likes}&nbsp;
+
+                    <SmsIcon
+                        id="ShareThumbIcon"
+                        onClick=""
+                    />&nbsp;{this.state.answerCount}&nbsp;
 
                     {/* 삭제 버튼 */}
                     <DeleteIcon
@@ -209,7 +240,12 @@ class ShareBoardRowItem extends Component {
                     <ThumbUpAltIcon
                         id="ShareThumbIcon"
                         onClick=""
-                    />&nbsp;{row.likes}
+                    />&nbsp;{row.likes}&nbsp;
+
+                    <SmsIcon
+                        id="ShareThumbIcon"
+                        onClick=""
+                    />&nbsp;{this.state.answerCount}&nbsp;
                 </div>
             )
         }
@@ -280,7 +316,7 @@ class ShareBoardRowItem extends Component {
      */
     render() {
         const {row} = this.props;
-        console.log(store.getState().loginId, row.id);
+        // console.log(store.getState().loginId, row.id);
         let itemBottomBtnDiv = this.getItemBottomLikeBox(row);
         let ThumbnailImg = this.getThumbnailImg(row.photo);
 
