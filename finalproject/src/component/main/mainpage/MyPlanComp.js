@@ -17,6 +17,7 @@ import axios from 'axios';
 import {URL} from '../../../redux/config';
 import MyPlanRightItem from './MyPlanRightItem';
 import MyPlanLeftItem from './MyPlanLeftItem';
+import Weather from "./Weather";
 
 class MyPlanComp extends Component {
     
@@ -38,7 +39,6 @@ class MyPlanComp extends Component {
 
     componentWillMount(){
         this.getPlanList();
-        this.getWeather();
     }
 
     // todayList, todayAfterList 가져오기
@@ -116,11 +116,6 @@ class MyPlanComp extends Component {
             })
     }
 
-    getWeather = () => {
-        let url = 'http://apis.data.go.kr/1360000/TourStnInfoService/getCityTourClmIdx';
-        let queryParams ='?' + encodeURIComponent('ServiceKey') + '=' + '서비스키';
-    }
-
     render(){
         // login시에만 왼쪽 블럭 출력
         const leftTag = store.getState().logged==true?
@@ -128,10 +123,10 @@ class MyPlanComp extends Component {
                 
             // </Box>
             <div className="myPlanLeft" style={{borderRight: '1px solid #aaa'}}>
-                {this.state.todayList!=''?<span>MyPlan on {this.today}</span>:<span>MyPlan</span>}
+                {this.state.todayList!=''?<span style={{color: '#bbb'}}>MyPlan on {this.today}</span>:<span>MyPlan</span>}
                         <br/>
                         {this.state.todayList!=''?<span>TODAY</span>:""}
-                        <List style={{width: '100%'}}>
+                        <List style={{width: '100%', overflow: 'scroll'}}>
                             {this.state.todayList!=''?this.state.todayList.map((row)=>(
                                 <MyPlanLeftItem row={row}/>
                             )):this.state.nextList!=''?this.state.nextList.map((row)=>(
@@ -164,8 +159,8 @@ class MyPlanComp extends Component {
                 {this.state.todayList!=''?<span>오늘의 Spot</span>:this.state.nextList!=''?<span>다가오는 Spot</span>:<span>오늘의 TOP5</span>}
                 {list}
             </div>
-            :<h2>오늘의 날씨</h2>
-            
+            :<h2><Weather/></h2>
+
         return (
             <div className="myPlanComp myPlanParent">
                 {leftTag}
