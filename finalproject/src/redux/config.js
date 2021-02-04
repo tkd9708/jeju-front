@@ -3,13 +3,8 @@ import axios from 'axios';
 import React, {useEffect} from "react";
 import {} from "../component/main/admin/MemberListPageComp";
 
-<<<<<<< HEAD
-// export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot2";
-export const URL = "http://localhost:9002";
-=======
-
-//export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot2";
- export const URL = "http://localhost:9002";
+export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot2";
+ // export const URL = "http://localhost:9002";
 
 export const boardActionType = {
     write: "write",
@@ -17,7 +12,6 @@ export const boardActionType = {
     update: "update",
     delete: "delete",
 }
->>>>>>> e6f55d094cf7a904b97c40840092143bc3ed342e
 
 export const arrJejuLoc_en = [
     "jeju",
