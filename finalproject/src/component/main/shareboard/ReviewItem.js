@@ -3,6 +3,7 @@ import {actionType, boardActionType, URL} from "../../../redux/config";
 import axios from "axios";
 import store from "../../../redux/store";
 import {MDBBtn} from "mdbreact";
+import FaceIcon from '@material-ui/icons/Face';
 
 class ReviewItem extends Component {
 
@@ -183,8 +184,9 @@ class ReviewItem extends Component {
         // console.log(row);
         return (
             <div style={{marginLeft: `calc(30px*${row.relevel})`}}>
-                num:{row.num} / {row.photo} / id:{row.id}
-                / {row.regroup} / {row.relevel} / {row.restep} / 내용 :
+                {/*num:{row.num} / {row.photo} / id:{row.id}*/}
+                {/*/ {row.regroup} / {row.relevel} / {row.restep} / 내용 :*/}
+                <FaceIcon/>&nbsp;{row.id}
                 <div style={{border: "1px solid", margin: "5px"}}>
                     {row.content}
                 </div>

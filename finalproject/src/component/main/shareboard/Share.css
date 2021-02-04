@@ -68,7 +68,7 @@
 /* shareboard모달(detailpage) css */
 #ShareModalAll {
     border: 1px solid #eee;
-    width: 1150px;
+    width: auto;
     height: 800px;
     margin: auto;
     overflow: scroll;
@@ -205,6 +205,8 @@
 #sharetd {
     border-bottom: 2px solid lightsalmon;
     padding-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 input {
