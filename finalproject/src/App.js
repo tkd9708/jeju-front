@@ -38,6 +38,7 @@ import MyWishlist from "./component/main/mypage/MyWishlist";
 import PassCheck from "./component/main/mypage/PassCheck";
 import SocialUpdateForm from "./component/main/mypage/SocialUpdateForm";
 import MemberUpdateFormComp from "./component/main/mypage/MemberUpdateFormComp";
+import ChattingRoom from './component/main/SharePlan/ChattingRoom';
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -213,6 +214,7 @@ class App extends Component {
                         <Route path="/shipReservation/:name?" component={ShipPageComp}/>
                         <Route path="/tourlist/:name?/:pageNum?" component={TourPageComp}/>
                         <Route path="/shareplan/:name?/" component={SharePlanPageComp}/>
+                        <Route path="/chattingroom/:num?" component={ChattingRoom}/>
                     </Switch>
                     <div className="footerComp"
                     >

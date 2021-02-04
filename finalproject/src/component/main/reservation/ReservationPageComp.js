@@ -18,6 +18,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import './Reservation.css';
+<<<<<<< HEAD
 import Popover from '@material-ui/core/Popover';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -26,6 +27,16 @@ import store from '../../../redux/store';
 import axios from 'axios';
 
 class ReservationPageComp extends Component { 
+=======
+import { MDBSelect, MDBSelectInput, MDBSelectOptions, MDBSelectOption } from "mdbreact";
+// import './Reservation.css';
+import Popover from '@material-ui/core/Popover';
+import Button from '@material-ui/core/Button';
+import { Route } from "react-router-dom";
+
+
+class ReservationPageComp extends Component {
+>>>>>>> f980f7a66146142273813c063f34ac3fc5ef3abf
 
     constructor(props) {
         super(props);
@@ -323,12 +334,23 @@ class ReservationPageComp extends Component {
                                        name="seat"
                                        onChange={this.handleChange.bind(this)}
                                        >
+<<<<<<< HEAD
                                         
                                          <MenuItem name="all" value="YC">전체</MenuItem>
                                          <MenuItem name="general" value="Y">일반석</MenuItem>
                                          <MenuItem name="business" value="C">비지니스석</MenuItem>
                                          
                                         
+=======
+
+                                         <MenuItem name="all" value="YC">전체</MenuItem>
+                                         <MenuItem name="general" value="Y">일반석</MenuItem>
+                                         <MenuItem name="business" value="C">비지니스석</MenuItem>
+                                         <MenuItem value={"일반석"}>일반석</MenuItem>
+                                         <MenuItem value={"프리미엄 일반석"}>프리미엄 일반석</MenuItem>
+                                         <MenuItem value={"비지니스석"}>비지니스석</MenuItem>
+                                         <MenuItem value={"일등석"}>일등석</MenuItem>
+>>>>>>> f980f7a66146142273813c063f34ac3fc5ef3abf
                                        </Select>
                                    </FormControl>
                                    
@@ -473,7 +495,14 @@ class ReservationPageComp extends Component {
                                          <MenuItem name="all" value="YC">전체</MenuItem>
                                          <MenuItem name="general" value="Y">일반석</MenuItem>
                                          <MenuItem name="business" value="C">비지니스석</MenuItem>
+<<<<<<< HEAD
                                         
+=======
+                                         <MenuItem value={"일반석"}>일반석</MenuItem>
+                                         <MenuItem value={"프리미엄 일반석"}>프리미엄 일반석</MenuItem>
+                                         <MenuItem value={"비지니스석"}>비지니스석</MenuItem>
+                                         <MenuItem value={"일등석"}>일등석</MenuItem>
+>>>>>>> f980f7a66146142273813c063f34ac3fc5ef3abf
                                        </Select>
                                    </FormControl>
                                </div>

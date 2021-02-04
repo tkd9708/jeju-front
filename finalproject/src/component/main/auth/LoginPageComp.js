@@ -105,7 +105,7 @@ class LoginPageComp extends Component {
                  <div class="signImg">
                     <img src={jejuImg} alt=""/>
                 </div>
-                <div class="container">
+                <div class="containers">
                     <div class="bird-container bird-container--one">
                         <div class="bird bird--one"></div>
                     </div>
