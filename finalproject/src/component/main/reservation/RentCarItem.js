@@ -78,7 +78,7 @@ class RentCarItem extends Component
                     <td>{row.checkdate}</td>
                     <td><Button variant="outlined" id="thumbAddBtn" 
                     onClick={this.handleOpen.bind(this)}>일정추가</Button></td>
-                    {/* 렌트카 예약 시간 저장 모달 */}
+                    {/* 렌트카 일정 저장 모달 */}
                 <Modal
                         aria-labelledby="transition-modal-title"
                         aria-describedby="transition-modal-description"
@@ -92,7 +92,7 @@ class RentCarItem extends Component
                     >
                         <Fade in={this.state.open}>
                         <div className="rentcar">
-                            <span>렌트카예약 저장</span><br/>
+                            <span>렌트카 일정 저장</span><br/>
                             <input type="text" ref="name" value={row.name}/><br/>
                             <input type="text" ref="address" value={row.address}/><br/><br/>
                             🗓&nbsp;&nbsp;대여일

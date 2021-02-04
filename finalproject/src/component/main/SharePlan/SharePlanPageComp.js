@@ -127,34 +127,36 @@ class SharePlanPageComp extends Component {
 
 
         return (
-            <div>
-                <ChatCompPage/>
-                <div className="outline">
-                    <div className="react-body">
-                        <div className="detailTitle">
-                              <span
-                                  className="detailTitleContent"
-                                  style={{backgroundColor: 'white', color: '#036E38'}}
-                              >&nbsp;&nbsp;일정 공유게시판&nbsp;&nbsp;</span>
-                        </div>
-                        <div className="detailIntro"
-                             style={{color: "#888"}}>
-                            여러분만의 일정을 다른 사람들과 공유해보세요!
-                        </div>
-                        {/* <div className="slide-out">  */}
-                        <div className="slide-list-bar">
-                            <div className="slide-list-box">
-                                <br/>
-                                <Slider {...settings}>
-                                    {/* <div className="slide-list-item"> */}
-                                    {this.state.glist.map((row) => (
-                                        <SharePlanRoot row={row}
-                                                       value={this.state.wishday}
-                                        ></SharePlanRoot>
-                                    ))}
-                                    {/* </div> */}
-                                </Slider>
-                                {/* <div className="slick-prev"></div>
+            <div className="outline">
+            <div className="react-body">
+             <div className="detailTitle">
+              <span className="detailTitleContent" style={{backgroundColor:'white',color:'#036E38'}}>
+                    &nbsp;&nbsp;일정 공유게시판&nbsp;&nbsp;
+                </span>
+                </div>
+                <div className="detailIntro" style={{color: "#888"}}>
+                    여러분만의 일정을 다른 사람들과 공유해보세요!
+                </div>
+                {/* <div className="slide-out">  */}
+            <div className="slide-list-bar">
+            
+              <div className="slide-list-box">
+                  <br/>
+                 
+                <Slider {...settings}>
+                    
+                  
+                  {/* <div className="slide-list-item"> */}
+                  {this.state.glist.map((row)=>(
+                      
+                          <SharePlanRoot row={row} value={this.state.wishday}></SharePlanRoot>
+                      
+                  ))}
+                   {/* </div> */}
+                </Slider>
+                
+                 {/* <div className="slick-prev"></div>
+
                 <div className="slick-next"></div> */}
                             </div>
                         </div>
@@ -173,7 +175,7 @@ class SharePlanPageComp extends Component {
                            ref="wishday"
                            value={this.state.wishday}
                            onChange={this.handleChange}/>
-                </div>
+                
             </div>
         );
     }
