@@ -21,72 +21,146 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import ListSubheader from "@material-ui/core/ListSubheader";
 
+import './Reservation.css';
 import { MDBSelect, MDBSelectInput, MDBSelectOptions, MDBSelectOption } from "mdbreact";
 // import './Reservation.css';
 
 
+import Popover from '@material-ui/core/Popover';
+
+import Button from '@material-ui/core/Button';
+
+import { Route } from "react-router-dom";
 
 
 
 
 
-class ReservationPageComp extends Component { 
+
+
+class ReservationPageComp extends Component {
 
     constructor(props) {
         super(props);
         console.log("ReservationPageComp constructor", props);
         this.state = {
-            value: 0,
+          tabValue:0,
+            adult: 0,
+            child:0,
+            infant:0,
+            twoadult: 0,
+            twochild:0,
+            twoinfant:0,
             seat: '',
-            person:'',
-            open: false
+            twoseat:'',
+            person:0,
+            twoperson:0,
+            open: false,
+            twoopen: false,
+            departDate: '',
+            startdepartDate:'',
+            arrivaldepartDate:'',
+            seatopen: false,
+            twoseatopen: false,
+            anchorEl: null,
+            twoanchorEl: null
 
-        
+
+
           }
 
     }
-   
+
     // 인원 선택버튼 숫자증가
     state = {
       value: 0
     }
     handleChange = (e) => {
       this.setState({
-          person: e.target.value
+          [e.target.name]: e.target.value
       })
     };
-  
+
     decrease = () => {
       this.setState({ value: this.state.value - 1 });
     }
-  
+
     increase = () => {
       this.setState({ value: this.state.value + 1 });
     }
 
 
     // 좌석 선택버튼
-    handleChange = (e) => {
-        this.setState({
-            seat: e.target.value
-        })
-      };
-    
+    // handleChange = (e) => {
+    //     this.setState({
+    //         seat: e.target.value
+    //     })
+    //   };
+
+    // 편도 좌석 인원 버튼
+    handleClick = (event) => {
+      this.setState({
+        towanchorEl : event.currentTarget
+      })
+    }
+
     handleClose = () => {
         this.setState({
-            open : false
+          towanchorEl : null
         })
       };
-    
+
     handleOpen = () => {
         this.setState({
             open : true
         })
       };
- 
-    
+      handleSeatClose = () => {
+        this.setState({
+            seatopen : false
+        })
+      };
+
+    handleSeatOpen = () => {
+        this.setState({
+          seatopen : true
+        })
+      };
+
+
+
+    // 왕복 좌석 인원 버튼
+    handleClick = (event) => {
+      this.setState({
+        anchorEl : event.currentTarget
+      })
+    }
+
+    handleTwoClose = () => {
+        this.setState({
+          anchorEl : null
+        })
+      };
+
+     handleTwoOpen = () => {
+      this.setState({
+          twoopen : true
+      })
+    };
+    handleTwoSeatClose = () => {
+      this.setState({
+          twoseatopen : false
+      })
+    };
+
+    handleTwoSeatOpen = () => {
+      this.setState({
+        twoseatopen : true
+      })
+    };
+
+
     // 탭 버튼
     a11yProps = (index) => {
         return {
@@ -95,26 +169,29 @@ class ReservationPageComp extends Component {
         };
       }
       handleTabChange = (event, newValue) => {
-        this.setState({ value: newValue });
+        this.setState({ tabValue: newValue });
       }
 
-    
+
 
     render() {
 
-        
-        const { value } = this.state;
+
+       //const { value } = this.state;
         console.log("ReservationPageComp render()", this.props);
+        const open = Boolean(this.state.anchorEl);
+        const id = open ? "simple-popover" : undefined;
+
         return (
             <div>
-                <div style={{margin:'0 auto',marginLeft:"45%",marginTop:"3%",marginBottom:'2%'}}>
+                <div style={{margin:'0 auto',marginLeft:"46%",marginTop:"2%",marginBottom:'2%'}}>
                 <h1>항공예약</h1>
                 </div>
 
-                <div style={{border:'1px solid black',width:'800px',height:'550px',maring:'0 auto',marginLeft:'28%'}}>
-                    
-                    <div style={{border:'1px solid black'}} >
-                         {/*                       
+                <div style={{border:'1px solid black',width:'800px',height:'550px',maring:'0 auto',marginLeft:'30%'}}>
+
+                    <div>
+                         {/*
                          <div style={{borderRight:"1px solid black", float:'left'}}>
                               <TrendingFlatIcon/><p>편도&nbsp;</p>
                          </div>
@@ -125,106 +202,165 @@ class ReservationPageComp extends Component {
 
 
                         {/* 편도 왕복 선택 tab */}
-                         <AppBar position="static"  color="default">
-                           <Tabs value={this.state.value} onChange={this.handleTabChange.bind(this)} aria-label="full width tabs example" indicatorColor="primary" >
+                         <AppBar position="static"  color="default" style={{marginBottom:'14px'}}>
+                           <Tabs value={this.state.tabValue} onChange={this.handleTabChange.bind(this)} aria-label="full width tabs example" indicatorColor="primary" >
                              <Tab label="편도" icon={<TrendingFlatIcon/>} {...this.a11yProps(0)} />
                              <Tab label="왕복" icon={<SyncAltIcon/>} {...this.a11yProps(1)} />
                            </Tabs>
                          </AppBar>
-                      
+
 
                         {/* 편도 */}
-                         <TabPanel value={this.state.value} index={0}>
+                         <TabPanel value={this.state.tabValue} index={0}>
                             <div style={{textAlign:'center',marginBottom:'50px'}}>
                                     <b style={{fontSize:'40px',marginRight:'30px'}}>김포</b>
                                     <FlightTakeoffIcon style={{width:'50px',height:'50px',color:'#00bfff',marginBottom:'25px'}}  />
                                     <b style={{fontSize:'40px',marginLeft:'30px'}}>제주</b>
                             </div>
 
-                   
-                            <div style={{border:'1px solid black'}}>
+
+                            <div>
                                <div  style={{marginBottom:'20px'}}>
-                          
-                                   <input type="date" style={{marginRight:'10px',marginLeft:'180px',width:'380px'}}/>
-                                   
-                         
-                          
-                                   <div style={{float:'right',marginRight:'10px',marginBottom:'25px',marginTop:'10px'}}>
-                                      <button type="button" className="btn btn-info" style={{fontSize:'15px',width:'150px',height:'80px'}}>항공권 검색</button>
+
+                                   {/* 날짜선택 */}
+                                   <input type="date" name="departDate" onChange={this.handleChange.bind(this)} style={{marginRight:'10px',marginLeft:'160px',width:'380px'}}/>
+
+
+                                   {/* 항공예약 버튼 */}
+                                   <div style={{float:'right',marginRight:'10px',marginLeft:'10px',marginBottom:'25px',marginTop:'10px'}}>
+                                      <button type="button" className="btn btn-info" style={{fontSize:'15px',width:'150px',height:'80px'}}
+                                      onClick={() => window.open('https://flight.naver.com/flights/results/domestic?trip=OW&scity1=GMP&ecity1=CJU&sdate1=2021.02.11.&adult=3&child=0&infant=0&fareType=Y&airlineCode=&nxQuery=%ED%95%AD%EA%B3%B5%EA%B6%8C', '_blank')}>항공권 검색</button>
                                    </div>
                               </div>
-    
-                       
+
+
                                <div>
                                    {/* 인원선택 */}
-                                   <PersonIcon style={{marginLeft:'150px',marginTop:'25px'}}/>
-                                    
-                                    <FormControl style={{width:'120px',paddingBottom:'20px',marginLeft:'20px',marginRight:'40px'}}>
-                                     
+                                   <PersonIcon style={{marginLeft:'110px',marginTop:'25px'}}/>
+
+                                    <Button aria-describedby={id} variant="contained" className="btn btn-info" onClick={this.handleClick.bind(this)}  name="person"
+                                    style={{marginTop:'20px',marginLeft:'15px',marginRight:'30px',width:'150px'}}>
+                                       <b style={{color:'white'}}>총 {this.state.person}명</b>
+                                    </Button>
+
+                                    <Popover
+                                       id={id}
+                                       open={open}
+                                       onClose={this.handleClose.bind(this)}
+                                       anchorEl={this.state.anchorEl}
+                                       anchorOrigin={{
+                                          vertical: "bottom",
+                                          horizontal: "center"
+                                        }}
+                                        transformOrigin={{
+                                          vertical: "top",
+                                          horizontal: "center"
+                                        }}>
+
+
+
+                                             <b>성인</b>
+                                               <div className="def-number-input number-input">
+                                                  <button onClick={()=>{this.setState({adult: this.state.adult-1, person: this.state.person-1})}} className="minus"></button>
+                                                  <input className="quantity" name="adult" value={this.state.adult} onChange={this.handleChange.bind(this)}
+                                                  type="number" />
+                                                  <button onClick={()=>{this.setState({adult: this.state.adult+1, person: this.state.person+1})}} className="plus"></button>
+                                               </div>
+
+
+
+                                             <b>유아</b>
+                                               <div className="def-number-input number-input">
+                                                  <button onClick={()=>{this.setState({child: this.state.child-1, person: this.state.person-1})}} className="minus"></button>
+                                                  <input className="quantity" name="child" value={this.state.child} onChange={this.handleChange.bind(this)}
+                                                  type="number" />
+                                                  <button onClick={()=>{this.setState({child: this.state.child+1, person: this.state.person+1})}} className="plus"></button>
+                                               </div>
+
+
+
+                                             <b>소아</b>
+                                               <div className="def-number-input number-input">
+                                                  <button onClick={()=>{this.setState({infant: this.state.infant-1, person: this.state.person-1})}} className="minus"></button>
+                                                  <input className="quantity" name="infant" value={this.state.infant} onChange={this.handleChange.bind(this)}
+                                                  type="number" />
+                                                  <button onClick={()=>{this.setState({infant: this.state.infant+1, person: this.state.person+1})}} className="plus"></button>
+                                               </div>
+
+
+
+                                    </Popover>
+
+                                    {/* <FormControl style={{width:'120px',paddingBottom:'20px',marginLeft:'20px',marginRight:'40px'}}>
+
                                      <InputLabel>인원</InputLabel>
                                        <Select
-                                       open={value.open}
-                                       onClose={this.handleClose.bind(this)}
-                                       onOpen={this.state.handleOpen}
-                                       value={value.person}
-                                       onChange={this.handleChange.bind(this)}
+                                       open={this.state.open}
+                                      //  onClose={this.handleClose.bind(this)}
+                                       onOpen={this.handleOpen.bind(this)}
+                                       value={this.state.person}
+                                       name="person"
+
+
+                                      //  onChange={this.handleChange.bind(this)}
                                        >
-                                                                               
-                                         <MenuItem value={this.state.person}>
+
+                                         <MenuItem>
                                              <b>성인</b>
                                              <div className="def-number-input number-input">
-                                                <button onClick={this.decrease.bind(this)} className="minus"></button>
-                                                <input className="quantity" name="quantity" value={this.state.value} onChange={()=> console.log('change')}
+                                                <button onClick={()=>{this.setState({adult: this.state.adult-1, person: this.state.person-1})}} className="minus"></button>
+                                                <input className="quantity" name="adult" value={this.state.adult} onChange={this.handleChange.bind(this)}
                                                 type="number" />
-                                                <button onClick={this.increase.bind(this)} className="plus"></button>
+                                                <button onClick={()=>{this.setState({adult: this.state.adult+1, person: this.state.person+1})}} className="plus"></button>
                                              </div>
                                          </MenuItem>
                                          <MenuItem >
                                              <b>소아</b>
                                              <div className="def-number-input number-input">
-                                                <button onClick={this.decrease.bind(this)} className="minus"></button>
-                                                <input className="quantity" name="quantity" value={this.state.value} onChange={()=> console.log('change')}
+                                                <button onClick={()=>{this.setState({child: this.state.child-1, person: this.state.person-1})}} className="minus"></button>
+                                                <input className="quantity" name="child" value={this.state.child} onChange={this.handleChange.bind(this)}
                                                 type="number" />
-                                                <button onClick={this.increase.bind(this)} className="plus"></button>
+                                                <button onClick={()=>{this.setState({child: this.state.child+1, person: this.state.person+1})}} className="plus"></button>
                                              </div>
                                          </MenuItem>
                                          <MenuItem >
                                               <b>유아</b>
                                              <div className="def-number-input number-input">
-                                                <button onClick={this.decrease.bind(this)} className="minus"></button>
-                                                <input className="quantity" name="quantity" value={this.state.value} onChange={()=> console.log('change')}
+                                                <button onClick={()=>{this.setState({infant: this.state.infant-1, person: this.state.person-1})}} className="minus"></button>
+                                                <input className="quantity" name="infant" value={this.state.infant} onChange={this.handleChange.bind(this)}
                                                 type="number" />
-                                                <button onClick={this.increase.bind(this)} className="plus"></button>
+                                                <button onClick={()=>{this.setState({infant: this.state.infant+1, person: this.state.person+1})}} className="plus"></button>
                                              </div>
                                          </MenuItem>
                                         </Select>
                                    </FormControl>
-                                   
-                                  
+                                    */}
+
                                    {/* 좌석선택 */}
                                    <AirlineSeatReclineNormalIcon style={{marginTop:'25px'}}/>
-                                  
+
                                    <FormControl style={{width:'170px',paddingBottom:'20px',marginLeft:'20px'}}>
                                      <InputLabel>좌석</InputLabel>
                                        <Select
-                                       open={this.state.open}
-                                       onClose={this.handleClose.bind(this)}
-                                       onOpen={this.handleOpen.bind(this)}
+                                       open={this.state.seatopen}
+                                       onClose={this.handleSeatClose.bind(this)}
+                                       onOpen={this.handleSeatOpen.bind(this)}
                                        value={this.state.seat}
+                                       name="seat"
                                        onChange={this.handleChange.bind(this)}
                                        >
                                          <MenuItem value={"일반석"}>일반석</MenuItem>
                                          <MenuItem value={"프리미엄 일반석"}>프리미엄 일반석</MenuItem>
                                          <MenuItem value={"비지니스석"}>비지니스석</MenuItem>
                                          <MenuItem value={"일등석"}>일등석</MenuItem>
-                                        
+
                                        </Select>
                                    </FormControl>
-                                   
+
                                </div>
                             </div>
 
-                            <div style={{margin:'0 auto',textAlign:'center',marginTop:'50px'}}>
+                            <div style={{margin:'0 auto',textAlign:'center',marginTop:'40px'}}>
                                 <img src={img}/>
                             </div>
                         </TabPanel>
@@ -235,66 +371,166 @@ class ReservationPageComp extends Component {
 
 
                         {/* 왕복 */}
-                        <TabPanel value={this.state.value} index={1}>
+                        <TabPanel value={this.state.tabValue} index={1}>
                             <div style={{textAlign:'center',marginBottom:'50px'}}>
                                  <b style={{fontSize:'40px',marginRight:'30px'}}>김포</b>
                                  <FlightTakeoffIcon style={{width:'50px',height:'50px',color:'#00bfff',marginBottom:'25px'}}  />
                                  <b style={{fontSize:'40px',marginLeft:'30px'}}>제주</b>
                             </div>
 
-                   
-                            <div style={{border:'1px solid black'}}>
+
+                            <div>
                                <div  style={{marginBottom:'20px'}}>
-                          
+
                                    {/* 날짜선택 */}
-                                   <input type="date" style={{marginRight:'60px',marginLeft:'180px'}}/>
-                                   <input type="date" />
-                         
-                                    
-                                   <div style={{float:'right',marginRight:'10px',marginBottom:'25px'}}>
-                                      <button type="button" className="btn btn-info" style={{fontSize:'15px',width:'150px',height:'70px'}}>항공권 검색</button>
+                                   {/* 출발날짜 */}
+                                   <input type="date" name="startdepartDate" onChange={this.handleChange.bind(this)} style={{marginRight:'60px',marginLeft:'160px'}}/>
+                                   {/* 도착날짜 */}
+                                   <input type="date" name="arriverdepartDate" onChange={this.handleChange.bind(this)}/>
+
+                                    {/* 항공예약 버튼 */}
+                                   <div style={{float:'right',marginRight:'10px',marginBottom:'25px',marginTop:'10px'}}>
+                                      <button type="button" className="btn btn-info" style={{fontSize:'15px',width:'150px',height:'80px'}}>항공권 검색</button>
                                    </div>
                               </div>
-    
-                       
+
+
                                <div>
                                    {/* 인원선택 */}
-                                   <PersonIcon style={{marginLeft:'150px'}}/><input type="form" style={{width:'138px',marginRight:'50px'}}/>
-                                  
+                                   <PersonIcon style={{marginLeft:'110px',marginTop:'25px'}}/>
+
+                                   <Button aria-describedby={id} variant="contained" className="btn btn-info" onClick={this.handleClick.bind(this)}  name="twoperson"
+                                    style={{marginTop:'20px',marginLeft:'15px',marginRight:'30px',width:'150px'}}>
+                                       <b style={{color:'white'}}>총 {this.state.twoperson}명</b>
+                                    </Button>
+
+                                    <Popover
+                                       id={id}
+                                       open={open}
+                                       onClose={this.handleTwoClose.bind(this)}
+                                       anchorEl={this.state.anchorEl}
+                                       anchorOrigin={{
+                                          vertical: "bottom",
+                                          horizontal: "center"
+                                        }}
+                                        transformOrigin={{
+                                          vertical: "top",
+                                          horizontal: "center"
+                                        }}>
+
+
+
+                                             <b>성인</b>
+                                               <div className="def-number-input number-input">
+                                                  <button onClick={()=>{this.setState({twoadult: this.state.twoadult-1, twoperson: this.state.twoperson-1})}} className="minus"></button>
+                                                  <input className="quantity" name="twoadult" value={this.state.twoadult} onChange={this.handleChange.bind(this)}
+                                                  type="number" />
+                                                  <button onClick={()=>{this.setState({twoadult: this.state.adult+1, twoperson: this.state.twoperson+1})}} className="plus"></button>
+                                               </div>
+
+
+
+                                             <b>유아</b>
+                                               <div className="def-number-input number-input">
+                                                  <button onClick={()=>{this.setState({twochild: this.state.twochild-1, twoperson: this.state.twoperson-1})}} className="minus"></button>
+                                                  <input className="quantity" name="twochild" value={this.state.twochild} onChange={this.handleChange.bind(this)}
+                                                  type="number" />
+                                                  <button onClick={()=>{this.setState({twochild: this.state.twochild+1, twoperson: this.state.twoperson+1})}} className="plus"></button>
+                                               </div>
+
+
+
+                                             <b>소아</b>
+                                               <div className="def-number-input number-input">
+                                                  <button onClick={()=>{this.setState({twoinfant: this.state.twoinfant-1, twoperson: this.state.twoperson-1})}} className="minus"></button>
+                                                  <input className="quantity" name="twoinfant" value={this.state.twoinfant} onChange={this.handleChange.bind(this)}
+                                                  type="number" />
+                                                  <button onClick={()=>{this.setState({twoinfant: this.state.twoinfant+1, twoperson: this.state.twoperson+1})}} className="plus"></button>
+                                               </div>
+
+
+
+                                    </Popover>
+
+
+
+                                   {/* <FormControl style={{width:'120px',paddingBottom:'20px',marginLeft:'20px',marginRight:'40px'}}>
+
+                                     <InputLabel>인원</InputLabel>
+                                       <Select
+                                       open={this.state.twoopen}
+                                       onClose={this.handleTwoClose.bind(this)}
+                                       onOpen={this.handleTwoOpen.bind(this)}
+                                       value={this.state.twoperson}
+                                       name="twoperson"
+                                       onChange={this.handleChange.bind(this)}
+                                       >
+
+                                         <MenuItem>
+                                             <b>성인</b>
+                                             <div className="def-number-input number-input">
+                                                <button onClick={()=>{this.setState({twoadult: this.state.twoadult-1, twoperson: this.state.twoperson-1})}} className="minus"></button>
+                                                <input className="quantity" name="twoadult" value={this.state.twoadult} onChange={this.handleChange.bind(this)}
+                                                type="number" />
+                                                <button onClick={()=>{this.setState({twoadult: this.state.twoadult+1, twoperson: this.state.twoperson+1})}} className="plus"></button>
+                                             </div>
+                                         </MenuItem>
+                                         <MenuItem >
+                                             <b>소아</b>
+                                             <div className="def-number-input number-input">
+                                                <button onClick={()=>{this.setState({twochild: this.state.twochild-1, twoperson: this.state.twoperson-1})}} className="minus"></button>
+                                                <input className="quantity" name="twochild" value={this.state.twochild} onChange={this.handleChange.bind(this)}
+                                                type="number" />
+                                                <button onClick={()=>{this.setState({twochild: this.state.twochild+1, twoperson: this.state.twoperson+1})}} className="plus"></button>
+                                             </div>
+                                         </MenuItem>
+                                         <MenuItem >
+                                              <b>유아</b>
+                                             <div className="def-number-input number-input">
+                                                <button onClick={()=>{this.setState({twoinfant: this.state.twoinfant-1, twoperson: this.state.twoperson-1})}} className="minus"></button>
+                                                <input className="quantity" name="twoinfant" value={this.state.twoinfant} onChange={this.handleChange.bind(this)}
+                                                type="number" />
+                                                <button onClick={()=>{this.setState({twoinfant: this.state.twoinfant+1, twoperson: this.state.twoperson+1})}} className="plus"></button>
+                                             </div>
+                                         </MenuItem>
+                                        </Select>
+                                   </FormControl> */}
+
                                   {/* 좌석선택 */}
                                   <AirlineSeatReclineNormalIcon style={{marginTop:'25px'}}/>
-                                  
-                                  <FormControl style={{width:'140px',paddingBottom:'20px',marginLeft:'20px'}}>
-                                    <InputLabel>좌석</InputLabel>
-                                      <Select
-                                      open={this.state.open}
-                                      onClose={this.handleClose.bind(this)}
-                                      onOpen={this.handleOpen.bind(this)}
-                                      value={this.state.seat}
-                                      onChange={this.handleChange.bind(this)}
-                                      >
-                                        <MenuItem value={"일반석"}>일반석</MenuItem>
-                                        <MenuItem value={"프리미엄 일반석"}>프리미엄 일반석</MenuItem>
-                                        <MenuItem value={"비지니스석"}>비지니스석</MenuItem>
-                                        <MenuItem value={"일등석"}>일등석</MenuItem>
-                                       
-                                      </Select>
-                                  </FormControl>
+
+                                  <FormControl style={{width:'170px',paddingBottom:'20px',marginLeft:'20px'}}>
+                                     <InputLabel>좌석</InputLabel>
+                                       <Select
+                                       open={this.state.twoseatopen}
+                                       onClose={this.handleTwoSeatClose.bind(this)}
+                                       onOpen={this.handleTwoSeatOpen.bind(this)}
+                                       value={this.state.twoseat}
+                                       name="twoseat"
+                                       onChange={this.handleChange.bind(this)}
+                                       >
+                                         <MenuItem value={"일반석"}>일반석</MenuItem>
+                                         <MenuItem value={"프리미엄 일반석"}>프리미엄 일반석</MenuItem>
+                                         <MenuItem value={"비지니스석"}>비지니스석</MenuItem>
+                                         <MenuItem value={"일등석"}>일등석</MenuItem>
+
+                                       </Select>
+                                   </FormControl>
                                </div>
                             </div>
 
-                            <div style={{margin:'0 auto',textAlign:'center',marginTop:'50px'}}>
+                            <div style={{margin:'0 auto',textAlign:'center',marginTop:'40px'}}>
                                 <img src={img}/>
                             </div>
                         </TabPanel>
-        
+
                         </div>
-               
+
                    <div>
-            
+
                    </div>
 
-             
+
                 </div>
             </div>
         )

@@ -97,7 +97,7 @@ class ShareBoardRowItem extends Component {
         ).then(res => {
             console.log("getAnswerCount() res", res);
             this.setState({
-                answerCount : res.data
+                answerCount: res.data
             });
         }).catch(err => {
             console.log("getAnswerCount() err", err);
@@ -158,19 +158,19 @@ class ShareBoardRowItem extends Component {
         let relevel = this.props.row.relevel;
         let restep = this.props.row.restep;
         let content = this.refs.content.value;
+        let id = store.getState().loginId;
         let star = 0;
         let url = URL + "/share/insert" +
             "?" +
             "relevel=" + relevel +
             "&restep=" + restep +
             "&regroup=" + regroup;
+
         let data = {
             num: num,
-            // regroup: regroup,
-            // relevel: relevel,
-            // restep: restep,
             content: content,
             star: star,
+            id: id,
         }
 
         console.log(url, data);
@@ -316,7 +316,7 @@ class ShareBoardRowItem extends Component {
      */
     render() {
         const {row} = this.props;
-        console.log(store.getState().loginId, row.id);
+        // console.log(store.getState().loginId, row.id);
         let itemBottomBtnDiv = this.getItemBottomLikeBox(row);
         let ThumbnailImg = this.getThumbnailImg(row.photo);
 
@@ -356,24 +356,33 @@ class ShareBoardRowItem extends Component {
 
                 {/*/////////////////////////////////////Modal/////////////////////////////////////////////////////*/}
                 {/* //header 부분에 텍스트를 입력한다. */}
-                <Modal open={this.state.modalOpen} close={this.closeModal.bind(this)} title="share">
+                <Box>
+                    <Modal open={this.state.modalOpen} close={this.closeModal.bind(this)} title="share">
 
-                    {/* // Modal.js <main> { props.children } </main>에 내용이 입력된다.  */}
-                    <div id="ShareModalAll" ref={this.myRef} onScroll={this.onScroll}>
-
+                        {/* // Modal.js <main> { props.children } </main>에 내용이 입력된다.  */}
+                        <div id="ShareModalAll" ref={this.myRef} onScroll={this.onScroll}>
+                            <p style={{margin: "10px"}}>({row.id}) 님이 공유하신 맛집입니다.</p>
+                            {/*
                         <div style={{width: "1150px", height: "140px"}}>
                             <div style={{float: 'left'}}>
-                                {/* 좋아요 버튼 */}
+                                 좋아요 버튼
                                 <ThumbUpAltIcon id="ShareModalThumbIcon"/>
                                 <p style={{marginTop: "10px", marginBottom: '45px'}}>({row.id}) 님이 공유하신 맛집입니다.</p>
                                 <b style={{fontSize: '15px'}}>{row.subject}</b>
                             </div>
 
-                            {/* 찜하기 버튼 */}
+                             찜하기 버튼
                             <div id="ShareHeart" className="heart"></div>
                         </div>
+                        */}
 
-                        <div id="ShareModalMidBox">
+                            <div
+                                id="ShareModalMidBox"
+                                style={{
+                                    height: "580px",
+                                }}
+                            >
+                                {/*
                             <div id="ShareModalImg"
                                  style={{
                                      overflow: "hidden"
@@ -394,39 +403,109 @@ class ShareBoardRowItem extends Component {
                                 <div id="ShareModalContent3">리뷰:{row.content}</div>
                                 <div id="ShareModalContent4">작성일:{row.writeday}</div>
                             </div>
-                        </div>
+                            */}
 
-                        <div id="ShareReviewWrite">
-                            <div>
-                                <div style={{float: 'left'}}>ID</div>
+                                <table id="ShareFormAll">
+                                    <tr>
+                                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>맛집이름 </span></th>
+                                        <td id="sharetd">
+                                            {/*<input className="form-control" type="text"*/}
+                                            {/*       style={{width: '200px', height: '50px'}}*/}
+                                            {/*       placeholder="맛집이름을 적어주세요" ref="subject"*/}
+                                            {/*/>*/}
+                                            <b
+                                                style={{fontSize: "1.3em"}}
+                                            >{row.subject}</b>
+                                        </td>
+                                    </tr>
 
-                                {/* 댓글 이미지 추가 아이콘 */}
-                                <AddAPhotoIcon id="ShareReviewPhotoIcon"/>
+                                    <tr>
+                                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>맛집주소 </span></th>
+                                        <td id="sharetd">
+                                            {/*<input className="form-control" type="text"*/}
+                                            {/*       style={{width: '400px', height: '50px'}}*/}
+                                            {/*       placeholder="맛집주소를 적어주세요" ref="addr"/>*/}
+                                            <b
+                                                style={{fontSize: "1.3em"}}
+                                            >{row.addr}</b>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>이미지 </span></th>
+                                        <td id="sharetd">
+                                            {/*<input type="file" onChange={this.uploadImage.bind(this)}/>*/}
+                                            {/* <img src={url + this.state.photoname} alt="이미지없음" style={{width:'200px',height:'300px'}}/> */}
+                                            <div id="ShareModalImg"
+                                                 style={{
+                                                     overflow: "hidden",
+                                                 }}
+                                            >{ThumbnailImg}</div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>리뷰 </span></th>
+                                        <td id="sharetd" style={{maxWidth:"600px"}}>
+                                            {/*<textarea maxLength="1000" className="form-control"*/}
+                                            {/*          style={{width: '600px', height: '150px', resize: 'none', cursor: 'auto'}}*/}
+                                            {/*          ref="content" placeholder="리뷰를 입력하세요">*/}
+                                            {/*</textarea>*/}
+                                            <b
+                                                style={{fontSize: "1.3em"}}
+                                            >{row.content}</b>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>평가 </span></th>
+
+                                        <td id="sharetd">
+                                            <Box>
+                                                <Rating
+                                                    defaultValue={row.star}
+                                                    emptyIcon={<StarBorderIcon fontSize="inherit"/>}
+                                                    readOnly={true}
+                                                />
+                                            </Box>
+                                        </td>
+                                    </tr>
+
+                                </table>
                             </div>
-                            <div>
+
+                            <div id="ShareReviewWrite">
+                                {/*<div>*/}
+                                {/*    <div style={{float: 'left'}}>ID</div>*/}
+
+                                {/*    /!* 댓글 이미지 추가 아이콘 *!/*/}
+                                {/*    <AddAPhotoIcon id="ShareReviewPhotoIcon"/>*/}
+                                {/*</div>*/}
                                 <div>
+                                    <div>
                                         <textarea
                                             placeholder="댓글을 입력하세요"
                                             className="form-control"
                                             style={{width: '900px', height: '100px', float: 'left'}}
                                             ref="content"
                                         ></textarea>
-                                </div>
-                                <div>
-                                    <MDBBtn color="deep-orange" id="ShareReviewSave"
-                                            onClick={this.onInsertAnswer.bind(this)}
-                                    ><b style={{fontSize: '17px'}}>작&nbsp;성</b>
-                                    </MDBBtn>
+                                    </div>
+                                    <div>
+                                        <MDBBtn color="deep-orange" id="ShareReviewSave"
+                                                onClick={this.onInsertAnswer.bind(this)}
+                                        ><b style={{fontSize: '17px'}}>작&nbsp;성</b>
+                                        </MDBBtn>
+                                    </div>
                                 </div>
                             </div>
+                            <div>
+                                <ShareReview
+                                    regroup={row.regroup}
+                                />
+                            </div>
                         </div>
-                        <div>
-                            <ShareReview
-                                regroup={row.regroup}
-                            />
-                        </div>
-                    </div>
-                </Modal>
+                    </Modal>
+                </Box>
                 {/*//////////////////////////////////////////////////////////////////////////////////////////*/}
             </React.Fragment>
         )

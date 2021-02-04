@@ -120,10 +120,10 @@ class Weather extends Component {
                 });
                 // console.log(res.data);
                 // 날씨클래스 내부 state에 정보 저장한다
-                
+
                 // 리덕스스토어에 액션함수를 보낸다
                 let reduxWeather = res.data.response.body.items.item;
-                
+
                 store.dispatch({
                     type: actionType.weatherUpdate,
                     weatherInfo: reduxWeather,
@@ -158,7 +158,7 @@ class Weather extends Component {
 
                 // 리덕스스토어에 액션함수를 보낸다
                 let reduxWeather_2 = res2.data.response.body.items.item;
-                
+
                 store.dispatch({
                     type: actionType.weatherUpdate,
                     weatherInfo_2: reduxWeather_2,
