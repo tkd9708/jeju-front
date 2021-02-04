@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://apis.data.go.kr/1360000/TourStnInfoService",
   "dependencies": {
+    "@bybas/weather-icons": "1.2.0",
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "4.11.2",
