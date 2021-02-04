@@ -22,14 +22,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-<<<<<<< HEAD
-
-
 import './Reservation.css';
-=======
+
 import { MDBSelect, MDBSelectInput, MDBSelectOptions, MDBSelectOption } from "mdbreact";
 // import './Reservation.css';
->>>>>>> 292fde36e621de44440ebeb69a4decd9fb985d22
+
 
 
 import Popover from '@material-ui/core/Popover';
@@ -69,7 +66,10 @@ class ReservationPageComp extends Component {
             seatopen: false,
             twoseatopen: false,
             anchorEl: null,
-            twoanchorEl: null
+            twoanchorEl: null,
+            all: 0,
+            general: 0,
+            business: 0
 
 
         
@@ -106,13 +106,13 @@ class ReservationPageComp extends Component {
     // 편도 좌석 인원 버튼
     handleClick = (event) => {
       this.setState({
-        towanchorEl : event.currentTarget
+        anchorEl : event.currentTarget
       })
     }
     
     handleClose = () => {
         this.setState({
-          towanchorEl : null
+          anchorEl : null
         })
       };
     
@@ -136,15 +136,15 @@ class ReservationPageComp extends Component {
     
     
     // 왕복 좌석 인원 버튼
-    handleClick = (event) => {
+    handleTwoClick = (event) => {
       this.setState({
-        anchorEl : event.currentTarget
+        twoanchorEl : event.currentTarget
       })
     }
     
     handleTwoClose = () => {
         this.setState({
-          anchorEl : null
+          twoanchorEl : null
         })
       };
   
@@ -186,6 +186,9 @@ class ReservationPageComp extends Component {
         console.log("ReservationPageComp render()", this.props);
         const open = Boolean(this.state.anchorEl);
         const id = open ? "simple-popover" : undefined;
+
+        const twoopen = Boolean(this.state.twoanchorEl);
+        const twoid = twoopen ? "simple-popover" : undefined;
 
         return (
             <div>
@@ -234,7 +237,8 @@ class ReservationPageComp extends Component {
                                    {/* 항공예약 버튼 */}
                                    <div style={{float:'right',marginRight:'10px',marginLeft:'10px',marginBottom:'25px',marginTop:'10px'}}>
                                       <button type="button" className="btn btn-info" style={{fontSize:'15px',width:'150px',height:'80px'}}
-                                      onClick={() => window.open('https://flight.naver.com/flights/results/domestic?trip=OW&scity1=GMP&ecity1=CJU&sdate1=2021.02.11.&adult=3&child=0&infant=0&fareType=Y&airlineCode=&nxQuery=%ED%95%AD%EA%B3%B5%EA%B6%8C', '_blank')}>항공권 검색</button>
+                                      onClick={() => window.open('https://flight.naver.com/flights/results/domestic?trip=OW&fareType='+this.state.seat+'&scity1=GMP&ecity1=CJU&adult='+this.state.adult+'&child='+this.state.child+'&infant='+this.state.infant+'&sdate1='+this.state.departDate+'', '_blank')}>
+                                      항공권 검색</button>
                                    </div>
                               </div>
     
@@ -354,10 +358,11 @@ class ReservationPageComp extends Component {
                                        name="seat"
                                        onChange={this.handleChange.bind(this)}
                                        >
-                                         <MenuItem value={"일반석"}>일반석</MenuItem>
-                                         <MenuItem value={"프리미엄 일반석"}>프리미엄 일반석</MenuItem>
-                                         <MenuItem value={"비지니스석"}>비지니스석</MenuItem>
-                                         <MenuItem value={"일등석"}>일등석</MenuItem>
+                                        
+                                         <MenuItem name="all" value="YC">전체</MenuItem>
+                                         <MenuItem name="general" value="Y">일반석</MenuItem>
+                                         <MenuItem name="business" value="C">비지니스석</MenuItem>
+                                         
                                         
                                        </Select>
                                    </FormControl>
@@ -395,7 +400,9 @@ class ReservationPageComp extends Component {
                          
                                     {/* 항공예약 버튼 */}
                                    <div style={{float:'right',marginRight:'10px',marginBottom:'25px',marginTop:'10px'}}>
-                                      <button type="button" className="btn btn-info" style={{fontSize:'15px',width:'150px',height:'80px'}}>항공권 검색</button>
+                                      <button type="button" className="btn btn-info" style={{fontSize:'15px',width:'150px',height:'80px'}}
+                                       onClick={() => window.open('https://flight.naver.com/flights/results/domestic?trip=RT&fareType='+this.state.twoseat+'&scity1=GMP&ecity1=CJU&scity2=CJU&ecity2=GMP&adult='+this.state.twoadult+'&child='+this.state.twochild+'&infant='+this.state.twoinfant+'&sdate1='+this.state.startdepartDate+'&sdate2='+this.state.arriverdepartDate+'', '_blank')}>
+                                        항공권 검색</button>
                                    </div>
                               </div>
     
@@ -404,16 +411,16 @@ class ReservationPageComp extends Component {
                                    {/* 인원선택 */}
                                    <PersonIcon style={{marginLeft:'110px',marginTop:'25px'}}/>
 
-                                   <Button aria-describedby={id} variant="contained" className="btn btn-info" onClick={this.handleClick.bind(this)}  name="twoperson"
+                                   <Button aria-describedby={id} variant="contained" className="btn btn-info" onClick={this.handleTwoClick.bind(this)}  name="twoperson"
                                     style={{marginTop:'20px',marginLeft:'15px',marginRight:'30px',width:'150px'}}>
                                        <b style={{color:'white'}}>총 {this.state.twoperson}명</b>
                                     </Button>
 
                                     <Popover
-                                       id={id}
-                                       open={open}
+                                       id={twoid}
+                                       open={twoopen}
                                        onClose={this.handleTwoClose.bind(this)}
-                                       anchorEl={this.state.anchorEl}
+                                       twoanchorEl={this.state.twoanchorEl}
                                        anchorOrigin={{
                                           vertical: "bottom",
                                           horizontal: "center"
@@ -430,7 +437,7 @@ class ReservationPageComp extends Component {
                                                   <button onClick={()=>{this.setState({twoadult: this.state.twoadult-1, twoperson: this.state.twoperson-1})}} className="minus"></button>
                                                   <input className="quantity" name="twoadult" value={this.state.twoadult} onChange={this.handleChange.bind(this)}
                                                   type="number" />
-                                                  <button onClick={()=>{this.setState({twoadult: this.state.adult+1, twoperson: this.state.twoperson+1})}} className="plus"></button>
+                                                  <button onClick={()=>{this.setState({twoadult: this.state.twoadult+1, twoperson: this.state.twoperson+1})}} className="plus"></button>
                                                </div>
 
                                                
@@ -514,10 +521,9 @@ class ReservationPageComp extends Component {
                                        name="twoseat"
                                        onChange={this.handleChange.bind(this)}
                                        >
-                                         <MenuItem value={"일반석"}>일반석</MenuItem>
-                                         <MenuItem value={"프리미엄 일반석"}>프리미엄 일반석</MenuItem>
-                                         <MenuItem value={"비지니스석"}>비지니스석</MenuItem>
-                                         <MenuItem value={"일등석"}>일등석</MenuItem>
+                                         <MenuItem name="all" value="YC">전체</MenuItem>
+                                         <MenuItem name="general" value="Y">일반석</MenuItem>
+                                         <MenuItem name="business" value="C">비지니스석</MenuItem>
                                         
                                        </Select>
                                    </FormControl>
