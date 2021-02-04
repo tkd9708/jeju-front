@@ -40,6 +40,7 @@ class ReservationPageComp extends Component {
         this.state = {
             value: 0,
             seat: '',
+            person:'',
             open: false
 
         
@@ -51,6 +52,11 @@ class ReservationPageComp extends Component {
     state = {
       value: 0
     }
+    handleChange = (e) => {
+      this.setState({
+          person: e.target.value
+      })
+    };
   
     decrease = () => {
       this.setState({ value: this.state.value - 1 });
@@ -160,11 +166,12 @@ class ReservationPageComp extends Component {
                                        open={value.open}
                                        onClose={this.handleClose.bind(this)}
                                        onOpen={this.state.handleOpen}
-                                       value={value.seat}
+                                       value={value.person}
                                        onChange={this.handleChange.bind(this)}
                                        >
                                                                                
-                                         <MenuItem>
+                                         <MenuItem value={this.state.person}>
+                                             <b>성인</b>
                                              <div className="def-number-input number-input">
                                                 <button onClick={this.decrease.bind(this)} className="minus"></button>
                                                 <input className="quantity" name="quantity" value={this.state.value} onChange={()=> console.log('change')}
@@ -172,10 +179,25 @@ class ReservationPageComp extends Component {
                                                 <button onClick={this.increase.bind(this)} className="plus"></button>
                                              </div>
                                          </MenuItem>
-                                         <MenuItem value={"프리미엄 일반석"}>프리미엄 일반석</MenuItem>
-                                         <MenuItem value={"비지니스석"}>비지니스석</MenuItem>
-                                         <MenuItem value={"일등석"}>일등석</MenuItem>
-                                       </Select>
+                                         <MenuItem >
+                                             <b>소아</b>
+                                             <div className="def-number-input number-input">
+                                                <button onClick={this.decrease.bind(this)} className="minus"></button>
+                                                <input className="quantity" name="quantity" value={this.state.value} onChange={()=> console.log('change')}
+                                                type="number" />
+                                                <button onClick={this.increase.bind(this)} className="plus"></button>
+                                             </div>
+                                         </MenuItem>
+                                         <MenuItem >
+                                              <b>유아</b>
+                                             <div className="def-number-input number-input">
+                                                <button onClick={this.decrease.bind(this)} className="minus"></button>
+                                                <input className="quantity" name="quantity" value={this.state.value} onChange={()=> console.log('change')}
+                                                type="number" />
+                                                <button onClick={this.increase.bind(this)} className="plus"></button>
+                                             </div>
+                                         </MenuItem>
+                                        </Select>
                                    </FormControl>
                                    
                                   
