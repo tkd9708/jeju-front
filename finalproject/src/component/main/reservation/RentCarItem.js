@@ -5,6 +5,7 @@ import store from '../../../redux/store';
 import Backdrop from '@material-ui/core/Backdrop';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
+import {URL} from '../../../redux/config';
 
 class RentCarItem extends Component
 {
@@ -20,7 +21,7 @@ class RentCarItem extends Component
         };
     }
 
-    onInsertContent = () => {
+    insertContent = () => {
         let url = URL + "/wish/insertcontent";
         let memId = store.getState().loginId;        
         let content = '렌트카,' + this.refs.name.value + ',' + this.refs.address.value;
@@ -100,7 +101,7 @@ class RentCarItem extends Component
                             <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
                             <div style={{textAlign: 'center'}}>
                                 <button type="button" class="btn btn-warning spotmodalBtn" 
-                                onClick={this.onInsertContent.bind(this)}><b>추가</b></button>
+                                onClick={this.insertContent.bind(this)}><b>추가</b></button>
                             </div>
                         </div>
                         </Fade>

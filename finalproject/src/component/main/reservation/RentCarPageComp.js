@@ -33,17 +33,17 @@ class RentCarPageComp extends Component {
         return (
             <div>
                 <b>렌트카 업체 목록</b>
-                <table className="table table-bordered" style={{width:'1200px'}}>
+                <table className="table table-bordered" style={{width:'1350px'}}>
                     <thead>
                         <tr>
                             <td style={{width:'50px'}}>#</td>
-                            <td style={{width:'200px'}}>업체명</td>
+                            <td style={{width:'150px'}}>업체명</td>
                             <td style={{width:'100px'}}>구분</td>
                             <td style={{width:'200px'}}>주소</td>
-                            <td style={{width:'80px'}}>차량대수</td>
-                            <td style={{width:'80px'}}>시작시간</td>
-                            <td style={{width:'80px'}}>종료시간</td>
-                            <td style={{width:'130px'}}>홈페이지</td>
+                            <td style={{width:'90px'}}>차량대수</td>
+                            <td style={{width:'90px'}}>시작시간</td>
+                            <td style={{width:'90px'}}>종료시간</td>
+                            <td style={{width:'150px'}}>홈페이지</td>
                             <td style={{width:'150px'}}>전화번호</td>
                             <td style={{width:'150px'}}>확인일</td>
                             <td style={{width:'150px'}}>일정추가</td>
