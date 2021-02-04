@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import ChatCompPage from './ChatCompPage';
 
 
 class SharePlanPageComp extends Component {
@@ -13,6 +14,7 @@ class SharePlanPageComp extends Component {
         return (
             <div>
                 <h4>SharePlanPageComp</h4>
+                <ChatCompPage/>
             </div>
         )
     }
