@@ -1,8 +1,9 @@
 import React, {Component, useState} from 'react';
-import {actionType, URL} from "../../../redux/config";
+import {actionType, boardActionType, URL} from "../../../redux/config";
 import axios from "axios";
 import store from "../../../redux/store";
-import { MDBBtn } from "mdbreact";
+import {MDBBtn} from "mdbreact";
+import FaceIcon from '@material-ui/icons/Face';
 
 class ReviewItem extends Component {
 
@@ -23,12 +24,22 @@ class ReviewItem extends Component {
 
         let divInput = document.querySelector(className);
 
-        if (this.state.saveType == type || type == null) {
-            if (this.state.isOpen) {
-                divInput.style.display = "none";
-                this.setState({
-                    isOpen: false,
-                });
+        // if (this.state.saveType == type) {
+        //통신 끝나고 들어온건지, 댓글쓰기/수정 버튼눌러 들어온건지.
+        if (type != null) {
+            if (this.state.saveType == type) {
+                if (this.state.isOpen) {
+                    divInput.style.display = "none";
+                    this.setState({
+                        isOpen: false,
+                    });
+                } else {
+                    divInput.style.display = "block";
+                    this.setState({
+                        isOpen: true,
+                        saveType: type,
+                    });
+                }
             } else {
                 divInput.style.display = "block";
                 this.setState({
@@ -37,10 +48,10 @@ class ReviewItem extends Component {
                 });
             }
         } else {
-            divInput.style.display = "block";
+            divInput.style.display = "none";
             this.setState({
-                isOpen: true,
-                saveType: type,
+                isOpen: false,
+                saveType: "",
             });
         }
     }
@@ -61,19 +72,20 @@ class ReviewItem extends Component {
         let relevel = this.props.row.relevel;
         let restep = this.props.row.restep;
         let content = this.refs.content.value;
+        let id = store.getState().loginId;
         let star = 0;
+
         let url = URL + "/share/insert" +
             "?" +
             "relevel=" + relevel +
             "&restep=" + restep +
             "&regroup=" + regroup;
+
         let data = {
             num: num,
-            // regroup: regroup,
-            // relevel: relevel,
-            // restep: restep,
             content: content,
             star: star,
+            id: id,
         }
 
         console.log(url, data);
@@ -137,42 +149,84 @@ class ReviewItem extends Component {
         }
     }
 
+    getIsDisableAnswerButton = (row, actionType = null) => {
+        // disabled={row.content.includes("삭제된 글입니다.") ? true : false}
+        // console.log(row.id, store.getState().loginId, actionType);
+        if (actionType == boardActionType.write) {
+            return false;
+        } else {
+            if (row.content.includes("삭제된 글입니다.")) {
+                return true;
+            } else if (row.id != store.getState().loginId) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /*
+        addr: null
+        content: "댓글 수정 가능한지."
+        id: null
+        likes: 0
+        num: "488"
+        photo: "no"
+        regroup: 476
+        relevel: 1
+        restep: 3
+        star: "0"
+        subject: null
+        writeday: "2021-02-04"
+    */
     render() {
         const {row} = this.props;
-
+        // console.log(row);
         return (
             <div style={{marginLeft: `calc(30px*${row.relevel})`}}>
-                {row.num} / {row.photo} / {row.regroup} / {row.relevel} / {row.restep} / 내용 :
+                {/*num:{row.num} / {row.photo} / id:{row.id}*/}
+                {/*/ {row.regroup} / {row.relevel} / {row.restep} / 내용 :*/}
+                <FaceIcon/>&nbsp;{row.id}
                 <div style={{border: "1px solid", margin: "5px"}}>
                     {row.content}
                 </div>
-                <MDBBtn size="sm" color="deep-orange" 
+                <MDBBtn size="sm" color="deep-orange"
                         onClick={this.onTriggerInput.bind(this, "insert")}
-                        disabled={row.content.includes("삭제된 글입니다.") ? true : false}
-                ><b style={{fontSize:'12px'}}>댓글 쓰기</b>
+                        disabled={this.getIsDisableAnswerButton(row, boardActionType.write)}
+                ><b style={{fontSize: '12px'}}>댓글 쓰기</b>
                 </MDBBtn>
                 &nbsp;
-                <MDBBtn size="sm" color="deep-orange" 
+                <MDBBtn size="sm" color="deep-orange"
                         onClick={this.onTriggerInput.bind(this, "update")}
-                        disabled={row.content.includes("삭제된 글입니다.") ? true : false}
-                ><b style={{fontSize:'12px'}}>댓글 수정</b>
+                        disabled={this.getIsDisableAnswerButton(row)}
+                ><b style={{fontSize: '12px'}}>댓글 수정</b>
                 </MDBBtn>
                 &nbsp;
-                <MDBBtn size="sm" color="deep-orange" 
+                <MDBBtn size="sm" color="deep-orange"
                         onClick={this.onDeleteSubAnswer.bind(this)}
-                        disabled={row.content.includes("삭제된 글입니다.") ? true : false}
-                ><b style={{fontSize:'12px'}}>댓글 삭제</b>
+                        disabled={this.getIsDisableAnswerButton(row)}
+                ><b style={{fontSize: '12px'}}>댓글 삭제</b>
                 </MDBBtn>
 
                 {/*댓글 입력창 on/off*/}
-                <div className={`input_answer_${row.regroup}_${row.relevel}_${row.restep}`}>
-                    <textarea placeholder="댓글을 입력하세요" className="form-control"
-                              style={{width: '800px', height: '100px',float:'left'}}
-                              ref="content"
+                <div className={`input_answer_${row.regroup}_${row.relevel}_${row.restep}`}
+                     style={{
+                         display: "none",
+                     }}
+                >
+                    <textarea
+                        placeholder={(this.state.saveType == "insert")
+                            ? "댓글을 입력하세요"
+                            : "수정할 댓글을 입력하세요"}
+                        id="shareInputAnswer"
+                        className="form-control"
+                        style={{width: '800px', height: '100px', float: 'left'}}
+                        ref="content"
                     />
-                    <MDBBtn  size="sm" color="deep-orange" style={{width:'160px',height:'90px',marginLeft:'13px'}}
+                    <MDBBtn size="sm" color="deep-orange"
+                            style={{width: '160px', height: '90px', marginLeft: '13px'}}
                             onClick={this.onSaveButton.bind(this)}
-                    ><b style={{fontSize:'18px'}}>저 장</b>
+                    ><b style={{fontSize: '18px'}}>저 장</b>
                     </MDBBtn>
                 </div>
                 <hr/>
