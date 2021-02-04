@@ -1,9 +1,7 @@
 import { green } from "@material-ui/core/colors";
 import { BorderAll } from "@material-ui/icons";
 import React, {Component} from "react";
-<<<<<<< HEAD
 import ChatCompPage from './ChatCompPage';
-=======
 import './SharePlanCss.css';
 import axios from 'axios';
 import {URL} from "../../../redux/config";
@@ -11,7 +9,6 @@ import store from '../../../redux/store';
 import Slider from "react-slick";
 import SharePlanRoot from './SharePlanRoot';
 import SharePlanSchedule from "./SharePlanSchedule";
->>>>>>> e6f55d094cf7a904b97c40840092143bc3ed342e
 
 
 class SharePlanPageComp extends Component {
@@ -132,15 +129,10 @@ class SharePlanPageComp extends Component {
         
           
         return (
-<<<<<<< HEAD
-            <div>
-                <h4>SharePlanPageComp</h4>
-                <ChatCompPage/>
-=======
-            
                 
             <div className="outline">
             <div className="react-body">
+            <ChatCompPage/>
              <div className="detailTitle">
               <span className="detailTitleContent" style={{backgroundColor:'white',color:'#036E38'}}>
                     &nbsp;&nbsp;일정 공유게시판&nbsp;&nbsp;
@@ -172,7 +164,6 @@ class SharePlanPageComp extends Component {
                 
                 </div>
                 
->>>>>>> e6f55d094cf7a904b97c40840092143bc3ed342e
             </div>
             <hr/>
             

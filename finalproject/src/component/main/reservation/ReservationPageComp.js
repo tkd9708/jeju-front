@@ -23,15 +23,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import './Reservation.css';
-<<<<<<< HEAD
-
 import { MDBSelect, MDBSelectInput, MDBSelectOptions, MDBSelectOption } from "mdbreact";
 // import './Reservation.css';
-
-=======
-import { MDBSelect, MDBSelectInput, MDBSelectOptions, MDBSelectOption } from "mdbreact";
-// import './Reservation.css';
->>>>>>> 1ed3a92a9efe27aad0538559a000ae61a315f017
 
 
 import Popover from '@material-ui/core/Popover';
@@ -363,20 +356,11 @@ class ReservationPageComp extends Component {
                                        name="seat"
                                        onChange={this.handleChange.bind(this)}
                                        >
-<<<<<<< HEAD
-                                        
                                          <MenuItem name="all" value="YC">전체</MenuItem>
                                          <MenuItem name="general" value="Y">일반석</MenuItem>
                                          <MenuItem name="business" value="C">비지니스석</MenuItem>
                                          
                                         
-=======
-                                         <MenuItem value={"일반석"}>일반석</MenuItem>
-                                         <MenuItem value={"프리미엄 일반석"}>프리미엄 일반석</MenuItem>
-                                         <MenuItem value={"비지니스석"}>비지니스석</MenuItem>
-                                         <MenuItem value={"일등석"}>일등석</MenuItem>
-
->>>>>>> 1ed3a92a9efe27aad0538559a000ae61a315f017
                                        </Select>
                                    </FormControl>
 
@@ -534,18 +518,10 @@ class ReservationPageComp extends Component {
                                        name="twoseat"
                                        onChange={this.handleChange.bind(this)}
                                        >
-<<<<<<< HEAD
                                          <MenuItem name="all" value="YC">전체</MenuItem>
                                          <MenuItem name="general" value="Y">일반석</MenuItem>
                                          <MenuItem name="business" value="C">비지니스석</MenuItem>
                                         
-=======
-                                         <MenuItem value={"일반석"}>일반석</MenuItem>
-                                         <MenuItem value={"프리미엄 일반석"}>프리미엄 일반석</MenuItem>
-                                         <MenuItem value={"비지니스석"}>비지니스석</MenuItem>
-                                         <MenuItem value={"일등석"}>일등석</MenuItem>
-
->>>>>>> 1ed3a92a9efe27aad0538559a000ae61a315f017
                                        </Select>
                                    </FormControl>
                                </div>
