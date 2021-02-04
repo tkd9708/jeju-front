@@ -20,7 +20,6 @@ class ShareBoardPageComp extends Component {
             listData: [],
             pageNum: props.match.params.pageNum,
         }
-        // store.subscribe(this.getShareListByPaging.bind(this));
         store.dispatch({
             type: actionType.shareBoardUpdate,
         });

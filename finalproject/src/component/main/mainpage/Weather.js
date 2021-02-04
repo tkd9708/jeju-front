@@ -22,8 +22,8 @@ class Weather extends Component {
         //     console.log("날씨 클래스 생성자에서 state 변경에 대한 변화를 구독합니다 변화를 확인했습니다 store에서 weatherInfo 값을 가져와 첫번째 courseAreaName을 보여줍니다 : " + store.getState().weatherInfo[0].courseName);
         // }.bind(this));
 
-        // 리덕스스토어에구독한다
 
+        // 리덕스스토어에구독한다
         // 리덕스를 안쓰고 클래스 내부 state를 씁니다
         this.state = {
             // c_tm: [], // 동네예보 예보 시각
@@ -178,7 +178,7 @@ class Weather extends Component {
 
         return (
             <div style={{ fontSize : '.8rem' }}>
-                
+
                 총 데이타수:
                 {this.state.c_weatherInfo.length}
                 <br />

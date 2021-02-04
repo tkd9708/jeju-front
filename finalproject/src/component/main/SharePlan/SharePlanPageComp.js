@@ -1,5 +1,5 @@
-import { green } from "@material-ui/core/colors";
-import { BorderAll } from "@material-ui/icons";
+import {green} from "@material-ui/core/colors";
+import {BorderAll} from "@material-ui/icons";
 import React, {Component} from "react";
 import ChatCompPage from './ChatCompPage';
 import './SharePlanCss.css';
@@ -17,22 +17,21 @@ class SharePlanPageComp extends Component {
         super(props);
         console.log("SharePlanPageComp constructor", props);
 
-        this.state={
-           glist:[],
-           list:[],
-           wishday:''
+        this.state = {
+            glist: [],
+            list: [],
+            wishday: ''
         }
 
-        this.handleChange=this.handleChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
 
 
-    
     }
 
-    handleChange(event){
-      console.log('day:'+event.target.value);
-      this.setState({wishday:event.target.value});
-      
+    handleChange(event) {
+        console.log('day:' + event.target.value);
+        this.setState({wishday: event.target.value});
+
     }
 
     // onGroup=()=>{
@@ -47,33 +46,33 @@ class SharePlanPageComp extends Component {
     //       })
     // }
 
-    getGroupnum=()=>{
-        let url=URL+"/plan/groupnum";
-        
+    getGroupnum = () => {
+        let url = URL + "/plan/groupnum";
+
         axios.get(url)
-        .then(res=>{
-          console.log(res.data);
-            this.setState({
-                glist:res.data
-            });
-        }).catch(err=>{
-            console.log("리스트 오류:"+err);
-          })
+            .then(res => {
+                console.log(res.data);
+                this.setState({
+                    glist: res.data
+                });
+            }).catch(err => {
+            console.log("리스트 오류:" + err);
+        })
     }
 
-     getList=()=>{
-        let url=URL+"/plan/list";
+    getList = () => {
+        let url = URL + "/plan/list";
         axios.get(url)
-        .then(res=>{
-            this.setState({
-                list:res.data
-            });
-        }).catch(err=>{
-            console.log("리스트 오류:"+err);
-          })
+            .then(res => {
+                this.setState({
+                    list: res.data
+                });
+            }).catch(err => {
+            console.log("리스트 오류:" + err);
+        })
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getGroupnum();
         this.getList();
     }
@@ -83,10 +82,10 @@ class SharePlanPageComp extends Component {
     // }
 
     render() {
-         // const {row}=this.props;
+        // const {row}=this.props;
         // var wishday=row.wishday;
         // var title=row.title;
-        
+
         console.log("SharePlanPageComp render()", this.props);
         const settings = {
             //dots: true,  // 점은 안 보이게
@@ -103,36 +102,33 @@ class SharePlanPageComp extends Component {
             //  nextArrow:"<button type='button' class='slick-next'>next</button>",
             // dotsClass:"slick-dots",
             // draggable:true,
-            
+
             responsive: [ // 반응형 웹 구현 옵션
-              {
-                  breakpoint: 500, // 화면 사이즈 1200px
-                  settings: {
-                    slidesToShow: 3,
-                  }
-              },
-              {
-                breakpoint: 1023,
-                settings: {
-                  slidesToShow: 3
+                {
+                    breakpoint: 500, // 화면 사이즈 1200px
+                    settings: {
+                        slidesToShow: 3,
+                    }
+                },
+                {
+                    breakpoint: 1023,
+                    settings: {
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 767,
+                    settings: {
+                        slidesToShow: 1
+                    }
                 }
-              },
-              {
-                breakpoint: 767,
-                settings: {
-                  slidesToShow: 1
-                }
-              }
             ]
-          };
-        
-        
-          
+        };
+
+
         return (
-                
             <div className="outline">
             <div className="react-body">
-            <ChatCompPage/>
              <div className="detailTitle">
               <span className="detailTitleContent" style={{backgroundColor:'white',color:'#036E38'}}>
                     &nbsp;&nbsp;일정 공유게시판&nbsp;&nbsp;
@@ -160,34 +156,29 @@ class SharePlanPageComp extends Component {
                 </Slider>
                 
                  {/* <div className="slick-prev"></div>
+
                 <div className="slick-next"></div> */}
-                
-                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        {/* <SharePlanSchedule value={this.state.wishday}></SharePlanSchedule> */}
+                        {/* <SharePlanSchedule wishday={this.refs.wishday.}></SharePlanSchedule> */}
+                        {this.state.list.map((row) => (
+                            <SharePlanSchedule row={row}
+                                               value={this.state.wishday}
+                            ></SharePlanSchedule>
+                        ))}
+                    </div>
+                    <span>🗓공유날짜</span><br/>
+                    <input type="date"
+                           className="wishday"
+                           ref="wishday"
+                           value={this.state.wishday}
+                           onChange={this.handleChange}/>
                 
             </div>
-            <hr/>
-            
-            
-            {/* <SharePlanSchedule value={this.state.wishday}></SharePlanSchedule> */}
-            {/* <SharePlanSchedule wishday={this.refs.wishday.}></SharePlanSchedule> */}
-            {this.state.list.map((row)=>(
-              <SharePlanSchedule row={row} value={this.state.wishday}></SharePlanSchedule>
-              
-            ))}
-            
-            
-           </div>
-           <span>🗓공유날짜</span><br/>
-                <input type="date" className="wishday" ref="wishday" value={this.state.wishday} onChange={this.handleChange}/> 
-           </div>
-            
-           
-          
-        );    
-           
-        
+        );
     }
-
 }
 
 export default SharePlanPageComp;
