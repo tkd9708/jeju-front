@@ -5,7 +5,7 @@ import {
     Switch
 } from "react-router-dom";
 import Menu from "./component/header/Menu";
-import gsap from "gsap";
+import gsap, {Cubic, Quint} from "gsap";
 import '@progress/kendo-theme-default/dist/all.css';
 import "./App.css";
 // import {NavLink, Route} from "react-router-dom";
@@ -189,8 +189,35 @@ class App extends Component {
                         className="chattingIconBack"
                     ><ChatIcon
                         className="chattingIcon"
-                        onClick={(e)=>{
-                            // gsap.
+                        onClick={(e) => {
+                            let duration = 1.0;
+                            let ease = Quint.easeInOut;
+
+                            if (store.getState().isOpenChatWindow) {
+                                //닫기.
+                                gsap.to("div.chatting div.chattingWindow", {
+                                    transform: "scale(0.1)",
+                                    opacity: 0,
+                                    duration: duration,
+                                    ease: ease,
+                                });
+                                store.dispatch({
+                                    type: actionType.setChatWindow,
+                                    isOpenChatWindow: false,
+                                });
+                            } else {
+                                gsap.to("div.chatting div.chattingWindow", {
+                                    transform: "scale(1)",
+                                    opacity: 0.5,
+                                    duration: duration,
+                                    ease: ease,
+                                });
+                                store.dispatch({
+                                    type: actionType.setChatWindow,
+                                    isOpenChatWindow: true,
+                                });
+                            }
+
                         }}
                     /></div>
 

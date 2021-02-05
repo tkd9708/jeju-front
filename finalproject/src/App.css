@@ -44,7 +44,7 @@ div.chatting div.chattingWindow{
     bottom: 7%;
     z-index: 15;
     background-color: #0d6b38;
-    opacity: 0.8;
+    opacity: 0.5;
     transform-origin: right bottom;
 }
 
