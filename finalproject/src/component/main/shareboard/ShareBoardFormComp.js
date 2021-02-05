@@ -11,6 +11,14 @@ import {MDBBtn} from "mdbreact";
 import Box from '@material-ui/core/Box';
 import "./Share.css";
 import store from "../../../redux/store";
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import Chip from '@material-ui/core/Chip';
+import "../join/SignupCss.css";
+import { green } from '@material-ui/core/colors';
+import { blue } from '@material-ui/core/colors';
+import { pink } from '@material-ui/core/colors';
+import Radio from '@material-ui/core/Radio';
 
 
 const StyledRating = withStyles({
@@ -31,7 +39,7 @@ class ShareBoardFormComp extends Component {
         console.log("ShareBoardFormComp constructor", props);
         this.state = {
             photoname: '',
-            star: "0",
+            star: "1",
             category: 'Food'
         }
     }
@@ -100,26 +108,155 @@ class ShareBoardFormComp extends Component {
         });
 
         _promise.then(() => {
-            alert('공유하였습니다. 목록확인하세요 ' + this.state.subject);
+            alert("회원님의 맛집이 성공적으로 등록되었습니다.");
         }).then(() => {
             this.props.history.push("/share/1");
         });
     }
 
-    changeSelect = (e) => {
+    changeCategory = (e) => {
         this.setState({
             category: e.target.value
         })
     }
 
+    handleDelete = () => {
+        let url = URL + "/share/delupload";
+        axios.get(url)
+            .then(res=>{
+                this.setState({
+                    photoname:''
+                })
+            })
+    };
+
     render() {
         //const url="http://localhost:9002/photo/";
-        console.log("ShareBoardFormComp render()", this.props);
+        // console.log("ShareBoardFormComp render()", this.props);
 
+        let chip = this.state.photoname==''?"":<Chip
+                                                variant="outlined"
+                                                size="small"
+                                                label={this.state.photoname}
+                                                onDelete={this.handleDelete.bind(this)}
+                                            />;
 
         return (
             <div>
-                <div id="ShareFormSubject">
+                <div className="detailTitle">
+                    <span className="detailTitleContent" style={{backgroundColor: 'white', color: '#036E38'}}>
+                        &nbsp;&nbsp;맛집 공유&nbsp;&nbsp;
+                    </span>
+                </div>
+                <div className="detailIntro" style={{color: "#888"}}>
+                    회원님들과 공유하고싶은 맛집의 정보를 입력해주세요.
+                </div>
+
+                <div id="SignupForm" style={{textAlign: 'center', position: 'relative'}}>
+                <table class="table table-bordered">
+                    {/* <caption style={{captionSide: 'top', textAlign: 'center'}}><b>맛집공유</b></caption> */}
+                    <tr>
+                        <td colSpan="2">
+                        <Radio
+                            checked={this.state.category === 'Food'}
+                            onChange={this.changeCategory}
+                            value="Food"
+                            name="radio-button-demo"
+                            style={{color: green[600]}}
+                            inputProps={{ 'aria-label': 'Food' }}
+                        /><b>Food</b>
+                        <Radio
+                            checked={this.state.category === 'Cafe'}
+                            onChange={this.changeCategory}
+                            value="Cafe"
+                            name="radio-button-demo"x
+                            style={{color: pink[600]}}
+                            inputProps={{ 'aria-label': 'Cafe' }}
+                        /><b>Cafe</b>
+                        <Radio
+                            checked={this.state.category === 'Bar'}
+                            onChange={this.changeCategory}
+                            value="Bar"
+                            name="radio-button-demo"
+                            style={{color: blue[600]}}
+                            inputProps={{ 'aria-label': 'Bar' }}
+                        /><b>Bar</b>
+                            {/* <select name="category" onChange={this.changeSelect}>
+                                    <option value="Food">Food</option>
+                                    <option value="Cafe">Cafe</option>
+                                    <option value="Bar">Bar</option> 
+                                </select> */}
+                        </td>
+                    </tr>
+                        <tr>
+                            <td colSpan="2">
+                                <span style={{width: '5%', color: '#036E38'}} className="fas fa-bookmark"></span>
+                                <input className="form-control" type="text" style={{width: '95%', display:'inline-block'}}
+                                   placeholder="상호명" ref="subject"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2">
+                                <span style={{width: '5%', color: '#036E38'}} className="fas fa-map-marker-alt"></span>
+                                <input className="form-control" type="text" style={{width: '95%', display:'inline-block'}}
+                                   placeholder="주소" ref="addr"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2" style={{padding: '0'}}>
+                                <input style={{display:'none'}} id="sign-icon-button-file" name = "photo" type="file" onChange={this.uploadImage.bind(this)}/>
+                                    <label htmlFor="sign-icon-button-file">
+                                        
+                                        <IconButton color="primary" aria-label="upload picture" component="span">
+                                            <PhotoCamera />
+                                        </IconButton>  
+                                    </label>
+                                    {chip}
+                                {/* <input type="file" name = "photo" onChange={this.imageUpload.bind(this)}/> */}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2">
+                                <textarea maxLength="1000" className="form-control"
+                                    style={{resize: 'none', cursor: 'auto', height: '30vh'}}
+                                    ref="content" placeholder="후기를 남겨주세요">
+                                </textarea>                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2">
+                            <Rating
+
+                                defaultValue={1}
+
+                                emptyIcon={<StarBorderIcon fontSize="inherit"/>}
+                                onChange={
+                                    (e) => {
+                                        console.log(e);
+                                        this.setState({
+                                            star: e.target.defaultValue
+                                        })
+                                    }
+                                }
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="mypageUpdateBtn" style={{backgroundColor:'#036E38', color: 'white'}} onClick={()=>{
+                                    this.props.history.goBack();
+                                }}>
+                                <span>목록</span>
+                            </td>
+                            <td className="mypageUpdateBtn" style={{backgroundColor:'#036E38', color: 'white'}} onClick={this.handleSubmit.bind(this)}>
+                                <span>공유</span>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+                {/* //////////////////////////////////////////////////////// */}
+                {/* <div id="ShareFormSubject">
                     <h3 id="sharesubject">맛집공유</h3>
                 </div>
 
@@ -156,7 +293,6 @@ class ShareBoardFormComp extends Component {
                         <th id="shareth" style={{verticalAlign: 'middle'}}><span>이미지 </span></th>
                         <td id="sharetd">
                             <input type="file" onChange={this.uploadImage.bind(this)}/>
-                            {/* <img src={url + this.state.photoname} alt="이미지없음" style={{width:'200px',height:'300px'}}/> */}
                         </td>
                     </tr>
 
@@ -202,7 +338,6 @@ class ShareBoardFormComp extends Component {
                             onClick={this.handleSubmit.bind(this)}>
                         <b style={{fontSize: '15px'}}>공유하기</b>
                     </MDBBtn>
-                    {/*<Link to="/share/1">*/}
                         <MDBBtn size="sm" color="deep-orange"
                                 onClick={()=>{
                                     this.props.history.goBack();
@@ -210,8 +345,7 @@ class ShareBoardFormComp extends Component {
                         >
                             <b style={{fontSize: '15px'}}>목록</b>
                         </MDBBtn>
-                    {/*</Link>*/}
-                </div>
+                </div> */}
             </div>
         )
     }

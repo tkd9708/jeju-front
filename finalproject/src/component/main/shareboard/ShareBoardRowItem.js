@@ -522,7 +522,13 @@ class ShareBoardRowItem extends Component {
                                             style={{resize: 'none'}}
                                         ></textarea>
                                         <MDBBtn color="dark-green" id="ShareReviewSave"
-                                                onClick={this.onInsertAnswer.bind(this)}
+                                                onClick={()=>{
+                                                    if(store.getState().logged==true){
+                                                        this.onInsertAnswer();
+                                                    }
+                                                    else
+                                                        alert("로그인이 필요한 서비스입니다.");
+                                                }}
                                                 style={{float: 'right'}}
                                         >작성
                                         </MDBBtn>
@@ -533,30 +539,32 @@ class ShareBoardRowItem extends Component {
                     </MDBModalBody>
                     <MDBModalFooter>
                     <MDBBtn color="dark-green" onClick={this.toggle}>Close</MDBBtn>
+                    {store.getState().logged==true?
                     <MDBPopover
-                        placement="top"
-                        popover
-                        clickable
-                        id="popper5"
-                        >
-                            <MDBBtn color="primary">일정추가</MDBBtn>
-                            <div>
-                                <MDBPopoverBody>
-                                    <div className="ShareModalInsertPlan">
-                                        <span className="spotmodalTitle">일정 추가</span><br/>
-                                        👨‍🍳&nbsp;&nbsp;{row.subject.split(",")[1]}<br/>
-                                        &nbsp;<MDBIcon icon="map-marker-alt" />&nbsp;&nbsp;{row.addr}<br/>
-                                        🗓&nbsp;&nbsp;여행 날짜
-                                        <input type="date" class="form-control form-control-sm" ref="wishday"></input>
-                                        ⏰&nbsp;&nbsp;예정 시간
-                                        <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
-                                        <div style={{textAlign: 'center'}}>
-                                            <MDBBtn color="primary" onClick={this.insertWish.bind(this)}>추가</MDBBtn>
-                                        </div>
+                    placement="top"
+                    popover
+                    clickable
+                    id="popper5"
+                    >
+                        <MDBBtn color="primary">일정추가</MDBBtn>
+                        <div>
+                            <MDBPopoverBody>
+                                <div className="ShareModalInsertPlan">
+                                    <span className="spotmodalTitle">일정 추가</span><br/>
+                                    👨‍🍳&nbsp;&nbsp;{row.subject.split(",")[1]}<br/>
+                                    &nbsp;<MDBIcon icon="map-marker-alt" />&nbsp;&nbsp;{row.addr}<br/>
+                                    🗓&nbsp;&nbsp;여행 날짜
+                                    <input type="date" class="form-control form-control-sm" ref="wishday"></input>
+                                    ⏰&nbsp;&nbsp;예정 시간
+                                    <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
+                                    <div style={{textAlign: 'center'}}>
+                                        <MDBBtn color="primary" onClick={this.insertWish.bind(this)}>추가</MDBBtn>
                                     </div>
-                                </MDBPopoverBody>
-                            </div>
-                        </MDBPopover>
+                                </div>
+                            </MDBPopoverBody>
+                        </div>
+                    </MDBPopover>
+                    :""}
                     
                     </MDBModalFooter>
                 </MDBModal>

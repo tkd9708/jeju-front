@@ -4,6 +4,9 @@ import {URL} from "../../../redux/config";
 import './style/UpdateFormCss.css';
 import DaumPostcode from 'react-daum-postcode';
 import store from '../../../redux/store';
+import Chip from '@material-ui/core/Chip';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import IconButton from '@material-ui/core/IconButton';
 
 class SocialUpdateForm extends Component {
 
@@ -205,9 +208,25 @@ class SocialUpdateForm extends Component {
         })
       }
 
+      handleDelete = () => {
+        let url = URL + "/member/delupload?id=" + store.getState().loginId;
+        axios.get(url)
+            .then(res=>{
+                this.setState({
+                    photo:''
+                })
+            })
+    };
+
     render() {
         // console.log("MemberUpdateFormComp render()", this.props);
 
+        const chip = this.state.photo=='no'|this.state.photo==''?"":<Chip
+                                                variant="outlined"
+                                                size="small"
+                                                label={this.state.photo}
+                                                onDelete={this.handleDelete.bind(this)}
+                                            />;
 
         return (
             <div id="MypageUpdateForm" style={{textAlign: 'center', position: 'relative'}}>
@@ -226,7 +245,17 @@ class SocialUpdateForm extends Component {
                             <td className="mypageUpdateBtn" ref="man" onClick={this.manClick.bind(this)}>남자</td>
                         </tr>
                         <tr>
-                            <td colSpan="2"><input type="file" name = "photo" onChange={this.imageUpload.bind(this)}/></td>
+                            <td colSpan="2" style={{padding: '0'}}>
+                                프로필 사진&nbsp;
+                                <input style={{display:'none'}} id="sign-icon-button-file" name = "photo" type="file" onChange={this.imageUpload.bind(this)}/>
+                                    <label htmlFor="sign-icon-button-file">
+                                        
+                                        <IconButton color="primary" aria-label="upload picture" component="span">
+                                            <PhotoCamera />
+                                        </IconButton>  
+                                    </label>
+                                    {chip}
+                            </td>
                         </tr>
                         <tr>
                             <td colSpan="2">

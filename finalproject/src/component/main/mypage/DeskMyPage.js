@@ -108,7 +108,12 @@ class DeskMyPage extends Component {
                         >
 
                             <Box className="mypageInfoCol" width="20%" alignSelf="center">
-                                <img src={userimg} alt="이미지없음" id="mypageUserImg"/>
+                                <img src={userimg} alt="이미지없음" id="mypageUserImg"
+                                onError={(e) => {
+                                    console.log("img error");
+                                    e.target.src = userImg;
+                                }}
+                                />
                             </Box>
                             <Box m={1} bgcolor="#fff" width="50%" className="mypageInfoCol">
                                 <table>
