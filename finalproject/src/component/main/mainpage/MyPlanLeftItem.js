@@ -58,10 +58,34 @@ class MyPlanLeftItem extends Component {
     render(){
         
         const {row} = this.props;
-        const title = row.spotId!=null?this.state.title:row.shareNum!=null?this.state.title:row.aroundId!=null?row.aroundId:row.content;
-        const icon = row.spotId!=null?"🛕":row.shareNum!=null?"👨‍🍳":row.content!=null&row.aroundId==null?"📅"
-            :row.aroundId!=null&row.content.split(",")[0]=="음식점"?"🍔":row.aroundId!=null&row.content.split(",")[0]=="카페"?"☕":"🛌";
+        const title = row.spotId!=null?this.state.title:row.shareNum!=null?this.state.title:row.aroundId!=null?row.aroundId:
+            row.content.split(",")[1];
+        // const icon = row.spotId!=null?"🛕":row.shareNum!=null?"👨‍🍳":row.content!=null&row.aroundId==null?"📅"
+        //     :row.aroundId!=null&row.content.split(",")[0]=="음식점"?"🍔":row.aroundId!=null&row.content.split(",")[0]=="카페"?"☕":"🛌";
 
+        var icon='';
+        if(row.spotid!=null)
+            icon = "🛕";
+        else if(row.shareNum!=null)
+            icon = "👨‍🍳";
+        else if(row.aroundId!=null){
+            if(row.content.split(",")[0]=="음식점")
+                icon = "🍔";
+            else if(row.content.split(",")[0]=="카페")
+                icon = "☕";
+            else 
+                icon = "🛌";
+        }
+        else if(row.content!=null&row.aroundId==null){
+            if(row.content.split(",")[0]=="우도배")
+                icon = "🚢";
+            else if(row.content.split(",")[0]=="렌트카")
+                icon = "🚗";
+            else if(row.content.split(",")[0]=="항공")
+                icon = "✈";
+            else 
+                icon = "📅";
+        }
         var betweenDay = parseInt((new Date(row.wishday) - new Date(this.today))/ (24*60*60*1000));
         var isToday = Number(this.today.split("-")[0]) == Number(row.wishday.split("-")[0]) ?
                      Number(this.today.split("-")[1]) == Number(row.wishday.split("-")[1]) ? 

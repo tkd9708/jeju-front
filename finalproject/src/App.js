@@ -5,7 +5,7 @@ import {
     Switch
 } from "react-router-dom";
 import Menu from "./component/header/Menu";
-import gsap from "gsap";
+import gsap, {Cubic, Quint} from "gsap";
 import '@progress/kendo-theme-default/dist/all.css';
 import "./App.css";
 // import {NavLink, Route} from "react-router-dom";
@@ -39,6 +39,7 @@ import PassCheck from "./component/main/mypage/PassCheck";
 import SocialUpdateForm from "./component/main/mypage/SocialUpdateForm";
 import MemberUpdateFormComp from "./component/main/mypage/MemberUpdateFormComp";
 import ChattingRoom from './component/main/SharePlan/ChattingRoom';
+import ChatIcon from '@material-ui/icons/Chat';
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -159,7 +160,7 @@ class App extends Component {
 
     componentDidMount() {
         store.dispatch({
-            type:actionType.setMainView,
+            type: actionType.setMainView,
         });
     }
 
@@ -182,6 +183,49 @@ class App extends Component {
                 <Menu logged={logged}
                       type="normal"
                 />
+                <div className="chatting">
+                    {/*항상떠있는 아이콘*/}
+                    <div
+                        className="chattingIconBack"
+                    ><ChatIcon
+                        className="chattingIcon"
+                        onClick={(e) => {
+                            let duration = 1.0;
+                            let ease = Quint.easeInOut;
+
+                            if (store.getState().isOpenChatWindow) {
+                                //닫기.
+                                gsap.to("div.chatting div.chattingWindow", {
+                                    transform: "scale(0.1)",
+                                    opacity: 0,
+                                    duration: duration,
+                                    ease: ease,
+                                });
+                                store.dispatch({
+                                    type: actionType.setChatWindow,
+                                    isOpenChatWindow: false,
+                                });
+                            } else {
+                                gsap.to("div.chatting div.chattingWindow", {
+                                    transform: "scale(1)",
+                                    opacity: 0.5,
+                                    duration: duration,
+                                    ease: ease,
+                                });
+                                store.dispatch({
+                                    type: actionType.setChatWindow,
+                                    isOpenChatWindow: true,
+                                });
+                            }
+
+                        }}
+                    /></div>
+
+                    {/*아이콘을 누르면 나오는 채팅 창.*/}
+                    <div className="chattingWindow">
+
+                    </div>
+                </div>
                 <div className="mainFrame"
                 >
                     <Switch>
