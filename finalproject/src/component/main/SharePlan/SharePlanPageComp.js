@@ -1,13 +1,9 @@
-import { green } from "@material-ui/core/colors";
-import { BorderAll } from "@material-ui/icons";
 import React, {Component} from "react";
 import './SharePlanCss.css';
 import axios from 'axios';
 import {URL} from "../../../redux/config";
-import store from '../../../redux/store';
 import Slider from "react-slick";
 import SharePlanRoot from './SharePlanRoot';
-import SharePlanSchedule from "./SharePlanSchedule";
 
 
 class SharePlanPageComp extends Component {
@@ -17,22 +13,21 @@ class SharePlanPageComp extends Component {
         console.log("SharePlanPageComp constructor", props);
 
         this.state={
-           glist:[],
-           list:[],
-           wishday:''
+           glist:[]
         }
 
-        this.handleChange=this.handleChange.bind(this);
+        //this.handleChange=this.handleChange.bind(this);
 
 
     
     }
 
-    handleChange(event){
-      console.log('day:'+event.target.value);
-      this.setState({wishday:event.target.value});
-      
-    }
+    // handleChange(event){
+    //   console.log('day:'+event.target.value);
+    //   //this.setState({wishday:event.target.value});
+    //   this.getGroup();
+
+    // }
 
     // onGroup=()=>{
     //     let url=URL+"/plan/group?memId="+store.getState().loginId + "&wishday="+this.refs.wishday.value;
@@ -46,12 +41,16 @@ class SharePlanPageComp extends Component {
     //       })
     // }
 
-    getGroupnum=()=>{
-        let url=URL+"/plan/groupnum";
-        
+    getGroup=()=>{
+      let url=URL+"/plan/group?wishday="+this.refs.wishday.value;
+         //console.log(this.refs.wishday.value);
+        this.setState({
+          glist:[]
+      });
+
         axios.get(url)
         .then(res=>{
-          console.log(res.data);
+          console.log("선택 데이터 : " + res.data);
             this.setState({
                 glist:res.data
             });
@@ -60,21 +59,35 @@ class SharePlanPageComp extends Component {
           })
     }
 
-     getList=()=>{
-        let url=URL+"/plan/list";
+    getGroupnum=()=>{
+        let url=URL+"/plan/groupnum";
+        
         axios.get(url)
         .then(res=>{
+          console.log("데이터 ; " + res.data);
             this.setState({
-                list:res.data
+                glist:res.data
             });
         }).catch(err=>{
             console.log("리스트 오류:"+err);
           })
     }
 
+    //  getList=()=>{
+    //     let url=URL+"/plan/list";
+    //     axios.get(url)
+    //     .then(res=>{
+    //         this.setState({
+    //             list:res.data
+    //         });
+    //     }).catch(err=>{
+    //         console.log("리스트 오류:"+err);
+    //       })
+    // }
+
     componentDidMount(){
         this.getGroupnum();
-        this.getList();
+        //this.getList();
     }
 
     // componentDidMount{
@@ -86,7 +99,7 @@ class SharePlanPageComp extends Component {
         // var wishday=row.wishday;
         // var title=row.title;
         
-        console.log("SharePlanPageComp render()", this.props);
+        //console.log("SharePlanPageComp render()", this.props);
         const settings = {
             //dots: true,  // 점은 안 보이게
             infinite: true, // 무한으로 즐기게
@@ -152,7 +165,7 @@ class SharePlanPageComp extends Component {
                   {/* <div className="slide-list-item"> */}
                   {this.state.glist.map((row)=>(
                       
-                          <SharePlanRoot row={row} value={this.state.wishday}></SharePlanRoot>
+                          <SharePlanRoot row={row} day={this.refs.wishday.value}></SharePlanRoot>
                       
                   ))}
                    {/* </div> */}
@@ -169,15 +182,15 @@ class SharePlanPageComp extends Component {
             
             {/* <SharePlanSchedule value={this.state.wishday}></SharePlanSchedule> */}
             {/* <SharePlanSchedule wishday={this.refs.wishday.}></SharePlanSchedule> */}
-            {this.state.list.map((row)=>(
+            {/* {this.state.list.map((row)=>(
               <SharePlanSchedule row={row} value={this.state.wishday}></SharePlanSchedule>
               
-            ))}
+            ))} */}
             
             
            </div>
            <span>🗓공유날짜</span><br/>
-                <input type="date" className="wishday" ref="wishday" value={this.state.wishday} onChange={this.handleChange}/> 
+                <input type="date" className="wishday" ref="wishday"  onChange={this.getGroup.bind(this)}/> 
            </div>
             
            

@@ -1,18 +1,13 @@
 import React, {Component} from "react";
-import SharePlanPageComp from './SharePlanPageComp';
-import store from '../../../redux/store';
-import axios from 'axios';
-import {URL} from "../../../redux/config";
+
 
 class SharePlanSub extends Component {
 
     constructor(props) {
         super(props);
-        console.log("SharePlanRoot constructor", props);
+        //console.log("SharePlanRoot constructor", props);
 
-        this.state={
-            list:[]
-        }
+        
         
     }
 
@@ -31,15 +26,15 @@ class SharePlanSub extends Component {
 
 
     render(){
-        const {row}=this.props;
-        const {glist}=this.props;
-        const {value}=this.props;
-        var wishday=row.wishday;
-        var title=row.title;
+        // const {row}=this.props;
+        // const {glist}=this.props;
+        // const day=this.props.day;
+        // var wishday=row.wishday;
+        // var title=row.title;
         // const {groupNum}=this.props.groupNum;
         return(
-            <div className="slide-list-item">
-                {wishday===value?title:''}
+            <div>
+                {this.props.row.wishday===this.props.day?this.props.row.title:this.props.row.title}
             </div>
         )
     }
