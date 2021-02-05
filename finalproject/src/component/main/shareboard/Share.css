@@ -171,6 +171,16 @@ input {
     float: right;
 }
 
+/* 일정 추가 폼 */
+.ShareModalInsertPlan {
+    width: 200px;
+    margin: 20px;
+    line-height: 30px;
+}
+.ShareModalInsertPlan button {
+    padding: 8px 13px;
+}
+
 @media only screen and (max-width:450px){
     #ShareBoardPage {
         margin-top: 100px;

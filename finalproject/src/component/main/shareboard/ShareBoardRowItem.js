@@ -23,6 +23,13 @@ import {Delete} from "@material-ui/icons";
 // import "../tour/TourCss.css"
 import imgX from "../../../image/imgX.png";
 import { MDBBtn, MDBCardImage, MDBModal, MDBModalBody, MDBModalHeader, MDBMask, MDBView, MDBModalFooter, MDBIcon } from 'mdbreact';
+import { MDBPopover, MDBPopoverBody } from "mdbreact";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 
 
 /*
@@ -78,7 +85,9 @@ class ShareBoardRowItem extends Component {
         this.state = {
             modalOpen: false,
             likes: 0,
-            open: false
+            open: false,
+            alertOpen: false,
+            alertSetOpen: false
         }
 
         
@@ -342,6 +351,30 @@ class ShareBoardRowItem extends Component {
         })
     }
 
+    insertWish=()=>{
+        let url = URL + "/wish/insertshare";
+        let memId = store.getState().loginId;
+        let shareNum = this.props.row.num;
+        let content = this.props.row.addr;
+        let wishday = this.refs.wishday.value;
+        let wishtime = this.refs.wishtime.value;
+
+        console.log(this.refs.wishday.value);
+        if(wishday == '' || wishtime == '')
+            alert("날짜와 시간을 모두 선택해주세요.");
+        else{
+            axios.post(url, {memId, shareNum, content, wishday, wishtime})
+            .then(res=>{
+                this.toggle();
+                this.setState({
+                    alertOpen: true
+                })
+            }).catch(err=>{
+                console.log("spotwish insert 오류 : " + err);
+            })
+        }
+        
+    }
 
     /*
     row:
@@ -473,106 +506,67 @@ class ShareBoardRowItem extends Component {
                             </div>
                         </div>
                             <ShareReview regroup={row.regroup}/>
+
                     </MDBModalBody>
                     <MDBModalFooter>
                     <MDBBtn color="dark-green" onClick={this.toggle}>Close</MDBBtn>
-                    <MDBBtn color="primary">일정추가</MDBBtn>
+                    <MDBPopover
+                        placement="top"
+                        popover
+                        clickable
+                        id="popper5"
+                        >
+                            <MDBBtn color="primary">일정추가</MDBBtn>
+                            <div>
+                                <MDBPopoverBody>
+                                    <div className="ShareModalInsertPlan">
+                                        <span className="spotmodalTitle">일정 추가</span><br/>
+                                        👨‍🍳&nbsp;&nbsp;{row.subject}<br/>
+                                        &nbsp;<MDBIcon icon="map-marker-alt" />&nbsp;&nbsp;{row.addr}<br/>
+                                        🗓&nbsp;&nbsp;여행 날짜
+                                        <input type="date" class="form-control form-control-sm" ref="wishday"></input>
+                                        ⏰&nbsp;&nbsp;예정 시간
+                                        <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
+                                        <div style={{textAlign: 'center'}}>
+                                            <MDBBtn color="primary" onClick={this.insertWish.bind(this)}>추가</MDBBtn>
+                                        </div>
+                                    </div>
+                                </MDBPopoverBody>
+                            </div>
+                        </MDBPopover>
+                    
                     </MDBModalFooter>
                 </MDBModal>
 
-                {/* <Box>
-                    <Modal open={this.state.modalOpen} close={this.closeModal.bind(this)} title="share"> */}
-                        {/* // Modal.js <main> { props.children } </main>에 내용이 입력된다.  */}
-                        {/* <div id="ShareModalAll" ref={this.myRef} onScroll={this.onScroll}>
-                            <p style={{margin: "10px"}}>({row.id}) 님이 공유하신 맛집입니다.</p>
-                            <div
-                                id="ShareModalMidBox"
-                                style={{
-                                    height: "580px",
-                                }}
-                            >
-                                <table id="ShareFormAll">
-                                    <tr>
-                                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>맛집이름 </span></th>
-                                        <td id="sharetd">
-                                            <b
-                                                style={{fontSize: "1.3em"}}
-                                            >{row.subject}</b>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>맛집주소 </span></th>
-                                        <td id="sharetd">
-                                            <b
-                                                style={{fontSize: "1.3em"}}
-                                            >{row.addr}</b>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>이미지 </span></th>
-                                        <td id="sharetd">
-                                            <div id="ShareModalImg"
-                                                 style={{
-                                                     overflow: "hidden",
-                                                 }}
-                                            >{ThumbnailImg}</div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>리뷰 </span></th>
-                                        <td id="sharetd" style={{maxWidth: "600px"}}>
-                                            <b
-                                                style={{fontSize: "1.3em"}}
-                                            >{row.content}</b>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>평가 </span></th>
-
-                                        <td id="sharetd">
-                                            <Box>
-                                                <Rating
-                                                    defaultValue={row.star}
-                                                    emptyIcon={<StarBorderIcon fontSize="inherit"/>}
-                                                    readOnly={true}
-                                                />
-                                            </Box>
-                                        </td>
-                                    </tr>
-
-                                </table>
-                            </div>
-
-                            <div id="ShareReviewWrite">
-                                <div>
-                                    <div>
-                                        <textarea
-                                            placeholder="댓글을 입력하세요"
-                                            className="form-control"
-                                            style={{width: '900px', height: '100px', float: 'left'}}
-                                            ref="content"
-                                        ></textarea>
-                                    </div>
-                                    <div>
-                                        <MDBBtn color="deep-orange" id="ShareReviewSave"
-                                                onClick={this.onInsertAnswer.bind(this)}
-                                        ><b style={{fontSize: '17px'}}>작&nbsp;성</b>
-                                        </MDBBtn>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <ShareReview
-                                    regroup={row.regroup}
-                                />
-                            </div>
-                        </div>
-                    </Modal>
-                </Box> */}
+                {/* alert 창 */}
+                <Dialog
+                    open={this.state.alertOpen}
+                    onClose={()=>{this.setState({alertOpen:false})}}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"일정 추가 완료"}</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Mypage로 이동하여 확인하시겠습니까?
+                    </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={()=>{this.setState({alertOpen:false})}} color="primary">
+                        NO
+                    </Button>
+                    <Button onClick={
+                        ()=>{
+                            this.setState({
+                                alertOpen: false
+                            })
+                            this.props.history.push("/mypage");
+                        }
+                    } color="primary" autoFocus>
+                        YES
+                    </Button>
+                    </DialogActions>
+                </Dialog>
                 {/*//////////////////////////////////////////////////////////////////////////////////////////*/}
             </React.Fragment>
         )
