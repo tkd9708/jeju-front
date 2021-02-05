@@ -247,7 +247,7 @@ class ReviewItem extends Component {
                 }
                 <br/>
 
-                <div className="ShareModalMsg" onMouseOver={()=>{
+                <div className="ShareModalMsg" style={{position: 'relative'}} onMouseOver={()=>{
                     document.getElementsByClassName("ShareModalReviews")[this.props.idx].style.visibility='visible';
                 }} onMouseOut={()=>{
                     document.getElementsByClassName("ShareModalReviews")[this.props.idx].style.visibility='collapse';
@@ -257,6 +257,8 @@ class ReviewItem extends Component {
                     {/* 추가 버튼 */}
                     <SubdirectoryArrowRightIcon className="ShareModalReviews" style={{visibility: 'collapse', color: '#ddd', cursor: 'pointer'}}
                         onClick={this.onTriggerInput.bind(this, "insert")} disabled={this.getIsDisableAnswerButton(row, boardActionType.write)}/>
+                
+                    <div style={{position:'absolute', right:'5px', bottom:'5px', color: '#888'}}>{row.writeday}</div>
                 </div>
 
                 {/* <MDBBtn size="sm" color="deep-orange"

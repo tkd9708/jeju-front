@@ -475,8 +475,8 @@ class ShareBoardRowItem extends Component {
                             <ShareReview regroup={row.regroup}/>
                     </MDBModalBody>
                     <MDBModalFooter>
-                    <MDBBtn color="secondary" onClick={this.toggle}>Close</MDBBtn>
-                    <MDBBtn color="primary">Save changes</MDBBtn>
+                    <MDBBtn color="dark-green" onClick={this.toggle}>Close</MDBBtn>
+                    <MDBBtn color="primary">일정추가</MDBBtn>
                     </MDBModalFooter>
                 </MDBModal>
 
