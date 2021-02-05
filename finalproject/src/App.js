@@ -222,7 +222,12 @@ class App extends Component {
                     /></div>
 
                     {/*아이콘을 누르면 나오는 채팅 창.*/}
-                    <div className="chattingWindow">
+                    <div className="chattingWindow"
+                         style={{
+                             transform: "scale(0.1)",
+                             opacity: "0",
+                         }}
+                    >
                         <ChatCompPage/>
                     </div>
                 </div>
