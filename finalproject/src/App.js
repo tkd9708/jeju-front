@@ -40,6 +40,7 @@ import SocialUpdateForm from "./component/main/mypage/SocialUpdateForm";
 import MemberUpdateFormComp from "./component/main/mypage/MemberUpdateFormComp";
 import ChattingRoom from './component/main/SharePlan/ChattingRoom';
 import ChatIcon from '@material-ui/icons/Chat';
+import ChatCompPage from "./component/main/SharePlan/ChatCompPage";
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -208,7 +209,7 @@ class App extends Component {
                             } else {
                                 gsap.to("div.chatting div.chattingWindow", {
                                     transform: "scale(1)",
-                                    opacity: 0.5,
+                                    opacity: 1,
                                     duration: duration,
                                     ease: ease,
                                 });
@@ -217,13 +218,17 @@ class App extends Component {
                                     isOpenChatWindow: true,
                                 });
                             }
-
                         }}
                     /></div>
 
                     {/*아이콘을 누르면 나오는 채팅 창.*/}
-                    <div className="chattingWindow">
-
+                    <div className="chattingWindow"
+                         style={{
+                             transform: "scale(0.1)",
+                             opacity: "0",
+                         }}
+                    >
+                        <ChatCompPage/>
                     </div>
                 </div>
                 <div className="mainFrame"
