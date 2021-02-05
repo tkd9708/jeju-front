@@ -22,7 +22,7 @@ import './Share.css';
 import {Delete} from "@material-ui/icons";
 // import "../tour/TourCss.css"
 import imgX from "../../../image/imgX.png";
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBView, MDBIcon } from 'mdbreact';
+import { MDBBtn, MDBCardImage, MDBModal, MDBModalBody, MDBModalHeader, MDBMask, MDBView, MDBModalFooter, MDBIcon } from 'mdbreact';
 
 
 /*
@@ -78,8 +78,10 @@ class ShareBoardRowItem extends Component {
         this.state = {
             modalOpen: false,
             likes: 0,
+            open: false
         }
 
+        
         store.dispatch({
             type: actionType.setMainView,
             mainView: mainViewType.ShareBoard,
@@ -114,6 +116,12 @@ class ShareBoardRowItem extends Component {
             scrollTop: scrollTop
         })
     }
+
+    toggle = () => {
+        this.setState({
+          open: !this.state.open
+        });
+      }
 
 
     //삭제하는 함수 이벤트
@@ -177,7 +185,8 @@ class ShareBoardRowItem extends Component {
 
         axios.post(url, data
         ).then(res => {
-            console.log("onInsertAnswer res", res);
+            // console.log("onInsertAnswer res", res);
+            this.refs.content.value='';
             store.dispatch({
                 type: actionType.shareBoardUpdate,
             });
@@ -272,7 +281,7 @@ class ShareBoardRowItem extends Component {
                         className='card-img-top'
                         src={imgX}
                         alt='이미지 없음'
-                        onClick={this.openModal.bind(this)} id="ShareImg"
+                        onClick={this.toggle.bind(this)} id="ShareImg"
                         />
                 // <img
                 //     src={imgX}
@@ -292,7 +301,7 @@ class ShareBoardRowItem extends Component {
                             console.log("img error");
                             e.target.src = imgX;
                         }}
-                        onClick={this.openModal.bind(this)} id="ShareImg"
+                        onClick={this.toggle.bind(this)} id="ShareImg"
                         alt='이미지 없음'
                         />
                 // <img
@@ -372,63 +381,109 @@ class ShareBoardRowItem extends Component {
         return (
             <React.Fragment>
                 <Box m={1} id="ShareListBox">
-                <MDBCard>
-                    {ThumbnailImg}
-
-                    <MDBCardBody className="ShareCardBody">
-                        <h6 className="font-weight-bold mb-3 green-text">
-                            <MDBIcon icon="utensils" className="pr-2" />
-                            Food
-                        </h6>
-
-                        <MDBCardTitle className='font-weight-bold ShareListTitle'>
-                            {row.subject}
-                        </MDBCardTitle>
-
-                        <MDBCardText id="ShareListContent" style={{overflow: 'hidden'}}>
-                            {row.content}
-                        </MDBCardText>
-
-                        {/* <MDBBtn color='unique'>Button</MDBBtn> */}
-                    </MDBCardBody>
-                    {itemBottomBtnDiv}
-                    </MDBCard>
-                    {/* <div>
-                        <div id="ShareImg"
-                             onClick={this.openModal.bind(this)}
-                             style={{
-                                 overflow: "hidden"
-                             }}
-                        ></div>
-                        <div id="ShareListSubject"
-                             onClick={this.openModal.bind(this)}
+                    <div onClick={this.toggle.bind(this)}>
+                        {ThumbnailImg}
+                        <div id="ShareListTitle"
                              style={{
                                  fontSize: "25px",
                                  fontWeight: "bold",
                              }}
                         >
+                            <h6 className="font-weight-bold green-text">
+                                <MDBIcon icon="utensils" className="pr-2" />
+                                Food
+                            </h6>
                             {row.subject}
                         </div>
-                        <div id="ShareContentDiv">
-                            <Box>
-                                <Rating style={{marginTop: '13px'}}
-                                        defaultValue={row.star}
-                                        emptyIcon={<StarBorderIcon fontSize="inherit"/>}
-                                        readOnly={true}
-                                />
-                            </Box>
-                            <div style={{marginTop: '10px'}}>{row.addr}</div>
+                        <div id="ShareListContent" style={{overflow: 'hidden'}}>
+                            {row.content}
                         </div>
-                        {itemBottomBtnDiv}
-                    </div> */}
+                    </div>
+                    {itemBottomBtnDiv}
                 </Box>
 
                 {/*/////////////////////////////////////Modal/////////////////////////////////////////////////////*/}
                 {/* //header 부분에 텍스트를 입력한다. */}
-                <Box>
-                    <Modal open={this.state.modalOpen} close={this.closeModal.bind(this)} title="share">
-                        {/* // Modal.js <main> { props.children } </main>에 내용이 입력된다.  */}
+                <MDBModal isOpen={this.state.open} toggle={this.toggle} size="lg" position="bottom">
+                    <MDBModalHeader toggle={this.toggle}>
+                        <b className="green-text ShareModalCategory"><MDBIcon icon="utensils" className="pr-2" />Food</b>&nbsp;&nbsp;
+                        <span id="ShareModalTitle"><b>{row.id}</b>님이 공유하신 맛집입니다.</span></MDBModalHeader>
+                    <MDBModalBody>
                         <div id="ShareModalAll" ref={this.myRef} onScroll={this.onScroll}>
+                        <Box display="flex"
+                            flexWrap="wrap"
+                            p={1}
+                            m={1}
+                            bgcolor="background.paper"
+                            justifyContent="center"
+                            css={{maxWidth: '100%'}}
+                        >
+                            <Box m={1} className="ShareModalItemBox">
+                                <MDBView className="rounded z-depth-2 mb-lg-0 mb-4" hover waves>
+                                    <img
+                                        className="img-fluid"
+                                        src={row.photo!="no"?URL + "/" + row.photo:imgX}
+                                        alt=""
+                                        onError={(e) => {
+                                            console.log("img error");
+                                            e.target.src = imgX;
+                                        }}
+                                    />
+                                    <MDBMask overlay="white-slight" />
+                                </MDBView>
+                            </Box>
+                            <Box m={1} className="ShareModalItemBox" style={{position: 'relative'}}>
+                                <br/>
+                                <Rating
+                                    defaultValue={row.star}
+                                    emptyIcon={<StarBorderIcon fontSize="inherit"/>}
+                                    readOnly={true}
+                                />
+                                <h3 className="mb-3 p-0">
+                                    {row.subject}
+                                </h3>
+                                <p>
+                                    <MDBIcon icon="map-marker-alt" />&nbsp;&nbsp;{row.addr}
+                                </p>
+                                <div style={{position: 'absolute', right: '5px', bottom: '5px'}}>
+                                    <b style={{color: 'gray'}}>{row.writeday}</b>
+                                </div>
+                            </Box>
+                            <Box m={1} className="ShareModalItemContent">
+                                {row.content}
+                            </Box>
+                        </Box>
+                        <br/>
+                        <hr/>
+
+                            <div id="ShareReviewWrite">
+                            <MDBIcon icon="comments" className="green-text pr-3" style={{marginLeft: '10px'}}/><b style={{fontWeight: '700'}}>다녀온 후기나 궁금한 질문을 자유롭게 나눠보아요.</b>
+                                <br/><br/>
+                                <textarea
+                                            placeholder="댓글 입력"
+                                            className="form-control"
+                                            ref="content"
+                                            style={{resize: 'none'}}
+                                        ></textarea>
+                                        <MDBBtn color="dark-green" id="ShareReviewSave"
+                                                onClick={this.onInsertAnswer.bind(this)}
+                                                style={{float: 'right'}}
+                                        >작성
+                                        </MDBBtn>
+                            </div>
+                        </div>
+                            <ShareReview regroup={row.regroup}/>
+                    </MDBModalBody>
+                    <MDBModalFooter>
+                    <MDBBtn color="secondary" onClick={this.toggle}>Close</MDBBtn>
+                    <MDBBtn color="primary">Save changes</MDBBtn>
+                    </MDBModalFooter>
+                </MDBModal>
+
+                {/* <Box>
+                    <Modal open={this.state.modalOpen} close={this.closeModal.bind(this)} title="share"> */}
+                        {/* // Modal.js <main> { props.children } </main>에 내용이 입력된다.  */}
+                        {/* <div id="ShareModalAll" ref={this.myRef} onScroll={this.onScroll}>
                             <p style={{margin: "10px"}}>({row.id}) 님이 공유하신 맛집입니다.</p>
                             <div
                                 id="ShareModalMidBox"
@@ -517,7 +572,7 @@ class ShareBoardRowItem extends Component {
                             </div>
                         </div>
                     </Modal>
-                </Box>
+                </Box> */}
                 {/*//////////////////////////////////////////////////////////////////////////////////////////*/}
             </React.Fragment>
         )

@@ -70,6 +70,8 @@ class ShareBoardPageComp extends Component {
         }).catch(err => {
             console.log("getShareListByPaging() err", err);
         });
+
+    
     }
 
     getTotalCount = () => {
@@ -141,13 +143,12 @@ class ShareBoardPageComp extends Component {
         this.getTotalCount();
     }
 
-    // componentWillUpdate() {
-    //     this.getTotalCount();
-    // }
-
     render() {
+        const { photoIndex, isOpen, images } = this.state;
+        
         return (
             <div id="ShareBoardPage">
+                
                 {/* 제목 */}
                 {/* <div style={{margin: "0 auto", marginLeft: "45%", marginTop: '1%', marginBottom: '4%'}}>
                     <h3 id="sharesubject">맛집 공유게시판</h3>

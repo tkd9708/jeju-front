@@ -1,22 +1,15 @@
 
 /* shareboard모달(detailpage) css */
 #ShareModalAll {
-    border: 1px solid #eee;
+    /* border: 1px solid #eeeeee;
     width: auto;
     height: 800px;
-    margin: auto;
+    margin: auto; */
     overflow: scroll;
 }
 
-#ShareModalThumbIcon {
-    font-size: 15pt;
-    cursor: pointer;
-    margin-top: 10px;
-    /* float: left;  */
-}
-
 /* 찜하기 heart 애니메이션 */
-.heart {
+/* .heart {
     width: 100px;
     height: 100px;
     transform: translate(-10%, -10%);
@@ -38,9 +31,9 @@
     100% {
         background-position: -2800px 0;
     }
-}
+} */
 
-#ShareModalMidBox {
+/* #ShareModalMidBox {
     width: 1150px;
     height: 400px;
 }
@@ -102,7 +95,7 @@
     height: 90px;
     margin-bottom: 10px;
     margin-left: 15px;
-}
+} */
 
 
 
@@ -189,25 +182,27 @@ input {
         margin-top: 2%;
         margin-bottom: 50px;
         cursor: pointer;
+        border: 1px solid #eee;
     }
     #ShareImg {
         width: 80vw;
         height: 70vw;
         text-align: center;
-        vertical-align: middle;
-    }
-    .ShareCardBody {
-        padding: 10pt !important;
+        border-bottom: 1px solid #eee;
     }
     #ShareListBox h6 {
         font-size: 0.9rem;
     }
-    .ShareListTitle {
-        font-size: 1.2rem;
+    #ShareListTitle {
+        font-size: 1.2rem !important;
+        margin: 15px;
     }
     #ShareListContent {
         height: 30pt;
         font-size: 0.8rem;
+        margin-bottom: 15px;
+        margin-left: 15px;
+        margin-right: 15px;
     }
 
     /* 버튼, 검색폼 */
@@ -243,10 +238,72 @@ input {
     .ShareThumbIcon, .ShareListUp, .ShareListDel {
         width: 0.8em !important;
     }
+
+    /* 모달 */
+    .ShareModalItemBox {
+        width: 90vw;
+    }
+    .ShareModalItemBox h3 {
+        font-size: 1.3rem;
+        font-weight: 900;
+    }
+    .ShareModalItemBox p, .ShareModalItemBox b {
+        font-size: 0.7rem;
+    }
+    .ShareModalItemContent {
+        margin: 5px 2px !important;
+        font-size: 0.9rem;
+    } 
+    #ShareModalAll {
+        margin-bottom: 50px;
+    }
+    .ShareModalCategory {
+        font-size: 1rem;
+    }
+    #ShareModalTitle b {
+        margin-left: 10px;
+        font-size: 0.7rem;
+    }
+    #ShareModalTitle {
+        font-size: 0.6rem;
+    }
+    .ShareModalMsg {
+        margin: 10px 10px;
+        cursor: pointer;
+    }
+    .ShareModalReviewItem {
+        margin: 10px 10px;
+        font-size: 0.9rem;
+    }
+    .ShareModalUpBtn {
+        width: 15px !important;
+        float: right;
+        margin-right: 10px;
+    }
+    .ShareModalReviewProfile {
+        width: 25px;
+        height: 25px;
+    }
+    #ShareReviewWrite {
+        margin-top: 50px;
+    }
+    #ShareReviewWrite b {
+        font-size: 0.9rem;
+    }
+    #ShareReviewWrite textarea {
+        height: 100px;
+    }
+    #ShareReviewWrite button {
+        padding: 8px 13px;
+    }
+    .ShareReviewAll button {
+        padding: 8px 13px;
+    }
 }
 @media only screen and (min-width:450px) and (max-width:770px){
     /* shareboardlist css */
     #ShareListBox {
+        border: 1px solid #eee;
         width: 38vw;
         margin-top: 2%;
         margin-left: 1%;
@@ -258,20 +315,21 @@ input {
         width: 38vw;
         height: 33vw;
         text-align: center;
-        vertical-align: middle;
-    }
-    .ShareCardBody {
-        padding: 10pt !important;
+        border-bottom: 1px solid #eee;
     }
     #ShareListBox h6 {
         font-size: 0.9rem;
     }
-    .ShareListTitle {
-        font-size: 1.2rem;
+    #ShareListTitle {
+        font-size: 1.2rem !important;
+        margin: 15px;
     }
     #ShareListContent {
         height: 30pt;
         font-size: 0.8rem;
+        margin-bottom: 15px;
+        margin-left: 15px;
+        margin-right: 15px;
     }
 
     /* 버튼, 검색폼 */
@@ -304,10 +362,62 @@ input {
     .ShareThumbIcon, .ShareListUp, .ShareListDel {
         width: 0.8em !important;
     }
+
+    /* 모달 */
+    .ShareModalItemBox {
+        width: 60vw;
+    }
+    .ShareModalItemContent {
+        margin: 10px !important;
+        font-size: 0.9rem;
+    } 
+    #ShareModalAll {
+        margin-bottom: 50px;
+    }
+    #ShareModalTitle b {
+        margin-left: 12px;
+        font-size: 1.2rem;
+    }
+    #ShareModalTitle {
+        font-size: 0.8rem;
+    }
+    .ShareModalMsg {
+        margin: 10px 10px;
+        cursor: pointer;
+    }
+    .ShareModalReviewItem {
+        margin: 10px 10px;
+        font-size: 0.9rem;
+    }
+    .ShareModalUpBtn {
+        width: 15px !important;
+        float: right;
+        margin-right: 10px;
+    }
+    .ShareModalReviewProfile {
+        width: 25px;
+        height: 25px;
+    }
+    #ShareReviewWrite {
+        margin-top: 50px;
+    }
+    #ShareReviewWrite b {
+        font-size: 0.9rem;
+    }
+    #ShareReviewWrite textarea {
+        height: 100px;
+    }
+    #ShareReviewWrite button {
+        padding: 8px 13px;
+    }
+    .ShareReviewAll button {
+        padding: 8px 13px;
+    }
 }
 @media only screen and (min-width:770px) and (max-width:1023px){
     /* shareboardlist css */
     #ShareListBox {
+        border: 1px solid #eee;
         width: 25vw;
         margin-top: 2%;
         margin-left: 1%;
@@ -315,27 +425,25 @@ input {
         margin-bottom: 50px;
         cursor: pointer;
     }
-    .ShareCardBody {
-        padding: 10pt !important;
-    }
     #ShareListBox h6 {
         font-size: 0.9rem;
     }
-
-    .ShareListTitle {
-        font-size: 1.2rem;
+    #ShareListTitle {
+        margin: 15px;
+        font-size: 1.2rem !important;
     }
-
     #ShareImg {
         width: 25vw;
         height: 20vw;
         text-align: center;
-        vertical-align: middle;
+        border-bottom: 1px solid #eee;
     }
-
     #ShareListContent {
         height: 30pt;
         font-size: 0.8rem;
+        margin-bottom: 15px;
+        margin-left: 15px;
+        margin-right: 15px;
     }
 
     /* 버튼, 검색폼 */
@@ -368,28 +476,86 @@ input {
     .ShareThumbIcon, .ShareListUp, .ShareListDel {
         width: 0.8em !important;
     }
+
+    /* 모달 */
+    .ShareModalItemBox {
+        width: 60vw;
+    }
+    .ShareModalItemContent {
+        margin: 10px !important;
+        font-size: 0.9rem;
+    } 
+    #ShareModalAll {
+        margin-bottom: 50px;
+    }
+    #ShareModalTitle b {
+        margin-left: 12px;
+        font-size: 1.2rem;
+    }
+    #ShareModalTitle {
+        font-size: 0.8rem;
+    }
+    .ShareModalMsg {
+        margin: 10px 10px;
+        cursor: pointer;
+    }
+    .ShareModalReviewItem {
+        margin: 10px 10px;
+        font-size: 0.9rem;
+    }
+    .ShareModalUpBtn {
+        width: 15px !important;
+        float: right;
+        margin-right: 10px;
+    }
+    .ShareModalReviewProfile {
+        width: 25px;
+        height: 25px;
+    }
+    #ShareReviewWrite {
+        margin-top: 50px;
+    }
+    #ShareReviewWrite b {
+        font-size: 0.9rem;
+    }
+    #ShareReviewWrite textarea {
+        height: 100px;
+    }
+    #ShareReviewWrite button {
+        padding: 8px 13px;
+    }
+    .ShareReviewAll button {
+        padding: 8px 13px;
+    }
 }
 @media only screen and (min-width:1023px){
     /* shareboardlist css */
     #ShareListBox {
-        /* border: 1px solid #eee; */
+        border: 1px solid #eee;
         width: 25vw;
-        margin-top: 2%;
-        margin-left: 1%;
+        /* margin-top: 2%;
+        margin-left: 1%; */
         margin-right: 50px;
         margin-bottom: 50px;
         /* float: left; */
         cursor: pointer;
     }
-
     #ShareImg {
         width: 25vw;
-        height: 15vw;
+        height: 20vw;
         text-align: center;
+        border-bottom: 1px solid #eee;
     }
-
+    #ShareListTitle {
+        margin: 15px;
+        font-size: 1.3rem !important;
+    }
     #ShareListContent {
-        height: 30pt;
+        height: 33pt;
+        margin-bottom: 15px;
+        margin-left: 15px;
+        margin-right: 15px;
+        font-size: 0.9rem;
     }
 
     /* 버튼, 검색폼 */
@@ -417,6 +583,57 @@ input {
     }
     .ShareThumbIcon, .ShareListUp, .ShareListDel {
         width: 0.8em !important;
+    }
+
+    /* 모달 */
+    .ShareModalItemBox {
+        width: 60vw;
+    }
+    .ShareModalItemContent {
+        margin: 10px !important;
+        font-size: 0.9rem;
+    } 
+    #ShareModalAll {
+        margin-bottom: 50px;
+    }
+    #ShareModalTitle b {
+        margin-left: 12px;
+        font-size: 1.2rem;
+    }
+    #ShareModalTitle {
+        font-size: 0.8rem;
+    }
+    .ShareModalMsg {
+        margin: 10px 10px;
+        cursor: pointer;
+    }
+    .ShareModalReviewItem {
+        margin: 10px 10px;
+        font-size: 0.9rem;
+    }
+    .ShareModalUpBtn {
+        width: 15px !important;
+        float: right;
+        margin-right: 10px;
+    }
+    .ShareModalReviewProfile {
+        width: 25px;
+        height: 25px;
+    }
+    #ShareReviewWrite {
+        margin-top: 50px;
+    }
+    #ShareReviewWrite b {
+        font-size: 0.9rem;
+    }
+    #ShareReviewWrite textarea {
+        height: 100px;
+    }
+    #ShareReviewWrite button {
+        padding: 8px 13px;
+    }
+    .ShareReviewAll button {
+        padding: 8px 13px;
     }
 
     /* #ShareListSubject {

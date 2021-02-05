@@ -3,6 +3,7 @@ import axios from "axios";
 import {URL} from '../../../redux/config';
 import ReviewItem from './ReviewItem';
 import store from "../../../redux/store";
+import { MDBIcon } from 'mdbreact';
 
 class ShareReview extends Component {
     constructor(props) {
@@ -21,11 +22,11 @@ class ShareReview extends Component {
         //댓글 출력하는 함수.
         let url = URL + "/share/answer" +
             "?regroup=" + this.regroup;
-        console.log(url);
+        // console.log(url);
 
         axios.get(url
         ).then(res => {
-            console.log(res);
+            // console.log(res);
             this.setState({
                 listData: res.data
             });
@@ -42,10 +43,12 @@ class ShareReview extends Component {
     render() {
         return (
             <div>
+                
+                <hr/>
                 {
                     this.state.listData.map((row, idx) => {
                         return (
-                            <ReviewItem row={row} key={idx}
+                            <ReviewItem row={row} key={idx} idx={idx}
                                         history={this.props.history}
                             />
                         )
