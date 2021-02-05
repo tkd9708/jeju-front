@@ -32,6 +32,7 @@ class ShareBoardFormComp extends Component {
         this.state = {
             photoname: '',
             star: "0",
+            category: 'Food'
         }
     }
 
@@ -60,13 +61,13 @@ class ShareBoardFormComp extends Component {
 
     onDataInsert = (resolve = null) => {
         //입력값 state 변수에 저장하기
-        let subject = this.refs.subject.value;
+        let subject = this.state.category + "," + this.refs.subject.value;
         let addr = this.refs.addr.value;
         let content = this.refs.content.value;
         let star = this.state.star;
         let id = store.getState().loginId;
 
-        console.log(subject + ", " + addr + ", " + content);
+        // console.log(subject + ", " + addr + ", " + content);
 
         //db 에 insert
         let url = URL + "/share/insert";
@@ -105,6 +106,12 @@ class ShareBoardFormComp extends Component {
         });
     }
 
+    changeSelect = (e) => {
+        this.setState({
+            category: e.target.value
+        })
+    }
+
     render() {
         //const url="http://localhost:9002/photo/";
         console.log("ShareBoardFormComp render()", this.props);
@@ -118,6 +125,17 @@ class ShareBoardFormComp extends Component {
 
 
                 <table id="ShareFormAll">
+                    <tr>
+                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>카테고리 </span></th>
+                        <td id="sharetd">
+                            <select name="category" onChange={this.changeSelect}>
+                                    <option disabled>선택하세요</option>
+                                    <option value="Food">Food</option>
+                                    <option value="Cafe">Cafe</option>
+                                    <option value="Bar">Bar</option> 
+                                </select>
+                        </td>
+                    </tr>
                     <tr>
                         <th id="shareth" style={{verticalAlign: 'middle'}}><span>맛집이름 </span></th>
                         <td id="sharetd">

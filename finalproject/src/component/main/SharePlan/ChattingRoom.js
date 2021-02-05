@@ -73,25 +73,25 @@ const ChattingRoom = ({match}) => {
             }
         }
 
-        document.addEventListener("keypress", function (e) {
-            if (e.keyCode == 13) { //enter press
-                this.send();
-            }
-        });
+        // document.addEventListener("keypress", function (e) {
+        //     if (e.keyCode == 13) { //enter press
+        //         this.send();
+        //     }
+        // });
     }
 
 
-    function send() {
-        var option = {
-            type: "message",
-            roomNum: roomNum,
-            sessionId: sessionId,
-            userName: store.getState().loginId,
-            msg: msg
-        }
-        ws.onopen = () => ws.send(JSON.stringify(option))
-        setMsg('');
-    }
+    // function send() {
+    //     var option = {
+    //         type: "message",
+    //         roomNum: roomNum,
+    //         sessionId: sessionId,
+    //         userName: store.getState().loginId,
+    //         msg: msg
+    //     }
+    //     ws.onopen = () => ws.send(JSON.stringify(option))
+    //     setMsg('');
+    // }
 
     return (
         <div id="container"
@@ -100,7 +100,7 @@ const ChattingRoom = ({match}) => {
                  float: "right",
              }}
         >
-            <h3>
+            {/* <h3>
                 <ArrowBackIcon
                     className="backButton"
                     onClick={()=>{
@@ -134,7 +134,7 @@ const ChattingRoom = ({match}) => {
                         </th>
                     </tr>
                 </table>
-            </div>
+            </div> */}
         </div>
     )
 }

@@ -422,11 +422,24 @@ class ShareBoardRowItem extends Component {
                                  fontWeight: "bold",
                              }}
                         >
+                            {row.subject.split(",")[0]=="Food"?
                             <h6 className="font-weight-bold green-text">
                                 <MDBIcon icon="utensils" className="pr-2" />
                                 Food
-                            </h6>
-                            {row.subject}
+                            </h6>:""}
+                            
+                            {row.subject.split(",")[0]=="Cafe"?
+                            <h6 className="font-weight-bold pink-text">
+                                <MDBIcon icon="mug-hot" className="pr-2" />
+                                Cafe
+                            </h6>:""}
+                            
+                            {row.subject.split(",")[0]=="Bar"?
+                            <h6 className="font-weight-bold blue-text">
+                                <MDBIcon icon="glass-cheers" className="pr-2" />
+                                Bar
+                            </h6>:""}
+                            {row.subject.split(",")[1]}
                         </div>
                         <div id="ShareListContent" style={{overflow: 'hidden'}}>
                             {row.content}
@@ -439,7 +452,17 @@ class ShareBoardRowItem extends Component {
                 {/* //header 부분에 텍스트를 입력한다. */}
                 <MDBModal isOpen={this.state.open} toggle={this.toggle} size="lg" position="bottom">
                     <MDBModalHeader toggle={this.toggle}>
-                        <b className="green-text ShareModalCategory"><MDBIcon icon="utensils" className="pr-2" />Food</b>&nbsp;&nbsp;
+                        
+                        {row.subject.split(",")[0]=="Food"?
+                            <b className="green-text ShareModalCategory"><MDBIcon icon="utensils" className="pr-2" />Food</b>:""}
+                            
+                            {row.subject.split(",")[0]=="Cafe"?
+                            <b className="pink-text ShareModalCategory"><MDBIcon icon="mug-hot" className="pr-2" />Cafe</b>:""}
+                            
+                            {row.subject.split(",")[0]=="Bar"?
+                            <b className="blue-text ShareModalCategory"><MDBIcon icon="glass-cheers" className="pr-2" />Bar</b>:""}
+
+                        &nbsp;&nbsp;
                         <span id="ShareModalTitle"><b>{row.id}</b>님이 공유하신 맛집입니다.</span></MDBModalHeader>
                     <MDBModalBody>
                         <div id="ShareModalAll" ref={this.myRef} onScroll={this.onScroll}>
@@ -472,15 +495,15 @@ class ShareBoardRowItem extends Component {
                                     emptyIcon={<StarBorderIcon fontSize="inherit"/>}
                                     readOnly={true}
                                 />
-                                <h3 className="mb-3 p-0">
-                                    {row.subject}
+                                <div style={{position: 'absolute', right: '5px', top: '5px'}}>
+                                    <b style={{color: 'gray'}}>{row.writeday}</b>
+                                </div>
+                                <h3 className="mb-3 p-0" style={{fontWeight: '900'}}>
+                                    {row.subject.split(",")[1]}
                                 </h3>
                                 <p>
                                     <MDBIcon icon="map-marker-alt" />&nbsp;&nbsp;{row.addr}
                                 </p>
-                                <div style={{position: 'absolute', right: '5px', bottom: '5px'}}>
-                                    <b style={{color: 'gray'}}>{row.writeday}</b>
-                                </div>
                             </Box>
                             <Box m={1} className="ShareModalItemContent">
                                 {row.content}
@@ -521,7 +544,7 @@ class ShareBoardRowItem extends Component {
                                 <MDBPopoverBody>
                                     <div className="ShareModalInsertPlan">
                                         <span className="spotmodalTitle">일정 추가</span><br/>
-                                        👨‍🍳&nbsp;&nbsp;{row.subject}<br/>
+                                        👨‍🍳&nbsp;&nbsp;{row.subject.split(",")[1]}<br/>
                                         &nbsp;<MDBIcon icon="map-marker-alt" />&nbsp;&nbsp;{row.addr}<br/>
                                         🗓&nbsp;&nbsp;여행 날짜
                                         <input type="date" class="form-control form-control-sm" ref="wishday"></input>

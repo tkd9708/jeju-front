@@ -17,7 +17,7 @@ class ShareBoardUpdateForm extends Component {
         console.log("ShareBoardUpdateForm constructor", this.props);
         this.num = this.props.match.params.num;
         this.pageNum = this.props.match.params.pageNum;
-        this.refs.star.value = 0;
+        // this.refs.star.value = 0;
         this.state = {
             photoname: '',
             star: "0",
