@@ -1,63 +1,129 @@
-*{
-    margin:0;
-    padding:0;
+* {
+    margin: 0;
+    padding: 0;
 }
-.container{
-    width: 500px;
+
+button {
+    background-color: #FFBB00;
+    font-size: 0.9em;
+    color: #000;
+    /*border: 1px solid #000;*/
+    /*border-radius: 50px;*/
+    padding: 3px;
+    margin: 3px;
+}
+
+div.containerRoot {
+    width: 900px;
+}
+
+div.container {
+    width: 400px;
     margin: 0 auto;
     padding: 25px
 }
-.container h1{
+
+div.container .backButton{
+    transform: scale(1.7);
+}
+
+div.container .backButton:hover{
+    cursor: pointer;
+    transform: scale(2.0);
+}
+
+div.container h3 {
     text-align: left;
     padding: 5px 5px 5px 15px;
     color: #FFBB00;
     border-left: 3px solid #FFBB00;
     margin-bottom: 20px;
 }
-.roomContainer{
+
+div.roomContainer {
     background-color: #F6F6F6;
-    width: 500px;
-    height: 500px;
+    height: 580px;
     overflow: auto;
+    padding: 5px;
+    text-align: center;
 }
-.roomList{
+
+/*Chatting Lobby insert chattingRoom*/
+table.inputTable{
+    width: 100%;
+    /*margin-bottom: 20px;*/
+}
+
+table.inputTable th {
+    padding: 5px;
+    font-size: 1.0em;
+}
+
+table.inputTable th:nth-child(1){
+    width: 30%;
+}
+table.inputTable th:nth-child(2){
+    width: auto;
+}
+table.inputTable th:nth-child(3){
+    width: 30%;
+}
+
+table.inputTable input {
+    /*width: auto;*/
+    height: 30px;
+}
+
+
+
+/*Chatting Room List in Lobby*/
+div.roomList {
     border: none;
+    width: 100%;
 }
-.roomList th{
+
+div.roomList table{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+div.roomList th, table.roomList td  {
     border: 1px solid #FFBB00;
     background-color: #fff;
     color: #FFBB00;
+    text-align: center;
+    font-size: 1.2em;
+    padding: 5px;
 }
-.roomList td{
+div.roomList th:nth-child(1){
+    cursor: pointer;
+}
+div.roomList th:nth-child(2){
+    cursor: pointer;
+}
+
+div.roomList th.num {
+    width: 20%;
+}
+
+div.roomList th.room {
+    width: 50%;
+}
+
+div.roomList th.go {
+    width: 30%;
+}
+
+div.roomList tr{
+    padding-top: 20px;
+}
+
+div.roomList td {
     border: 1px solid #FFBB00;
     background-color: #fff;
     text-align: left;
     color: #FFBB00;
 }
-.roomList .num{
-    width: 75px;
-    text-align: center;
-}
-.roomList .room{
-    width: 350px;
-}
-.roomList .go{
-    width: 71px;
-    text-align: center;
-}
-button{
-    background-color: #FFBB00;
-    font-size: 14px;
-    color: #000;
-    border: 1px solid #000;
-    border-radius: 5px;
-    padding: 3px;
-    margin: 3px;
-}
-.inputTable th{
-    padding: 5px;
-}
-.inputTable input{
-    width: 330px;
-    height: 25px;
-}
+
+
+
