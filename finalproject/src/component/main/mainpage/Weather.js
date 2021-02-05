@@ -24,6 +24,7 @@ class Weather extends Component {
         }.bind(this));
 
         // 리덕스스토어에구독한다
+
         // 리덕스를 안쓰고 클래스 내부 state를 씁니다
         this.state = {
             // c_tm: [], // 동네예보 예보 시각
@@ -107,9 +108,10 @@ class Weather extends Component {
         console.log("/getTourStnVilageFcst" + queryParams);
 
         // 아래 url이 중간부터 있는 이유는 package.json 에
-        // "proxy": "http://apis.data.go.kr/1360000/TourStnInfoService",
+        // "proxy": "http://apis.data.go.kr/1360000",
         // 저것을 미리 세팅해두었기 때문입니다.
-        axios.get("/getTourStnVilageFcst" + queryParams)
+        // axios.get("/getTourStnVilageFcst" + queryParams)
+        axios.get("/TourStnInfoService/getTourStnVilageFcst" + queryParams)
             .then(res => {
                 console.log("기상청 리턴값 res:", res);
                 console.log("기상청 리턴값 res.data.response.body.items.item:", res.data.response.body.items.item);
@@ -145,7 +147,8 @@ class Weather extends Component {
 
             console.log("/getTourStnWthrIdx" + queryParams_2);
 
-            axios.get("/getTourStnWthrIdx" + queryParams_2)
+            // axios.get("/getTourStnWthrIdx" + queryParams_2)
+            axios.get("/TourStnInfoService/getTourStnWthrIdx" + queryParams_2)
                 .then(res2 => {
                     console.log("기상청 리턴값_2 res2 : " + res2);
                     console.log("기상청 리턴값_2 res2.data.response.body.items.item : " + res2.data.response.body.items.item);
@@ -168,6 +171,18 @@ class Weather extends Component {
                 .catch(err => {
                     console.log("기상청 리턴값_2 err_2 : ", err);
                 });
+
+            let url_3 = 'http://apis.data.go.kr/1360000/VilageFcstInfoService/getUltraSrtNcst';
+            let queryParams_3 = '?' + encodeURIComponent('ServiceKey') + '=' + 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D';
+            queryParams_3 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
+            queryParams_3 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('8');
+            queryParams_3 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
+            queryParams_3 += '&' + encodeURIComponent('base_date') + '=' + encodeURIComponent(year+month+date); // 발표일자
+            queryParams_3 += '&' + encodeURIComponent('base_time') + '=' + encodeURIComponent('0600'); // 발표시각 06시 발표(정시단위)
+            queryParams_3 += '&' + encodeURIComponent('nx') + '=' + encodeURIComponent('18'); // 예보지점 X 좌표값
+            queryParams_3 += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent('1'); // 예보지점 Y 좌표
+            console.log("/getUltraSrtNcst" + queryParams_3);
+            
     }
 
     render() {
