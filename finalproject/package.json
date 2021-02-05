@@ -2,7 +2,7 @@
   "name": "finalproject",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://apis.data.go.kr/1360000/TourStnInfoService",
+  "proxy": "http://apis.data.go.kr/1360000",
   "dependencies": {
     "@bybas/weather-icons": "1.2.0",
     "@fortawesome/fontawesome-free": "^5.15.2",

@@ -26,6 +26,7 @@ const reducer = function (state, action) {
             },
             weatherInfo: [], // 날씨정보
             weatherInfo_2: [], // 날씨정보_2
+            isOpenChatWindow: false,
         }
     }
 
@@ -95,6 +96,10 @@ const reducer = function (state, action) {
         newState = Object.assign({}, state, {
             weatherInfo: action.weatherInfo,
             weatherInfo_2: action.weatherInfo_2,
+        });
+    } else if (action.type === actionType.setChatWindow) {
+        newState = Object.assign({}, state, {
+            isOpenChatWindow: !state.isOpenChatWindow,
         });
     }
 
