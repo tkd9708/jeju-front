@@ -18,11 +18,12 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import SmsIcon from '@material-ui/icons/Sms';
 import TextsmsIcon from '@material-ui/icons/Textsms';
 import {withStyles} from '@material-ui/core/styles';
-import {MDBBtn} from "mdbreact";
 import './Share.css';
 import {Delete} from "@material-ui/icons";
 // import "../tour/TourCss.css"
 import imgX from "../../../image/imgX.png";
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBView, MDBIcon } from 'mdbreact';
+
 
 /*
 row:
@@ -208,24 +209,24 @@ class ShareBoardRowItem extends Component {
                 >
                     {/* 좋아요 버튼 */}
                     <ThumbUpAltIcon
-                        id="ShareThumbIcon"
+                        className="ShareThumbIcon"
                         onClick={this.addLikes}
-                    />&nbsp;{row.likes + this.state.likes}&nbsp;
+                    />&nbsp;{row.likes + this.state.likes}&nbsp;&nbsp;
 
                     <SmsIcon
-                        id="ShareThumbIcon"
+                        className="ShareThumbIcon"
                         onClick=""
                     />&nbsp;{this.state.answerCount}&nbsp;
 
                     {/* 삭제 버튼 */}
                     <DeleteIcon
-                        id="DeleteButton"
+                        className="ShareListDel"
                         onClick={this.onDeleteData.bind(this)}
                     />
 
                     {/* modify 버튼 */}
                     <BuildIcon
-                        id="UpdateButton"
+                        className="ShareListUp"
                         onClick={() => {
                             // this.props.history.push(`/share/update/${this.props.row.num}/${this.props.currentPage}`);
                             if (!this.props.currentPage) {
@@ -244,12 +245,12 @@ class ShareBoardRowItem extends Component {
                 >
                     {/* 좋아요 버튼 */}
                     <ThumbUpAltIcon
-                        id="ShareThumbIcon"
+                        className="ShareThumbIcon"
                         onClick={this.addLikes}
-                    />&nbsp;{row.likes + this.state.likes}&nbsp;
+                    />&nbsp;{row.likes + this.state.likes}&nbsp;&nbsp;
 
                     <SmsIcon
-                        id="ShareThumbIcon"
+                        className="ShareThumbIcon"
                         onClick=""
                     />&nbsp;{this.state.answerCount}&nbsp;
                 </div>
@@ -265,25 +266,45 @@ class ShareBoardRowItem extends Component {
 
         if (_strSrc == "no") {
             resultImg = (
-                <img
-                    src={imgX}
-                    style={{
-                        width: "100%"
-                    }}
-                />
+                <MDBCardImage
+                        hover
+                        overlay='white-slight'
+                        className='card-img-top'
+                        src={imgX}
+                        alt='이미지 없음'
+                        onClick={this.openModal.bind(this)} id="ShareImg"
+                        />
+                // <img
+                //     src={imgX}
+                //     style={{
+                //         width: "100%"
+                //     }}
+                // />
             )
         } else {
             resultImg = (
-                <img
-                    src={srcImg}
-                    onError={(e) => {
-                        console.log("img error");
-                        e.target.src = imgX;
-                    }}
-                    style={{
-                        width: "100%"
-                    }}
-                />
+                <MDBCardImage
+                        hover
+                        overlay='white-slight'
+                        className='card-img-top'
+                        src={srcImg}
+                        onError={(e) => {
+                            console.log("img error");
+                            e.target.src = imgX;
+                        }}
+                        onClick={this.openModal.bind(this)} id="ShareImg"
+                        alt='이미지 없음'
+                        />
+                // <img
+                //     src={srcImg}
+                //     onError={(e) => {
+                //         console.log("img error");
+                //         e.target.src = imgX;
+                //     }}
+                //     style={{
+                //         width: "100%"
+                //     }}
+                // />
             )
         }
 
@@ -351,14 +372,34 @@ class ShareBoardRowItem extends Component {
         return (
             <React.Fragment>
                 <Box m={1} id="ShareListBox">
-                    <div>
-                        {/* onClick={this.openModal.bind(this)}  */}
+                <MDBCard>
+                    {ThumbnailImg}
+
+                    <MDBCardBody className="ShareCardBody">
+                        <h6 className="font-weight-bold mb-3 green-text">
+                            <MDBIcon icon="utensils" className="pr-2" />
+                            Food
+                        </h6>
+
+                        <MDBCardTitle className='font-weight-bold ShareListTitle'>
+                            {row.subject}
+                        </MDBCardTitle>
+
+                        <MDBCardText id="ShareListContent" style={{overflow: 'hidden'}}>
+                            {row.content}
+                        </MDBCardText>
+
+                        {/* <MDBBtn color='unique'>Button</MDBBtn> */}
+                    </MDBCardBody>
+                    {itemBottomBtnDiv}
+                    </MDBCard>
+                    {/* <div>
                         <div id="ShareImg"
                              onClick={this.openModal.bind(this)}
                              style={{
                                  overflow: "hidden"
                              }}
-                        >{ThumbnailImg}</div>
+                        ></div>
                         <div id="ShareListSubject"
                              onClick={this.openModal.bind(this)}
                              style={{
@@ -379,7 +420,7 @@ class ShareBoardRowItem extends Component {
                             <div style={{marginTop: '10px'}}>{row.addr}</div>
                         </div>
                         {itemBottomBtnDiv}
-                    </div>
+                    </div> */}
                 </Box>
 
                 {/*/////////////////////////////////////Modal/////////////////////////////////////////////////////*/}
