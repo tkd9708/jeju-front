@@ -18,14 +18,13 @@ import store from '../../../redux/store';
 import {URL} from '../../../redux/config';
 import Button from '@material-ui/core/Button';
 import {MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
-import UdoImg from '../../../image/Reser_udo.jpg';
 import './ShipPageCss.css';
 import {WOW} from 'wowjs';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 class ShipPageComp extends Component {
     constructor(props) {
@@ -36,10 +35,12 @@ class ShipPageComp extends Component {
             value: 0,
             month:'',
             memId:'',  
-            content:'',
+            content:'성산→우도',
             wishday:'',
             wishtime:'',
-            open: false
+            open: false,
+            alertOpen: false,
+            alertSetOpen: false
         }
     }
 
@@ -50,7 +51,7 @@ class ShipPageComp extends Component {
     insertContent = () => {
         let url = URL + "/wish/insertcontent";
         let memId = store.getState().loginId;        
-        let content = '배,' + this.state.content;
+        let content = '우도배,' + this.state.content;
         let wishday = this.refs.wishday.value;
         let wishtime = this.refs.wishtime.value;
         
@@ -62,7 +63,10 @@ class ShipPageComp extends Component {
         else{
             axios.post(url, {memId, content, wishday, wishtime
             }).then(res => {
-                alert("저장 완료");
+                this.toggle();
+                this.setState({
+                    alertOpen: true
+                })
             }).catch(err=>{
                 console.log("예약 내용 저장시 오류:"+err);
             })
@@ -87,14 +91,14 @@ class ShipPageComp extends Component {
     }
 
     changeMonth = (e) => {
-        console.log("changeMonth 함수");
+        // console.log("changeMonth 함수");
         this.setState({
             month: e.target.value
         })
     }
     
     changeDestination = (e) => {
-        console.log("Destination 함수");
+        // console.log("Destination 함수");
         this.setState({
             content: e.target.value
         })
@@ -126,42 +130,14 @@ class ShipPageComp extends Component {
     }
 
     render() {
-        const tag1 = this.state.month==1?<ShipTableA1/>:this.state.month==2?<ShipTableA2/>:
-                    this.state.month==3?<ShipTableA3/>:this.state.month==4?<ShipTableA4/>:
+        const tag1 = this.state.month==1?<ShipTableA1 month="1"/>:this.state.month==2?<ShipTableA2 month="2"/>:
+                    this.state.month==3?<ShipTableA3 month="3"/>:this.state.month==4?<ShipTableA4 month="4"/>:
                     "";
-        const tag2 = this.state.month==11?<ShipTableB1/>:this.state.month==12?<ShipTableB2/>:
+        const tag2 = this.state.month==11?<ShipTableB1 month="11"/>:this.state.month==12?<ShipTableB2 month="12"/>:
                     "";
                     
         return (
             <div>
-                {/* <img src={UdoImg} alt="" style={{width: '100%'}}/> */}
-                {/* <div className="detailTitle">
-                    <span className="detailTitleContent" style={{backgroundColor: 'white', color: '#036E38'}}>
-                        &nbsp;&nbsp;우도행 배편&nbsp;&nbsp;
-                    </span>
-                </div>
-                <div className="detailIntro" style={{color: "#888"}}>
-                    우도를 안가면 제주도 여행이라 할 수 없다!<br/>
-                    날짜, 시간과 금액을 미리 확인해보세요.<br/>
-
-                    <MDBBtn size="sm" color="dark-green" type="button"
-                            className="ShareListBtn"
-                            style={{marginTop: '1.3%'}}
-                            onClick={() => {
-                                if (store.getState().loginId != null && store.getState().loginId != "") {
-                                    this.toggle();
-                                } else {
-                                    let _result = window.confirm("로그인이 필요한 서비스 입니다.\n로그인 하시겠습니까?");
-
-                                    if (_result) {
-                                        this.props.history.push("/login");
-                                    }
-                                }
-                            }}
-                    > <b>일정추가</b>
-                    </MDBBtn>
-                </div> */}
-
                 <section class="my-md-5">
 
                     <div class="rgba-black-strong rounded ShipIntro">
@@ -314,21 +290,22 @@ class ShipPageComp extends Component {
 
                 {/* 일정 추가 모달 */}
                 <MDBModal isOpen={this.state.open} toggle={this.toggle} centered>
-                        <MDBModalHeader toggle={this.toggle} className="RCA-planAddModal">일정 추가</MDBModalHeader>
+                        <MDBModalHeader toggle={this.toggle} className="ShipAddModal">일정 추가</MDBModalHeader>
                         <MDBModalBody>
-                            <div className="RCA-planAddModal">
-                                <input type="text" ref="content" className="selectDestination" 
-                                value={this.state.content} onChange={this.changeMonth}/>
-                                <select className="selectDestination" onClick={this.changeDestination}>
-                                    <option>성산→우도</option>
-                                    <option>종달→우도</option>
-                                    <option>우도→성산</option>
-                                    <option>우도→종달</option>
+                            <div className="ShipAddModal">
+                                {/* <input type="text" ref="content" className="selectDestination" 
+                                value={this.state.content} onChange={this.changeMonth}/> */}
+                                🚢&nbsp;&nbsp;<b>출발지 → 도착지</b>
+                                <select class="browser-default custom-select" onClick={this.changeDestination}>
+                                    <option value="성산→우도">성산→우도</option>
+                                    <option value="종달→우도">종달→우도</option>
+                                    <option value="우도→성산">우도→성산</option>
+                                    <option value="우도→종달">우도→종달</option>
                                 </select>
-                                <br/><br/>
-                                🗓&nbsp;&nbsp;승선일
+                                <br/>
+                                🗓&nbsp;&nbsp;<b>승선일</b>
                                 <input type="date" class="form-control form-control-sm" ref="wishday"></input>
-                                ⏰&nbsp;&nbsp;승선 시간
+                                ⏰&nbsp;&nbsp;<b>승선 시간</b>
                                 <input type="time" class="form-control form-control-sm" ref="wishtime"></input>
                             </div>
                         </MDBModalBody>
@@ -336,6 +313,36 @@ class ShipPageComp extends Component {
                         <MDBBtn color="dark-green" onClick={this.insertContent.bind(this)}>추가</MDBBtn>
                         </MDBModalFooter>
                     </MDBModal>
+
+                    {/* alert 창 */}
+                    <Dialog
+                        open={this.state.alertOpen}
+                        onClose={()=>{this.setState({alertOpen:false})}}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">{"일정 추가 완료"}</DialogTitle>
+                        <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Mypage로 이동하여 확인하시겠습니까?
+                        </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                        <Button onClick={()=>{this.setState({alertOpen:false})}} color="primary">
+                            NO
+                        </Button>
+                        <Button onClick={
+                            ()=>{
+                                this.setState({
+                                    alertOpen: false
+                                })
+                                this.props.history.push("/mypage");
+                            }
+                        } color="primary" autoFocus>
+                            YES
+                        </Button>
+                        </DialogActions>
+                    </Dialog>
             </div>
         )
     }
