@@ -1,4 +1,4 @@
-.my-md-5 {
+.ShipSection {
     background-image: url('../../../image/Reser_udo.jpg'); 
     background-size: cover; 
     background-position: center center;
@@ -45,7 +45,6 @@
     /* table intro */
     .detailIntro b {
         font-size: 0.8rem;
-        color: #555;
         font-weight: 700;
     }
     
@@ -113,7 +112,6 @@
     /* table intro */
     .detailIntro b {
         font-size: 0.9rem;
-        color: #555;
         font-weight: 700;
     }
 
@@ -180,7 +178,6 @@
     /* table intro */
     .detailIntro b {
         font-size: 1.1rem;
-        color: #555;
         font-weight: 700;
     }
 
@@ -240,7 +237,6 @@
     /* table intro */
     .detailIntro b {
         font-size: 1.2rem;
-        color: #555;
         font-weight: 700;
     }
 

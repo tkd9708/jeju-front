@@ -165,7 +165,7 @@ class ShareBoardPageComp extends Component {
                     {/*/!* 공유버튼 *!/*/}
                     <MDBBtn size="sm" color="dark-green" type="button"
                             className="ShareListBtn"
-                            style={{marginTop: '1.3%'}}
+                            style={{marginTop: '1.3%', color: 'white'}}
                             onClick={() => {
                                 console.log("share Restaurant");
                                 if (store.getState().loginId != null && store.getState().loginId != "") {

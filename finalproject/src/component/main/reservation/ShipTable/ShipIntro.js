@@ -18,7 +18,7 @@ class ShipIntro extends Component {
                     </span>
                 </div>
                 <div className="detailIntro" style={{color: "#888"}}>
-                    <b>{this.props.title}</b> 배편 <b>{month}</b> 날짜별 시간과 요금 정보입니다.<br/>
+                    <b style={{color: '#555'}}>{this.props.title}</b> 배편 <b style={{color: '#555'}}>{month}</b> 날짜별 시간과 요금 정보입니다.<br/>
                 </div>
             </div>
         )

@@ -124,9 +124,15 @@ class ShipPageComp extends Component {
     };
 
     toggle = () => {
-        this.setState({
-            open: !this.state.open
-        })
+        if(!store.getState().logged){
+            alert("로그인이 필요한 서비스입니다.");
+        }
+        else{
+            
+            this.setState({
+                open: !this.state.open
+            })
+        }
     }
 
     render() {
@@ -138,7 +144,7 @@ class ShipPageComp extends Component {
                     
         return (
             <div>
-                <section class="my-md-5">
+                <section class="my-md-5 ShipSection">
 
                     <div class="rgba-black-strong rounded ShipIntro">
                         <div class="col-md-12 mb-4 white-text text-center ShipTitle">
@@ -215,77 +221,6 @@ class ShipPageComp extends Component {
 
                 </section>
                 {tag1}{tag2}
-                {/* <Button variant="outlined" id="thumbAddBtn" 
-                    onClick={this.handleOpen.bind(this)}>일정추가</Button> */}
-                    {/* 우도일정 저장 모달 */}
-                {/* <Modal
-                        aria-labelledby="transition-modal-title"
-                        aria-describedby="transition-modal-description"
-                        open={this.state.open}
-                        onClose={this.handleClose.bind(this)}
-                        closeAfterTransition
-                        BackdropComponent={Backdrop}
-                        BackdropProps={{
-                        timeout: 500,
-                        }}
-                    >
-                        <Fade in={this.state.open}>
-                        <div className="rentcar">
-                            <span>우도배 일정 저장</span><br/>
-                            <input type="text" ref="content" className="selectDestination" 
-                            value={this.state.content} onChange={this.changeMonth}/>
-                            <select className="selectDestination" onClick={this.changeDestination}>
-                                <option>성산→우도</option>
-                                <option>종달→우도</option>
-                                <option>우도→성산</option>
-                                <option>우도→종달</option>
-                            </select>
-                            <br/><br/>
-                            🗓&nbsp;&nbsp;승선일
-                            <input type="date" class="form-control form-control-sm" ref="wishday"></input>
-                            ⏰&nbsp;&nbsp;승선 시간
-                            <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
-                            <div style={{textAlign: 'center'}}>
-                                <button type="button" class="btn btn-warning spotmodalBtn" 
-                                onClick={this.insertContent.bind(this)}><b>추가</b></button>
-                            </div>
-                        </div>
-                        </Fade>
-                </Modal> */}
-
-
-                {/* <Paper square style={{marginTop: '100px'}}>
-                    <Tabs
-                        value={this.state.value}
-                        indicatorColor="primary"
-                        textColor="primary"
-                        onChange={this.handleTabChange}
-                        aria-label="disabled tabs example"
-                    >
-                        <Tab label="성산↔우도행" {...this.tabProps(0)}/>
-                        <Tab label="종달↔우도행" {...this.tabProps(1)}/>
-                    </Tabs>
-                    <TabPanel value={this.state.value} index={0}>
-                        성산 ↔ 우도행<br/>
-                        <select className="selectmonth" onClick={this.changeMonth}>
-                            <option disabled selected>선택하세요</option>
-                            <option value="1">1~2월, 11,12월</option>
-                            <option value="2">3월, 10월</option>
-                            <option value="3">4월, 9월</option>
-                            <option value="4">5 ~ 8월</option>
-                        </select>
-                        <br/>{tag1}                 
-                    </TabPanel>
-                    <TabPanel value={this.state.value} index={1}>
-                        종달 ↔ 우도행<br/>
-                        <select className="selectmonth" onClick={this.changeMonth}>
-                            <option disabled selected>선택하세요</option>
-                            <option value="11">1~3월, 10~12월</option>
-                            <option value="12">4월 ~ 9월</option>
-                        </select>
-                        <br/>{tag2}
-                    </TabPanel>
-                </Paper> */}
 
 
                 {/* 일정 추가 모달 */}
