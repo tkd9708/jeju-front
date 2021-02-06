@@ -21,6 +21,8 @@ class RentCarPageComp extends Component {
             this.setState({
                 listData:res.data
             })
+        }).catch(err=>{
+            console.log("렌트카 list 오류 : " + err);
         })
     }
 

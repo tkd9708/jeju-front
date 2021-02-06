@@ -15,7 +15,7 @@ const ChattingRoom = ({match}) => {
 
     useEffect(() => {
 
-        wsOpen();
+        // wsOpen();
     });
 
     const handleChange = (e) => {

@@ -16,8 +16,8 @@ class ChatCompPage extends Component {
     }
 
     componentWillMount() {
-        this.getRoom();
-        this.createRoom();
+        // this.getRoom();
+        // this.createRoom();
     }
 
     handleChange = (e) => {
