@@ -66,7 +66,7 @@ class NoticePageComp extends Component {
                     {
                       this.state.listData.map((row,idx)=>(
                         <BoardItem row={row} key={idx} idx={idx}
-                        history={this.props.history}/>
+                            history={this.props.history} list={this.list.bind(this)}/>
                         ))
                     }
                     </tbody>
