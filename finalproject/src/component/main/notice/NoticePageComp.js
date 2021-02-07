@@ -39,13 +39,13 @@ class NoticePageComp extends Component {
         return (
             <div>
                 {/*<a href="#NoticeMiniComp">{this.props.name}</a>*/}
-                <BoardForm list={this.list.bind(this)}/>
+                {/* <BoardForm list={this.list.bind(this)}/> */}
                 <br/>
                 {this.props.name}<br/>
                 <button onClick={
                     ()=>{
 
-                         this.props.history.push("/notice/insert/"+this.props.row);
+                         this.props.history.push("/notice/insert/");
                     }
                 }>
                     <img src={PlusImg}
@@ -69,34 +69,9 @@ class NoticePageComp extends Component {
                         history={this.props.history}/>
                         ))
                     }
-                    {/* <tr>
-                        <td>
-                            <a href="#">
-                                <span>1제목 입니다.</span>
-                            </a>
-                        </td>
-                        <td>1작성일 입니다.</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="#">
-                                <span>2제목 입니다.</span>
-                            </a>
-                        </td>
-                        <td>2작성일 입니다.</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="#">
-                                <span>3제목 입니다.</span>
-                            </a>
-                        </td>
-                        <td>3작성일 입니다.</td>
-                    </tr> */}
                     </tbody>
                 </table>
 
-                    {/* <NoticeContent/> */}
             </div>
         )
     }

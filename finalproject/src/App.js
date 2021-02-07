@@ -28,6 +28,7 @@ import ShareBoardFormComp from "./component/main/shareboard/ShareBoardFormComp";
 import ShareBoardUpdateForm from "./component/main/shareboard/ShareBoardUpdateForm";
 import NoticeContent from "./component/main/notice/NoticeContent";
 import Noticeinsert from './component/main/notice/Noticeinsert';
+import NoticeUpdate from './component/main/notice/NoticeUpdateForm';
 import store from "./redux/store";
 import {actionType} from "./redux/config";
 import SearchResultComp from "./component/main/mainpage/SearchResultComp";
@@ -258,6 +259,7 @@ class App extends Component {
                         <Route exact path="/notice" component={NoticePageComp}/>
                         <Route path="/notice/insert" component={Noticeinsert}/>
                         <Route path="/notice/content/:num?" component={NoticeContent}/>
+                        <Route path="/notice/update/:num?" component={NoticeUpdate}/>
                         <Route path="/reservation/:name?" component={ReservationPageComp}/>
                         <Route path="/carReservation/:name?" component={RentCarPageComp}/>
                         <Route path="/shipReservation/:name?" component={ShipPageComp}/>

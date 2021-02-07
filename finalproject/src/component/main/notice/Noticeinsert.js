@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import {URL} from '../../../redux/config';
 
 class Noticeinsert extends Component
 {
@@ -18,17 +19,16 @@ class Noticeinsert extends Component
         let id = '관리자';
 
         
-        let url=[URL] + "/notice/insert";
+        let url = URL + "/notice/insert";
 
-       // let url = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot1/notice/insert";
-       console.log("notice insert : " + subject + ", " + content);
+    //    console.log("notice insert : " + subject + ", " + content);
         axios.post(url, {id,subject,content})
         .then(res=>{
             this.setState({
                 subject:'',
                 content:''
             })
-            this.props.list();
+            this.props.history.push("/notice");
         }).catch(err=>{
             console.log("notice insert 오류 : " + err)
         })

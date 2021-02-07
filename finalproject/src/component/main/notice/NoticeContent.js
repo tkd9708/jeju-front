@@ -7,25 +7,44 @@ class NoticeContent extends Component
     constructor({match})
     {
         super();
-        this.subject=match.params.subject;
-        // this.state={selectData:''}
-        this.content=match.params.content;
-        this.state={selectData:''}
+        
+        this.state={
+            selectData:''
+        }
+        this.num = match.params.num;
     }
-    onSelectData=()=>{
-        let url= {URL} + "/notice/list";
-    axios.get(url)
-    .then(res=>{
-        this.setState({
-            selectData:res.data
-        })
-    })
-}
 
-componentWillMount() {
-    console.log("content willmount");
-    this.onSelectData();
-}
+    onSelectData=()=>{
+        let url= URL + "/notice/detail?num=" + this.num;
+    
+        axios.get(url)
+        .then(res=>{
+            this.setState({
+                selectData:res.data
+            })
+        }).catch(err=>{
+            console.log("notice content 오류 : " + err);
+        })
+    }   
+
+    onDeleteData=()=>{
+        let url= URL + "/notice/delete?num=" + this.num;
+    
+        if(window.confirm("삭제하시겠습니까?")){
+            axios.get(url)
+            .then(res=>{
+                this.props.history.push("/notice");
+            }).catch(err=>{
+                console.log("notice delete 오류 : " + err);
+            })
+        }
+    }
+
+    componentWillMount() {
+        // console.log("content willmount");
+        this.onSelectData();
+    }
+
     render(){
         // let url=document.getElementById("url").textContent
         const {selectData}=this.state;
@@ -46,14 +65,14 @@ componentWillMount() {
                         </tr>
                         <tr>
                             <td colSpan="2" align='center'>
-                                <button type="button" className="btn
-                                btn-success btn-sm"
-                                style={{marginLeft:'100px',width:'100px'}}
-                                onClick="">수정</button>
-                                <button type="button" className="btn
-                                btn-success btn-sm"
-                                style={{marginLeft:'100px',width:'100px'}}
-                                onClick="">삭제</button>
+                                <button type="button" className="btn btn-success btn-sm" style={{marginLeft:'100px',width:'100px'}}
+                                    onClick={
+                                        ()=>{
+                                            this.props.history.push("/notice/update/" + this.num);
+                                        }
+                                    }>수정</button>
+                                <button type="button" className="btn btn-success btn-sm" style={{marginLeft:'100px',width:'100px'}}
+                                    onClick={this.onDeleteData.bind(this)}>삭제</button>
 
                             </td>
                         </tr>
