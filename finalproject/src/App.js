@@ -38,6 +38,8 @@ import MyWishlist from "./component/main/mypage/MyWishlist";
 import PassCheck from "./component/main/mypage/PassCheck";
 import SocialUpdateForm from "./component/main/mypage/SocialUpdateForm";
 import MemberUpdateFormComp from "./component/main/mypage/MemberUpdateFormComp";
+import ChattingRoom from './component/main/SharePlan/ChattingRoom';
+import ChatIcon from '@material-ui/icons/Chat';
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -158,7 +160,7 @@ class App extends Component {
 
     componentDidMount() {
         store.dispatch({
-            type:actionType.setMainView,
+            type: actionType.setMainView,
         });
     }
 
@@ -181,6 +183,22 @@ class App extends Component {
                 <Menu logged={logged}
                       type="normal"
                 />
+                <div className="chatting">
+                    {/*항상떠있는 아이콘*/}
+                    <div
+                        className="chattingIconBack"
+                    ><ChatIcon
+                        className="chattingIcon"
+                        onClick={(e)=>{
+                            // gsap.
+                        }}
+                    /></div>
+
+                    {/*아이콘을 누르면 나오는 채팅 창.*/}
+                    <div className="chattingWindow">
+
+                    </div>
+                </div>
                 <div className="mainFrame"
                 >
                     <Switch>
@@ -213,6 +231,7 @@ class App extends Component {
                         <Route path="/shipReservation/:name?" component={ShipPageComp}/>
                         <Route path="/tourlist/:name?/:pageNum?" component={TourPageComp}/>
                         <Route path="/shareplan/:name?/" component={SharePlanPageComp}/>
+                        <Route path="/chattingroom/:num?" component={ChattingRoom}/>
                     </Switch>
                     <div className="footerComp"
                     >

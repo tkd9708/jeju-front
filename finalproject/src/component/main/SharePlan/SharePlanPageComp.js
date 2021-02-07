@@ -29,6 +29,7 @@ class SharePlanPageComp extends Component {
 
     // }
 
+
     // onGroup=()=>{
     //     let url=URL+"/plan/group?memId="+store.getState().loginId + "&wishday="+this.refs.wishday.value;
     //     axios.get(url)
@@ -85,10 +86,26 @@ class SharePlanPageComp extends Component {
     //       })
     // }
 
+    // getNum=()=>{
+    //       let url=URL+"/plan/num";
+    //       axios.get(url)
+    //       .then(res=>{
+    //           this.setState({
+    //               list:res.data
+    //           });
+    //       }).catch(err=>{
+    //           console.log("리스트 오류:"+err);
+    //         })
+    //   }
+
     componentDidMount(){
         this.getGroupnum();
         //this.getList();
     }
+
+    // componentDidMount(){
+    //   this.getList();
+    // }
 
     // componentDidMount{
     //     this.onGroup();
@@ -100,6 +117,7 @@ class SharePlanPageComp extends Component {
         // var title=row.title;
         
         //console.log("SharePlanPageComp render()", this.props);
+
         const settings = {
             //dots: true,  // 점은 안 보이게
             infinite: true, // 무한으로 즐기게
@@ -168,8 +186,18 @@ class SharePlanPageComp extends Component {
                           <SharePlanRoot row={row} day={this.refs.wishday.value}></SharePlanRoot>
                       
                   ))}
+                  
+                  {/* {this.state.list.map((row)=>(
+                  <SharePlanDelete r={row}></SharePlanDelete>
+                ))} */}
+                  {/* {this.state.list.map((row)=>(
+                    <SharePlanSub row={row}></SharePlanSub>
+                  ))} */}
                    {/* </div> */}
                 </Slider>
+                {/* {this.state.list.map((r)=>(
+                    <SharePlanSub r={r}></SharePlanSub>
+                  ))} */}
                 
                  {/* <div className="slick-prev"></div>
                 <div className="slick-next"></div> */}
@@ -189,6 +217,11 @@ class SharePlanPageComp extends Component {
             
             
            </div>
+           
+           </div>
+           
+           </div>
+           
            <span>🗓공유날짜</span><br/>
                 <input type="date" className="wishday" ref="wishday"  onChange={this.getGroup.bind(this)}/> 
            </div>
@@ -197,6 +230,8 @@ class SharePlanPageComp extends Component {
           
         );    
            
+        
+
         
     }
 

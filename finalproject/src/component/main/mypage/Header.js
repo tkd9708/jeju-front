@@ -68,7 +68,7 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
       insertContent=()=>{
         let url=URL+"/wish/insertcontent";
         let memId=store.getState().loginId;
-        let content=this.refs.content.value;
+        let content= "일정," + this.refs.content.value;
         let wishday=this.refs.wishday.value;
         let wishtime=this.refs.wishtime.value;
 
@@ -104,7 +104,7 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
                         <Button variant="outlined" className="add-list"  style={{float: 'left'}} onClick={
                             ()=>{
                                 this.setState({
-                                    open: true
+                                    listopen: true
                                 })
                             }
                         }>

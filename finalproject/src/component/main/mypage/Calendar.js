@@ -205,12 +205,16 @@ class Week extends Component {
       
       let memId=store.getState().loginId;
       let wishday=this.props.selected;
-      let url= URL+"/plan/groupinsert?memId="+ memId + "&wishday=" + wishday;
+      let comment=this.refs.comment.value;
+      let url= URL+"/plan/groupinsert?memId="+ memId + "&wishday=" + wishday + "&comment=" +comment;
+      
 
-      axios.get(url)
+      axios.post(url,{memId,wishday,comment})
       .then(res=>{
+        this.refs.comment.value='';
           this.setState({
-            alertOpen: true
+            alertOpen: true,
+            
           })
       }).catch(err=>{
        console.log("shareplan insert 오류 : " + err);
@@ -243,8 +247,12 @@ class Week extends Component {
                               <ClistItem row={row} getMonthList={this.props.getMonthList} toggle={this.toggle.bind(this)}/>
                           ))}
                         </Timeline>
-                        
+                       
                       </div>
+                      <textarea maxLength="1000" className="form-control"
+                                   style={{width: '410px', height: '150px', resize: 'none', cursor: 'auto'}}
+                                   ref="comment" placeholder="리뷰를 입력하세요">
+                         </textarea>
                   </MDBModalBody>
               <MDBModalFooter>
                   <MDBBtn color="dark-green" onClick={this.onData.bind(this)}>공유</MDBBtn>

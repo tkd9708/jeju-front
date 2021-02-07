@@ -99,9 +99,12 @@ class DayDetail extends Component {
         else 
             around = document.body.offsetWidth > 450?<div>🛌{aroundId}</div>:<span>🛌</span>;
 
+        flag = aroundId==null&&shareNum==null&&spotId==null?content.split(",")[0]==="배"
+            ?'🚢':content.split(",")[0]==="렌트카"?'🚗':content.split(",")[0]==="항공"?'✈':'📅':'';
+
         var share = shareNum!=null?document.body.offsetWidth > 450?<div>👨‍🍳{this.state.list}</div>:<span>👨‍🍳</span>:'';
         var spot = spotId!=null?document.body.offsetWidth > 450?<div>🛕{this.state.list}</div>:<span>🛕</span>:'';
-        var myTodo = (aroundId==null&&shareNum==null&&spotId==null)?document.body.offsetWidth > 450?<div>📅{content}</div>:<span>📅</span>:'';
+        var myTodo = (aroundId==null&&shareNum==null&&spotId==null)?document.body.offsetWidth > 450?<div>{flag}{content.split(",")[1]}</div>:<span>{flag}</span>:'';
         var tag = aroundId!==null?around:shareNum!==null?share:spotId!==null?spot:myTodo;
         
         return (

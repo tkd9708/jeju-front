@@ -57,8 +57,9 @@ class SharePlanRoot extends Component {
     
     render(){
         const {row}=this.props.row;
-        const {list}=this.props;
+       // const {list}=this.props;
         const {day}=this.props.day;
+        //const {list}=this.props.list
         // var wishday=row.wishday;
         // var title=row.title;
         return(
