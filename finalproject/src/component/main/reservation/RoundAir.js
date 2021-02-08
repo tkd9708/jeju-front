@@ -118,24 +118,31 @@ class RoundAir extends Component {
         let arriverdepartDate = this.refs.arriverdepartDate.value;
         let wishtime = this.state.wishtime;
 
-        if(startdepartDate == '' || arriverdepartDate == '' || wishtime == '')
-            alert("날짜와 시간을 모두 선택해주세요.");
+        if(store.getState().logged==false){
+            
+            if(window.confirm("로그인이 필요한 서비스 입니다.\n로그인 하시겠습니까?"))
+                this.props.history.push("/login");
+        }
         else{
-            axios.post(url, {memId, content: content1, wishday: startdepartDate, wishtime})
-            .then(res=>{
-                
-            }).catch(err=>{
-                console.log("air 일정 insert 오류 : " + err);
-            })
-
-            axios.post(url, {memId, content: content2, wishday: arriverdepartDate, wishtime})
-            .then(res=>{
-                this.setState({
-                    alertOpen: true
+            if(startdepartDate == '' || arriverdepartDate == '' || wishtime == '')
+                alert("날짜와 시간을 모두 선택해주세요.");
+            else{
+                axios.post(url, {memId, content: content1, wishday: startdepartDate, wishtime})
+                .then(res=>{
+                    
+                }).catch(err=>{
+                    console.log("air 일정 insert 오류 : " + err);
                 })
-            }).catch(err=>{
-                console.log("air 일정 insert 오류 : " + err);
-            })
+
+                axios.post(url, {memId, content: content2, wishday: arriverdepartDate, wishtime})
+                .then(res=>{
+                    this.setState({
+                        alertOpen: true
+                    })
+                }).catch(err=>{
+                    console.log("air 일정 insert 오류 : " + err);
+                })
+            }
         }
         
     }

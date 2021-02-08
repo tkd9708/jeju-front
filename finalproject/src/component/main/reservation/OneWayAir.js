@@ -111,18 +111,26 @@ class OneWayAir extends Component {
         let wishtime = this.state.wishtime;
 
         // console.log(this.refs.wishday.value);
-        if(wishday == '' || wishtime == '')
-            alert("날짜와 시간을 모두 선택해주세요.");
-        else{
-            axios.post(url, {memId, content, wishday, wishtime})
-            .then(res=>{
-                this.setState({
-                    alertOpen: true
-                })
-            }).catch(err=>{
-                console.log("air 일정 insert 오류 : " + err);
-            })
+        if(store.getState().logged==false){
+            
+            if(window.confirm("로그인이 필요한 서비스 입니다.\n로그인 하시겠습니까?"))
+                this.props.history.push("/login");
         }
+        else {
+            if(wishday == '' || wishtime == '')
+                alert("날짜와 시간을 모두 선택해주세요.");
+            else{
+                axios.post(url, {memId, content, wishday, wishtime})
+                .then(res=>{
+                    this.setState({
+                        alertOpen: true
+                    })
+                }).catch(err=>{
+                    console.log("air 일정 insert 오류 : " + err);
+                })
+            }
+        }
+        
         
     }
 
