@@ -176,10 +176,22 @@ div.container div#chattingBoard div.myMsg div.msgText {
     min-width: 50px;
     max-width: 230px;
 
-    float: right;
+    /*float: right;*/
     background-color: #f5dd0f;
     margin-top: 10px;
     margin-right: 10px;
+}
+
+div.container div#chattingBoard div.myMsg div.msgTime {
+    /*float: right;*/
+}
+
+div.container div#chattingBoard div.myMsg td.myMsgBox {
+    text-align: left;
+    width: 328px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
 }
 
 div.container div#chattingBoard div.msgText {

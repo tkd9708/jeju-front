@@ -1,11 +1,12 @@
 import React, {Component} from "react";
 import './Chat.css';
 import axios from 'axios';
-import {URL} from "../../../redux/config";
+import {actionType, URL} from "../../../redux/config";
 import ChatRoomItem from './ChatRoomItem';
 import store from "../../../redux/store";
 import ChattingRoom from "./ChattingRoom";
 import gsap, {Cubic, Quint} from "gsap";
+import ChattingLogic from "../../../ChattingLogic";
 
 class ChatCompPage extends Component {
 
@@ -13,15 +14,26 @@ class ChatCompPage extends Component {
         super(props);
 
         this.state = {
-            roomList: [],
+            roomList: props.chattingRoomListInfo,
             user2: '',
             selectedRoomNum: 0,
+            selectedFriend: "",
+            action: "",
         }
 
         store.subscribe(() => {
-            if (store.getState().loginId != null && store.getState().loginId != ""){
-                //로그인 된 상태에만.
-                this.getRoom();
+            if (store.getState().publishFunctionMsg == "setSelectedRoomNum") {
+
+                this.setState({
+                    selectedRoomNum: store.getState().selectedRoomNum,
+                    selectedFriend: store.getState().selectedFriend,
+                })
+
+                // //release.
+                // store.dispatch({
+                //     type: actionType.publishFunctionMsg,
+                //     publishFunctionMsg: "",
+                // });
             }
         });
     }
@@ -32,42 +44,21 @@ class ChatCompPage extends Component {
         })
     }
 
-    getRoom() {
-        let url = URL + "/chat/getRoom" +
-            "?user=" + store.getState().loginId;
-
-        console.log(url);
-
-        axios.get(url
-        ).then(res => {
-            console.log("getRoom() res :", res);
-            this.setState({
-                roomList: res.data
-            })
-        }).catch(err => {
-            console.log("getRoom() err :", err);
+    createRoom() {
+        this.setState({
+            action: "createRoom",
+        });
+        let chat = new ChattingLogic();
+        chat.createRoom(this.state.user2, () => {
+            store.dispatch({
+                type: actionType.publishFunctionMsg,
+                publishFunctionMsg: "chattingRoomListInfo",
+            });
         });
     }
 
-    createRoom() {
-        let url = URL + "/chat/createRoom";
-        let user1 = store.getState().loginId;
-        let user2 = this.state.user2;
-
-        console.log(url);
-
-        axios.post(url, {user1, user2})
-            .then(res => {
-                console.log("createRoom() res :", res);
-                this.getRoom();
-            })
-            .catch(err => {
-                console.log("createRoom() err :", err);
-            });
-    }
-
     render() {
-        let seletedRoomNum = 0;
+
         return (
             <div className="containerRoot">
                 <div className="container"
@@ -113,7 +104,7 @@ class ChatCompPage extends Component {
                                     <th className='go'>기능버튼</th>
                                 </tr>
                             </table>
-                            {this.state.roomList.map((row, idx) => {
+                            {this.props.chattingRoomListInfo.map((row, idx) => {
                                 let friend = "";
                                 if (row.user1 == store.getState().loginId) {
                                     friend = row.user2;
@@ -131,7 +122,10 @@ class ChatCompPage extends Component {
                     </div>
                 </div>
                 {/*채팅방은 이미 하나가 안보이는곳에 떠있다.*/}
-                <ChattingRoom seletedRoomNum={store.getState().chat.selectedRoomNum}/>
+                {/*<ChattingRoom seletedRoomNum={store.getState().selectedRoomNum}/>*/}
+                <ChattingRoom seletedRoomNum={this.state.selectedRoomNum}
+                              selectedFriend={this.state.selectedFriend}
+                />
             </div>
         )
     }

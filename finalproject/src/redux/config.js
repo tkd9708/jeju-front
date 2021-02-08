@@ -64,6 +64,9 @@ export const actionType = {
     weatherUpdate: "weatherUpdate",
     setChatWindow: "setChatWindow",
     setSelectedRoomNum: "setSelectedRoomNum",
+    setIsChatAutoUpdate: "setIsChatAutoUpdate",
+    publishFunctionMsg: "publishFunctionMsg",
+    chattingRoomListInfo: "chattingRoomListInfo",
 }
 
 export const mainViewType = {
