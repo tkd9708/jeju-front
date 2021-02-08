@@ -12,6 +12,7 @@ import Chip from '@material-ui/core/Chip';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import store from '../../../redux/store';
+import imgX from '../../../image/imgX.png';
 
 const reviewcustomIcons = {
     1: {
@@ -150,7 +151,12 @@ class ReviewItemComp extends Component {
         const url = URL + "/";
         // const url = "http://localhost:9002/photo/";
         const photo = this.state.update==false?(row.photo==="no"?"":<td style={{width:'15%'}}>
-                            <img src={url + row.photo} alt="이미지 없음" style={{width:'100px', height:'100px'}}/>
+                            <img src={url + row.photo} alt="이미지 없음" style={{width:'100px', height:'100px'}} 
+                            onError={(e) => {
+                                console.log("img error");
+                                e.target.src = imgX;
+                            }}
+                            />
                             {/* <div className="tourReImg" style={{display:'inline-block', border: '1px solid gray'}}></div> */}
                         </td>):"";
         const w = row.photo==="no"?"2":"0";

@@ -9,6 +9,8 @@ import TimelineDot from '@material-ui/lab/TimelineDot';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import {URL} from "../../../redux/config";
+import './SharePlanCss.css';
+import Tooltip from '@material-ui/core/Tooltip';
 
 
 class SharePlanSub extends Component {
@@ -92,10 +94,13 @@ class SharePlanSub extends Component {
         // const {groupNum}=this.props.groupNum;
         return(
             <div>
-            <div style={{cursor:'pointer'}} onClick={this.deleteOpen.bind(this)} >
+                
+            <div style={{cursor:'pointer',fontSize:20}} onClick={this.deleteOpen.bind(this)} >
                 {this.props.row.wishday===this.props.day?this.props.row.title:this.props.row.title}
                
-               {this.props.row.groupNum}
+               {/* {this.props.row.groupNum} */}
+              
+               {this.props.row.comment!==null?<span>💬{this.props.row.comment}</span>:''}
                <Dialog 
                     open={this.state.deleteOpen} 
                     onClose={this.deleteClose.bind(this)}

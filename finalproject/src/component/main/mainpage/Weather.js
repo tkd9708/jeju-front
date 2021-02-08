@@ -18,12 +18,13 @@ class Weather extends Component {
         super(props);
         console.log("Weather class 생성자", props);
 
-        // store.subscribe(function() {
-        //     console.log("날씨 클래스 생성자에서 state 변경에 대한 변화를 구독합니다 변화를 확인했습니다 store에서 weatherInfo 값을 가져와 첫번째 courseAreaName을 보여줍니다 : " + store.getState().weatherInfo[0].courseName);
-        // }.bind(this));
+        store.subscribe(function() {
+            // console.log("날씨 클래스 생성자에서 state 변경에 대한 변화를 구독합니다 변화를 확인했습니다 store에서 weatherInfo 값을 가져와 첫번째 courseAreaName을 보여줍니다 : " + store.getState().weatherInfo[0].courseName);
+        }.bind(this));
 
 
         // 리덕스스토어에구독한다
+
         // 리덕스를 안쓰고 클래스 내부 state를 씁니다
         this.state = {
             // c_tm: [], // 동네예보 예보 시각
@@ -42,6 +43,7 @@ class Weather extends Component {
             // c_rn: [], // 강수량
             c_weatherInfo: [], // 전체 날씨 정보1,
             c_weatherInfo_2: [], // 전체 날씨 정보2
+            c_weatherInfo_3: [], // 초단기실황조회 전체 날씨 정보3
             sky : ''
         };
         // 리덕스를 안쓰고 클래스 내부 state를 씁니다
@@ -93,7 +95,7 @@ class Weather extends Component {
         queryParams += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('json');
         let today = new Date();
         let year = today.getFullYear(); // 년도
-        let month = today.getMonth(); // 월
+        let month = today.getMonth() + 1; // 월
         let date = today.getDate(); // 날짜
 
         let hours = today.getHours(); // 시
@@ -107,9 +109,10 @@ class Weather extends Component {
         console.log("/getTourStnVilageFcst" + queryParams);
 
         // 아래 url이 중간부터 있는 이유는 package.json 에
-        // "proxy": "http://apis.data.go.kr/1360000/TourStnInfoService",
+        // "proxy": "http://apis.data.go.kr/1360000",
         // 저것을 미리 세팅해두었기 때문입니다.
-        axios.get("/getTourStnVilageFcst" + queryParams)
+        // axios.get("/getTourStnVilageFcst" + queryParams)
+        axios.get("/TourStnInfoService/getTourStnVilageFcst" + queryParams)
             .then(res => {
                 console.log("기상청 리턴값 res:", res);
                 console.log("기상청 리턴값 res.data.response.body.items.item:", res.data.response.body.items.item);
@@ -145,7 +148,8 @@ class Weather extends Component {
 
             console.log("/getTourStnWthrIdx" + queryParams_2);
 
-            axios.get("/getTourStnWthrIdx" + queryParams_2)
+            // axios.get("/getTourStnWthrIdx" + queryParams_2)
+            axios.get("/TourStnInfoService/getTourStnWthrIdx" + queryParams_2)
                 .then(res2 => {
                     console.log("기상청 리턴값_2 res2 : " + res2);
                     console.log("기상청 리턴값_2 res2.data.response.body.items.item : " + res2.data.response.body.items.item);
@@ -167,6 +171,40 @@ class Weather extends Component {
                 })
                 .catch(err => {
                     console.log("기상청 리턴값_2 err_2 : ", err);
+                });
+
+            let url_3 = 'http://apis.data.go.kr/1360000/VilageFcstInfoService/getUltraSrtNcst';
+            let queryParams_3 = '?' + encodeURIComponent('ServiceKey') + '=' + 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D';
+            queryParams_3 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
+            queryParams_3 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('8');
+            queryParams_3 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
+            queryParams_3 += '&' + encodeURIComponent('base_date') + '=' + encodeURIComponent(year+month+date); // 발표일자
+            queryParams_3 += '&' + encodeURIComponent('base_time') + '=' + encodeURIComponent('0600'); // 발표시각 06시 발표(정시단위)
+            queryParams_3 += '&' + encodeURIComponent('nx') + '=' + encodeURIComponent('56'); // 예보지점 X 좌표값
+            queryParams_3 += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent('33'); // 예보지점 Y 좌표
+            console.log("/getUltraSrtNcst" + queryParams_3);
+            
+            axios.get("/VilageFcstInfoService/getUltraSrtNcst" + queryParams_3)
+                .then(res3 => {
+                    console.log("기상청 리턴값_3 res3.data.response.body.items.item : " + res3.data.response.body.items.item);
+
+                    // 날씨클래스 내부 state에 정보 저장한다.
+                    this.setState({
+                       c_weatherInfo_3: res3.data.response.body.items.item, 
+                    });
+                    // 날씨클래스 내부 state에 정보 저장한다.
+
+                    // 리덕스스토어에 액션함수를 보낸다
+                    let reduxWeather_3 = res3.data.response.body.items.item;
+
+                    store.dispatch({
+                        type: actionType.weatherUpdate,
+                        weatherInfo_3: reduxWeather_3,
+                    });
+                    // 리덕스스토어에 액션함수를 보낸다
+                })
+                .catch(err => {
+                    console.log("기상청 리턴값_3 err_3 : " + err);
                 });
     }
 
@@ -224,6 +262,21 @@ class Weather extends Component {
                         ({row.btIndex})
                         </>
                         ))
+                }
+
+                <br />
+                '초단기실황조회'
+                <br/>
+                '기온' '동서바람성분' '풍향' '남북바람성분' '풍속'
+                <br />
+                {
+                    // store.getState.weatherInfo_3.map((row)=>(
+                    this.state.c_weatherInfo_3.filter(w => w.category !== 'PTY' && w.category !== 'REH' && w.category !== 'RN1').map((row)=>(
+                        <>
+                            ({row.category})
+                            ({row.obsrValue})
+                        </>
+                    ))
                 }
                 <h4>Weather</h4>
                 <img src = { OPENNURI } />

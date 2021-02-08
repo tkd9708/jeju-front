@@ -70,6 +70,9 @@ class SharePlanRoot extends Component {
                 ))}
                 {/* <SharePlanSub glist={this.state.glist}></SharePlanSub> */}
                 
+
+                
+                
             </div>
             
         )

@@ -11,6 +11,7 @@ div.footerComp .content {
     text-align: center;
 }
 
+/*Chatting Icon*/
 div.chatting div.chattingIconBack {
     width: 100px;
     height: 100px;
@@ -36,6 +37,8 @@ div.chatting div.chattingIconBack .chattingIcon {
     transform: scale(2.5);
 }
 
+
+/*Chatting Window*/
 div.chatting div.chattingWindow{
     width: 400px;
     height: 700px;
@@ -44,8 +47,10 @@ div.chatting div.chattingWindow{
     bottom: 7%;
     z-index: 15;
     background-color: #0d6b38;
-    opacity: 0.8;
+    opacity: 1;
     transform-origin: right bottom;
+    /*overflow: auto;*/
+    overflow: hidden;
 }
 
 /*div.chatting div.chattingWindowBack{*/

@@ -18,11 +18,19 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import SmsIcon from '@material-ui/icons/Sms';
 import TextsmsIcon from '@material-ui/icons/Textsms';
 import {withStyles} from '@material-ui/core/styles';
-import {MDBBtn} from "mdbreact";
 import './Share.css';
 import {Delete} from "@material-ui/icons";
 // import "../tour/TourCss.css"
 import imgX from "../../../image/imgX.png";
+import { MDBBtn, MDBCardImage, MDBModal, MDBModalBody, MDBModalHeader, MDBMask, MDBView, MDBModalFooter, MDBIcon } from 'mdbreact';
+import { MDBPopover, MDBPopoverBody } from "mdbreact";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+
 
 /*
 row:
@@ -77,8 +85,12 @@ class ShareBoardRowItem extends Component {
         this.state = {
             modalOpen: false,
             likes: 0,
+            open: false,
+            alertOpen: false,
+            alertSetOpen: false
         }
 
+        
         store.dispatch({
             type: actionType.setMainView,
             mainView: mainViewType.ShareBoard,
@@ -113,6 +125,12 @@ class ShareBoardRowItem extends Component {
             scrollTop: scrollTop
         })
     }
+
+    toggle = () => {
+        this.setState({
+          open: !this.state.open
+        });
+      }
 
 
     //삭제하는 함수 이벤트
@@ -176,7 +194,8 @@ class ShareBoardRowItem extends Component {
 
         axios.post(url, data
         ).then(res => {
-            console.log("onInsertAnswer res", res);
+            // console.log("onInsertAnswer res", res);
+            this.refs.content.value='';
             store.dispatch({
                 type: actionType.shareBoardUpdate,
             });
@@ -208,24 +227,24 @@ class ShareBoardRowItem extends Component {
                 >
                     {/* 좋아요 버튼 */}
                     <ThumbUpAltIcon
-                        id="ShareThumbIcon"
+                        className="ShareThumbIcon"
                         onClick={this.addLikes}
-                    />&nbsp;{row.likes + this.state.likes}&nbsp;
+                    />&nbsp;{row.likes + this.state.likes}&nbsp;&nbsp;
 
                     <SmsIcon
-                        id="ShareThumbIcon"
+                        className="ShareThumbIcon"
                         onClick=""
                     />&nbsp;{this.state.answerCount}&nbsp;
 
                     {/* 삭제 버튼 */}
                     <DeleteIcon
-                        id="DeleteButton"
+                        className="ShareListDel"
                         onClick={this.onDeleteData.bind(this)}
                     />
 
                     {/* modify 버튼 */}
                     <BuildIcon
-                        id="UpdateButton"
+                        className="ShareListUp"
                         onClick={() => {
                             // this.props.history.push(`/share/update/${this.props.row.num}/${this.props.currentPage}`);
                             if (!this.props.currentPage) {
@@ -244,12 +263,12 @@ class ShareBoardRowItem extends Component {
                 >
                     {/* 좋아요 버튼 */}
                     <ThumbUpAltIcon
-                        id="ShareThumbIcon"
+                        className="ShareThumbIcon"
                         onClick={this.addLikes}
-                    />&nbsp;{row.likes + this.state.likes}&nbsp;
+                    />&nbsp;{row.likes + this.state.likes}&nbsp;&nbsp;
 
                     <SmsIcon
-                        id="ShareThumbIcon"
+                        className="ShareThumbIcon"
                         onClick=""
                     />&nbsp;{this.state.answerCount}&nbsp;
                 </div>
@@ -265,25 +284,45 @@ class ShareBoardRowItem extends Component {
 
         if (_strSrc == "no") {
             resultImg = (
-                <img
-                    src={imgX}
-                    style={{
-                        width: "100%"
-                    }}
-                />
+                <MDBCardImage
+                        hover
+                        overlay='white-slight'
+                        className='card-img-top'
+                        src={imgX}
+                        alt='이미지 없음'
+                        onClick={this.toggle.bind(this)} id="ShareImg"
+                        />
+                // <img
+                //     src={imgX}
+                //     style={{
+                //         width: "100%"
+                //     }}
+                // />
             )
         } else {
             resultImg = (
-                <img
-                    src={srcImg}
-                    onError={(e) => {
-                        console.log("img error");
-                        e.target.src = imgX;
-                    }}
-                    style={{
-                        width: "100%"
-                    }}
-                />
+                <MDBCardImage
+                        hover
+                        overlay='white-slight'
+                        className='card-img-top'
+                        src={srcImg}
+                        onError={(e) => {
+                            console.log("img error");
+                            e.target.src = imgX;
+                        }}
+                        onClick={this.toggle.bind(this)} id="ShareImg"
+                        alt='이미지 없음'
+                        />
+                // <img
+                //     src={srcImg}
+                //     onError={(e) => {
+                //         console.log("img error");
+                //         e.target.src = imgX;
+                //     }}
+                //     style={{
+                //         width: "100%"
+                //     }}
+                // />
             )
         }
 
@@ -312,6 +351,30 @@ class ShareBoardRowItem extends Component {
         })
     }
 
+    insertWish=()=>{
+        let url = URL + "/wish/insertshare";
+        let memId = store.getState().loginId;
+        let shareNum = this.props.row.num;
+        let content = this.props.row.addr;
+        let wishday = this.refs.wishday.value;
+        let wishtime = this.refs.wishtime.value;
+
+        console.log(this.refs.wishday.value);
+        if(wishday == '' || wishtime == '')
+            alert("날짜와 시간을 모두 선택해주세요.");
+        else{
+            axios.post(url, {memId, shareNum, content, wishday, wishtime})
+            .then(res=>{
+                this.toggle();
+                this.setState({
+                    alertOpen: true
+                })
+            }).catch(err=>{
+                console.log("spotwish insert 오류 : " + err);
+            })
+        }
+        
+    }
 
     /*
     row:
@@ -351,132 +414,190 @@ class ShareBoardRowItem extends Component {
         return (
             <React.Fragment>
                 <Box m={1} id="ShareListBox">
-                    <div>
-                        {/* onClick={this.openModal.bind(this)}  */}
-                        <div id="ShareImg"
-                             onClick={this.openModal.bind(this)}
-                             style={{
-                                 overflow: "hidden"
-                             }}
-                        >{ThumbnailImg}</div>
-                        <div id="ShareListSubject"
-                             onClick={this.openModal.bind(this)}
+                    <div onClick={this.toggle.bind(this)}>
+                        {ThumbnailImg}
+                        <div id="ShareListTitle"
                              style={{
                                  fontSize: "25px",
                                  fontWeight: "bold",
                              }}
                         >
-                            {row.subject}
+                            {row.subject.split(",")[0]=="Food"?
+                            <h6 className="font-weight-bold green-text">
+                                <MDBIcon icon="utensils" className="pr-2" />
+                                Food
+                            </h6>:""}
+                            
+                            {row.subject.split(",")[0]=="Cafe"?
+                            <h6 className="font-weight-bold pink-text">
+                                <MDBIcon icon="mug-hot" className="pr-2" />
+                                Cafe
+                            </h6>:""}
+                            
+                            {row.subject.split(",")[0]=="Bar"?
+                            <h6 className="font-weight-bold blue-text">
+                                <MDBIcon icon="glass-cheers" className="pr-2" />
+                                Bar
+                            </h6>:""}
+                            {row.subject.split(",")[1]}
                         </div>
-                        <div id="ShareContentDiv">
-                            <Box>
-                                <Rating style={{marginTop: '13px'}}
-                                        defaultValue={row.star}
-                                        emptyIcon={<StarBorderIcon fontSize="inherit"/>}
-                                        readOnly={true}
-                                />
-                            </Box>
-                            <div style={{marginTop: '10px'}}>{row.addr}</div>
+                        <div id="ShareListContent" style={{overflow: 'hidden'}}>
+                            {row.content}
                         </div>
-                        {itemBottomBtnDiv}
                     </div>
+                    {itemBottomBtnDiv}
                 </Box>
 
                 {/*/////////////////////////////////////Modal/////////////////////////////////////////////////////*/}
                 {/* //header 부분에 텍스트를 입력한다. */}
-                <Box>
-                    <Modal open={this.state.modalOpen} close={this.closeModal.bind(this)} title="share">
-                        {/* // Modal.js <main> { props.children } </main>에 내용이 입력된다.  */}
+                <MDBModal isOpen={this.state.open} toggle={this.toggle} size="lg" position="bottom">
+                    <MDBModalHeader toggle={this.toggle}>
+                        
+                        {row.subject.split(",")[0]=="Food"?
+                            <b className="green-text ShareModalCategory"><MDBIcon icon="utensils" className="pr-2" />Food</b>:""}
+                            
+                            {row.subject.split(",")[0]=="Cafe"?
+                            <b className="pink-text ShareModalCategory"><MDBIcon icon="mug-hot" className="pr-2" />Cafe</b>:""}
+                            
+                            {row.subject.split(",")[0]=="Bar"?
+                            <b className="blue-text ShareModalCategory"><MDBIcon icon="glass-cheers" className="pr-2" />Bar</b>:""}
+
+                        &nbsp;&nbsp;
+                        <span id="ShareModalTitle"><b>{row.id}</b>님이 공유하신 맛집입니다.</span></MDBModalHeader>
+                    <MDBModalBody>
                         <div id="ShareModalAll" ref={this.myRef} onScroll={this.onScroll}>
-                            <p style={{margin: "10px"}}>({row.id}) 님이 공유하신 맛집입니다.</p>
-                            <div
-                                id="ShareModalMidBox"
-                                style={{
-                                    height: "580px",
-                                }}
-                            >
-                                <table id="ShareFormAll">
-                                    <tr>
-                                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>맛집이름 </span></th>
-                                        <td id="sharetd">
-                                            <b
-                                                style={{fontSize: "1.3em"}}
-                                            >{row.subject}</b>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>맛집주소 </span></th>
-                                        <td id="sharetd">
-                                            <b
-                                                style={{fontSize: "1.3em"}}
-                                            >{row.addr}</b>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>이미지 </span></th>
-                                        <td id="sharetd">
-                                            <div id="ShareModalImg"
-                                                 style={{
-                                                     overflow: "hidden",
-                                                 }}
-                                            >{ThumbnailImg}</div>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>리뷰 </span></th>
-                                        <td id="sharetd" style={{maxWidth: "600px"}}>
-                                            <b
-                                                style={{fontSize: "1.3em"}}
-                                            >{row.content}</b>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th id="shareth" style={{verticalAlign: 'middle'}}><span>평가 </span></th>
-
-                                        <td id="sharetd">
-                                            <Box>
-                                                <Rating
-                                                    defaultValue={row.star}
-                                                    emptyIcon={<StarBorderIcon fontSize="inherit"/>}
-                                                    readOnly={true}
-                                                />
-                                            </Box>
-                                        </td>
-                                    </tr>
-
-                                </table>
-                            </div>
+                        <Box display="flex"
+                            flexWrap="wrap"
+                            p={1}
+                            m={1}
+                            bgcolor="background.paper"
+                            justifyContent="center"
+                            css={{maxWidth: '100%'}}
+                        >
+                            <Box m={1} className="ShareModalItemBox">
+                                <MDBView className="rounded z-depth-2 mb-lg-0 mb-4" hover waves>
+                                    <img
+                                        className="img-fluid"
+                                        src={row.photo!="no"?URL + "/" + row.photo:imgX}
+                                        alt=""
+                                        onError={(e) => {
+                                            console.log("img error");
+                                            e.target.src = imgX;
+                                        }}
+                                    />
+                                    <MDBMask overlay="white-slight" />
+                                </MDBView>
+                            </Box>
+                            <Box m={1} className="ShareModalItemBox" style={{position: 'relative'}}>
+                                <br/>
+                                <Rating
+                                    defaultValue={row.star}
+                                    emptyIcon={<StarBorderIcon fontSize="inherit"/>}
+                                    readOnly={true}
+                                />
+                                <div style={{position: 'absolute', right: '5px', top: '5px'}}>
+                                    <b style={{color: 'gray'}}>{row.writeday}</b>
+                                </div>
+                                <h3 className="mb-3 p-0" style={{fontWeight: '900'}}>
+                                    {row.subject.split(",")[1]}
+                                </h3>
+                                <p>
+                                    <MDBIcon icon="map-marker-alt" />&nbsp;&nbsp;{row.addr}
+                                </p>
+                            </Box>
+                            <Box m={1} className="ShareModalItemContent">
+                                {row.content}
+                            </Box>
+                        </Box>
+                        <br/>
+                        <hr/>
 
                             <div id="ShareReviewWrite">
-                                <div>
-                                    <div>
-                                        <textarea
-                                            placeholder="댓글을 입력하세요"
+                            <MDBIcon icon="comments" className="green-text pr-3" style={{marginLeft: '10px'}}/><b style={{fontWeight: '700'}}>다녀온 후기나 궁금한 질문을 자유롭게 나눠보아요.</b>
+                                <br/><br/>
+                                <textarea
+                                            placeholder="댓글 입력"
                                             className="form-control"
-                                            style={{width: '900px', height: '100px', float: 'left'}}
                                             ref="content"
+                                            style={{resize: 'none'}}
                                         ></textarea>
-                                    </div>
-                                    <div>
-                                        <MDBBtn color="deep-orange" id="ShareReviewSave"
-                                                onClick={this.onInsertAnswer.bind(this)}
-                                        ><b style={{fontSize: '17px'}}>작&nbsp;성</b>
+                                        <MDBBtn color="dark-green" id="ShareReviewSave"
+                                                onClick={()=>{
+                                                    if(store.getState().logged==true){
+                                                        this.onInsertAnswer();
+                                                    }
+                                                    else
+                                                        alert("로그인이 필요한 서비스입니다.");
+                                                }}
+                                                style={{float: 'right'}}
+                                        >작성
                                         </MDBBtn>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <ShareReview
-                                    regroup={row.regroup}
-                                />
                             </div>
                         </div>
-                    </Modal>
-                </Box>
+                            <ShareReview regroup={row.regroup}/>
+
+                    </MDBModalBody>
+                    <MDBModalFooter>
+                    <MDBBtn color="dark-green" onClick={this.toggle}>Close</MDBBtn>
+                    {store.getState().logged==true?
+                    <MDBPopover
+                    placement="top"
+                    popover
+                    clickable
+                    id="popper5"
+                    >
+                        <MDBBtn color="primary">일정추가</MDBBtn>
+                        <div>
+                            <MDBPopoverBody>
+                                <div className="ShareModalInsertPlan">
+                                    <span className="spotmodalTitle">일정 추가</span><br/>
+                                    👨‍🍳&nbsp;&nbsp;{row.subject.split(",")[1]}<br/>
+                                    &nbsp;<MDBIcon icon="map-marker-alt" />&nbsp;&nbsp;{row.addr}<br/>
+                                    🗓&nbsp;&nbsp;여행 날짜
+                                    <input type="date" class="form-control form-control-sm" ref="wishday"></input>
+                                    ⏰&nbsp;&nbsp;예정 시간
+                                    <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
+                                    <div style={{textAlign: 'center'}}>
+                                        <MDBBtn color="primary" onClick={this.insertWish.bind(this)}>추가</MDBBtn>
+                                    </div>
+                                </div>
+                            </MDBPopoverBody>
+                        </div>
+                    </MDBPopover>
+                    :""}
+                    
+                    </MDBModalFooter>
+                </MDBModal>
+
+                {/* alert 창 */}
+                <Dialog
+                    open={this.state.alertOpen}
+                    onClose={()=>{this.setState({alertOpen:false})}}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"일정 추가 완료"}</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Mypage로 이동하여 확인하시겠습니까?
+                    </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={()=>{this.setState({alertOpen:false})}} color="primary">
+                        NO
+                    </Button>
+                    <Button onClick={
+                        ()=>{
+                            this.setState({
+                                alertOpen: false
+                            })
+                            this.props.history.push("/mypage");
+                        }
+                    } color="primary" autoFocus>
+                        YES
+                    </Button>
+                    </DialogActions>
+                </Dialog>
                 {/*//////////////////////////////////////////////////////////////////////////////////////////*/}
             </React.Fragment>
         )

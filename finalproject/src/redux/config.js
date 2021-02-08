@@ -62,6 +62,7 @@ export const actionType = {
     googleLogin: "googleLogin",
     googleLogout: "googleLogout",
     weatherUpdate: "weatherUpdate",
+    setChatWindow: "setChatWindow",
 }
 
 export const mainViewType = {

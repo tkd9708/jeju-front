@@ -4,16 +4,18 @@ import axios from 'axios';
 import {URL} from "../../../redux/config";
 import Slider from "react-slick";
 import SharePlanRoot from './SharePlanRoot';
-
+import SharePlanList from './SharePlanList';
 
 class SharePlanPageComp extends Component {
 
     constructor(props) {
         super(props);
-        console.log("SharePlanPageComp constructor", props);
+        //console.log("SharePlanPageComp constructor", props);
 
         this.state={
-           glist:[]
+           glist:[],
+           list:[]
+
         }
 
         //this.handleChange=this.handleChange.bind(this);
@@ -62,20 +64,32 @@ class SharePlanPageComp extends Component {
 
     getGroupnum=()=>{
         let url=URL+"/plan/groupnum";
+
+        
         
         axios.get(url)
         .then(res=>{
           console.log("데이터 ; " + res.data);
             this.setState({
                 glist:res.data
+                
             });
         }).catch(err=>{
             console.log("리스트 오류:"+err);
           })
     }
 
+    
+
+
+    
+
+
     //  getList=()=>{
-    //     let url=URL+"/plan/list";
+    //     let url=URL+"/plan/list?wishday="+this.refs.wishday.value;
+    //     this.setState({
+    //         list:[]
+    //     })
     //     axios.get(url)
     //     .then(res=>{
     //         this.setState({
@@ -85,6 +99,8 @@ class SharePlanPageComp extends Component {
     //         console.log("리스트 오류:"+err);
     //       })
     // }
+
+  
 
     // getNum=()=>{
     //       let url=URL+"/plan/num";
@@ -100,12 +116,12 @@ class SharePlanPageComp extends Component {
 
     componentDidMount(){
         this.getGroupnum();
-        //this.getList();
+       //this.getPlan();
     }
 
-    // componentDidMount(){
-    //   this.getList();
-    // }
+    
+
+   
 
     // componentDidMount{
     //     this.onGroup();
@@ -161,7 +177,7 @@ class SharePlanPageComp extends Component {
         return (
             
                 
-            <div className="outline">
+            <div className="react-out">
             <div className="react-body">
              <div className="detailTitle">
               <span className="detailTitleContent" style={{backgroundColor:'white',color:'#036E38'}}>
@@ -194,17 +210,19 @@ class SharePlanPageComp extends Component {
                     <SharePlanSub row={row}></SharePlanSub>
                   ))} */}
                    {/* </div> */}
+                   
                 </Slider>
                 {/* {this.state.list.map((r)=>(
                     <SharePlanSub r={r}></SharePlanSub>
                   ))} */}
                 
-                 {/* <div className="slick-prev"></div>
-                <div className="slick-next"></div> */}
+                 {/* <button className="slick-prev">ddd</button>
+                <button className="slick-next">ddd</button> */}
                 
                 </div>
                 
             </div>
+            
             <hr/>
             
             
@@ -216,15 +234,21 @@ class SharePlanPageComp extends Component {
             ))} */}
             
             
-           </div>
+            </div>
+            
+            <span>🗓공유날짜</span><br/>
+            <input type="date" className="wishday" ref="wishday"  onChange={this.getGroup.bind(this)}/>
+            
+            <SharePlanList></SharePlanList>
+            
+            
+          
+          </div>
+        
            
-           </div>
            
-           </div>
            
-           <span>🗓공유날짜</span><br/>
-                <input type="date" className="wishday" ref="wishday"  onChange={this.getGroup.bind(this)}/> 
-           </div>
+           
             
            
           
