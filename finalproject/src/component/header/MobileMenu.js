@@ -253,9 +253,25 @@ function MobileMenu(props) {
       </List>
       
       <Divider />
-      <List onClick={handleDrawerClose} style={{fontWeight: '600'}}>
-          <ListItem><a href="/reservation">RESERVATION</a></ListItem>
+      <List>
+        <Accordion>
+                <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                >
+                <Typography className={classes.heading} style={{fontWeight: '600', color: ' #036E38'}}>TRAFFIC</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <List onClick={handleDrawerClose}>
+                        <ListItem><a href="/air" style={{color: 'black'}}>항공</a></ListItem>
+                        <ListItem><a href="/car" style={{color: 'black'}}>렌터카</a></ListItem>
+                        <ListItem><a href="/ship" style={{color: 'black'}}>우도행 배편</a></ListItem>
+                    </List>
+                </AccordionDetails>
+            </Accordion>
       </List>
+      
       <Divider />
       <List onClick={handleDrawerClose} style={{fontWeight: '600'}}>
           <ListItem><a href="/notice/1">NOTICE</a></ListItem>
