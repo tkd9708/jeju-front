@@ -104,7 +104,7 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
                         <Button variant="outlined" className="add-list"  style={{float: 'left'}} onClick={
                             ()=>{
                                 this.setState({
-                                    open: true
+                                    listopen: true
                                 })
                             }
                         }>

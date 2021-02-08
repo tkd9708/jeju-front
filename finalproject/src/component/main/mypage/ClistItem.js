@@ -109,7 +109,7 @@ class ClistItem extends Component {
                     </TimelineSeparator>
                     <TimelineContent className="RCA-timelineTitle">
                         <div style={{cursor: 'pointer'}} onClick={this.alertOpen.bind(this)}>
-                            {row.title}
+                            {row.content==="share"?row.title.split(",")[1]:row.title}
                         </div>
                     {/* <Paper elevation={3} className="RCA-timelineTitle" style={{cursor: 'pointer'}} onClick={this.alertOpen.bind(this)}>
 

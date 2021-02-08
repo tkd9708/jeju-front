@@ -155,7 +155,7 @@
     .mypageUpdateBtn {
         cursor: pointer;
     }
-    #SignupForm input, #SignupForm select, #SignupForm table td{
+    #SignupForm input, #SignupForm select, #SignupForm table td, #SignupForm textarea{
         font-size: 0.6em;
     }
     .mypageUpdateBtn:hover {
@@ -217,7 +217,7 @@
     .mypageUpdateBtn {
         cursor: pointer;
     }
-    #SignupForm input, #SignupForm select, #SignupForm table td {
+    #SignupForm input, #SignupForm select, #SignupForm table td, #SignupForm textarea {
         font-size: 0.8em;
     }
     .mypageUpdateBtn:hover {
@@ -277,7 +277,7 @@
     .mypageUpdateBtn {
         cursor: pointer;
     }
-    #SignupForm input, #SignupForm select, #SignupForm table {
+    #SignupForm input, #SignupForm select, #SignupForm table, #SignupForm textarea {
         font-size: 0.8em;
     }
     .mypageUpdateBtn:hover {

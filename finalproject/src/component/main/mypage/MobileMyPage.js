@@ -73,7 +73,12 @@ class MobileMyPage extends Component {
                         <table className="table table-bordered">
                             <tr>
                                 <td colSpan="2" style={{textAlign: 'center'}}>
-                                    <img src={userimg} alt="이미지없음" id="mypageUserImg"/>
+                                    <img src={userimg} alt="이미지없음" id="mypageUserImg"
+                                    onError={(e) => {
+                                        console.log("img error");
+                                        e.target.src = userImg;
+                                    }}
+                                    />
                                 </td>
                             </tr>
                             <tr>

@@ -8,6 +8,7 @@ import axios from "axios";
 import store from "../../../redux/store";
 import Box from "@material-ui/core/Box";
 import PageComp from "../tour/PageComp";
+import SearchIcon from '@material-ui/icons/Search';
 
 
 class ShareBoardPageComp extends Component {
@@ -26,7 +27,7 @@ class ShareBoardPageComp extends Component {
 
         this.currentPage = this.state.pageNum;
         this.totalCount = 0;
-        this.perPage = 4; // 한페이지당 보여질 글의 갯수
+        this.perPage = 6; // 한페이지당 보여질 글의 갯수
         this.perBlock = 3; // 한블럭당 출력할 페이지의 갯수
         this.totalPage = 0; // 총 페이지의 갯수
         this.startPage = 0; // 각 블럭당 시작 페이지 번호
@@ -69,6 +70,8 @@ class ShareBoardPageComp extends Component {
         }).catch(err => {
             console.log("getShareListByPaging() err", err);
         });
+
+    
     }
 
     getTotalCount = () => {
@@ -140,13 +143,12 @@ class ShareBoardPageComp extends Component {
         this.getTotalCount();
     }
 
-    // componentWillUpdate() {
-    //     this.getTotalCount();
-    // }
-
     render() {
+        const { photoIndex, isOpen, images } = this.state;
+        
         return (
-            <div>
+            <div id="ShareBoardPage">
+                
                 {/* 제목 */}
                 {/* <div style={{margin: "0 auto", marginLeft: "45%", marginTop: '1%', marginBottom: '4%'}}>
                     <h3 id="sharesubject">맛집 공유게시판</h3>
@@ -158,15 +160,12 @@ class ShareBoardPageComp extends Component {
                 </div>
                 <div className="detailIntro" style={{color: "#888"}}>
                     나만 아는 숨음 맛집! 돈쭐 내주고 싶은 맛집!<br/>
-                    회원분들끼리 공유하는 공간입니다.
-                </div>
-                <br/>
-
-                {/*/!* 공유버튼 *!/*/}
-                <div>
-                    {/*<Link to="/share/insert">*/}
+                    회원분들끼리 공유하는 공간입니다.<br/>
+                    
+                    {/*/!* 공유버튼 *!/*/}
                     <MDBBtn size="sm" color="dark-green" type="button"
-                            style={{float: 'right', marginRight: '7%'}}
+                            className="ShareListBtn"
+                            style={{marginTop: '1.3%', color: 'white'}}
                             onClick={() => {
                                 console.log("share Restaurant");
                                 if (store.getState().loginId != null && store.getState().loginId != "") {
@@ -179,12 +178,16 @@ class ShareBoardPageComp extends Component {
                                     }
                                 }
                             }}
-                    > <b style={{fontSize: '15px'}}>맛집공유</b>
+                    > <b>맛집공유</b>
                     </MDBBtn>
-                    {/*</Link>*/}
+                </div>
+                <br/><br/><br/>
 
-                    {/*onClick={this.getShareListByPaging.bind(this)}*/}
-                    <MDBBtn outline size="sm" color="deep-orange"
+                
+                <div className="ShareSearchForm">
+
+                    <MDBBtn size="sm" color="dark-green"
+                            className="ShareListBtn"
                             onClick={
                                 () => {
                                     this.setState({
@@ -196,11 +199,28 @@ class ShareBoardPageComp extends Component {
                                 }
                             }
                             style={{float: 'left', marginLeft: '7%'}}>
-                        <b style={{fontSize: '15px'}}>전체글</b>
+                        <b>전체글</b>
                     </MDBBtn>
 
-                    <input type="search" className="form-control" ref="search"
-                           style={{float: 'left', marginLeft: '7%', width: '200px', height: '40px', marginTop: '5px'}}
+                    <MDBBtn size="sm" color="dark-green"
+                        className="ShareSearchBtn"
+                        style={{float: 'right'}}
+                            onClick={
+                                () => {
+                                    this.setState({
+                                        pageNum: 1,
+                                    });
+                                    this.currentPage = 1;
+                                    this.getSearchTotalCount();
+                                }
+                            }
+                    >
+                        {/* <b>검색</b> */}
+                        <SearchIcon/>
+                    </MDBBtn>
+
+                    <input type="search" className="form-control ShareListSearch" ref="search"
+                           style={{float: 'right'}}
                            onKeyDown={(e) => {
                                // console.log(e);
                                if (e.code == "Enter") {
@@ -212,21 +232,6 @@ class ShareBoardPageComp extends Component {
                                }
                            }}
                     />
-
-                    {/*onClick={this.searchShareList.bind(this)}*/}
-                    <MDBBtn outline size="sm" color="deep-orange"
-                            onClick={
-                                () => {
-                                    this.setState({
-                                        pageNum: 1,
-                                    });
-                                    this.currentPage = 1;
-                                    this.getSearchTotalCount();
-                                }
-                            }
-                    >
-                        <b style={{fontSize: '15px'}}>검색</b>
-                    </MDBBtn>
                 </div>
 
 
