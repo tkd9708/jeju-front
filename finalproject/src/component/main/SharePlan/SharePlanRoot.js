@@ -2,18 +2,17 @@ import React, {Component} from "react";
 import SharePlanSub from './SharePlanSub';
 import axios from 'axios';
 import {URL} from "../../../redux/config";
-import SharePlanPageComp from "./SharePlanPageComp";
-import store from '../../../redux/store';
 import './SharePlanCss.css';
 
 class SharePlanRoot extends Component {
 
     constructor(props) {
         super(props);
-        console.log("SharePlanRoot constructor", props);
+        //console.log("SharePlanRoot constructor", props);
 
         this.state={
-            clist:[]
+            clist:[],
+            //groupNum: this.props.row.groupNum
         }
         
     }
@@ -35,9 +34,12 @@ class SharePlanRoot extends Component {
     // }
 
     getGroupData=()=>{
-        let url=URL+"/plan/groupdata?groupnum="+this.props.row.groupNum
+        let url=URL+"/plan/groupdata?groupnum="+this.props.row.groupNum;
+        console.log("그룹넘버 : " + this.props.row.groupNum);
         axios.get(url)
         .then(res=>{
+            console.log(res.data);
+
             this.setState({
                 clist:res.data
             });
@@ -54,18 +56,22 @@ class SharePlanRoot extends Component {
     
     
     render(){
-        const {row}=this.props;
-        const {list}=this.props;
-        const {value}=this.props;
+        const {row}=this.props.row;
+       // const {list}=this.props;
+        const {day}=this.props.day;
+        //const {list}=this.props.list
         // var wishday=row.wishday;
         // var title=row.title;
         return(
-            <div>
+            <div className="slide-list-item">
                 {/* {row.groupNum} */}
                 {this.state.clist.map((row)=>(
-                    <SharePlanSub row={row} value={value}></SharePlanSub>
+                    <SharePlanSub row={row} day={day}></SharePlanSub>
                 ))}
                 {/* <SharePlanSub glist={this.state.glist}></SharePlanSub> */}
+                
+
+                
                 
             </div>
             

@@ -70,65 +70,65 @@ class Menu extends Component {
         })
     };
 
-    drawer = ()=> (
-        <div style={{width: '240px'}}
-            role="presentation"
-            onClick={this.handleDrawerClose.bind(this)}
-            onKeyDown={this.handleDrawerClose.bind(this)}>
-          <Divider />
-          <List>
-              <ListItem>
-                <NavLink exact to="/"
-                        onClick={() => {
-                            console.log("Home NavLink onClick");
-                            this.setMainView(mainViewType.MainPage);
-                        }}
-                >
-                    Home
-                </NavLink>
-              </ListItem>
-          </List>
-          <Divider />
-          <List>
-              <ListItem><a href="/tourlist/jeju/1">제주</a></ListItem>
-              <ListItem><a href="/tourlist/jocheon/1">조천</a></ListItem>
-              <ListItem><a href="/tourlist/gujwa/1">구좌</a></ListItem>
-              <ListItem><a href="/tourlist/sungsan/1">성산</a></ListItem>
-              <ListItem><a href="/tourlist/pyoseon/1">표선</a></ListItem>
-              <ListItem><a href="/tourlist/namwon/1">남원</a></ListItem>
-              <ListItem><a href="/tourlist/seogwipo/1">서귀포</a></ListItem>
-              <ListItem><a href="/tourlist/andeok/1">안덕</a></ListItem>
-              <ListItem><a href="/tourlist/daejung/1">대정</a></ListItem>
-              <ListItem><a href="/tourlist/hangyeong/1">한경</a></ListItem>
-              <ListItem><a href="/tourlist/hanrim/1">한림</a></ListItem>
-              <ListItem><a href="/tourlist/aewol/1">애월</a></ListItem>
-              <ListItem><a href="/tourlist/udo/1">우도</a></ListItem>
-          </List>
-          <Divider />
-          <List>
-              <ListItem><a href="/share/1">맛집 공유</a></ListItem>
-              <ListItem><a href="/shareplan">일정 공유</a></ListItem>
-          </List>
-          <Divider />
-          <List>
-              <ListItem><a href="/reservation">항공 / 렌터카예약</a></ListItem>
-          </List>
-          <Divider />
-          <List>
-              <ListItem><a href="/notice/1">공지사항</a></ListItem>
-          </List>
-          <Divider/>
-          <List>
-              <ListItem><a href="/" onClick={
-                                ()=>{
-                                    console.log("Logout NavLink onClick");
-                                    this.setMainView(mainViewType.MainPage);
-                                    this.setLogOut();
-                                }
-                            }>Logout</a></ListItem>
-          </List>
-        </div>
-      );
+    // drawer = ()=> (
+    //     <div style={{width: '240px'}}
+    //         role="presentation"
+    //         onClick={this.handleDrawerClose.bind(this)}
+    //         onKeyDown={this.handleDrawerClose.bind(this)}>
+    //       <Divider />
+    //       <List>
+    //           <ListItem>
+    //             <NavLink exact to="/"
+    //                     onClick={() => {
+    //                         console.log("Home NavLink onClick");
+    //                         this.setMainView(mainViewType.MainPage);
+    //                     }}
+    //             >
+    //                 Home
+    //             </NavLink>
+    //           </ListItem>
+    //       </List>
+    //       <Divider />
+    //       <List>
+    //           <ListItem><a href="/tourlist/jeju/1">제주</a></ListItem>
+    //           <ListItem><a href="/tourlist/jocheon/1">조천</a></ListItem>
+    //           <ListItem><a href="/tourlist/gujwa/1">구좌</a></ListItem>
+    //           <ListItem><a href="/tourlist/sungsan/1">성산</a></ListItem>
+    //           <ListItem><a href="/tourlist/pyoseon/1">표선</a></ListItem>
+    //           <ListItem><a href="/tourlist/namwon/1">남원</a></ListItem>
+    //           <ListItem><a href="/tourlist/seogwipo/1">서귀포</a></ListItem>
+    //           <ListItem><a href="/tourlist/andeok/1">안덕</a></ListItem>
+    //           <ListItem><a href="/tourlist/daejung/1">대정</a></ListItem>
+    //           <ListItem><a href="/tourlist/hangyeong/1">한경</a></ListItem>
+    //           <ListItem><a href="/tourlist/hanrim/1">한림</a></ListItem>
+    //           <ListItem><a href="/tourlist/aewol/1">애월</a></ListItem>
+    //           <ListItem><a href="/tourlist/udo/1">우도</a></ListItem>
+    //       </List>
+    //       <Divider />
+    //       <List>
+    //           <ListItem><a href="/share/1">맛집 공유</a></ListItem>
+    //           <ListItem><a href="/shareplan">일정 공유</a></ListItem>
+    //       </List>
+    //       <Divider />
+    //       <List>
+    //           <ListItem><a href="/reservation">항공 / 렌터카예약</a></ListItem>
+    //       </List>
+    //       <Divider />
+    //       <List>
+    //           <ListItem><a href="/notice/1">공지사항</a></ListItem>
+    //       </List>
+    //       <Divider/>
+    //       <List>
+    //           <ListItem><a href="/" onClick={
+    //                             ()=>{
+    //                                 console.log("Logout NavLink onClick");
+    //                                 this.setMainView(mainViewType.MainPage);
+    //                                 this.setLogOut();
+    //                             }
+    //                         }>Logout</a></ListItem>
+    //       </List>
+    //     </div>
+    //   );
 
     render() {
         // console.log("메뉴에서 스토어 상태 : " + store.getState().loginId);
@@ -212,11 +212,11 @@ class Menu extends Component {
                         </div>
                 </li>
                 <li className="dropdown">
-                    <a className="dropdownTitle">Reservation</a>
+                    <a className="dropdownTitle">Traffic</a>
                         <div className="dropdown-content" >
-                            <a href="/reservation">Air</a>
-                            <a href="/carReservation">Rentcar</a>
-                            <a href="/shipReservation">Ship</a>
+                            <a href="/air">Air</a>
+                            <a href="/car">Rentcar</a>
+                            <a href="/ship">Ship</a>
                         </div>
                     {/* <NavLink exact to="/reservation"
                             onClick={() => {

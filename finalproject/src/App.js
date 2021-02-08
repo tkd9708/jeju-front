@@ -115,9 +115,10 @@ class App extends Component {
             });
         }
 
-        // store.subscribe(()=>{
-        //     window.setTimeout(setPositionFooter, 100);
-        // });
+        store.dispatch({
+            type: actionType.setChatWindow,
+            isOpenChatWindow: false,
+        })
     }
 
 
@@ -195,7 +196,7 @@ class App extends Component {
                             let duration = 1.0;
                             let ease = Quint.easeInOut;
 
-                            if (store.getState().isOpenChatWindow) {
+                            if (store.getState().chat.isOpenChatWindow) {
                                 //닫기.
                                 gsap.to("div.chatting div.chattingWindow", {
                                     transform: "scale(0.1)",
@@ -260,9 +261,9 @@ class App extends Component {
                         <Route path="/notice/content/:num?" component={NoticeContent}/>
                         <Route path="/notice/update/:num?" component={NoticeUpdate}/>
                         <Route path="/noticeInsert" component={NoticeAddForm}/>
-                        <Route path="/reservation/:name?" component={ReservationPageComp}/>
-                        <Route path="/carReservation/:name?" component={RentCarPageComp}/>
-                        <Route path="/shipReservation/:name?" component={ShipPageComp}/>
+                        <Route path="/air/:name?" component={ReservationPageComp}/>
+                        <Route path="/car/:name?" component={RentCarPageComp}/>
+                        <Route path="/ship/:name?" component={ShipPageComp}/>
                         <Route path="/tourlist/:name?/:pageNum?" component={TourPageComp}/>
                         <Route path="/shareplan/:name?/" component={SharePlanPageComp}/>
                         <Route path="/chattingroom/:num?" component={ChattingRoom}/>
