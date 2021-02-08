@@ -3,7 +3,13 @@ import {actionType, boardActionType, URL} from "../../../redux/config";
 import axios from "axios";
 import store from "../../../redux/store";
 import {MDBBtn} from "mdbreact";
+import imgX from "../../../image/imgX.png";
+import userimg from '../../../image/user.png';
 import FaceIcon from '@material-ui/icons/Face';
+import './Share.css';
+import { Visibility } from '@material-ui/icons';
+import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
+import BuildIcon from '@material-ui/icons/Build';
 
 class ReviewItem extends Component {
 
@@ -12,8 +18,10 @@ class ReviewItem extends Component {
         this.state = {
             isOpen: false,
             saveType: "",
+            photo:''
         }
 
+        
     }
 
     onTriggerInput = (type = null) => {
@@ -93,11 +101,18 @@ class ReviewItem extends Component {
         axios.post(url, data
         ).then(res => {
             console.log("onInsertAnswer res", res);
+            
             store.dispatch({
                 type: actionType.shareBoardUpdate,
             });
-            this.onTriggerInput();
+
             this.refs.content.value = "";
+            var del = document.getElementsByClassName("ShareReviewAll");
+                for(var i=0; del.length; i++){
+                    del.item(i).style.display = "none";
+                }
+
+            this.onTriggerInput();
         }).catch(err => {
             console.log("onInsertAnswer err", err);
         })
@@ -112,13 +127,18 @@ class ReviewItem extends Component {
         console.log("onDeleteData", url);
 
         if (window.confirm("삭제하시겠습니까?")) {
-            axios.post(url
+            axios.get(url
             ).then(res => {
-                console.log("onDeleteData() res", res);
+
                 store.dispatch({
                     type: actionType.shareBoardUpdate,
                 });
-                // this.props.history.push("/share");
+
+                var del = document.getElementsByClassName("ShareReviewAll");
+                for(var i=0; del.length; i++){
+                    del.item(i).style.display = "none";
+                }
+
             }).catch(err => {
                 console.log("onDeleteData() err", err);
             });
@@ -137,9 +157,15 @@ class ReviewItem extends Component {
             axios.post(url
             ).then(res => {
                 console.log("onUpdateSubAnswer() res", res);
+                
                 store.dispatch({
                     type: actionType.shareBoardUpdate,
                 });
+
+                var del = document.getElementsByClassName("ShareReviewAll");
+                for(var i=0; del.length; i++){
+                    del.item(i).style.display = "none";
+                }
                 // this.props.history.push("/share");
                 this.refs.content.value = "";
                 this.onTriggerInput();
@@ -165,6 +191,22 @@ class ReviewItem extends Component {
         return false;
     }
 
+    // 프로필 사진
+    getPhoto = () => {
+        let url = URL + '/member/getdata?id=' + this.props.row.id;
+        axios.get(url)
+        .then(response=>{
+            this.setState({
+                photo: response.data.photo       
+            })
+        }).catch(err=>{
+            console.log("목록 오류:"+err);
+        })
+    }
+
+    componentDidMount(){
+        this.getPhoto();
+    }
     /*
         addr: null
         content: "댓글 수정 가능한지."
@@ -181,16 +223,45 @@ class ReviewItem extends Component {
     */
     render() {
         const {row} = this.props;
-        // console.log(row);
+        const photo = this.state.photo=="no"?userimg:URL + "/" + this.state.photo;
+
         return (
-            <div style={{marginLeft: `calc(30px*${row.relevel})`}}>
+            <div className="ShareModalReviewItem" style={{marginLeft: `calc(30px*${row.relevel})`, borderBottom: '1px dotted #ddd'}}>
                 {/*num:{row.num} / {row.photo} / id:{row.id}*/}
                 {/*/ {row.regroup} / {row.relevel} / {row.restep} / 내용 :*/}
-                <FaceIcon/>&nbsp;{row.id}
-                <div style={{border: "1px solid", margin: "5px"}}>
-                    {row.content}
+
+                {row.relevel==1?<br/>:<SubdirectoryArrowRightIcon style={{color: '#ddd', marginRight: '5px'}}/>}
+                  <img
+                    src={photo}
+                    alt=""
+                    className="ShareModalReviewProfile"
+                    style={{borderRadius:'100%', border:'0.1px solid #ddd'}}
+                  />
+                &nbsp;&nbsp;<b style={{fontWeight: '900'}}>{row.id}</b>&nbsp;&nbsp;
+                
+                {/* 수정버튼 */}
+                {row.id==store.getState().loginId?
+                    <BuildIcon className="ShareModalUpBtn" style={{color: '#aaa', cursor: 'pointer'}}
+                        onClick={this.onTriggerInput.bind(this, "update")}
+                        disabled={this.getIsDisableAnswerButton(row)}/>:""
+                }
+                <br/>
+
+                <div className="ShareModalMsg" style={{position: 'relative'}} onMouseOver={()=>{
+                    document.getElementsByClassName("ShareModalReviews")[this.props.idx].style.visibility='visible';
+                }} onMouseOut={()=>{
+                    document.getElementsByClassName("ShareModalReviews")[this.props.idx].style.visibility='collapse';
+                }}>
+                    {row.content}&nbsp;&nbsp;
+
+                    {/* 추가 버튼 */}
+                    <SubdirectoryArrowRightIcon className="ShareModalReviews" style={{visibility: 'collapse', color: '#ddd', cursor: 'pointer'}}
+                        onClick={this.onTriggerInput.bind(this, "insert")} disabled={this.getIsDisableAnswerButton(row, boardActionType.write)}/>
+                
+                    <div style={{position:'absolute', right:'5px', bottom:'5px', color: '#888'}}>{row.writeday}</div>
                 </div>
-                <MDBBtn size="sm" color="deep-orange"
+
+                {/* <MDBBtn size="sm" color="deep-orange"
                         onClick={this.onTriggerInput.bind(this, "insert")}
                         disabled={this.getIsDisableAnswerButton(row, boardActionType.write)}
                 ><b style={{fontSize: '12px'}}>댓글 쓰기</b>
@@ -206,30 +277,34 @@ class ReviewItem extends Component {
                         onClick={this.onDeleteSubAnswer.bind(this)}
                         disabled={this.getIsDisableAnswerButton(row)}
                 ><b style={{fontSize: '12px'}}>댓글 삭제</b>
-                </MDBBtn>
+                </MDBBtn> */}
 
                 {/*댓글 입력창 on/off*/}
-                <div className={`input_answer_${row.regroup}_${row.relevel}_${row.restep}`}
+                <div className={`input_answer_${row.regroup}_${row.relevel}_${row.restep} ShareReviewAll`}
                      style={{
                          display: "none",
                      }}
                 >
                     <textarea
                         placeholder={(this.state.saveType == "insert")
-                            ? "댓글을 입력하세요"
-                            : "수정할 댓글을 입력하세요"}
+                            ? "댓글 입력"
+                            : "수정 댓글 입력"}
                         id="shareInputAnswer"
                         className="form-control"
-                        style={{width: '800px', height: '100px', float: 'left'}}
                         ref="content"
+                        style={{resize: 'none'}}
                     />
-                    <MDBBtn size="sm" color="deep-orange"
-                            style={{width: '160px', height: '90px', marginLeft: '13px'}}
-                            onClick={this.onSaveButton.bind(this)}
-                    ><b style={{fontSize: '18px'}}>저 장</b>
-                    </MDBBtn>
+                    <div style={{textAlign: 'right'}}>
+                        {this.state.saveType == "update"? 
+                        <MDBBtn color="primary"
+                                onClick={this.onDeleteSubAnswer.bind(this)}
+                                    >삭제</MDBBtn>:""}
+                        <MDBBtn color="dark-green"
+                                onClick={this.onSaveButton.bind(this)}
+                        >저장</MDBBtn>
+                    </div>
                 </div>
-                <hr/>
+                {/* <hr/> */}
             </div>
         )
     }

@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import ShipNoticeA from "./ShipNoticeA";
 import ShipFareTableA from "./ShipFareTableA";
+import ShipIntro from "./ShipIntro";
+import ShipFareAMobile from "./ShipFareAMobile";
 
 class ShipTableA1 extends Component {
     constructor(props) {
@@ -9,8 +11,9 @@ class ShipTableA1 extends Component {
     }
     render() {
         return (
-            <div>
-                <table class="table">
+            <div className="ShipTable">
+                <ShipIntro month={this.props.month} title="성산 ↔ 우도"/>
+                <table class="table table-bordered">
                     <thead>
                         <tr>
                             <td>회수</td>
@@ -124,7 +127,8 @@ class ShipTableA1 extends Component {
                 <br/>
                 <ShipNoticeA/>
                 <br/>
-                <ShipFareTableA/>
+                {document.body.offsetWidth > 600?<ShipFareTableA/>:<ShipFareAMobile/>}
+                
             </div>
         )
     }

@@ -6,6 +6,12 @@ import Backdrop from '@material-ui/core/Backdrop';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import {URL} from '../../../redux/config';
+import {MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle'
 
 class RentCarItem extends Component
 {
@@ -18,13 +24,15 @@ class RentCarItem extends Component
             address: '',
             wishday:'',
             wishtime:'',
+            alertOpen: false,
+            alertSetOpen: false
         };
     }
 
     insertContent = () => {
         let url = URL + "/wish/insertcontent";
         let memId = store.getState().loginId;        
-        let content = '렌트카,' + this.refs.name.value + ',' + this.refs.address.value;
+        let content = '렌트카,' + this.props.row.name;
         let wishday = this.refs.wishday.value;
         let wishtime = this.refs.wishtime.value;
         
@@ -36,7 +44,10 @@ class RentCarItem extends Component
         else{
             axios.post(url, {memId, content, wishday, wishtime
             }).then(res => {
-                alert("저장 완료");
+                this.toggle();
+                this.setState({
+                    alertOpen: true
+                })
             }).catch(err=>{
                 console.log("예약 내용 저장시 오류:"+err);
             })
@@ -62,24 +73,90 @@ class RentCarItem extends Component
         })
     };
 
+    toggle = () => {
+        if(!store.getState().logged){
+            alert("로그인이 필요한 서비스입니다.");
+        }
+        else{
+            
+            this.setState({
+                open: !this.state.open
+            })
+        }
+    }
+
     render(){
         const {row, num}=this.props;
+        let opentime = row.opentime.split(":")[0] + ":" + row.opentime.split(":")[1];
+        let closetime = row.closetime.split(":")[0] + ":" + row.closetime.split(":")[1];
+
+
         return(
             <tr>
-                    <td>{num+1}</td>
-                    <td>{row.name}</td>
-                    <td>{row.form}</td>
-                    <td>{row.address}</td>
-                    <td>{row.totalcar}</td>
-                    <td>{row.opentime}</td>
-                    <td>{row.closetime}</td>
-                    <td>{row.homepage}</td>
-                    <td>{row.phonenum}</td>
-                    <td>{row.checkdate}</td>
-                    <td><Button variant="outlined" id="thumbAddBtn" 
-                    onClick={this.handleOpen.bind(this)}>일정추가</Button></td>
+                    <td style={{textAlign: 'center', cursor: 'pointer'}} onClick={this.toggle.bind(this)}>{num+1}</td>
+                    <td onClick={this.toggle.bind(this)} style={{cursor: 'pointer'}}>{row.name}</td>
+                    <td onClick={this.toggle.bind(this)} style={{cursor: 'pointer'}}>{row.address}</td>
+                    <td onClick={this.toggle.bind(this)} style={{textAlign: 'center', cursor: 'pointer'}}>{row.phonenum}</td>
+                    
                     {/* 렌트카 일정 저장 모달 */}
-                <Modal
+                    <MDBModal isOpen={this.state.open} toggle={this.toggle} centered className="RentAddModal">
+                        <MDBModalHeader toggle={this.toggle} className="RentAddModal">업체 추가정보</MDBModalHeader>
+                        <MDBModalBody>
+                            <div className="RentAddModal">
+                                🚩&nbsp;&nbsp;&nbsp;{row.name}&nbsp;({row.form})
+                                    &nbsp;&nbsp;
+                                    {row.homepage!=null?<span className="fa fa-mail-forward" style={{color: '#ddd', cursor: 'pointer'}}
+                                        onClick={()=>{
+                                            window.open(`${row.homepage}`, '_blank');
+                                        }}
+                                    ></span>:""}
+                                    <br/>
+                                🚗&nbsp;&nbsp;&nbsp;{row.totalcar}대의 차량 보유<br/>
+                                🕐&nbsp;&nbsp;&nbsp;{opentime} ~ {closetime}<br/>
+                                <hr/>
+                                <b>일정 추가</b><br/>
+                                📆&nbsp;&nbsp;대여일
+                                <input type="date" class="form-control form-control-sm" ref="wishday"></input>
+                                ⏰&nbsp;&nbsp;대여 예정시간
+                                <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
+                            </div>
+                        </MDBModalBody>
+                        <MDBModalFooter>
+                        <MDBBtn color="dark-green" onClick={this.toggle.bind(this)}>Close</MDBBtn>
+                        <MDBBtn color="primary" onClick={this.insertContent.bind(this)}>추가</MDBBtn>
+                        </MDBModalFooter>
+                    </MDBModal>
+
+                    {/* alert 창 */}
+                    <Dialog
+                        open={this.state.alertOpen}
+                        onClose={()=>{this.setState({alertOpen:false})}}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">{"일정 추가 완료"}</DialogTitle>
+                        <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Mypage로 이동하여 확인하시겠습니까?
+                        </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                        <Button onClick={()=>{this.setState({alertOpen:false})}} color="primary">
+                            NO
+                        </Button>
+                        <Button onClick={
+                            ()=>{
+                                this.setState({
+                                    alertOpen: false
+                                })
+                                this.props.history.push("/mypage");
+                            }
+                        } color="primary" autoFocus>
+                            YES
+                        </Button>
+                        </DialogActions>
+                    </Dialog>
+                {/* <Modal
                         aria-labelledby="transition-modal-title"
                         aria-describedby="transition-modal-description"
                         open={this.state.open}
@@ -105,7 +182,7 @@ class RentCarItem extends Component
                             </div>
                         </div>
                         </Fade>
-                </Modal>
+                </Modal> */}
             </tr>
         )
     }

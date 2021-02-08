@@ -9,8 +9,8 @@ class ShipFareTableA extends Component {
     render() {
         return (
             <div>
-                <b>총괄 요금표</b>
-                <table class="table">
+                <table class="table table-bordered">
+                    <caption style={{captionSide: 'top'}}>총괄 요금표</caption>
                     <thead>
                         <tr>
                             <td rowSpan="2">구분</td>
@@ -25,6 +25,7 @@ class ShipFareTableA extends Component {
                             <td>도립공원입장료</td>
                             <td>터미널이용료</td>
                         </tr>
+                    </thead>
                         <tr>
                             <td>성인</td>
                             <td>10,500원</td>
@@ -111,7 +112,6 @@ class ShipFareTableA extends Component {
                             <td>27,500원</td>
                             <td>6,000원</td>
                         </tr>
-                    </thead>
                     <tbody>
                                            
                     </tbody>

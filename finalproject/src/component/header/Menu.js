@@ -115,7 +115,7 @@ class Menu extends Component {
           </List>
           <Divider />
           <List>
-              <ListItem><a href="/notice">공지사항</a></ListItem>
+              <ListItem><a href="/notice/1">공지사항</a></ListItem>
           </List>
           <Divider/>
           <List>
@@ -226,7 +226,7 @@ class Menu extends Component {
                     >Reservation</NavLink> */}
                 </li>
                 <li>
-                    <NavLink exact to="/notice"
+                    <NavLink exact to="/notice/1"
                             onClick={() => {
                                 console.log("Notice NavLink onClick");
                                 this.setMainView(mainViewType.Notice);

@@ -58,7 +58,7 @@ class MyPlanLeftItem extends Component {
     render(){
         
         const {row} = this.props;
-        const title = row.spotId!=null?this.state.title:row.shareNum!=null?this.state.title:row.aroundId!=null?row.aroundId:
+        const title = row.spotId!=null?this.state.title:row.shareNum!=null?this.state.title.split(",")[1]:row.aroundId!=null?row.aroundId:
             row.content.split(",")[1];
         // const icon = row.spotId!=null?"🛕":row.shareNum!=null?"👨‍🍳":row.content!=null&row.aroundId==null?"📅"
         //     :row.aroundId!=null&row.content.split(",")[0]=="음식점"?"🍔":row.aroundId!=null&row.content.split(",")[0]=="카페"?"☕":"🛌";
