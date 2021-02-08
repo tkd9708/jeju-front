@@ -27,7 +27,10 @@ const reducer = function (state, action) {
             weatherInfo: [], // 날씨정보
             weatherInfo_2: [], // 날씨정보_2
             weatherInfo_3: [], // 날씨정보_3
-            isOpenChatWindow: false,
+            chat: {
+                isOpenChatWindow: false,
+                selectedRoomNum : 0,
+            }
         }
     }
 
@@ -101,7 +104,15 @@ const reducer = function (state, action) {
         });
     } else if (action.type === actionType.setChatWindow) {
         newState = Object.assign({}, state, {
-            isOpenChatWindow: !state.isOpenChatWindow,
+            chat: {
+                isOpenChatWindow: action.isOpenChatWindow,
+            },
+        });
+    }else if (action.type === actionType.setSelectedRoomNum) {
+        newState = Object.assign({}, state, {
+            chat: {
+                selectedRoomNum: action.selectedRoomNum,
+            },
         });
     }
 

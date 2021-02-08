@@ -48,12 +48,13 @@ div.chatting div.chattingWindow{
     right: 4%;
     bottom: 7%;
     z-index: 22;
-    background-color: #0d6b38;
+    /*background-color: #0d6b38;*/
+    background-color: black;
     opacity: 1;
     transform-origin: right bottom;
     /*overflow: auto;*/
     overflow: hidden;
-    border: 5px inset gold;
+    border: 5px inset lightgray;
     border-radius: 50px;
 }
 

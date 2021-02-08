@@ -115,9 +115,10 @@ class App extends Component {
             });
         }
 
-        // store.subscribe(()=>{
-        //     window.setTimeout(setPositionFooter, 100);
-        // });
+        store.dispatch({
+            type: actionType.setChatWindow,
+            isOpenChatWindow: false,
+        })
     }
 
 
@@ -195,7 +196,7 @@ class App extends Component {
                             let duration = 1.0;
                             let ease = Quint.easeInOut;
 
-                            if (store.getState().isOpenChatWindow) {
+                            if (store.getState().chat.isOpenChatWindow) {
                                 //닫기.
                                 gsap.to("div.chatting div.chattingWindow", {
                                     transform: "scale(0.1)",

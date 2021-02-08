@@ -5,94 +5,45 @@ import {URL} from "../../../redux/config";
 import {withRouter} from "react-router-dom";
 import store from "../../../redux/store";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import gsap from "gsap";
+import gsap, {Quint} from "gsap";
 import noProfile from "../../../image/noProfile.png";
 
-const ChattingRoom = ({match}) => {
-    const [roomNum, setRoomNum] = useState(0);//useState(match.params.num);
-    // const [sessionId, setSessionId] = useState('');
+const ChattingRoom = (props) => {
+    console.log("ChattingRoom props", props);
+    const [roomNum, setRoomNum] = useState(props.seletedRoomNum);
     const [msg, setMsg] = useState('');
     const [msgList, setMsgList] = useState([]);
 
-    useEffect(() => {
+    window.setTimeout(()=>{
+        if(store.getState().chat.isOpenChatWindow){
+            //채팅창이 열려있다면,
 
-        // wsOpen();
-    }, []);
+        }
+    })
+
+    // useEffect(() => {
+    //
+    // }, []);
 
     const handleChange = (e) => {
         setMsg(e.target.value);
     }
 
-    // var ws;
+    const getMsgList = () => {
+        let url = URL + "/chat/getMsgs" +
+            "?roomNum" + roomNum;
 
-    // function wsOpen() {
-    //     //웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
-    //     ws = new WebSocket("ws://localhost:9002/chating/" + roomNum);
-    //
-    //     wsEvt();
-    // }
+        console.log(url);
 
-    // function wsEvt() {
-    //     ws.onopen = function (data) {
-    //         //소켓이 열리면 동작
-    //     }
-    //
-    //     ws.onmessage = function (data) {
-    //         //메시지를 받으면 동작
-    //         var msg = data.data;
-    //         if (msg != null && msg.trim() != '') {
-    //             var d = JSON.parse(msg);
-    //             if (d.type == "getId") {
-    //                 var si = d.sessionId != null ? d.sessionId : "";
-    //                 // console.log(d.sessionId);
-    //                 if (si != '') {
-    //                     setSessionId(si);
-    //                 }
-    //             } else if (d.type == "message") {
-    //
-    //                 console.log(d);
-    //
-    //                 var listEl = document.getElementById('chattingBoard');
-    //                 var fragment = document.createDocumentFragment();
-    //                 var el = document.createElement('p');
-    //                 var itemStr = '';
-    //                 if (d.sessionId == sessionId) {
-    //                     itemStr = "<span>나 :" + d.msg + "</span>";
-    //                     el.innerHTML = itemStr;
-    //                     el.className = 'me';
-    //                 } else {
-    //                     itemStr = "<span>" + d.userName + " :" + d.msg + "</span>";
-    //                     el.innerHTML = itemStr;
-    //                     el.className = 'others';
-    //                 }
-    //                 fragment.appendChild(el);
-    //                 listEl.appendChild(fragment);
-    //
-    //             } else {
-    //                 console.warn("unknown type!")
-    //             }
-    //         }
-    //     }
-    //
-    //     // document.addEventListener("keypress", function (e) {
-    //     //     if (e.keyCode == 13) { //enter press
-    //     //         this.send();
-    //     //     }
-    //     // });
-    // }
-
-
-    // function send() {
-    //     var option = {
-    //         type: "message",
-    //         roomNum: roomNum,
-    //         sessionId: sessionId,
-    //         userName: store.getState().loginId,
-    //         msg: msg
-    //     }
-    //     ws.onopen = () => ws.send(JSON.stringify(option))
-    //     setMsg('');
-    // }
+        axios.get(url)
+            .then(res => {
+                console.log(res);
+                setMsgList(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 
     return (
         <div id="container"
@@ -110,9 +61,10 @@ const ChattingRoom = ({match}) => {
                             scrollTrigger: ".containerRoot",
                             x: 0,
                             duration: 1,
+                            ease: Quint.easeInOut,
                         });
                     }}
-                />&nbsp;&nbsp;누구 님과의 채팅방
+                />&nbsp;&nbsp;{}
             </h3>
 
 
@@ -129,12 +81,17 @@ const ChattingRoom = ({match}) => {
                             <td>
                                 <b>name</b>
                             </td>
+                            <td rowSpan={2} valign={"bottom"}>
+                                &nbsp;<b>99:88</b>
+                            </td>
                         </tr>
                         <tr>
                             <td>
                                 <div className="msgText">
                                     <b>
                                         sdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
                                         asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
                                     </b>
                                 </div>
@@ -144,15 +101,27 @@ const ChattingRoom = ({match}) => {
                 </div>
 
                 <div className="myMsg formMsg">
-                    <div className="msgText">
-                        <b>
-                            sdf
-                            asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
-                        </b>
-                    </div>
+                    <table>
+                        <tr style={{width: "100%"}}>
+                            <td valign={"bottom"} align={"right"}>
+                                <b style={{color: "yellow"}}
+                                >1</b>&nbsp;
+                                <br/>
+                                <b>99:88</b>&nbsp;
+                            </td>
+                            <td valign={"bottom"} align={"right"} style={{width: "70%"}}>
+                                <div className="msgText" align={"left"}>
+                                    <b>
+                                        sdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                    </b>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-
-
             </div>
 
             <div id="yourMsg">
