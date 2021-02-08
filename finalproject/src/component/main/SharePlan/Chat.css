@@ -23,11 +23,11 @@ div.container {
     padding: 25px
 }
 
-div.container .backButton{
+div.container .backButton {
     transform: scale(1.7);
 }
 
-div.container .backButton:hover{
+div.container .backButton:hover {
     cursor: pointer;
     transform: scale(2.0);
 }
@@ -49,7 +49,7 @@ div.roomContainer {
 }
 
 /*Chatting Lobby insert chattingRoom*/
-table.inputTable{
+table.inputTable {
     width: 100%;
     /*margin-bottom: 20px;*/
 }
@@ -59,13 +59,15 @@ table.inputTable th {
     font-size: 1.0em;
 }
 
-table.inputTable th:nth-child(1){
+table.inputTable th:nth-child(1) {
     width: 30%;
 }
-table.inputTable th:nth-child(2){
+
+table.inputTable th:nth-child(2) {
     width: auto;
 }
-table.inputTable th:nth-child(3){
+
+table.inputTable th:nth-child(3) {
     width: 30%;
 }
 
@@ -75,19 +77,18 @@ table.inputTable input {
 }
 
 
-
 /*Chatting Room List in Lobby*/
 div.roomList {
     border: none;
     width: 100%;
 }
 
-div.roomList table{
+div.roomList table {
     width: 100%;
     margin-bottom: 10px;
 }
 
-div.roomList th, table.roomList td  {
+div.roomList th, table.roomList td {
     border: 1px solid #FFBB00;
     background-color: #fff;
     color: #FFBB00;
@@ -95,10 +96,12 @@ div.roomList th, table.roomList td  {
     font-size: 1.2em;
     padding: 5px;
 }
-div.roomList th:nth-child(1){
+
+div.roomList th:nth-child(1) {
     cursor: pointer;
 }
-div.roomList th:nth-child(2){
+
+div.roomList th:nth-child(2) {
     cursor: pointer;
 }
 
@@ -114,7 +117,7 @@ div.roomList th.go {
     width: 30%;
 }
 
-div.roomList tr{
+div.roomList tr {
     padding-top: 20px;
 }
 
@@ -123,6 +126,65 @@ div.roomList td {
     background-color: #fff;
     text-align: left;
     color: #FFBB00;
+}
+
+
+/*chattingBoard in chattingRoom with someone*/
+div.container div#chattingBoard {
+    width: 100%;
+    height: 530px;
+    background-color: #b5cad4;
+    padding: 10px;
+}
+
+div.container div#chattingBoard div.formMsg{
+    width: 100%;
+    height: auto;
+    min-height: 70px;
+    border: 1px solid black;
+    /*margin-bottom: 10px;*/
+    display:inline-block;
+}
+
+div.container div#chattingBoard div.formMsg img.profileImg{
+
+    height: 50px;
+    width: 50px;
+    float: left;
+    border-radius: 15px;
+
+    margin-right: 10px;
+    /*margin-top: 10px;*/
+}
+
+div.container div#chattingBoard div.otherMsg div.msgText {
+    min-width:50px;
+    max-width: 210px;
+    /*float: left;*/
+    background-color: white;
+    /*margin-top: 20px;*/
+    /*margin-left: 10px;*/
+}
+
+div.container div#chattingBoard div.myMsg div.msgText{
+    min-width:50px;
+    max-width: 230px;
+
+    float: right;
+    background-color: #f5dd0f;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+div.container div#chattingBoard div.msgText{
+    /*text-align: center;*/
+    padding: 7px;
+    min-height: 40px;
+    word-break:break-all
+}
+
+div.container div#chattingBoard div.msgText b{
+    width: auto;
 }
 
 

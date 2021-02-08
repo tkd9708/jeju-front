@@ -6,79 +6,80 @@ import {withRouter} from "react-router-dom";
 import store from "../../../redux/store";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import gsap from "gsap";
+import noProfile from "../../../image/noProfile.png";
 
 const ChattingRoom = ({match}) => {
     const [roomNum, setRoomNum] = useState(0);//useState(match.params.num);
-    const [sessionId, setSessionId] = useState('');
+    // const [sessionId, setSessionId] = useState('');
     const [msg, setMsg] = useState('');
     const [msgList, setMsgList] = useState([]);
 
     useEffect(() => {
 
         // wsOpen();
-    });
+    }, []);
 
     const handleChange = (e) => {
         setMsg(e.target.value);
     }
 
-    var ws;
+    // var ws;
 
-    function wsOpen() {
-        //웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
-        ws = new WebSocket("ws://localhost:9002/chating/" + roomNum);
+    // function wsOpen() {
+    //     //웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
+    //     ws = new WebSocket("ws://localhost:9002/chating/" + roomNum);
+    //
+    //     wsEvt();
+    // }
 
-        wsEvt();
-    }
-
-    function wsEvt() {
-        ws.onopen = function (data) {
-            //소켓이 열리면 동작
-        }
-
-        ws.onmessage = function (data) {
-            //메시지를 받으면 동작
-            var msg = data.data;
-            if (msg != null && msg.trim() != '') {
-                var d = JSON.parse(msg);
-                if (d.type == "getId") {
-                    var si = d.sessionId != null ? d.sessionId : "";
-                    // console.log(d.sessionId);
-                    if (si != '') {
-                        setSessionId(si);
-                    }
-                } else if (d.type == "message") {
-
-                    console.log(d);
-
-                    var listEl = document.getElementById('chattingBoard');
-                    var fragment = document.createDocumentFragment();
-                    var el = document.createElement('p');
-                    var itemStr = '';
-                    if (d.sessionId == sessionId) {
-                        itemStr = "<span>나 :" + d.msg + "</span>";
-                        el.innerHTML = itemStr;
-                        el.className = 'me';
-                    } else {
-                        itemStr = "<span>" + d.userName + " :" + d.msg + "</span>";
-                        el.innerHTML = itemStr;
-                        el.className = 'others';
-                    }
-                    fragment.appendChild(el);
-                    listEl.appendChild(fragment);
-
-                } else {
-                    console.warn("unknown type!")
-                }
-            }
-        }
-
-        // document.addEventListener("keypress", function (e) {
-        //     if (e.keyCode == 13) { //enter press
-        //         this.send();
-        //     }
-        // });
-    }
+    // function wsEvt() {
+    //     ws.onopen = function (data) {
+    //         //소켓이 열리면 동작
+    //     }
+    //
+    //     ws.onmessage = function (data) {
+    //         //메시지를 받으면 동작
+    //         var msg = data.data;
+    //         if (msg != null && msg.trim() != '') {
+    //             var d = JSON.parse(msg);
+    //             if (d.type == "getId") {
+    //                 var si = d.sessionId != null ? d.sessionId : "";
+    //                 // console.log(d.sessionId);
+    //                 if (si != '') {
+    //                     setSessionId(si);
+    //                 }
+    //             } else if (d.type == "message") {
+    //
+    //                 console.log(d);
+    //
+    //                 var listEl = document.getElementById('chattingBoard');
+    //                 var fragment = document.createDocumentFragment();
+    //                 var el = document.createElement('p');
+    //                 var itemStr = '';
+    //                 if (d.sessionId == sessionId) {
+    //                     itemStr = "<span>나 :" + d.msg + "</span>";
+    //                     el.innerHTML = itemStr;
+    //                     el.className = 'me';
+    //                 } else {
+    //                     itemStr = "<span>" + d.userName + " :" + d.msg + "</span>";
+    //                     el.innerHTML = itemStr;
+    //                     el.className = 'others';
+    //                 }
+    //                 fragment.appendChild(el);
+    //                 listEl.appendChild(fragment);
+    //
+    //             } else {
+    //                 console.warn("unknown type!")
+    //             }
+    //         }
+    //     }
+    //
+    //     // document.addEventListener("keypress", function (e) {
+    //     //     if (e.keyCode == 13) { //enter press
+    //     //         this.send();
+    //     //     }
+    //     // });
+    // }
 
 
     // function send() {
@@ -100,41 +101,92 @@ const ChattingRoom = ({match}) => {
                  float: "right",
              }}
         >
-            {/* <h3>
+            <h3>
                 <ArrowBackIcon
                     className="backButton"
-                    onClick={()=>{
+                    onClick={() => {
                         // document.querySelector(".chattingWindow").scrollTo(0,0);
                         gsap.to(".containerRoot", {
                             scrollTrigger: ".containerRoot",
                             x: 0,
-                            duration:1,
+                            duration: 1,
                         });
                     }}
                 />&nbsp;&nbsp;누구 님과의 채팅방
             </h3>
 
 
-
-            <input type="hidden" id="sessionId" value={sessionId}/>
+            {/*<input type="hidden" id="sessionId" value={sessionId}/>*/}
             <input type="hidden" id="roomNum" value={roomNum}/>
 
             <div id="chattingBoard" class="chatting">
+                <div className="otherMsg formMsg">
+                    <table>
+                        <tr>
+                            <td rowSpan={2} valign={"top"}>
+                                <img src={noProfile} className="profileImg"/>
+                            </td>
+                            <td>
+                                <b>name</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div className="msgText">
+                                    <b>
+                                        sdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                    </b>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div className="myMsg formMsg">
+                    <div className="msgText">
+                        <b>
+                            sdf
+                            asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                        </b>
+                    </div>
+                </div>
+
 
             </div>
 
             <div id="yourMsg">
                 <table class="inputTable">
-                    <tr>
-                        <th>메시지</th>
-                        <th><input id="chatting" name="msg" value={msg} placeholder="보내실 메시지를 입력하세요."
-                                   onChange={handleChange}/></th>
-                        <th>
-                            <button onClick={send} id="sendBtn">보내기</button>
+                    <tr style={{
+                        width: "100%"
+                    }}>
+                        <th style={{
+                            width: "80%"
+                        }}>
+                            <input id="chatting" name="msg"
+                                   value={msg} placeholder="보내실 메시지를 입력하세요."
+                                   onChange={handleChange}
+                                   style={{
+                                       width: "100%",
+                                       height: "40px",
+                                   }}
+                            />
+                        </th>
+                        <th style={{
+                            width: "20%"
+                        }}>
+                            <button onClick=""
+                                    id="sendBtn"
+                                    style={{
+                                        width: "100%",
+                                        height: "40px",
+                                    }}
+                            >보내기
+                            </button>
                         </th>
                     </tr>
                 </table>
-            </div> */}
+            </div>
         </div>
     )
 }
