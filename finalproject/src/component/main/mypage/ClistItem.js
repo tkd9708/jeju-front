@@ -27,6 +27,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import { Form } from 'reactstrap';
+
 
 class ClistItem extends Component {
 
@@ -91,7 +93,8 @@ class ClistItem extends Component {
         
         return (
             // <div>
-                
+            
+                <div>
                 <TimelineItem className="RCA-timeline">
                     <TimelineOppositeContent>
                     <Typography variant="body2" color="textSecondary" className="RCA-timelineTitle">
@@ -109,14 +112,15 @@ class ClistItem extends Component {
                     </TimelineSeparator>
                     <TimelineContent className="RCA-timelineTitle">
                         <div style={{cursor: 'pointer'}} onClick={this.alertOpen.bind(this)}>
+
                             {row.content==="share"?row.title.split(",")[1]:row.title}
                         </div>
                     {/* <Paper elevation={3} className="RCA-timelineTitle" style={{cursor: 'pointer'}} onClick={this.alertOpen.bind(this)}>
-
+                    
                         
                     </Paper> */}
                     </TimelineContent>
-
+                    
                     {/* alert 창 */}
                     <Dialog
                         open={this.state.alertOpen}
@@ -140,6 +144,11 @@ class ClistItem extends Component {
                         </DialogActions>
                     </Dialog>
                 </TimelineItem>
+                
+                </div>
+                
+                
+
                 
                 // {
                  //   row.content==="spot"?<div>{row.wishtime}&nbsp;🛕{row.title}<IconButton aria-label="delete"  onClick={this.onDelete.bind(this)}><DeleteIcon/></IconButton>

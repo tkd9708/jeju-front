@@ -27,7 +27,7 @@ import DetailTourComp from "./component/main/tour/DetailTourComp";
 import ShareBoardFormComp from "./component/main/shareboard/ShareBoardFormComp";
 import ShareBoardUpdateForm from "./component/main/shareboard/ShareBoardUpdateForm";
 import NoticeContent from "./component/main/notice/NoticeContent";
-import Noticeinsert from './component/main/notice/Noticeinsert';
+import NoticeAddForm from "./component/main/notice/NoticeAddForm";
 import NoticeUpdate from './component/main/notice/NoticeUpdateForm';
 import store from "./redux/store";
 import {actionType} from "./redux/config";
@@ -256,10 +256,10 @@ class App extends Component {
                         <Route path="/share/update/:num?/:pageNum?" component={ShareBoardUpdateForm}/>
                         <Route path="/share/:pageNum?" component={ShareBoardPageComp}/>
                         <Route path="/tour/:name?" component={DetailTourComp}/>
-                        <Route exact path="/notice" component={NoticePageComp}/>
-                        <Route path="/notice/insert" component={Noticeinsert}/>
+                        <Route exact path="/notice/:pageNum?" component={NoticePageComp}/>
                         <Route path="/notice/content/:num?" component={NoticeContent}/>
                         <Route path="/notice/update/:num?" component={NoticeUpdate}/>
+                        <Route path="/noticeInsert" component={NoticeAddForm}/>
                         <Route path="/reservation/:name?" component={ReservationPageComp}/>
                         <Route path="/carReservation/:name?" component={RentCarPageComp}/>
                         <Route path="/shipReservation/:name?" component={ShipPageComp}/>

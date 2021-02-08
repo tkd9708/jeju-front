@@ -28,6 +28,7 @@ class DeskMyPage extends Component {
             pageNum: '0',
             value: 0,
             wishCount: 0,
+            sharePlanCount:0,
             passOk: false,
             photoCheck: false
         }
@@ -69,6 +70,18 @@ class DeskMyPage extends Component {
             }).catch(err=>{
                 console.log("wishlist 일정갯수 가져오기 오류 : " + err);
             })
+        
+        url=URL+"/plan/count?memId="+store.getState().loginId;
+        axios.get(url)
+        .then(res=>{
+            this.setState({
+                sharePlanCount:res.data
+            })
+        }).catch(err=>{
+            console.log("sharePlan 갯수 가져오기 오류 :"+err);
+        })    
+
+
     }
 
     componentDidMount() {
@@ -166,7 +179,7 @@ class DeskMyPage extends Component {
                                 </Box>
                                 <Box m={1} bgcolor="#fff" className="mypageInfoCol" style={{textAlign: 'center'}}>
                                     <span className="mypageInfoSubtitle">공유한 일정</span><br/>
-                                    <span className="mypageInfoSubContent">0</span>
+                                    <span className="mypageInfoSubContent">{this.state.sharePlanCount}</span>
                                 </Box>
                             </Box>
                             

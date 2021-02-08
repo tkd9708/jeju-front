@@ -258,7 +258,7 @@ function MobileMenu(props) {
       </List>
       <Divider />
       <List onClick={handleDrawerClose} style={{fontWeight: '600'}}>
-          <ListItem><a href="/notice">NOTICE</a></ListItem>
+          <ListItem><a href="/notice/1">NOTICE</a></ListItem>
       </List>
     </div>
   );
