@@ -86,6 +86,7 @@ class Weather extends Component {
             c_weatherInfo_5: [], // 초단기예보조회 전체 날씨 정보5
             jejuGridList: [], // 초기 리스트는 비어있습니다.
             time: '',
+            selectBoxValue: '?',
         };
         // 리덕스를 안쓰고 클래스 내부 state를 씁니다
     }
@@ -95,9 +96,7 @@ class Weather extends Component {
         this.getWeatherList_2();
         // this.getWeatherList_3();
         this.getLocation();
-        // this._getJejuGridList();
-        
-        
+        this._getJejuGridList();
     }
     
     getWeatherList = () => {
@@ -135,7 +134,7 @@ class Weather extends Component {
             });
             */
            
-           var url = 'http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst';
+        var url = 'http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst';
         var queryParams = '?' + encodeURIComponent('ServiceKey') + '=' + 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D';
         queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
         queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('8'); // 한 페이지 결과 수
@@ -261,39 +260,39 @@ class Weather extends Component {
             .catch(err => {
                 console.log("기상청 리턴값_3 err_3 : " + err);
             });
-        }
+    }
         
-        getLocation = () => {
-            if(navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(this.locationSuccess, this.locationError, geo_options);
-            }else{
-                console.log("지오 로케이션 없음");
+    getLocation = () => {
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(this.locationSuccess, this.locationError, geo_options);
+        }else{
+            console.log("지오 로케이션 없음");
+        }
+    };
+    
+    locationSuccess = (p) => {
+        var latitude = p.coords.latitude,
+        longitude = p.coords.longitude;
+        console.log("현재 위도 : " + latitude +", 현재 경도 : " + longitude);
+        
+        // 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new kakao.maps.services.Geocoder();
+
+        var coord = new kakao.maps.LatLng(latitude, longitude);
+        var callback = function(result, status){
+            if (status === kakao.maps.services.Status.OK) {
+                console.log('현재 있는 곳 위도와 경도를 주소로 변환하면 : ' + result[0].address.address_name + ' 입니다');
             }
         };
+    
+        // 좌표 값에 해당하는 구 주소와 도로명 주소 정보를 요청한다.
+        geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
         
-        locationSuccess = (p) => {
-            var latitude = p.coords.latitude,
-            longitude = p.coords.longitude;
-            console.log("현재 위도 : " + latitude +", 현재 경도 : " + longitude);
-            
-            // 주소-좌표 변환 객체를 생성합니다
-            var geocoder = new kakao.maps.services.Geocoder();
-
-            var coord = new kakao.maps.LatLng(latitude, longitude);
-            var callback = function(result, status){
-                if (status === kakao.maps.services.Status.OK) {
-                    console.log('현재 있는 곳 위도와 경도를 주소로 변환하면 : ' + result[0].address.address_name + ' 입니다');
-                }
-            };
+        var rs = this.dfs_xy_conv("toXY",latitude,longitude);
         
-            // 좌표 값에 해당하는 구 주소와 도로명 주소 정보를 요청한다.
-            geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
-            
-            var rs = this.dfs_xy_conv("toXY",latitude,longitude);
-            
-            // 위도/경도 -> 기상청 좌표x / 좌표 y 변환
-            this.xml2jsonCurrentWth(rs.nx, rs.ny);
-        }
+        // 위도/경도 -> 기상청 좌표x / 좌표 y 변환
+        this.xml2jsonCurrentWth(rs.nx, rs.ny);
+    }
 
     locationError = (error) => {
         var errorTypes = {
@@ -461,16 +460,22 @@ class Weather extends Component {
                 this.setState({
                     jejuGridList: data.data
                 });
-                console.log("제주도 격자 X : " + data.data[0][Object.keys(data.data[0])[3]]);
-                console.log("제주도 격자 Y : " + data.data[0][Object.keys(data.data[0])[4]]);
+                console.log("제주도 격자 X : " + data.data[0][Object.keys(data.data[0])[4]]);
+                console.log("제주도 격자 Y : " + data.data[0][Object.keys(data.data[0])[5]]);
             })
             .catch(error => {
                 console.log(error);
             });
     }
 
-    
-    
+    selectChange = (event) => {
+        this.setState({ 
+            selectBoxValue: event.target.value,
+        });
+
+        console.log("selectBox에서 선택한 value : " + this.state.selectBoxValue);
+    };
+
     render() {
         const { c_weatherInfo } = this.state;
         
@@ -480,6 +485,18 @@ class Weather extends Component {
 
         return (
             <div style={{ fontSize : '.8rem' }}>
+
+                {/* <select onChange={this.selectChange.bind(this)} value={this.state.selectBoxValue}>
+                    { this.state.jejuGridList.map((jejuGrid, index) => (
+                        <option 
+                            value = { jejuGrid[Object.keys(jejuGrid)[4]] } 
+                        >
+                            {jejuGrid[Object.keys(jejuGrid)[1]]}&nbsp;
+                            {jejuGrid[Object.keys(jejuGrid)[2]]}&nbsp;
+                            {jejuGrid[Object.keys(jejuGrid)[3]]}
+                        </option>
+                    )) }
+                </select> */}
 
                 총 데이타수:
                 {this.state.c_weatherInfo.length}개
@@ -543,16 +560,6 @@ class Weather extends Component {
                         </>
                     ))
                 }
-
-                <ul>
-                    { this.state.jejuGridList.map((jejuGrid, index) => (
-                        <li key = { index }>
-                            {jejuGrid[Object.keys(jejuGrid)[0]]}&nbsp;
-                            {jejuGrid[Object.keys(jejuGrid)[1]]}&nbsp;
-                            {jejuGrid[Object.keys(jejuGrid)[2]]}&nbsp;
-                        </li>
-                    )) }
-                </ul>
 
                 <h4>Weather</h4>
 
