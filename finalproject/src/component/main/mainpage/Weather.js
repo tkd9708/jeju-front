@@ -49,20 +49,19 @@ let YO = 136; // 기준점 Y좌표 (GRID)
 
 // LCC DFS 좌표변환 ( code : "toXY"(위경도->좌표, v1:위도, v2:경도), "toLL"(좌표->위경도, v1:x, v2:y) )
 
-
 class Weather extends Component {
     
     constructor(props) {
         super(props);
         console.log("Weather class 생성자", props);
-
+        
         store.subscribe(function() {
             // console.log("날씨 클래스 생성자에서 state 변경에 대한 변화를 구독합니다 변화를 확인했습니다 store에서 weatherInfo 값을 가져와 첫번째 courseAreaName을 보여줍니다 : " + store.getState().weatherInfo[0].courseName);
         }.bind(this));
 
         
         // 리덕스스토어에구독한다
-
+        
         // 리덕스를 안쓰고 클래스 내부 state를 씁니다
         this.state = {
             // c_tm: [], // 동네예보 예보 시각
@@ -87,6 +86,9 @@ class Weather extends Component {
             jejuGridList: [], // 초기 리스트는 비어있습니다.
             time: '',
             selectBoxValue: '?',
+            c_latitude: '', // 현재|선택 위도
+            c_longitude: '', // 현재|선택 
+            c_address: '', // 구주소|도로명주소
         };
         // 리덕스를 안쓰고 클래스 내부 state를 씁니다
     }
@@ -131,7 +133,7 @@ class Weather extends Component {
         })
         .catch((error) => {
             console.log(error);
-            });
+        });
             */
            
         var url = 'http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst';
@@ -143,7 +145,7 @@ class Weather extends Component {
         queryParams += '&' + encodeURIComponent('HOUR') + '=' + encodeURIComponent(callHour); // CURRENT_DATE부터 8일 후까지의 자료 호출
         queryParams += '&' + encodeURIComponent('COURSE_ID') + '=' + encodeURIComponent('50'); // 관광 코스ID
         console.log("/getTourStnVilageFcst" + queryParams);
-
+        
         // 아래 url이 중간부터 있는 이유는 package.json 에
         // "proxy": "http://apis.data.go.kr/1360000",
         // 저것을 미리 세팅해두었기 때문입니다.
@@ -178,7 +180,7 @@ class Weather extends Component {
             });
         }
         
-    getWeatherList_2 = () => {
+        getWeatherList_2 = () => {
         
         let url_2 = 'http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnWthrIdx';
         let queryParams_2 = '?' + encodeURIComponent('ServiceKey') + '=' + 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D';
@@ -211,7 +213,7 @@ class Weather extends Component {
                 weatherInfo_2: reduxWeather_2,
             });
             // 리덕스스토어에 액션함수를 보낸다
-
+            
             //로컬스토리지에 String으로 변경해 저장한다
             localStorage.setItem("weather_2", JSON.stringify(res2.data));
             //로컬스토리지에 String으로 변경해 저장한다
@@ -260,7 +262,7 @@ class Weather extends Component {
             .catch(err => {
                 console.log("기상청 리턴값_3 err_3 : " + err);
             });
-    }
+        }
         
     getLocation = () => {
         if(navigator.geolocation) {
@@ -273,15 +275,22 @@ class Weather extends Component {
     locationSuccess = (p) => {
         var latitude = p.coords.latitude,
         longitude = p.coords.longitude;
+        this.setState({
+            c_latitude: latitude,
+            c_longitude: longitude,
+        });
         console.log("현재 위도 : " + latitude +", 현재 경도 : " + longitude);
         
         // 주소-좌표 변환 객체를 생성합니다
         var geocoder = new kakao.maps.services.Geocoder();
 
         var coord = new kakao.maps.LatLng(latitude, longitude);
-        var callback = function(result, status){
+        var callback = (result, status) => {
             if (status === kakao.maps.services.Status.OK) {
                 console.log('현재 있는 곳 위도와 경도를 주소로 변환하면 : ' + result[0].address.address_name + ' 입니다');
+                this.setState({
+                    c_address: result[0].address.address_name,
+                });
             }
         };
     
@@ -293,7 +302,7 @@ class Weather extends Component {
         // 위도/경도 -> 기상청 좌표x / 좌표 y 변환
         this.xml2jsonCurrentWth(rs.nx, rs.ny);
     }
-
+    
     locationError = (error) => {
         var errorTypes = {
             0 : "에러 내용확인안됨",
@@ -304,7 +313,7 @@ class Weather extends Component {
         var errorMsg = errorTypes[error.code];
         console.log(errorMsg);
     }
-
+    
     dfs_xy_conv = (code, v1, v2) => {
         var DEGRAD = Math.PI / 180.0;
         var RADDEG = 180.0 / Math.PI;
@@ -393,7 +402,7 @@ class Weather extends Component {
         if(dd < 10) {
             dd = '0' + dd;
         }
-
+        
         var _nx = nx,
         _ny = ny,
         apikey = 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D',
@@ -406,9 +415,9 @@ class Weather extends Component {
         queryParams_4 += '&base_date=' + today_2; // 오늘 날짜
         queryParams_4 += '&base_time=' + basetime; // 요청 가능 발표 시간
         queryParams_4 += '&nx=' + _nx + '&ny=' + _ny;
-
+        
         axios.get("/VilageFcstInfoService/getUltraSrtNcst" + queryParams_4)
-            .then(res4 => {
+        .then(res4 => {
                 console.log("초단기실황조회_2 : " + res4.data.response.body.items.item);
                 console.log("/VilageFcstInfoService/getUltraSrtNcst" + queryParams_4);
                 
@@ -450,53 +459,105 @@ class Weather extends Component {
             
         }
     
-        _getJejuGridList = () => {
+    _getJejuGridList = () => {
         // jeju_grid_list를 가지고 옵니다.
-        const jejuGridUrl = 'dummy/jeju_grid_list.json';
-        
-        axios.get(jejuGridUrl)
-        .then(data => {
-            // 가지고 온 리스트를 state에 저장합니다.
-                this.setState({
-                    jejuGridList: data.data
-                });
-                console.log("제주도 격자 X : " + data.data[0][Object.keys(data.data[0])[4]]);
-                console.log("제주도 격자 Y : " + data.data[0][Object.keys(data.data[0])[5]]);
-            })
-            .catch(error => {
-                console.log(error);
+    const jejuGridUrl = 'dummy/jeju_grid_list.json';
+    
+    axios.get(jejuGridUrl)
+    .then(data => {
+        // 가지고 온 리스트를 state에 저장합니다.
+        this.setState({
+            jejuGridList: data.data
             });
-    }
-
-    selectChange = (event) => {
-        this.setState({ 
-            selectBoxValue: event.target.value,
+            console.log("제주도 격자 X : " + data.data[0][Object.keys(data.data[0])[4]]);
+            console.log("제주도 격자 Y : " + data.data[0][Object.keys(data.data[0])[5]]);
+        })
+        .catch(error => {
+            console.log(error);
         });
-
-        console.log("selectBox에서 선택한 value : " + this.state.selectBoxValue);
+    }
+        
+    // select박스 선택하면 다른 지역 날씨 보여주는 이벤트
+    selectChange = (event) => {
+    var dataset = event.target.options[event.target.selectedIndex].dataset;
+    
+    console.log("select박스 선택한 value 행정구역코드 : " + event.target.value);
+    console.log("data-nx 와 data-ny : " + dataset.nx + ", " + dataset.ny);
+    
+    this.xml2jsonCurrentWth(dataset.nx, dataset.ny);
+    
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao.maps.services.Geocoder();
+    
+    var coord = new kakao.maps.LatLng(dataset.latitude, dataset.longitude);
+    var callback = (result, status) => {
+        if (status === kakao.maps.services.Status.OK) {
+            console.log('현재 있는 곳 위도와 경도를 주소로 변환하면 : ' + result[0].address.address_name + ' 입니다');
+            this.setState({
+                c_address: result[0].address.address_name,
+            });
+        }
     };
-
+    
+    // 좌표 값에 해당하는 구 주소와 도로명 주소 정보를 요청한다.
+    geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+    };
+    
     render() {
         const { c_weatherInfo } = this.state;
         
         const skyStatus = ['CLEAR_DAY', 'PARTLY_CLOUDY_DAY', 'CLOUDY', 'FOG', 'RAIN', 'SLEET', 'SLEET', 'SNOW'];
         const skyColor = ['goldenrod', 'grey', 'grey', 'black', 'grey', 'black', 'black', 'black'];
         
+        var options = this.state.jejuGridList.map((jejuGrid) => {
+            return(
+                <option 
+                    data-nx={jejuGrid[Object.keys(jejuGrid)[4]]} 
+                    data-ny={jejuGrid[Object.keys(jejuGrid)[5]]}
+                    value={jejuGrid[Object.keys(jejuGrid)[0]]}
+                    data-longitude={jejuGrid[Object.keys(jejuGrid)[6]]}
+                    data-latitude={jejuGrid[Object.keys(jejuGrid)[7]]}>
+                        {jejuGrid[Object.keys(jejuGrid)[1]]}&nbsp;
+                        {jejuGrid[Object.keys(jejuGrid)[2]]}&nbsp;
+                        {jejuGrid[Object.keys(jejuGrid)[3]]}&nbsp;
+                </option>
+            );
+        });
+        
+
 
         return (
+            
             <div style={{ fontSize : '.8rem' }}>
 
                 {/* <select onChange={this.selectChange.bind(this)} value={this.state.selectBoxValue}>
                     { this.state.jejuGridList.map((jejuGrid, index) => (
                         <option 
-                            value = { jejuGrid[Object.keys(jejuGrid)[4]] } 
+                        value={index} 
+                        data-nx={jejuGrid[Object.keys(jejuGrid)[4]]} 
+                        data-ny={jejuGrid[Object.keys(jejuGrid)[5]]}
                         >
                             {jejuGrid[Object.keys(jejuGrid)[1]]}&nbsp;
                             {jejuGrid[Object.keys(jejuGrid)[2]]}&nbsp;
                             {jejuGrid[Object.keys(jejuGrid)[3]]}
-                        </option>
-                    )) }
-                </select> */}
+                            </option>
+                            )) }
+                        </select> */}
+
+                {/* 자식 컴포넌트에서 부모컴포넌트의 함수 호출하기 */}
+                {/* <h1>{this.state.selectBoxValue}</h1>
+                <SelectWeatherArea 
+                _jejuGridList={this.state.jejuGridList}
+                change={this.selectChange.bind(this)}
+                /> */}
+
+                <select onChange={this.selectChange} value={this.props.selectBoxValue}>
+                    {options}
+                </select>
+
+                {this.state.c_address}
+
+                <br />
 
                 총 데이타수:
                 {this.state.c_weatherInfo.length}개
