@@ -1,3 +1,4 @@
+/*global kakao*/
 import React, {Component} from 'react';
 import axios from 'axios';
 import store from "../../../redux/store";
@@ -5,15 +6,52 @@ import { URL, actionType } from "../../../redux/config";
 import ReactAnimatedWeather from 'react-animated-weather';
 import OPENNURI from "../../../image/img_opentype01.png";
 
+// ReactAnimatedWeather
 const defaults = {
     icon: 'CLEAR_DAY',
     color: 'goldenrod',
     size: 64,
     animate: true
 };
+// 리액트AnimatedWeather
+
+// 날짜
+let today = new Date();
+let year = today.getFullYear(); // 년도
+let month = today.getMonth() + 1; // 월
+let date = today.getDate(); // 날짜
+
+let hours = today.getHours(); // 시
+month = month < 10 ? '0' + month : month;
+date = date < 10 ? '0' + date : date;
+hours = hours < 10 ? '0' + hours : hours;
+let callHour = String(24 * 8); // 8일
+// 날짜
+
+// 위치가져오기관련정보
+let geo_options = {
+    enableHighAccuracy: true,
+    maximumAge        : 30000,
+    timeout           : 27000  
+};
+// 위치가져오기관련정보
+
+// LCC DFS 좌표변환을 위한 기초 자료
+let RE = 6371.00877; // 지구 반경 (km)
+let GRID = 5.0; // 격자 간격 (km)
+let SLAT1 = 30.0; // 투영 위도1(degree)
+let SLAT2 = 60.0; // 투영 위도2(degree)
+let OLON = 126.0; // 기준점 경도 (degree)
+let OLAT = 38.0; // 기준점 위도 (degree)
+let XO = 43; // 기준점 X좌표 (GRID)
+let YO = 136; // 기준점 Y좌표 (GRID)
+// LCC DFS 좌표변환을 위한 기초 자료
+
+// LCC DFS 좌표변환 ( code : "toXY"(위경도->좌표, v1:위도, v2:경도), "toLL"(좌표->위경도, v1:x, v2:y) )
+
 
 class Weather extends Component {
-
+    
     constructor(props) {
         super(props);
         console.log("Weather class 생성자", props);
@@ -22,7 +60,7 @@ class Weather extends Component {
             // console.log("날씨 클래스 생성자에서 state 변경에 대한 변화를 구독합니다 변화를 확인했습니다 store에서 weatherInfo 값을 가져와 첫번째 courseAreaName을 보여줍니다 : " + store.getState().weatherInfo[0].courseName);
         }.bind(this));
 
-
+        
         // 리덕스스토어에구독한다
 
         // 리덕스를 안쓰고 클래스 내부 state를 씁니다
@@ -44,15 +82,24 @@ class Weather extends Component {
             c_weatherInfo: [], // 전체 날씨 정보1,
             c_weatherInfo_2: [], // 전체 날씨 정보2
             c_weatherInfo_3: [], // 초단기실황조회 전체 날씨 정보3
-            sky : ''
+            c_weatherInfo_4: [], // 초단기실황조회_2 전체 날씨 정보4
+            c_weatherInfo_5: [], // 초단기예보조회 전체 날씨 정보5
+            jejuGridList: [], // 초기 리스트는 비어있습니다.
+            time: '',
         };
         // 리덕스를 안쓰고 클래스 내부 state를 씁니다
     }
-
+    
     componentDidMount(){
         this.getWeatherList();
+        this.getWeatherList_2();
+        // this.getWeatherList_3();
+        this.getLocation();
+        // this._getJejuGridList();
+        
+        
     }
-
+    
     getWeatherList = () => {
         /*
         let url = 'http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst';
@@ -61,12 +108,12 @@ class Weather extends Component {
         queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10');
         queryParams += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
         let today = new Date();
-
+        
         let year = today.getFullYear(); // 년도
         let month = today.getMonth() + 1; // 월
         let date = today.getDate(); // 날짜
         let day = today.getDay(); // 요일
-
+        
         let hours = today.getHours(); // 시
         month = month < 10 ? '0' + month : month;
         date = date < 10 ? '0' + date : date;
@@ -76,34 +123,24 @@ class Weather extends Component {
         let callHour = String(24 * 8); // 8일
         queryParams += '&' + encodeURIComponent('HOUR') + '=' + encodeURIComponent(callHour); // CURRENT_DATE부터 8일 후까지의 자료 호출
         queryParams += '&' + encodeURIComponent('COURSE_ID') + '=' + encodeURIComponent('1'); // 관광 코스ID
-
+        
         url = url + queryParams;
-
+        
         axios.get(url)
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.log(error);
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
             });
-        */
-
-        var url = 'http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst';
+            */
+           
+           var url = 'http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst';
         var queryParams = '?' + encodeURIComponent('ServiceKey') + '=' + 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D';
         queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
         queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('8'); // 한 페이지 결과 수
         queryParams += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('json');
-        let today = new Date();
-        let year = today.getFullYear(); // 년도
-        let month = today.getMonth() + 1; // 월
-        let date = today.getDate(); // 날짜
-
-        let hours = today.getHours(); // 시
-        month = month < 10 ? '0' + month : month;
-        date = date < 10 ? '0' + date : date;
-        hours = hours < 10 ? '0' + hours : hours;
         queryParams += '&' + encodeURIComponent('CURRENT_DATE') + '=' + encodeURIComponent(year+month+date+hours);
-        let callHour = String(24 * 8); // 8일
         queryParams += '&' + encodeURIComponent('HOUR') + '=' + encodeURIComponent(callHour); // CURRENT_DATE부터 8일 후까지의 자료 호출
         queryParams += '&' + encodeURIComponent('COURSE_ID') + '=' + encodeURIComponent('50'); // 관광 코스ID
         console.log("/getTourStnVilageFcst" + queryParams);
@@ -113,10 +150,10 @@ class Weather extends Component {
         // 저것을 미리 세팅해두었기 때문입니다.
         // axios.get("/getTourStnVilageFcst" + queryParams)
         axios.get("/TourStnInfoService/getTourStnVilageFcst" + queryParams)
-            .then(res => {
+        .then(res => {
                 console.log("기상청 리턴값 res:", res);
                 console.log("기상청 리턴값 res.data.response.body.items.item:", res.data.response.body.items.item);
-
+                
                 // 날씨클래스 내부 state에 정보 저장한다
                 this.setState({
                     c_weatherInfo: res.data.response.body.items.item,
@@ -126,99 +163,327 @@ class Weather extends Component {
 
                 // 리덕스스토어에 액션함수를 보낸다
                 let reduxWeather = res.data.response.body.items.item;
-
+                
                 store.dispatch({
                     type: actionType.weatherUpdate,
                     weatherInfo: reduxWeather,
                 });
                 // 리덕스스토어에 액션함수를 보낸다
+                
+                // 로컬스토리지에 String으로 변경해 저장한다
+                localStorage.setItem("weather_1", JSON.stringify(res.data));
+                // 로컬스토리지에 String으로 변경해 저장한다
             })
             .catch(err => {
                 console.log("기상청 리턴값 err:", err);
             });
-
-            let url_2 = 'http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnWthrIdx';
-            let queryParams_2 = '?' + encodeURIComponent('ServiceKey') + '=' + 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D';
-            queryParams_2 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); // 페이지번호
-            queryParams_2 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('8'); // 한 페이지 결과 수
-            queryParams_2 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
-            queryParams_2 += '&' + encodeURIComponent('CURRENT_DATE') + '=' + encodeURIComponent(year+month+date+hours); // 현재시각
-            queryParams_2 += '&' + encodeURIComponent('HOUR') + '=' + encodeURIComponent(callHour); // CURRENT_DATE부터 8일 후까지의 자료 호출
-            queryParams_2 += '&' + encodeURIComponent('COURSE_ID') + '=' + encodeURIComponent('50'); // 관광 코스ID
-
-            console.log("/getTourStnWthrIdx" + queryParams_2);
-
-            // axios.get("/getTourStnWthrIdx" + queryParams_2)
-            axios.get("/TourStnInfoService/getTourStnWthrIdx" + queryParams_2)
-                .then(res2 => {
-                    console.log("기상청 리턴값_2 res2 : " + res2);
-                    console.log("기상청 리턴값_2 res2.data.response.body.items.item : " + res2.data.response.body.items.item);
-
+        }
+        
+    getWeatherList_2 = () => {
+        
+        let url_2 = 'http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnWthrIdx';
+        let queryParams_2 = '?' + encodeURIComponent('ServiceKey') + '=' + 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D';
+        queryParams_2 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); // 페이지번호
+        queryParams_2 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('8'); // 한 페이지 결과 수
+        queryParams_2 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
+        queryParams_2 += '&' + encodeURIComponent('CURRENT_DATE') + '=' + encodeURIComponent(year+month+date+hours); // 현재시각
+        queryParams_2 += '&' + encodeURIComponent('HOUR') + '=' + encodeURIComponent(callHour); // CURRENT_DATE부터 8일 후까지의 자료 호출
+        queryParams_2 += '&' + encodeURIComponent('COURSE_ID') + '=' + encodeURIComponent('50'); // 관광 코스ID
+        
+        console.log("/getTourStnWthrIdx" + queryParams_2);
+        
+        // axios.get("/getTourStnWthrIdx" + queryParams_2)
+        axios.get("/TourStnInfoService/getTourStnWthrIdx" + queryParams_2)
+        .then(res2 => {
+            console.log("기상청 리턴값_2 res2 : " + res2);
+                console.log("기상청 리턴값_2 res2.data.response.body.items.item : " + res2.data.response.body.items.item);
+                
                 // 날씨클래스 내부 state에 정보 저장한다
-                this.setState({
-                    c_weatherInfo_2: res2.data.response.body.items.item,
+            this.setState({
+                c_weatherInfo_2: res2.data.response.body.items.item,
+            });
+            // 날씨클래스 내부 state에 정보 저장한다
+
+            // 리덕스스토어에 액션함수를 보낸다
+            let reduxWeather_2 = res2.data.response.body.items.item;
+            
+            store.dispatch({
+                type: actionType.weatherUpdate,
+                weatherInfo_2: reduxWeather_2,
+            });
+            // 리덕스스토어에 액션함수를 보낸다
+
+            //로컬스토리지에 String으로 변경해 저장한다
+            localStorage.setItem("weather_2", JSON.stringify(res2.data));
+            //로컬스토리지에 String으로 변경해 저장한다
+        })
+        .catch(err => {
+            console.log("기상청 리턴값_2 err_2 : ", err);
+        });
+    }
+    
+    getWeatherList_3 = () => {
+
+        let url_3 = 'http://apis.data.go.kr/1360000/VilageFcstInfoService/getUltraSrtNcst';
+        let queryParams_3 = '?' + encodeURIComponent('ServiceKey') + '=' + 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D';
+        queryParams_3 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
+        queryParams_3 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('8');
+        queryParams_3 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
+        queryParams_3 += '&' + encodeURIComponent('base_date') + '=' + encodeURIComponent(year+month+date); // 발표일자
+        queryParams_3 += '&' + encodeURIComponent('base_time') + '=' + encodeURIComponent('0600'); // 발표시각 06시 발표(정시단위)
+        queryParams_3 += '&' + encodeURIComponent('nx') + '=' + encodeURIComponent('56'); // 예보지점 X 좌표값
+        queryParams_3 += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent('33'); // 예보지점 Y 좌표
+        console.log("/getUltraSrtNcst" + queryParams_3);
+        
+        axios.get("/VilageFcstInfoService/getUltraSrtNcst" + queryParams_3)
+        .then(res3 => {
+            console.log("기상청 리턴값_3 res3.data.response.body.items.item : " + res3.data.response.body.items.item);
+                
+            // 날씨클래스 내부 state에 정보 저장한다.
+            this.setState({
+                    c_weatherInfo_3: res3.data.response.body.items.item, 
                 });
-                // 날씨클래스 내부 state에 정보 저장한다
-
+                // 날씨클래스 내부 state에 정보 저장한다.
+                
                 // 리덕스스토어에 액션함수를 보낸다
-                let reduxWeather_2 = res2.data.response.body.items.item;
-
+                let reduxWeather_3 = res3.data.response.body.items.item;
+                
                 store.dispatch({
                     type: actionType.weatherUpdate,
-                    weatherInfo_2: reduxWeather_2,
+                    weatherInfo_3: reduxWeather_3,
                 });
                 // 리덕스스토어에 액션함수를 보낸다
-                })
-                .catch(err => {
-                    console.log("기상청 리턴값_2 err_2 : ", err);
-                });
-
-            let url_3 = 'http://apis.data.go.kr/1360000/VilageFcstInfoService/getUltraSrtNcst';
-            let queryParams_3 = '?' + encodeURIComponent('ServiceKey') + '=' + 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D';
-            queryParams_3 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
-            queryParams_3 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('8');
-            queryParams_3 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
-            queryParams_3 += '&' + encodeURIComponent('base_date') + '=' + encodeURIComponent(year+month+date); // 발표일자
-            queryParams_3 += '&' + encodeURIComponent('base_time') + '=' + encodeURIComponent('0600'); // 발표시각 06시 발표(정시단위)
-            queryParams_3 += '&' + encodeURIComponent('nx') + '=' + encodeURIComponent('56'); // 예보지점 X 좌표값
-            queryParams_3 += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent('33'); // 예보지점 Y 좌표
-            console.log("/getUltraSrtNcst" + queryParams_3);
+                
+                //로컬스토리지에 String으로 변경하여 저장한다
+                localStorage.setItem("weather_3", JSON.stringify(res3.data));
+                //로컬스토리지에 String으로 변경하여 저장한다
+            })
+            .catch(err => {
+                console.log("기상청 리턴값_3 err_3 : " + err);
+            });
+        }
+        
+        getLocation = () => {
+            if(navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(this.locationSuccess, this.locationError, geo_options);
+            }else{
+                console.log("지오 로케이션 없음");
+            }
+        };
+        
+        locationSuccess = (p) => {
+            var latitude = p.coords.latitude,
+            longitude = p.coords.longitude;
+            console.log("현재 위도 : " + latitude +", 현재 경도 : " + longitude);
             
-            axios.get("/VilageFcstInfoService/getUltraSrtNcst" + queryParams_3)
-                .then(res3 => {
-                    console.log("기상청 리턴값_3 res3.data.response.body.items.item : " + res3.data.response.body.items.item);
+            // 주소-좌표 변환 객체를 생성합니다
+            var geocoder = new kakao.maps.services.Geocoder();
 
-                    // 날씨클래스 내부 state에 정보 저장한다.
-                    this.setState({
-                       c_weatherInfo_3: res3.data.response.body.items.item, 
-                    });
-                    // 날씨클래스 내부 state에 정보 저장한다.
+            var coord = new kakao.maps.LatLng(latitude, longitude);
+            var callback = function(result, status){
+                if (status === kakao.maps.services.Status.OK) {
+                    console.log('현재 있는 곳 위도와 경도를 주소로 변환하면 : ' + result[0].address.address_name + ' 입니다');
+                }
+            };
+        
+            // 좌표 값에 해당하는 구 주소와 도로명 주소 정보를 요청한다.
+            geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+            
+            var rs = this.dfs_xy_conv("toXY",latitude,longitude);
+            
+            // 위도/경도 -> 기상청 좌표x / 좌표 y 변환
+            this.xml2jsonCurrentWth(rs.nx, rs.ny);
+        }
 
-                    // 리덕스스토어에 액션함수를 보낸다
-                    let reduxWeather_3 = res3.data.response.body.items.item;
-
-                    store.dispatch({
-                        type: actionType.weatherUpdate,
-                        weatherInfo_3: reduxWeather_3,
-                    });
-                    // 리덕스스토어에 액션함수를 보낸다
-                })
-                .catch(err => {
-                    console.log("기상청 리턴값_3 err_3 : " + err);
-                });
+    locationError = (error) => {
+        var errorTypes = {
+            0 : "에러 내용확인안됨",
+            1 : "허용을 안눌렀습니다",
+            2 : "위치가 안잡힙니다",
+            3 : "응답시간이 지났습니다"
+        };
+        var errorMsg = errorTypes[error.code];
+        console.log(errorMsg);
     }
 
+    dfs_xy_conv = (code, v1, v2) => {
+        var DEGRAD = Math.PI / 180.0;
+        var RADDEG = 180.0 / Math.PI;
+        
+        var re = RE / GRID;
+        var slat1 = SLAT1 * DEGRAD;
+        var slat2 = SLAT2 * DEGRAD;
+        var olon = OLON * DEGRAD;
+        var olat = OLAT * DEGRAD;
+
+        var sn = Math.tan(Math.PI * 0.25 + slat2 * 0.5) / Math.tan(Math.PI * 0.25 + slat1 * 0.5);
+        sn = Math.log(Math.cos(slat1) / Math.cos(slat2)) / Math.log(sn);
+        var sf = Math.tan(Math.PI * 0.25 + slat1 * 0.5);
+        sf = Math.pow(sf, sn) * Math.cos(slat1) / sn;
+        var ro = Math.tan(Math.PI * 0.25 + olat * 0.5);
+        ro = re * sf / Math.pow(ro, sn);
+        var rs = {};
+        if (code == "toXY") {
+            
+            rs['lat'] = v1;
+            rs['lng'] = v2;
+            var ra = Math.tan(Math.PI * 0.25 + (v1) * DEGRAD * 0.5);
+            ra = re * sf / Math.pow(ra, sn);
+            var theta = v2 * DEGRAD - olon;
+            if (theta > Math.PI) theta -= 2.0 * Math.PI;
+            if (theta < -Math.PI) theta += 2.0 * Math.PI;
+            theta *= sn;
+            rs['nx'] = Math.floor(ra * Math.sin(theta) + XO + 0.5);
+            rs['ny'] = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5);
+        }
+        else {
+            rs['nx'] = v1;
+            rs['ny'] = v2;
+            var xn = v1 - XO;
+            var yn = ro - v2 + YO;
+            ra = Math.sqrt(xn * xn + yn * yn);
+            if (sn < 0.0) ra = -ra;
+            var alat = Math.pow((re * sf / ra), (1.0 / sn));
+            alat = 2.0 * Math.atan(alat) - Math.PI * 0.5;
+            
+            if (Math.abs(xn) <= 0.0) {
+                theta = 0.0;
+            }
+            else {
+                if (Math.abs(yn) <= 0.0) {
+                    theta = Math.PI * 0.5;
+                    if (xn < 0.0) theta = -theta; 
+                }
+                else theta = Math.atan2(xn, yn);
+            }
+            var alon = theta / sn + olon;
+            rs['lat'] = alat * RADDEG;
+            rs['lng'] = alon * RADDEG;
+        }
+        return rs;
+    }
+
+    xml2jsonCurrentWth = (nx, ny) => {
+        var today_2 = new Date();
+        var dd = today_2.getDate();
+        var mm = today_2.getMonth()+1;
+        var yyyy = today_2.getFullYear();
+        var hours = today_2.getHours();
+        var minutes = today_2.getMinutes();
+        console.log("시간 (분) : " + minutes);
+
+        if(minutes <= 40){
+            // 40분 이전이라면 한시간 전 값
+            hours = hours - 1;
+            if(hours < 0){
+                // 자정 이전은 전날로 계산
+                // 00:40분 이전이라면 'base_date'는 전날이고 'base_time'은 2300이다.
+                today_2.setDate(today.getDate() - 1);
+                dd = today_2.getDate();
+                mm = today_2.getMonth() + 1;
+                yyyy = today_2.getFullYear();
+                hours = 23;
+            }
+        }
+        if(hours < 10) {
+            hours = '0' + hours;
+        }
+        if(mm < 10) {
+            mm = '0' + mm;
+        }
+        if(dd < 10) {
+            dd = '0' + dd;
+        }
+
+        var _nx = nx,
+        _ny = ny,
+        apikey = 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D',
+        basetime = hours + "00",
+        url_4 = 'http://apis.data.go.kr/1360000/VilageFcstInfoService/getUltraSrtNcst';
+        today_2 = yyyy+""+mm+""+dd;
+        var queryParams_4 = '?ServiceKey=' + apikey;
+        queryParams_4 += '&numOfRows=8&pageNo=1';
+        queryParams_4 += '&dataType=JSON';
+        queryParams_4 += '&base_date=' + today_2; // 오늘 날짜
+        queryParams_4 += '&base_time=' + basetime; // 요청 가능 발표 시간
+        queryParams_4 += '&nx=' + _nx + '&ny=' + _ny;
+
+        axios.get("/VilageFcstInfoService/getUltraSrtNcst" + queryParams_4)
+            .then(res4 => {
+                console.log("초단기실황조회_2 : " + res4.data.response.body.items.item);
+                console.log("/VilageFcstInfoService/getUltraSrtNcst" + queryParams_4);
+                
+                // 날씨 클래스 내부 state에 정보 저장한다
+                this.setState({
+                    c_weatherInfo_4: res4.data.response.body.items.item,
+                });
+                // 날씨 클래스 내부 state에 정보 저장한다
+            })
+            .catch(err => {
+                console.log("초단기실황조회 error : " + err);
+                alert("다시 시도해주세요.\n : " + err);
+            });
+
+        var queryParams_5 = '?' + encodeURIComponent('ServiceKey') + '=' + apikey;
+        queryParams_5 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10');
+        queryParams_5 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
+        queryParams_5 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
+        queryParams_5 += '&' + encodeURIComponent('base_date') + '=' + encodeURIComponent(today_2);
+        queryParams_5 += '&' + encodeURIComponent('base_time') + '=' + encodeURIComponent(basetime);
+        queryParams_5 += '&' + encodeURIComponent('nx') + '=' + encodeURIComponent(_nx);
+        queryParams_5 += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent(_ny);
+
+        axios.get("/VilageFcstInfoService/getUltraSrtFcst" + queryParams_5)
+        .then(res5 => {
+            console.log("초단기예보조회 : " + res5.data.response.body.items.item[0].category);
+            console.log("/VilageFcstInfoService/getUltraSrtFcst" + queryParams_5);
+
+                // 날씨 클래스 내부 state에 정보 저장한다
+                this.setState({
+                    c_weatherInfo_5: res5.data.response.body.items.item,
+                });
+                // 날씨 클래스 내부 state에 정보 저장한다
+            })
+            .catch(err => {
+                console.log("초단기예보조회 error : " + err);
+                alert("다시 시도해주세요.\n : " + err);
+            });
+            
+        }
+    
+        _getJejuGridList = () => {
+        // jeju_grid_list를 가지고 옵니다.
+        const jejuGridUrl = 'dummy/jeju_grid_list.json';
+        
+        axios.get(jejuGridUrl)
+        .then(data => {
+            // 가지고 온 리스트를 state에 저장합니다.
+                this.setState({
+                    jejuGridList: data.data
+                });
+                console.log("제주도 격자 X : " + data.data[0][Object.keys(data.data[0])[3]]);
+                console.log("제주도 격자 Y : " + data.data[0][Object.keys(data.data[0])[4]]);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    
+    
     render() {
         const { c_weatherInfo } = this.state;
-
+        
         const skyStatus = ['CLEAR_DAY', 'PARTLY_CLOUDY_DAY', 'CLOUDY', 'FOG', 'RAIN', 'SLEET', 'SLEET', 'SNOW'];
         const skyColor = ['goldenrod', 'grey', 'grey', 'black', 'grey', 'black', 'black', 'black'];
+        
 
         return (
             <div style={{ fontSize : '.8rem' }}>
 
                 총 데이타수:
-                {this.state.c_weatherInfo.length}
+                {this.state.c_weatherInfo.length}개
+                {/* {JSON.parse(localStorage.getItem('weather_1'))} */}
                 <br />
 
                 '관광지-지역이름' &nbsp; '코스 명' &nbsp; '관광지명' &nbsp; '테마' &nbsp; '최고기온' &nbsp; '최저기온' &nbsp; '풍향' &nbsp; '풍속' &nbsp; '하늘상태' &nbsp; '습도' &nbsp; '강수확률' &nbsp; '강수량' &nbsp;
@@ -271,14 +536,26 @@ class Weather extends Component {
                 <br />
                 {
                     // store.getState.weatherInfo_3.map((row)=>(
-                    this.state.c_weatherInfo_3.filter(w => w.category !== 'PTY' && w.category !== 'REH' && w.category !== 'RN1').map((row)=>(
+                    this.state.c_weatherInfo_4.filter(w => w.category !== 'PTY' && w.category !== 'REH' && w.category !== 'RN1').map((row)=>(
                         <>
                             ({row.category})
                             ({row.obsrValue})
                         </>
                     ))
                 }
+
+                <ul>
+                    { this.state.jejuGridList.map((jejuGrid, index) => (
+                        <li key = { index }>
+                            {jejuGrid[Object.keys(jejuGrid)[0]]}&nbsp;
+                            {jejuGrid[Object.keys(jejuGrid)[1]]}&nbsp;
+                            {jejuGrid[Object.keys(jejuGrid)[2]]}&nbsp;
+                        </li>
+                    )) }
+                </ul>
+
                 <h4>Weather</h4>
+
                 <img src = { OPENNURI } />
             </div>
         )
