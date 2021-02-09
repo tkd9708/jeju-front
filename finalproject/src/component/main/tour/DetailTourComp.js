@@ -206,7 +206,11 @@ class DetailTourComp extends Component {
                 <br/>
                 <div id="thumbIntro" style={{color: '#888'}}>
                     {star}<br/>
-                    {this.state.spotdata.introduction}<br/>
+                    {this.state.spotdata.introduction}<br/><br/>
+                    <button type="button" class="btn btn-dark-green" onClick={()=>{
+                        window.open('https://map.kakao.com/link/to/' + this.state.spotdata.title + ',' + this.state.spotdata.latitude + 
+                            ',' + this.state.spotdata.longitude, '_blank');
+                    }}>길찾기</button><br/>
                     
                     
                     {/* <span id="thumbHeart" ref="thumbHeart" className='spotheart' style={{ cursor: 'pointer', position: 'absolute'}} onClick={this.heartClick.bind(this)}></span> */}

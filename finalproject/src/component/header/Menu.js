@@ -196,6 +196,13 @@ class Menu extends Component {
                             <a href="/tourlist/udo/1">우도</a>
                         </div>
                 </li>
+                <li>
+                        <NavLink exact to="/Recommend"
+                                onClick={() => {
+                                    this.setMainView(mainViewType.Recommend);
+                                }}
+                        >Recommend</NavLink>
+                    </li>
                 {/* <li>
                 <NavLink exact to="/share"
                             onClick={() => {

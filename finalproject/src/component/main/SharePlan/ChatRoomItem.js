@@ -61,6 +61,11 @@ class ChatRoomItem extends Component {
             type: actionType.publishFunctionMsg,
             publishFunctionMsg: "setSelectedRoomNum",
         });
+
+        store.dispatch({
+            type: actionType.publishFunctionMsg,
+            publishFunctionMsg: "changeChatAction",
+        });
     }
 
     render() {

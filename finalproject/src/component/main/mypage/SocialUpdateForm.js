@@ -7,6 +7,7 @@ import store from '../../../redux/store';
 import Chip from '@material-ui/core/Chip';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class SocialUpdateForm extends Component {
 
@@ -17,6 +18,7 @@ class SocialUpdateForm extends Component {
             id: '',
             name: '',
             gender: '',
+            birth: '',
             photo: '',
             address: '',
             addrdetail: '',
@@ -43,6 +45,7 @@ class SocialUpdateForm extends Component {
                 id: response.data.id,
                 name: response.data.name,
                 gender: response.data.gender,
+                birth: response.data.birth,
                 photo: response.data.photo,
                 fullAddress: response.data.address,
                 addrdetail: response.data.addrdetail,
@@ -102,6 +105,7 @@ class SocialUpdateForm extends Component {
         var id = this.state.id;
         var name = this.state.name;
         var gender = this.state.gender;
+        var birth = this.state.birth;
         var photo = this.state.photo;
         var address = this.state.fullAddress;
         var addrdetail = this.state.addrdetail;
@@ -111,14 +115,14 @@ class SocialUpdateForm extends Component {
         
         let url = URL + "/member/update";
 
-        if(name.trim()==null
+        if(name.trim()==null || birth.trim()==null
             || gender==null || address==null || addrdetail==null ||
             email==null || email2==null || hp==null){
                 alert("정보를 모두 입력해주세요.")
         }
         else {
             axios.post(url, {
-                id, name, gender, photo, address, addrdetail, email, email2, hp
+                id, name, gender, birth, photo, address, addrdetail, email, email2, hp
             })
             .then(response => {
                 window.scrollTo(0,0);
@@ -243,6 +247,14 @@ class SocialUpdateForm extends Component {
                         <tr>
                             <td className="mypageUpdateBtn" ref="woman" onClick={this.womanClick.bind(this)}>여자</td>
                             <td className="mypageUpdateBtn" ref="man" onClick={this.manClick.bind(this)}>남자</td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2">
+                                <Tooltip title="생년월일" arrow>
+                                    <input type="date" name = "birth" className="form-control SignupBirth" value = {this.state.birth} 
+                                        onChange={this.handleChange.bind(this)}/>
+                                </Tooltip>
+                            </td>
                         </tr>
                         <tr>
                             <td colSpan="2" style={{padding: '0'}}>

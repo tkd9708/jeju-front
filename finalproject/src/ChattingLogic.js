@@ -58,6 +58,38 @@ class ChattingLogic {
             });
     }
 
+
+    /*
+    * // 메시지 입력
+	@PostMapping("/chat/insertMsg")
+	public void insertMsg(@RequestBody ChatmsgDto dto) {
+		mapper.insertMsg(dto);
+	}
+    * */
+    sendMessage(_msg, callback = null) {
+        let roomNum = store.getState().selectedRoomNum;
+        let msg = _msg;
+        let sender = store.getState().loginId;
+
+        let url = URL + "/chat/insertMsg";
+        let data = {
+            roomNum, msg, sender,
+        };
+
+        console.log(url, data);
+
+        axios.post(url, data)
+            .then(res => {
+                console.log(res);
+                if (callback != null) {
+                    callback(res);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
 }
 
 export default ChattingLogic;

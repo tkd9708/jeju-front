@@ -38,6 +38,7 @@ class ShipPageComp extends Component {
             content:'성산→우도',
             wishday:'',
             wishtime:'',
+            money:'',
             open: false,
             alertOpen: false,
             alertSetOpen: false
@@ -54,14 +55,15 @@ class ShipPageComp extends Component {
         let content = '우도배,' + this.state.content;
         let wishday = this.refs.wishday.value;
         let wishtime = this.refs.wishtime.value;
-        
-        console.log(memId);
-        console.log(content);
-        console.log(wishday);
+        let money = this.refs.money.value==''?null:this.refs.money.value;
+
+        // console.log(memId);
+        // console.log(content);
+        // console.log(wishday);
         if(wishday == '' || wishtime == '')
             alert("날짜와 시간을 모두 선택해주세요.");
         else{
-            axios.post(url, {memId, content, wishday, wishtime
+            axios.post(url, {memId, content, wishday, wishtime, money
             }).then(res => {
                 this.toggle();
                 this.setState({
@@ -242,6 +244,8 @@ class ShipPageComp extends Component {
                                 <input type="date" class="form-control form-control-sm" ref="wishday"></input>
                                 ⏰&nbsp;&nbsp;<b>승선 시간</b>
                                 <input type="time" class="form-control form-control-sm" ref="wishtime"></input>
+                                💰&nbsp;&nbsp;<b>비용</b>
+                                <input type="text" class="form-control form-control-sm" ref="money" onClick={this.handleChange}/>
                             </div>
                         </MDBModalBody>
                         <MDBModalFooter>

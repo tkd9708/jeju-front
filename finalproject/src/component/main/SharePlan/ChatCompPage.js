@@ -36,6 +36,14 @@ class ChatCompPage extends Component {
                 // });
             }
         });
+
+        store.subscribe(()=>{
+           if(store.getState().publishFunctionMsg == "changeChatAction"){
+               this.setState({
+                   action: "chattingRoom",
+               });
+           }
+        });
     }
 
     handleChange = (e) => {
