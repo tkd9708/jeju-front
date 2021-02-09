@@ -10,7 +10,7 @@ import noProfile from "../../../image/noProfile.png";
 import ChattingLogic from "../../../ChattingLogic";
 
 const ChattingRoom = (props) => {
-    console.log("ChattingRoom props", props);
+    // console.log("ChattingRoom props", props);
     const [msg, setMsg] = useState(''); //to send.
     const [msgList, setMsgList] = useState([]); //loaded msg list.
     let loginId = store.getState().loginId;
@@ -19,6 +19,10 @@ const ChattingRoom = (props) => {
     useEffect(() => {
         printCommentEachOther();
     }, [selectedRoomNum]);
+
+    useEffect(() => {
+        setScrollBottom();
+    }, [msgList]);
 
     const handleChange = (e) => {
         setMsg(e.target.value);
@@ -30,6 +34,25 @@ const ChattingRoom = (props) => {
         chat.getMsgList((res) => {
             setMsgList(res.data);
         });
+    }
+
+    const sendMessage = () => {
+        let chat = new ChattingLogic();
+        chat.sendMessage(msg, (res)=>{
+            printCommentEachOther();
+        });
+        setMsg("");
+
+    }
+
+    const setScrollBottom = ()=>{
+        //div.container div#chattingBoard
+        let chattingBoard = document.getElementById("chattingBoard");
+        console.log("setScrollBottom()", chattingBoard);
+
+        if(chattingBoard){
+            chattingBoard.scrollTo(0, chattingBoard.scrollHeight);
+        }
     }
 
     return (
@@ -131,6 +154,11 @@ const ChattingRoom = (props) => {
                             <input id="chatting" name="msg"
                                    value={msg} placeholder="보내실 메시지를 입력하세요."
                                    onChange={handleChange}
+                                   onKeyDown={(e)=>{
+                                       if(e.code == "Enter"){
+                                           sendMessage();
+                                       }
+                                   }}
                                    style={{
                                        width: "100%",
                                        height: "40px",
@@ -140,7 +168,7 @@ const ChattingRoom = (props) => {
                         <th style={{
                             width: "20%"
                         }}>
-                            <button onClick=""
+                            <button onClick={sendMessage}
                                     id="sendBtn"
                                     style={{
                                         width: "100%",
