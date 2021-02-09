@@ -18,6 +18,7 @@ import {URL} from '../../../redux/config';
 import MyPlanRightItem from './MyPlanRightItem';
 import MyPlanLeftItem from './MyPlanLeftItem';
 import Weather from "./Weather";
+import Slider from "react-slick";
 
 class MyPlanComp extends Component {
     
@@ -125,7 +126,7 @@ class MyPlanComp extends Component {
             // <Box p={1} className="myPlanLeft" style={{borderRight: '1px solid black'}}>
                 
             // </Box>
-            <div className="myPlanLeft" style={{borderRight: '1px solid #aaa'}}>
+            <div className="myPlanLeft" style={{borderRight: '1px solid #ddd'}}>
                 {this.state.todayList!=''?<span style={{color: '#bbb'}}>MyPlan on {this.today}</span>:<span>MyPlan</span>}
                         <br/>
                         {this.state.todayList!=''?
@@ -143,25 +144,19 @@ class MyPlanComp extends Component {
             </div>:"";
                             
 
-        const settings = {
-            dots: true,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1
-        };
-
         // 오른쪽 블럭 : 오늘 spot 출력 / 없을 시, 오늘 이후 spot 출력 / 없을 시, 추천 spot 보여주기
         const list = this.state.spotList!=''?
             <div className="myPlanpagesRoot">
                 {this.state.spotList.map((row)=>(
-                    <MyPlanRightItem row={row}/>
-                ))}
+                        <MyPlanRightItem row={row}/>
+                    ))}
+                
             </div>
-        :<div className="myPlanpagesRoot">
+        :
+        <div className="myPlanpagesRoot">
             {this.state.hotspotList.map((row)=>(
-                <MyPlanRightItem row={row}/>
-            ))}
+                    <MyPlanRightItem row={row}/>
+                ))} 
         </div>;
 
         // 로그인 시, plan list 출력 / 없을 시, 뭐넣지
@@ -171,18 +166,18 @@ class MyPlanComp extends Component {
             // </Box>
             this.state.todayList!='' && this.state.spotList!=''?
                 <div className="myPlanRight">
-                    <span>오늘의 Spot</span>
+                    <span>&nbsp;오늘의 <b>Spot</b></span>
                     {list}
                 </div>
                 :this.state.nextList!='' && this.state.spotList!=''?
                     <div className="myPlanRight">
-                        <span>다가오는 Spot</span>
+                        <span>&nbsp;다가오는 <b>Spot</b></span>
                         {list}
                     </div>:check==false?<div className="myPlanRight myPlanTop5">
-                            <span>오늘의 TOP5</span>
+                            <span>&nbsp;오늘의 <b>TOP5</b></span>
                                 {list}
                             </div>:<div className="myPlanRight">
-                            <span>오늘의 TOP5</span>
+                            <span>&nbsp;오늘의 <b>TOP5</b></span>
                                 {list}
                             </div>
             :<h2><Weather/></h2>

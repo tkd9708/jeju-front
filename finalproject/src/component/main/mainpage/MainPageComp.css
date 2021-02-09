@@ -115,7 +115,7 @@ div.search-myplan div {
     }
 
     div.search-myplan .searchComp {
-        border-right: 1px solid #aaa;
+        border-right: 1px solid #ddd;
         height: 400px;
         padding: 20px;
         width: 30vw;
@@ -204,7 +204,7 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
     div.hotPlaceComp {
         display: flex;
         height: 750px;
-        border-top: 1px solid #aaa;
+        border-top: 1px solid #ddd;
         padding: 20px;
     }
 
@@ -920,7 +920,7 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
 div.etcBoardComp {
     /*flex: 1;*/
     height: 700px;
-    border-top: 1px solid black;
+    border-top: 1px solid #ddd;
     padding: 20px;
 }
 

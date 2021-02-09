@@ -27,6 +27,7 @@ class MypagePageComp extends Component {
 
         return (
             <div>
+                
                 {document.body.offsetWidth > 450?<DeskMyPage/>:<MobileMyPage/>}
                 {/* <div id="mypageInfo" style={{width: '100%', backgroundColor: '#f7f7f7', position: 'relative'}}>
                     <p id="mypageInfoTitle">내 정보 관리</p>
