@@ -46,7 +46,7 @@ const ChattingRoom = (props) => {
         //통신.
         let chat = new ChattingLogic();
         chat.getMsgList((res) => {
-            console.log(res.data.length, store.getState().selectedChattingRoomMsgList.length);
+            console.log(res.data.length, store.getState().selectedChattingRoomMsgList);
             if (res.data.length != store.getState().selectedChattingRoomMsgList.length) {
                 setMsgListCount(res.data.length);
                 // setScrollBottom();
