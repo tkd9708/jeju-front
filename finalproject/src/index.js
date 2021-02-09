@@ -15,14 +15,15 @@ import 'mdbreact/dist/css/mdb.css';
 const persistor = persistStore(store);
 
 ReactDOM.render(
-    <React.StrictMode>
+    // <React.StrictMode>
+    // </React.StrictMode>
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
                 <App/>
             </PersistGate>
         </Provider>
 
-    </React.StrictMode>,
+    ,
     document.getElementById('root')
 );
 

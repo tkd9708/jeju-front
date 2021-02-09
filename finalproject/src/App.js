@@ -42,6 +42,7 @@ import MemberUpdateFormComp from "./component/main/mypage/MemberUpdateFormComp";
 import ChattingRoom from './component/main/SharePlan/ChattingRoom';
 import ChatIcon from '@material-ui/icons/Chat';
 import ChatCompPage from "./component/main/SharePlan/ChatCompPage";
+import ChattingLogic from "./ChattingLogic";
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -90,8 +91,9 @@ class App extends Component {
 
             logged: false,
             onLogin: this.onLogin,
-            onLogout: this.onLogout
+            onLogout: this.onLogout,
 
+            chattingRoomListInfo: [],
         }
 
         // window.onmousewheel = function (e) {
@@ -115,9 +117,40 @@ class App extends Component {
             });
         }
 
-        // store.subscribe(()=>{
-        //     window.setTimeout(setPositionFooter, 100);
-        // });
+        store.dispatch({
+            type: actionType.setChatWindow,
+            isOpenChatWindow: false,
+        });
+        store.dispatch({
+            type: actionType.setIsChatAutoUpdate,
+            isChatAutoUpdate: false,
+        });
+
+        store.subscribe(function () {
+            if (store.getState().publishFunctionMsg == "chattingRoomListInfo") {
+                let chat = new ChattingLogic();
+                chat.getRoomList((res) => {
+                    console.log(res);
+                    this.setChattingRoomListInfo(res.data);
+                    store.dispatch({
+                        type: actionType.chattingRoomListInfo,
+                        chattingRoomListInfo: res.data,
+                    });
+                });
+
+                store.dispatch({
+                    type: actionType.publishFunctionMsg,
+                    publishFunctionMsg: "",
+                });
+            }
+        }.bind(this));
+    }
+
+
+    setChattingRoomListInfo = (data) => {
+        this.setState({
+            chattingRoomListInfo: data,
+        });
     }
 
 
@@ -208,15 +241,42 @@ class App extends Component {
                                     isOpenChatWindow: false,
                                 });
                             } else {
-                                gsap.to("div.chatting div.chattingWindow", {
-                                    transform: "scale(1)",
-                                    opacity: 1,
-                                    duration: duration,
-                                    ease: ease,
-                                });
-                                store.dispatch({
-                                    type: actionType.setChatWindow,
-                                    isOpenChatWindow: true,
+                                // gsap.to("div.chatting div.chattingWindow", {
+                                //     transform: "scale(1)",
+                                //     opacity: 1,
+                                //     duration: duration,
+                                //     ease: ease,
+                                // });
+                                // store.dispatch({
+                                //     type: actionType.setChatWindow,
+                                //     isOpenChatWindow: true,
+                                // });
+                                // store.dispatch({
+                                //     type: actionType.publishFunctionMsg,
+                                //     publishFunctionMsg: "chattingRoomListInfo",
+                                // });
+
+                                //통신먼저 하고 결과값으로 액션.
+                                let chat = new ChattingLogic();
+                                chat.getRoomList((res) => {
+                                    console.log(res);
+                                    gsap.to("div.chatting div.chattingWindow", {
+                                        transform: "scale(1)",
+                                        opacity: 1,
+                                        duration: duration,
+                                        ease: ease,
+                                    });
+                                    store.dispatch({
+                                        type: actionType.setChatWindow,
+                                        isOpenChatWindow: true,
+                                    });
+                                    store.dispatch({
+                                        type: actionType.chattingRoomListInfo,
+                                        chattingRoomListInfo: res.data,
+                                    });
+                                    this.setState({
+                                        chattingRoomListInfo: res.data,
+                                    });
                                 });
                             }
                         }}
@@ -229,7 +289,7 @@ class App extends Component {
                              opacity: "0",
                          }}
                     >
-                        <ChatCompPage/>
+                        <ChatCompPage chattingRoomListInfo={this.state.chattingRoomListInfo}/>
                     </div>
                 </div>
                 <div className="mainFrame"

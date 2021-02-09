@@ -1,98 +1,36 @@
 import React, {Component, useState, useEffect} from "react";
 import './Chat.css';
 import axios from 'axios';
-import {URL} from "../../../redux/config";
+import {actionType, URL} from "../../../redux/config";
 import {withRouter} from "react-router-dom";
 import store from "../../../redux/store";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import gsap from "gsap";
+import gsap, {Quint} from "gsap";
 import noProfile from "../../../image/noProfile.png";
+import ChattingLogic from "../../../ChattingLogic";
 
-const ChattingRoom = ({match}) => {
-    const [roomNum, setRoomNum] = useState(0);//useState(match.params.num);
-    // const [sessionId, setSessionId] = useState('');
-    const [msg, setMsg] = useState('');
-    const [msgList, setMsgList] = useState([]);
+const ChattingRoom = (props) => {
+    console.log("ChattingRoom props", props);
+    const [msg, setMsg] = useState(''); //to send.
+    const [msgList, setMsgList] = useState([]); //loaded msg list.
+    let loginId = store.getState().loginId;
+    let selectedRoomNum = store.getState().selectedRoomNum;
 
     useEffect(() => {
-
-        // wsOpen();
-    }, []);
+        printCommentEachOther();
+    }, [selectedRoomNum]);
 
     const handleChange = (e) => {
         setMsg(e.target.value);
     }
 
-    // var ws;
-
-    // function wsOpen() {
-    //     //웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
-    //     ws = new WebSocket("ws://localhost:9002/chating/" + roomNum);
-    //
-    //     wsEvt();
-    // }
-
-    // function wsEvt() {
-    //     ws.onopen = function (data) {
-    //         //소켓이 열리면 동작
-    //     }
-    //
-    //     ws.onmessage = function (data) {
-    //         //메시지를 받으면 동작
-    //         var msg = data.data;
-    //         if (msg != null && msg.trim() != '') {
-    //             var d = JSON.parse(msg);
-    //             if (d.type == "getId") {
-    //                 var si = d.sessionId != null ? d.sessionId : "";
-    //                 // console.log(d.sessionId);
-    //                 if (si != '') {
-    //                     setSessionId(si);
-    //                 }
-    //             } else if (d.type == "message") {
-    //
-    //                 console.log(d);
-    //
-    //                 var listEl = document.getElementById('chattingBoard');
-    //                 var fragment = document.createDocumentFragment();
-    //                 var el = document.createElement('p');
-    //                 var itemStr = '';
-    //                 if (d.sessionId == sessionId) {
-    //                     itemStr = "<span>나 :" + d.msg + "</span>";
-    //                     el.innerHTML = itemStr;
-    //                     el.className = 'me';
-    //                 } else {
-    //                     itemStr = "<span>" + d.userName + " :" + d.msg + "</span>";
-    //                     el.innerHTML = itemStr;
-    //                     el.className = 'others';
-    //                 }
-    //                 fragment.appendChild(el);
-    //                 listEl.appendChild(fragment);
-    //
-    //             } else {
-    //                 console.warn("unknown type!")
-    //             }
-    //         }
-    //     }
-    //
-    //     // document.addEventListener("keypress", function (e) {
-    //     //     if (e.keyCode == 13) { //enter press
-    //     //         this.send();
-    //     //     }
-    //     // });
-    // }
-
-
-    // function send() {
-    //     var option = {
-    //         type: "message",
-    //         roomNum: roomNum,
-    //         sessionId: sessionId,
-    //         userName: store.getState().loginId,
-    //         msg: msg
-    //     }
-    //     ws.onopen = () => ws.send(JSON.stringify(option))
-    //     setMsg('');
-    // }
+    const printCommentEachOther = () => {
+        //통신.
+        let chat = new ChattingLogic();
+        chat.getMsgList((res) => {
+            setMsgList(res.data);
+        });
+    }
 
     return (
         <div id="container"
@@ -110,51 +48,78 @@ const ChattingRoom = ({match}) => {
                             scrollTrigger: ".containerRoot",
                             x: 0,
                             duration: 1,
+                            ease: Quint.easeInOut,
                         });
                     }}
-                />&nbsp;&nbsp;누구 님과의 채팅방
+                />&nbsp;&nbsp;{props.selectedFriend}
             </h3>
 
 
             {/*<input type="hidden" id="sessionId" value={sessionId}/>*/}
-            <input type="hidden" id="roomNum" value={roomNum}/>
+            <input type="hidden" id="roomNum" value={store.getState().selectedRoomNum}/>
 
             <div id="chattingBoard" class="chatting">
-                <div className="otherMsg formMsg">
-                    <table>
-                        <tr>
-                            <td rowSpan={2} valign={"top"}>
-                                <img src={noProfile} className="profileImg"/>
-                            </td>
-                            <td>
-                                <b>name</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div className="msgText">
-                                    <b>
-                                        sdf
-                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
-                                    </b>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div className="myMsg formMsg">
-                    <div className="msgText">
-                        <b>
-                            sdf
-                            asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
-                        </b>
-                    </div>
-                </div>
-
-
+                {msgList.map((e, i) => {
+                    let _date = new Date(e.writeday);
+                    let _strTime = _date.getHours() + ":" + _date.getMinutes();
+                    if (e.sender == loginId) {
+                        //나.
+                        return (
+                            <div className="myMsg formMsg">
+                                <table>
+                                    <tr style={{width: "100%"}}>
+                                        {/*<td valign={"bottom"} align={"right"}>
+                                            <b style={{color: "yellow"}}
+                                            >1</b>&nbsp;
+                                            <br/>
+                                            <b>{_strTime}</b>&nbsp;
+                                        </td>*/}
+                                        {/*<td valign={"baseline"} align={"right"}*/}
+                                        <td valign={"baseline"}
+                                            className="myMsgBox"
+                                        >
+                                            <div className="msgText">
+                                                <b>{e.msg}</b>
+                                            </div>
+                                            <div className="msgTime">
+                                                <b>{_strTime}</b>&nbsp;
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        )
+                    } else {
+                        //상대방.
+                        return (
+                            <div className="otherMsg formMsg">
+                                <table>
+                                    <tr>
+                                        <td rowSpan={2} valign={"top"}>
+                                            <img src={noProfile} className="profileImg"/>
+                                        </td>
+                                        <td>
+                                            <b>{e.sender}</b>
+                                        </td>
+                                        <td rowSpan={2} valign={"bottom"}>
+                                            &nbsp;<b>{_strTime}</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div className="msgText">
+                                                <b>{e.msg}</b>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        )
+                    }
+                })}
             </div>
 
+            {/* input */}
             <div id="yourMsg">
                 <table class="inputTable">
                     <tr style={{
@@ -193,3 +158,58 @@ const ChattingRoom = ({match}) => {
 
 export default ChattingRoom;
 
+
+/*
+
+<div className="otherMsg formMsg">
+                    <table>
+                        <tr>
+                            <td rowSpan={2} valign={"top"}>
+                                <img src={noProfile} className="profileImg"/>
+                            </td>
+                            <td>
+                                <b>name</b>
+                            </td>
+                            <td rowSpan={2} valign={"bottom"}>
+                                &nbsp;<b>99:88</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div className="msgText">
+                                    <b>
+                                        sdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                    </b>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div className="myMsg formMsg">
+                    <table>
+                        <tr style={{width: "100%"}}>
+                            <td valign={"bottom"} align={"right"}>
+                                <b style={{color: "yellow"}}
+                                >1</b>&nbsp;
+                                <br/>
+                                <b>99:88</b>&nbsp;
+                            </td>
+                            <td valign={"bottom"} align={"right"} style={{width: "70%"}}>
+                                <div className="msgText" align={"left"}>
+                                    <b>
+                                        sdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                    </b>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+* */
