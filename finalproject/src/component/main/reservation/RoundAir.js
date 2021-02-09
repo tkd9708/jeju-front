@@ -117,9 +117,10 @@ class RoundAir extends Component {
         let startdepartDate = this.refs.startdepartDate.value;
         let arriverdepartDate = this.refs.arriverdepartDate.value;
         let wishtime = this.state.wishtime;
+        let money1 = this.state.money1==''?null:this.state.money1;
+        let money2 = this.state.money2==''?null:this.state.money2;
 
         if(store.getState().logged==false){
-            
             if(window.confirm("로그인이 필요한 서비스 입니다.\n로그인 하시겠습니까?"))
                 this.props.history.push("/login");
         }
@@ -127,14 +128,14 @@ class RoundAir extends Component {
             if(startdepartDate == '' || arriverdepartDate == '' || wishtime == '')
                 alert("날짜와 시간을 모두 선택해주세요.");
             else{
-                axios.post(url, {memId, content: content1, wishday: startdepartDate, wishtime})
+                axios.post(url, {memId, content: content1, wishday: startdepartDate, wishtime, money: money1})
                 .then(res=>{
                     
                 }).catch(err=>{
                     console.log("air 일정 insert 오류 : " + err);
                 })
 
-                axios.post(url, {memId, content: content2, wishday: arriverdepartDate, wishtime})
+                axios.post(url, {memId, content: content2, wishday: arriverdepartDate, wishtime, money: money2})
                 .then(res=>{
                     this.setState({
                         alertOpen: true
@@ -253,7 +254,9 @@ class RoundAir extends Component {
                             
                             <Tooltip title="예정 시간" arrow>
                                 <div>
-                                    <input type="time" class="form-control form-control-sm" value={this.state.wishtime} onChange={this.handleChange.bind(this)} name="wishtime"></input>
+                                <input type="time" class="form-control form-control-sm" value={this.state.wishtime} onChange={this.handleChange.bind(this)} name="wishtime"></input>
+                                <input type="text" class="form-control form-control-sm" value={this.state.money1} onChange={this.handleChange.bind(this)} name="money1"></input>
+                                <input type="text" class="form-control form-control-sm" value={this.state.money2} onChange={this.handleChange.bind(this)} name="money2"></input>
                                 </div>
                             </Tooltip>
                                 

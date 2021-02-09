@@ -10,7 +10,7 @@ class MyBudgetItem extends Component
             content:'',
             shereNum:'',
             spotId:'',
-            aroudId:'',
+            aroundId:'',
             money: '',
             wishday:'',
             wishtime:'',
@@ -19,15 +19,24 @@ class MyBudgetItem extends Component
     }
 
     render(){
-        const {row}=this.props;
-        const budget = row.content!=null?<td>{row.content}</td>:row.shereNum!=null?<td>{row.shereNum}</td>:
-        row.spotId!=null?<td>{row.spotId}</td>:<td>{row.aroudId}</td>;
+        const {row}=this.props;      
+        // var budget = row.aroudId!=null?row.aroudId:row.shereNum!=null?row.shereNum:
+        // row.spotId!=null?row.spotId:row.content;
+        var budget='';
+        if(row.aroundId!=null){
+            budget=row.aroundId;
+        }else if(row.shereNum!=null){
+            budget=row.shereNum;
+        }else if(row.spotId!=null){
+            budget=row.spotId;
+        }else{
+            budget=row.content;
+        }
         return(
             <tr>
-                    <td>{row.num}</td>
                     <td>{budget}</td>
-                    <td>{row.money}</td>
                     <td>{row.wishday}&nbsp;&nbsp;&nbsp;{row.wishtime}</td>
+                    <td>{row.money}</td>
             </tr>
         )
     }

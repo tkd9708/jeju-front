@@ -22,7 +22,9 @@ class MyBudget extends Component {
         let wishday1 = this.refs.wishday1.value;
         let wishday2 = this.refs.wishday2.value;
         let url = URL + "/wish/budget?memId="+memId+"&wishday1="+wishday1+"&wishday2="+wishday2;
-        // console.log(url);
+        let url2 = URL + "/wish/budgetsum?memId="+memId+"&wishday1="+wishday1+"&wishday2="+wishday2;
+
+        console.log(url2);
         // console.log(wishday2);
         // console.log(wishday1);
 
@@ -34,6 +36,16 @@ class MyBudget extends Component {
             })
         }).catch(err=>{
             console.log("wishlist 오류 : " + err);
+        })
+
+        axios.get(url2)
+        .then(res=>{
+            console.log(res.data);
+            this.setState({
+                sumData:res.data
+            })
+        }).catch(err=>{
+            console.log("wishlistsum 오류 : " + err);
         })
     }
 
@@ -69,10 +81,10 @@ class MyBudget extends Component {
                     <table className="table table-hover" id="MyBudgetMainTable">
                         <thead style={{backgroundColor: '#fafafa'}}>
                             <tr style={{textAlign: 'center'}}>
-                                <td style={{width:'5%'}}>#</td>
-                                <td style={{width:'45%'}}>한것</td>
-                                <td style={{width:'25%'}}>비용</td>
+                                {/* <td style={{width:'5%'}}>#</td> */}
+                                <td style={{width:'50%'}}>한것</td>
                                 <td style={{width:'25%'}}>일시</td>
+                                <td style={{width:'25%'}}>비용</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,6 +94,13 @@ class MyBudget extends Component {
                                 ))
                             }
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>합계 : {this.state.sumData}</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

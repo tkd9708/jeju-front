@@ -109,6 +109,7 @@ class OneWayAir extends Component {
         let content = '항공,' + this.state.start + "→" + this.state.dest;
         let wishday = this.refs.wishday.value;
         let wishtime = this.state.wishtime;
+        let money = this.state.money==''?null:this.state.money;
 
         // console.log(this.refs.wishday.value);
         if(store.getState().logged==false){
@@ -120,7 +121,7 @@ class OneWayAir extends Component {
             if(wishday == '' || wishtime == '')
                 alert("날짜와 시간을 모두 선택해주세요.");
             else{
-                axios.post(url, {memId, content, wishday, wishtime})
+                axios.post(url, {memId, content, wishday, wishtime, money})
                 .then(res=>{
                     this.setState({
                         alertOpen: true
@@ -256,6 +257,7 @@ class OneWayAir extends Component {
                             <Tooltip title="예정 시간" arrow>
                                 <div>
                                     <input type="time" class="form-control form-control-sm" value={this.state.wishtime} onChange={this.handleChange.bind(this)} name="wishtime"></input>
+                                    <input type="text" class="form-control form-control-sm" value={this.state.money} onChange={this.handleChange.bind(this)} name="money"></input>
                                 </div>
                             </Tooltip>
                                 
