@@ -19,7 +19,7 @@ class MyBudgetItem extends Component
     }
 
     render(){
-        const {row, memId}=this.props;
+        const {row}=this.props;
         const budget = row.content!=null?<td>{row.content}</td>:row.shereNum!=null?<td>{row.shereNum}</td>:
         row.spotId!=null?<td>{row.spotId}</td>:<td>{row.aroudId}</td>;
         return(
