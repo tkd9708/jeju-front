@@ -34,7 +34,8 @@ class NoticeUpdateForm extends Component
                 subject : res.data.subject,
                 content : res.data.content
             })
-            console.log(this.state.content);
+            this.editorRef.current.getInstance ().setHtml(this.state.content, false);
+            // console.log(this.state.content);
         }).catch(err=>{
             console.log("notice content 오류 : " + err);
         })
@@ -125,9 +126,6 @@ class NoticeUpdateForm extends Component
                             <td>
                                 {/* <textarea style={{width:'280px',height:'80px'}} name="content" onChange={this.handleChange.bind(this)}></textarea> */}
                                 <Editor
-                                    // initialValue="<h1>hello</h1>"
-                                    initialValue={this.state.content}
-                                    // setValue={this.state.content}
                                     previewStyle="vertical"
                                     height="300px"
                                     initialEditType="wysiwyg"

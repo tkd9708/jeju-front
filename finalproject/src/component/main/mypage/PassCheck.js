@@ -98,7 +98,7 @@ class MemberUpdateFormComp extends Component {
                             labelWidth={70}
                         />
                     </FormControl>  
-                    <button type="button" class="btn btn-warning mypagePassBtn" onClick={this.passCheck.bind(this)}>입력</button>
+                    <button type="button" class="btn btn-dark-green mypagePassBtn" onClick={this.passCheck.bind(this)}>입력</button>
                 </div>
                 
             </div>

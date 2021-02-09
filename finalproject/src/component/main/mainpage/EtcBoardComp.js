@@ -88,7 +88,7 @@ export default function EtcBoardComp(props) {
     };
 
     const getNoticeList = () => {
-        let url = URL + "/notice/list";
+        let url = URL + "/notice/list?start=0&perPage=10";
         console.log(url);
 
         axios.get(url

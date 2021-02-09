@@ -43,6 +43,7 @@ import ChattingRoom from './component/main/SharePlan/ChattingRoom';
 import ChatIcon from '@material-ui/icons/Chat';
 import ChatCompPage from "./component/main/SharePlan/ChatCompPage";
 import ChattingLogic from "./ChattingLogic";
+import RecommendCourse from "./component/main/Recommend/RecommendCourse";
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -326,6 +327,7 @@ class App extends Component {
                         <Route path="/tourlist/:name?/:pageNum?" component={TourPageComp}/>
                         <Route path="/shareplan/:name?/" component={SharePlanPageComp}/>
                         <Route path="/chattingroom/:num?" component={ChattingRoom}/>
+                        <Route path="/Recommend" component={RecommendCourse}/>
                     </Switch>
                     <div className="footerComp"
                     >

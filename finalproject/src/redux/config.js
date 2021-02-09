@@ -84,4 +84,5 @@ export const mainViewType = {
     Admin: "admin",
     JoinForm: "joinForm",
     SearchResult: "searchResult",
+    Recommend: "recommend",
 }
