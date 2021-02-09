@@ -13,6 +13,7 @@ import DaumPostcode from 'react-daum-postcode';
 import store from '../../../redux/store';
 import Chip from '@material-ui/core/Chip';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class MemberUpdateFormComp extends Component {
 
@@ -23,6 +24,7 @@ class MemberUpdateFormComp extends Component {
             id: '',
             name: '',
             gender: '',
+            birth: '',
             photo: '',
             address: '',
             addrdetail: '',
@@ -66,6 +68,7 @@ class MemberUpdateFormComp extends Component {
                 name: response.data.name,
                 password: response.data.pass,
                 gender: response.data.gender,
+                birth: response.data.birth,
                 photo: response.data.photo,
                 fullAddress: response.data.address,
                 addrdetail: response.data.addrdetail,
@@ -126,6 +129,7 @@ class MemberUpdateFormComp extends Component {
         var name = this.state.name;
         var pass = this.state.password;
         var gender = this.state.gender;
+        var birth = this.state.birth;
         var photo = this.state.photo;
         var address = this.state.fullAddress;
         var addrdetail = this.state.addrdetail;
@@ -135,14 +139,14 @@ class MemberUpdateFormComp extends Component {
         
         let url = URL + "/member/update";
 
-        if(id.trim()==='' || name.trim()==='' || pass.trim()==='' 
+        if(id.trim()==='' || name.trim()==='' || pass.trim()==='' || birth.trim()===''
             || gender.trim()==='' || address.trim()==='' || addrdetail.trim()==='' ||
             email.trim()==='' || email2.trim()==='' || hp.trim()===''){
                 alert("정보를 모두 입력해주세요.")
         }
         else {
             axios.post(url, {
-                id, name, pass, gender, photo, address, addrdetail, email, email2, hp
+                id, name, pass, gender, birth, photo, address, addrdetail, email, email2, hp
             })
             .then(response => {
                 this.props.passOk(false);
@@ -295,6 +299,14 @@ class MemberUpdateFormComp extends Component {
                         <tr>
                             <td className="mypageUpdateBtn" ref="woman" onClick={this.womanClick.bind(this)}>여자</td>
                             <td className="mypageUpdateBtn" ref="man" onClick={this.manClick.bind(this)}>남자</td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2">
+                                <Tooltip title="생년월일" arrow>
+                                    <input type="date" name = "birth" className="form-control SignupBirth" value = {this.state.birth} 
+                                        onChange={this.handleChange.bind(this)}/>
+                                </Tooltip>
+                            </td>
                         </tr>
                         <tr>
                             <td colSpan="2" style={{padding: '0'}}>

@@ -18,7 +18,8 @@ class MyPlanRightItem extends Component {
 
         return (
             <div className="myplanRightItemBox">
-                {/* <div> */}
+            {/* <div>  */}
+            {/* <div> */}
                 <MDBView>
                     <img src={row.thumbnail} alt="" class="myplanRightItemImg"/>
                     <MDBMask className="flex-center" overlay="stylish-light" style={{flexWrap:'wrap'}}>

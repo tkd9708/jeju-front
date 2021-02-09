@@ -12,6 +12,7 @@ class ChatCompPage extends Component {
 
     constructor(props) {
         super(props);
+        console.log("ChatCompPage props", props);
 
         this.state = {
             roomList: props.chattingRoomListInfo,
@@ -36,6 +37,14 @@ class ChatCompPage extends Component {
                 // });
             }
         });
+
+        store.subscribe(()=>{
+           if(store.getState().publishFunctionMsg == "changeChatAction"){
+               this.setState({
+                   action: "chattingRoom",
+               });
+           }
+        });
     }
 
     handleChange = (e) => {
@@ -58,7 +67,7 @@ class ChatCompPage extends Component {
     }
 
     render() {
-
+        // console.log("ChatCompPage render()");
         return (
             <div className="containerRoot">
                 <div className="container"

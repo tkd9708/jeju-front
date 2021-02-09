@@ -4,7 +4,7 @@ import React, {useEffect} from "react";
 import {} from "../component/main/admin/MemberListPageComp";
 
 
-//export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot2";
+// export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot2";
 export const URL = "http://localhost:9002";
 
 export const boardActionType = {
@@ -67,6 +67,7 @@ export const actionType = {
     setIsChatAutoUpdate: "setIsChatAutoUpdate",
     publishFunctionMsg: "publishFunctionMsg",
     chattingRoomListInfo: "chattingRoomListInfo",
+    selectedChattingRoomMsgList: "selectedChattingRoomMsgList",
 }
 
 export const mainViewType = {
@@ -83,4 +84,5 @@ export const mainViewType = {
     Admin: "admin",
     JoinForm: "joinForm",
     SearchResult: "searchResult",
+    Recommend: "recommend",
 }

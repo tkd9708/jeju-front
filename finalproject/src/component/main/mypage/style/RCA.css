@@ -538,3 +538,9 @@ input{
         font-weight: 700;
     }
 }
+
+
+.ScheduleListLine {
+    margin: 10px;
+    font-size: 0.9rem;
+}

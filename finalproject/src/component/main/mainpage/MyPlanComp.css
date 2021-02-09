@@ -1,8 +1,8 @@
 .myPlanpagesRoot {
-    display: flex;
+    /* display: flex; */
     /* flex-wrap: wrap; */
     /* width: 500px; */
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
 }
 /* .myPlanRight {
     flex-grow: 1;
@@ -55,10 +55,15 @@
     .myPlanTop5 {
         width: 90vw !important;
     }
-    .myPlanRight > span, .myPlanLeft > span {
-        font-size: 0.7rem;
+    .myPlanRight b, .myPlanLeft > span {
+        font-size: 0.9rem;
         font-weight: 900;
-        color: #036E38;
+        color: #333;
+    }
+    .myPlanRight span {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #444;
     }
     .myplanRightItemBox {
         padding: 10px;
@@ -132,10 +137,15 @@
     .myPlanTop5 {
         width: 95vw !important;
     }
-    .myPlanRight > span, .myPlanLeft > span {
-        font-size: 1rem;
+    .myPlanRight b, .myPlanLeft > span {
+        font-size: 1.3rem;
         font-weight: 900;
-        color: #036E38;
+        color: #333;
+    }
+    .myPlanRight span {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #444;
     }
     .myplanRightItemBox {
         padding: 20px;
@@ -206,10 +216,15 @@
     .myPlanTop5 {
         width: 95vw !important;
     }
-    .myPlanRight > span, .myPlanLeft > span {
-        font-size: 1.3rem;
+    .myPlanRight b, .myPlanLeft > span {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #333;
+    }
+    .myPlanRight span {
+        font-size: 1.2rem;
         font-weight: 700;
-        color: #036E38;
+        color: #444;
     }
     .myplanRightItemBox {
         padding: 30px;
@@ -238,7 +253,7 @@
     .myPlanpagesRoot > * {
         /* margin: 10px; */
         /* padding: 10px; */
-        width: 30vw;
+        width: 25vw;
         /* height: 300px; */
         /* overflow: hidden; */
     }
@@ -268,10 +283,16 @@
     .myPlanTop5 {
         width: 65vw !important;
     }
-    .myPlanRight > span, .myPlanLeft > span {
-        font-size: 1.4rem;
+    .myPlanRight b, .myPlanLeft > span {
+        font-size: 1.7rem;
         font-weight: 900;
-        color: #036E38;
+        /* color: #036E38; */
+        color: #333;
+    }
+    .myPlanRight span {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #444;
     }
     .myplanRightItemBox {
         padding: 30px;

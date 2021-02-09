@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import MySchedule from './MySchedule';
 import MyReviwe from './MyReview';
 import MyWishlist from './MyWishlist';
+import MyBudget from './MyBudget';
 import './style/MyinfoCss.css';
 import userImg from '../../../image/user.png';
 import Paper from '@material-ui/core/Paper';
@@ -197,7 +198,7 @@ class DeskMyPage extends Component {
                     >
                         <Tab label="My Plan" {...this.tabProps(0)}/>
                         <Tab label="My Review" {...this.tabProps(1)}/>
-                        <Tab label="My Reservation" {...this.tabProps(2)}/>
+                        <Tab label="My Budget" {...this.tabProps(2)}/>
                         <Tab label="My Info" {...this.tabProps(3)}/>
                     </Tabs>
                     <TabPanel value={this.state.value} index={0}>
@@ -207,7 +208,7 @@ class DeskMyPage extends Component {
                         <MyReviwe/>
                     </TabPanel>
                     <TabPanel value={this.state.value} index={2}>
-                        <MyWishlist/>
+                        <MyBudget/>
                     </TabPanel>
                     <TabPanel value={this.state.value} index={3}>
                         {/* <MemberUpdateFormComp/> */}
