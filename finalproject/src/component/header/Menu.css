@@ -7,7 +7,7 @@ ul.menu {
 }
 
 ul.menu li {
-    width: calc((100% / 6));
+    width: calc((100% / 7));
     background: rgba(255,255,255);
     transition: 0.7s;
 }
