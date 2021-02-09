@@ -1,3 +1,15 @@
+        // console.log(wishday2);
+        // console.log(wishday1);
+
+        axios.get(url)
+        .then(res=>{
+            console.log(res.data);
+            this.setState({
+                listData:res.data
+            })
+        }).catch(err=>{
+            console.log("wishlist 오류 : " + err);
+        })
 import React, {Component} from "react";
 import {URL} from '../../../redux/config';
 import MyBudgetItem from "./MyBudgetItem";
