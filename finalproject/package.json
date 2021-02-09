@@ -33,7 +33,7 @@
     "react-animated-weather": "^4.0.1",
     "react-bootstrap": "^1.4.3",
     "react-color": "^2.19.3",
-    "react-color-skycons": "0.1.0",
+    "react-color-skycons": "^0.1.0",
     "react-daum-postcode": "^2.0.2",
     "react-dom": "^17.0.1",
     "react-facebook-login": "^4.1.1",
