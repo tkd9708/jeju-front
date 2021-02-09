@@ -111,9 +111,23 @@ div.roomList th.profileImg img.profileImg {
     width: 50px;
     border-radius: 15px;
 }
-
-div.roomList th.room {
+div.roomList th.room{
     width: 50%;
+    text-align: left;
+    color: black;
+    font-size: 15px;
+}
+
+div.roomList th.room div {
+    max-width: 159px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+    white-space: nowrap;
+}
+
+div.roomList th.room div b{
+    font-size: 17px;
 }
 
 div.roomList th.go {

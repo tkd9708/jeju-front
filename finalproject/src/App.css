@@ -15,13 +15,14 @@ div.footerComp .content {
 div.chatting div.chattingIconBack {
     width: 100px;
     height: 100px;
-    background-color: #0d6b38;
-    border-radius: 100px;
+    /*background-color: #0d6b38;*/
+    background-color: #f4de13;
+    border-radius: 30px;
     position: fixed;
     z-index: 20;
     right: 2%;
     bottom: 5%;
-    border: 5px inset gold;
+    /*border: 5px  solid gold;*/
 }
 
 div.chatting div.chattingIconBack:hover {
@@ -31,12 +32,12 @@ div.chatting div.chattingIconBack:hover {
 }
 
 div.chatting div.chattingIconBack .chattingIcon {
-    color: white;
+    color: #423732;
     position: relative;
     top: 41%;
     left: 39%;
     z-index: 21;
-    transform: scale(2.5);
+    transform: scale(3.0);
 }
 
 

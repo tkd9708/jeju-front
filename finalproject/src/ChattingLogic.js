@@ -60,7 +60,7 @@ class ChattingLogic {
 
 
     /*
-    * // 메시지 입력
+    // 메시지 입력
 	@PostMapping("/chat/insertMsg")
 	public void insertMsg(@RequestBody ChatmsgDto dto) {
 		mapper.insertMsg(dto);
@@ -79,6 +79,35 @@ class ChattingLogic {
         console.log(url, data);
 
         axios.post(url, data)
+            .then(res => {
+                console.log(res);
+                if (callback != null) {
+                    callback(res);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+
+    /*
+    // 각 방마다 마지막 메시지
+	@GetMapping("/chat/lastMsg")
+	public Map<String, String> getLastMsg(@RequestParam String roomNum){
+		String lastMsg = mapper.getLastMsg(roomNum).get(0).getMsg();
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("lastMsg", lastMsg);
+		return map;
+	}
+    * */
+    getLastMsg(roomNum, callback = null) {
+        let url = URL + "/chat/lastMsg" +
+            "?roomNum=" + roomNum;
+        console.log(url);
+
+        axios.get(url)
             .then(res => {
                 console.log(res);
                 if (callback != null) {

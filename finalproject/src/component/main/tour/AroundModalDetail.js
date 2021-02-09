@@ -18,6 +18,7 @@ const AroundModalDetail=(props)=> {
   const [alertSetOpen, setAlertSetOpen] = useState(false);
   const [aroundwishday, setWishday] = useState('');
   const [aroundwishtime, setWishtime] = useState('');
+  const [aroundwishmoney, setWishmoney] = useState('');
 
     const {isShowing, toggle} = UseModal();
 
@@ -29,12 +30,13 @@ const AroundModalDetail=(props)=> {
         let content = category + "," + props.wishContent;
         let wishday = aroundwishday;
         let wishtime = aroundwishtime;
+        let money = aroundwishmoney==''?null:aroundwishmoney;
 
         // console.log(wishday);
         if(wishday == '' || wishtime == '')
             alert("날짜와 시간을 모두 선택해주세요.");
         else{
-            axios.post(url, {memId, aroundId, content, wishday, wishtime})
+            axios.post(url, {memId, aroundId, content, wishday, wishtime, money})
             .then(res=>{
               toggle();
               handleAlertOpen();
@@ -59,6 +61,9 @@ const AroundModalDetail=(props)=> {
 
     const wishtimeChange=(e)=>{
       setWishtime(e.target.value);
+  }    
+    const wishmoneyChange=(e)=>{
+      setWishmoney(e.target.value);
   }
 
     return (
@@ -70,7 +75,9 @@ const AroundModalDetail=(props)=> {
               🗓&nbsp;&nbsp;여행 날짜
               <input type="date" class="form-control form-control-sm" value={aroundwishday} onChange={wishdayChange}></input>
               ⏰&nbsp;&nbsp;예정 시간
-              <input type="time" class="form-control form-control-sm" value={aroundwishtime} onChange={wishtimeChange}></input><br/>
+              <input type="time" class="form-control form-control-sm" value={aroundwishtime} onChange={wishtimeChange}></input>
+              💰&nbsp;&nbsp;<b>비용</b>
+              <input type="text" class="form-control form-control-sm" value={aroundwishmoney} onChange={wishmoneyChange}/><br/>
               <div style={{textAlign: 'center'}}>
                 <button type="button" class="btn btn-warning aroundmodalBtn" onClick={insertAround}><b>추가</b></button>
             </div>

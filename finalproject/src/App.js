@@ -242,25 +242,23 @@ class App extends Component {
                                     isOpenChatWindow: false,
                                 });
                             } else {
-                                // gsap.to("div.chatting div.chattingWindow", {
-                                //     transform: "scale(1)",
-                                //     opacity: 1,
-                                //     duration: duration,
-                                //     ease: ease,
-                                // });
-                                // store.dispatch({
-                                //     type: actionType.setChatWindow,
-                                //     isOpenChatWindow: true,
-                                // });
-                                // store.dispatch({
-                                //     type: actionType.publishFunctionMsg,
-                                //     publishFunctionMsg: "chattingRoomListInfo",
-                                // });
-
                                 //통신먼저 하고 결과값으로 액션.
                                 let chat = new ChattingLogic();
                                 chat.getRoomList((res) => {
                                     console.log(res);
+                                    /*
+                                    0: {num: "33", user1: "yangyk7364", user2: "sanghee"}
+                                    1: {num: "34", user1: "3color", user2: "yangyk7364"}
+                                    2: {num: "50", user1: "yangyk7364", user2: "asdf"}
+                                    * */
+
+                                    /*//여기서 res.data.map 돌면서 lastMsg get.
+                                    res.data.map((e, i) => {
+                                        chat.getLastMsg(e.num, (res) => {
+
+                                        });
+                                    });*/
+
                                     gsap.to("div.chatting div.chattingWindow", {
                                         transform: "scale(1)",
                                         opacity: 1,
@@ -274,6 +272,10 @@ class App extends Component {
                                     store.dispatch({
                                         type: actionType.chattingRoomListInfo,
                                         chattingRoomListInfo: res.data,
+                                    });
+                                    store.dispatch({
+                                        type: actionType.publishFunctionMsg,
+                                        publishFunctionMsg: "changeChatAction",
                                     });
                                     this.setState({
                                         chattingRoomListInfo: res.data,

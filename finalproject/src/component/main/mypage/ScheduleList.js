@@ -5,8 +5,9 @@ import Fade from '@material-ui/core/Fade';
 import moment from 'moment';
 import { FcOk } from "react-icons/fc";
 import store from '../../../redux/store';
-import ScheduleItem from './ScheduleItem';
 import axios from 'axios';
+import {URL} from "../../../redux/config";
+import './style/RCA.css';
 
 
 class ScheduleList extends Component{
@@ -18,48 +19,35 @@ class ScheduleList extends Component{
         }
     };
 
-    getList=()=>{
-        let url = URL + "/wish/schedulelist?memId="+store.getState().loginId + "&wishday=" + this.props.row.wishday ;
-        // console.log("월별 가져오기 : " +  this.props.YM);
+    // getList=()=>{
+    //     let url = URL + "/wish/schedulelist?memId="+store.getState().loginId + "&wishday=" + this.props.row.wishday ;
+    //     console.log("월별 가져오기 : " +  this.props.row.wishday);
         
-        axios.get(url)
-        .then(res=>{
-          this.setState({
-            monthList: res.data
-          });
-      }).catch(err=>{
-        console.log("목록 오류:"+err);
-      })
-    }
+    //     axios.get(url)
+    //     .then(res=>{
+    //       this.setState({
+    //         monthList: res.data
+    //       });
+    //       console.log(res.data);
+    //   }).catch(err=>{
+    //     console.log("목록 오류:"+err);
+    //   })
+    // }
+
+    // componentWillMount(){
+    //     this.getList();
+    // }
     
     render(){
-        // const {row}=this.props;
-        // var wishday = moment(row.wishday).format("YYYY-MM-DD");
-        var tag = '';
-        // console.log(this.props.groupOfDay + "," + wishday);
-        // if(this.props.groupOfDay==''){
-        //     this.props.setGroupOfDay(wishday);
-        // }
-        // else if(this.props.groupOfDay==wishday){
-        //     this.props.setGroupOfDay(wishday);
-        //     tag = <div><FcOk/>&nbsp;{wishday}&nbsp;&nbsp;{row.title}</div>;
-        // }
-        // else{
-        //     tag = <div>&nbsp;&nbsp;{row.title}</div>;
-        // }
-        for(var i=0; i<this.props.clist.length; i++){
-            tag += this.props.clist[i];
-        }
+        var wishday = moment(this.props.row.wishday).format("YYYY-MM-DD");
 
         return(
             
-                <div>
-                    {tag}
-                    {/* <FcOk/>&nbsp;{this.props.clist[0]} */}
-                    {/* &nbsp;&nbsp;{row.title} */}
-                    {/* {this.state.monthList.map((row)=>(
-                        <ScheduleItem row={row}/>
-                    ))} */}
+                <div className="ScheduleListLine">
+                    {/* {tag} */}
+                    {/* <FcOk/> */}
+                    🔖&nbsp;&nbsp;<b>{wishday}</b>
+                    &nbsp;&nbsp;&nbsp;{this.props.row.title}
                 </div>
             
             

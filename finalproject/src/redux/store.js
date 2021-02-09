@@ -1,7 +1,7 @@
 import {createStore} from "redux";
 import {actionType, mainViewType} from "./config";
 import {persistReducer} from 'redux-persist';
-import storage from "redux-persist/lib/storage";
+import storage from "redux-persist/lib/storage/session";
 
 const persistConfig = {
     key: "root",
@@ -32,6 +32,7 @@ const reducer = function (state, action) {
             isOpenChatWindow: false,
             selectedRoomNum: 0,
             selectedFriend: "",
+            selectedChattingRoomMsgList: [],
             isChatAutoUpdate: false,
             chattingRoomListInfo: [],
 
@@ -137,6 +138,10 @@ const reducer = function (state, action) {
     } else if (action.type === actionType.chattingRoomListInfo) {
         newState = Object.assign({}, state, {
             chattingRoomListInfo: action.chattingRoomListInfo,
+        });
+    } else if (action.type === actionType.selectedChattingRoomMsgList) {
+        newState = Object.assign({}, state, {
+            selectedChattingRoomMsgList: action.selectedChattingRoomMsgList,
         });
     }
 
