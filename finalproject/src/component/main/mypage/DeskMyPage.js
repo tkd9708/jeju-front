@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import MySchedule from './MySchedule';
 import MyReviwe from './MyReview';
 import MyWishlist from './MyWishlist';
+import MyBudget from './MyBudget';
 import './style/MyinfoCss.css';
 import userImg from '../../../image/user.png';
 import Paper from '@material-ui/core/Paper';
@@ -197,8 +198,8 @@ class DeskMyPage extends Component {
                     >
                         <Tab label="My Plan" {...this.tabProps(0)}/>
                         <Tab label="My Review" {...this.tabProps(1)}/>
-                        {/* <Tab label="My Reservation" {...this.tabProps(2)}/> */}
-                        <Tab label="My Info" {...this.tabProps(2)}/>
+                        <Tab label="My Budget" {...this.tabProps(2)}/>
+                        <Tab label="My Info" {...this.tabProps(3)}/>
                     </Tabs>
                     <TabPanel value={this.state.value} index={0}>
                         <MySchedule/>
@@ -206,10 +207,10 @@ class DeskMyPage extends Component {
                     <TabPanel value={this.state.value} index={1}>
                         <MyReviwe/>
                     </TabPanel>
-                    {/* <TabPanel value={this.state.value} index={2}>
-                        <MyWishlist/>
-                    </TabPanel> */}
                     <TabPanel value={this.state.value} index={2}>
+                        <MyBudget/>
+                    </TabPanel>
+                    <TabPanel value={this.state.value} index={3}>
                         {/* <MemberUpdateFormComp/> */}
                         {passOkTab}
                     </TabPanel>
