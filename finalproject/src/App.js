@@ -42,6 +42,8 @@ import MemberUpdateFormComp from "./component/main/mypage/MemberUpdateFormComp";
 import ChattingRoom from './component/main/SharePlan/ChattingRoom';
 import ChatIcon from '@material-ui/icons/Chat';
 import ChatCompPage from "./component/main/SharePlan/ChatCompPage";
+import ChattingLogic from "./ChattingLogic";
+import RecommendCourse from "./component/main/Recommend/RecommendCourse";
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -90,8 +92,9 @@ class App extends Component {
 
             logged: false,
             onLogin: this.onLogin,
-            onLogout: this.onLogout
+            onLogout: this.onLogout,
 
+            chattingRoomListInfo: [],
         }
 
         // window.onmousewheel = function (e) {
@@ -115,9 +118,40 @@ class App extends Component {
             });
         }
 
-        // store.subscribe(()=>{
-        //     window.setTimeout(setPositionFooter, 100);
-        // });
+        store.dispatch({
+            type: actionType.setChatWindow,
+            isOpenChatWindow: false,
+        });
+        store.dispatch({
+            type: actionType.setIsChatAutoUpdate,
+            isChatAutoUpdate: false,
+        });
+
+        store.subscribe(function () {
+            if (store.getState().publishFunctionMsg == "chattingRoomListInfo") {
+                let chat = new ChattingLogic();
+                chat.getRoomList((res) => {
+                    console.log(res);
+                    this.setChattingRoomListInfo(res.data);
+                    store.dispatch({
+                        type: actionType.chattingRoomListInfo,
+                        chattingRoomListInfo: res.data,
+                    });
+                });
+
+                store.dispatch({
+                    type: actionType.publishFunctionMsg,
+                    publishFunctionMsg: "",
+                });
+            }
+        }.bind(this));
+    }
+
+
+    setChattingRoomListInfo = (data) => {
+        this.setState({
+            chattingRoomListInfo: data,
+        });
     }
 
 
@@ -208,15 +242,44 @@ class App extends Component {
                                     isOpenChatWindow: false,
                                 });
                             } else {
-                                gsap.to("div.chatting div.chattingWindow", {
-                                    transform: "scale(1)",
-                                    opacity: 1,
-                                    duration: duration,
-                                    ease: ease,
-                                });
-                                store.dispatch({
-                                    type: actionType.setChatWindow,
-                                    isOpenChatWindow: true,
+                                //통신먼저 하고 결과값으로 액션.
+                                let chat = new ChattingLogic();
+                                chat.getRoomList((res) => {
+                                    console.log(res);
+                                    /*
+                                    0: {num: "33", user1: "yangyk7364", user2: "sanghee"}
+                                    1: {num: "34", user1: "3color", user2: "yangyk7364"}
+                                    2: {num: "50", user1: "yangyk7364", user2: "asdf"}
+                                    * */
+
+                                    /*//여기서 res.data.map 돌면서 lastMsg get.
+                                    res.data.map((e, i) => {
+                                        chat.getLastMsg(e.num, (res) => {
+
+                                        });
+                                    });*/
+
+                                    gsap.to("div.chatting div.chattingWindow", {
+                                        transform: "scale(1)",
+                                        opacity: 1,
+                                        duration: duration,
+                                        ease: ease,
+                                    });
+                                    store.dispatch({
+                                        type: actionType.setChatWindow,
+                                        isOpenChatWindow: true,
+                                    });
+                                    store.dispatch({
+                                        type: actionType.chattingRoomListInfo,
+                                        chattingRoomListInfo: res.data,
+                                    });
+                                    store.dispatch({
+                                        type: actionType.publishFunctionMsg,
+                                        publishFunctionMsg: "changeChatAction",
+                                    });
+                                    this.setState({
+                                        chattingRoomListInfo: res.data,
+                                    });
                                 });
                             }
                         }}
@@ -229,7 +292,7 @@ class App extends Component {
                              opacity: "0",
                          }}
                     >
-                        <ChatCompPage/>
+                        <ChatCompPage chattingRoomListInfo={this.state.chattingRoomListInfo}/>
                     </div>
                 </div>
                 <div className="mainFrame"
@@ -260,12 +323,13 @@ class App extends Component {
                         <Route path="/notice/content/:num?" component={NoticeContent}/>
                         <Route path="/notice/update/:num?" component={NoticeUpdate}/>
                         <Route path="/noticeInsert" component={NoticeAddForm}/>
-                        <Route path="/reservation/:name?" component={ReservationPageComp}/>
-                        <Route path="/carReservation/:name?" component={RentCarPageComp}/>
-                        <Route path="/shipReservation/:name?" component={ShipPageComp}/>
+                        <Route path="/air/:name?" component={ReservationPageComp}/>
+                        <Route path="/car/:name?" component={RentCarPageComp}/>
+                        <Route path="/ship/:name?" component={ShipPageComp}/>
                         <Route path="/tourlist/:name?/:pageNum?" component={TourPageComp}/>
                         <Route path="/shareplan/:name?/" component={SharePlanPageComp}/>
                         <Route path="/chattingroom/:num?" component={ChattingRoom}/>
+                        <Route path="/Recommend" component={RecommendCourse}/>
                     </Switch>
                     <div className="footerComp"
                     >

@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
 import store from '../../../redux/store';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -24,6 +23,7 @@ class RentCarItem extends Component
             address: '',
             wishday:'',
             wishtime:'',
+            money:'',
             alertOpen: false,
             alertSetOpen: false
         };
@@ -35,6 +35,7 @@ class RentCarItem extends Component
         let content = '렌트카,' + this.props.row.name;
         let wishday = this.refs.wishday.value;
         let wishtime = this.refs.wishtime.value;
+        let money = this.refs.money.value==''?null:this.refs.money.value;
         
         // console.log(memId);
         // console.log(content);
@@ -42,7 +43,7 @@ class RentCarItem extends Component
         if(wishday == '' || wishtime == '')
             alert("날짜와 시간을 모두 선택해주세요.");
         else{
-            axios.post(url, {memId, content, wishday, wishtime
+            axios.post(url, {memId, content, wishday, wishtime, money
             }).then(res => {
                 this.toggle();
                 this.setState({
@@ -118,7 +119,9 @@ class RentCarItem extends Component
                                 📆&nbsp;&nbsp;대여일
                                 <input type="date" class="form-control form-control-sm" ref="wishday"></input>
                                 ⏰&nbsp;&nbsp;대여 예정시간
-                                <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
+                                <input type="time" class="form-control form-control-sm" ref="wishtime"></input>
+                                💰&nbsp;&nbsp;<b>비용</b>
+                                <input type="text" class="form-control form-control-sm" ref="money"/><br/>
                             </div>
                         </MDBModalBody>
                         <MDBModalFooter>

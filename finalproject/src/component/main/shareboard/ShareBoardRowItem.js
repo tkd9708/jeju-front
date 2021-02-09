@@ -90,7 +90,7 @@ class ShareBoardRowItem extends Component {
             alertSetOpen: false
         }
 
-        
+
         store.dispatch({
             type: actionType.setMainView,
             mainView: mainViewType.ShareBoard,
@@ -106,7 +106,7 @@ class ShareBoardRowItem extends Component {
 
         axios.get(url
         ).then(res => {
-            console.log("getAnswerCount() res", res);
+            // console.log("getAnswerCount() res", res);
             this.setState({
                 answerCount: res.data
             });
@@ -358,12 +358,13 @@ class ShareBoardRowItem extends Component {
         let content = this.props.row.addr;
         let wishday = this.refs.wishday.value;
         let wishtime = this.refs.wishtime.value;
+        let money = this.refs.money.value==''?null:this.refs.money.value;
 
         console.log(this.refs.wishday.value);
         if(wishday == '' || wishtime == '')
             alert("날짜와 시간을 모두 선택해주세요.");
         else{
-            axios.post(url, {memId, shareNum, content, wishday, wishtime})
+            axios.post(url, {memId, shareNum, content, wishday, wishtime, money})
             .then(res=>{
                 this.toggle();
                 this.setState({
@@ -373,7 +374,7 @@ class ShareBoardRowItem extends Component {
                 console.log("spotwish insert 오류 : " + err);
             })
         }
-        
+
     }
 
     /*
@@ -427,13 +428,13 @@ class ShareBoardRowItem extends Component {
                                 <MDBIcon icon="utensils" className="pr-2" />
                                 Food
                             </h6>:""}
-                            
+
                             {row.subject.split(",")[0]=="Cafe"?
                             <h6 className="font-weight-bold pink-text">
                                 <MDBIcon icon="mug-hot" className="pr-2" />
                                 Cafe
                             </h6>:""}
-                            
+
                             {row.subject.split(",")[0]=="Bar"?
                             <h6 className="font-weight-bold blue-text">
                                 <MDBIcon icon="glass-cheers" className="pr-2" />
@@ -452,13 +453,13 @@ class ShareBoardRowItem extends Component {
                 {/* //header 부분에 텍스트를 입력한다. */}
                 <MDBModal isOpen={this.state.open} toggle={this.toggle} size="lg" position="bottom">
                     <MDBModalHeader toggle={this.toggle}>
-                        
+
                         {row.subject.split(",")[0]=="Food"?
                             <b className="green-text ShareModalCategory"><MDBIcon icon="utensils" className="pr-2" />Food</b>:""}
-                            
+
                             {row.subject.split(",")[0]=="Cafe"?
                             <b className="pink-text ShareModalCategory"><MDBIcon icon="mug-hot" className="pr-2" />Cafe</b>:""}
-                            
+
                             {row.subject.split(",")[0]=="Bar"?
                             <b className="blue-text ShareModalCategory"><MDBIcon icon="glass-cheers" className="pr-2" />Bar</b>:""}
 
@@ -556,7 +557,9 @@ class ShareBoardRowItem extends Component {
                                     🗓&nbsp;&nbsp;여행 날짜
                                     <input type="date" class="form-control form-control-sm" ref="wishday"></input>
                                     ⏰&nbsp;&nbsp;예정 시간
-                                    <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
+                                    <input type="time" class="form-control form-control-sm" ref="wishtime"></input>
+                                    💰&nbsp;&nbsp;<b>비용</b>
+                                    <input type="text" class="form-control form-control-sm" ref="money"/><br/>
                                     <div style={{textAlign: 'center'}}>
                                         <MDBBtn color="primary" onClick={this.insertWish.bind(this)}>추가</MDBBtn>
                                     </div>
@@ -565,7 +568,7 @@ class ShareBoardRowItem extends Component {
                         </div>
                     </MDBPopover>
                     :""}
-                    
+
                     </MDBModalFooter>
                 </MDBModal>
 

@@ -21,7 +21,9 @@
     }
     .mypagePassBtn{
         font-size: 0.5rem;
-        height: 7ch;
+        height: 5.5ch;
+        margin: 0 5px !important;
+        padding: 3px 15px !important;
     }
     /* 업데이트 폼 */
     #MypageUpdateForm{
@@ -93,7 +95,9 @@
     }
     .mypagePassBtn{
         font-size: 0.5rem;
-        height: 7ch;
+        height: 5.5ch;
+        margin: 0 5px !important;
+        padding: 3px 15px !important;
     }
     /* 업데이트 폼 */
     #MypageUpdateForm{
@@ -162,6 +166,7 @@
     .mypagePassBtn{
         font-size: 0.8rem;
         height: 6ch;
+        margin: 0 5px !important;
     }
 
     /* 업데이트 폼 */
@@ -228,7 +233,8 @@
         font-size: 1.5rem !important;
     }
     .mypagePassBtn{
-        height: 5ch;
+        height: 6ch;
+        margin: 0 5px !important;
     }
 
     /* 업데이트 폼 */

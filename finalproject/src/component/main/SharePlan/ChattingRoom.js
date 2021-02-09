@@ -1,143 +1,305 @@
 import React, {Component, useState, useEffect} from "react";
 import './Chat.css';
 import axios from 'axios';
-import {URL} from "../../../redux/config";
+import {actionType, URL} from "../../../redux/config";
 import {withRouter} from "react-router-dom";
 import store from "../../../redux/store";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import gsap from "gsap";
+import gsap, {Quint} from "gsap";
+import noProfile from "../../../image/noProfile.png";
+import ChattingLogic from "../../../ChattingLogic";
 
-const ChattingRoom = ({match}) => {
-    const [roomNum, setRoomNum] = useState(0);//useState(match.params.num);
-    const [sessionId, setSessionId] = useState('');
-    const [msg, setMsg] = useState('');
-    const [msgList, setMsgList] = useState([]);
+const ChattingRoom = (props) => {
+    // console.log("ChattingRoom props", props);
+    const [msg, setMsg] = useState(''); //to send.
+    const [msgList, setMsgList]
+        = useState(store.getState().selectedChattingRoomMsgList == undefined
+        ? []
+        : store.getState().selectedChattingRoomMsgList); //loaded msg list.
+    const [msgListCount, setMsgListCount] = useState(store.getState().selectedChattingRoomMsgList == undefined
+        ? 0
+        : store.getState().selectedChattingRoomMsgList.length);
+    let loginId = store.getState().loginId;
+    let selectedRoomNum = store.getState().selectedRoomNum;
+    let intervalContainer = null;
+    let preMsgCnt, curMsgCnt = 0;
+
 
     useEffect(() => {
+        printCommentEachOther();
+        return (() => {
+            setScrollBottom();
+        })
+    }, [selectedRoomNum]);
 
-        // wsOpen();
-    });
+    useEffect(() => {
+        return (() => {
+            setScrollBottom();
+        })
+    }, [msgListCount]);
 
     const handleChange = (e) => {
         setMsg(e.target.value);
     }
 
-    var ws;
+    const printCommentEachOther = () => {
+        //통신.
+        let chat = new ChattingLogic();
+        chat.getMsgList((res) => {
+            console.log(res.data.length, store.getState());
 
-    function wsOpen() {
-        //웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
-        ws = new WebSocket("ws://localhost:9002/chating/" + roomNum);
-
-        wsEvt();
-    }
-
-    function wsEvt() {
-        ws.onopen = function (data) {
-            //소켓이 열리면 동작
-        }
-
-        ws.onmessage = function (data) {
-            //메시지를 받으면 동작
-            var msg = data.data;
-            if (msg != null && msg.trim() != '') {
-                var d = JSON.parse(msg);
-                if (d.type == "getId") {
-                    var si = d.sessionId != null ? d.sessionId : "";
-                    // console.log(d.sessionId);
-                    if (si != '') {
-                        setSessionId(si);
-                    }
-                } else if (d.type == "message") {
-
-                    console.log(d);
-
-                    var listEl = document.getElementById('chattingBoard');
-                    var fragment = document.createDocumentFragment();
-                    var el = document.createElement('p');
-                    var itemStr = '';
-                    if (d.sessionId == sessionId) {
-                        itemStr = "<span>나 :" + d.msg + "</span>";
-                        el.innerHTML = itemStr;
-                        el.className = 'me';
-                    } else {
-                        itemStr = "<span>" + d.userName + " :" + d.msg + "</span>";
-                        el.innerHTML = itemStr;
-                        el.className = 'others';
-                    }
-                    fragment.appendChild(el);
-                    listEl.appendChild(fragment);
-
-                } else {
-                    console.warn("unknown type!")
+            if (store.getState().selectedChattingRoomMsgList) {
+                if (res.data.length != store.getState().selectedChattingRoomMsgList.length) {
+                    setMsgListCount(res.data.length);
                 }
+            } else {
+                setMsgListCount(res.data.length);
             }
+
+            store.dispatch({
+                type: actionType.selectedChattingRoomMsgList,
+                selectedChattingRoomMsgList: res.data,
+            });
+            setMsgList(res.data);
+        });
+
+        if (!store.getState().isChatAutoUpdate) {
+            store.dispatch({
+                type: actionType.setIsChatAutoUpdate,
+                isChatAutoUpdate: true,
+            });
+
+            intervalContainer = window.setInterval(() => {
+                //해당 스레드는 하나만 돌게 한다.
+                console.log("store.getState().isOpenChatWindow", store.getState().isOpenChatWindow);
+                if (!store.getState().isOpenChatWindow) {
+                    //창이 닫혀있을떄. -> 백그라운드로.
+                    // window.clearTimeout(_setTimeOutObj);
+                } else {
+                    //창이 떠있을떄. -> 채팅창 업뎃이트.
+                    printCommentEachOther();
+                }
+
+            }, 5000);
         }
 
-        // document.addEventListener("keypress", function (e) {
-        //     if (e.keyCode == 13) { //enter press
-        //         this.send();
-        //     }
-        // });
     }
 
+    const sendMessage = () => {
+        if (msg.length == 0) {
+            return;
+        }
 
-    // function send() {
-    //     var option = {
-    //         type: "message",
-    //         roomNum: roomNum,
-    //         sessionId: sessionId,
-    //         userName: store.getState().loginId,
-    //         msg: msg
-    //     }
-    //     ws.onopen = () => ws.send(JSON.stringify(option))
-    //     setMsg('');
-    // }
+        let chat = new ChattingLogic();
+        chat.sendMessage(msg, (res) => {
+            printCommentEachOther();
+        });
+        setMsg("");
+    }
+
+    const setScrollBottom = () => {
+        console.log("setScrollBottom()");
+
+        window.setTimeout(() => {
+            //div.container div#chattingBoard
+            let chattingBoard = document.getElementById("chattingBoard");
+            console.log("setScrollBottom()", chattingBoard);
+
+            if (chattingBoard) {
+                chattingBoard.scrollTo(0, chattingBoard.scrollHeight);
+            }
+        }, 500);
+    }
 
     return (
         <div id="container"
-             class="container"
+             className="container"
              style={{
                  float: "right",
              }}
         >
-            {/* <h3>
+            <h3>
                 <ArrowBackIcon
                     className="backButton"
-                    onClick={()=>{
+                    onClick={() => {
                         // document.querySelector(".chattingWindow").scrollTo(0,0);
                         gsap.to(".containerRoot", {
                             scrollTrigger: ".containerRoot",
                             x: 0,
-                            duration:1,
+                            duration: 1,
+                            ease: Quint.easeInOut,
                         });
                     }}
-                />&nbsp;&nbsp;누구 님과의 채팅방
+                />&nbsp;&nbsp;{props.selectedFriend}
             </h3>
 
 
+            {/*<input type="hidden" id="sessionId" value={sessionId}/>*/}
+            <input type="hidden" id="roomNum" value={store.getState().selectedRoomNum}/>
 
-            <input type="hidden" id="sessionId" value={sessionId}/>
-            <input type="hidden" id="roomNum" value={roomNum}/>
-
-            <div id="chattingBoard" class="chatting">
-
+            <div id="chattingBoard" className="chattingBoard">
+                {msgList.map((e, i) => {
+                    let _date = new Date(e.writeday);
+                    let _strTime = _date.getHours() + ":" + _date.getMinutes();
+                    if (e.sender == loginId) {
+                        //나.
+                        return (
+                            <div className="myMsg formMsg" key={i}>
+                                <table>
+                                    <tbody>
+                                    <tr style={{width: "100%"}}>
+                                        {/*<td valign={"bottom"} align={"right"}>
+                                            <b style={{color: "yellow"}}
+                                            >1</b>&nbsp;
+                                            <br/>
+                                            <b>{_strTime}</b>&nbsp;
+                                        </td>*/}
+                                        {/*<td valign={"baseline"} align={"right"}*/}
+                                        <td valign={"baseline"}
+                                            className="myMsgBox"
+                                        >
+                                            <div className="msgText">
+                                                <b>{e.msg}</b>
+                                            </div>
+                                            <div className="msgTime">
+                                                <b>{_strTime}</b>&nbsp;
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        )
+                    } else {
+                        //상대방.
+                        return (
+                            <div className="otherMsg formMsg" key={i}>
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td rowSpan={2} valign={"top"}>
+                                            <img src={noProfile} className="profileImg"/>
+                                        </td>
+                                        <td>
+                                            <b>{e.sender}</b>
+                                        </td>
+                                        <td rowSpan={2} valign={"bottom"}>
+                                            &nbsp;<b>{_strTime}</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div className="msgText">
+                                                <b>{e.msg}</b>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        )
+                    }
+                })}
             </div>
 
+            {/* input */}
             <div id="yourMsg">
-                <table class="inputTable">
-                    <tr>
-                        <th>메시지</th>
-                        <th><input id="chatting" name="msg" value={msg} placeholder="보내실 메시지를 입력하세요."
-                                   onChange={handleChange}/></th>
-                        <th>
-                            <button onClick={send} id="sendBtn">보내기</button>
+                <table className="inputTable">
+                    <tbody>
+                    <tr style={{
+                        width: "100%"
+                    }}>
+                        <th style={{
+                            width: "80%"
+                        }}>
+                            <input id="chatting" name="msg"
+                                   value={msg} placeholder="보내실 메시지를 입력하세요."
+                                   onChange={handleChange}
+                                   onKeyPress={(e) => {
+                                       if (e.code == "Enter") {
+                                           sendMessage();
+                                       }
+                                   }}
+                                   style={{
+                                       width: "100%",
+                                       height: "40px",
+                                   }}
+                            />
+                        </th>
+                        <th style={{
+                            width: "20%"
+                        }}>
+                            <button onClick={sendMessage}
+                                    id="sendBtn"
+                                    style={{
+                                        width: "100%",
+                                        height: "40px",
+                                    }}
+                            >보내기
+                            </button>
                         </th>
                     </tr>
+                    </tbody>
                 </table>
-            </div> */}
+            </div>
         </div>
     )
 }
 
 export default ChattingRoom;
 
+
+/*
+
+<div className="otherMsg formMsg">
+                    <table>
+                        <tr>
+                            <td rowSpan={2} valign={"top"}>
+                                <img src={noProfile} className="profileImg"/>
+                            </td>
+                            <td>
+                                <b>name</b>
+                            </td>
+                            <td rowSpan={2} valign={"bottom"}>
+                                &nbsp;<b>99:88</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div className="msgText">
+                                    <b>
+                                        sdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                    </b>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div className="myMsg formMsg">
+                    <table>
+                        <tr style={{width: "100%"}}>
+                            <td valign={"bottom"} align={"right"}>
+                                <b style={{color: "yellow"}}
+                                >1</b>&nbsp;
+                                <br/>
+                                <b>99:88</b>&nbsp;
+                            </td>
+                            <td valign={"bottom"} align={"right"} style={{width: "70%"}}>
+                                <div className="msgText" align={"left"}>
+                                    <b>
+                                        sdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                        asdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdf
+                                    </b>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+* */

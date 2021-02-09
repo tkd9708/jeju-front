@@ -50,13 +50,26 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
         this.groupOfDay = value;
       }
 
-      getList=()=>{
-        let url = URL + "/wish/schedulelist?memId="+store.getState().loginId + "&wishday=" + this.props.YM ;
-        console.log("월별 가져오기 : " +  this.props.YM);
+    //   getList=()=>{
+    //     let url = URL + "/wish/schedulelist?memId="+store.getState().loginId + "&wishday=" + this.props.YM ;
+    //     console.log("월별 가져오기 : " +  this.props.YM);
+        
+    //     axios.get(url)
+    //     .then(res=>{
+    //       this.setState({
+    //           clist: res.data
+    //       });
+    //   }).catch(err=>{
+    //     console.log("목록 오류:"+err);
+    //   })
+    // }
+
+    getList=()=>{
+        let url = URL + "/wish/schedulemonthlist?memId="+store.getState().loginId + "&wishday=" + this.props.YM ;
+        // console.log("월별 가져오기 : " +  this.props.YM);
         
         axios.get(url)
         .then(res=>{
-        //   console.log(" schedulelist 출력:"+res.data);
           this.setState({
               clist: res.data
           });
@@ -172,8 +185,9 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
                         <MDBModalHeader toggle={this.listToggle} className="RCA-planAddModal">일정 목록</MDBModalHeader>
                         <MDBModalBody>
                             <div className="RCA-planAddModal">
+                                {/* <ScheduleList clist={this.state.clist}></ScheduleList> */}
                                 {this.props.clist.map((row)=>(
-                                    <ScheduleList row={row} groupOfDay={this.groupOfDay} setGroupOfDay={this.setGroupOfDay}></ScheduleList>
+                                    <ScheduleList row={row} YM={this.props.YM}></ScheduleList>
                                 ))}
                             </div>
                         </MDBModalBody>
