@@ -5,6 +5,7 @@ import store from "../../../redux/store";
 import { URL, actionType } from "../../../redux/config";
 import ReactAnimatedWeather from 'react-animated-weather';
 import OPENNURI from "../../../image/img_opentype01.png";
+import ColorSkycons, { ColorSkyconsType } from 'react-color-skycons'
 
 // ReactAnimatedWeather
 const defaults = {
@@ -14,6 +15,12 @@ const defaults = {
     animate: true
 };
 // 리액트AnimatedWeather
+
+// ColorSkycons
+const svgProps = {
+    style: { backgroundColor: 'blue' },
+}
+// ColorSkycons
 
 // 날짜
 let today = new Date();
@@ -83,6 +90,7 @@ class Weather extends Component {
             c_weatherInfo_3: [], // 초단기실황조회 전체 날씨 정보3
             c_weatherInfo_4: [], // 초단기실황조회_2 전체 날씨 정보4
             c_weatherInfo_5: [], // 초단기예보조회 전체 날씨 정보5
+            c_weatherInfo_6: [], // 동네예보조회 전체 날씨 정보6
             jejuGridList: [], // 초기 리스트는 비어있습니다.
             time: '',
             selectBoxValue: '?',
@@ -442,22 +450,47 @@ class Weather extends Component {
         queryParams_5 += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent(_ny);
 
         axios.get("/VilageFcstInfoService/getUltraSrtFcst" + queryParams_5)
-        .then(res5 => {
-            console.log("초단기예보조회 : " + res5.data.response.body.items.item[0].category);
-            console.log("/VilageFcstInfoService/getUltraSrtFcst" + queryParams_5);
+            .then(res5 => {
+                console.log("초단기예보조회 : " + res5.data.response.body.items.item[0].category);
+                console.log("/VilageFcstInfoService/getUltraSrtFcst" + queryParams_5);
 
+                    // 날씨 클래스 내부 state에 정보 저장한다
+                    this.setState({
+                        c_weatherInfo_5: res5.data.response.body.items.item,
+                    });
+                    // 날씨 클래스 내부 state에 정보 저장한다
+                })
+                .catch(err => {
+                    console.log("초단기예보조회 error : " + err);
+                    alert("다시 시도해주세요.\n : " + err);
+                });
+        
+        var url_6 = 'http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst';
+        var queryParams_6 = '?' + encodeURIComponent('ServiceKey') + '=' + apikey;
+        queryParams_6 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
+        queryParams_6 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('14');
+        queryParams_6 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
+        queryParams_6 += '&' + encodeURIComponent('base_date') + '=' + encodeURIComponent(year+month+date);
+        queryParams_6 += '&' + encodeURIComponent('base_time') + '=' + encodeURIComponent(hours+'00');
+        queryParams_6 += '&' + encodeURIComponent('nx') + '=' + encodeURIComponent(_nx);
+        queryParams_6 += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent(_ny);
+
+        axios.get("/VilageFcstInfoService/getVilageFcst" + queryParams_6)
+        .then(res6 => {
+            console.log("/VilageFcstInfoService/getVilageFcst" + queryParams_6);
+                console.log("동네예보조회 : " + res6.data.response.body.items.item[0].category);
+                
                 // 날씨 클래스 내부 state에 정보 저장한다
                 this.setState({
-                    c_weatherInfo_5: res5.data.response.body.items.item,
+                    c_weatherInfo_6: res6.data.response.body.items.item,
                 });
                 // 날씨 클래스 내부 state에 정보 저장한다
             })
             .catch(err => {
-                console.log("초단기예보조회 error : " + err);
-                alert("다시 시도해주세요.\n : " + err);
+                console.log("동네예보조회 error : " + err);
+                alert("동네예보조회를 다시 시도해주세요.\n : " + err);
             });
-            
-        }
+    }
     
     _getJejuGridList = () => {
         // jeju_grid_list를 가지고 옵니다.
@@ -506,7 +539,19 @@ class Weather extends Component {
     render() {
         const { c_weatherInfo } = this.state;
         
-        const skyStatus = ['CLEAR_DAY', 'PARTLY_CLOUDY_DAY', 'CLOUDY', 'FOG', 'RAIN', 'SLEET', 'SLEET', 'SNOW'];
+        const skyStatus = ['CLEAR_DAY', 'PARTLY_CLOUDY_DAY', 'CLOUDY', 'FOG', 'RAIN', 'RAIN_SNOW', 'SLEET', 'SNOW'];
+        
+        const skyStatusEnum = Object.freeze({
+            CLEAR_DAY: 0,
+            PARTLY_CLOUDY_DAY: 1,
+            CLOUDY: 2,
+            FOG: 3,
+            RAIN: 4,
+            RAIN_SNOW: 5,
+            SLEET: 6,
+            SNOW: 7,
+        });
+
         const skyColor = ['goldenrod', 'grey', 'grey', 'black', 'grey', 'black', 'black', 'black'];
         
         var options = this.state.jejuGridList.map((jejuGrid) => {
@@ -524,11 +569,9 @@ class Weather extends Component {
             );
         });
         
-
-
         return (
             
-            <div style={{ fontSize : '.8rem' }}>
+            <div style={{ fontSize : '.7rem' }}>
 
                 {/* <select onChange={this.selectChange.bind(this)} value={this.state.selectBoxValue}>
                     { this.state.jejuGridList.map((jejuGrid, index) => (
@@ -582,13 +625,23 @@ class Weather extends Component {
                                 sky : row.sky === index + 1 ? findName : ''
                             })
                         ))} */}
+
                         <ReactAnimatedWeather
                             icon={skyStatus[row.sky-1]}
                             color={skyColor[row.sky-1]}
                             size={defaults.size}
                             animate={defaults.animate}
                         />
-                        {/* ({skyStatus[row.sky-1]}) */}
+                        
+                        <ColorSkycons
+                            type = { Object.keys(skyStatusEnum).find(name => skyStatusEnum[name] === row.sky-1) }
+                            animate = { defaults.animate }
+                            size = { defaults.size }
+                            resizeClear = { true }
+                            // {...svgProps}
+                        />
+                        
+                        ({skyStatus[row.sky-1]})
                         ({row.rhm})
                         ({row.pop})
                         ({row.rn})
@@ -622,9 +675,42 @@ class Weather extends Component {
                     ))
                 }
 
+                <br />
+                '동네예보조회'
+                {this.state.c_weatherInfo_6.length}개
+                <br/>
+                '발표시각' &nbsp; '예보일자' &nbsp; '예보시각' &nbsp; '자료구분문자' &nbsp; '예보 값'
+                <br />
+                {
+                    this.state.c_weatherInfo_6.map((row)=>(
+                        <>
+                            <span>
+                                {/* ({row.baseTime}) */}
+                                {row.baseTime}
+                            </span>
+                            <span>
+                                {/* ({row.fcstDate}) */}
+                                {row.fcstDate}
+                            </span>
+                            <span>
+                                {/* ({row.fcstTime}) */}
+                                {row.fcstTime}
+                            </span>
+                            <span>
+                                {/* ({row.category}) */}
+                                {row.category}
+                            </span>
+                            <span>
+                                {/* ({row.fcstValue}) */}
+                                {row.fcstValue}
+                            </span>
+                            <br />
+                        </>
+                    ))
+                }
                 <h4>Weather</h4>
 
-                <img src = { OPENNURI } />
+                <img src = { OPENNURI } alt='OPENNURI' />
             </div>
         )
     }

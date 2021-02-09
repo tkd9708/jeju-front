@@ -73,7 +73,6 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
           this.setState({
               clist: res.data
           });
-          console.log(res.data);
       }).catch(err=>{
         console.log("목록 오류:"+err);
       })
@@ -104,12 +103,6 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
     render() {
         const month = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
         
-        var tag='';
-        // for(var i=0; i<this.state.clist.length; i++){
-        //     tag += <div>;
-        //     tag += this.state.clist[i];
-        //     tag +
-        // }
 
         return (
             <div className="RCA-header-container">
@@ -192,12 +185,10 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
                         <MDBModalHeader toggle={this.listToggle} className="RCA-planAddModal">일정 목록</MDBModalHeader>
                         <MDBModalBody>
                             <div className="RCA-planAddModal">
-                                {tag}
                                 {/* <ScheduleList clist={this.state.clist}></ScheduleList> */}
-                                {/* {this.props.clist.map((row)=>(
-                                    <div>{row}</div>
-                                    <ScheduleList row={row} groupOfDay={this.groupOfDay} setGroupOfDay={this.setGroupOfDay}></ScheduleList>
-                                ))} */}
+                                {this.props.clist.map((row)=>(
+                                    <ScheduleList row={row} YM={this.props.YM}></ScheduleList>
+                                ))}
                             </div>
                         </MDBModalBody>
                         <MDBModalFooter>

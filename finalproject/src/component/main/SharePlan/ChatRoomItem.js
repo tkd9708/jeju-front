@@ -79,6 +79,12 @@ class ChatRoomItem extends Component {
     }
 
     render() {
+        /* row
+        lastMsg: "네그럼 오늘 일찍 집에 가세요  ㅃ"
+        num: "33"
+        user1: "yangyk7364"
+        user2: "sanghee"
+        * */
         const {row, idx} = this.props;
         let profileImg = profileImg_temp;
 
@@ -92,7 +98,15 @@ class ChatRoomItem extends Component {
                     </th>
                     <th className='room'
                         onClick={this.onClickChattingRoom.bind(this, row)}
-                    >{this.props.friend}</th>
+                    >
+                        <div>
+                            <b>
+                                {this.props.friend}
+                            </b>
+                            <br/>
+                            {row.lastMsg}
+                        </div>
+                    </th>
                     <th className='go'>
                         <button type='button' onClick={
                             () => {
