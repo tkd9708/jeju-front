@@ -67,6 +67,7 @@ export const actionType = {
     setIsChatAutoUpdate: "setIsChatAutoUpdate",
     publishFunctionMsg: "publishFunctionMsg",
     chattingRoomListInfo: "chattingRoomListInfo",
+    selectedChattingRoomMsgList: "selectedChattingRoomMsgList",
 }
 
 export const mainViewType = {

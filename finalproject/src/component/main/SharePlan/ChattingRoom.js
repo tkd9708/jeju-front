@@ -12,17 +12,31 @@ import ChattingLogic from "../../../ChattingLogic";
 const ChattingRoom = (props) => {
     // console.log("ChattingRoom props", props);
     const [msg, setMsg] = useState(''); //to send.
-    const [msgList, setMsgList] = useState([]); //loaded msg list.
+    const [msgList, setMsgList]
+        = useState(store.getState().selectedChattingRoomMsgList == undefined
+        ? []
+        : store.getState().selectedChattingRoomMsgList); //loaded msg list.
+    const [msgListCount, setMsgListCount] = useState(store.getState().selectedChattingRoomMsgList == undefined
+        ? 0
+        : store.getState().selectedChattingRoomMsgList.length);
     let loginId = store.getState().loginId;
     let selectedRoomNum = store.getState().selectedRoomNum;
+    let intervalContainer = null;
+    let preMsgCnt, curMsgCnt = 0;
+
 
     useEffect(() => {
         printCommentEachOther();
+        return (() => {
+            setScrollBottom();
+        })
     }, [selectedRoomNum]);
 
     useEffect(() => {
-        setScrollBottom();
-    }, [msgList]);
+        return (() => {
+            setScrollBottom();
+        })
+    }, [msgListCount]);
 
     const handleChange = (e) => {
         setMsg(e.target.value);
@@ -32,32 +46,66 @@ const ChattingRoom = (props) => {
         //통신.
         let chat = new ChattingLogic();
         chat.getMsgList((res) => {
+            console.log(res.data.length, store.getState().selectedChattingRoomMsgList.length);
+            if (res.data.length != store.getState().selectedChattingRoomMsgList.length) {
+                setMsgListCount(res.data.length);
+                // setScrollBottom();
+            }
+
+            store.dispatch({
+                type: actionType.selectedChattingRoomMsgList,
+                selectedChattingRoomMsgList: res.data,
+            });
             setMsgList(res.data);
         });
+
+        if (!store.getState().isChatAutoUpdate) {
+            store.dispatch({
+                type: actionType.setIsChatAutoUpdate,
+                isChatAutoUpdate: true,
+            });
+
+            intervalContainer = window.setInterval(() => {
+                //해당 스레드는 하나만 돌게 한다.
+                console.log("store.getState().isOpenChatWindow", store.getState().isOpenChatWindow);
+                if (!store.getState().isOpenChatWindow) {
+                    //창이 닫혀있을떄. -> 백그라운드로.
+                    // window.clearTimeout(_setTimeOutObj);
+                } else {
+                    //창이 떠있을떄. -> 채팅창 업뎃이트.
+                    printCommentEachOther();
+                }
+
+            }, 5000);
+        }
+
     }
 
     const sendMessage = () => {
         let chat = new ChattingLogic();
-        chat.sendMessage(msg, (res)=>{
+        chat.sendMessage(msg, (res) => {
             printCommentEachOther();
         });
         setMsg("");
-
     }
 
-    const setScrollBottom = ()=>{
-        //div.container div#chattingBoard
-        let chattingBoard = document.getElementById("chattingBoard");
-        console.log("setScrollBottom()", chattingBoard);
+    const setScrollBottom = () => {
+        console.log("setScrollBottom()");
 
-        if(chattingBoard){
-            chattingBoard.scrollTo(0, chattingBoard.scrollHeight);
-        }
+        window.setTimeout(() => {
+            //div.container div#chattingBoard
+            let chattingBoard = document.getElementById("chattingBoard");
+            console.log("setScrollBottom()", chattingBoard);
+
+            if (chattingBoard) {
+                chattingBoard.scrollTo(0, chattingBoard.scrollHeight);
+            }
+        }, 500);
     }
 
     return (
         <div id="container"
-             class="container"
+             className="container"
              style={{
                  float: "right",
              }}
@@ -81,15 +129,16 @@ const ChattingRoom = (props) => {
             {/*<input type="hidden" id="sessionId" value={sessionId}/>*/}
             <input type="hidden" id="roomNum" value={store.getState().selectedRoomNum}/>
 
-            <div id="chattingBoard" class="chatting">
+            <div id="chattingBoard" className="chattingBoard">
                 {msgList.map((e, i) => {
                     let _date = new Date(e.writeday);
                     let _strTime = _date.getHours() + ":" + _date.getMinutes();
                     if (e.sender == loginId) {
                         //나.
                         return (
-                            <div className="myMsg formMsg">
+                            <div className="myMsg formMsg" key={i}>
                                 <table>
+                                    <tbody>
                                     <tr style={{width: "100%"}}>
                                         {/*<td valign={"bottom"} align={"right"}>
                                             <b style={{color: "yellow"}}
@@ -109,14 +158,16 @@ const ChattingRoom = (props) => {
                                             </div>
                                         </td>
                                     </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         )
                     } else {
                         //상대방.
                         return (
-                            <div className="otherMsg formMsg">
+                            <div className="otherMsg formMsg" key={i}>
                                 <table>
+                                    <tbody>
                                     <tr>
                                         <td rowSpan={2} valign={"top"}>
                                             <img src={noProfile} className="profileImg"/>
@@ -135,6 +186,7 @@ const ChattingRoom = (props) => {
                                             </div>
                                         </td>
                                     </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         )
@@ -144,7 +196,8 @@ const ChattingRoom = (props) => {
 
             {/* input */}
             <div id="yourMsg">
-                <table class="inputTable">
+                <table className="inputTable">
+                    <tbody>
                     <tr style={{
                         width: "100%"
                     }}>
@@ -154,8 +207,8 @@ const ChattingRoom = (props) => {
                             <input id="chatting" name="msg"
                                    value={msg} placeholder="보내실 메시지를 입력하세요."
                                    onChange={handleChange}
-                                   onKeyDown={(e)=>{
-                                       if(e.code == "Enter"){
+                                   onKeyDown={(e) => {
+                                       if (e.code == "Enter") {
                                            sendMessage();
                                        }
                                    }}
@@ -178,6 +231,7 @@ const ChattingRoom = (props) => {
                             </button>
                         </th>
                     </tr>
+                    </tbody>
                 </table>
             </div>
         </div>

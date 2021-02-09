@@ -116,12 +116,13 @@ class DetailTourComp extends Component {
         let content = this.state.spotdata.roadaddr;
         let wishday = this.refs.wishday.value;
         let wishtime = this.refs.wishtime.value;
+        let money = this.refs.money.value==''?null:this.refs.money.value;
 
         console.log(this.refs.wishday.value);
         if(wishday == '' || wishtime == '')
             alert("날짜와 시간을 모두 선택해주세요.");
         else{
-            axios.post(url, {memId, spotId, content, wishday, wishtime})
+            axios.post(url, {memId, spotId, content, wishday, wishtime, money})
             .then(res=>{
                 this.setState({
                     open: false,
@@ -189,7 +190,9 @@ class DetailTourComp extends Component {
                         🗓&nbsp;&nbsp;여행 날짜
                         <input type="date" class="form-control form-control-sm" ref="wishday"></input>
                         ⏰&nbsp;&nbsp;예정 시간
-                        <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
+                        <input type="time" class="form-control form-control-sm" ref="wishtime"></input>
+                        💰&nbsp;&nbsp;<b>비용</b>
+                        <input type="text" class="form-control form-control-sm" ref="money"/><br/>
                         <div style={{textAlign: 'center'}}>
                             <button type="button" class="btn btn-warning spotmodalBtn" onClick={this.insertWish.bind(this)}><b>추가</b></button>
                         </div>
