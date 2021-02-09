@@ -92,7 +92,7 @@ const ChattingRoom = (props) => {
     const setScrollBottom = () => {
         console.log("setScrollBottom()");
 
-        window.setTimeout(()=>{
+        window.setTimeout(() => {
             //div.container div#chattingBoard
             let chattingBoard = document.getElementById("chattingBoard");
             console.log("setScrollBottom()", chattingBoard);
@@ -100,12 +100,12 @@ const ChattingRoom = (props) => {
             if (chattingBoard) {
                 chattingBoard.scrollTo(0, chattingBoard.scrollHeight);
             }
-        },500);
+        }, 500);
     }
 
     return (
         <div id="container"
-             class="container"
+             className="container"
              style={{
                  float: "right",
              }}
@@ -136,8 +136,9 @@ const ChattingRoom = (props) => {
                     if (e.sender == loginId) {
                         //나.
                         return (
-                            <div className="myMsg formMsg">
+                            <div className="myMsg formMsg" key={i}>
                                 <table>
+                                    <tbody>
                                     <tr style={{width: "100%"}}>
                                         {/*<td valign={"bottom"} align={"right"}>
                                             <b style={{color: "yellow"}}
@@ -157,14 +158,16 @@ const ChattingRoom = (props) => {
                                             </div>
                                         </td>
                                     </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         )
                     } else {
                         //상대방.
                         return (
-                            <div className="otherMsg formMsg">
+                            <div className="otherMsg formMsg" key={i}>
                                 <table>
+                                    <tbody>
                                     <tr>
                                         <td rowSpan={2} valign={"top"}>
                                             <img src={noProfile} className="profileImg"/>
@@ -183,6 +186,7 @@ const ChattingRoom = (props) => {
                                             </div>
                                         </td>
                                     </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         )
@@ -192,7 +196,8 @@ const ChattingRoom = (props) => {
 
             {/* input */}
             <div id="yourMsg">
-                <table class="inputTable">
+                <table className="inputTable">
+                    <tbody>
                     <tr style={{
                         width: "100%"
                     }}>
@@ -226,6 +231,7 @@ const ChattingRoom = (props) => {
                             </button>
                         </th>
                     </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
