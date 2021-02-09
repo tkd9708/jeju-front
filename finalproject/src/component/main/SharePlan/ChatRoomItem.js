@@ -3,7 +3,7 @@ import './Chat.css';
 import axios from 'axios';
 import {actionType, URL} from "../../../redux/config";
 import {withRouter} from "react-router-dom";
-import gsap, {Quint} from "gsap";
+import gsap, {Quint, TweenMax} from "gsap";
 import profileImg_temp from "../../../image/noProfile.png";
 import store from "../../../redux/store";
 import ChattingLogic from "../../../ChattingLogic";
@@ -50,6 +50,16 @@ class ChatRoomItem extends Component {
             duration: 1,
             ease: Quint.easeInOut,
         });
+
+        window.setTimeout(()=>{
+            //div.container div#chattingBoard
+            let chattingBoard = document.getElementById("chattingBoard");
+            console.log("setScrollBottom()", chattingBoard);
+
+            if (chattingBoard) {
+                chattingBoard.scrollTo(0, chattingBoard.scrollHeight);
+            }
+        },500);
 
         store.dispatch({
             type: actionType.setSelectedRoomNum,
