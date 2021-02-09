@@ -197,7 +197,7 @@ class DeskMyPage extends Component {
                     >
                         <Tab label="My Plan" {...this.tabProps(0)}/>
                         <Tab label="My Review" {...this.tabProps(1)}/>
-                        <Tab label="My Reservation" {...this.tabProps(2)}/>
+                        {/* <Tab label="My Reservation" {...this.tabProps(2)}/> */}
                         <Tab label="My Info" {...this.tabProps(3)}/>
                     </Tabs>
                     <TabPanel value={this.state.value} index={0}>
@@ -206,9 +206,9 @@ class DeskMyPage extends Component {
                     <TabPanel value={this.state.value} index={1}>
                         <MyReviwe/>
                     </TabPanel>
-                    <TabPanel value={this.state.value} index={2}>
+                    {/* <TabPanel value={this.state.value} index={2}>
                         <MyWishlist/>
-                    </TabPanel>
+                    </TabPanel> */}
                     <TabPanel value={this.state.value} index={3}>
                         {/* <MemberUpdateFormComp/> */}
                         {passOkTab}

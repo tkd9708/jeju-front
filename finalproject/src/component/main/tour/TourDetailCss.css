@@ -76,6 +76,10 @@ label {
         margin-right: 30px;
         text-align: center;
     }
+    #thumbIntro button {
+        padding: 5px 10px;
+        font-size: 7pt;
+    }
     #thumbRoad{
         font-size: 7pt;
     }
@@ -172,6 +176,10 @@ label {
         margin-left: 30px;
         margin-right: 30px;
         text-align: center;
+    }
+    #thumbIntro button {
+        padding: 8px 13px;
+        font-size: 8pt;
     }
     #thumbRoad{
         font-size: 7pt;
@@ -272,6 +280,10 @@ label {
         margin-right: 50px;
         text-align: center;
     }
+    #thumbIntro button {
+        padding: 10px 15px;
+        font-size: 9pt;
+    }
     #thumbRoad{
         font-size: 8pt;
     }
@@ -367,6 +379,9 @@ label {
         margin-right: 80px;
         text-align: center;
     }
+    #thumbIntro button {
+        font-size: 11pt;
+    }
     #thumbRoad{
         font-size: 9pt;
     }
@@ -460,6 +475,9 @@ label {
         margin-right: 100px;
         font-size: 13pt;
         text-align: center;
+    }
+    #thumbIntro button {
+        font-size: 11pt;
     }
     #thumbRoad{
         font-size: 10pt;

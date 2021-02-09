@@ -148,7 +148,7 @@ class MobileMyPage extends Component {
                         </ListItem>
                     </List>
                     <Divider />
-                    <List component="nav" aria-label="mypageReservation">
+                    {/* <List component="nav" aria-label="mypageReservation">
                         <ListItem button>
                             <ListItemIcon>
                                 <span className="fas fa-splotch"/>
@@ -159,7 +159,7 @@ class MobileMyPage extends Component {
                             <ListItemText primary=">" />
                         </ListItem>
                     </List>
-                    <Divider />
+                    <Divider /> */}
                 </div>
             </div>
             
