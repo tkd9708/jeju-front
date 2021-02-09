@@ -14,12 +14,21 @@ class RecommendCourse extends Component{
         return(
             
                 <div>
-                    <h1 style={{margin:'0 auto',marginLeft:'45%',marginBottom:'50px',marginTop:"50px"}}>일정 추천</h1>
+                    {/* <h1 style={{margin:'0 auto',marginLeft:'45%',marginBottom:'50px',marginTop:"50px"}}>일정 추천</h1> */}
+                    <div className="detailTitle">
+                        <span className="detailTitleContent" style={{backgroundColor: 'white', color: '#036E38'}}>
+                            &nbsp;&nbsp;일정 추천&nbsp;&nbsp;
+                        </span>
+                    </div>
+
+                    <div className="detailIntro" style={{color: "#888"}}>
+                         일정계획이 어려우신 회원분들을 위해 직접 제주도 명소를 추천드립니다.<br/>
+                    </div>
                     
                      {/* group num 1 (1박2일) */}
-                    <div style={{width:'1600px',marginBottom:'4%',marginLeft:"8%"}}>
+                    <div style={{width:'1600px',marginBottom:'4%',marginLeft:"8%",textAlign:'center'}}>
                             <div className="detailTitle">
-                                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
+                                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38',fontSize:'25px'}}>
                                         &nbsp;&nbsp;&nbsp;알찬 1박2일  제주도 코스&nbsp;&nbsp;&nbsp;
                                     </span>
                             </div>
@@ -29,7 +38,7 @@ class RecommendCourse extends Component{
                             <b>Day1</b>
                                 <Step>
                                     <StepLabel>
-                                        <b>성산 유채꽃 재배단지</b>
+                                        <b>사려니숲길</b>
                                         <div style={{width:'150px',height:'150px',border:'1px solid black'}}> 
                                         </div>
                                     </StepLabel>
@@ -71,9 +80,9 @@ class RecommendCourse extends Component{
 
 
                     {/* group num 2(3박4일) */}
-                    <div style={{width:'1600px',marginBottom:'30px',marginLeft:"8%"}}>          
+                    <div style={{width:'1600px',marginBottom:'30px',marginLeft:"8%",textAlign:'center'}}>          
                             <div className="detailTitle">
-                                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
+                                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38',fontSize:'25px'}}>
                                         &nbsp;&nbsp;&nbsp;제주도에서 즐기는 3박4일 예술여행&nbsp;&nbsp;&nbsp;
                                     </span>
                             </div>
@@ -175,9 +184,9 @@ class RecommendCourse extends Component{
 
                     
                      {/* group num 3(2박3일) */}
-                    <div style={{width:'1600px',marginBottom:'30px',marginLeft:'8%'}}>
+                    <div style={{width:'1600px',marginBottom:'30px',marginLeft:'8%',textAlign:'center'}}>
                            <div className="detailTitle">
-                                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
+                                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38',fontSize:'25px'}}>
                                         &nbsp;&nbsp;&nbsp;여유즐기는 2박3일 자유여행&nbsp;&nbsp;&nbsp;
                                     </span>
                             </div>
@@ -251,9 +260,9 @@ class RecommendCourse extends Component{
 
                     
                     {/* group num 4(3박4일) */}
-                    <div style={{width:'1600px',marginBottom:'30px',marginLeft:'8%'}}>
+                    <div style={{width:'1600px',marginBottom:'30px',marginLeft:'8%',textAlign:'center'}}>
                              <div className="detailTitle">
-                                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
+                                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38',fontSize:'25px'}}>
                                         &nbsp;&nbsp;&nbsp;제주 서부지역 3박4일 여행&nbsp;&nbsp;&nbsp;
                                     </span>
                             </div>
@@ -349,9 +358,9 @@ class RecommendCourse extends Component{
 
                                   
                     {/* group num 5(1박2일) */}
-                    <div style={{width:'1600px',marginBottom:'30px',marginLeft:'8%'}}>
+                    <div style={{width:'1600px',marginBottom:'30px',marginLeft:'8%',textAlign:'center'}}>
                             <div className="detailTitle">
-                                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
+                                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38',fontSize:'25px'}}>
                                         &nbsp;&nbsp;&nbsp;나혼자 여유로운 1박2일 제주도여행&nbsp;&nbsp;&nbsp;
                                     </span>
                             </div>
