@@ -3,6 +3,10 @@ import SharePlanSub from './SharePlanSub';
 import axios from 'axios';
 import {URL} from "../../../redux/config";
 import './SharePlanCss.css';
+import profile from './Img_profile.png';
+import SharePlanProfile from "./SharePlanProfile";
+
+
 
 class SharePlanRoot extends Component {
 
@@ -12,11 +16,18 @@ class SharePlanRoot extends Component {
 
         this.state={
             clist:[],
+            id:'',
+            
             //groupNum: this.props.row.groupNum
         }
         
     }
 
+    setName=(value)=>{
+        this.setState({
+            id:value
+        })
+    }
     // getList=()=>{
     //     let url=URL+"/plan/list";
     //     axios.get(url)
@@ -35,10 +46,10 @@ class SharePlanRoot extends Component {
 
     getGroupData=()=>{
         let url=URL+"/plan/groupdata?groupnum="+this.props.row.groupNum;
-        console.log("그룹넘버 : " + this.props.row.groupNum);
+        //console.log("그룹넘버 : " + this.props.row.groupNum);
         axios.get(url)
         .then(res=>{
-            console.log(res.data);
+            //console.log(res.data);
 
             this.setState({
                 clist:res.data
@@ -48,32 +59,49 @@ class SharePlanRoot extends Component {
           })
     }
 
+   
+
     componentDidMount(){
         this.getGroupData();
+        // this.getProfile();
     }
+
+   
+
 
 
     
     
     render(){
         const {row}=this.props.row;
-       // const {list}=this.props;
         const {day}=this.props.day;
-        //const {list}=this.props.list
-        // var wishday=row.wishday;
-        // var title=row.title;
+        
         return(
+            
+            <div>
+                {/* {this.props.row.memId} */}
+                
             <div className="slide-list-item">
-                {/* {row.groupNum} */}
+                <img src={profile} style={{width:100,height:100,marginRight:250}}/>
+                <span style={{position:"relative",right:310,fontSize:30}}>{this.state.id}</span>
+                <SharePlanProfile id={this.state.id}></SharePlanProfile>
+                
                 {this.state.clist.map((row)=>(
-                    <SharePlanSub row={row} day={day}></SharePlanSub>
+                    <SharePlanSub row={row} day={day} setName={this.setName.bind(this)}></SharePlanSub>
                 ))}
-                {/* <SharePlanSub glist={this.state.glist}></SharePlanSub> */}
+
+                
+                    
+                
+               
+
+               
                 
 
                 
                 
             </div>
+            </div> 
             
         )
     }
