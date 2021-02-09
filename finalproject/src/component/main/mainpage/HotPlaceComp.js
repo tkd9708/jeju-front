@@ -14,7 +14,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import BoardSample from "./BoardSample";
-import "../tour/TourCss.css"
+import "../tour/TourCss.css";
+import "./MainPageComp.css";
 import gsap from "gsap";
 
 import img_s_jeju from "../../../image/land_s/jeju_s.png";
