@@ -16,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import Chip from '@material-ui/core/Chip';
 import jejuImg from '../../../image/jeju8.jpg';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class SignupPageComp extends Component {
 
@@ -31,6 +32,7 @@ class SignupPageComp extends Component {
             pwCheck: "",//비밀번호 두개가 일치하는가
             name : '',
             gender: '',
+            birth: '2000-01-01',
             photo: '',
             addrdetail: '',
             email : '',
@@ -123,6 +125,7 @@ class SignupPageComp extends Component {
         var pass = this.state.password;
         var pwCheck = this.state.pwCheck;
         var gender = this.state.gender;
+        var birth = this.state.birth;
         var photo = this.state.photo;
         var address = this.state.fullAddress;
         var addrdetail = this.state.addrdetail;
@@ -131,7 +134,7 @@ class SignupPageComp extends Component {
         var hp = this.state.hp;
         let url = URL + "/member/insert";
 
-        if(id.trim()==='' || name.trim()==='' || pass.trim()==='' || pwCheck.trim()===''
+        if(id.trim()==='' || name.trim()==='' || pass.trim()==='' || pwCheck.trim()==='' || birth.trim()===''
             || gender.trim()==='' || address.trim()==='' || addrdetail.trim()==='' ||
             email.trim()==='' || email2.trim()==='' || hp.trim()===''){
                 
@@ -141,7 +144,7 @@ class SignupPageComp extends Component {
             if(this.state.idcanUse){
                 if(this.state.password === this.state.pwCheck){
                     axios.post(url, {
-                        id, name, pass, gender, photo, address, addrdetail, email, email2, hp  
+                        id, name, pass, gender, birth, photo, address, addrdetail, email, email2, hp  
                     })
                         .then(response => {
                             this.setState({
@@ -377,6 +380,14 @@ class SignupPageComp extends Component {
                         <tr>
                             <td className="mypageUpdateBtn" ref="woman" onClick={this.womanClick.bind(this)}>여자</td>
                             <td className="mypageUpdateBtn" ref="man" onClick={this.manClick.bind(this)}>남자</td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2">
+                                <Tooltip title="생년월일" arrow>
+                                    <input type="date" name = "birth" className="form-control SignupBirth" value = {this.state.birth} 
+                                        onChange={this.changeEvent.bind(this)}/>
+                                </Tooltip>
+                            </td>
                         </tr>
                         <tr>
                             <td colSpan="2" style={{padding: '0'}}>
