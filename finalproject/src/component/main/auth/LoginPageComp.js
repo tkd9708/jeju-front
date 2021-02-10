@@ -22,7 +22,7 @@ class LoginPageComp extends Component {
     constructor(props) {
         super(props);
         console.log("LoginPageComp constructor", props);
-        
+
         this.state={
             id:'',  //아이디를 저장하고 있을 state
             pass:'',
@@ -59,7 +59,7 @@ class LoginPageComp extends Component {
     // 값 변경시에는 setState 를 이용해야만 한다
     // 이벤트
     changeEvent=(e)=>{
-        
+
         // console.log(e.target.id+":"+e.target.value);
         // 만약 엔터 누를때만 변경되도록 하고 싶으면
         this.setState({
@@ -119,7 +119,7 @@ class LoginPageComp extends Component {
                         <div class="bird bird--four"></div>
                     </div>
                 </div>
-                
+
                 <div className="detailTitle">
                     <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
                         &nbsp;&nbsp;로그인&nbsp;&nbsp;
@@ -130,18 +130,24 @@ class LoginPageComp extends Component {
                     <h4 className="showIdResult">{this.state.showIdResult}</h4>
                 </div> */}
                 <br />
-                
+
                 <div id="LoginForm">
                     <table class="table table-bordered" style={{textAlign: 'center'}}>
                         <tr>
                             <td>
-                                <input type="text" name = "id" class="form-control" value = {this.state.id} onChange={this.changeEvent.bind(this)} 
+                                <input type="text" name = "id" class="form-control" value = {this.state.id} onChange={this.changeEvent.bind(this)}
                                     placeholder="아이디"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="password" name = "pass" class="form-control" value = {this.state.pass} onChange={this.changeEvent.bind(this)} 
+                                <input type="password" name = "pass" class="form-control" value = {this.state.pass}
+                                       onChange={this.changeEvent.bind(this)}
+                                       onKeyPress={(e)=>{
+                                           if(e.code=="Enter"){
+                                               this.onLogin();
+                                           }
+                                       }}
                                     placeholder="비밀번호"/>
                             </td>
                         </tr>
@@ -164,7 +170,7 @@ class LoginPageComp extends Component {
                     <hr/>
                     {
                         this.state.googleOn ==true ?
-                            <GoogleLogoutBtnComp /> : 
+                            <GoogleLogoutBtnComp /> :
                             <GoogleLoginBtnComp />
                     }
                     <br/>
@@ -173,7 +179,7 @@ class LoginPageComp extends Component {
                     <KakaoLoginBtnComp3 />
                     <br/><br/>
                 </div>
-                
+
             </div>
         )
     }
