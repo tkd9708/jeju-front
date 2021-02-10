@@ -237,7 +237,7 @@ class ReviewItem extends Component {
                     className="ShareModalReviewProfile"
                     style={{borderRadius:'100%', border:'0.1px solid #ddd'}}
                   />
-                &nbsp;&nbsp;<b style={{fontWeight: '900'}}>{row.id}</b>&nbsp;&nbsp;
+                &nbsp;&nbsp;<b style={{fontWeight: '500'}}>{row.id}</b>&nbsp;&nbsp;
                 
                 {/* 수정버튼 */}
                 {row.id==store.getState().loginId?

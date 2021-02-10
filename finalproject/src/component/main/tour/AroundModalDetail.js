@@ -79,7 +79,7 @@ const AroundModalDetail=(props)=> {
               💰&nbsp;&nbsp;<b>비용</b>
               <input type="text" class="form-control form-control-sm" value={aroundwishmoney} onChange={wishmoneyChange}/><br/>
               <div style={{textAlign: 'center'}}>
-                <button type="button" class="btn btn-warning aroundmodalBtn" onClick={insertAround}><b>추가</b></button>
+                <button type="button" class="btn btn-dark-green aroundmodalBtn" onClick={insertAround}>추가</button>
             </div>
           </div>
 

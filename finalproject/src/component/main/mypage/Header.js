@@ -164,13 +164,13 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
                         <MDBModalBody>
                             <div className="RCA-planAddModal">
                                 {/* <span className="addtitle">일정 추가</span><br/> */}
-                                📆&nbsp;&nbsp;나의 일정
+                                📆&nbsp;&nbsp;<strong>나의 일정</strong>
                                 <input type="text" className="form-control" style={{height: '50px'}} ref="content"></input><br/>
-                                🗓&nbsp;&nbsp;여행 날짜
+                                🗓&nbsp;&nbsp;<strong>여행 날짜</strong>
                                 <input type="date" class="form-control form-control-sm" ref="wishday"></input><br/>
-                                ⏰&nbsp;&nbsp;예정 시간
+                                ⏰&nbsp;&nbsp;<strong>예정 시간</strong>
                                 <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
-                                💰&nbsp;&nbsp;예상 비용
+                                💰&nbsp;&nbsp;<strong>예상 비용</strong>
                                 <input type="text" class="form-control form-control-sm" ref="money"/>
                                 {/* <div style={{textAlign: 'center'}}>
                                     <button type="button" class="btn btn-warning planAddBtn" onClick={this.insertContent.bind(this)}><b>추가</b></button>

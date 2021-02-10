@@ -130,7 +130,7 @@ class MyPlanComp extends Component {
                 {this.state.todayList!=''?<span style={{color: '#333'}}>MyPlan on {this.today}</span>:<span>MyPlan</span>}
                         <br/>
                         {this.state.todayList!=''?
-                            <span style={{color: '#2BBBAD'}}>TODAY</span>
+                            <span style={{color: '#2BBBAD'}}><strong>TODAY</strong></span>
                         :""}
                         <List style={{width: '100%', overflow: 'scroll'}}>
                             {this.state.todayList!=''?this.state.todayList.map((row)=>(
@@ -166,18 +166,18 @@ class MyPlanComp extends Component {
             // </Box>
             this.state.todayList!='' && this.state.spotList!=''?
                 <div className="myPlanRight">
-                    <span>&nbsp;오늘의 <b>Spot</b></span>
+                    <span>&nbsp;오늘의 <strong style={{color: '#2BBBAD'}}>Spot</strong></span>
                     {list}
                 </div>
                 :this.state.nextList!='' && this.state.spotList!=''?
                     <div className="myPlanRight">
-                        <span>&nbsp;다가오는 <b>Spot</b></span>
+                        <span>&nbsp;다가오는 <strong style={{color: '#2BBBAD'}}>Spot</strong></span>
                         {list}
                     </div>:check==false?<div className="myPlanRight myPlanTop5">
-                            <span>&nbsp;오늘의 <b>TOP5</b></span>
+                            <span>&nbsp;오늘의 <strong style={{color: '#2BBBAD'}}>TOP5</strong></span>
                                 {list}
                             </div>:<div className="myPlanRight">
-                            <span>&nbsp;오늘의 <b>TOP5</b></span>
+                            <span>&nbsp;오늘의 <strong style={{color: '#2BBBAD'}}>TOP5</strong></span>
                                 {list}
                             </div>
             :<h2><Weather/></h2>
