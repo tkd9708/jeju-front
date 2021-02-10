@@ -259,7 +259,7 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
     div.hotPlaceComp div.hotPlace_location div.btn_go div.udo a {
         text-decoration: none;
         font-size: 25px;
-        color: black;
+        color: #333;
     }
 
     div.btn_go div.jeju {

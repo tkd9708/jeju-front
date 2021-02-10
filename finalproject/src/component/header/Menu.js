@@ -176,19 +176,18 @@ class Menu extends Component {
                             }}
                     >Join</NavLink>
                 </li> */}
-                
-                <li>
+                <li className="menuLi">
                     <NavLink exact to="/notice/1"
                             onClick={() => {
                                 console.log("Notice NavLink onClick");
                                 this.setMainView(mainViewType.Notice);
                             }}
-                    >Notice</NavLink>
-                    {/* >공지사항</NavLink> */}
+                    // >Notice</NavLink>
+                     >공지사항</NavLink> 
                 </li>
-                <li className="dropdown">
-                    <a className="dropdownTitle">Tour</a>
-                    {/* <a className="dropdownTitle">명소</a> */}
+                <li className="dropdown menuLi">
+                    {/* <a className="dropdownTitle">Tour</a> */}
+                    <a className="dropdownTitle">명소안내</a>
                         {/*<div class="dropdown-content" >*/}
                         <div className="dropdown-content" >
                             <a href="/tourlist/jeju/1">제주</a>
@@ -208,14 +207,14 @@ class Menu extends Component {
                             <a href="/tourlist/udo/1">우도</a>
                         </div>
                 </li>
-                <li>
+                {/* <li>
                         <NavLink exact to="/Recommend"
                                 onClick={() => {
                                     this.setMainView(mainViewType.Recommend);
                                 }}
-                        >Course</NavLink>
-                        {/* // >추천일정</NavLink> */}
-                    </li>
+                        // >Course</NavLink>
+                         >코스추천</NavLink>
+                    </li> */}
                 {/* <li>
                 <NavLink exact to="/share"
                             onClick={() => {
@@ -224,21 +223,22 @@ class Menu extends Component {
                             }}
                     >Share</NavLink>
                 </li> */}
-                <li className="dropdown">
-                    <a className="dropdownTitle">Share</a>
-                    {/* <a className="dropdownTitle">공유</a> */}
+                <li className="dropdown menuLi">
+                    {/* <a className="dropdownTitle">Share</a> */}
+                    <a className="dropdownTitle">소통공간</a>
                         <div className="dropdown-content" >
                             <a href="/share/1">맛집 공유</a>
                             <a href="/shareplan">일정 공유</a>
+                            <a href="/Recommend">코스 추천</a>
                         </div>
                 </li>
-                <li className="dropdown">
-                    <a className="dropdownTitle">Traffic</a>
-                    {/* <a className="dropdownTitle">교통</a> */}
+                <li className="dropdown menuLi">
+                    {/* <a className="dropdownTitle">Traffic</a> */}
+                    <a className="dropdownTitle">교통안내</a>
                         <div className="dropdown-content" >
-                            <a href="/air">Air</a>
-                            <a href="/car">Rentcar</a>
-                            <a href="/ship">Ship</a>
+                            <a href="/air">항공</a>
+                            <a href="/car">렌터카</a>
+                            <a href="/ship">우도 배편</a>
                         </div>
                     {/* <NavLink exact to="/reservation"
                             onClick={() => {
@@ -248,28 +248,28 @@ class Menu extends Component {
                     >Reservation</NavLink> */}
                 </li>
                 {this.state.logged ?
-                    <li className="dropdown">
-                        <a className="dropdownTitle">My</a>
-                        {/* <a className="dropdownTitle">내정보</a> */}
+                    <li className="dropdown menuLi">
+                        {/* <a className="dropdownTitle">My</a> */}
+                        <a className="dropdownTitle">내정보</a>
                         <div className="dropdown-content" >
-                            <a href="/mypage">MyPage</a>
+                            <a href="/mypage">마이페이지</a>
                             <a href="/" onClick={
                                 ()=>{
                                     console.log("Logout NavLink onClick");
                                     this.setMainView(mainViewType.MainPage);
                                     this.setLogOut();
                                 }
-                            }>Logout</a>
+                            }>로그아웃</a>
 
                         </div>
                     </li>:
-                    <li>
+                    <li className="menuLi">
                         <NavLink exact to="/login"
                                 onClick={() => {
                                     console.log("Login NavLink onClick");
                                     this.setMainView(mainViewType.Login);
                                 }}
-                        >Login</NavLink>
+                        >로그인</NavLink>
                     </li>
                     }
                 </ul>

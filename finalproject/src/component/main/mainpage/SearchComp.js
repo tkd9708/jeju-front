@@ -138,7 +138,7 @@ export default function SearchComp(props) {
                 </Select>
             </FormControl>
             <br/><br/>
-            <TextField id="outlined-basic" label="Input For Search." variant="outlined"
+            <TextField id="outlined-basic" label="관광지 검색" variant="outlined"
                        autoComplete="off" className={classes.root}
                        value={searchVal}
                        onChange={setSearchValHandler}

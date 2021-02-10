@@ -100,7 +100,7 @@ export default function BoardSample(props) {
     return (
         <div>
             <h1>&nbsp;&nbsp;&nbsp;&nbsp;{arrJejuLoc_ko[idx]}</h1>
-            {/* <hr/> */}
+            <hr/>
             <div className={classes.paperRoot}>
                 {spotList.map((row, i) => {
                     // console.log(i, row, props.history);

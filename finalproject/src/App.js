@@ -229,7 +229,7 @@ class App extends Component {
                     isStaticHeader: true
                 });
                 gsap.to("div.hide", {
-                    y: 70,
+                    y: 80,
                     duration: 1
                 });
             }
@@ -238,7 +238,7 @@ class App extends Component {
                 isStaticHeader: false
             });
             gsap.to("div.hide", {
-                y: -70,
+                y: -80,
                 duration: 1
             });
         }
