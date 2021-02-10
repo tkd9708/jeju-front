@@ -13,6 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MobileMenu from './MobileMenu';
+import MainTitle from '../../image/titleImage.png';
 
 class Menu extends Component {
 
@@ -154,7 +155,8 @@ class Menu extends Component {
                                 this.setMainView(mainViewType.MainPage);
                             }}
                     >
-                        Home
+                        {/* Home */}
+                        <img src={MainTitle}/>
                     </NavLink>
                 </li>
 
@@ -174,9 +176,19 @@ class Menu extends Component {
                             }}
                     >Join</NavLink>
                 </li> */}
-
+                
+                <li>
+                    <NavLink exact to="/notice/1"
+                            onClick={() => {
+                                console.log("Notice NavLink onClick");
+                                this.setMainView(mainViewType.Notice);
+                            }}
+                    >Notice</NavLink>
+                    {/* >공지사항</NavLink> */}
+                </li>
                 <li className="dropdown">
                     <a className="dropdownTitle">Tour</a>
+                    {/* <a className="dropdownTitle">명소</a> */}
                         {/*<div class="dropdown-content" >*/}
                         <div className="dropdown-content" >
                             <a href="/tourlist/jeju/1">제주</a>
@@ -201,7 +213,8 @@ class Menu extends Component {
                                 onClick={() => {
                                     this.setMainView(mainViewType.Recommend);
                                 }}
-                        >Recommend</NavLink>
+                        >Course</NavLink>
+                        {/* // >추천일정</NavLink> */}
                     </li>
                 {/* <li>
                 <NavLink exact to="/share"
@@ -213,6 +226,7 @@ class Menu extends Component {
                 </li> */}
                 <li className="dropdown">
                     <a className="dropdownTitle">Share</a>
+                    {/* <a className="dropdownTitle">공유</a> */}
                         <div className="dropdown-content" >
                             <a href="/share/1">맛집 공유</a>
                             <a href="/shareplan">일정 공유</a>
@@ -220,6 +234,7 @@ class Menu extends Component {
                 </li>
                 <li className="dropdown">
                     <a className="dropdownTitle">Traffic</a>
+                    {/* <a className="dropdownTitle">교통</a> */}
                         <div className="dropdown-content" >
                             <a href="/air">Air</a>
                             <a href="/car">Rentcar</a>
@@ -232,17 +247,10 @@ class Menu extends Component {
                             }}
                     >Reservation</NavLink> */}
                 </li>
-                <li>
-                    <NavLink exact to="/notice/1"
-                            onClick={() => {
-                                console.log("Notice NavLink onClick");
-                                this.setMainView(mainViewType.Notice);
-                            }}
-                    >Notice</NavLink>
-                </li>
                 {this.state.logged ?
                     <li className="dropdown">
                         <a className="dropdownTitle">My</a>
+                        {/* <a className="dropdownTitle">내정보</a> */}
                         <div className="dropdown-content" >
                             <a href="/mypage">MyPage</a>
                             <a href="/" onClick={

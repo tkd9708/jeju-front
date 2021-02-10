@@ -25,6 +25,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import "./Menu.css";
+import titleImage from '../../image/titleImage.png';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -302,10 +303,10 @@ function MobileMenu(props) {
             <MenuIcon/>
           </IconButton>
           <div className={classes.grow} />
-          <Typography className={classes.title} variant="b" noWrap>
+          {/* <Typography className={classes.title} variant="b" noWrap>
             제주 일상
-          </Typography>
-          
+          </Typography> */}
+          <img src={titleImage} style={{width: '20vw'}}/>
           <div className={classes.grow} />
           <div className={classes.sectionMobile}>
             <IconButton

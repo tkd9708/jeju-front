@@ -1,3 +1,9 @@
+/* @font-face {
+    font-family: "NotoSans-ExtraBold";
+    src: url("../../font/NotoSans-ExtraBold.ttf") format("truetype");
+    font-style: auto;
+} */
+
 /*flex*/
 ul.menu {
     display: flex;
@@ -7,15 +13,19 @@ ul.menu {
 }
 
 ul.menu li {
+    /* padding: 10px 0; */
     width: calc((100% / 7));
     background: rgba(255,255,255);
     transition: 0.7s;
+}
+.logo img {
+    width: 10vw;
 }
 
 ul.menu li a {
     display: block;
     font-weight: bold;
-    color: #5F5F5F;
+    color: #333;
     text-decoration: none;
     box-sizing: border-box;
     text-align: center;
@@ -54,7 +64,7 @@ div.hide {
 }
   
 .dropdown-content a {
-    color: black;
+    color: #333;
     text-decoration: none;
     width: 100%;
 }
@@ -114,7 +124,7 @@ div.hide {
         line-height: 50px;
     }
     ul.menu li a {
-        font-size: 1.1em;
+        font-size: 0.9em;
     }
     .dropdown-content {
         font-size: 8pt;
@@ -130,7 +140,7 @@ div.hide {
         line-height: 60px;
     }
     ul.menu li a {
-        font-size: 1.3em;
+        font-size: 1em;
     }
     .dropdown-content {
         font-size: 10pt;
@@ -143,14 +153,16 @@ div.hide {
 }
 @media only screen and (min-width:1023px){
     ul.menu {
-        line-height: 70px;
+        line-height: 80px;
+        height: 80px;
     }
     ul.menu li a {
         font-size: 1.5em;
+        font-weight: 900;
     }
     .dropdown-content {
         font-size: 10pt;
-        top: 70px;
+        top: 80px;
     }
     .dropdown-content a {
         line-height: 50px;
