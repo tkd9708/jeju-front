@@ -119,9 +119,10 @@ div.search-myplan div {
         height: 400px;
         padding: 20px;
         width: 30vw;
+        margin-top: 50px;
     }
     .hotPlaceComp {
-        margin-top: 100px;
+        margin-top: 50px;
     }
 }
 
@@ -207,14 +208,16 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
         display: flex;
         height: 750px;
         border-top: 1px solid #ddd;
-        padding: 20px;
+        padding: 50px;
     }
 
     div.hotPlaceComp div.hotPlace_sample {
         padding-left: 20px;
         overflow: auto;
     }
-
+    div.hotPlace_sample h1 {
+        font-weight: 900;
+    }
     div.hotPlaceComp div.hotPlace_location div.btn_go {
         transform: scale(1);
         position: absolute;
@@ -250,7 +253,7 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
     div.hotPlaceComp div.hotPlace_location div.btn_go div a {
         text-decoration: none;
         font-size: 23px;
-        color: gold;
+        color: #efefef;
     }
 
     div.hotPlaceComp div.hotPlace_location div.btn_go div.udo a {
@@ -341,7 +344,7 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
     div.hotPlaceComp div.hotPlace_location {
         /*width: 40%;*/
         min-width: 750px;
-        border-right: 1px solid;
+        /* border-right: 1px solid #ddd; */
         padding-right: 20px;
 
     }
@@ -353,8 +356,9 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
     div.hotPlaceComp {
         display: flex;
         flex-wrap: wrap;
-        padding: 20px;
+        padding: 50px;
         height: 1230px;
+        margin-top: 50px;
     }
 
     div.hotPlaceComp div.hotPlace_location {
@@ -364,10 +368,12 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
     div.hotPlaceComp div.hotPlace_sample {
         height: 720px;
         padding: 0px;
-        margin-top: 20px;
+        /* margin-top: 100px; */
         overflow: scroll;
     }
-
+    div.hotPlace_sample h1 {
+        font-weight: 900;
+    }
     div.hotPlaceComp div.hotPlace_location div.btn_go {
         transform: scale(1);
         position: absolute;
@@ -401,7 +407,7 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
     div.hotPlaceComp div.hotPlace_location div.btn_go div a {
         text-decoration: none;
         font-size: 23px;
-        color: gold;
+        color: #efefef;
     }
 
     div.hotPlaceComp div.hotPlace_location div.btn_go div.udo a {
@@ -510,7 +516,9 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
         overflow: scroll;
         /*transform: scale(0.8);*/
     }
-
+    div.hotPlace_sample h1 {
+        font-weight: 900;
+    }
     div.hotPlaceComp div.hotPlace_location div.btn_go {
         transform: scale(0.8);
         position: absolute;
@@ -544,7 +552,7 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
     div.hotPlaceComp div.hotPlace_location div.btn_go div a {
         text-decoration: none;
         font-size: 23px;
-        color: gold;
+        color: #efefef;
     }
 
     div.hotPlaceComp div.hotPlace_location div.btn_go div.udo a {
@@ -652,7 +660,9 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
         margin-top: 20px;
         overflow: scroll;
     }
-
+    div.hotPlace_sample h1 {
+        font-weight: 900;
+    }
     div.hotPlaceComp div.hotPlace_location div.btn_go {
         transform: scale(0.5);
         position: absolute;
@@ -686,7 +696,7 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
     div.hotPlaceComp div.hotPlace_location div.btn_go div a {
         text-decoration: none;
         font-size: 23px;
-        color: gold;
+        color: #efefef;
     }
 
     div.hotPlaceComp div.hotPlace_location div.btn_go div.udo a {
@@ -794,7 +804,9 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
         margin-top: 20px;
         overflow: scroll;
     }
-
+    div.hotPlace_sample h1 {
+        font-weight: 900;
+    }
     div.hotPlaceComp div.hotPlace_location div.btn_go {
         transform: scale(0.5);
         position: absolute;
@@ -828,7 +840,7 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
     div.hotPlaceComp div.hotPlace_location div.btn_go div a {
         text-decoration: none;
         font-size: 23px;
-        color: gold;
+        color: #efefef;
     }
 
     div.hotPlaceComp div.hotPlace_location div.btn_go div.udo a {

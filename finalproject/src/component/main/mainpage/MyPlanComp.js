@@ -126,11 +126,11 @@ class MyPlanComp extends Component {
             // <Box p={1} className="myPlanLeft" style={{borderRight: '1px solid black'}}>
                 
             // </Box>
-            <div className="myPlanLeft" style={{borderRight: '1px solid #ddd'}}>
-                {this.state.todayList!=''?<span style={{color: '#bbb'}}>MyPlan on {this.today}</span>:<span>MyPlan</span>}
+            <div className="myPlanLeft">
+                {this.state.todayList!=''?<span style={{color: '#333'}}>MyPlan on {this.today}</span>:<span>MyPlan</span>}
                         <br/>
                         {this.state.todayList!=''?
-                            <span>TODAY</span>
+                            <span style={{color: '#2BBBAD'}}>TODAY</span>
                         :""}
                         <List style={{width: '100%', overflow: 'scroll'}}>
                             {this.state.todayList!=''?this.state.todayList.map((row)=>(
