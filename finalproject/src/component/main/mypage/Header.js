@@ -84,11 +84,12 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
         let content= "일정," + this.refs.content.value;
         let wishday=this.refs.wishday.value;
         let wishtime=this.refs.wishtime.value;
+        let money = this.refs.money.value==''?null:this.refs.money.value;
 
         if(content=='' || wishday=='' || wishtime=='')
             alert("정보를 모두 입력해주세요.");
         else{
-            axios.post(url,{memId,content,wishday,wishtime})
+            axios.post(url,{memId,content,wishday,wishtime,money})
             .then(res=>{
                 this.setState({
                     open: false
@@ -168,7 +169,9 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
                                 🗓&nbsp;&nbsp;여행 날짜
                                 <input type="date" class="form-control form-control-sm" ref="wishday"></input><br/>
                                 ⏰&nbsp;&nbsp;예정 시간
-                                <input type="time" class="form-control form-control-sm" ref="wishtime"></input>
+                                <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
+                                💰&nbsp;&nbsp;예상 비용
+                                <input type="text" class="form-control form-control-sm" ref="money"/>
                                 {/* <div style={{textAlign: 'center'}}>
                                     <button type="button" class="btn btn-warning planAddBtn" onClick={this.insertContent.bind(this)}><b>추가</b></button>
                                 </div> */}
