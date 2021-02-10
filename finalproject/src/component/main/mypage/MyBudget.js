@@ -98,7 +98,7 @@ class MyBudget extends Component {
                             <tr>
                                 <td></td>
                                 <td></td>
-                                <td>합계 : {this.state.sumData}</td>
+                                <td>합계 : {this.state.sumData} 원</td>
                             </tr>
                         </tfoot>
                     </table>
