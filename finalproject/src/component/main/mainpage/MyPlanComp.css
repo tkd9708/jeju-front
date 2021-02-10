@@ -261,6 +261,7 @@
         width: 30vw;
         height: 400px;
         padding: 20px;
+        margin-top: 50px;
         /* overflow: scroll; */
     }
     .myPlanLeft > ul {
@@ -279,6 +280,7 @@
         width: 30vw;
         height: 400px;
         padding: 20px;
+        margin-top: 50px;
     }
     .myPlanTop5 {
         width: 65vw !important;
