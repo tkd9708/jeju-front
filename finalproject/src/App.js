@@ -84,7 +84,7 @@ const setPositionFooter = () => {
 class App extends Component {
     constructor(props) {
         super(props);
-
+        this.intervalOfChattingBackgroundUpdate = null;
         this.state = {
             isStaticHeader: true,
             mainview: "mainpage",
@@ -95,16 +95,8 @@ class App extends Component {
             onLogout: this.onLogout,
 
             chattingRoomListInfo: [],
+            isNewChattingIcon: false,
         }
-
-        // window.onmousewheel = function (e) {
-        //     // console.log(window.scrollY);
-        //     this.showHeader(window.scrollY);
-        // }.bind(this);
-        // window.onscroll = function (e) {
-        //     // console.log(window.scrollY);
-        //     this.showHeader(window.scrollY);
-        // }.bind(this);
 
         window.addEventListener("scroll", this.showHeader);
 
@@ -126,16 +118,60 @@ class App extends Component {
             type: actionType.setIsChatAutoUpdate,
             isChatAutoUpdate: false,
         });
+        store.dispatch({
+            type: actionType.setIsChatAutoBackgroundUpdate,
+            setIsChatAutoBackgroundUpdate: false,
+        });
 
         store.subscribe(function () {
             if (store.getState().publishFunctionMsg == "chattingRoomListInfo") {
                 let chat = new ChattingLogic();
                 chat.getRoomList((res) => {
-                    console.log(res);
-                    this.setChattingRoomListInfo(res.data);
+                    console.log("res", res, "chattingRoomListInfo", store.getState().chattingRoomListInfo);
+                    let roomListInfo = store.getState().chattingRoomListInfo;
+                    let newList = [];   //속성마다 isNew 가 추가된것
+                    let resultIsNewChattingIcon = false;
+
+                    //compare previous to current. by count.
+                    //res.data 을 순회, num 을 보고 기존데이터에서 find() 로 찾아냄.
+                    // 요소마다 isNew t/f를 적절히 넣어줌.
+                    // 중간에 새로생긴 채팅방이 있다면, _temp 가 undefined.
+                    for (let _newRoomInfo of res.data) {
+                        //num 으로 find.
+                        let _temp = roomListInfo.find(e => e.num == _newRoomInfo.num);
+                        console.log(11111, _temp);
+
+                        if (_temp) {
+                            //기존에 있던것이니까, 새로운거랑 비교를 해봐야 함.
+                            if (_temp.msgCnt < _newRoomInfo.msgCnt) {
+                                _temp = _newRoomInfo;
+                                _temp.isNew = true;
+                            } else {
+                                _temp.isNew = false;
+                            }
+                        } else {
+                            //_temp 가 undefined 이기때문에 _newRoomInfo 를 넣어줌.
+                            //새로생긴 채팅방.
+                            _temp = _newRoomInfo;
+                            _temp.isNew = true;
+                        }
+                        console.log(22222, _temp);
+                        newList.push(_temp);
+
+                        if (!resultIsNewChattingIcon && _temp.isNew) {
+                            //res.data 중에 뭔가 새로운게 있다는거.
+                            resultIsNewChattingIcon = true;
+
+
+                        }
+                    }
+
+                    console.log(33333, resultIsNewChattingIcon, newList);
+
+                    this.setChattingRoomListInfo(newList, resultIsNewChattingIcon);
                     store.dispatch({
                         type: actionType.chattingRoomListInfo,
-                        chattingRoomListInfo: res.data,
+                        chattingRoomListInfo: newList,
                     });
                 });
 
@@ -145,13 +181,42 @@ class App extends Component {
                 });
             }
         }.bind(this));
+
+        /* 채팅 백그라운드 업데이트 */
+        //setInterval() 여기서 파라미터 등록이 그 당시의 값을 파라미터로 등록하는것.
+        //interval 이 작동할 때마다 각각 다른 파라미터가 들어가도록 하고싶었는데
+        //interval() 등록당시의 파라미터 값으로만 옴.
+        if (!store.getState().isChatAutoBackgroundUpdate) {
+            store.dispatch({
+                type: actionType.setIsChatAutoBackgroundUpdate,
+                isChatAutoBackgroundUpdate: true,
+            });
+
+            this.intervalOfChattingBackgroundUpdate = window.setInterval((/*loginId, testParam1*/) => {
+                console.log("chatting_background_update", store.getState().loginId);
+
+                store.dispatch({
+                    type: actionType.publishFunctionMsg,
+                    publishFunctionMsg: "chattingRoomListInfo",
+                });
+            }, 5000);//, store.getState().loginId.toString(), 1234);
+        }
     }
 
 
-    setChattingRoomListInfo = (data) => {
+    setChattingRoomListInfo = (chattingRoomListInfo, isNewChattingIcon = false) => {
+        console.log("setChattingRoomListInfo()", chattingRoomListInfo, isNewChattingIcon);
+        // isNewChattingIcon 나중에 아이콘 클릭할때, state 에 false 로.
         this.setState({
-            chattingRoomListInfo: data,
+            chattingRoomListInfo: chattingRoomListInfo,
+            isNewChattingIcon: (this.state.isNewChattingIcon) ? true : isNewChattingIcon,
         });
+    }
+
+    setChattingIconIsNew = (isNewChattingIcon) => {
+        this.setState({
+            isNewChattingIcon: isNewChattingIcon,
+        })
     }
 
 
@@ -230,7 +295,7 @@ class App extends Component {
                             let ease = Quint.easeInOut;
 
                             if (store.getState().isOpenChatWindow) {
-                                //닫기.
+                                //chatting icon click. Close
                                 gsap.to("div.chatting div.chattingWindow", {
                                     transform: "scale(0.1)",
                                     opacity: 0,
@@ -242,6 +307,7 @@ class App extends Component {
                                     isOpenChatWindow: false,
                                 });
                             } else {
+                                //chatting icon click. Open
                                 //통신먼저 하고 결과값으로 액션.
                                 let chat = new ChattingLogic();
                                 chat.getRoomList((res) => {
