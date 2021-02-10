@@ -64,6 +64,7 @@ export const actionType = {
     setChatWindow: "setChatWindow",
     setSelectedRoomNum: "setSelectedRoomNum",
     setIsChatAutoUpdate: "setIsChatAutoUpdate",
+    setIsChatAutoBackgroundUpdate: "setIsChatAutoBackgroundUpdate",
     publishFunctionMsg: "publishFunctionMsg",
     chattingRoomListInfo: "chattingRoomListInfo",
     selectedChattingRoomMsgList: "selectedChattingRoomMsgList",

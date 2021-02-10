@@ -34,6 +34,7 @@ const reducer = function (state, action) {
             selectedFriend: "",
             selectedChattingRoomMsgList: [],
             isChatAutoUpdate: false,
+            isChatAutoBackgroundUpdate: false,
             chattingRoomListInfo: [],
 
             /* pub/sub */
@@ -121,6 +122,10 @@ const reducer = function (state, action) {
     } else if (action.type === actionType.setIsChatAutoUpdate) {
         newState = Object.assign({}, state, {
             isChatAutoUpdate: action.isChatAutoUpdate,
+        });
+    } else if (action.type === actionType.setIsChatAutoBackgroundUpdate) {
+        newState = Object.assign({}, state, {
+            isChatAutoBackgroundUpdate: action.isChatAutoBackgroundUpdate,
         });
     } else if (action.type === actionType.publishFunctionMsg) {
         //구독중인 함수들중에서 publishFunctionMsg 의 내용과 맞는 함수만 실행되게끔. pub/sub 비슷하게 만듦.

@@ -122,12 +122,15 @@ const ChattingRoom = (props) => {
                 <ArrowBackIcon
                     className="backButton"
                     onClick={() => {
-                        // document.querySelector(".chattingWindow").scrollTo(0,0);
                         gsap.to(".containerRoot", {
                             scrollTrigger: ".containerRoot",
                             x: 0,
                             duration: 1,
                             ease: Quint.easeInOut,
+                        });
+                        store.dispatch({
+                            type: actionType.publishFunctionMsg,
+                            publishFunctionMsg: "chattingRoomListInfo",
                         });
                     }}
                 />&nbsp;&nbsp;{props.selectedFriend}
