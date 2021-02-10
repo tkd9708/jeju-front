@@ -80,6 +80,7 @@ class MyBudgetItem extends Component
                     <td>{budget}</td>
                     <td>{row.wishday}&nbsp;&nbsp;&nbsp;{row.wishtime}</td>
                     <td>{row.money}</td>
+                    <td>{row.capital}</td>
             </tr>
         )
     }
