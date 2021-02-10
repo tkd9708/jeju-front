@@ -394,7 +394,7 @@ class Weather extends Component {
             if(hours < 0){
                 // 자정 이전은 전날로 계산
                 // 00:40분 이전이라면 'base_date'는 전날이고 'base_time'은 2300이다.
-                today_2.setDate(today.getDate() - 1);
+                today_2.setDate(today_2.getDate() - 1);
                 dd = today_2.getDate();
                 mm = today_2.getMonth() + 1;
                 yyyy = today_2.getFullYear();
@@ -465,20 +465,41 @@ class Weather extends Component {
                     alert("다시 시도해주세요.\n : " + err);
                 });
         
+        today_2 = new Date();
+        var hours_2 = today_2.getHours();
+        var dd_2 = today_2.getDate();
+        var mm_2 = today_2.getMonth()+1;
+        var yyyy_2 = today_2.getFullYear();
+        if (hours_2 < 2) {
+            today_2.setDate(today_2.getDate() - 1);
+            dd_2 = today_2.getDate();
+            mm_2 = today_2.getMonth()+1;
+            yyyy_2 = today_2.getFullYear();
+            hours_2 = 23;
+        }
+        else {
+            hours_2 = hours_2 - ((hours_2 + 1) % 3);
+        }
+
+        hours_2 = hours_2 < 10 ? '0' + hours_2 : hours_2;
+        mm_2 = mm_2 < 10 ? '0' + mm_2 : mm_2;
+        dd_2 = dd_2 < 10 ? '0' + dd_2 : dd_2;
+
+        today_2 = yyyy_2 + "" + mm_2 + "" + dd_2;
         var url_6 = 'http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst';
         var queryParams_6 = '?' + encodeURIComponent('ServiceKey') + '=' + apikey;
         queryParams_6 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
         queryParams_6 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('14');
         queryParams_6 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
-        queryParams_6 += '&' + encodeURIComponent('base_date') + '=' + encodeURIComponent(year+month+date);
-        queryParams_6 += '&' + encodeURIComponent('base_time') + '=' + encodeURIComponent(hours+'00');
+        queryParams_6 += '&' + encodeURIComponent('base_date') + '=' + encodeURIComponent(today_2);
+        queryParams_6 += '&' + encodeURIComponent('base_time') + '=' + encodeURIComponent(hours_2+'00');
         queryParams_6 += '&' + encodeURIComponent('nx') + '=' + encodeURIComponent(_nx);
         queryParams_6 += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent(_ny);
 
         axios.get("/VilageFcstInfoService/getVilageFcst" + queryParams_6)
         .then(res6 => {
             console.log("/VilageFcstInfoService/getVilageFcst" + queryParams_6);
-                console.log("동네예보조회 : " + res6.data.response.body.items.item[0].category);
+            console.log("동네예보조회 : " + res6.data.response.body.items.item[0].category);
                 
                 // 날씨 클래스 내부 state에 정보 저장한다
                 this.setState({
@@ -607,31 +628,32 @@ class Weather extends Component {
                 {/* {JSON.parse(localStorage.getItem('weather_1'))} */}
                 <br />
 
-                '관광지-지역이름' &nbsp; '코스 명' &nbsp; '관광지명' &nbsp; '테마' &nbsp; '최고기온' &nbsp; '최저기온' &nbsp; '풍향' &nbsp; '풍속' &nbsp; '하늘상태' &nbsp; '습도' &nbsp; '강수확률' &nbsp; '강수량' &nbsp;
+                {/* '관광지-지역이름' &nbsp; '코스 명' &nbsp; '관광지명' &nbsp; '테마' &nbsp; '최고기온' &nbsp; '최저기온' &nbsp; '풍향' &nbsp; '풍속' &nbsp; '하늘상태' &nbsp; '습도' &nbsp; '강수확률' &nbsp; '강수량' &nbsp; */}
+                '최고기온' &nbsp; '최저기온' &nbsp; '하늘상태'
                 <br />
                 {
                     c_weatherInfo.map((row)=>(
                         <>
-                        ({row.spotAreaName})
+                        {/* ({row.spotAreaName})
                         ({row.courseName})
                         ({row.spotName})
-                        ({row.thema})
+                        ({row.thema}) */}
                         ({row.maxTa})
                         ({row.minTa})
-                        ({row.wd})
-                        ({row.ws})
+                        {/* ({row.wd})
+                        ({row.ws}) */}
                         {/* {skyStatus.map((findName,index)=>(
                             this.setState({
                                 sky : row.sky === index + 1 ? findName : ''
                             })
                         ))} */}
 
-                        <ReactAnimatedWeather
+                        {/* <ReactAnimatedWeather
                             icon={skyStatus[row.sky-1]}
                             color={skyColor[row.sky-1]}
                             size={defaults.size}
                             animate={defaults.animate}
-                        />
+                        /> */}
                         
                         <ColorSkycons
                             type = { Object.keys(skyStatusEnum).find(name => skyStatusEnum[name] === row.sky-1) }
@@ -642,14 +664,14 @@ class Weather extends Component {
                         />
                         
                         ({skyStatus[row.sky-1]})
-                        ({row.rhm})
+                        {/* ({row.rhm})
                         ({row.pop})
-                        ({row.rn})
-                        <br />
+                        ({row.rn}) */}
                         </>
                         ))
                 }
-
+                
+                <br />
                 '체감온도'
                 <br />
                 {
@@ -663,11 +685,12 @@ class Weather extends Component {
                 <br />
                 '초단기실황조회'
                 <br/>
-                '기온' '동서바람성분' '풍향' '남북바람성분' '풍속'
+                {/* '기온' '동서바람성분' '풍향' '남북바람성분' '풍속' */}
+                '기온'
                 <br />
                 {
                     // store.getState.weatherInfo_3.map((row)=>(
-                    this.state.c_weatherInfo_4.filter(w => w.category !== 'PTY' && w.category !== 'REH' && w.category !== 'RN1').map((row)=>(
+                    this.state.c_weatherInfo_4.filter(w => w.category === 'T1H').map((row)=>(
                         <>
                             ({row.category})
                             ({row.obsrValue})
@@ -679,29 +702,25 @@ class Weather extends Component {
                 '동네예보조회'
                 {this.state.c_weatherInfo_6.length}개
                 <br/>
-                '발표시각' &nbsp; '예보일자' &nbsp; '예보시각' &nbsp; '자료구분문자' &nbsp; '예보 값'
+                {/* '발표시각' &nbsp; '예보일자' &nbsp; '예보시각' &nbsp; '자료구분문자' &nbsp; '예보 값' */}
+                '자료구분문자' &nbsp; '예보 값'
                 <br />
                 {
                     this.state.c_weatherInfo_6.map((row)=>(
                         <>
-                            <span>
-                                {/* ({row.baseTime}) */}
+                            {/* <span>
                                 {row.baseTime}
                             </span>
                             <span>
-                                {/* ({row.fcstDate}) */}
                                 {row.fcstDate}
                             </span>
                             <span>
-                                {/* ({row.fcstTime}) */}
                                 {row.fcstTime}
-                            </span>
+                            </span> */}
                             <span>
-                                {/* ({row.category}) */}
                                 {row.category}
                             </span>
                             <span>
-                                {/* ({row.fcstValue}) */}
                                 {row.fcstValue}
                             </span>
                             <br />

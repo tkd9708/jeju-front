@@ -104,16 +104,17 @@ class ClistItem extends Component {
                     <TimelineSeparator>
                     <TimelineDot color="primary" variant="outlined" className="RCA-timelineDot">
                         {/* <FastfoodIcon /> */}
-                        {row.content=="spot"?"🛕":row.content==="myplan"?"📅":row.content==="share"?"👨‍🍳":
+                        {row.content=="spot"?"🛕":row.content==="myplan"&&row.title.split(",")[0]==="일정"?"📅":row.content==="share"?"👨‍🍳":
                             row.content.split(",")[0]==="카페"?"☕":row.content.split(",")[0]==="음식점"?"🍔":
-                            row.content.split(",")[0]==="숙박"?"🛌":""}
+                            row.content.split(",")[0]==="숙박"?"🛌":row.title.split(",")[0]==="우도배"?"🚢":
+                            row.title.split(",")[0]==="렌트카"?"🚗":row.title.split(",")[0]==="항공"?"✈":''}
                     </TimelineDot>
                     <TimelineConnector />
                     </TimelineSeparator>
                     <TimelineContent className="RCA-timelineTitle">
                         <div style={{cursor: 'pointer'}} onClick={this.alertOpen.bind(this)}>
 
-                            {row.content==="share"?row.title.split(",")[1]:row.title}
+                            {row.content==="share"||row.content==="myplan"?row.title.split(",")[1]:row.title}
                         </div>
                     {/* <Paper elevation={3} className="RCA-timelineTitle" style={{cursor: 'pointer'}} onClick={this.alertOpen.bind(this)}>
                     

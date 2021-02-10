@@ -86,6 +86,10 @@ const ChattingRoom = (props) => {
     }
 
     const sendMessage = () => {
+        if (msg.length == 0) {
+            return;
+        }
+
         let chat = new ChattingLogic();
         chat.sendMessage(msg, (res) => {
             printCommentEachOther();
@@ -211,7 +215,7 @@ const ChattingRoom = (props) => {
                             <input id="chatting" name="msg"
                                    value={msg} placeholder="보내실 메시지를 입력하세요."
                                    onChange={handleChange}
-                                   onKeyDown={(e) => {
+                                   onKeyPress={(e) => {
                                        if (e.code == "Enter") {
                                            sendMessage();
                                        }

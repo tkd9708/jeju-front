@@ -4,7 +4,11 @@ import axios from 'axios';
 import {URL} from "../../../redux/config";
 import Slider from "react-slick";
 import SharePlanRoot from './SharePlanRoot';
-import SharePlanList from './SharePlanList';
+
+import SharePlanProfile from './SharePlanProfile';
+import store from '../../../redux/store';
+import { StoreTwoTone } from "@material-ui/icons";
+
 
 class SharePlanPageComp extends Component {
 
@@ -188,14 +192,23 @@ class SharePlanPageComp extends Component {
                     여러분만의 일정을 다른 사람들과 공유해보세요!
                 </div>
                 {/* <div className="slide-out">  */}
+                
+               
+                  
+                    
+                    
+                    
+                    
+                  
+                
             <div className="slide-list-bar">
-            
+                
               <div className="slide-list-box">
                   <br/>
                  
+                 
                 <Slider {...settings}>
-                    
-                  
+                
                   {/* <div className="slide-list-item"> */}
                   {this.state.glist.map((row)=>(
                       
@@ -219,11 +232,12 @@ class SharePlanPageComp extends Component {
                  {/* <button className="slick-prev">ddd</button>
                 <button className="slick-next">ddd</button> */}
                 
+                
                 </div>
                 
             </div>
             
-            <hr/>
+           
             
             
             {/* <SharePlanSchedule value={this.state.wishday}></SharePlanSchedule> */}
@@ -239,7 +253,7 @@ class SharePlanPageComp extends Component {
             <span>🗓공유날짜</span><br/>
             <input type="date" className="wishday" ref="wishday"  onChange={this.getGroup.bind(this)}/>
             
-            <SharePlanList></SharePlanList>
+           
             
             
           

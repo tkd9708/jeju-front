@@ -10,7 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import {URL} from "../../../redux/config";
 import './SharePlanCss.css';
-import Tooltip from '@material-ui/core/Tooltip';
+import { FcCheckmark } from "react-icons/fc";
+
+
 
 
 class SharePlanSub extends Component {
@@ -22,6 +24,7 @@ class SharePlanSub extends Component {
         this.state={
             deleteOpen:false,
             deleteSetOpen:false
+            
         }
 
         
@@ -69,6 +72,28 @@ class SharePlanSub extends Component {
         });
        }
 
+    //    getProfile=()=>{
+    //     let url=URL+"/plan/groupnum";
+
+        
+        
+    //     axios.get(url)
+    //     .then(res=>{
+    //       //console.log("데이터 ; " + res.data);
+    //         this.setState({
+    //             profile:res.data
+                
+    //         });
+    //     }).catch(err=>{
+    //         console.log("리스트 오류:"+err);
+    //       })
+    // }
+
+    componentDidMount(){
+        // this.getProfile();
+        this.props.setName(this.props.row.memId);
+    }
+
 
 
     // onGroup=()=>{
@@ -93,14 +118,41 @@ class SharePlanSub extends Component {
         // var title=row.title;
         // const {groupNum}=this.props.groupNum;
         return(
+            
+                <div>
+                   
+                        
+                    
             <div>
-                
-            <div style={{cursor:'pointer',fontSize:20}} onClick={this.deleteOpen.bind(this)} >
-                {this.props.row.wishday===this.props.day?this.props.row.title:this.props.row.title}
-               
-               {/* {this.props.row.groupNum} */}
               
-               {this.props.row.comment!==null?<span>💬{this.props.row.comment}</span>:''}
+               
+               
+                        <TimelineItem  >
+                    <TimelineOppositeContent>
+                    <Typography variant="body2" color="textSecondary">
+                        {this.props.row.wishtime}
+                    </Typography>
+                    </TimelineOppositeContent>
+                    <TimelineSeparator>
+                    <TimelineDot style={{width:30,backgroundColor:'white'}} >
+                        <FcCheckmark/>
+                    </TimelineDot>
+                    <TimelineConnector />
+                    </TimelineSeparator>
+                    
+                    <TimelineContent>
+                    
+                        <Typography variant="h6" component="h1" style={{cursor:'pointer',fontSize:20}} 
+                         onClick={this.deleteOpen.bind(this)}>
+                        {this.props.row.comment!==null?<div  class="arrow_box"><span class="comment_logo">{this.props.row.comment}
+                        </span></div>:''}
+                        {this.props.row.wishday===this.props.day?this.props.row.title:this.props.row.title}
+                       
+                        </Typography>
+                        <Typography>{this.props.row.content}</Typography>
+                    </TimelineContent>
+                </TimelineItem>
+               
                <Dialog 
                     open={this.state.deleteOpen} 
                     onClose={this.deleteClose.bind(this)}
