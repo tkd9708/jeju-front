@@ -489,12 +489,29 @@ class Weather extends Component {
         var url_6 = 'http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst';
         var queryParams_6 = '?' + encodeURIComponent('ServiceKey') + '=' + apikey;
         queryParams_6 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
-        queryParams_6 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('14');
+        queryParams_6 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('999');
         queryParams_6 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
         queryParams_6 += '&' + encodeURIComponent('base_date') + '=' + encodeURIComponent(today_2);
         queryParams_6 += '&' + encodeURIComponent('base_time') + '=' + encodeURIComponent(hours_2+'00');
         queryParams_6 += '&' + encodeURIComponent('nx') + '=' + encodeURIComponent(_nx);
         queryParams_6 += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent(_ny);
+
+        // 예보구분 중에 동네예보는 항목값이 총 14개이다.
+        
+        // POP	강수확률
+        // PTY	강수형태
+        // R06	6시간 강수량
+        // REH	습도
+        // S06	6시간 신적설
+        // SKY	하늘상태
+        // T3H	3시간 기온
+        // TMN	아침 최저기온
+        // TMX	낮 최고기온
+        // UUU	풍속(동서성분)
+        // VVV	풍속(남북성분)
+        // WAV	파고
+        // VEC	풍향
+        // WSD	풍속
 
         axios.get("/VilageFcstInfoService/getVilageFcst" + queryParams_6)
         .then(res6 => {
@@ -562,6 +579,8 @@ class Weather extends Component {
         
         const skyStatus = ['CLEAR_DAY', 'PARTLY_CLOUDY_DAY', 'CLOUDY', 'FOG', 'RAIN', 'RAIN_SNOW', 'SLEET', 'SNOW'];
         
+        const krSkyStatus = ['맑음', '구름조금', '구름많음', '흐림', '비', '비눈', '눈비', '눈']
+
         const skyStatusEnum = Object.freeze({
             CLEAR_DAY: 0,
             PARTLY_CLOUDY_DAY: 1,
@@ -574,7 +593,7 @@ class Weather extends Component {
         });
 
         const skyColor = ['goldenrod', 'grey', 'grey', 'black', 'grey', 'black', 'black', 'black'];
-        
+
         var options = this.state.jejuGridList.map((jejuGrid) => {
             return(
                 <option 
@@ -590,10 +609,11 @@ class Weather extends Component {
             );
         });
         
+        var count = 1; // 날씨정보가 8번 나오면 줄을 바꿀 수세기
+
         return (
             
             <div style={{ fontSize : '.7rem' }}>
-
                 {/* <select onChange={this.selectChange.bind(this)} value={this.state.selectBoxValue}>
                     { this.state.jejuGridList.map((jejuGrid, index) => (
                         <option 
@@ -701,34 +721,52 @@ class Weather extends Component {
                 <br />
                 '동네예보조회'
                 {this.state.c_weatherInfo_6.length}개
+
                 <br/>
                 {/* '발표시각' &nbsp; '예보일자' &nbsp; '예보시각' &nbsp; '자료구분문자' &nbsp; '예보 값' */}
-                '자료구분문자' &nbsp; '예보 값'
+                {/* '자료구분문자' &nbsp; '예보 값' */}
                 <br />
                 {
-                    this.state.c_weatherInfo_6.map((row)=>(
-                        <>
+                    // this.state.c_weatherInfo_6.filter(w => w.category === 'SKY' || w.category === 'TMN' || w.category === 'TMX').map((row)=>(
+                    this.state.c_weatherInfo_6.filter(w => w.category === 'SKY' || w.category === 'TMN' || w.category === 'TMX').map((row)=>(
+                        <React.Fragment>
                             {/* <span>
-                                {row.baseTime}
-                            </span>
-                            <span>
-                                {row.fcstDate}
-                            </span>
-                            <span>
-                                {row.fcstTime}
+                                발표시각
+                                ({row.baseTime})
                             </span> */}
                             <span>
-                                {row.category}
-                            </span>
-                            <span>
-                                {row.fcstValue}
+                                예보일자
+                                ({row.fcstDate})
                             </span>
                             <br />
-                        </>
+                            <span>
+                                예보시각
+                                ({row.fcstTime})
+                            </span>
+                            <br />
+                            <span>
+                                자료구분문자
+                                ({row.category})
+                            </span>
+                            <br />
+                            <span>
+                                예보 값
+                                ({row.fcstValue})
+                            </span>
+                            <ColorSkycons
+                                type = { Object.keys(skyStatusEnum).find(name => skyStatusEnum[name] === row.fcstValue-1) }
+                                animate = { defaults.animate }
+                                size = { defaults.size }
+                                resizeClear = { true }
+                                // {...svgProps}
+                            />
+                            ({krSkyStatus[row.fcstValue-1]})
+                            {count === 8 ? <br /> : ''}
+                            {count = count + 1}
+                        </React.Fragment>
                     ))
                 }
                 <h4>Weather</h4>
-
                 <img src = { OPENNURI } alt='OPENNURI' />
             </div>
         )
