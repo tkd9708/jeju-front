@@ -183,8 +183,8 @@ class DetailReviewComp extends Component {
                                     
                         </Box>
                         <Box m={1} id="btnInsertBox">
-                            <button type="button" className="btn btn-warning" id="btnInsertReview"
-                                    onClick={this.insertReview.bind(this)}><b>작&nbsp;성</b></button>
+                            <button type="button" className="btn btn-dark-green" id="btnInsertReview"
+                                    onClick={this.insertReview.bind(this)}>작성</button>
                         </Box>
                 </Box>
                                    

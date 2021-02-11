@@ -129,7 +129,7 @@ class ClistItem extends Component {
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                     >
-                        <DialogTitle id="alert-dialog-title">{row.title}</DialogTitle>
+                        <DialogTitle id="alert-dialog-title">{row.content==="share"||row.content==="myplan"?row.title.split(",")[1]:row.title}</DialogTitle>
                         <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             해당 일정을 삭제하시겠습니까?

@@ -194,7 +194,7 @@ class DetailTourComp extends Component {
                         💰&nbsp;&nbsp;<b>비용</b>
                         <input type="text" class="form-control form-control-sm" ref="money"/><br/>
                         <div style={{textAlign: 'center'}}>
-                            <button type="button" class="btn btn-warning spotmodalBtn" onClick={this.insertWish.bind(this)}><b>추가</b></button>
+                            <button type="button" class="btn btn-dark-green spotmodalBtn" onClick={this.insertWish.bind(this)}>추가</button>
                         </div>
                     </div>
                     </Fade>

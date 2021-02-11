@@ -20,6 +20,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Paper from "@material-ui/core/Paper";
 import BoardSampleItem from './BoardSampleItem';
 import ItemComp from "../tour/ItemComp";
+import './MainPageComp.css';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -99,8 +100,8 @@ export default function BoardSample(props) {
 
     return (
         <div>
-            <h1>&nbsp;&nbsp;&nbsp;&nbsp;{arrJejuLoc_ko[idx]}</h1>
-            {/* <hr/> */}
+            <b className="HotSpotTitle"><strong style={{color: '#2BBBAD'}}>&nbsp;&nbsp;&nbsp;&nbsp;{arrJejuLoc_ko[idx]}</strong> 지역의 인기 명소</b>
+            <hr/>
             <div className={classes.paperRoot}>
                 {spotList.map((row, i) => {
                     // console.log(i, row, props.history);

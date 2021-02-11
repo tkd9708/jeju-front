@@ -250,8 +250,8 @@ class Week extends Component {
                        
                       </div>
                       <textarea maxLength="1000" className="form-control"
-                                   style={{width: '410px', height: '150px', resize: 'none', cursor: 'auto'}}
-                                   ref="comment" placeholder="리뷰를 입력하세요">
+                                   style={{ resize: 'none', cursor: 'auto'}}
+                                   ref="comment" placeholder="공유시 남기실 comment를 작성해주세요">
                          </textarea>
                   </MDBModalBody>
               <MDBModalFooter>

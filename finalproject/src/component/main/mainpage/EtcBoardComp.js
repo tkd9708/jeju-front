@@ -12,6 +12,7 @@ import axios from "axios";
 import {URL} from "../../../redux/config";
 // import ShareRestaurantItemComp from "./ShareRestaurantItemComp";
 import ShareBoardRowItem from "../shareboard/ShareBoardRowItem";
+import './MainPageComp.css';
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -119,10 +120,16 @@ export default function EtcBoardComp(props) {
      */
     return (
         <div className="etcBoardComp">
-            <Tabs value={selectedTabValue} onChange={handleChange} aria-label="simple tabs example">
-                <Tab label="Notice" {...a11yProps(0)} />
-                <Tab label="Share Restaurant" {...a11yProps(1)} />
-                <Tab label="Share MyPlan" {...a11yProps(2)} />
+            <Tabs
+                TabIndicatorProps={{style: {background:'#036E38'}}} 
+                variant="fullWidth"
+                value={selectedTabValue} 
+                onChange={handleChange} 
+                aria-label="simple tabs example"
+            >
+                <Tab label="공지사항" {...a11yProps(0)} />
+                <Tab label="BEST 맛집" {...a11yProps(1)} />
+                <Tab label="BEST 코스" {...a11yProps(2)} />
             </Tabs>
             <TabPanel value={selectedTabValue} index={0}>
                 <div style={{

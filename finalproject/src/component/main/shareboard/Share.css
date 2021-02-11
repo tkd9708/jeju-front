@@ -174,8 +174,11 @@ input {
 /* 일정 추가 폼 */
 .ShareModalInsertPlan {
     width: 200px;
-    margin: 20px;
+    margin: 25px;
     line-height: 30px;
+}
+.ShareModalInsertPlan .spotmodalTitle {
+    font-weight: 550;
 }
 .ShareModalInsertPlan button {
     padding: 8px 13px;
@@ -206,6 +209,7 @@ input {
     #ShareListTitle {
         font-size: 1.2rem !important;
         margin: 15px;
+        font-weight: 400;
     }
     #ShareListContent {
         height: 30pt;
@@ -222,7 +226,7 @@ input {
     .ShareListBtn {
         padding: 5px 10px !important;
     }
-    .ShareListBtn b {
+    .ShareListBtn {
         font-size: 0.7rem;
     }
     .ShareSearchBtn {
@@ -315,7 +319,7 @@ input {
     #ShareListBox {
         border: 1px solid #eee;
         width: 38vw;
-        margin-top: 2%;
+        margin-top: 5%;
         margin-left: 1%;
         margin-right: 30px;
         margin-bottom: 50px;
@@ -333,6 +337,7 @@ input {
     #ShareListTitle {
         font-size: 1.2rem !important;
         margin: 15px;
+        font-weight: 400;
     }
     #ShareListContent {
         height: 30pt;
@@ -346,7 +351,10 @@ input {
     .ShareSearchForm {
         margin-bottom: 50px;
     }
-    .ShareListBtn b {
+    .ShareListBtn {
+        padding: 8px 16px !important;
+    }
+    .ShareListBtn {
         font-size: 0.7rem;
     }
     .ShareSearchBtn {
@@ -429,7 +437,7 @@ input {
     #ShareListBox {
         border: 1px solid #eee;
         width: 25vw;
-        margin-top: 2%;
+        margin-top: 3%;
         margin-left: 1%;
         margin-right: 30px;
         margin-bottom: 50px;
@@ -440,7 +448,8 @@ input {
     }
     #ShareListTitle {
         margin: 15px;
-        font-size: 1.2rem !important;
+        font-size: 1.1rem !important;
+        font-weight: 400;
     }
     #ShareImg {
         width: 25vw;
@@ -460,7 +469,10 @@ input {
     .ShareSearchForm {
         margin-bottom: 50px;
     }
-    .ShareListBtn b {
+    .ShareListBtn {
+        padding: 8px 16px !important;
+    }
+    .ShareListBtn {
         font-size: 0.8rem;
     }
     .ShareSearchBtn {
@@ -559,6 +571,7 @@ input {
     #ShareListTitle {
         margin: 15px;
         font-size: 1.3rem !important;
+        font-weight: 400;
     }
     #ShareListContent {
         height: 33pt;
@@ -572,8 +585,11 @@ input {
     .ShareSearchForm {
         margin-bottom: 70px;
     }
-    .ShareListBtn b {
-        font-size: 1rem;
+    .ShareListBtn {
+        padding: 10px 18px !important;
+    }
+    .ShareListBtn {
+        font-size: 1rem !important;
     }
     .ShareSearchBtn {
         margin-right: 9% !important;

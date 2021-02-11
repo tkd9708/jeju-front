@@ -43,7 +43,8 @@ import ChattingRoom from './component/main/SharePlan/ChattingRoom';
 import ChatIcon from '@material-ui/icons/Chat';
 import ChatCompPage from "./component/main/SharePlan/ChatCompPage";
 import ChattingLogic from "./ChattingLogic";
-import RecommendCourse from "./component/main/Recommend/RecommendCourse";
+import RecommendCourse from "./component/main/Recommend/RecommendPageComp";
+import MyBudget from './component/main/mypage/MyBudget';
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -229,7 +230,7 @@ class App extends Component {
                     isStaticHeader: true
                 });
                 gsap.to("div.hide", {
-                    y: 70,
+                    y: 80,
                     duration: 1
                 });
             }
@@ -238,7 +239,7 @@ class App extends Component {
                 isStaticHeader: false
             });
             gsap.to("div.hide", {
-                y: -70,
+                y: -80,
                 duration: 1
             });
         }
@@ -381,6 +382,7 @@ class App extends Component {
                         <Route path="/mypage/review/:num?" component={MyReview}/>
                         <Route path="/mypage/reservation/:num?" component={MyWishlist}/>
                         <Route path="/mypage/pass/:name?" component={PassCheck}/>
+                        <Route path="/mypage/budget/:name?" component={MyBudget}/>
                         <Route exact path="/share/insert" component={ShareBoardFormComp}/>
                         <Route path="/share/update/:num?/:pageNum?" component={ShareBoardUpdateForm}/>
                         <Route path="/share/:pageNum?" component={ShareBoardPageComp}/>

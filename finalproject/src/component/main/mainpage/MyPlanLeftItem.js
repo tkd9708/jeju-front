@@ -64,7 +64,7 @@ class MyPlanLeftItem extends Component {
         //     :row.aroundId!=null&row.content.split(",")[0]=="음식점"?"🍔":row.aroundId!=null&row.content.split(",")[0]=="카페"?"☕":"🛌";
 
         var icon='';
-        if(row.spotid!=null)
+        if(row.spotId!=null)
             icon = "🛕";
         else if(row.shareNum!=null)
             icon = "👨‍🍳";
@@ -76,6 +76,7 @@ class MyPlanLeftItem extends Component {
             else 
                 icon = "🛌";
         }
+        // else if(row.content!=null&row.aroundId==null){
         else if(row.content!=null&row.aroundId==null){
             if(row.content.split(",")[0]=="우도배")
                 icon = "🚢";

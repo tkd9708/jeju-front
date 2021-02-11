@@ -142,7 +142,8 @@ label {
         height: 100px;
         width: 50px;
         font-size: 6pt;
-        margin-top: 24px;
+        margin-top: 26px;
+        padding: 0;
     }
     .thumbStar{
         font-size: 15pt;
@@ -217,7 +218,7 @@ label {
     /* 모달 */
     .spotmodalTitle {
         font-size: 14pt;
-        font-weight: 700;
+        font-weight: 500;
         line-height: 50px;
     }
     .spotpaper {
@@ -249,8 +250,9 @@ label {
     #btnInsertReview{
         height: 100px;
         width: 50px;
-        font-size: 10pt;
-        margin-top: 23px;
+        font-size: 8pt;
+        margin-top: 25px;
+        padding: 0;
     }
     .thumbText {
         top: 25%;
@@ -319,11 +321,11 @@ label {
     /* 모달 */
     .spotmodalTitle {
         font-size: 16pt;
-        font-weight: 700;
+        font-weight: 500;
         line-height: 50px;
     }
     .spotpaper {
-        padding: 50px;
+        padding: 30px;
         line-height: 30px;
         font-size: 10pt;
     }
@@ -349,7 +351,8 @@ label {
     #btnInsertReview{
         height: 130px;
         width: 80px;
-        margin-top: 29px;
+        margin-top: 31px;
+        padding: 10px 5px;
     }
     .thumbText {
         top: 30%;
@@ -362,7 +365,7 @@ label {
         padding-bottom: 30px;
     }
     #thumbTitle{
-        font-size: 18pt;
+        font-size: 17pt;
     }
     #thumbTag{
         font-size: 9pt;
@@ -417,11 +420,11 @@ label {
     /* 모달 */
     .spotmodalTitle {
         font-size: 16pt;
-        font-weight: 700;
+        font-weight: 500;
         line-height: 50px;
     }
     .spotpaper {
-        padding: 50px;
+        padding: 30px;
         line-height: 30px;
         font-size: 10pt;
     }
@@ -446,7 +449,7 @@ label {
     #btnInsertReview{
         height: 150px;
         width: 100px;
-        margin-top: 29px;
+        margin-top: 31px;
     }
     .thumbText {
         top: 35%;
@@ -459,7 +462,7 @@ label {
         padding-bottom: 40px;
     }
     #thumbTitle{
-        font-size: 23pt;
+        font-size: 20pt;
     }
     #thumbTag{
         font-size: 10pt;
@@ -506,11 +509,11 @@ label {
     /* 모달 */
     .spotmodalTitle {
         font-size: 16pt;
-        font-weight: 700;
+        font-weight: 500;
         line-height: 50px;
     }
     .spotpaper {
-        padding: 50px;
+        padding: 30px;
         line-height: 30px;
         font-size: 10pt;
     }
@@ -548,7 +551,7 @@ label {
   }
 .spotpaper {
     background-color: #fff;
-    border: 2px solid #000;
+    /* border: 2px solid #000; */
     box-shadow: 5;
 }
   
