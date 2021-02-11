@@ -162,7 +162,7 @@ export default function EtcBoardComp(props) {
                 <Tab label="BEST 코스" {...a11yProps(2)} />
             </Tabs>
             <TabPanel value={selectedTabValue} index={0}>
-                <div id="EtcBoardNotice" 
+                <div className="EtcBoardNotice" 
                 // style={{
                 //     display: "flex",
                 //     overflow: "auto",
