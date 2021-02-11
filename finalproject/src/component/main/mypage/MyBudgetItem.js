@@ -77,10 +77,10 @@ class MyBudgetItem extends Component
         // }
         return(
             <tr>
-                    <td>{budget}</td>
-                    <td>{row.wishday}&nbsp;&nbsp;&nbsp;{row.wishtime}</td>
-                    <td>{row.money}</td>
-                    <td>{row.capital}</td>
+                    <td style={{textAlign: 'center'}}>{budget}</td>
+                    <td style={{textAlign: 'center'}}>{row.wishday}&nbsp;&nbsp;&nbsp;{row.wishtime}</td>
+                    <td style={{textAlign: 'center'}}>{row.money}{row.money!=null?"원":""}</td>
+                    <td style={{textAlign: 'center'}}>{row.capital}{row.capital!=null?"원":""}</td>
             </tr>
         )
     }
