@@ -5,6 +5,7 @@ import {} from "../component/main/admin/MemberListPageComp";
 
 
 
+
 export const URL = "http://ec2-3-36-28-35.ap-northeast-2.compute.amazonaws.com:8080/FinalProjectSpringBoot";
 //export const URL = "http://localhost:9002";
 
@@ -69,6 +70,7 @@ export const actionType = {
     setChatWindow: "setChatWindow",
     setSelectedRoomNum: "setSelectedRoomNum",
     setIsChatAutoUpdate: "setIsChatAutoUpdate",
+    setIsChatAutoBackgroundUpdate: "setIsChatAutoBackgroundUpdate",
     publishFunctionMsg: "publishFunctionMsg",
     chattingRoomListInfo: "chattingRoomListInfo",
     selectedChattingRoomMsgList: "selectedChattingRoomMsgList",

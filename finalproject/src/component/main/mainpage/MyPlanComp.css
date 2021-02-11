@@ -55,16 +55,16 @@
     .myPlanTop5 {
         width: 90vw !important;
     }
-    .myPlanRight b, .myPlanLeft > span {
-        font-size: 0.9rem;
-        font-weight: 900;
+    .myPlanRight span, .myPlanLeft > span {
+        font-size: 0.8rem;
+        font-weight: 500;
         color: #333;
     }
-    .myPlanRight span {
+    /* .myPlanRight span {
         font-size: 0.8rem;
         font-weight: 700;
         color: #444;
-    }
+    } */
     .myplanRightItemBox {
         padding: 10px;
         margin-right: 20px;
@@ -137,16 +137,16 @@
     .myPlanTop5 {
         width: 95vw !important;
     }
-    .myPlanRight b, .myPlanLeft > span {
-        font-size: 1.3rem;
-        font-weight: 900;
+    .myPlanRight span, .myPlanLeft > span {
+        font-size: 1.1rem;
+        font-weight: 500;
         color: #333;
     }
-    .myPlanRight span {
+    /* .myPlanRight span {
         font-size: 1.1rem;
         font-weight: 700;
         color: #444;
-    }
+    } */
     .myplanRightItemBox {
         padding: 20px;
         margin-right: 30px;
@@ -181,7 +181,7 @@
     .myPlanLeft {
         width: 45vw;
         height: 350px;
-        padding: 20px;
+        padding: 10px;
         /* overflow: scroll; */
     }
     .myPlanLeft > ul {
@@ -216,16 +216,16 @@
     .myPlanTop5 {
         width: 95vw !important;
     }
-    .myPlanRight b, .myPlanLeft > span {
-        font-size: 1.5rem;
-        font-weight: 900;
+    .myPlanRight span, .myPlanLeft > span {
+        font-size: 1.3rem;
+        font-weight: 500;
         color: #333;
     }
-    .myPlanRight span {
+    /* .myPlanRight span {
         font-size: 1.2rem;
         font-weight: 700;
         color: #444;
-    }
+    } */
     .myplanRightItemBox {
         padding: 30px;
         margin-right: 40px;
@@ -260,8 +260,8 @@
     .myPlanLeft {
         width: 30vw;
         height: 400px;
-        padding: 20px;
-        margin-top: 50px;
+        padding: 20px 35px;
+        /* margin-top: 50px; */
         /* overflow: scroll; */
     }
     .myPlanLeft > ul {
@@ -277,25 +277,25 @@
         font-size: 0.8rem !important;
     }
     .myPlanRight {
-        width: 30vw;
+        width: 40vw;
         height: 400px;
         padding: 20px;
-        margin-top: 50px;
+        /* margin-top: 50px; */
     }
     .myPlanTop5 {
         width: 65vw !important;
     }
-    .myPlanRight b, .myPlanLeft > span {
-        font-size: 1.7rem;
-        font-weight: 900;
+    .myPlanRight span, .myPlanLeft > span {
+        font-size: 1.3rem;
+        font-weight: 500;
         /* color: #036E38; */
         color: #333;
     }
-    .myPlanRight span {
+    /* .myPlanRight span {
         font-size: 1.3rem;
         font-weight: 700;
         color: #444;
-    }
+    } */
     .myplanRightItemBox {
         padding: 30px;
         margin-right: 40px;

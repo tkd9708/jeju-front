@@ -18,9 +18,12 @@
     src: url("font/NotoSans-Medium.ttf") format("truetype");
     font-style: auto;
 }
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
 
 body {
-    font-family: NotoSans-Medium;
+    /* font-family: NotoSans-Medium !important; */
+    font-family: "Noto Sans KR", sans-serif !important;
     font-size: 16px;
 }
 

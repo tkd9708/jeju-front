@@ -328,7 +328,7 @@ class SignupPageComp extends Component {
         return (
             <div>
                 {/* 날라가는 새 애니메이션 */}
-                <div class="signImg">
+                {/* <div class="signImg">
                     <img src={jejuImg} alt=""/>
                 </div>
                 <div class="containers">
@@ -344,7 +344,7 @@ class SignupPageComp extends Component {
                     <div class="bird-container bird-container--four">
                         <div class="bird bird--four"></div>
                     </div>
-                </div>
+                </div> */}
 
             <div id="SignupForm" style={{textAlign: 'center', position: 'relative'}}>
                 <table class="table table-bordered">

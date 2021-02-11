@@ -1,0 +1,10 @@
+.jejuWeatherDiv {
+    border-radius: 0.6667rem;
+    background: linear-gradient(225deg, #ffffff, #e6e6e6);
+    box-shadow:  -0.22223rem 0.22223rem 0.44446rem #ededed,
+             0.22223rem -0.22223rem 0.44446rem #ffffff;
+    width: 10rem;
+    height: 10rem;
+    float:left;
+    margin: 2rem 2rem 2rem 2rem;
+}

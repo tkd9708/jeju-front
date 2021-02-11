@@ -417,12 +417,7 @@ class ShareBoardRowItem extends Component {
                 <Box m={1} id="ShareListBox">
                     <div onClick={this.toggle.bind(this)}>
                         {ThumbnailImg}
-                        <div id="ShareListTitle"
-                             style={{
-                                 fontSize: "25px",
-                                 fontWeight: "bold",
-                             }}
-                        >
+                        <div id="ShareListTitle">
                             {row.subject.split(",")[0]=="Food"?
                             <h6 className="font-weight-bold green-text">
                                 <MDBIcon icon="utensils" className="pr-2" />
@@ -499,7 +494,7 @@ class ShareBoardRowItem extends Component {
                                 <div style={{position: 'absolute', right: '5px', top: '5px'}}>
                                     <b style={{color: 'gray'}}>{row.writeday}</b>
                                 </div>
-                                <h3 className="mb-3 p-0" style={{fontWeight: '900'}}>
+                                <h3 className="mb-3 p-0" style={{fontWeight: '500'}}>
                                     {row.subject.split(",")[1]}
                                 </h3>
                                 <p>
@@ -514,7 +509,7 @@ class ShareBoardRowItem extends Component {
                         <hr/>
 
                             <div id="ShareReviewWrite">
-                            <MDBIcon icon="comments" className="green-text pr-3" style={{marginLeft: '10px'}}/><b style={{fontWeight: '700'}}>다녀온 후기나 궁금한 질문을 자유롭게 나눠보아요.</b>
+                            <MDBIcon icon="comments" className="green-text pr-3" style={{marginLeft: '10px'}}/><b style={{fontWeight: '400'}}>다녀온 후기나 궁금한 질문을 자유롭게 나눠보아요.</b>
                                 <br/><br/>
                                 <textarea
                                             placeholder="댓글 입력"
@@ -558,7 +553,7 @@ class ShareBoardRowItem extends Component {
                                     <input type="date" class="form-control form-control-sm" ref="wishday"></input>
                                     ⏰&nbsp;&nbsp;예정 시간
                                     <input type="time" class="form-control form-control-sm" ref="wishtime"></input>
-                                    💰&nbsp;&nbsp;<b>비용</b>
+                                    💰&nbsp;&nbsp;비용
                                     <input type="text" class="form-control form-control-sm" ref="money"/><br/>
                                     <div style={{textAlign: 'center'}}>
                                         <MDBBtn color="primary" onClick={this.insertWish.bind(this)}>추가</MDBBtn>

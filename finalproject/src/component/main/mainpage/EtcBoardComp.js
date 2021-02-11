@@ -12,6 +12,9 @@ import axios from "axios";
 import {URL} from "../../../redux/config";
 // import ShareRestaurantItemComp from "./ShareRestaurantItemComp";
 import ShareBoardRowItem from "../shareboard/ShareBoardRowItem";
+import './MainPageComp.css';
+import Slider from "react-slick";
+import './EtcBoardComp.css';
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -114,29 +117,69 @@ export default function EtcBoardComp(props) {
     }
 
 
+    const settings = {
+        dots: false,  // 점은 안 보이게
+        infinite: true, // 무한으로 즐기게
+        speed: 500,
+        slidesToShow: 5, //4장씩 보이게 해주세요
+        slidesToScroll: 1, //1장씩 넘어가세요
+        
+        responsive: [ // 반응형 웹 구현 옵션
+          {
+              breakpoint: 1200, // 화면 사이즈 1200px
+              settings: {
+                slidesToShow: 4,
+              }
+          },
+          {
+            breakpoint: 1023,
+            settings: {
+              slidesToShow: 3
+            }
+          },
+          {
+            breakpoint: 450,
+            settings: {
+              slidesToShow: 2
+            }
+          }
+        ]
+      };
     /**
      * Notice | ShareRestaurant | ShareMyPlan
      */
     return (
         <div className="etcBoardComp">
-            <Tabs value={selectedTabValue} onChange={handleChange} aria-label="simple tabs example">
-                <Tab label="Notice" {...a11yProps(0)} />
-                <Tab label="Share Restaurant" {...a11yProps(1)} />
-                {/* <Tab label="Share MyPlan" {...a11yProps(2)} /> */}
+
+            <Tabs
+                TabIndicatorProps={{style: {background:'#036E38'}}} 
+                variant="fullWidth"
+                value={selectedTabValue} 
+                onChange={handleChange} 
+                aria-label="simple tabs example"
+            >
+                <Tab label="공지사항" {...a11yProps(0)} />
+                <Tab label="BEST 맛집" {...a11yProps(1)} />
+                <Tab label="BEST 코스" {...a11yProps(2)} />
             </Tabs>
             <TabPanel value={selectedTabValue} index={0}>
-                <div style={{
-                    display: "flex",
-                    overflow: "auto",
-                    // flexWrap: "wrap"
-                }}>
-                    {
-                        noticeList.map((e, i) => {
-                            return (
-                                <NoticeItemComp key={i} row={e}/>
-                            )
-                        })
-                    }
+                <div className="EtcBoardNotice" 
+                // style={{
+                //     display: "flex",
+                //     overflow: "auto",
+                //     flexWrap: "wrap"
+                // }}
+                >
+                    <Slider {...settings}>
+                        {
+                            noticeList.map((e, i) => {
+                                return (
+                                    <NoticeItemComp key={i} row={e}/>
+                                )
+                            })
+                        }
+                    </Slider>
+                    
                 </div>
             </TabPanel>
             <TabPanel value={selectedTabValue} index={1}>

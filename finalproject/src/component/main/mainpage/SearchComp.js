@@ -5,12 +5,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import TextField from '@material-ui/core/TextField';
+import {TextField, InputAdornment} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import {actionType, URL} from "../../../redux/config";
 import axios from "axios";
 import store from "../../../redux/store";
 import './MyPlanComp.css';
+import SearchIcon from "@material-ui/icons/Search"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -124,7 +125,7 @@ export default function SearchComp(props) {
                 <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
                 <Select
                     labelId="demo-simple-select-outlined-label"
-                    id="demo-simple-select-outlined"
+                    id="search-demo-simple-select-outlined"
                     value={category}
                     onChange={setCategoryHandler}
                     label="Category"
@@ -137,21 +138,32 @@ export default function SearchComp(props) {
                     <MenuItem value="tag">Tag</MenuItem>
                 </Select>
             </FormControl>
-            <br/><br/>
-            <TextField id="outlined-basic" label="Input For Search." variant="outlined"
-                       autoComplete="off" className={classes.root}
-                       value={searchVal}
-                       onChange={setSearchValHandler}
-                       onKeyDown={(e)=>{
-                           if(e.code == "Enter"){
-                               doSearchHandler();
-                           }
-                       }}
-            />
-            <br/><br/>
-            <Button variant="contained" color="primary" className="searchButton"
+            {/* <br/><br/> */}
+            <div id="search-outlined-basic">
+                <TextField 
+                        // label="관광지 검색" 
+                        variant="outlined"
+                        InputProps={{
+                            startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon />
+                            </InputAdornment>
+                            ),
+                        }}
+                        autoComplete="off" className={classes.root}
+                        value={searchVal}
+                        onChange={setSearchValHandler}
+                        onKeyDown={(e)=>{
+                            if(e.code == "Enter"){
+                                doSearchHandler();
+                            }
+                        }}
+                />
+            </div>
+            {/* <br/> */}
+            <button className="searchButton btn btn-dark-green"
                     onClick={doSearchHandler}
-            > Search </Button>
+            > 명소 검색 </button>
             {updateButtonType()}
         </div>
 

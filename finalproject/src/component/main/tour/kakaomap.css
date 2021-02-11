@@ -83,7 +83,7 @@
     }
     #placesList .item p {
         font-size: 10pt;
-        font-weight: 700;
+        font-weight: 500;
     }
     #menu_wrap {
         width:90vw;
@@ -125,7 +125,7 @@
     }
     #placesList .item p {
         font-size: 12pt;
-        font-weight: 700;
+        font-weight: 500;
     }
     #menu_wrap {
         width:400px;
@@ -136,7 +136,7 @@
     /* 모달 */
     .aroundmodalTitle {
         font-size: 16pt;
-        font-weight: 700;
+        font-weight: 500;
         line-height: 50px;
     }
     .aroundpaper {
@@ -166,7 +166,7 @@
     }
     #placesList .item p {
         font-size: 13pt;
-        font-weight: 700;
+        font-weight: 500;
     }
     #menu_wrap {
         width:450px;
@@ -177,7 +177,7 @@
     /* 모달 */
     .aroundmodalTitle {
         font-size: 16pt;
-        font-weight: 700;
+        font-weight: 500;
         line-height: 50px;
     }
     .aroundpaper {
@@ -212,7 +212,7 @@
     }
     #placesList .item p {
         font-size: 13pt;
-        font-weight: 700;
+        font-weight: 500;
     }
     #menu_wrap {
         width:480px;
@@ -223,7 +223,7 @@
     /* 모달 */
     .aroundmodalTitle {
         font-size: 16pt;
-        font-weight: 700;
+        font-weight: 500;
         line-height: 50px;
     }
     .aroundpaper {
@@ -304,4 +304,8 @@
   .button-default {
     background: #247BA0;
     color: #fff;
+  }
+
+  .aroundmodal-close-button {
+      background-color: white;
   }

@@ -20,15 +20,17 @@ div.chatting div.chattingIconBack {
     border-radius: 30px;
     position: fixed;
     z-index: 20;
-    right: 2%;
-    bottom: 5%;
+    right: 20px;
+    bottom: 20px;
     /*border: 5px  solid gold;*/
+    transform-origin: right bottom;
 }
 
 div.chatting div.chattingIconBack:hover {
     cursor: pointer;
-    transform: scale(1.3);
+    transform: scale(1.1);
     z-index: 23;
+    border: 5px  inset silver;
 }
 
 div.chatting div.chattingIconBack .chattingIcon {
@@ -37,7 +39,7 @@ div.chatting div.chattingIconBack .chattingIcon {
     top: 41%;
     left: 39%;
     z-index: 21;
-    transform: scale(3.0);
+    transform: scale(2.8);
 }
 
 

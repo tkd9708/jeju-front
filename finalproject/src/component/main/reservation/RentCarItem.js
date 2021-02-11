@@ -120,7 +120,7 @@ class RentCarItem extends Component
                                 <input type="date" class="form-control form-control-sm" ref="wishday"></input>
                                 ⏰&nbsp;&nbsp;대여 예정시간
                                 <input type="time" class="form-control form-control-sm" ref="wishtime"></input>
-                                💰&nbsp;&nbsp;<b>비용</b>
+                                💰&nbsp;&nbsp;비용
                                 <input type="text" class="form-control form-control-sm" ref="money"/><br/>
                             </div>
                         </MDBModalBody>

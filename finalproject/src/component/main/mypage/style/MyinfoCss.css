@@ -9,7 +9,7 @@
         margin-bottom: 200px;
     }
     p#mypageInfoTitle{
-        font-weight: 900;
+        font-weight: 500;
         font-size: 13pt;
     }
     .mypageInfoCol {
@@ -39,7 +39,7 @@
     }
     span.mypageInfoSubtitle {
         font-size: 8pt;
-        font-weight: 900;
+        font-weight: 500;
     }
     span.mypageInfoSubContent {
         font-size: 6pt;
@@ -47,7 +47,7 @@
         color: #aaa;
     }
     .MuiTab-root {
-        font-weight: 900;
+        font-weight: 500;
         font-size: 9pt !important;
     }
     #mypagePassCheck {
@@ -61,7 +61,7 @@
         margin-top: 50px;
     }
     p#mypageInfoTitle{
-        font-weight: 900;
+        font-weight: 500;
         font-size: 18pt;
     }
     .mypageInfoCol {
@@ -90,7 +90,7 @@
     }
     span.mypageInfoSubtitle {
         font-size: 10pt;
-        font-weight: 900;
+        font-weight: 500;
     }
     span.mypageInfoSubContent {
         font-size: 8pt;
@@ -98,7 +98,7 @@
         color: #aaa;
     }
     .MuiTab-root {
-        font-weight: 900;
+        font-weight: 500;
         font-size: 10pt !important;
     }
 }
@@ -109,7 +109,7 @@
         margin-top: 80px;
     }
     p#mypageInfoTitle{
-        font-weight: 900;
+        font-weight: 500;
         font-size: 20pt;
     }
     .mypageInfoCol {
@@ -139,7 +139,7 @@
     span.mypageInfoSubtitle {
         /* font-size: 12pt; */
         font-size: 0.9rem;
-        font-weight: 900;
+        font-weight: 500;
     }
     span.mypageInfoSubContent {
         font-size: 10pt;
@@ -154,7 +154,7 @@
         margin-top: 100px;
     }
     p#mypageInfoTitle{
-        font-weight: 900;
+        font-weight: 500;
         font-size: 25pt;
     }
     .mypageInfoCol {
@@ -179,7 +179,7 @@
     }
     span.mypageInfoSubtitle {
         font-size: 15pt;
-        font-weight: 900;
+        font-weight: 500;
     }
     span.mypageInfoSubContent {
         font-size: 13pt;
@@ -187,7 +187,7 @@
         color: #aaa;
     }
     .MuiTab-root {
-        font-weight: 900;
+        font-weight: 500;
         font-size: 15pt !important;
     }
 

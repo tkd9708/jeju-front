@@ -163,7 +163,7 @@ class ShareBoardPageComp extends Component {
                     회원분들끼리 공유하는 공간입니다.<br/>
                     
                     {/*/!* 공유버튼 *!/*/}
-                    <MDBBtn size="sm" color="dark-green" type="button"
+                    <MDBBtn color="dark-green" type="button"
                             className="ShareListBtn"
                             style={{marginTop: '1.3%', color: 'white'}}
                             onClick={() => {
@@ -178,7 +178,7 @@ class ShareBoardPageComp extends Component {
                                     }
                                 }
                             }}
-                    > <b>맛집공유</b>
+                    > 맛집공유
                     </MDBBtn>
                 </div>
                 <br/><br/><br/>
@@ -186,7 +186,7 @@ class ShareBoardPageComp extends Component {
                 
                 <div className="ShareSearchForm">
 
-                    <MDBBtn size="sm" color="dark-green"
+                    <MDBBtn color="dark-green"
                             className="ShareListBtn"
                             onClick={
                                 () => {
@@ -199,7 +199,7 @@ class ShareBoardPageComp extends Component {
                                 }
                             }
                             style={{float: 'left', marginLeft: '7%'}}>
-                        <b>전체글</b>
+                        전체글
                     </MDBBtn>
 
                     <MDBBtn size="sm" color="dark-green"

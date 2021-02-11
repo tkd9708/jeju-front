@@ -1,0 +1,236 @@
+@media only screen and (max-width:450px){
+    .NoticeitemBox {
+        width: 30vw;
+        height: 150px;
+        text-align: center;
+        border: 1px solid #eee;
+        /* margin-right: 50px; */
+        /* margin-bottom: 50px; */
+        margin-top: 20px;
+        /* text-align: left; */
+    }
+    .NoticeitemTitle{
+        font-size: 9pt;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+    .NoticeitemContentDiv{
+        /* font-size: 13pt; */
+        font-size: 0.6em;
+        margin-bottom: 5px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .NoticeitemContent{
+        height: 70px;
+    }
+    .NoticeitemContent > * {
+        font-size: 0.6rem;
+    }
+    .NoticeitemContentDiv img {
+        display: none;
+    }
+    .EtcBoardNotice {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .EtcBoardNotice button.slick-prev::before {
+        left: -5px;
+        font-size: 20px !important;
+    }
+    .EtcBoardNotice button.slick-next::before {
+        left: -5px;
+        font-size: 20px !important;
+    }
+}
+@media only screen and (min-width:450px) and (max-width:770px){
+    .NoticeitemBox {
+        width: 25vw;
+        height: 200px;
+        text-align: center;
+        border: 1px solid #eee;
+        /* margin-right: 50px; */
+        /* margin-bottom: 50px; */
+        margin-top: 30px;
+        /* text-align: left; */
+    }
+    .NoticeitemTitle{
+        font-size: 10pt;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+    .NoticeitemContentDiv{
+        /* font-size: 13pt; */
+        font-size: 0.7em;
+        margin-bottom: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .NoticeitemContent{
+        height: 100px;
+    }
+    .NoticeitemContent > * {
+        font-size: 0.7rem;
+    }
+    .NoticeitemContentDiv img {
+        display: none;
+    }
+    .EtcBoardNotice {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .EtcBoardNotice button.slick-prev::before {
+        left: -5px;
+        font-size: 20px !important;
+    }
+    .EtcBoardNotice button.slick-next::before {
+        left: -5px;
+        font-size: 20px !important;
+    }
+}
+@media only screen and (min-width:770px) and (max-width:1023px){
+    .NoticeitemBox {
+        width: 25vw;
+        height: 250px;
+        text-align: center;
+        border: 1px solid #eee;
+        /* margin-right: 50px; */
+        /* margin-bottom: 50px; */
+        margin-top: 30px;
+        /* text-align: left; */
+    }
+    .NoticeitemTitle{
+        font-size: 13pt;
+        margin-left: 13px;
+        margin-right: 13px;
+        margin-bottom: 13px;
+        margin-top: 13px;
+    }
+    .NoticeitemContentDiv{
+        /* font-size: 13pt; */
+        font-size: 0.9em;
+        margin-bottom: 13px;
+        margin-left: 13px;
+        margin-right: 13px;
+    }
+    .NoticeitemContent{
+        height: 150px;
+    }
+    .NoticeitemContent > * {
+        font-size: 0.9rem;
+    }
+    .NoticeitemContentDiv img {
+        display: none;
+    }
+    .EtcBoardNotice {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .EtcBoardNotice button.slick-prev::before {
+        left: -5px;
+        font-size: 20px !important;
+    }
+    .EtcBoardNotice button.slick-next::before {
+        left: -5px;
+        font-size: 20px !important;
+    }
+}
+@media only screen and (min-width:1023px) and (max-width:1200px){
+    .NoticeitemBox {
+        width: 20vw;
+        height: 250px;
+        text-align: center;
+        border: 1px solid #eee;
+        /* margin-right: 50px; */
+        /* margin-bottom: 50px; */
+        margin-top: 30px;
+        /* text-align: left; */
+    }
+    .NoticeitemTitle{
+        font-size: 15pt;
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-bottom: 15px;
+        margin-top: 15px;
+    }
+    .NoticeitemContentDiv{
+        /* font-size: 13pt; */
+        font-size: 0.9em;
+        margin-bottom: 15px;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    .NoticeitemContent{
+        height: 150px;
+    }
+    .NoticeitemContent > * {
+        font-size: 0.9rem;
+    }
+    .NoticeitemContentDiv img {
+        display: none;
+    }
+    .EtcBoardNotice {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .EtcBoardNotice button.slick-prev::before {
+        left: -5px;
+        font-size: 20px !important;
+    }
+    .EtcBoardNotice button.slick-next::before {
+        left: -5px;
+        font-size: 20px !important;
+    }
+}
+
+@media only screen and (min-width:1200px){
+    .NoticeitemBox {
+        width: 17vw;
+        height: 250px;
+        text-align: center;
+        border: 1px solid #eee;
+        /* margin-right: 50px; */
+        /* margin-bottom: 50px; */
+        margin-top: 30px;
+        /* text-align: left; */
+    }
+    .NoticeitemTitle{
+        font-size: 15pt;
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-bottom: 15px;
+        margin-top: 15px;
+    }
+    .NoticeitemContentDiv{
+        /* font-size: 13pt; */
+        font-size: 0.9em;
+        margin-bottom: 15px;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    .NoticeitemContent{
+        height: 150px;
+    }
+    .NoticeitemContent > * {
+        font-size: 0.9rem;
+    }
+    .NoticeitemContentDiv img {
+        display: none;
+    }
+    .EtcBoardNotice {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .EtcBoardNotice button.slick-prev::before {
+        left: -5px;
+        font-size: 20px !important;
+    }
+    .EtcBoardNotice button.slick-next::before {
+        left: -5px;
+        font-size: 20px !important;
+    }
+}
