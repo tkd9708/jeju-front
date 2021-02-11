@@ -125,33 +125,36 @@ export default function BoardSample(props) {
                         if(i==0)
                             return(
                                 <div class="carousel-item active">
-                                    <MDBView hover zoom>
+                                    <MDBView zoom> 
                                         <img src={row.img} alt="jejuImg"/>
-                                    <MDBMask className="flex-center" overlay="stylish-light">
-                                        <p className="white-text" style={{cursor: 'pointer'}} onClick={
-                                            ()=>{
-                                                props.history.push("/tour/" + row.contentsid);
-                                            }
-                                        }>{row.title}</p>
-                                    </MDBMask>
+                                        <div class="carousel-caption">
+                                            
+                                            <p className="white-text" style={{cursor: 'pointer'}} onClick={
+                                                ()=>{
+                                                    props.history.push("/tour/" + row.contentsid);
+                                                }
+                                            }>{row.title}</p>
+                                        </div>
+                                    <MDBMask className="flex-center" overlay="stylish-light"></MDBMask>
+                                    
                                     </MDBView>
-                                        {/* <div class="carousel-caption">
-                                            <h3>{row.title}</h3>
-                                        </div>    */}
                                 </div>
                             )
                         else
                             return(
                                 <div class="carousel-item">
-                                    <MDBView hover zoom>
+                                    <MDBView zoom> 
                                         <img src={row.img} alt="jejuImg"/>
-                                    <MDBMask className="flex-center" overlay="stylish-light">
-                                        <p className="white-text" style={{cursor: 'pointer'}} onClick={
-                                            ()=>{
-                                                props.history.push("/tour/" + row.contentsid);
-                                            }
-                                        }>{row.title}</p>
-                                    </MDBMask>
+                                        <div class="carousel-caption">
+                                            
+                                            <p className="white-text" style={{cursor: 'pointer'}} onClick={
+                                                ()=>{
+                                                    props.history.push("/tour/" + row.contentsid);
+                                                }
+                                            }>{row.title}</p>
+                                        </div>
+                                    <MDBMask className="flex-center" overlay="stylish-light"></MDBMask>
+                                    
                                     </MDBView>
                                 </div>
                             )

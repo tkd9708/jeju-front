@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import {Box} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
-import '../tour/TourCss.css';
+// import '../tour/TourCss.css';
+import './EtcBoardComp.css';
 
 class NoticeItemComp extends Component {
 
@@ -35,36 +36,41 @@ class NoticeItemComp extends Component {
     * */
     render() {
         const {row} = this.props;
+        let codes = row.content;
         console.log(row);
-        return (
-            <Box m={1} id="itemBox">
-                <div style={{
-                    cursor: 'pointer',
 
+
+        return (
+            // <Box m={1} id="NoticeitemBox">
+                <div className="NoticeitemBox" style={{
+                    cursor: 'pointer',
+                    
                 }}
                      onClick=""
                 >
-                    <div id="itemTitle"
+                    
+                    <div className="NoticeitemTitle"
                          style={{whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'}}
                     >
                         <b style={{color: '#888'}}
                         >{row.subject}
                         </b><br/>
                     </div>
-                    <div id="itemContentDiv">
-                        <p id="itemContent"
+                   <div className="NoticeitemContentDiv">
+                        <p className="NoticeitemContent"
                            style={{fontWeight: '500', color: '#888', overflow: 'hidden'}}
-                        >{row.content}
+                           dangerouslySetInnerHTML={ {__html: codes} }
+                        >
                         </p>
                     </div>
-                    <div id="itemContentDiv">
-                        <p id="itemContent"
+                    <div className="NoticeitemContentDiv">
+                        <p className="NoticeitemContent"
                            style={{fontWeight: '500', color: '#888', overflow: 'hidden'}}
                         >{row.writeday}
                         </p>
                     </div>
                 </div>
-            </Box>
+            // </Box>
         )
     }
 }
