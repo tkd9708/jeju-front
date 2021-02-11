@@ -220,15 +220,15 @@
         display: none;
     }
     .EtcBoardNotice {
-        padding-left: 0px;
-        padding-right: 0px;
+        padding-left: 30px;
+        padding-right: 10px;
     }
     .EtcBoardNotice button.slick-prev::before {
-        left: -5px;
+        left: -20px;
         font-size: 20px !important;
     }
     .EtcBoardNotice button.slick-next::before {
-        left: -5px;
+        left: 5px;
         font-size: 20px !important;
     }
     .ShareitemContentDiv img {
@@ -279,11 +279,11 @@
         display: none;
     }
     .EtcBoardNotice {
-        padding-left: 0px;
-        padding-right: 0px;
+        padding-left: 100px;
+        padding-right: 50px;
     }
     .EtcBoardNotice button.slick-prev::before {
-        left: -5px;
+        left: -25px;
         font-size: 20px !important;
     }
     .EtcBoardNotice button.slick-next::before {
@@ -304,6 +304,7 @@
 }
 @media only screen and (min-width:1600px){
     .NoticeitemBox {
+        max-width: 300px;
         width: 15vw;
         height: 300px;
         text-align: center;
@@ -337,11 +338,11 @@
         display: none;
     }
     .EtcBoardNotice {
-        padding-left: 0px;
-        padding-right: 0px;
+        padding-left: 100px;
+        padding-right: 50px;
     }
     .EtcBoardNotice button.slick-prev::before {
-        left: -5px;
+        left: -25px;
         font-size: 20px !important;
     }
     .EtcBoardNotice button.slick-next::before {

@@ -122,14 +122,14 @@ export default function EtcBoardComp(props) {
         dots: false,  // 점은 안 보이게
         infinite: true, // 무한으로 즐기게
         speed: 500,
-        slidesToShow: 6, //4장씩 보이게 해주세요
+        slidesToShow: 5, //4장씩 보이게 해주세요
         slidesToScroll: 1, //1장씩 넘어가세요
         
         responsive: [ // 반응형 웹 구현 옵션
             {
                 breakpoint: 1600, // 화면 사이즈 1200px
                 settings: {
-                  slidesToShow: 5,
+                  slidesToShow: 4,
                 }
             },
           {
