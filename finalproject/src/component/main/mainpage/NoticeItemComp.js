@@ -46,7 +46,7 @@ class NoticeItemComp extends Component {
                     cursor: 'pointer',
                     
                 }}
-                     onClick=""
+                     onClick={()=>{this.props.history.push("/notice/content/" + row.num)}}
                 >
                     
                     <div className="NoticeitemTitle"

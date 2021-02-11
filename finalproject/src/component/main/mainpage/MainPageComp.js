@@ -88,7 +88,7 @@ class MainPageComp extends Component {
                         <MyPlanComp/>
                     </div>
                     <HotPlaceComp history={this.props.history}/>
-                    <EtcBoardComp/>
+                    <EtcBoardComp history={this.props.history}/>
                 </div>
             </div>
             

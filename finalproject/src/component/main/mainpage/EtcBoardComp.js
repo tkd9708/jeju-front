@@ -15,6 +15,7 @@ import ShareBoardRowItem from "../shareboard/ShareBoardRowItem";
 import './MainPageComp.css';
 import Slider from "react-slick";
 import './EtcBoardComp.css';
+import ShareItemComp from './ShareItemComp';
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -121,10 +122,16 @@ export default function EtcBoardComp(props) {
         dots: false,  // 점은 안 보이게
         infinite: true, // 무한으로 즐기게
         speed: 500,
-        slidesToShow: 5, //4장씩 보이게 해주세요
+        slidesToShow: 6, //4장씩 보이게 해주세요
         slidesToScroll: 1, //1장씩 넘어가세요
         
         responsive: [ // 반응형 웹 구현 옵션
+            {
+                breakpoint: 1600, // 화면 사이즈 1200px
+                settings: {
+                  slidesToShow: 5,
+                }
+            },
           {
               breakpoint: 1200, // 화면 사이즈 1200px
               settings: {
@@ -138,7 +145,7 @@ export default function EtcBoardComp(props) {
             }
           },
           {
-            breakpoint: 450,
+            breakpoint: 550,
             settings: {
               slidesToShow: 2
             }
@@ -151,7 +158,7 @@ export default function EtcBoardComp(props) {
     return (
         <div className="etcBoardComp">
             <Tabs
-                TabIndicatorProps={{style: {background:'#036E38'}}} 
+                TabIndicatorProps={{style: {background:'#2BBBAD'}}} 
                 variant="fullWidth"
                 value={selectedTabValue} 
                 onChange={handleChange} 
@@ -169,11 +176,15 @@ export default function EtcBoardComp(props) {
                 //     flexWrap: "wrap"
                 // }}
                 >
+                    <div style={{float: 'right', cursor: 'pointer', color: '#2BBBAD'}} onClick={()=>{props.history.push("/notice/1")}}>
+                         <b className="EtcGoToShare">+ 더보기</b>
+                       </div>
+                    <br/>
                     <Slider {...settings}>
                         {
                             noticeList.map((e, i) => {
                                 return (
-                                    <NoticeItemComp key={i} row={e}/>
+                                    <NoticeItemComp key={i} row={e} history={props.history}/>
                                 )
                             })
                         }
@@ -182,10 +193,26 @@ export default function EtcBoardComp(props) {
                 </div>
             </TabPanel>
             <TabPanel value={selectedTabValue} index={1}>
-                <div style={{
+                <div className="EtcBoardNotice" 
+                    >
+                       <div style={{float: 'right', cursor: 'pointer', color: '#2BBBAD'}} onClick={()=>{props.history.push("/share/1")}}>
+                         <b className="EtcGoToShare">+ 더보기</b>
+                       </div>
+                       <br/>
+                    <Slider {...settings}>
+                        {
+                            shareRestaurant.map((e, i) => {
+                                return (
+                                    <ShareItemComp key={i} row={e} history={props.history}/>
+                                )
+                            })
+                        }
+                    </Slider>
+                    
+                </div>
+                {/* <div style={{
                     display: "flex",
                     overflow: "auto",
-                    // flexWrap: "wrap"
 
                 }}>
                     {
@@ -197,7 +224,7 @@ export default function EtcBoardComp(props) {
                             )
                         })
                     }
-                </div>
+                </div> */}
             </TabPanel>
             <TabPanel value={selectedTabValue} index={2}>
             </TabPanel>
