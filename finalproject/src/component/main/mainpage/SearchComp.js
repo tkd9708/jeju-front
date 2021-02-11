@@ -72,15 +72,20 @@ export default function SearchComp(props) {
     const doSearchHandler = () => {
         console.log(category, searchVal);
 
-        store.dispatch({
-            type: actionType.setSearchResultDataList,
-            category: category,
-            searchVal: searchVal,
-            searchResultDataList: [],
-        });
-
-        ///search/:category?/:keyword?
-        props.history.push(`/search/${category}/${searchVal}/1`);
+        if(searchVal.trim() == ""){
+            alert("검색어를 입력해주세요.");
+        }
+        else{
+            store.dispatch({
+                type: actionType.setSearchResultDataList,
+                category: category,
+                searchVal: searchVal,
+                searchResultDataList: [],
+            });
+    
+            ///search/:category?/:keyword?
+            props.history.push(`/search/${category}/${searchVal}/1`);
+        }
 
         /*
         //search action.
