@@ -64,8 +64,10 @@ class MyBudget extends Component {
                 console.log(res.data);
                 this.setState({
                     capitalSumData:res.data,
-                    sum : this.state.capitalSumData - this.state.moneySumData
                 })
+                // this.setState({
+                //     sum : this.state.capitalSumData - this.state.moneySumData
+                // })
             }).catch(err=>{
                 console.log("capitalSumData 오류 : " + err);
             })
@@ -135,7 +137,7 @@ class MyBudget extends Component {
     }
 
     render() {
-        //var sum = this.state.capitalSumData - this.state.moneySumData
+        var sum = this.state.capitalSumData - this.state.moneySumData
 
         return (
             <div id="MyBudgetDiv">
@@ -171,13 +173,12 @@ class MyBudget extends Component {
                          
                 {/* 여행비 추가 모달 */}
                 <MDBModal isOpen={this.state.open} toggle={this.toggle} centered>
-                    <MDBModalHeader toggle={this.toggle} className="CapitalAddModal">여행비 추가</MDBModalHeader>
+                    <MDBModalHeader toggle={this.toggle} className="ShipAddModal">예산 추가</MDBModalHeader>
                     <MDBModalBody>
                         <div className="ShipAddModal">
                             📝&nbsp;&nbsp;<b>메모</b>
                             <input type="text" ref="content" class="form-control form-control-sm"
                             value={this.state.content} onChange={this.handleChange}/>
-                            <br/>
                             🗓&nbsp;&nbsp;<b>여행 시작일</b>
                             <input type="date" class="form-control form-control-sm" ref="wishday"></input>
                             💰&nbsp;&nbsp;<b>여행예산</b>
@@ -242,7 +243,7 @@ class MyBudget extends Component {
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td style={{textAlign: 'center'}}><b>합계 : </b>{this.state.sum} <b>원</b></td>
+                                <td style={{textAlign: 'center'}}><b>합계 : </b>{sum} <b>원</b></td>
                             </tr>
                         </tfoot>
                     </table>
