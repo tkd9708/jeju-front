@@ -122,7 +122,7 @@ export default function EtcBoardComp(props) {
             <Tabs value={selectedTabValue} onChange={handleChange} aria-label="simple tabs example">
                 <Tab label="Notice" {...a11yProps(0)} />
                 <Tab label="Share Restaurant" {...a11yProps(1)} />
-                <Tab label="Share MyPlan" {...a11yProps(2)} />
+                {/* <Tab label="Share MyPlan" {...a11yProps(2)} /> */}
             </Tabs>
             <TabPanel value={selectedTabValue} index={0}>
                 <div style={{

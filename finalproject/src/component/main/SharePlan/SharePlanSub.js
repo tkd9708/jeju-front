@@ -91,7 +91,7 @@ class SharePlanSub extends Component {
 
     componentDidMount(){
         // this.getProfile();
-        this.props.setName(this.props.row.memId);
+        this.props.setName(this.props.row.memId, this.props.row.comment);
     }
 
 
@@ -121,36 +121,41 @@ class SharePlanSub extends Component {
             
                 <div>
                    
-                        
                     
             <div>
               
                
                
-                        <TimelineItem  >
+                <TimelineItem  >
+           
                     <TimelineOppositeContent>
-                    <Typography variant="body2" color="textSecondary">
-                        {this.props.row.wishtime}
-                    </Typography>
+                        <Typography variant="body2" color="textSecondary">
+                            {this.props.row.wishtime}
+                        </Typography>
                     </TimelineOppositeContent>
+
+                   
+
                     <TimelineSeparator>
-                    <TimelineDot style={{width:30,backgroundColor:'white'}} >
-                        <FcCheckmark/>
-                    </TimelineDot>
-                    <TimelineConnector />
+                        <TimelineDot style={{width:30,backgroundColor:'white'}} >
+                            <FcCheckmark/>
+                        </TimelineDot>
+                        <TimelineConnector />
                     </TimelineSeparator>
-                    
+
                     <TimelineContent>
                     
-                        <Typography variant="h6" component="h1" style={{cursor:'pointer',fontSize:20}} 
-                         onClick={this.deleteOpen.bind(this)}>
-                        {this.props.row.comment!==null?<div  class="arrow_box"><span class="comment_logo">{this.props.row.comment}
-                        </span></div>:''}
-                        {this.props.row.wishday===this.props.day?this.props.row.title:this.props.row.title}
-                       
-                        </Typography>
-                        <Typography>{this.props.row.content}</Typography>
-                    </TimelineContent>
+                    <Typography variant="h6" component="h1" style={{cursor:'pointer',fontSize:20}} 
+                     onClick={this.deleteOpen.bind(this)}>
+                    {/* {this.props.row.comment!==null?<div  class="arrow_box"><span class="comment_logo">{this.props.row.comment}
+                    </span></div>:''} */}
+                     {this.props.row.wishday===this.props.day?this.props.row.title:this.props.row.title}
+                   
+                    </Typography>
+                    
+                </TimelineContent>
+                    
+              
                 </TimelineItem>
                
                <Dialog 
