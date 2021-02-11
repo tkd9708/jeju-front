@@ -650,6 +650,7 @@ class Weather extends Component {
                 change={this.selectChange.bind(this)}
                 /> */}
 
+
                 <select onChange={this.selectChange} value={this.props.selectBoxValue}>
                     {options}
                 </select>
@@ -672,7 +673,7 @@ class Weather extends Component {
                         {/* ({row.spotAreaName})
                         ({row.courseName})
                         ({row.spotName})
-                        ({row.thema}) */}
+                    ({row.thema}) */}
                         ({row.maxTa})
                         ({row.minTa})
                         {/* ({row.wd})
@@ -701,10 +702,10 @@ class Weather extends Component {
                         ({skyStatus[row.sky-1]})
                         {/* ({row.rhm})
                         ({row.pop})
-                        ({row.rn}) */}
+                    ({row.rn}) */}
                         </>
                         ))
-                }
+                    }
                 
                 <br />
                 '체감온도'
@@ -725,8 +726,8 @@ class Weather extends Component {
                 <br />
                 {
                     // store.getState.weatherInfo_3.map((row)=>(
-                    this.state.c_weatherInfo_4.filter(w => w.category === 'T1H').map((row)=>(
-                        <>
+                        this.state.c_weatherInfo_4.filter(w => w.category === 'T1H').map((row)=>(
+                            <>
                             ({row.category})
                             ({row.obsrValue})
                         </>
@@ -743,63 +744,61 @@ class Weather extends Component {
                 <br />
                 {
                     // this.state.c_weatherInfo_6.filter(w => w.category === 'SKY' || w.category === 'TMN' || w.category === 'TMX').map((row)=>(
-                    this.state.c_weatherInfo_6.filter(w => w.category === 'SKY' || w.category === 'TMN' || w.category === 'TMX').map((row)=>(
-                        <React.Fragment>
-                            {/* <span>
-                                발표시각
-                                ({row.baseTime})
-                            </span> */}
-                            <span>
-                                예보일자
-                                ({row.fcstDate})
-                                변경전({changeDateFormat.getFullYear()}, {changeDateFormat.getMonth()+1}, {changeDateFormat.getDate()}, {arrDayStr[changeDateFormat.getDay()]}요일)
-                                
-                                예보일자 섭스트링({changeYear = Number(row.fcstDate.substr(0, 4))});
-                                
-                                예보일자 섭스트링2({changeMonth = Number(row.fcstDate.substr(4, 1)) === 0 ? Number(row.fcstDate.substr(5, 1)) : Number(row.fcstDate.substr(4, 2))});
-                                
-                                예보일자 섭스트링3({changeDate = Number(row.fcstDate.substr(6, 1)) === 0 ? Number(row.fcstDate.substr(7, 1)) : Number(row.fcstDate.substr(6, 2))});
+                        this.state.c_weatherInfo_6.filter(w => w.category === 'SKY' || w.category === 'TMN' || w.category === 'TMX').map((row)=>(
+                            <div className="jejuWeatherDiv">
+                                {/* <span>
+                                    발표시각
+                                    ({row.baseTime})
+                                </span> */}
+                                <span>
+                                    예보일자
+                                    ({row.fcstDate})
+                                    변경전({changeDateFormat.getFullYear()}, {changeDateFormat.getMonth()+1}, {changeDateFormat.getDate()}, {arrDayStr[changeDateFormat.getDay()]}요일)
+                                    
+                                    예보일자 섭스트링({changeYear = Number(row.fcstDate.substr(0, 4))});
+                                    
+                                    예보일자 섭스트링2({changeMonth = Number(row.fcstDate.substr(4, 1)) === 0 ? Number(row.fcstDate.substr(5, 1)) : Number(row.fcstDate.substr(4, 2))});
+                                    
+                                    예보일자 섭스트링3({changeDate = Number(row.fcstDate.substr(6, 1)) === 0 ? Number(row.fcstDate.substr(7, 1)) : Number(row.fcstDate.substr(6, 2))});
 
-                                {changeDay = changeDateFormat.getDay()}
-                                
-                                <input type='hidden' value={changeDateFormat.setFullYear(changeYear)}></input>
-                                <input type='hidden' value={changeDateFormat.setMonth(changeMonth-1)}></input>
-                                <input type='hidden' value={changeDateFormat.setDate(changeDate)}></input>
+                                    {changeDay = changeDateFormat.getDay()}
+                                    
+                                    <input type='hidden' value={changeDateFormat.setFullYear(changeYear)}></input>
+                                    <input type='hidden' value={changeDateFormat.setMonth(changeMonth-1)}></input>
+                                    <input type='hidden' value={changeDateFormat.setDate(changeDate)}></input>
 
-                                변경후({changeDateFormat.getFullYear()}&nbsp;{changeDateFormat.getMonth()+1}&nbsp;{changeDateFormat.getDate()}&nbsp;{arrDayStr[changeDay]}요일)
-                            </span>
-                            <br />
-                            <span>
-                                예보시각
-                                ({row.fcstTime})
-                                
-                            </span>
-                            <br />
-                            <span>
-                                자료구분문자
-                                ({row.category})
-                            </span>
-                            <br />
-                            <span>
-                                예보 값
-                                ({row.fcstValue})
-                            </span>
-                            <ColorSkycons
-                                type = { Object.keys(skyStatusEnum).find(name => skyStatusEnum[name] === row.fcstValue-1) }
-                                animate = { defaults.animate }
-                                size = { defaults.size }
-                                resizeClear = { true }
-                                // {...svgProps}
-                            />
-                            ({krSkyStatus[row.fcstValue-1]})
-                            {count === 8 ? <br /> : ''}
-                            {count = count + 1}
-                        </React.Fragment>
+                                    변경후({changeDateFormat.getFullYear()}&nbsp;{changeDateFormat.getMonth()+1}&nbsp;{changeDateFormat.getDate()}&nbsp;{arrDayStr[changeDay]}요일)
+                                </span>
+                                <br />
+                                <span>
+                                    예보시각
+                                    ({row.fcstTime})
+                                    
+                                </span>
+                                <br />
+                                <span>
+                                    자료구분문자
+                                    ({row.category})
+                                </span>
+                                <br />
+                                <span>
+                                    예보 값
+                                    ({row.fcstValue})
+                                </span>
+                                <ColorSkycons
+                                    type = { Object.keys(skyStatusEnum).find(name => skyStatusEnum[name] === row.fcstValue-1) }
+                                    animate = { defaults.animate }
+                                    size = { defaults.size }
+                                    resizeClear = { true }
+                                    // {...svgProps}
+                                />
+                                ({krSkyStatus[row.fcstValue-1]})
+                                {count === 8 ? <br /> : ''}
+                                {count = count + 1}
+                        </div>
                     ))
                 }
-                <div className="jejuWeatherDiv">
-                    <p>제주날씨</p>
-                </div>
+                
                 <h4>Weather</h4>
                 <img src = { OPENNURI } alt='OPENNURI' />
             </div>
