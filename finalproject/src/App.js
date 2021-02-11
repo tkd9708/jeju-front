@@ -43,7 +43,7 @@ import ChattingRoom from './component/main/SharePlan/ChattingRoom';
 import ChatIcon from '@material-ui/icons/Chat';
 import ChatCompPage from "./component/main/SharePlan/ChatCompPage";
 import ChattingLogic from "./ChattingLogic";
-import RecommendCourse from "./component/main/Recommend/RecommendCourse";
+import RecommendCourse from "./component/main/Recommend/RecommendPageComp";
 import MyBudget from './component/main/mypage/MyBudget';
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
