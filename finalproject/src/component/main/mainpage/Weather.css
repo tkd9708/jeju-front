@@ -1,8 +1,8 @@
 .jejuWeatherDiv {
-    border-radius: 2.3902rem;
-    background: linear-gradient(225deg, #ffffff, #dadada);
-    box-shadow:  -0.99105853658536585365853658536585rem 0.99105853658536585365853658536585rem 1.982117073rem #cecece,
-             0.99105853658536585365853658536585rem -0.99105853658536585365853658536585rem 1.982117073rem #ffffff;
+    border-radius: 0.6667rem;
+    background: linear-gradient(225deg, #ffffff, #e6e6e6);
+    box-shadow:  -0.22223rem 0.22223rem 0.44446rem #ededed,
+             0.22223rem -0.22223rem 0.44446rem #ffffff;
     width: 10rem;
     height: 10rem;
     float:left;
