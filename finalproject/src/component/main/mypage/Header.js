@@ -9,7 +9,6 @@ import axios from 'axios';
 import {URL} from "../../../redux/config";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import ScheduleAdd  from './ScheduleAdd';
 import ScheduleList from './ScheduleList';
 import store from '../../../redux/store';
 import moment from 'moment';

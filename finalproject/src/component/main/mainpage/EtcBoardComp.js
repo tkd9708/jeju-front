@@ -157,6 +157,7 @@ export default function EtcBoardComp(props) {
      */
     return (
         <div className="etcBoardComp">
+
             <Tabs
                 TabIndicatorProps={{style: {background:'#2BBBAD'}}} 
                 variant="fullWidth"
