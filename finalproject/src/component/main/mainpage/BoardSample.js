@@ -21,6 +21,7 @@ import Paper from "@material-ui/core/Paper";
 import BoardSampleItem from './BoardSampleItem';
 import ItemComp from "../tour/ItemComp";
 import './MainPageComp.css';
+import { MDBMask, MDBView, MDBContainer, MDBRow, MDBCol } from "mdbreact";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -99,20 +100,97 @@ export default function BoardSample(props) {
     };
 
     return (
-        <div>
-            <b className="HotSpotTitle"><strong style={{color: '#2BBBAD'}}>&nbsp;&nbsp;&nbsp;&nbsp;{arrJejuLoc_ko[idx]}</strong> 지역의 인기 명소</b>
-            <hr/>
-            <div className={classes.paperRoot}>
-                {spotList.map((row, i) => {
-                    // console.log(i, row, props.history);
-                    return (
-                        <ItemComp row={row} key={i}
-                                  history={props.history}
-                                  getList={getList.bind(this)}
-                        ></ItemComp>
-                    )
-                })}
+        <div id="boardSampleDiv">
+            <div style={{borderBottom: '2px solid #2BBBAD', padding: '10px 0', width: '100%'}}>
+                <b className="HotSpotTitle"><strong style={{color: '#2BBBAD'}}>&nbsp;&nbsp;&nbsp;&nbsp;{arrJejuLoc_ko[idx]}</strong> 지역의 인기 명소</b>
             </div>
+            {/* <hr/> */}
+            <div className="carousel slide boardSampleSlide" id="demo" data-ride="carousel" style={{display: 'flex'}}>
+                <ul class="carousel-indicators">
+                    <li data-target="#demo" data-slide-to="0" class="active"></li>
+                    <li data-target="#demo" data-slide-to="1"></li>
+                    <li data-target="#demo" data-slide-to="2"></li>
+                    <li data-target="#demo" data-slide-to="3"></li>
+                    <li data-target="#demo" data-slide-to="4"></li>
+                </ul>
+
+                <div class="carousel-inner boardSampleSlideInner">
+                    {spotList.map((row, i) => {
+                        // return (
+                        //     <ItemComp row={row} key={i}
+                        //             history={props.history}
+                        //             getList={getList.bind(this)}
+                        //     ></ItemComp>
+                            
+                        if(i==0)
+                            return(
+                                <div class="carousel-item active">
+                                    <MDBView zoom> 
+                                        <img src={row.img} alt="jejuImg"/>
+                                        <div class="carousel-caption">
+                                            
+                                            <p className="white-text" style={{cursor: 'pointer'}} onClick={
+                                                ()=>{
+                                                    props.history.push("/tour/" + row.contentsid);
+                                                }
+                                            }>{row.title}</p>
+                                        </div>
+                                    <MDBMask className="flex-center" overlay="stylish-light"></MDBMask>
+                                    
+                                    </MDBView>
+                                </div>
+                            )
+                        else
+                            return(
+                                <div class="carousel-item">
+                                    <MDBView zoom> 
+                                        <img src={row.img} alt="jejuImg"/>
+                                        <div class="carousel-caption">
+                                            
+                                            <p className="white-text" style={{cursor: 'pointer'}} onClick={
+                                                ()=>{
+                                                    props.history.push("/tour/" + row.contentsid);
+                                                }
+                                            }>{row.title}</p>
+                                        </div>
+                                    <MDBMask className="flex-center" overlay="stylish-light"></MDBMask>
+                                    
+                                    </MDBView>
+                                </div>
+                            )
+                    })}
+                </div>
+                
+                <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#demo" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div>
+            {/* <div id="demo" class="carousel slide" data-ride="carousel">
+
+                <ul class="carousel-indicators">
+                    <li data-target="#demo" data-slide-to="0" class="active"></li>
+                    <li data-target="#demo" data-slide-to="1"></li>
+                </ul>
+                
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                    <img src={jeju1} alt="Los Angeles" width="1100" height="500"/>
+                    </div>
+                    <div class="carousel-item">
+                    <img src={jeju2} alt="Chicago" width="1100" height="500"/>
+                    </div>
+                </div>
+                
+                <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#demo" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+                </div> */}
         </div>
     )
 }

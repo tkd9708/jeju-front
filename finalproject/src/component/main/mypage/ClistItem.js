@@ -90,40 +90,52 @@ class ClistItem extends Component {
     render() {
         
         const {row} = this.props;
-        
+        let flag=false;
+        if(row.aroundId==null&&row.spotId==null&&row.shareNum==null){
+            if(row.content.split(",")[0]=="여행예산"){
+                flag = true;
+            }
+        }
+
         return (
             // <div>
             
                 <div>
-                <TimelineItem className="RCA-timeline">
-                    <TimelineOppositeContent>
-                    <Typography variant="body2" color="textSecondary" className="RCA-timelineTitle">
-                        {row.wishtime}
-                    </Typography>
-                    </TimelineOppositeContent>
-                    <TimelineSeparator>
-                    <TimelineDot color="primary" variant="outlined" className="RCA-timelineDot">
-                        {/* <FastfoodIcon /> */}
-                        {row.content=="spot"?"🛕":row.content==="myplan"&&row.title.split(",")[0]==="일정"?"📅":row.content==="share"?"👨‍🍳":
-                            row.content.split(",")[0]==="카페"?"☕":row.content.split(",")[0]==="음식점"?"🍔":
-                            row.content.split(",")[0]==="숙박"?"🛌":row.title.split(",")[0]==="우도배"?"🚢":
-                            row.title.split(",")[0]==="렌트카"?"🚗":row.title.split(",")[0]==="항공"?"✈":''}
-                    </TimelineDot>
-                    <TimelineConnector />
-                    </TimelineSeparator>
-                    <TimelineContent className="RCA-timelineTitle">
-                        <div style={{cursor: 'pointer'}} onClick={this.alertOpen.bind(this)}>
+                {flag==false?
+                    <TimelineItem className="RCA-timeline">
+                        <TimelineOppositeContent>
+                        <Typography variant="body2" color="textSecondary" className="RCA-timelineTitle">
+                            {row.wishtime}
+                        </Typography>
+                        </TimelineOppositeContent>
+                        <TimelineSeparator>
+                        <TimelineDot color="primary" variant="outlined" className="RCA-timelineDot">
+                            {/* <FastfoodIcon /> */}
+                            {row.content=="spot"?"🛕":row.content==="myplan"&&row.title.split(",")[0]==="일정"?"📅":row.content==="share"?"👨‍🍳":
+                                row.content.split(",")[0]==="카페"?"☕":row.content.split(",")[0]==="음식점"?"🍔":
+                                row.content.split(",")[0]==="숙박"?"🛌":row.title.split(",")[0]==="우도배"?"🚢":
+                                row.title.split(",")[0]==="렌트카"?"🚗":row.title.split(",")[0]==="항공"?"✈":''}
+                        </TimelineDot>
+                        <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent className="RCA-timelineTitle">
+                            <div style={{cursor: 'pointer'}} onClick={this.alertOpen.bind(this)}>
 
-                            {row.content==="share"||row.content==="myplan"?row.title.split(",")[1]:row.title}
-                        </div>
-                    {/* <Paper elevation={3} className="RCA-timelineTitle" style={{cursor: 'pointer'}} onClick={this.alertOpen.bind(this)}>
-                    
+                                {row.content==="share"||row.content==="myplan"?row.title.split(",")[1]:row.title}
+                            </div>
+                        {/* <Paper elevation={3} className="RCA-timelineTitle" style={{cursor: 'pointer'}} onClick={this.alertOpen.bind(this)}>
                         
-                    </Paper> */}
-                    </TimelineContent>
-                    
-                    {/* alert 창 */}
-                    <Dialog
+                            
+                        </Paper> */}
+                        </TimelineContent>
+                        
+                        
+                    </TimelineItem>
+                :""}
+                
+                
+                {/* alert 창 */}
+                <Dialog
                         open={this.state.alertOpen}
                         onClose={this.alertClose.bind(this)}
                         aria-labelledby="alert-dialog-title"
@@ -144,8 +156,7 @@ class ClistItem extends Component {
                         </Button>
                         </DialogActions>
                     </Dialog>
-                </TimelineItem>
-                
+
                 </div>
                 
                 
