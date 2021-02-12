@@ -46,8 +46,8 @@ class ScheduleList extends Component{
                 <div className="ScheduleListLine">
                     {/* {tag} */}
                     {/* <FcOk/> */}
-                    🔖&nbsp;&nbsp;<b>{wishday}</b>
-                    &nbsp;&nbsp;&nbsp;{this.props.row.title}
+                    &nbsp;&nbsp;<strong>{wishday}</strong>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{this.props.row.title}
                 </div>
             
             

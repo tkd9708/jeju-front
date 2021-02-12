@@ -53,7 +53,9 @@ class RoundAir extends Component {
             all: 0,
             general: 0,
             business: 0,
-            wishtime: ''
+            wishtime1: '',
+            wishtime2: '',
+            money1: ''
 
           }
 
@@ -116,26 +118,27 @@ class RoundAir extends Component {
         let content2 = '항공,제주→김포';
         let startdepartDate = this.refs.startdepartDate.value;
         let arriverdepartDate = this.refs.arriverdepartDate.value;
-        let wishtime = this.state.wishtime;
+        let wishtime1 = this.state.wishtime1;
+        let wishtime2 = this.state.wishtime2;
         let money1 = this.state.money1==''?null:this.state.money1;
-        let money2 = this.state.money2==''?null:this.state.money2;
+        // let money2 = this.state.money2==''?null:this.state.money2;
 
         if(store.getState().logged==false){
             if(window.confirm("로그인이 필요한 서비스 입니다.\n로그인 하시겠습니까?"))
                 this.props.history.push("/login");
         }
         else{
-            if(startdepartDate == '' || arriverdepartDate == '' || wishtime == '')
+            if(startdepartDate == '' || arriverdepartDate == '' || wishtime1 == '' || wishtime2 == '')
                 alert("날짜와 시간을 모두 선택해주세요.");
             else{
-                axios.post(url, {memId, content: content1, wishday: startdepartDate, wishtime, money: money1})
+                axios.post(url, {memId, content: content1, wishday: startdepartDate, wishtime:wishtime1, money: money1})
                 .then(res=>{
                     
                 }).catch(err=>{
                     console.log("air 일정 insert 오류 : " + err);
                 })
 
-                axios.post(url, {memId, content: content2, wishday: arriverdepartDate, wishtime, money: money2})
+                axios.post(url, {memId, content: content2, wishday: arriverdepartDate, wishtime:wishtime2})
                 .then(res=>{
                     this.setState({
                         alertOpen: true
@@ -252,15 +255,44 @@ class RoundAir extends Component {
 
                             <div style={{borderTop:'0.1px solid white',textAlign:'center'}} className="AirOneWayPlan">
                             
-                            <Tooltip title="예정 시간" arrow>
+                            <Box
+                                display="flex"
+                                flexWrap="wrap"
+                                justifyContent="center"
+                                width="100%"
+                                className="AirTabContent"
+                            >
+                                <Box m={1} style={{textAlign: 'left'}}>
+                                    {/* 날짜선택 */}
+                                    <Tooltip title="예정 가는 시간" arrow>
+                                        <div style={{display: 'inline-block'}}>
+                                            <input type="time" class="form-control form-control-sm" value={this.state.wishtime1} onChange={this.handleChange.bind(this)} name="wishtime1"></input>
+                                        </div>
+                                    </Tooltip>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <Tooltip title="예정 오는 시간" arrow>
+                                        <div style={{display: 'inline-block'}}>
+                                            <input type="time" class="form-control form-control-sm" value={this.state.wishtime2} onChange={this.handleChange.bind(this)} name="wishtime2"></input>
+                                        </div>
+                                    </Tooltip>
+                                    
+                                </Box>
+                            </Box>
+                            <br/>
+                                    <Tooltip title="비용 추가를 원할 시, 입력해주세요." arrow>
+                                        <div style={{display: 'inline-block'}}>
+                                            <input type="text" class="form-control form-control-sm" value={this.state.money1} onChange={this.handleChange.bind(this)} name="money1" placeholder="비용"></input>
+                                        </div>
+                                    </Tooltip>
+                            {/* <Tooltip title="예정 시간" arrow>
                                 <div>
                                 <input type="time" class="form-control form-control-sm" value={this.state.wishtime} onChange={this.handleChange.bind(this)} name="wishtime"></input>
                                 <input type="text" class="form-control form-control-sm" value={this.state.money1} onChange={this.handleChange.bind(this)} name="money1"></input>
                                 <input type="text" class="form-control form-control-sm" value={this.state.money2} onChange={this.handleChange.bind(this)} name="money2"></input>
                                 </div>
-                            </Tooltip>
+                            </Tooltip> */}
                                 
-                                <br/>
+                                <br/><br/>
                                
                                 <button type="button" ref="wishtime"
                                        onClick={this.insertWish.bind(this)} className="btn btn-info">

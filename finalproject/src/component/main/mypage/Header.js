@@ -9,7 +9,6 @@ import axios from 'axios';
 import {URL} from "../../../redux/config";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import ScheduleAdd  from './ScheduleAdd';
 import ScheduleList from './ScheduleList';
 import store from '../../../redux/store';
 import moment from 'moment';
@@ -84,11 +83,12 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
         let content= "일정," + this.refs.content.value;
         let wishday=this.refs.wishday.value;
         let wishtime=this.refs.wishtime.value;
+        let money = this.refs.money.value==''?null:this.refs.money.value;
 
         if(content=='' || wishday=='' || wishtime=='')
             alert("정보를 모두 입력해주세요.");
         else{
-            axios.post(url,{memId,content,wishday,wishtime})
+            axios.post(url,{memId,content,wishday,wishtime,money})
             .then(res=>{
                 this.setState({
                     open: false
@@ -163,12 +163,14 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
                         <MDBModalBody>
                             <div className="RCA-planAddModal">
                                 {/* <span className="addtitle">일정 추가</span><br/> */}
-                                📆&nbsp;&nbsp;나의 일정
+                                📆&nbsp;&nbsp;<strong>나의 일정</strong>
                                 <input type="text" className="form-control" style={{height: '50px'}} ref="content"></input><br/>
-                                🗓&nbsp;&nbsp;여행 날짜
+                                🗓&nbsp;&nbsp;<strong>여행 날짜</strong>
                                 <input type="date" class="form-control form-control-sm" ref="wishday"></input><br/>
-                                ⏰&nbsp;&nbsp;예정 시간
-                                <input type="time" class="form-control form-control-sm" ref="wishtime"></input>
+                                ⏰&nbsp;&nbsp;<strong>예정 시간</strong>
+                                <input type="time" class="form-control form-control-sm" ref="wishtime"></input><br/>
+                                💰&nbsp;&nbsp;<strong>예상 비용</strong>
+                                <input type="text" class="form-control form-control-sm" ref="money"/>
                                 {/* <div style={{textAlign: 'center'}}>
                                     <button type="button" class="btn btn-warning planAddBtn" onClick={this.insertContent.bind(this)}><b>추가</b></button>
                                 </div> */}

@@ -12,7 +12,7 @@ class BoardSampleItem extends Component {
             <Paper elevation={3}>
                 {row.title}
                 <img src={row.thumbnail} alt="profile"/>
-            </Paper>            
+            </Paper>        
         )        
     }
 }

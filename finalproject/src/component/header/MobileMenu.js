@@ -25,6 +25,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import "./Menu.css";
+import titleImage from '../../image/titleImage.png';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -159,7 +160,7 @@ function MobileMenu(props) {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <NavLink to="/mypage" onClick={handleMobileMenuClose} style={{color: 'black'}}> Mypage</NavLink>
+        <NavLink to="/mypage" onClick={handleMobileMenuClose} style={{color: 'black'}}> 마이페이지</NavLink>
       </MenuItem>
       <MenuItem>
         <NavLink to="/" onClick={
@@ -169,7 +170,7 @@ function MobileMenu(props) {
                                 props.setLogOut();
                             }
                         } style={{color: 'black'}}>
-            Logout
+            로그아웃
         </NavLink>
       </MenuItem>
       
@@ -193,7 +194,7 @@ function MobileMenu(props) {
         onKeyDown={handleDrawerClose} className="mobildMenuDrawer">
       <Divider />
       <List onClick={handleDrawerClose}>
-          <ListItem style={{fontWeight: '600'}}>
+          <ListItem style={{fontWeight: '900', color: '#333'}}>
             <NavLink exact to="/"
                     onClick={() => {
                         console.log("Home NavLink onClick");
@@ -212,7 +213,7 @@ function MobileMenu(props) {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
                 >
-                <Typography className={classes.heading} style={{fontWeight: '600', color: ' #036E38'}}>AREA</Typography>
+                <Typography className={classes.heading} style={{fontWeight: '900', color: '#333'}}>명소안내</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <List onClick={handleDrawerClose}>
@@ -241,12 +242,13 @@ function MobileMenu(props) {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
                 >
-                <Typography className={classes.heading} style={{fontWeight: '600', color: ' #036E38'}}>SHARE</Typography>
+                <Typography className={classes.heading} style={{fontWeight: '900', color: '#333'}}>소통공간</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <List onClick={handleDrawerClose}>
                         <ListItem><a href="/share/1" style={{color: 'black'}}>맛집 공유</a></ListItem>
                         <ListItem><a href="/shareplan" style={{color: 'black'}}>일정 공유</a></ListItem>
+                        <ListItem><a href="/Recommend" style={{color: 'black'}}>코스 추천</a></ListItem>
                     </List>
                 </AccordionDetails>
             </Accordion>
@@ -260,7 +262,7 @@ function MobileMenu(props) {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
                 >
-                <Typography className={classes.heading} style={{fontWeight: '600', color: ' #036E38'}}>TRAFFIC</Typography>
+                <Typography className={classes.heading} style={{fontWeight: '900', color: '#333'}}>교통안내</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <List onClick={handleDrawerClose}>
@@ -273,8 +275,8 @@ function MobileMenu(props) {
       </List>
       
       <Divider />
-      <List onClick={handleDrawerClose} style={{fontWeight: '600'}}>
-          <ListItem><a href="/notice/1">NOTICE</a></ListItem>
+      <List onClick={handleDrawerClose} style={{fontWeight: '900', color: '#333'}}>
+          <ListItem><a href="/notice/1">공지사항</a></ListItem>
       </List>
     </div>
   );
@@ -302,10 +304,10 @@ function MobileMenu(props) {
             <MenuIcon/>
           </IconButton>
           <div className={classes.grow} />
-          <Typography className={classes.title} variant="b" noWrap>
+          {/* <Typography className={classes.title} variant="b" noWrap>
             제주 일상
-          </Typography>
-          
+          </Typography> */}
+          <img src={titleImage} style={{width: '20vw'}}/>
           <div className={classes.grow} />
           <div className={classes.sectionMobile}>
             <IconButton

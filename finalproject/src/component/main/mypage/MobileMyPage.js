@@ -148,18 +148,18 @@ class MobileMyPage extends Component {
                         </ListItem>
                     </List>
                     <Divider />
-                    {/* <List component="nav" aria-label="mypageReservation">
+                    <List component="nav" aria-label="mypageBudget">
                         <ListItem button>
                             <ListItemIcon>
                                 <span className="fas fa-splotch"/>
                             </ListItemIcon>
-                            <ListItemLink href="/mypage/reservation">
-                                <ListItemText primary="My reservation" />
+                            <ListItemLink href="/mypage/budget">
+                                <ListItemText primary="My Budget" />
                             </ListItemLink>
                             <ListItemText primary=">" />
                         </ListItem>
                     </List>
-                    <Divider /> */}
+                    <Divider />
                 </div>
             </div>
             

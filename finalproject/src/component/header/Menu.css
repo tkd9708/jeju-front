@@ -1,3 +1,9 @@
+@font-face {
+    font-family: "NotoSans-ExtraBold";
+    src: url("../../font/NotoSans-ExtraBold.ttf") format("truetype");
+    font-style: auto;
+}
+
 /*flex*/
 ul.menu {
     display: flex;
@@ -7,34 +13,43 @@ ul.menu {
 }
 
 ul.menu li {
-    width: calc((100% / 7));
+    /* padding: 10px 0; */
+    width: calc((100% /7));
     background: rgba(255,255,255);
     transition: 0.7s;
+}
+ul.menu li.logo {
+    width: calc((100%/7*2));
+}
+.logo img {
+    width: 10vw;
 }
 
 ul.menu li a {
     display: block;
-    font-weight: bold;
-    color: #5F5F5F;
+    /* font-weight: bold; */
+    color: #333;
     text-decoration: none;
     box-sizing: border-box;
     text-align: center;
 }
 
-ul.menu li:hover {
+ul.menu li.menuLi:hover {
     width: 25%;
     background:#036E38;
 }
 
-ul.menu li a:hover {
+ul.menu li.menuLi > a:hover {
     background-color: #036E38;
     color: white;
 }
-
+ul.menu li.logo a:hover {
+    background-color: white !important;
+}
 /*normal*/
 div.hide {
     position: fixed;
-    top: -70px;
+    top: -85px;
     width: 100%;
     z-index: 100;
 }
@@ -54,9 +69,13 @@ div.hide {
 }
   
 .dropdown-content a {
-    color: black;
+    color: #333;
     text-decoration: none;
     width: 100%;
+}
+.dropdown-content a:hover {
+    background-color: #036E38;
+    color: white;
 }
   
 .dropdown:hover .dropdown-content {
@@ -71,7 +90,7 @@ div.hide {
 
 @media only screen and (max-width:450px){
     .mobildMenuDrawer a {
-        color: #036E38;
+        color: #333;
     }
     .mobildMenuDrawer .MuiAccordion-rounded:last-child {
         border-radius: 0;
@@ -114,7 +133,8 @@ div.hide {
         line-height: 50px;
     }
     ul.menu li a {
-        font-size: 1.1em;
+        font-size: 0.9em;
+        font-weight: 500;
     }
     .dropdown-content {
         font-size: 8pt;
@@ -130,7 +150,8 @@ div.hide {
         line-height: 60px;
     }
     ul.menu li a {
-        font-size: 1.3em;
+        font-size: 1em;
+        font-weight: 500;
     }
     .dropdown-content {
         font-size: 10pt;
@@ -143,14 +164,17 @@ div.hide {
 }
 @media only screen and (min-width:1023px){
     ul.menu {
-        line-height: 70px;
+        line-height: 80px;
+        height: 80px;
     }
     ul.menu li a {
-        font-size: 1.5em;
+        font-size: 1.1em;
+        font-weight: 500;
+        /* font-family: NotoSans-ExtraBold !important; */
     }
     .dropdown-content {
-        font-size: 10pt;
-        top: 70px;
+        font-size: 12pt;
+        top: 80px;
     }
     .dropdown-content a {
         line-height: 50px;

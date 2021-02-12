@@ -28,7 +28,7 @@
     
     /* 일정추가 모달 */
     .ShipAddModal h4 {
-        font-weight: 700;
+        font-weight: 500;
         font-size: 1.2rem;
     }
     .ShipAddModal {
@@ -36,7 +36,7 @@
         line-height: 30px;
     }
     .ShipAddModal b {
-        font-weight: 700;
+        font-weight: 500;
     }
     .ShipAddModal input, .ShipAddModal select {
         margin-bottom: 10px;
@@ -45,7 +45,7 @@
     /* table intro */
     .detailIntro b {
         font-size: 0.8rem;
-        font-weight: 700;
+        font-weight: 500;
     }
     
     /* 배편 시간표 */
@@ -57,7 +57,7 @@
         font-size: 0.7rem;
     }
     .ShipTable table thead td {
-        font-weight: 700;
+        font-weight: 500;
         font-size: 0.8rem;
     }
     .ShipNotice {
@@ -95,7 +95,7 @@
     
     /* 일정추가 모달 */
     .ShipAddModal h4 {
-        font-weight: 700;
+        font-weight: 500;
         font-size: 1.3rem;
     }
     .ShipAddModal {
@@ -103,7 +103,7 @@
         line-height: 30px;
     }
     .ShipAddModal b {
-        font-weight: 700;
+        font-weight: 500;
     }
     .ShipAddModal input, .ShipAddModal select {
         margin-bottom: 10px;
@@ -112,7 +112,7 @@
     /* table intro */
     .detailIntro b {
         font-size: 0.9rem;
-        font-weight: 700;
+        font-weight: 500;
     }
 
     /* 배편 시간표 */
@@ -124,7 +124,7 @@
         font-size: 0.8rem;
     }
     .ShipTable table thead td {
-        font-weight: 700;
+        font-weight: 500;
         font-size: 0.9rem;
     }
     .ShipNotice {
@@ -162,14 +162,14 @@
     
     /* 일정추가 모달 */
     .ShipAddModal h4 {
-        font-weight: 700;
+        font-weight: 500;
     }
     .ShipAddModal {
         padding: 30px;
         line-height: 35px;
     }
     .ShipAddModal b {
-        font-weight: 700;
+        font-weight: 500;
     }
     .ShipAddModal input, .ShipAddModal select {
         margin-bottom: 10px;
@@ -178,7 +178,7 @@
     /* table intro */
     .detailIntro b {
         font-size: 1.1rem;
-        font-weight: 700;
+        font-weight: 500;
     }
 
     /* 배편 시간표 */
@@ -187,7 +187,7 @@
         width: 80vw;
     }
     .ShipTable table thead td {
-        font-weight: 700;
+        font-weight: 500;
         font-size: 1rem;
     }
     .ShipNotice {
@@ -221,14 +221,14 @@
 
     /* 일정추가 모달 */
     .ShipAddModal h4 {
-        font-weight: 700;
+        font-weight: 500;
     }
     .ShipAddModal {
         padding: 30px;
         line-height: 35px;
     }
     .ShipAddModal b {
-        font-weight: 700;
+        font-weight: 500;
     }
     .ShipAddModal input, .ShipAddModal select {
         margin-bottom: 10px;
@@ -237,7 +237,7 @@
     /* table intro */
     .detailIntro b {
         font-size: 1.2rem;
-        font-weight: 700;
+        font-weight: 500;
     }
 
     /* 배편 시간표 */
@@ -246,7 +246,7 @@
         width: 80vw;
     }
     .ShipTable table thead td {
-        font-weight: 700;
+        font-weight: 500;
         font-size: 1rem;
     }
     .ShipNotice {
@@ -271,5 +271,5 @@
     background-color: #fafafa;
 }
 .ShipNotice b {
-    font-weight: 700;
+    font-weight: 500;
 }

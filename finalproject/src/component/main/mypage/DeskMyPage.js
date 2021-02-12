@@ -190,9 +190,11 @@ class DeskMyPage extends Component {
                 
                 <Paper square style={{marginTop: '100px'}} id="mypageTabs">
                     <Tabs
+                        TabIndicatorProps={{style: {background:'#036E38'}}}
                         value={this.state.value}
-                        indicatorColor="primary"
-                        textColor="primary"
+                        // indicatorColor="primary"
+                        textColor="white"
+                        variant="fullWidth"
                         onChange={this.handleTabChange}
                         aria-label="disabled tabs example"
                     >

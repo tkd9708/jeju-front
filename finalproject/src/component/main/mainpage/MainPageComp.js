@@ -79,15 +79,19 @@ class MainPageComp extends Component {
     render() {
         // console.log("MainPageComp render()", this.props);
         return (
-            <div className="mainPageComp">
+            <div id="mainHomePage">
                 <MainPhotoComp/>
-                <div className="search-myplan">
-                    <SearchComp history={this.props.history}/>
-                    <MyPlanComp/>
+                <div className="mainPageComp">
+                    
+                    <div className="search-myplan">
+                        <SearchComp history={this.props.history}/>
+                        <MyPlanComp/>
+                    </div>
+                    <HotPlaceComp history={this.props.history}/>
+                    <EtcBoardComp history={this.props.history}/>
                 </div>
-                <HotPlaceComp history={this.props.history}/>
-                <EtcBoardComp/>
             </div>
+            
         )
     }
 

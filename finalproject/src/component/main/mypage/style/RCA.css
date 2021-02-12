@@ -293,6 +293,10 @@ input{
         width: 18px;
         height: 18px;
     }
+    /* 한 주 */
+    .RCA-calendar-week {
+        flex-grow: 0;
+    }
     /* sun, mon, ,,, */
     .RCA-calendar-date-component{
         font-size : 0.7rem;
@@ -334,8 +338,13 @@ input{
     }
     /* 일정 선택 모달 */
     .RCA-planAddModal h4{
-        font-size: 1.2rem;
-        font-weight: 700;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+    .RCA-planAddModal textarea{
+        padding: 10px;
+        height: 40px;
+        font-size: 0.9rem;
     }
     .RCA-timelineDot {
         width: 30px;
@@ -346,7 +355,7 @@ input{
         font-size: 0.7rem;
     }
     .RCA-timelineTitle:hover {
-        font-weight: 700;
+        font-weight: 500;
     }
     
 }
@@ -397,8 +406,13 @@ input{
     }
     /* 일정 선택 모달 */
     .RCA-planAddModal h4{
-        font-size: 1.2rem;
-        font-weight: 700;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+    .RCA-planAddModal textarea{
+        padding: 10px;
+        height: 40px;
+        font-size: 0.9rem;
     }
     .RCA-timelineDot {
         width: 30px;
@@ -409,10 +423,14 @@ input{
         font-size: 0.7rem;
     }
     .RCA-timelineTitle:hover {
-        font-weight: 700;
+        font-weight: 500;
     }
 }
 @media only screen and (min-width:770px) and (max-width:1023px){
+    .RCA-app-container{
+        margin: 0 auto;
+        width: 90vw;
+    }
     /* 날짜 한칸 */
     .RCA-calendar-day {
         font-size: 0.7rem;
@@ -459,8 +477,13 @@ input{
     }
     /* 일정 선택 모달 */
     .RCA-planAddModal h4{
-        font-size: 1.3rem;
-        font-weight: 700;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+    .RCA-planAddModal textarea{
+        padding: 10px;
+        height: 40px;
+        font-size: 0.9rem;
     }
     .RCA-timelineDot {
         width: 40px;
@@ -471,10 +494,15 @@ input{
         font-size: 0.8rem;
     }
     .RCA-timelineTitle:hover {
-        font-weight: 700;
+        font-weight: 500;
     }
 }
-@media only screen and (min-width:1023px){   
+@media only screen and (min-width:1023px) and (max-width:1500px){  
+    .RCA-app-container{
+        margin: 0 auto;
+        width: 80vw;
+    }
+
     /* 날짜 한칸 */
     .RCA-calendar-day {
         font-size: 0.8rem;
@@ -524,7 +552,13 @@ input{
     
     /* 일정 선택 모달 */
     .RCA-planAddModal h4{
-        font-weight: 700;
+        font-weight: 500;
+        font-size: 1.2rem;
+    }
+    .RCA-planAddModal textarea{
+        padding: 10px;
+        height: 40px;
+        font-size: 0.9rem;
     }
     .RCA-timelineDot {
         width: 40px;
@@ -535,7 +569,82 @@ input{
         font-size: 0.8rem;
     }
     .RCA-timelineTitle:hover {
-        font-weight: 700;
+        font-weight: 500;
+    }
+}
+@media only screen and (min-width:1500px){  
+    .RCA-app-container{
+        margin: 0 auto;
+        width: 80vw;
+    }
+
+    /* 날짜 한칸 */
+    .RCA-calendar-day {
+        font-size: 0.8rem;
+        height: 150px;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 30px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow-x:auto;
+    }
+    .RCA-calendar-day-label{
+        font-size: 1rem;
+        line-height: 25px;
+        top : 5px;
+        right: 5px;
+    }
+    .selected label{
+        font-size: 1rem;
+        width: 23px;
+        height: 23px;
+    }
+    /* sun, mon, ,,, */
+    .RCA-calendar-date-component{
+        font-size : 1.2rem;
+        line-height: 50px;
+    }
+    /* 일정추가 버튼 */
+    .RCA-app-container .add-list{
+        width: 90px;
+    }
+    /* 헤더 버튼, 월 글씨 */
+    .move-button{
+        width: 40px;
+        height: 40px;
+    }
+    .move {
+        margin: 0 10px;
+        font-size: 3rem !important;
+        font-weight: 900;
+    }
+    /* 일정 추가 모달 */
+    .RCA-planAddModal {
+        padding: 30px;
+        line-height: 30px;
+    }
+    
+    /* 일정 선택 모달 */
+    .RCA-planAddModal h4{
+        font-weight: 500;
+        font-size: 1.2rem;
+    }
+    .RCA-planAddModal textarea{
+        padding: 10px;
+        height: 40px;
+        font-size: 0.9rem;
+    }
+    .RCA-timelineDot {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    .RCA-timelineTitle {
+        font-size: 0.8rem;
+    }
+    .RCA-timelineTitle:hover {
+        font-weight: 500;
     }
 }
 
@@ -543,4 +652,5 @@ input{
 .ScheduleListLine {
     margin: 10px;
     font-size: 0.9rem;
+    border-bottom: 0.1px dotted #ddd;
 }

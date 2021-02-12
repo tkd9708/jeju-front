@@ -10,6 +10,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Box from '@material-ui/core/Box';
+import './style/MyBudget.css';
 
 class MyBudget extends Component {
     constructor(props) {
@@ -19,6 +21,7 @@ class MyBudget extends Component {
             listData:[],
             wishday1:'',
             wishday2:'',
+            sum: 0
         };
     }
 
@@ -26,43 +29,50 @@ class MyBudget extends Component {
         let memId = store.getState().loginId;        
         let wishday1 = this.refs.wishday1.value;
         let wishday2 = this.refs.wishday2.value;
-        let url = URL + "/wish/budget?memId="+memId+"&wishday1="+wishday1+"&wishday2="+wishday2;
-        let url2 = URL + "/wish/budgetsum?memId="+memId+"&wishday1="+wishday1+"&wishday2="+wishday2;
-        let url3 = URL + "/wish/capitalsum?memId="+memId+"&wishday1="+wishday1+"&wishday2="+wishday2;
 
-        console.log(url2);
-        // console.log(wishday2);
-        // console.log(wishday1);
+        if(wishday1!='' && wishday2!=''){
+            let url = URL + "/wish/budget?memId="+memId+"&wishday1="+wishday1+"&wishday2="+wishday2;
+            let url2 = URL + "/wish/budgetsum?memId="+memId+"&wishday1="+wishday1+"&wishday2="+wishday2;
+            let url3 = URL + "/wish/capitalsum?memId="+memId+"&wishday1="+wishday1+"&wishday2="+wishday2;
 
-        axios.get(url)
-        .then(res=>{
-            console.log(res.data);
-            this.setState({
-                listData:res.data
+            // console.log(url2);
+            // console.log(wishday2);
+            // console.log(wishday1);
+
+            axios.get(url)
+            .then(res=>{
+                console.log(res.data);
+                this.setState({
+                    listData:res.data
+                })
+            }).catch(err=>{
+                console.log("wishlist 오류 : " + err);
             })
-        }).catch(err=>{
-            console.log("wishlist 오류 : " + err);
-        })
 
-        axios.get(url2)
-        .then(res=>{
-            console.log(res.data);
-            this.setState({
-                moneySumData:res.data
+            axios.get(url2)
+            .then(res=>{
+                console.log(res.data);
+                this.setState({
+                    moneySumData:res.data
+                })
+            }).catch(err=>{
+                console.log("moneySumData 오류 : " + err);
             })
-        }).catch(err=>{
-            console.log("moneySumData 오류 : " + err);
-        })
 
-        axios.get(url3)
-        .then(res=>{
-            console.log(res.data);
-            this.setState({
-                capitalSumData:res.data
+            axios.get(url3)
+            .then(res=>{
+                console.log(res.data);
+                this.setState({
+                    capitalSumData:res.data,
+                })
+                // this.setState({
+                //     sum : this.state.capitalSumData - this.state.moneySumData
+                // })
+            }).catch(err=>{
+                console.log("capitalSumData 오류 : " + err);
             })
-        }).catch(err=>{
-            console.log("capitalSumData 오류 : " + err);
-        })
+        }
+        
     }
 
     insertCapital = () => {
@@ -128,35 +138,47 @@ class MyBudget extends Component {
 
     render() {
         var sum = this.state.capitalSumData - this.state.moneySumData
-        return (
-            <div>                                 
-                {/*/!* 여행비 추가 버튼 *!/*/}
-                <MDBBtn size="sm" color="dark-green" type="button"
-                        className="AddCapitalBtn wow fadeInDown"
-                        data-wow-delay="0.4s"
-                        style={{marginTop: '1.3%'}}
-                        onClick={() => {
-                            if (store.getState().loginId != null && store.getState().loginId != "") {
-                                this.toggle();
-                            } else {
-                                let _result = window.confirm("로그인이 필요한 서비스 입니다.\n로그인 하시겠습니까?");
 
-                                if (_result) {
-                                    this.props.history.push("/login");
+        return (
+            <div id="MyBudgetDiv">
+                <div className="detailTitle">
+                    <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
+                        &nbsp;&nbsp; 나의 예산 &nbsp;&nbsp;
+                    </span>
+                </div>
+                <div className="detailIntro" style={{color: "#888"}}>
+                    여러분만의 가계부를 관리해보세요.
+                    <br/>
+                    
+                    {/* <br/> */}
+                    {/*/!* 여행비 추가버튼 *!/*/}
+                    <MDBBtn color="dark-green" type="button"
+                            className="AddCapitalBtn"
+                            style={{marginTop: '1.3%', color: 'white'}}
+                            onClick={() => {
+                                if (store.getState().loginId != null && store.getState().loginId != "") {
+                                    this.toggle();
+                                } else {
+                                    let _result = window.confirm("로그인이 필요한 서비스 입니다.\n로그인 하시겠습니까?");
+    
+                                    if (_result) {
+                                        this.props.history.push("/login");
+                                    }
                                 }
-                            }
-                        }}
-                > <b>여행비 추가</b>
-                </MDBBtn>             
+                            }}
+                    > 예산 추가
+                    </MDBBtn>
+                </div>
+
+                         
                 {/* 여행비 추가 모달 */}
                 <MDBModal isOpen={this.state.open} toggle={this.toggle} centered>
-                    <MDBModalHeader toggle={this.toggle} className="CapitalAddModal">여행비 추가</MDBModalHeader>
+                    <MDBModalHeader toggle={this.toggle} className="ShipAddModal">예산 추가</MDBModalHeader>
                     <MDBModalBody>
                         <div className="ShipAddModal">
                             📝&nbsp;&nbsp;<b>메모</b>
                             <input type="text" ref="content" class="form-control form-control-sm"
                             value={this.state.content} onChange={this.handleChange}/>
-                            <br/>
                             🗓&nbsp;&nbsp;<b>여행 시작일</b>
                             <input type="date" class="form-control form-control-sm" ref="wishday"></input>
                             💰&nbsp;&nbsp;<b>여행예산</b>
@@ -167,15 +189,39 @@ class MyBudget extends Component {
                     <MDBBtn color="dark-green" onClick={this.insertCapital.bind(this)}>추가</MDBBtn>
                     </MDBModalFooter>
                 </MDBModal>
-                <div className="dayselect">
-                🗓&nbsp;&nbsp;<b>시작일</b>
-                <input type="date" class="form-control form-control-sm" ref="wishday1"></input>
-                🗓&nbsp;&nbsp;<b>종료일</b>
-                <input type="date" class="form-control form-control-sm" ref="wishday2"></input>
-                </div>
-                <Button color="primary" onClick={this.list.bind(this)}>검색</Button>
+
+                
+                {/* <div className="dayselect">
+                    🗓&nbsp;&nbsp;<b>시작일</b>
+                    <input type="date" class="form-control form-control-sm" ref="wishday1"></input>
+                    🗓&nbsp;&nbsp;<b>종료일</b>
+                    <input type="date" class="form-control form-control-sm" ref="wishday2"></input>
+                </div> */}
+                {/* <Button color="primary" onClick={this.list.bind(this)}>검색</Button> */}
                 <div id="MyBudgetTable">
-                    <table className="table table-hover" id="MyBudgetMainTable">
+                    <Box
+                        display="flex"
+                        flexWrap="wrap"
+                        p={1}
+                        m={1}
+                        bgcolor="background.paper"
+                        justifyContent="center"
+                        css={{maxWidth: '100%'}}
+                        className="dayselect"
+                    >
+                        <Box style={{textAlign: 'left'}}>
+                            🗓&nbsp;&nbsp;시작일
+                            <input type="date" class="form-control form-control-sm" ref="wishday1" onChange={this.list.bind(this)}></input>
+                        </Box>
+                        &nbsp;&nbsp;&nbsp;
+                        <Box style={{textAlign: 'left'}}>
+                            🗓&nbsp;&nbsp;종료일
+                            <input type="date" class="form-control form-control-sm" ref="wishday2" onChange={this.list.bind(this)}></input>
+                        </Box>
+                    </Box>
+
+                    <table className="table" id="MyBudgetMainTable">
+                        <caption style={{captionSide: 'top'}}>선택하신 날짜에 조회된 예산 결과입니다.</caption>
                         <thead style={{backgroundColor: '#fafafa'}}>
                             <tr style={{textAlign: 'center'}}>
                                 {/* <td style={{width:'5%'}}>#</td> */}
@@ -197,7 +243,7 @@ class MyBudget extends Component {
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td>합계 : {sum} 원</td>
+                                <td style={{textAlign: 'center'}}><b>합계 : </b>{sum} <b>원</b></td>
                             </tr>
                         </tfoot>
                     </table>

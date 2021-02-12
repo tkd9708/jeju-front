@@ -102,7 +102,7 @@ class LoginPageComp extends Component {
         return (
             <div>
                  {/* 날라가는 새 애니메이션 */}
-                 <div class="signImg">
+                 {/* <div class="signImg">
                     <img src={jejuImg} alt=""/>
                 </div>
                 <div class="containers">
@@ -118,7 +118,7 @@ class LoginPageComp extends Component {
                     <div class="bird-container bird-container--four">
                         <div class="bird bird--four"></div>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="detailTitle">
                     <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>

@@ -173,7 +173,7 @@ class ShipPageComp extends Component {
                                                 }
                                             }
                                         }}
-                                > <b>일정추가</b>
+                                >일정추가
                                 </MDBBtn>
                                 
                             </div>
@@ -195,7 +195,7 @@ class ShipPageComp extends Component {
                                     <Tab label="성산 ↔ 우도" {...this.tabProps(0)}/>
                                     <Tab label="종달 ↔ 우도" {...this.tabProps(1)}/>
                                 </Tabs>
-                                <TabPanel value={this.state.value} index={0} style={{padding: '20px'}}>
+                                <TabPanel value={this.state.value} index={0} style={{padding: '0px'}}>
                                      성산 ↔ 우도행<br/>
                                     <select class="browser-default custom-select" onClick={this.changeMonth}>
                                         <option disabled selected>가는 날짜</option>
