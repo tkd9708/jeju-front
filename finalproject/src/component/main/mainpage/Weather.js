@@ -701,6 +701,60 @@ class Weather extends Component {
         return timeValue;
     }
 
+    FindWeekday = (fcstDate) => {
+        var fcstYear = Number(fcstDate.substr(0, 4));
+        var fcstMonth = Number(fcstDate.substr(4, 1) === 0 ? Number(fcstDate.substr(5, 1)) : Number(fcstDate.substr(4, 2)));
+        var f_fcstDate = Number(fcstDate.substr(6, 1)) === 0 ? Number(fcstDate.substr(7, 1)) : Number(fcstDate.substr(6, 2));
+        var changeDate = new Date();
+        changeDate.setFullYear(fcstYear);
+        changeDate.setMonth(fcstMonth-1);
+        changeDate.setDate(f_fcstDate);
+        return changeDate.getDay();
+    }
+
+    getMidtermWeather = () => {
+        var url = 'http://apis.data.go.kr/1360000/MidFcstInfoService/getMidSeaFcst';
+        var apiKey = 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D';
+        var queryParams_8 = '?' + encodeURIComponent('ServiceKey') + '=' + apiKey;
+        queryParams_8 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); // 페이지번호
+        queryParams_8 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); // 한 페이지 결과 수
+        queryParams_8 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
+        queryParams_8 += '&' + encodeURIComponent('stnId') + '=' + encodeURIComponent('108'); // 지점번호
+        // 발표시각 일2회(06:00,18:00)회 생성 되며 발표시각을 입력-최근 24시간 자료만 제공
+
+        var today_3 = new Date();
+        var dd_3 = today_3.getDate();
+        var mm_3 = today_3.getMonth()+1;
+        var yyyy_3 = today_3.getFullYear();
+        var hour = today_3.getHours(); // 현재 시간 얻기
+        let tmFCValue = '0600'; // 초깃값
+
+        if (hour < 6 && hour >= 0) {
+            today_3.setDate( today_3.getDate() - 1 );
+            dd_3 = today_3.getDate();
+            mm_3 = today_3.getMonth()+1;
+            yyyy_3 = today_3.getFullYear();
+            tmFCValue = `1800`;
+        }
+        else if (hour >= 6 && hour < 18) {
+            tmFCValue = '0600';
+        }
+        else if (hour >= 18) {
+            tmFCValue = '1800';
+        }
+
+        queryParams_8 += '&' + encodeURIComponent('tmFc') + '=' + encodeURIComponent(`${yyyy_3}${mm_3}${dd_3}${tmFCValue}`);
+
+        axios.get("/MidFcstInfoService/getMidFcst" + queryParams_8)
+            .then(res8 => {
+                console.log("/MidFcstInfoService/getMidFcst" + queryParams_8);
+                console.log("중기예보 데이타 : " + res8.data.response.body.items.item[0].wfSv);
+            })
+            .catch(error => {
+                console.log('중기예보 오류 : ' + error);
+            });
+    }
+
     render() {
         const { c_weatherInfo } = this.state;
         
@@ -744,7 +798,7 @@ class Weather extends Component {
         var fcstDay = changeDateFormat.getDay();
 
         var arrDayStr = ['일', '월', '화', '수', '목', '금', '토'];
-
+        
         return (
             
             <div style={{ fontSize : '.7rem' }}>
@@ -841,7 +895,7 @@ class Weather extends Component {
                 {
                     this.state.c_weatherInfo_2.map((row)=>(
                         <>
-                        ({row.btIndex})
+                        {row.btIndex}℃
                         </>
                         ))
                 }
@@ -956,20 +1010,13 @@ class Weather extends Component {
                                 
                                     {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
                                     {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}일
-
-                                    {/* {changeDay = changeDateFormat.getDay()}
-                                
-                                    <input type='hidden' value={changeDateFormat.setFullYear(changeYear)}></input>
-                                    <input type='hidden' value={changeDateFormat.setMonth(changeMonth-1)}></input>
-                                    <input type='hidden' value={changeDateFormat.setDate(changeDate)}></input>
-
-                                    변경후({changeDateFormat.getFullYear()}&nbsp;{changeDateFormat.getMonth()+1}&nbsp;{changeDateFormat.getDate()}&nbsp;{arrDayStr[changeDay]}요일) */}
-                                    &nbsp;&nbsp;
-                                    예보시각
+                                    &nbsp;
+                                    {arrDayStr[this.FindWeekday(itemrow.fcstDate)]}요일
+                                    &nbsp;
                                     {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시
                                 </div>
                             ))
-                        ))
+                            ))
                     }
                     </div>
                 <br />
@@ -991,14 +1038,16 @@ class Weather extends Component {
                             
                                 {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
                                 {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}일
-                                &nbsp;&nbsp;
+                                &nbsp;
+                                {arrDayStr[this.FindWeekday(itemrow.fcstDate)]}요일
+                                &nbsp;
                                 최저기온
                                 {itemrow.fcstValue}℃&nbsp;
                                 {/* 예보시각
                                 {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시 */}
                             </React.Fragment>
                         ))
-                    ))
+                        ))
                 }
 
                 <br />
@@ -1021,6 +1070,8 @@ class Weather extends Component {
                             
                                 {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
                                 {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}일
+                                &nbsp;
+                                {arrDayStr[this.FindWeekday(itemrow.fcstDate)]}요일
                                 &nbsp;
                                 최고기온
                                 {itemrow.fcstValue}℃&nbsp;

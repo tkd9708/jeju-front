@@ -4,7 +4,7 @@ import axios from 'axios';
 import {URL} from "../../../redux/config";
 import './SharePlanCss.css';
 import profile from './Img_profile.png';
-import SharePlanProfile from "./SharePlanProfile";
+
 import moment from 'moment';
 import Box from '@material-ui/core/Box';
 
@@ -114,6 +114,7 @@ class SharePlanRoot extends Component {
             <div>
                 {/* {this.props.row.memId} */}
                 
+
             <div className="SharePlanSlide">
                 <div style={{textAlign: 'left'}} className="SharePlanSlideTitle">
                     <strong style={{color: '#036E38'}}>{this.state.id}</strong>&nbsp;님의 <strong style={{color: '#036E38'}}>{this.state.wishday}</strong> 일정입니다.

@@ -16,6 +16,7 @@ import './MainPageComp.css';
 import Slider from "react-slick";
 import './EtcBoardComp.css';
 import ShareItemComp from './ShareItemComp';
+import SharePlanItemComp from './SharePlanItemComp';
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -82,7 +83,7 @@ export default function EtcBoardComp(props) {
         } else if (selectedTabValue == 1) {
             getShareRestaurantList();
         } else if (selectedTabValue == 2) {
-
+            getShareMyPlanList();
         }
     }, [selectedTabValue]);
 
@@ -115,6 +116,20 @@ export default function EtcBoardComp(props) {
         }).catch(err => {
             console.log(err);
         })
+    }
+
+    const getShareMyPlanList=()=>{
+        let url=URL+"/plan/list?start=0&perPage=10";
+        console.log(url);
+
+        axios.get(url
+            ).then(res => {
+                console.log(res);
+                setShareMyPlan(res.data);
+            }).catch(err => {
+                console.log(err);
+            })
+
     }
 
 
@@ -213,7 +228,23 @@ export default function EtcBoardComp(props) {
                 </div>
             </TabPanel>
             <TabPanel value={selectedTabValue} index={2}>
-
+            <div className="EtcBoardNotice" 
+                    >
+                       <div style={{float: 'right', cursor: 'pointer', color: '#2BBBAD'}} onClick={()=>{props.history.push("/shareplan")}}>
+                         <b className="EtcGoToShare">+ 더보기</b>
+                       </div>
+                       <br/>
+                    <Slider {...settings}>
+                        {
+                            shareMyPlan.map((e, i) => {
+                                return (
+                                    <SharePlanItemComp key={i} row={e} history={props.history}/>
+                                )
+                            })
+                        }
+                    </Slider>
+                    
+                </div> 
             </TabPanel>
 
         </div>
