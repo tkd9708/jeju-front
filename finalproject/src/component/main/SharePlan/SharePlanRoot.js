@@ -133,8 +133,8 @@ class SharePlanRoot extends Component {
                                             console.log("img error");
                                             e.target.src = profile;
                                         }}/>
-                                        <span>{this.state.id}</span><br/>
-                                        <span>{this.state.profile.gender} / {age}세</span><br/>
+                                        <strong>{this.state.id}</strong><br/>
+                                        <strong>{this.state.profile.gender==null?"비공개":this.state.profile.gender} / {this.state.profile.birth==null?"비공개":age + "세"}</strong><br/>
                                     </div>
                                     <div className="balloon">
                                         <div>

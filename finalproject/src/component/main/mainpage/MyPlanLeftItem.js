@@ -83,7 +83,7 @@ class MyPlanLeftItem extends Component {
             else if(row.content.split(",")[0]=="렌트카")
                 icon = "🚗";
             else if(row.content.split(",")[0]=="항공")
-                icon = "✈";
+                icon = "🛬";
             else 
                 icon = "📅";
         }
@@ -95,7 +95,7 @@ class MyPlanLeftItem extends Component {
             <div>
                 <ListItem className="myplanLeftList">
                     <ListItemAvatar>
-                        <Avatar>
+                        <Avatar style={{backgroundColor: 'white', border: '0.1px solid #eee'}}>
                             {/* <ImageIcon/> */}
                             {icon}
                         </Avatar>

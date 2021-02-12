@@ -72,7 +72,8 @@ class ReservationPageComp extends Component {
                   <div class="col-md-12 mb-4 white-text text-center AirTitle">
                           <h1 class="h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInDown"
                           data-wow-delay="0.3s"><strong>AIR</strong></h1>
-                          <p class="wow fadeInDown" data-wow-delay="0.4s">______________________</p>
+                          <hr style={{backgroundColor: '#fff', width: '20vw', height: '1px', margin: '20px auto'}} class="wow fadeInDown" data-wow-delay="0.4s"></hr>
+                          {/* <p class="wow fadeInDown" data-wow-delay="0.4s">______________________</p> */}
                           <h5 class="text-uppercase mb-4 white-text wow fadeInDown" data-wow-delay="0.4s">
                               <strong>떠나요~ 둘이서~ 모든걸 훌훌 버리고<br/>
                               제주도 항공 정보를 확인해보세요.</strong></h5>
