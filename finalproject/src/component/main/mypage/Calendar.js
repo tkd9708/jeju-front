@@ -238,7 +238,7 @@ class Week extends Component {
 
 
           {/* 해당 날짜 출력 모달 */}
-          <MDBModal isOpen={this.state.open} toggle={this.toggle} centered className="RCA-planAddModal">
+          <MDBModal isOpen={this.state.open} toggle={this.toggle} centered className="RCA-planAddModal" backdrop={false}>
               <MDBModalHeader toggle={this.toggle}>{this.props.selected} 일정</MDBModalHeader>
                   <MDBModalBody>
                       <div>

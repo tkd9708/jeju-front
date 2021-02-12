@@ -21,7 +21,10 @@ class MyBudget extends Component {
             listData:[],
             wishday1:'',
             wishday2:'',
-            sum: 0
+            sum: 0,
+            moneySumData: 0,
+            capitalSumData: 0
+            
         };
     }
 
@@ -137,7 +140,8 @@ class MyBudget extends Component {
     }
 
     render() {
-        var sum = this.state.capitalSumData - this.state.moneySumData
+        
+        var sum = this.state.capitalSumData-this.state.moneySumData;
 
         return (
             <div id="MyBudgetDiv">
@@ -172,7 +176,7 @@ class MyBudget extends Component {
 
                          
                 {/* 여행비 추가 모달 */}
-                <MDBModal isOpen={this.state.open} toggle={this.toggle} centered>
+                <MDBModal isOpen={this.state.open} toggle={this.toggle} centered backdrop={false}>
                     <MDBModalHeader toggle={this.toggle} className="ShipAddModal">예산 추가</MDBModalHeader>
                     <MDBModalBody>
                         <div className="ShipAddModal">
