@@ -185,20 +185,20 @@ input {
 }
 
 @media only screen and (max-width:450px){
-    #ShareBoardPage {
+    #ShareBoardPage, #ShareBoardFormComp {
         margin-top: 100px;
     }
 
     /* shareboardlist css */
     #ShareListBox {
-        width: 80vw;
+        width: 90vw;
         margin-top: 2%;
         margin-bottom: 50px;
         cursor: pointer;
         border: 1px solid #eee;
     }
     #ShareImg {
-        width: 80vw;
+        width: 90vw;
         height: 70vw;
         text-align: center;
         border-bottom: 1px solid #eee;
@@ -230,7 +230,7 @@ input {
         font-size: 0.7rem;
     }
     .ShareSearchBtn {
-        margin-right: 9% !important;
+        margin-right: 5% !important;
         padding: 7px 7px !important;
     }
     .ShareSearchBtn svg{

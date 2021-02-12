@@ -205,7 +205,7 @@ function MobileMenu(props) {
             </NavLink>
           </ListItem>
       </List>
-      <Divider />
+      {/* <Divider /> */}
       <List>
         <Accordion>
                 <AccordionSummary
@@ -234,7 +234,7 @@ function MobileMenu(props) {
                 </AccordionDetails>
             </Accordion>
       </List>
-      <Divider />
+      {/* <Divider /> */}
       <List>
         <Accordion>
                 <AccordionSummary
@@ -254,7 +254,7 @@ function MobileMenu(props) {
             </Accordion>
       </List>
       
-      <Divider />
+      {/* <Divider /> */}
       <List>
         <Accordion>
                 <AccordionSummary
@@ -274,8 +274,8 @@ function MobileMenu(props) {
             </Accordion>
       </List>
       
-      <Divider />
-      <List onClick={handleDrawerClose} style={{fontWeight: '900', color: '#333'}}>
+      {/* <Divider /> */}
+      <List onClick={handleDrawerClose} style={{fontWeight: '500', color: '#333'}}>
           <ListItem><a href="/notice/1">공지사항</a></ListItem>
       </List>
     </div>

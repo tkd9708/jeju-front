@@ -155,7 +155,7 @@ class DetailTourComp extends Component {
             <span class="far fa-star"></span><span class="far fa-star"></span></span>;
         
         return (
-            <div>
+            <div id="DetailTourComp">
                 {/* 이미지, spot 정보 */}
                 <img src={this.state.spotdata.img} alt="이미지 없음" style={{width: '100%'}}>
                     

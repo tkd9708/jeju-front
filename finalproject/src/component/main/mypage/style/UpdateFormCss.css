@@ -28,16 +28,16 @@
     /* 업데이트 폼 */
     #MypageUpdateForm{
         margin: 100px auto;
-        width: 80vw;
+        width: 90vw;
     }
-    #MypageUpdateForm>form>table>caption {
-        font-size: 20pt;
+    #MypageUpdateForm>table>caption {
+        font-size: 13pt;
     }
     .mypageUpdateBtn {
         cursor: pointer;
     }
     #MypageUpdateForm input, #MypageUpdateForm select, #MypageUpdateForm table {
-        font-size: 0.6em;
+        font-size: 0.7em;
     }
     .mypageUpdateBtn:hover {
         background-color: #036E38;
