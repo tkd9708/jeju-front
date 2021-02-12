@@ -72,91 +72,51 @@ class SharePlanSub extends Component {
         });
        }
 
-    //    getProfile=()=>{
-    //     let url=URL+"/plan/groupnum";
-
-        
-        
-    //     axios.get(url)
-    //     .then(res=>{
-    //       //console.log("데이터 ; " + res.data);
-    //         this.setState({
-    //             profile:res.data
-                
-    //         });
-    //     }).catch(err=>{
-    //         console.log("리스트 오류:"+err);
-    //       })
-    // }
 
     componentDidMount(){
         // this.getProfile();
-        this.props.setName(this.props.row.memId, this.props.row.comment);
+        this.props.setName(this.props.row.comment, this.props.row.wishday);
     }
 
 
 
-    // onGroup=()=>{
-    //     let url=URL+"/plan/group?memId="+store.getState().loginId + "&wishday="+this.refs.wishday.value;
-    //     axios.get(url)
-    //     .then(res=>{
-    //         this.setState({
-    //             list:res.data
-    //         });
-    //     }).catch(err=>{
-    //         console.log("목록 오류:"+err);
-    //       })
-    // }
-
-
-
     render(){
-        // const {row}=this.props;
-        // const {glist}=this.props;
-        // const day=this.props.day;
-        // var wishday=row.wishday;
-        // var title=row.title;
-        // const {groupNum}=this.props.groupNum;
+        
+
         return(
             
                 <div>
-                   
-                    
-            <div>
-              
-               
-               
-                <TimelineItem  >
-           
-                    <TimelineOppositeContent>
-                        <Typography variant="body2" color="textSecondary">
-                            {this.props.row.wishtime}
-                        </Typography>
-                    </TimelineOppositeContent>
+                <div>
+                    <TimelineItem  >
+            
+                        <TimelineOppositeContent>
+                            <Typography variant="body2" color="textSecondary">
+                                {this.props.row.wishtime}
+                            </Typography>
+                        </TimelineOppositeContent>
 
-                   
+                    
 
-                    <TimelineSeparator>
-                        <TimelineDot style={{width:30,backgroundColor:'white'}} >
-                            <FcCheckmark/>
-                        </TimelineDot>
-                        <TimelineConnector />
-                    </TimelineSeparator>
+                        <TimelineSeparator>
+                            <TimelineDot style={{backgroundColor:'white'}}>
+                                📅
+                            </TimelineDot>
+                            <TimelineConnector />
+                        </TimelineSeparator>
 
-                    <TimelineContent>
-                    
-                    <Typography variant="h6" component="h1" style={{cursor:'pointer',fontSize:20}} 
-                     onClick={this.deleteOpen.bind(this)}>
-                    {/* {this.props.row.comment!==null?<div  class="arrow_box"><span class="comment_logo">{this.props.row.comment}
-                    </span></div>:''} */}
-                     {this.props.row.wishday===this.props.day?this.props.row.title:this.props.row.title}
-                   
-                    </Typography>
-                    
-                </TimelineContent>
-                    
-              
-                </TimelineItem>
+                        <TimelineContent onClick={this.deleteOpen.bind(this)} style={{cursor:'pointer'}} >
+                            <div>
+                                {this.props.row.wishday===this.props.day?this.props.row.title:this.props.row.title}
+                            </div>
+                        {/* <Typography variant="h6" component="h1" style={{cursor:'pointer',fontSize:20}} 
+                            onClick={this.deleteOpen.bind(this)}>
+                            {this.props.row.wishday===this.props.day?this.props.row.title:this.props.row.title}
+                        </Typography> */}
+                        
+                    </TimelineContent>
+                        
+                
+                    </TimelineItem>
                
                <Dialog 
                     open={this.state.deleteOpen} 
