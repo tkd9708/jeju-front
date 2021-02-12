@@ -13,14 +13,17 @@ import SharePlanTable from './SharePlanTable';
 
 class SharePlanPageComp extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor({match}) {
+        super();
 
         this.state={
            glist:[],
-           list:[]
+           list:[],
+          //  groupNum:match.params.groupNum
 
         }
+
+        // this.currnetPage=this.state.groupNum;
     
     }
 
@@ -119,7 +122,7 @@ class SharePlanPageComp extends Component {
             
             <hr/>
             <SharePlanTable/>
-          
+                    {/* {this.state.groupNum} */}
           </div>
         
            

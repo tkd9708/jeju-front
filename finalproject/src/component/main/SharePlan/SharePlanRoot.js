@@ -134,7 +134,7 @@ class SharePlanRoot extends Component {
                                             e.target.src = profile;
                                         }}/>
                                         <span>{this.state.id}</span><br/>
-                                        <span>{this.state.profile.gender} / {age}세</span><br/>
+                                        <span>{this.state.profile.gender} {this.state.profile.birth===null?'':"/"+age+"세"} </span><br/>
                                     </div>
                                     <div className="balloon">
                                         <div>
