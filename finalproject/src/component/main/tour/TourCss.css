@@ -76,6 +76,9 @@
     background-size: 100% 100%;
 }
 @media only screen and (max-width:350px){
+    #TourPageComp {
+        margin-top: 50px;
+    }
     #selectTourList{
         float: right;
         margin: 0 !important;
@@ -95,20 +98,20 @@
         height: 40vw;
     }
     #itemTitle{
-        font-size: 5pt;
+        font-size: 0.6rem;
         margin-left: 10px;
         margin-right: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         margin-top: 10px;
     }
     #itemContentDiv{
-        font-size: 0.2em;
+        font-size: 0.6rem;
         margin-bottom: 10px;
         margin-left: 5px;
         margin-right: 5px;
     }
     #itemContent{
-        height: 27px;
+        height: 28px;
     }
     #itemLikes{
         padding-left: 5px;
@@ -117,10 +120,10 @@
         padding-bottom: 5px;
     }
     #tourThumbIcon, #tourLocationIcon{
-        font-size: 5pt;
+        font-size: 0.6rem;
     }
     #itemLikes{
-        font-size: 5pt;
+        font-size: 0.6rem;
     }
     #itemAddr{
         font-size: 0.2em;
@@ -142,6 +145,9 @@
     }
 }
 @media only screen and (min-width:350px) and (max-width:450px){
+    #TourPageComp {
+        margin-top: 50px;
+    }
     #selectTourList{
         float: right;
         margin: 0 !important;
@@ -153,28 +159,28 @@
     #itemBox{
         text-align: center;
         border: 1px solid #eee;
-        width: 40vw;
+        width: 42vw;
         text-align: left;
     }
     #itemImg{
-        width: 40vw;
+        width: 42vw;
         height: 40vw;
     }
     #itemTitle{
-        font-size: 5pt;
+        font-size: 0.7rem;
         margin-left: 10px;
         margin-right: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         margin-top: 10px;
     }
     #itemContentDiv{
-        font-size: 0.2em;
-        margin-bottom: 10px;
+        font-size: 0.6rem;
+        margin-bottom: 5px;
         margin-left: 5px;
         margin-right: 5px;
     }
     #itemContent{
-        height: 27px;
+        height: 28px;
     }
     #itemLikes{
         padding-left: 5px;
@@ -183,10 +189,10 @@
         padding-bottom: 5px;
     }
     #tourThumbIcon, #tourLocationIcon{
-        font-size: 5pt;
+        font-size: 0.6rem;
     }
     #itemLikes{
-        font-size: 5pt;
+        font-size: 0.6rem;
     }
     #itemAddr{
         font-size: 0.2em;
@@ -346,7 +352,10 @@
     background-size: 100% 100%;
 }
 
-@media only screen and (max-width:400px){
+@media only screen and (max-width:450px){
+    #DetailTourComp {
+        margin-top: 50px;
+    }
     .detailTitle{
         margin-top: 10px;
         font-size: 12pt;
@@ -354,7 +363,7 @@
         text-align: center;
     }
 }
-@media only screen and (min-width:400px) and (max-width:770px){
+@media only screen and (min-width:450px) and (max-width:770px){
     .detailTitle{
         margin-top: 50px;
         font-size: 15pt;

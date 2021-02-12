@@ -226,7 +226,7 @@ class ReviewItem extends Component {
         const photo = this.state.photo=="no"?userimg:URL + "/" + this.state.photo;
 
         return (
-            <div className="ShareModalReviewItem" style={{marginLeft: `calc(30px*${row.relevel})`, borderBottom: '1px dotted #ddd'}}>
+            <div className="ShareModalReviewItem" style={{marginLeft: `calc(15px*${row.relevel})`, borderBottom: '1px dotted #ddd'}}>
                 {/*num:{row.num} / {row.photo} / id:{row.id}*/}
                 {/*/ {row.regroup} / {row.relevel} / {row.restep} / 내용 :*/}
 
