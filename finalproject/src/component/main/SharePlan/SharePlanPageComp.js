@@ -8,6 +8,7 @@ import SharePlanRoot from './SharePlanRoot';
 import SharePlanProfile from './SharePlanProfile';
 import store from '../../../redux/store';
 import { StoreTwoTone } from "@material-ui/icons";
+import SharePlanTable from './SharePlanTable';
 
 
 class SharePlanPageComp extends Component {
@@ -216,59 +217,24 @@ class SharePlanPageComp extends Component {
                       
                   ))}
                   
-                  {/* {this.state.list.map((row)=>(
-                  <SharePlanDelete r={row}></SharePlanDelete>
-                ))} */}
-                  {/* {this.state.list.map((row)=>(
-                    <SharePlanSub row={row}></SharePlanSub>
-                  ))} */}
-                   {/* </div> */}
                    
                 </Slider>
-                {/* {this.state.list.map((r)=>(
-                    <SharePlanSub r={r}></SharePlanSub>
-                  ))} */}
-                
-                 {/* <button className="slick-prev">ddd</button>
-                <button className="slick-next">ddd</button> */}
                 
                 
                 </div>
-                
+      
+            </div>
             </div>
             
-           
-            
-            
-            {/* <SharePlanSchedule value={this.state.wishday}></SharePlanSchedule> */}
-            {/* <SharePlanSchedule wishday={this.refs.wishday.}></SharePlanSchedule> */}
-            {/* {this.state.list.map((row)=>(
-              <SharePlanSchedule row={row} value={this.state.wishday}></SharePlanSchedule>
-              
-            ))} */}
-            
-            
-            </div>
-            
-            
-           
-            
-            
+            <hr/>
+            <SharePlanTable/>
           
           </div>
         
            
-           
-           
-           
-            
-           
           
         );    
            
-        
-
-        
     }
 
 }

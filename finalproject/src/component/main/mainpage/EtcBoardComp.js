@@ -167,7 +167,7 @@ export default function EtcBoardComp(props) {
             >
                 <Tab label="공지사항" {...a11yProps(0)} />
                 <Tab label="BEST 맛집" {...a11yProps(1)} />
-                <Tab label="BEST 코스" {...a11yProps(2)} />
+                <Tab label="동행" {...a11yProps(2)} />
             </Tabs>
             <TabPanel value={selectedTabValue} index={0}>
                 <div className="EtcBoardNotice" 
@@ -211,23 +211,9 @@ export default function EtcBoardComp(props) {
                     </Slider>
                     
                 </div>
-                {/* <div style={{
-                    display: "flex",
-                    overflow: "auto",
-
-                }}>
-                    {
-                        shareRestaurant.map((e, i) => {
-                            return (
-                                <ShareBoardRowItem key={i} row={e}
-                                                   history={props.history}
-                                />
-                            )
-                        })
-                    }
-                </div> */}
             </TabPanel>
             <TabPanel value={selectedTabValue} index={2}>
+
             </TabPanel>
 
         </div>

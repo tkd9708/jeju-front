@@ -122,25 +122,24 @@
         /* margin: 70px 70px 0 100px; */
         text-align: center;
     }
-    .arrow_box {
-        position: relative;
-        background: #d5d533;
-        height: 100px;
-        width: 300px;
-        text-align: center;
-    }
-    .arrow_box:after {
-        left: 100%;
-        top: 50%;
-        border: solid transparent;
-        content: "";
-        position: absolute;
-        pointer-events: none;
-        border-color: rgba(213, 213, 51, 0);
-        border-right-color: #d5d533;
-        border-width: 30px;
-        margin-top: -30px;
-    }
+    .balloon {  
+        position:relative; 
+        margin: 50px;
+        width:400px; 
+        height:100px;
+         background:pink; 
+         border-radius: 10px;
+       }
+       .balloon:after { 
+        border-top: 40px solid transparent; 
+        border-left: 40px solid transparent; 
+        border-right: 10px solid transparent; 
+        border-bottom: 40px solid pink; 
+        content:""; 
+        position:absolute;
+        top:-30px;
+        left:-30px;  
+       }
 }
 
 
