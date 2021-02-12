@@ -19,7 +19,8 @@ class SharePlanRoot extends Component {
             clist:[],
             id:'',
             profile:[],
-            comment:''
+            comment:'',
+            photoCheck: false
             //groupNum: this.props.row.groupNum
         }
         
@@ -81,6 +82,11 @@ class SharePlanRoot extends Component {
         .then(res=>{
             //console.log("profile : " + res.data);
 
+            if(res.data.photo.substring(0,4)=='http'){
+                this.setState({
+                    photoCheck: true
+                })
+            }
             this.setState({
                 profile:res.data
             });
@@ -99,20 +105,34 @@ class SharePlanRoot extends Component {
         var birth1=this.state.profile.birth;
         var today=moment();
         var age=today.diff(birth1,'year')+2;
+        var profileImg = this.state.profile.photo=="no"?profile:
+                        this.state.photoCheck?this.state.profile.photo: URL + "/" + this.state.profile.photo;
         
         return(
             
             <div>
                 {/* {this.props.row.memId} */}
                 
-            <div className="slide-list-item">
-                <img src={profile} style={{width:100,height:100,marginRight:250}}/>
-                <span style={{position:"relative",right:100,fontSize:30}}>{this.state.id}</span><br/>
-                {/* <SharePlanProfile id={this.state.id}></SharePlanProfile> */}
-                <span  style={{position:"relative",right:100,fontSize:30}}>{this.state.profile.gender}<br/>
-                    {age}살
-                </span>
-                {this.state.comment}
+            <div className="SharePlanSlide">
+                <div>
+                    <div className="SharePlanProfile">
+                        <img src={profileImg} onError={(e) => {
+                                    console.log("img error");
+                                    e.target.src = profile;
+                                }}/>
+                        <span>{this.state.id}</span><br/>
+                        <span>{this.state.profile.gender} / {age}세</span><br/>
+                    </div>    
+                    <div>
+                        {this.state.comment}
+                    </div>
+                    {/* <SharePlanProfile id={this.state.id}></SharePlanProfile> */}
+                    {/* <span><br/>
+                        {age}살
+                    </span> */}
+                    
+                </div>
+                
                 {/* 말풍선 */}
                 
                 {this.state.clist.map((row)=>(

@@ -189,21 +189,21 @@ class SharePlanPageComp extends Component {
                 </span>
                 </div>
                 <div className="detailIntro" style={{color: "#888"}}>
-                    여러분만의 일정을 다른 사람들과 공유해보세요!
+                    여러분만의 일정을 다른 사람들과 공유해보세요!<br/>
+                    동행이 필요하신분은 채팅서비스를 이용해보세요.
+                    <br/>
+                  {/* <span>🗓공유날짜</span> */}
+                  <br/>
+                  나와 같은날 가는 동행이 있을까? 원하시는 날짜로 조회해서 확인해보세요.
+                  <br/>
+                  <input type="date" className="wishday form-control" ref="wishday"  onChange={this.getGroup.bind(this)}/>
                 </div>
                 {/* <div className="slide-out">  */}
                 
-               
-                  
-                    
-                    
-                    
-                    
-                  
                 
-            <div className="slide-list-bar">
+            <div className="share-slide-list-bar">
                 
-              <div className="slide-list-box">
+              <div className="share-slide-list-box">
                   <br/>
                  
                  
@@ -250,8 +250,6 @@ class SharePlanPageComp extends Component {
             
             </div>
             
-            <span>🗓공유날짜</span><br/>
-            <input type="date" className="wishday" ref="wishday"  onChange={this.getGroup.bind(this)}/>
             
            
             
