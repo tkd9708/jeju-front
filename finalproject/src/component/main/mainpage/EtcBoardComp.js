@@ -16,6 +16,7 @@ import './MainPageComp.css';
 import Slider from "react-slick";
 import './EtcBoardComp.css';
 import ShareItemComp from './ShareItemComp';
+import SharePlanItemComp from './SharePlanItemComp';
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -82,7 +83,7 @@ export default function EtcBoardComp(props) {
         } else if (selectedTabValue == 1) {
             getShareRestaurantList();
         } else if (selectedTabValue == 2) {
-
+            getShareMyPlanList();
         }
     }, [selectedTabValue]);
 
@@ -115,6 +116,20 @@ export default function EtcBoardComp(props) {
         }).catch(err => {
             console.log(err);
         })
+    }
+
+    const getShareMyPlanList=()=>{
+        let url=URL+"/plan/list?start=0&perPage=10";
+        console.log(url);
+
+        axios.get(url
+            ).then(res => {
+                console.log(res);
+                setShareMyPlan(res.data);
+            }).catch(err => {
+                console.log(err);
+            })
+
     }
 
 
@@ -167,7 +182,7 @@ export default function EtcBoardComp(props) {
             >
                 <Tab label="공지사항" {...a11yProps(0)} />
                 <Tab label="BEST 맛집" {...a11yProps(1)} />
-                <Tab label="BEST 코스" {...a11yProps(2)} />
+                <Tab label="동행" {...a11yProps(2)} />
             </Tabs>
             <TabPanel value={selectedTabValue} index={0}>
                 <div className="EtcBoardNotice" 
@@ -211,23 +226,25 @@ export default function EtcBoardComp(props) {
                     </Slider>
                     
                 </div>
-                {/* <div style={{
-                    display: "flex",
-                    overflow: "auto",
-
-                }}>
-                    {
-                        shareRestaurant.map((e, i) => {
-                            return (
-                                <ShareBoardRowItem key={i} row={e}
-                                                   history={props.history}
-                                />
-                            )
-                        })
-                    }
-                </div> */}
             </TabPanel>
             <TabPanel value={selectedTabValue} index={2}>
+            <div className="EtcBoardNotice" 
+                    >
+                       <div style={{float: 'right', cursor: 'pointer', color: '#2BBBAD'}} onClick={()=>{props.history.push("/shareplan")}}>
+                         <b className="EtcGoToShare">+ 더보기</b>
+                       </div>
+                       <br/>
+                    <Slider {...settings}>
+                        {
+                            shareMyPlan.map((e, i) => {
+                                return (
+                                    <SharePlanItemComp key={i} row={e} history={props.history}/>
+                                )
+                            })
+                        }
+                    </Slider>
+                    
+                </div> 
             </TabPanel>
 
         </div>

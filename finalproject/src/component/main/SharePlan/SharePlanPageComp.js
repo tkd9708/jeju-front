@@ -8,6 +8,7 @@ import SharePlanRoot from './SharePlanRoot';
 
 import store from '../../../redux/store';
 import { StoreTwoTone } from "@material-ui/icons";
+import SharePlanTable from './SharePlanTable';
 
 
 class SharePlanPageComp extends Component {
@@ -189,21 +190,21 @@ class SharePlanPageComp extends Component {
                 </span>
                 </div>
                 <div className="detailIntro" style={{color: "#888"}}>
-                    여러분만의 일정을 다른 사람들과 공유해보세요!
+                    여러분만의 일정을 다른 사람들과 공유해보세요!<br/>
+                    동행이 필요하신분은 채팅서비스를 이용해보세요.
+                    <br/>
+                  {/* <span>🗓공유날짜</span> */}
+                  <br/>
+                  나와 같은날 가는 동행이 있을까? 원하시는 날짜로 조회해서 확인해보세요.
+                  <br/>
+                  <input type="date" className="wishday form-control" ref="wishday"  onChange={this.getGroup.bind(this)}/>
                 </div>
                 {/* <div className="slide-out">  */}
                 
-               
-                  
-                    
-                    
-                    
-                    
-                  
                 
-            <div className="slide-list-bar">
+            <div className="share-slide-list-bar">
                 
-              <div className="slide-list-box">
+              <div className="share-slide-list-box">
                   <br/>
                  
                  
@@ -216,61 +217,24 @@ class SharePlanPageComp extends Component {
                       
                   ))}
                   
-                  {/* {this.state.list.map((row)=>(
-                  <SharePlanDelete r={row}></SharePlanDelete>
-                ))} */}
-                  {/* {this.state.list.map((row)=>(
-                    <SharePlanSub row={row}></SharePlanSub>
-                  ))} */}
-                   {/* </div> */}
                    
                 </Slider>
-                {/* {this.state.list.map((r)=>(
-                    <SharePlanSub r={r}></SharePlanSub>
-                  ))} */}
-                
-                 {/* <button className="slick-prev">ddd</button>
-                <button className="slick-next">ddd</button> */}
                 
                 
                 </div>
-                
+      
+            </div>
             </div>
             
-           
-            
-            
-            {/* <SharePlanSchedule value={this.state.wishday}></SharePlanSchedule> */}
-            {/* <SharePlanSchedule wishday={this.refs.wishday.}></SharePlanSchedule> */}
-            {/* {this.state.list.map((row)=>(
-              <SharePlanSchedule row={row} value={this.state.wishday}></SharePlanSchedule>
-              
-            ))} */}
-            
-            
-            </div>
-            
-            <span>🗓공유날짜</span><br/>
-            <input type="date" className="wishday" ref="wishday"  onChange={this.getGroup.bind(this)}/>
-            
-           
-            
-            
+            <hr/>
+            <SharePlanTable/>
           
           </div>
         
            
-           
-           
-           
-            
-           
           
         );    
            
-        
-
-        
     }
 
 }

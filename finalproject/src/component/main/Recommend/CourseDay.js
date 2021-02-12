@@ -40,13 +40,13 @@ class CourseDay extends Component {
     render() {
         
         return (
-            <span>
+            <>
                 <b>Day {this.props.day}</b><br/>
                 {this.state.list.map((row)=>(
                     <CourseItem title={row.title} img={row.img}/>
                 ))}
                 <br/>
-            </span>
+            </>
         );
     }
 }
