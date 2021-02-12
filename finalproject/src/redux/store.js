@@ -30,7 +30,7 @@ const reducer = function (state, action) {
 
             /* chatting */
             isOpenChatWindow: false,
-            selectedRoomNum: 0,
+            selectedRoomNum: "",
             selectedFriend: "",
             selectedChattingRoomMsgList: [],
             isChatAutoUpdate: false,
