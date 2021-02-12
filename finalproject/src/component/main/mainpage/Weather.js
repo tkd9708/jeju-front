@@ -100,6 +100,8 @@ class Weather extends Component {
             c_longitude: '', // 현재|선택 
             c_address: '', // 구주소|도로명주소
             c_change_date_format: '',
+            c_WeatherPages: [], // 여러 페이지 날씨정보들
+            c_TourWeatherPages: [], // 여러 페이지 관광지 날씨정보들
         };
         // 리덕스를 안쓰고 클래스 내부 state를 씁니다
     }
@@ -189,6 +191,44 @@ class Weather extends Component {
             .catch(err => {
                 console.log("기상청 리턴값 err:", err);
             });
+        
+            for (let i = 0 ; i < 1 ; i = i + 1) {
+                let queryParams = '?' + encodeURIComponent('ServiceKey') + '=' + 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D';
+                queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent(i+1);
+                queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('250'); // 한 페이지 결과 수
+                queryParams += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('json');
+                queryParams += '&' + encodeURIComponent('CURRENT_DATE') + '=' + encodeURIComponent(year+month+date+hours);
+                queryParams += '&' + encodeURIComponent('HOUR') + '=' + encodeURIComponent(callHour); // CURRENT_DATE부터 8일 후까지의 자료 호출
+                queryParams += '&' + encodeURIComponent('COURSE_ID') + '=' + encodeURIComponent('50'); // 관광 코스ID
+                console.log("/getTourStnVilageFcst" + queryParams);
+                axios.get("/TourStnInfoService/getTourStnVilageFcst" + queryParams)
+                .then(res => {
+                        console.log("기상청 리턴값 res:", res);
+                        console.log("기상청 리턴값 res.data.response.body.items.item:", res.data.response.body.items.item);
+                        
+                        // 날씨클래스 내부 state에 정보 저장한다
+                        this.setState({
+                            c_TourWeatherPages: this.state.c_WeatherPages.concat(res),
+                        });
+                        // 날씨클래스 내부 state에 정보 저장한다
+
+                        // 리덕스스토어에 액션함수를 보낸다
+                        // let reduxWeather = res.data.response.body.items.item;
+                        
+                        // store.dispatch({
+                        //     type: actionType.weatherUpdate,
+                        //     weatherInfo: reduxWeather,
+                        // });
+                        // 리덕스스토어에 액션함수를 보낸다
+                        
+                        // 로컬스토리지에 String으로 변경해 저장한다
+                        // localStorage.setItem("weather_1", JSON.stringify(res.data));
+                        // 로컬스토리지에 String으로 변경해 저장한다
+                    })
+                    .catch(err => {
+                        console.log("기상청 리턴값 err:", err);
+                    });
+            }
         }
         
         getWeatherList_2 = () => {
@@ -495,7 +535,7 @@ class Weather extends Component {
         var url_6 = 'http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst';
         var queryParams_6 = '?' + encodeURIComponent('ServiceKey') + '=' + apikey;
         queryParams_6 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
-        queryParams_6 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('999');
+        queryParams_6 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('500');
         queryParams_6 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
         queryParams_6 += '&' + encodeURIComponent('base_date') + '=' + encodeURIComponent(today_2);
         queryParams_6 += '&' + encodeURIComponent('base_time') + '=' + encodeURIComponent(hours_2+'00');
@@ -518,7 +558,7 @@ class Weather extends Component {
         // WAV	파고
         // VEC	풍향
         // WSD	풍속
-
+        
         axios.get("/VilageFcstInfoService/getVilageFcst" + queryParams_6)
         .then(res6 => {
             console.log("/VilageFcstInfoService/getVilageFcst" + queryParams_6);
@@ -534,8 +574,52 @@ class Weather extends Component {
                 console.log("동네예보조회 error : " + err);
                 alert("동네예보조회를 다시 시도해주세요.\n : " + err);
             });
+        
+        for (let i = 0 ; i < 1 ; i++) {
+            let queryParams_7 = '?' + encodeURIComponent('ServiceKey') + '=' + apikey;
+            queryParams_7 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent(i+1);
+            queryParams_7 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('250');
+            queryParams_7 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
+            queryParams_7 += '&' + encodeURIComponent('base_date') + '=' + encodeURIComponent(today_2);
+            queryParams_7 += '&' + encodeURIComponent('base_time') + '=' + encodeURIComponent(hours_2+'00');
+            queryParams_7 += '&' + encodeURIComponent('nx') + '=' + encodeURIComponent(_nx);
+            queryParams_7 += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent(_ny);
+
+            // 예보구분 중에 동네예보는 항목값이 총 14개이다.
+            
+            // POP	강수확률
+            // PTY	강수형태
+            // R06	6시간 강수량
+            // REH	습도
+            // S06	6시간 신적설
+            // SKY	하늘상태
+            // T3H	3시간 기온
+            // TMN	아침 최저기온
+            // TMX	낮 최고기온
+            // UUU	풍속(동서성분)
+            // VVV	풍속(남북성분)
+            // WAV	파고
+            // VEC	풍향
+            // WSD	풍속
+            
+            axios.get("/VilageFcstInfoService/getVilageFcst" + queryParams_7)
+            .then(res7 => {
+                    console.log("/VilageFcstInfoService/getVilageFcst" + queryParams_7);
+                    console.log("동네예보조회 여러페이지 : " + res7.data.response.body.items.item[0].category);
+
+                    // 날씨 클래스 내부 state에 정보 저장한다
+                    this.setState({
+                        c_WeatherPages: this.state.c_WeatherPages.concat(res7),
+                    })
+                    // 날씨 클래스 내부 state에 정보 저장한다
+                })
+                .catch(err => {
+                    console.log("동네예보조회 여러페이지 error : " + err);
+                    alert("동네예보조회 여러페이지를 다시 시도해주세요.\n : " + err);
+                });
+        }
     }
-    
+
     _getJejuGridList = () => {
         // jeju_grid_list를 가지고 옵니다.
     const jejuGridUrl = 'dummy/jeju_grid_list.json';
@@ -580,6 +664,34 @@ class Weather extends Component {
         geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
     };
 
+    changeFcstTime = (timeValue) => {
+        if(timeValue.substr(0, 1) === '0')
+        {
+            timeValue = timeValue.substr(1, 1);
+        }
+
+        timeValue = Number(timeValue);
+
+        if (timeValue > 12)
+        {
+            timeValue = timeValue - 12;
+            timeValue = `오후 ${timeValue}`;
+        }
+        else if (timeValue < 12)
+        {
+            timeValue = `오전 ${timeValue}`;
+        }
+        else if (timeValue === 12)
+        {
+            timeValue = `정오 ${timeValue}`;
+        }
+        else if (timeValue === 0)
+        {
+            timeValue = `자정 ${timeValue}`;
+        }
+        return timeValue;
+    }
+
     render() {
         const { c_weatherInfo } = this.state;
         
@@ -615,8 +727,6 @@ class Weather extends Component {
             );
         });
         
-        var count = 1; // 날씨정보가 8번 나오면 줄을 바꿀 수세기
-        
         var changeDateFormat = new Date();
         var changeYear = changeDateFormat.getFullYear();
         var changeMonth = changeDateFormat.getMonth();
@@ -629,28 +739,6 @@ class Weather extends Component {
         return (
             
             <div style={{ fontSize : '.7rem' }}>
-                {/* <select onChange={this.selectChange.bind(this)} value={this.state.selectBoxValue}>
-                    { this.state.jejuGridList.map((jejuGrid, index) => (
-                        <option 
-                        value={index} 
-                        data-nx={jejuGrid[Object.keys(jejuGrid)[4]]} 
-                        data-ny={jejuGrid[Object.keys(jejuGrid)[5]]}
-                        >
-                            {jejuGrid[Object.keys(jejuGrid)[1]]}&nbsp;
-                            {jejuGrid[Object.keys(jejuGrid)[2]]}&nbsp;
-                            {jejuGrid[Object.keys(jejuGrid)[3]]}
-                            </option>
-                            )) }
-                        </select> */}
-
-                {/* 자식 컴포넌트에서 부모컴포넌트의 함수 호출하기 */}
-                {/* <h1>{this.state.selectBoxValue}</h1>
-                <SelectWeatherArea 
-                _jejuGridList={this.state.jejuGridList}
-                change={this.selectChange.bind(this)}
-                /> */}
-
-
                 <select onChange={this.selectChange} value={this.props.selectBoxValue}>
                     {options}
                 </select>
@@ -661,6 +749,7 @@ class Weather extends Component {
 
                 총 데이타수:
                 {this.state.c_weatherInfo.length}개
+                {this.state.c_TourWeatherPages.length}개
                 {/* {JSON.parse(localStorage.getItem('weather_1'))} */}
                 <br />
 
@@ -668,44 +757,74 @@ class Weather extends Component {
                 '최고기온' &nbsp; '최저기온' &nbsp; '하늘상태'
                 <br />
                 {
-                    c_weatherInfo.map((row)=>(
-                        <>
-                        {/* ({row.spotAreaName})
-                        ({row.courseName})
-                        ({row.spotName})
-                    ({row.thema}) */}
-                        ({row.maxTa})
-                        ({row.minTa})
-                        {/* ({row.wd})
-                        ({row.ws}) */}
-                        {/* {skyStatus.map((findName,index)=>(
-                            this.setState({
-                                sky : row.sky === index + 1 ? findName : ''
-                            })
-                        ))} */}
+                    // c_weatherInfo.map((row)=>(
+                    //     <>
+                    //     {/* ({row.spotAreaName})
+                    //     ({row.courseName})
+                    //     ({row.spotName})
+                    //     ({row.thema}) */}
+                    //     (최고기온{row.maxTa})
+                    //     (최저기온{row.minTa})
+                    //     {/* ({row.wd})
+                    //     ({row.ws}) */}
 
-                        {/* <ReactAnimatedWeather
-                            icon={skyStatus[row.sky-1]}
-                            color={skyColor[row.sky-1]}
-                            size={defaults.size}
-                            animate={defaults.animate}
-                        /> */}
+                    //     {/* <ReactAnimatedWeather
+                    //         icon={skyStatus[row.sky-1]}
+                    //         color={skyColor[row.sky-1]}
+                    //         size={defaults.size}
+                    //         animate={defaults.animate}
+                    //     /> */}
                         
-                        <ColorSkycons
-                            type = { Object.keys(skyStatusEnum).find(name => skyStatusEnum[name] === row.sky-1) }
-                            animate = { defaults.animate }
-                            size = { defaults.size }
-                            resizeClear = { true }
-                            // {...svgProps}
-                        />
+                    //     <ColorSkycons
+                    //         type = { Object.keys(skyStatusEnum).find(name => skyStatusEnum[name] === row.sky-1) }
+                    //         animate = { defaults.animate }
+                    //         size = { defaults.size }
+                    //         resizeClear = { true }
+                    //         // {...svgProps}
+                    //     />
                         
-                        ({skyStatus[row.sky-1]})
-                        {/* ({row.rhm})
-                        ({row.pop})
-                    ({row.rn}) */}
-                        </>
+                    //     {krSkyStatus[row.sky-1]}
+                        
+                    //     </>
+                    //     ))
+                }
+                <br />
+                {/* '여러페이지관광코스별_관광지_상세_날씨 최고기온'
+                {
+                    this.state.c_TourWeatherPages.map((row, index)=>(
+                        row.data.response.body.items.item.map((itemrow, idx)=>(
+                            <div className='jejuWeatherDiv'>
+                                최고기온{itemrow.maxTa}&nbsp;
+                                관광지명{itemrow.spotName}&nbsp;
+                                예보시각{itemrow.tm}시&nbsp;
+                            </div>
+                        ))
                         ))
                     }
+                <br /> */}
+                {/* '여러페이지관광코스별_관광지_상세_날씨 최저기온' */}
+                {/* {
+                    this.state.c_TourWeatherPages.map((row, index)=>(
+                        row.data.response.body.items.item.map((itemrow, idx)=>(
+                            <div className='jejuWeatherDiv'>
+                                {itemrow.minTa}
+                                {itemrow.spotName}
+                            </div>
+                        ))
+                        ))
+                } */}
+                <br />
+                {/* '여러페이지관광코스별_관광지_상세_날씨 하늘상태' */}
+                {/* {
+                    this.state.c_TourWeatherPages.map((row, index)=>(
+                        row.data.response.body.items.item.map((itemrow, idx)=>(
+                            <div className='jejuWeatherDiv'>
+                                {itemrow.sky}
+                                {itemrow.spotName}
+                            </div>
+                        ))
+                    ))
+                } */}
                 
                 <br />
                 '체감온도'
@@ -722,7 +841,7 @@ class Weather extends Component {
                 '초단기실황조회'
                 <br/>
                 {/* '기온' '동서바람성분' '풍향' '남북바람성분' '풍속' */}
-                '기온'
+                '현재기온'
                 <br />
                 {
                     // store.getState.weatherInfo_3.map((row)=>(
@@ -737,68 +856,229 @@ class Weather extends Component {
                 <br />
                 '동네예보조회'
                 {this.state.c_weatherInfo_6.length}개
-
                 <br/>
                 {/* '발표시각' &nbsp; '예보일자' &nbsp; '예보시각' &nbsp; '자료구분문자' &nbsp; '예보 값' */}
                 {/* '자료구분문자' &nbsp; '예보 값' */}
                 <br />
                 {
                     // this.state.c_weatherInfo_6.filter(w => w.category === 'SKY' || w.category === 'TMN' || w.category === 'TMX').map((row)=>(
-                        this.state.c_weatherInfo_6.filter(w => w.category === 'SKY' || w.category === 'TMN' || w.category === 'TMX').map((row)=>(
-                            <div className="jejuWeatherDiv">
-                                {/* <span>
-                                    발표시각
-                                    ({row.baseTime})
-                                </span> */}
-                                <span>
-                                    예보일자
-                                    ({row.fcstDate})
-                                    변경전({changeDateFormat.getFullYear()}, {changeDateFormat.getMonth()+1}, {changeDateFormat.getDate()}, {arrDayStr[changeDateFormat.getDay()]}요일)
+                    //     this.state.c_weatherInfo_6.filter(w => w.category === 'SKY' || w.category === 'TMN' || w.category === 'TMX').map((row, index)=>(
+                    //         <div className="jejuWeatherDiv">
+                    //             {/* <span>
+                    //                 발표시각
+                    //                 ({row.baseTime})
+                    //             </span> */}
+                    //             <span>
+                    //                 예보일자
+                    //                 ({row.fcstDate})
+                    //                 변경전({changeDateFormat.getFullYear()}, {changeDateFormat.getMonth()+1}, {changeDateFormat.getDate()}, {arrDayStr[changeDateFormat.getDay()]}요일)
                                     
-                                    예보일자 섭스트링({changeYear = Number(row.fcstDate.substr(0, 4))});
+                    //                 예보일자 섭스트링({changeYear = Number(row.fcstDate.substr(0, 4))});
                                     
-                                    예보일자 섭스트링2({changeMonth = Number(row.fcstDate.substr(4, 1)) === 0 ? Number(row.fcstDate.substr(5, 1)) : Number(row.fcstDate.substr(4, 2))});
+                    //                 예보일자 섭스트링2({changeMonth = Number(row.fcstDate.substr(4, 1)) === 0 ? Number(row.fcstDate.substr(5, 1)) : Number(row.fcstDate.substr(4, 2))});
                                     
-                                    예보일자 섭스트링3({changeDate = Number(row.fcstDate.substr(6, 1)) === 0 ? Number(row.fcstDate.substr(7, 1)) : Number(row.fcstDate.substr(6, 2))});
+                    //                 예보일자 섭스트링3({changeDate = Number(row.fcstDate.substr(6, 1)) === 0 ? Number(row.fcstDate.substr(7, 1)) : Number(row.fcstDate.substr(6, 2))});
 
-                                    {changeDay = changeDateFormat.getDay()}
+                    //                 {changeDay = changeDateFormat.getDay()}
                                     
-                                    <input type='hidden' value={changeDateFormat.setFullYear(changeYear)}></input>
-                                    <input type='hidden' value={changeDateFormat.setMonth(changeMonth-1)}></input>
-                                    <input type='hidden' value={changeDateFormat.setDate(changeDate)}></input>
+                    //                 <input type='hidden' value={changeDateFormat.setFullYear(changeYear)}></input>
+                    //                 <input type='hidden' value={changeDateFormat.setMonth(changeMonth-1)}></input>
+                    //                 <input type='hidden' value={changeDateFormat.setDate(changeDate)}></input>
 
-                                    변경후({changeDateFormat.getFullYear()}&nbsp;{changeDateFormat.getMonth()+1}&nbsp;{changeDateFormat.getDate()}&nbsp;{arrDayStr[changeDay]}요일)
-                                </span>
-                                <br />
-                                <span>
-                                    예보시각
-                                    ({row.fcstTime})
+                    //                 변경후({changeDateFormat.getFullYear()}&nbsp;{changeDateFormat.getMonth()+1}&nbsp;{changeDateFormat.getDate()}&nbsp;{arrDayStr[changeDay]}요일)
+                    //             </span>
+                    //             <br />
+                    //             <span>
+                    //                 예보시각
+                    //                 ({row.fcstTime})
                                     
-                                </span>
-                                <br />
-                                <span>
-                                    자료구분문자
-                                    ({row.category})
-                                </span>
-                                <br />
-                                <span>
-                                    예보 값
-                                    ({row.fcstValue})
-                                </span>
-                                <ColorSkycons
-                                    type = { Object.keys(skyStatusEnum).find(name => skyStatusEnum[name] === row.fcstValue-1) }
-                                    animate = { defaults.animate }
-                                    size = { defaults.size }
-                                    resizeClear = { true }
-                                    // {...svgProps}
-                                />
-                                ({krSkyStatus[row.fcstValue-1]})
-                                {count === 8 ? <br /> : ''}
-                                {count = count + 1}
-                        </div>
-                    ))
+                    //             </span>
+                    //             <br />
+                    //             <span>
+                    //                 자료구분문자
+                    //                 ({row.category})
+                    //             </span>
+                    //             <br />
+                    //             <span>
+                    //                 예보 값
+                    //                 ({row.fcstValue})
+                    //             </span>
+                    //             <ColorSkycons
+                    //                 type = { Object.keys(skyStatusEnum).find(name => skyStatusEnum[name] === row.fcstValue-1) }
+                    //                 animate = { defaults.animate }
+                    //                 size = { defaults.size }
+                    //                 resizeClear = { true }
+                    //                 // {...svgProps}
+                    //             />
+                    //             ({krSkyStatus[row.fcstValue-1]})
+                    //         </div>
+
+                    // ))
                 }
                 
+                '동네예보조회 여러페이지 하늘상태'
+                {
+                    this.state.c_WeatherPages.map((row, index)=>(
+                        row.data.response.body.items.item
+                        .filter(weather => weather.category === 'SKY')
+                        .map((itemrow, idx) => (
+                            <div className='jejuWeatherDiv'>
+                                {itemrow.category}&nbsp;
+                                {itemrow.fcstValue}&nbsp;
+                                <ColorSkycons
+                                     type = { Object.keys(skyStatusEnum).find(name => skyStatusEnum[name] === itemrow.fcstValue-1) }
+                                     animate = { defaults.animate }
+                                     size = { defaults.size }
+                                     resizeClear = { true }
+                                     // {...svgProps}
+                                 />
+                                {krSkyStatus[itemrow.fcstValue-1]}
+                                {itemrow.baseTime}&nbsp;
+                                {itemrow.fcstDate}&nbsp;
+                                {/* 변경전({changeDateFormat.getFullYear()}, {changeDateFormat.getMonth()+1}, {changeDateFormat.getDate()}, {arrDayStr[changeDateFormat.getDay()]}요일) */}
+                                    
+                                {/* 년도{changeYear = Number(itemrow.fcstDate.substr(0, 4))} */}
+                                년도{Number(itemrow.fcstDate.substr(0, 4))}
+                            
+                                {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
+                                월{Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}
+                            
+                                {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
+                                일{Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}
+
+                                {/* {changeDay = changeDateFormat.getDay()}
+                            
+                                <input type='hidden' value={changeDateFormat.setFullYear(changeYear)}></input>
+                                <input type='hidden' value={changeDateFormat.setMonth(changeMonth-1)}></input>
+                                <input type='hidden' value={changeDateFormat.setDate(changeDate)}></input>
+
+                                변경후({changeDateFormat.getFullYear()}&nbsp;{changeDateFormat.getMonth()+1}&nbsp;{changeDateFormat.getDate()}&nbsp;{arrDayStr[changeDay]}요일) */}
+                                &nbsp;&nbsp;
+                                예보시각
+                                {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시
+                            </div>
+                        ))
+                    ))
+                }
+
+                <br />
+                <br />
+                <br />
+                '동네예보조회 여러페이지 아침 최저기온'
+                {
+                    this.state.c_WeatherPages.map((row, index)=>(
+                        row.data.response.body.items.item
+                        .filter(weather => weather.category === 'TMN')
+                        .map((itemrow, idx) => (
+                            <div className='jejuWeatherDiv'>
+                                아침 최저기온{itemrow.category}&nbsp;
+                                {itemrow.fcstValue}&nbsp;
+                                발표일자{itemrow.baseDate}&nbsp;
+                                발표시각{itemrow.baseTime}&nbsp;
+                                예보일자
+                                {/* {itemrow.fcstDate}&nbsp; */}
+                                {Number(itemrow.fcstDate.substr(0, 4))}년도
+                            
+                                {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
+                                {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}월
+                            
+                                {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
+                                {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}일
+                                &nbsp;&nbsp;
+                                예보시각
+                                {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시
+                            </div>
+                        ))
+                    ))
+                }
+
+                <br />
+                <br />
+                <br />
+                '동네예보조회 여러페이지 낮 최고기온'
+                {
+                    this.state.c_WeatherPages.map((row, index)=>(
+                        row.data.response.body.items.item
+                        .filter(weather => weather.category === 'TMX')
+                        .map((itemrow, idx) => (
+                            <div className='jejuWeatherDiv'>
+                                낮 최고기온{itemrow.category}&nbsp;
+                                {itemrow.fcstValue}&nbsp;
+                                발표일자{itemrow.baseDate}&nbsp;
+                                발표시각{itemrow.baseTime}&nbsp;
+                                예보일자
+                                {/* {itemrow.fcstDate}&nbsp; */}
+                                {Number(itemrow.fcstDate.substr(0, 4))}년도
+                            
+                                {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
+                                {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}월
+                            
+                                {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
+                                {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}일
+                                &nbsp;
+                                예보시각
+                                {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시
+                            </div>
+                        ))
+                    ))
+                }
+
+                {
+                    // this.state.c_weatherInfo_6.filter(w => w.category === 'SKY' || w.category === 'TMN' || w.category === 'TMX').map((row)=>(
+                    //     this.state.c_weatherInfo_6.filter(w => w.category === 'SKY' || w.category === 'TMN' || w.category === 'TMX').map((row, index)=>(
+                    //         <div className="jejuWeatherDiv">
+                    //             {/* <span>
+                    //                 발표시각
+                    //                 ({row.baseTime})
+                    //             </span> */}
+                    //             <span>
+                    //                 예보일자
+                    //                 ({row.fcstDate})
+                    //                 변경전({changeDateFormat.getFullYear()}, {changeDateFormat.getMonth()+1}, {changeDateFormat.getDate()}, {arrDayStr[changeDateFormat.getDay()]}요일)
+                                    
+                    //                 예보일자 섭스트링({changeYear = Number(row.fcstDate.substr(0, 4))});
+                                    
+                    //                 예보일자 섭스트링2({changeMonth = Number(row.fcstDate.substr(4, 1)) === 0 ? Number(row.fcstDate.substr(5, 1)) : Number(row.fcstDate.substr(4, 2))});
+                                    
+                    //                 예보일자 섭스트링3({changeDate = Number(row.fcstDate.substr(6, 1)) === 0 ? Number(row.fcstDate.substr(7, 1)) : Number(row.fcstDate.substr(6, 2))});
+
+                    //                 {changeDay = changeDateFormat.getDay()}
+                                    
+                    //                 <input type='hidden' value={changeDateFormat.setFullYear(changeYear)}></input>
+                    //                 <input type='hidden' value={changeDateFormat.setMonth(changeMonth-1)}></input>
+                    //                 <input type='hidden' value={changeDateFormat.setDate(changeDate)}></input>
+
+                    //                 변경후({changeDateFormat.getFullYear()}&nbsp;{changeDateFormat.getMonth()+1}&nbsp;{changeDateFormat.getDate()}&nbsp;{arrDayStr[changeDay]}요일)
+                    //             </span>
+                    //             <br />
+                    //             <span>
+                    //                 예보시각
+                    //                 ({row.fcstTime})
+                                    
+                    //             </span>
+                    //             <br />
+                    //             <span>
+                    //                 자료구분문자
+                    //                 ({row.category})
+                    //             </span>
+                    //             <br />
+                    //             <span>
+                    //                 예보 값
+                    //                 ({row.fcstValue})
+                    //             </span>
+                    //             <ColorSkycons
+                    //                 type = { Object.keys(skyStatusEnum).find(name => skyStatusEnum[name] === row.fcstValue-1) }
+                    //                 animate = { defaults.animate }
+                    //                 size = { defaults.size }
+                    //                 resizeClear = { true }
+                    //                 // {...svgProps}
+                    //             />
+                    //             ({krSkyStatus[row.fcstValue-1]})
+                    //         </div>
+
+                    // ))
+                }
+
                 <h4>Weather</h4>
                 <img src = { OPENNURI } alt='OPENNURI' />
             </div>
