@@ -1,8 +1,32 @@
-div.mainPageComp {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
+@media only screen and (max-width: 450px){
+    div.mainPageComp {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+    }
 }
+@media only screen and (min-width: 450px) and (max-width: 770px){
+    div.mainPageComp {
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+    }
+}
+@media only screen and (min-width: 770px) and (max-width: 1023px){
+    div.mainPageComp {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+    }
+}
+@media only screen and (min-width: 1023px){
+    div.mainPageComp {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+    }
+}
+
 
 div.mainPageComp div {
     /*border: 1px solid black;*/
@@ -1121,7 +1145,7 @@ div.etcBoardComp {
     /*flex: 1;*/
     height: 700px;
     border-top: 1px solid #ddd;
-    padding: 20px;
+    padding: 10px;
 }
 div.etcBoardComp span.MuiTab-wrapper {
     font-weight: 900;
