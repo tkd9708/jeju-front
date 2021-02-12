@@ -5,7 +5,7 @@ import {URL} from "../../../redux/config";
 import Slider from "react-slick";
 import SharePlanRoot from './SharePlanRoot';
 
-import SharePlanProfile from './SharePlanProfile';
+
 import store from '../../../redux/store';
 import { StoreTwoTone } from "@material-ui/icons";
 

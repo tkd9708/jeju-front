@@ -4,7 +4,7 @@ import axios from 'axios';
 import {URL} from "../../../redux/config";
 import './SharePlanCss.css';
 import profile from './Img_profile.png';
-import SharePlanProfile from "./SharePlanProfile";
+
 import moment from 'moment';
 
 
@@ -107,12 +107,12 @@ class SharePlanRoot extends Component {
                 
             <div className="slide-list-item">
                 <img src={profile} style={{width:100,height:100,marginRight:250}}/>
-                <span style={{position:"relative",right:100,fontSize:30}}>{this.state.id}</span><br/>
+                <span style={{position:"relative",right:300,fontSize:30}}>{this.state.id}</span><br/>
                 {/* <SharePlanProfile id={this.state.id}></SharePlanProfile> */}
-                <span  style={{position:"relative",right:100,fontSize:30}}>{this.state.profile.gender}<br/>
+                <span  style={{position:"relative",right:300,fontSize:30}}>{this.state.profile.gender}<br/>
                     {age}살
                 </span>
-                {this.state.comment}
+                <div className="arrow_box"><span className="comment_logo">{this.state.comment}</span></div>
                 {/* 말풍선 */}
                 
                 {this.state.clist.map((row)=>(

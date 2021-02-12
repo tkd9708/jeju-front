@@ -24,6 +24,7 @@ class Tourintro extends Component {
 
         if(this.props.type){
             this.type = this.props.type;
+            this.area = "sungsan";
         }
     }
 

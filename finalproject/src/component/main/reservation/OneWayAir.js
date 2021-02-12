@@ -46,7 +46,8 @@ class OneWayAir extends Component {
             business: 0,
             start: '김포',
             dest: '제주',
-            wishtime: ''
+            wishtime: '',
+            money: ''
 
           }
 
@@ -254,15 +255,38 @@ class OneWayAir extends Component {
 
                             <div style={{borderTop:'0.1px solid white',textAlign:'center'}} className="AirOneWayPlan">
                             
-                            <Tooltip title="예정 시간" arrow>
+                            <Box
+                                display="flex"
+                                flexWrap="wrap"
+                                justifyContent="center"
+                                width="100%"
+                                className="AirTabContent"
+                            >
+                                <Box m={1} style={{textAlign: 'left'}}>
+                                    {/* 날짜선택 */}
+                                    <Tooltip title="예정 시간" arrow>
+                                        <div style={{display: 'inline-block'}}>
+                                            <input type="time" class="form-control form-control-sm" value={this.state.wishtime} onChange={this.handleChange.bind(this)} name="wishtime"></input>
+                                        </div>
+                                    </Tooltip>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <Tooltip title="비용 추가를 원할 시, 입력해주세요." arrow>
+                                        <div style={{display: 'inline-block'}}>
+                                            <input type="text" class="form-control form-control-sm" value={this.state.money} onChange={this.handleChange.bind(this)} name="money" placeholder="비용"></input>
+                                        </div>
+                                    </Tooltip>
+                                </Box>
+                            </Box>
+                            {/* <Tooltip title="예정 시간" arrow>
                                 <div>
                                     <input type="time" class="form-control form-control-sm" value={this.state.wishtime} onChange={this.handleChange.bind(this)} name="wishtime"></input>
-                                    <input type="text" class="form-control form-control-sm" value={this.state.money} onChange={this.handleChange.bind(this)} name="money"></input>
                                 </div>
                             </Tooltip>
+                            
+                            <input type="text" class="form-control form-control-sm" value={this.state.money} onChange={this.handleChange.bind(this)} name="money"></input>
                                 
-                                <br/>
-                               
+                                <br/> */}
+                               <br/>
                                 <button type="button" ref="wishtime"
                                        onClick={this.insertWish.bind(this)} className="btn btn-info">
                                   일정추가
