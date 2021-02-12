@@ -834,9 +834,9 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
         font-weight: 900;
     }
     div.hotPlaceComp div.hotPlace_location div.btn_go {
-        transform: scale(0.5);
+        transform: scale(0.7);
         position: absolute;
-        top: 511px;
+        top: 140px;
         left: 10px;
     }
 
