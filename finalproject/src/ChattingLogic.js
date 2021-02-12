@@ -119,6 +119,33 @@ class ChattingLogic {
             });
     }
 
+    getLastWriteDay(_lastWriteDay) {
+        let _date = new Date(_lastWriteDay);
+        let _strTime = ""; //_date.getHours() + ":" + _date.getMinutes();
+        let _now = new Date(Date.now());
+        let _nowYear = _now.getFullYear();
+        let _nowMonth = _now.getMonth() + 1;
+        let _nowDate = _now.getDate();
+
+        let isToday = true;
+
+        if (_nowYear > _date.getFullYear()) {
+            _strTime += _date.getFullYear() + "년 ";
+            isToday = false;
+        }
+
+        if (_nowMonth > _date.getMonth() + 1 || _nowDate > _date.getDate()) {
+            _strTime += (_date.getMonth() + 1) + "월 " + _date.getDate() + "일";
+            isToday = false;
+        }
+
+        if (isToday) {
+            _strTime = _date.getHours() + ":" + _date.getMinutes();
+        }
+
+        return _strTime;
+    }
+
 }
 
 export default ChattingLogic;

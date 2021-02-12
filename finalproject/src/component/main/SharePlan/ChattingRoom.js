@@ -128,6 +128,13 @@ const ChattingRoom = (props) => {
                             duration: 1,
                             ease: Quint.easeInOut,
                         });
+
+                        store.dispatch({
+                            type: actionType.setSelectedRoomNum,
+                            selectedRoomNum: "",
+                            selectedFriend: "",
+                        });
+
                         store.dispatch({
                             type: actionType.publishFunctionMsg,
                             publishFunctionMsg: "chattingRoomListInfo",
@@ -142,8 +149,10 @@ const ChattingRoom = (props) => {
 
             <div id="chattingBoard" className="chattingBoard">
                 {msgList.map((e, i) => {
-                    let _date = new Date(e.writeday);
-                    let _strTime = _date.getHours() + ":" + _date.getMinutes();
+                    let chat = new ChattingLogic();
+                    let _strTime = chat.getLastWriteDay(e.writeday);
+                    // let _date = new Date(e.writeday);
+                    // let _strTime = _date.getHours() + ":" + _date.getMinutes();
                     if (e.sender == loginId) {
                         //나.
                         return (

@@ -115,7 +115,7 @@ class SharePlanRoot extends Component {
                 
             <div className="SharePlanSlide">
                 <div>
-                    <div className="SharePlanProfile">
+                    <div className="SharePlanProfile" style={{display: 'inline-block'}}>
                         <img src={profileImg} onError={(e) => {
                                     console.log("img error");
                                     e.target.src = profile;
@@ -123,7 +123,7 @@ class SharePlanRoot extends Component {
                         <span>{this.state.id}</span><br/>
                         <span>{this.state.profile.gender} / {age}세</span><br/>
                     </div>    
-                    <div>
+                    <div className="balloon" style={{display: 'inline-block'}}>
                         {this.state.comment}
                     </div>
                     {/* <SharePlanProfile id={this.state.id}></SharePlanProfile> */}
@@ -133,20 +133,12 @@ class SharePlanRoot extends Component {
                     
                 </div>
                 
-                {/* 말풍선 */}
                 
                 {this.state.clist.map((row)=>(
                     <SharePlanSub row={row} day={day} setName={this.setName.bind(this)}></SharePlanSub>
                 ))}
 
                 
-                    
-                
-               
-
-               
-                
-
                 
                 
             </div>

@@ -98,7 +98,7 @@ class Course extends Component {
     render() {
         
         return (
-            <span>
+            <>
                 {/* 추천일정 저장 모달 */}
                 <MDBModal isOpen={this.state.open} toggle={this.toggle} centered className="SpotAddModal">
                     <MDBModalHeader toggle={this.toggle} className="RentAddModal">업체 추가정보</MDBModalHeader>
@@ -150,7 +150,7 @@ class Course extends Component {
                     </Button>
                     </DialogActions>
                 </Dialog>
-            </span>
+            </>
         );
     }
 }

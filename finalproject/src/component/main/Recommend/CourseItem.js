@@ -16,9 +16,9 @@ class CourseDayItem extends Component {
     render() {
         
         return (
-            <span>
+            <span class="hotspot">
                     <img src={this.props.img} style={{width: '150px', height: '150px'}}/><br/>
-                    <caption>{this.props.title}</caption>
+                    <figcaption>{this.props.title}</figcaption>
             </span>
         );
     }

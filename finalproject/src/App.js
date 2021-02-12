@@ -45,6 +45,7 @@ import ChatCompPage from "./component/main/SharePlan/ChatCompPage";
 import ChattingLogic from "./ChattingLogic";
 import RecommendCourse from "./component/main/Recommend/RecommendPageComp";
 import MyBudget from './component/main/mypage/MyBudget';
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 
 let confirmLs = localStorage.getItem("com.naver.nid.access_token");
 
@@ -126,6 +127,11 @@ class App extends Component {
 
         store.subscribe(function () {
             if (store.getState().publishFunctionMsg == "chattingRoomListInfo") {
+                store.dispatch({
+                    type: actionType.publishFunctionMsg,
+                    publishFunctionMsg: "",
+                });
+
                 let chat = new ChattingLogic();
                 chat.getRoomList((res) => {
                     console.log("res", res, "chattingRoomListInfo", store.getState().chattingRoomListInfo);
@@ -140,23 +146,56 @@ class App extends Component {
                     for (let _newRoomInfo of res.data) {
                         //num 으로 find.
                         let _temp = roomListInfo.find(e => e.num == _newRoomInfo.num);
-                        console.log(11111, _temp);
+                        // console.log(11111, _temp);
 
                         if (_temp) {
-                            //기존에 있던것이니까, 새로운거랑 비교를 해봐야 함.
-                            if (_temp.msgCnt < _newRoomInfo.msgCnt) {
-                                _temp = _newRoomInfo;
-                                _temp.isNew = true;
+                            if (_temp.hasOwnProperty("isNew")
+                                && _temp.hasOwnProperty("newMsgCnt")
+                                && _temp.isNew) {
+                                //newMsgCnt 냅둬야 함.
+                                _temp = Object.assign({}, _newRoomInfo, {
+                                    isNew: true,
+                                    newMsgCnt: _temp.newMsgCnt + (_newRoomInfo.msgCnt - _temp.msgCnt),
+                                });
                             } else {
-                                _temp.isNew = false;
+                                //기존에 있던것이니까, 새로운거랑 비교를 해봐야 함.
+                                if (_temp.msgCnt < _newRoomInfo.msgCnt) {
+                                    if (_temp.num == store.getState().selectedRoomNum) {
+                                        //현재 대화방에 새로운 메시지가 왔을때.
+                                        _temp = Object.assign({}, _newRoomInfo, {
+                                            isNew: false,
+                                            newMsgCnt: 0,
+                                        });
+                                    } else {
+                                        _temp = Object.assign({}, _newRoomInfo, {
+                                            isNew: true,
+                                            newMsgCnt: _newRoomInfo.msgCnt - _temp.msgCnt,
+                                        });
+                                    }
+                                } else {
+                                    _temp = Object.assign({}, _newRoomInfo, {
+                                        isNew: false,
+                                        newMsgCnt: 0,
+                                    });
+                                }
                             }
                         } else {
                             //_temp 가 undefined 이기때문에 _newRoomInfo 를 넣어줌.
-                            //새로생긴 채팅방.
-                            _temp = _newRoomInfo;
-                            _temp.isNew = true;
+                            if (_newRoomInfo.msgCnt > 0) {
+                                //기존에 있던 채팅방.
+                                _temp = Object.assign({}, _newRoomInfo, {
+                                    isNew: false,
+                                    newMsgCnt: 0,
+                                });
+                            } else {
+                                //새로생긴 채팅방.
+                                _temp = Object.assign({}, _newRoomInfo, {
+                                    isNew: true,
+                                    newMsgCnt: 0,
+                                });
+                            }
                         }
-                        console.log(22222, _temp);
+                        // console.log(22222, _temp);
                         newList.push(_temp);
 
                         if (!resultIsNewChattingIcon && _temp.isNew) {
@@ -167,19 +206,19 @@ class App extends Component {
                         }
                     }
 
-                    console.log(33333, resultIsNewChattingIcon, newList);
+                    // console.log(33333, resultIsNewChattingIcon, newList);
 
-                    this.setChattingRoomListInfo(newList, resultIsNewChattingIcon);
+                    // this.setChattingRoomListInfo(newList);
+                    // this.setChattingIconIsNew(resultIsNewChattingIcon);
+                    this.setChattingUpdate(newList, resultIsNewChattingIcon);
+
                     store.dispatch({
                         type: actionType.chattingRoomListInfo,
                         chattingRoomListInfo: newList,
                     });
                 });
 
-                store.dispatch({
-                    type: actionType.publishFunctionMsg,
-                    publishFunctionMsg: "",
-                });
+
             }
         }.bind(this));
 
@@ -202,24 +241,95 @@ class App extends Component {
                 });
             }, 5000);//, store.getState().loginId.toString(), 1234);
         }
-    }
 
+        store.subscribe(function () {
+            if (store.getState().publishFunctionMsg == "readMsgInChattingRoom") {
+                store.dispatch({
+                    type: actionType.publishFunctionMsg,
+                    publishFunctionMsg: "",
+                });
+                let _roomNum = store.getState().selectedRoomNum;
+                this.readMsgInChattingRoom(_roomNum);
 
-    setChattingRoomListInfo = (chattingRoomListInfo, isNewChattingIcon = false) => {
-        console.log("setChattingRoomListInfo()", chattingRoomListInfo, isNewChattingIcon);
+            }
+        }.bind(this));
+    }//constructor()
+
+    /*setChattingRoomListInfo = (chattingRoomListInfo) => {
+        console.log("setChattingRoomListInfo()", chattingRoomListInfo);
         // isNewChattingIcon 나중에 아이콘 클릭할때, state 에 false 로.
         this.setState({
             chattingRoomListInfo: chattingRoomListInfo,
-            isNewChattingIcon: (this.state.isNewChattingIcon) ? true : isNewChattingIcon,
+            // isNewChattingIcon: (this.state.isNewChattingIcon) ? true : isNewChattingIcon,
+        });
+    }*/
+
+    setChattingIconIsNew = (isNewChattingIcon) => {
+        /*
+        if (isNewChattingIcon) {
+            //채팅창이 오픈상태라면 노티 안보이게.
+            if (store.getState().isOpenChatWindow) {
+                isNewChattingIcon = false;
+            }
+        }
+        */
+
+        this.setState({
+            isNewChattingIcon: isNewChattingIcon,
         });
     }
 
-    setChattingIconIsNew = (isNewChattingIcon) => {
+    readMsgInChattingRoom(_roomNum) {
+        /*
+            isNew: false,
+            newMsgCnt: 0,
+        * */
+        // 먼저 스토어에서 리스트정보 받아옴.
+        let listInfo = store.getState().chattingRoomListInfo;
+
+        // _roomNum 대로 Find()해서 수정후
+        for (let i = 0; i < listInfo.length; i++) {
+            if (listInfo[i].num == _roomNum) {
+                listInfo[i].isNew = false;
+                listInfo[i].newMsgCnt = 0;
+            }
+        }
+
+        // 다시 setState와 dispatch.
+        store.dispatch({
+            type: actionType.chattingRoomListInfo,
+            chattingRoomListInfo: listInfo,
+        });
         this.setState({
-            isNewChattingIcon: isNewChattingIcon,
-        })
+            chattingRoomListInfo: listInfo,
+        });
     }
 
+    setChattingUpdate(chattingRoomListInfo, isNewChattingIcon) {
+        console.log("setChattingUpdate() 1111", chattingRoomListInfo, isNewChattingIcon);
+        if (isNewChattingIcon) {
+            //채팅창이 오픈상태라면 노트 안보이게.
+            if (store.getState().isOpenChatWindow) {
+                isNewChattingIcon = false;
+            }
+        }
+
+        console.log("setChattingUpdate() 2222", chattingRoomListInfo, isNewChattingIcon);
+        this.setState({
+            chattingRoomListInfo: chattingRoomListInfo,
+            isNewChattingIcon: isNewChattingIcon,
+        });
+    }
+
+    getNotiOfChatting() {
+        if (this.state.isNewChattingIcon && !store.getState().isOpenChatWindow) {
+            return (
+                <div className="chattingNotiIconBack">
+                    <NotificationsActiveIcon className="chattingNotiIcon"/>
+                </div>
+            );
+        }
+    }
 
     showHeader = () => {
         let scrollVal = window.scrollY;
@@ -276,7 +386,7 @@ class App extends Component {
 
     render() {
         let {logged} = this.state;
-
+        console.log("App render");
         return (
             <BrowserRouter>
                 <Menu logged={logged}
@@ -289,45 +399,33 @@ class App extends Component {
                     {/*항상떠있는 아이콘*/}
                     <div
                         className="chattingIconBack"
-                    ><ChatIcon
-                        className="chattingIcon"
-                        onClick={(e) => {
-                            let duration = 1.0;
-                            let ease = Quint.easeInOut;
+                    >
+                        <ChatIcon
+                            className="chattingIcon"
+                            onClick={(e) => {
+                                let duration = 1.0;
+                                let ease = Quint.easeInOut;
 
-                            if (store.getState().isOpenChatWindow) {
-                                //chatting icon click. Close
-                                gsap.to("div.chatting div.chattingWindow", {
-                                    transform: "scale(0.1)",
-                                    opacity: 0,
-                                    duration: duration,
-                                    ease: ease,
-                                });
-                                store.dispatch({
-                                    type: actionType.setChatWindow,
-                                    isOpenChatWindow: false,
-                                });
-                            } else {
-                                //chatting icon click. Open
-                                //통신먼저 하고 결과값으로 액션.
-                                let chat = new ChattingLogic();
-                                chat.getRoomList((res) => {
-                                    console.log(res);
-                                    /*
-                                    0: {num: "33", user1: "yangyk7364", user2: "sanghee"}
-                                    1: {num: "34", user1: "3color", user2: "yangyk7364"}
-                                    2: {num: "50", user1: "yangyk7364", user2: "asdf"}
-                                    * */
-
-                                    /*//여기서 res.data.map 돌면서 lastMsg get.
-                                    res.data.map((e, i) => {
-                                        chat.getLastMsg(e.num, (res) => {
-
-                                        });
-                                    });*/
-
+                                if (store.getState().isOpenChatWindow) {
+                                    //chatting icon click. Close
                                     gsap.to("div.chatting div.chattingWindow", {
-                                        transform: "scale(1)",
+                                        transform: "scale(0.1)",
+                                        opacity: 0,
+                                        duration: duration,
+                                        ease: ease,
+                                    });
+                                    store.dispatch({
+                                        type: actionType.setChatWindow,
+                                        isOpenChatWindow: false,
+                                    });
+                                } else {
+                                    //노티가 true 다면, 없애기.
+                                    if (this.state.isNewChattingIcon) {
+                                        this.setChattingIconIsNew(false);
+                                    }
+                                    //chatting icon click. Open
+                                    gsap.to("div.chatting div.chattingWindow", {
+                                        transform: "scale(0.9)",
                                         opacity: 1,
                                         duration: duration,
                                         ease: ease,
@@ -337,20 +435,45 @@ class App extends Component {
                                         isOpenChatWindow: true,
                                     });
                                     store.dispatch({
-                                        type: actionType.chattingRoomListInfo,
-                                        chattingRoomListInfo: res.data,
-                                    });
-                                    store.dispatch({
                                         type: actionType.publishFunctionMsg,
                                         publishFunctionMsg: "changeChatAction",
                                     });
-                                    this.setState({
-                                        chattingRoomListInfo: res.data,
+                                    /*
+                                    //통신먼저 하고 결과값으로 액션.
+                                    let chat = new ChattingLogic();
+                                    chat.getRoomList((res) => {
+                                        console.log(res);
+
+                                        gsap.to("div.chatting div.chattingWindow", {
+                                            transform: "scale(1)",
+                                            opacity: 1,
+                                            duration: duration,
+                                            ease: ease,
+                                        });
+                                        store.dispatch({
+                                            type: actionType.setChatWindow,
+                                            isOpenChatWindow: true,
+                                        });
+                                        store.dispatch({
+                                            type: actionType.publishFunctionMsg,
+                                            publishFunctionMsg: "changeChatAction",
+                                        });
+                                        store.dispatch({
+                                            type: actionType.chattingRoomListInfo,
+                                            chattingRoomListInfo: res.data,
+                                        });
+                                        this.setState({
+                                            chattingRoomListInfo: res.data,
+                                        });
                                     });
-                                });
-                            }
-                        }}
-                    /></div>
+                                    */
+                                }
+                            }}
+                        />
+                        {/* 노티가 보일지 말지 선택 함수. */}
+                        {this.getNotiOfChatting()}
+                        {/* 노티가 나오면, 액션. */}
+                    </div>
 
                     {/*아이콘을 누르면 나오는 채팅 창.*/}
                     <div className="chattingWindow"

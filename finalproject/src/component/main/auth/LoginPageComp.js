@@ -135,16 +135,25 @@ class LoginPageComp extends Component {
                     <table class="table table-bordered" style={{textAlign: 'center'}}>
                         <tr>
                             <td>
-                                <input type="text" name = "id" class="form-control" value = {this.state.id} onChange={this.changeEvent.bind(this)}
+                                <input type="text" name = "id"
+                                       class="form-control" value = {this.state.id}
+                                       onChange={this.changeEvent.bind(this)}
+                                       autoFocus={true}
+                                       onKeyPress={(e)=>{
+                                           if (e.code == "Enter" || e.code == "NumpadEnter") {
+                                               document.getElementById("loginPassword").focus();
+                                           }
+                                       }}
                                     placeholder="아이디"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="password" name = "pass" class="form-control" value = {this.state.pass}
+                                <input type="password" id="loginPassword"
+                                       name = "pass" class="form-control" value = {this.state.pass}
                                        onChange={this.changeEvent.bind(this)}
                                        onKeyPress={(e)=>{
-                                           if(e.code=="Enter"){
+                                           if (e.code == "Enter" || e.code == "NumpadEnter") {
                                                this.onLogin();
                                            }
                                        }}
