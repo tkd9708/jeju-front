@@ -12,6 +12,7 @@
     }
     .dayselect input {
         font-size: 0.8rem;
+        width: 30vw;
     }
     #MyBudgetTable {
         margin: 100px auto;

@@ -176,13 +176,13 @@ class RoundAir extends Component {
                     <Box m={1} style={{textAlign: 'left'}}>
                         <Tooltip title="가는날" arrow>
                             <div style={{display: 'inline-block'}}>
-                            <input type="date" name="startdepartDate" onChange={this.handleChange.bind(this)} ref="startdepartDate"/>
+                            <input type="date" name="startdepartDate" onChange={this.handleChange.bind(this)} ref="startdepartDate" style={{border: '0.1px solid white'}}/>
                             </div>
                         </Tooltip>
                         &nbsp;&nbsp;&nbsp;
                         <Tooltip title="오는날" arrow>
                             <div style={{display: 'inline-block'}}>
-                            <input type="date" name="arriverdepartDate" ref="arriverdepartDate" onChange={this.handleChange.bind(this)}/>
+                            <input type="date" name="arriverdepartDate" ref="arriverdepartDate" onChange={this.handleChange.bind(this)} style={{border: '0.1px solid white'}}/>
                             </div>
                         </Tooltip>
                         <br/><br/>

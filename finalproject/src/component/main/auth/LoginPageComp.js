@@ -100,7 +100,7 @@ class LoginPageComp extends Component {
         // console.log("스토어에 있는 로그인 아이디 상태는 : " + store.getState().loginId);
         const parentOnLoginHandler = this.onLogin.bind(this);
         return (
-            <div>
+            <div id="LoginPageComp">
                  {/* 날라가는 새 애니메이션 */}
                  {/* <div class="signImg">
                     <img src={jejuImg} alt=""/>

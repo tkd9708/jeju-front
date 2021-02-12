@@ -1,8 +1,8 @@
 
-@media only screen and (max-width:400px){
+@media only screen and (max-width:450px){
     #SignupForm{
-        margin: 50px auto;
-        width: 80vw;
+        margin: 100px auto;
+        width: 90vw;
     }
     #SignupForm>table>caption {
         font-size: 13pt;
@@ -11,7 +11,7 @@
         cursor: pointer;
     }
     #SignupForm input, #SignupForm select, #SignupForm table td, #SignupForm textarea{
-        font-size: 0.6em;
+        font-size: 0.7em;
     }
     .mypageUpdateBtn:hover {
         background-color: #036E38;
@@ -43,9 +43,12 @@
     }
 
     /* 로그인 */
+    #LoginPageComp {
+        margin-top: 100px;
+    }
     #LoginForm{
         margin: 40px auto;
-        width: 80vw;
+        width: 90vw;
     }
     #LoginForm p {
         font-size: 0.6rem;
@@ -61,7 +64,7 @@
         font-size: 0.8rem;
     }
 }
-@media only screen and (min-width:400px) and (max-width:770px){
+@media only screen and (min-width:450px) and (max-width:770px){
     #SignupForm{
         margin: 100px auto;
         width: 80vw;
