@@ -696,7 +696,7 @@ class Weather extends Component {
         }
         else if (timeValue === 0)
         {
-            timeValue = `자정 ${timeValue}`;
+            timeValue = `자정 12시(0시)`;
         }
         return timeValue;
     }
@@ -857,7 +857,7 @@ class Weather extends Component {
                             <>
                             '현재기온'
                             {/* ({row.category}) */}
-                            ({row.obsrValue})
+                            {row.obsrValue}℃
                         </>
                     ))
                 }
@@ -932,8 +932,8 @@ class Weather extends Component {
                         .filter(weather => weather.category === 'SKY')
                         .map((itemrow, idx) => (
                             <div className='jejuWeatherDiv'>
-                                {itemrow.category}&nbsp;
-                                {itemrow.fcstValue}&nbsp;
+                                {/* {itemrow.category}&nbsp; */}
+                                {/* {itemrow.fcstValue}&nbsp; */}
                                 <ColorSkycons
                                      type = { Object.keys(skyStatusEnum).find(name => skyStatusEnum[name] === itemrow.fcstValue-1) }
                                      animate = { defaults.animate }
@@ -942,18 +942,18 @@ class Weather extends Component {
                                      // {...svgProps}
                                  />
                                 {krSkyStatus[itemrow.fcstValue-1]}
-                                {itemrow.baseTime}&nbsp;
-                                {itemrow.fcstDate}&nbsp;
+                                {/* {this.changeFcstTime(itemrow.baseTime.substr(0, 2))}시&nbsp; */}
+                                {/* {itemrow.fcstDate}&nbsp; */}
                                 {/* 변경전({changeDateFormat.getFullYear()}, {changeDateFormat.getMonth()+1}, {changeDateFormat.getDate()}, {arrDayStr[changeDateFormat.getDay()]}요일) */}
                                     
                                 {/* 년도{changeYear = Number(itemrow.fcstDate.substr(0, 4))} */}
-                                년도{Number(itemrow.fcstDate.substr(0, 4))}
+                                {Number(itemrow.fcstDate.substr(0, 4))}년도
                             
                                 {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
-                                월{Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}
+                                {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}월
                             
                                 {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
-                                일{Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}
+                                {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}일
 
                                 {/* {changeDay = changeDateFormat.getDay()}
                             
