@@ -43,10 +43,12 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -5px;
         font-size: 20px !important;
+        color: black;
     }
     .EtcBoardNotice button.slick-next::before {
         left: -5px;
         font-size: 20px !important;
+        color: black;
     }
     .ShareitemContentDiv img {
         width: 26.8vw;
@@ -105,10 +107,12 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -5px;
         font-size: 20px !important;
+        color: black;
     }
     .EtcBoardNotice button.slick-next::before {
         left: -5px;
         font-size: 20px !important;
+        color: black;
     }
     .ShareitemContentDiv img {
         width: 24.8vw;
@@ -167,10 +171,12 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -5px;
         font-size: 20px !important;
+        color: black;
     }
     .EtcBoardNotice button.slick-next::before {
         left: -5px;
         font-size: 20px !important;
+        color: black;
     }
     .ShareitemContentDiv img {
         width: 24.8vw;
@@ -229,10 +235,12 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -20px;
         font-size: 20px !important;
+        color: black;
     }
     .EtcBoardNotice button.slick-next::before {
         left: 5px;
         font-size: 20px !important;
+        color: black;
     }
     .ShareitemContentDiv img {
         width: 19.8vw;
@@ -288,10 +296,12 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -25px;
         font-size: 20px !important;
+        color: black;
     }
     .EtcBoardNotice button.slick-next::before {
         left: -5px;
         font-size: 20px !important;
+        color: black;
     }
     .ShareitemContentDiv img {
         width: 16.8vw;
@@ -347,10 +357,12 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -25px;
         font-size: 20px !important;
+        color: black;
     }
     .EtcBoardNotice button.slick-next::before {
         left: -5px;
         font-size: 20px !important;
+        color: black;
     }
     .ShareitemContentDiv img {
         width: 14.8vw;

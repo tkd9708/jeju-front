@@ -96,7 +96,8 @@ class RecommendPageComp extends Component{
                         <div class="col-md-12 mb-4 white-text text-center ShipTitle">
                                 <h1 class="h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInDown"
                                 data-wow-delay="0.3s"><strong>COURSE</strong></h1>
-                                <p class="wow fadeInDown" data-wow-delay="0.4s">_________________________</p>
+                                <hr style={{backgroundColor: '#fff', width: '20vw', height: '1px', margin: '20px auto'}} class="wow fadeInDown" data-wow-delay="0.4s"></hr>
+                                {/* <p class="wow fadeInDown" data-wow-delay="0.4s">_________________________</p> */}
                                 <h5 class="text-uppercase mb-4 white-text wow fadeInDown" data-wow-delay="0.4s">
                                     <strong>코스 구성이 어려우신 분들을 위해<br/>
                                     저희 일상제주가 인기있는 코스를 추천해드립니다.</strong></h5>

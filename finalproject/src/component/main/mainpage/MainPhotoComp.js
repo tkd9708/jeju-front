@@ -91,7 +91,8 @@ class MainPhotoComp extends Component {
                             &nbsp;&nbsp;
                             <strong class="wow fadeInDown" data-wow-delay="0.8s" style={{textShadow: '4px 2px 2px gray'}}>촘말로 좋수다. 공기도 맑고</strong>
                         </h1>
-                        <p class="wow fadeInDown white-text" data-wow-delay="1.5s">______________________</p>
+                        {/* <p class="wow fadeInDown white-text" data-wow-delay="1.5s">______________________</p> */}
+                        <hr style={{backgroundColor: '#fff', width: '20vw', height: '1px'}} class="wow fadeInDown white-text" data-wow-delay="1.5s"></hr>
                         <h4 class="text-uppercase mb-4 white-text">
                             <strong class="wow fadeInDown" data-wow-delay="1.5s" style={{textShadow: '2px 1px 1px gray'}}>어서오세요</strong>
                             &nbsp;&nbsp;
@@ -106,7 +107,8 @@ class MainPhotoComp extends Component {
                             &nbsp;&nbsp;
                             <strong class="wow fadeInDown" data-wow-delay="0.8s" style={{textShadow: '4px 2px 2px gray'}}>촘말로 좋수다. 공기도 맑고</strong>
                         </h1>
-                        <p class="wow fadeInDown white-text" data-wow-delay="1.5s">______________________</p>
+                        {/* <p class="wow fadeInDown white-text" data-wow-delay="1.5s">______________________</p> */}
+                        <hr style={{backgroundColor: '#fff', width: '20vw', height: '1px'}} class="wow fadeInDown white-text" data-wow-delay="1.5s"></hr>
                         <h4 class="text-uppercase mb-4 white-text">
                             <strong class="wow fadeInDown" data-wow-delay="1.5s" style={{textShadow: '2px 1px 1px gray'}}>어서오세요</strong>
                             &nbsp;&nbsp;
