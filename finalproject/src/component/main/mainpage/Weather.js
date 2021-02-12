@@ -115,6 +115,11 @@ class Weather extends Component {
     }
     
     getWeatherList = () => {
+
+        this.setState({
+            c_TourWeatherPages: [],
+        })
+
         /*
         let url = 'http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst';
         let queryParams = '?' + encodeURIComponent('ServiceKey') + '=' + 'ijFCZNWcCKbWGchBc5vZ%2F%2FXIG5vnZeeOgt1m23u3U0BXhc8dVvq%2BdymzHUQDmarDgb0XcV%2BV7gmzgn9T3JSsZQ%3D%3D';
@@ -575,6 +580,10 @@ class Weather extends Component {
                 alert("동네예보조회를 다시 시도해주세요.\n : " + err);
             });
         
+        this.setState({
+            c_WeatherPages: [],
+        })
+
         for (let i = 0 ; i < 1 ; i++) {
             let queryParams_7 = '?' + encodeURIComponent('ServiceKey') + '=' + apikey;
             queryParams_7 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent(i+1);
@@ -687,7 +696,7 @@ class Weather extends Component {
         }
         else if (timeValue === 0)
         {
-            timeValue = `자정 ${timeValue}`;
+            timeValue = `자정 12시(0시)`;
         }
         return timeValue;
     }
@@ -835,20 +844,20 @@ class Weather extends Component {
                         ({row.btIndex})
                         </>
                         ))
-                    }
+                }
 
                 <br />
                 '초단기실황조회'
                 <br/>
                 {/* '기온' '동서바람성분' '풍향' '남북바람성분' '풍속' */}
-                '현재기온'
                 <br />
                 {
                     // store.getState.weatherInfo_3.map((row)=>(
                         this.state.c_weatherInfo_4.filter(w => w.category === 'T1H').map((row)=>(
                             <>
-                            ({row.category})
-                            ({row.obsrValue})
+                            '현재기온'
+                            {/* ({row.category}) */}
+                            {row.obsrValue}℃
                         </>
                     ))
                 }
@@ -923,8 +932,8 @@ class Weather extends Component {
                         .filter(weather => weather.category === 'SKY')
                         .map((itemrow, idx) => (
                             <div className='jejuWeatherDiv'>
-                                {itemrow.category}&nbsp;
-                                {itemrow.fcstValue}&nbsp;
+                                {/* {itemrow.category}&nbsp; */}
+                                {/* {itemrow.fcstValue}&nbsp; */}
                                 <ColorSkycons
                                      type = { Object.keys(skyStatusEnum).find(name => skyStatusEnum[name] === itemrow.fcstValue-1) }
                                      animate = { defaults.animate }
@@ -933,18 +942,18 @@ class Weather extends Component {
                                      // {...svgProps}
                                  />
                                 {krSkyStatus[itemrow.fcstValue-1]}
-                                {itemrow.baseTime}&nbsp;
-                                {itemrow.fcstDate}&nbsp;
+                                {/* {this.changeFcstTime(itemrow.baseTime.substr(0, 2))}시&nbsp; */}
+                                {/* {itemrow.fcstDate}&nbsp; */}
                                 {/* 변경전({changeDateFormat.getFullYear()}, {changeDateFormat.getMonth()+1}, {changeDateFormat.getDate()}, {arrDayStr[changeDateFormat.getDay()]}요일) */}
                                     
                                 {/* 년도{changeYear = Number(itemrow.fcstDate.substr(0, 4))} */}
-                                년도{Number(itemrow.fcstDate.substr(0, 4))}
+                                {Number(itemrow.fcstDate.substr(0, 4))}년도
                             
                                 {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
-                                월{Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}
+                                {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}월
                             
                                 {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
-                                일{Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}
+                                {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}일
 
                                 {/* {changeDay = changeDateFormat.getDay()}
                             
