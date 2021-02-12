@@ -142,7 +142,7 @@ class ShareBoardFormComp extends Component {
                                             />;
 
         return (
-            <div>
+            <div id="ShareBoardFormComp">
                 <div className="detailTitle">
                     <span className="detailTitleContent" style={{backgroundColor: 'white', color: '#036E38'}}>
                         &nbsp;&nbsp;맛집 공유&nbsp;&nbsp;

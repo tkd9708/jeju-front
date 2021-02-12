@@ -93,7 +93,7 @@ class TourPageComp extends Component {
     render() {
         // console.log("TourPageComp render()", this.props);
         return (
-            <div>
+            <div id="TourPageComp">
                 <Tourintro area={this.state.area}/>
                 <br/><br/><br/>
 

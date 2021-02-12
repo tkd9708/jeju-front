@@ -94,7 +94,7 @@ class MyReview extends Component {
         const tag = this.state.reviewList==''?<div style={{textAlign: 'center', margin: '10px'}}><b className="mypageReCol">등록된 review가 없습니다.</b></div>:""; 
 
         return (
-            <div>
+            <div id="MyPageReview">
                 <div className="detailTitle">
                     <span className="detailTitleContent" style={{backgroundColor:'white', color: '#036E38'}}>
                         &nbsp;&nbsp;&nbsp;나의 리뷰&nbsp;&nbsp;&nbsp;

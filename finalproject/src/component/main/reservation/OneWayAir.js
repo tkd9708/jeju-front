@@ -171,7 +171,7 @@ class OneWayAir extends Component {
                         {/* 날짜선택 */}
                         <Tooltip title="가는날" arrow>
                             <div style={{display: 'inline-block'}}>
-                            <input type="date" name="departDate" onChange={this.handleChange.bind(this)} ref="wishday" placeholder="가는날"/>
+                            <input type="date" name="departDate" onChange={this.handleChange.bind(this)} ref="wishday" style={{border: '0.1px solid white'}}/>
                             </div>
                         </Tooltip>
                         &nbsp;&nbsp;&nbsp;
