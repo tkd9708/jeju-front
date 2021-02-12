@@ -6,6 +6,7 @@ import './SharePlanCss.css';
 import profile from './Img_profile.png';
 
 import moment from 'moment';
+import Box from '@material-ui/core/Box';
 
 
 
@@ -20,16 +21,17 @@ class SharePlanRoot extends Component {
             id:'',
             profile:[],
             comment:'',
-            photoCheck: false
+            photoCheck: false,
+            wishday: ''
             //groupNum: this.props.row.groupNum
         }
         
     }
 
-    setName=(value, com)=>{
+    setName=(com, day)=>{
         this.setState({
-            id:value,
-            comment: com
+            comment: com,
+            wishday: day
         })
         // this.getProfile();
     }
@@ -54,11 +56,14 @@ class SharePlanRoot extends Component {
         //console.log("그룹넘버 : " + this.props.row.groupNum);
         axios.get(url)
         .then(res=>{
-            //console.log(res.data);
+            // console.log(res.data[0].memId);
 
             this.setState({
-                clist:res.data
+                clist:res.data,
+                id: res.data[0].memId
             });
+
+            this.getProfile();
         }).catch(err=>{
             console.log("목록 오류:"+err);
           })
@@ -70,13 +75,13 @@ class SharePlanRoot extends Component {
         this.getGroupData();
     }
 
-    componentDidUpdate(){
-        this.getProfile();
+    // componentDidUpdate(){
+    //     this.getProfile();
       
-    }
+    // }
 
     getProfile=()=>{
-        let url=URL+"/member/getdata?id="+this.state.id;
+        let url=URL+"/member/getdata?id=" + this.state.id;
 
         axios.get(url)
         .then(res=>{
@@ -95,10 +100,6 @@ class SharePlanRoot extends Component {
           })
     }
 
-
-
-    
-    
     render(){
         const {row}=this.props.row;
         const {day}=this.props.day;
@@ -115,29 +116,45 @@ class SharePlanRoot extends Component {
                 
 
             <div className="SharePlanSlide">
-                <div>
-                    <div className="SharePlanProfile" style={{display: 'inline-block'}}>
-                        <img src={profileImg} onError={(e) => {
-                                    console.log("img error");
-                                    e.target.src = profile;
-                                }}/>
-                        <span>{this.state.id}</span><br/>
-                        <span>{this.state.profile.gender} / {age}세</span><br/>
-                    </div>    
-                    <div className="balloon" style={{display: 'inline-block'}}>
-                        {this.state.comment}
-                    </div>
-                    {/* <SharePlanProfile id={this.state.id}></SharePlanProfile> */}
-                    {/* <span><br/>
-                        {age}살
-                    </span> */}
-                    
+                <div style={{textAlign: 'left'}} className="SharePlanSlideTitle">
+                    <strong style={{color: '#036E38'}}>{this.state.id}</strong>&nbsp;님의 <strong style={{color: '#036E38'}}>{this.state.wishday}</strong> 일정입니다.
                 </div>
+                <br/>
+                    <Box
+                                display="flex"
+                                flexWrap="wrap"
+                                justifyContent="center"
+                                width="100%"
+                                className="SharePlanBox"
+                            >
+                                <Box className="SharePlanProfile">
+                                    <div>
+                                        <img src={profileImg} onError={(e) => {
+                                            console.log("img error");
+                                            e.target.src = profile;
+                                        }}/>
+                                        <span>{this.state.id}</span><br/>
+                                        <span>{this.state.profile.gender} / {age}세</span><br/>
+                                    </div>
+                                    <div className="balloon">
+                                        <div>
+                                            {this.state.comment}
+                                        </div>
+                                    </div>
+                                </Box>
+                                <Box className="SharePlanProfile2">
+                                    
+                                    <div className="SharePlanTimeline">
+                                        {this.state.clist.map((row)=>(
+                                            <SharePlanSub row={row} day={day} setName={this.setName.bind(this)}></SharePlanSub>
+                                        ))}
+                                    </div>
+                                </Box>
+                            </Box>
+                    
                 
+                <br/>
                 
-                {this.state.clist.map((row)=>(
-                    <SharePlanSub row={row} day={day} setName={this.setName.bind(this)}></SharePlanSub>
-                ))}
 
                 
                 

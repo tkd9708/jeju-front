@@ -13,7 +13,7 @@ import './Weather.css'
 const defaults = {
     icon: 'CLEAR_DAY',
     color: 'goldenrod',
-    size: 64,
+    size: 32,
     animate: true
 };
 // 리액트AnimatedWeather
@@ -926,67 +926,65 @@ class Weather extends Component {
                 }
                 
                 '동네예보조회 여러페이지 하늘상태'
-                {
-                    this.state.c_WeatherPages.map((row, index)=>(
-                        row.data.response.body.items.item
-                        .filter(weather => weather.category === 'SKY')
-                        .map((itemrow, idx) => (
-                            <div className='jejuWeatherDiv'>
-                                {/* {itemrow.category}&nbsp; */}
-                                {/* {itemrow.fcstValue}&nbsp; */}
-                                <ColorSkycons
-                                     type = { Object.keys(skyStatusEnum).find(name => skyStatusEnum[name] === itemrow.fcstValue-1) }
-                                     animate = { defaults.animate }
-                                     size = { defaults.size }
-                                     resizeClear = { true }
-                                     // {...svgProps}
-                                 />
-                                {krSkyStatus[itemrow.fcstValue-1]}
-                                {/* {this.changeFcstTime(itemrow.baseTime.substr(0, 2))}시&nbsp; */}
-                                {/* {itemrow.fcstDate}&nbsp; */}
-                                {/* 변경전({changeDateFormat.getFullYear()}, {changeDateFormat.getMonth()+1}, {changeDateFormat.getDate()}, {arrDayStr[changeDateFormat.getDay()]}요일) */}
-                                    
-                                {/* 년도{changeYear = Number(itemrow.fcstDate.substr(0, 4))} */}
-                                {Number(itemrow.fcstDate.substr(0, 4))}년도
-                            
-                                {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
-                                {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}월
-                            
-                                {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
-                                {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}일
+                <div className='jejuWeatherContainer'>
+                    <div className='preventFloat'>
+                    {
+                        this.state.c_WeatherPages.map((row, index)=>(
+                            row.data.response.body.items.item
+                            .filter(weather => weather.category === 'SKY')
+                            .map((itemrow, idx) => (
+                                <div className='jejuWeatherDiv'>
+                                    {/* {itemrow.category}&nbsp; */}
+                                    {/* {itemrow.fcstValue}&nbsp; */}
+                                    <ColorSkycons
+                                        type = { Object.keys(skyStatusEnum).find(name => skyStatusEnum[name] === itemrow.fcstValue-1) }
+                                        animate = { defaults.animate }
+                                        size = { defaults.size }
+                                        resizeClear = { true }
+                                        // {...svgProps}
+                                    />
+                                    {krSkyStatus[itemrow.fcstValue-1]}
+                                    {/* {this.changeFcstTime(itemrow.baseTime.substr(0, 2))}시&nbsp; */}
+                                    {/* {itemrow.fcstDate}&nbsp; */}
+                                    {/* 변경전({changeDateFormat.getFullYear()}, {changeDateFormat.getMonth()+1}, {changeDateFormat.getDate()}, {arrDayStr[changeDateFormat.getDay()]}요일) */}
+                                        
+                                    {/* 년도{changeYear = Number(itemrow.fcstDate.substr(0, 4))} */}
+                                    {Number(itemrow.fcstDate.substr(0, 4))}년도
+                                
+                                    {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
+                                    {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}월
+                                
+                                    {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
+                                    {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}일
 
-                                {/* {changeDay = changeDateFormat.getDay()}
-                            
-                                <input type='hidden' value={changeDateFormat.setFullYear(changeYear)}></input>
-                                <input type='hidden' value={changeDateFormat.setMonth(changeMonth-1)}></input>
-                                <input type='hidden' value={changeDateFormat.setDate(changeDate)}></input>
+                                    {/* {changeDay = changeDateFormat.getDay()}
+                                
+                                    <input type='hidden' value={changeDateFormat.setFullYear(changeYear)}></input>
+                                    <input type='hidden' value={changeDateFormat.setMonth(changeMonth-1)}></input>
+                                    <input type='hidden' value={changeDateFormat.setDate(changeDate)}></input>
 
-                                변경후({changeDateFormat.getFullYear()}&nbsp;{changeDateFormat.getMonth()+1}&nbsp;{changeDateFormat.getDate()}&nbsp;{arrDayStr[changeDay]}요일) */}
-                                &nbsp;&nbsp;
-                                예보시각
-                                {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시
-                            </div>
+                                    변경후({changeDateFormat.getFullYear()}&nbsp;{changeDateFormat.getMonth()+1}&nbsp;{changeDateFormat.getDate()}&nbsp;{arrDayStr[changeDay]}요일) */}
+                                    &nbsp;&nbsp;
+                                    예보시각
+                                    {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시
+                                </div>
+                            ))
                         ))
-                    ))
-                }
-
+                    }
+                    </div>
                 <br />
-                <br />
-                <br />
-                '동네예보조회 여러페이지 아침 최저기온'
                 {
                     this.state.c_WeatherPages.map((row, index)=>(
                         row.data.response.body.items.item
                         .filter(weather => weather.category === 'TMN')
                         .map((itemrow, idx) => (
-                            <div className='jejuWeatherDiv'>
-                                아침 최저기온{itemrow.category}&nbsp;
-                                {itemrow.fcstValue}&nbsp;
-                                발표일자{itemrow.baseDate}&nbsp;
-                                발표시각{itemrow.baseTime}&nbsp;
-                                예보일자
+                            <React.Fragment>
+                                {/* {itemrow.category}&nbsp; */}
+                                {/* 발표일자{itemrow.baseDate}&nbsp; */}
+                                {/* 발표시각{this.changeFcstTime(itemrow.baseTime.substr(0, 2))}시&nbsp; */}
+                                {/* 예보일자 */}
                                 {/* {itemrow.fcstDate}&nbsp; */}
-                                {Number(itemrow.fcstDate.substr(0, 4))}년도
+                                {/* {Number(itemrow.fcstDate.substr(0, 4))}년도 */}
                             
                                 {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
                                 {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}월
@@ -994,30 +992,29 @@ class Weather extends Component {
                                 {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
                                 {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}일
                                 &nbsp;&nbsp;
-                                예보시각
-                                {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시
-                            </div>
+                                최저기온
+                                {itemrow.fcstValue}℃&nbsp;
+                                {/* 예보시각
+                                {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시 */}
+                            </React.Fragment>
                         ))
                     ))
                 }
 
                 <br />
-                <br />
-                <br />
-                '동네예보조회 여러페이지 낮 최고기온'
+                {/* '동네예보조회 여러페이지 낮 최고기온' */}
                 {
                     this.state.c_WeatherPages.map((row, index)=>(
                         row.data.response.body.items.item
                         .filter(weather => weather.category === 'TMX')
                         .map((itemrow, idx) => (
-                            <div className='jejuWeatherDiv'>
-                                낮 최고기온{itemrow.category}&nbsp;
-                                {itemrow.fcstValue}&nbsp;
-                                발표일자{itemrow.baseDate}&nbsp;
-                                발표시각{itemrow.baseTime}&nbsp;
-                                예보일자
+                            <React.Fragment>
+                                {/* {itemrow.category}&nbsp; */}
+                                {/* 발표일자{itemrow.baseDate}&nbsp; */}
+                                {/* 발표시각{this.changeFcstTime(itemrow.baseTime.substr(0, 2))}시&nbsp; */}
+                                {/* 예보일자 */}
                                 {/* {itemrow.fcstDate}&nbsp; */}
-                                {Number(itemrow.fcstDate.substr(0, 4))}년도
+                                {/* {Number(itemrow.fcstDate.substr(0, 4))}년도 */}
                             
                                 {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
                                 {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}월
@@ -1025,12 +1022,16 @@ class Weather extends Component {
                                 {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
                                 {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}일
                                 &nbsp;
-                                예보시각
-                                {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시
-                            </div>
+                                최고기온
+                                {itemrow.fcstValue}℃&nbsp;
+                                {/* 예보시각
+                                {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시 */}
+                            </React.Fragment>
                         ))
                     ))
                 }
+                </div>
+
 
                 {
                     // this.state.c_weatherInfo_6.filter(w => w.category === 'SKY' || w.category === 'TMN' || w.category === 'TMX').map((row)=>(
