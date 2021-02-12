@@ -97,7 +97,11 @@ class ChatRoomItem extends Component {
     start.getFullYear()
     2021
     * */
-    getLastWriteDay(_lastWriteDay) {
+    getLastWriteDay(_lastWriteDay, msgCnt) {
+        if (msgCnt < 1) {
+            return;
+        }
+
         let chat = new ChattingLogic();
         return chat.getLastWriteDay(_lastWriteDay);
     }
@@ -162,7 +166,7 @@ class ChatRoomItem extends Component {
                         </button>*/}
                         <div className="etc">
                             <div className="lastWriteDay">
-                                {this.getLastWriteDay(row.lastWriteday)}
+                                {this.getLastWriteDay(row.lastWriteday, row.msgCnt)}
                             </div>
                             {this.getNewMsgCntNoti(row.newMsgCnt)}
                         </div>

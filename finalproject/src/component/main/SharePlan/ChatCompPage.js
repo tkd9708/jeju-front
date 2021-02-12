@@ -39,12 +39,12 @@ class ChatCompPage extends Component {
             }
         });
 
-        store.subscribe(()=>{
-           if(store.getState().publishFunctionMsg == "changeChatAction"){
-               this.setState({
-                   action: "chattingRoom",
-               });
-           }
+        store.subscribe(() => {
+            if (store.getState().publishFunctionMsg == "changeChatAction") {
+                this.setState({
+                    action: "chattingRoom",
+                });
+            }
         });
     }
 
@@ -55,6 +55,10 @@ class ChatCompPage extends Component {
     }
 
     createRoom() {
+        if (this.state.user2.trim().length < 1) {
+            return;
+        }
+
         this.setState({
             action: "createRoom",
         });
@@ -97,12 +101,21 @@ class ChatCompPage extends Component {
                     </h3>
                     <div id="roomContainer" className="roomContainer">
                         <table className="inputTable">
+                            <tbody>
                             <tr>
                                 <th>받는 사람</th>
                                 <th>
                                     <input type="text" name="user2"
                                            value={this.state.user2}
                                            onChange={this.handleChange.bind(this)}
+                                           onKeyPress={(e) => {
+                                               if (e.code == "Enter" || e.code == "NumpadEnter") {
+                                                   this.createRoom();
+                                                   this.setState({
+                                                       user2: "",
+                                                   });
+                                               }
+                                           }}
                                     />
                                 </th>
                                 <th>
@@ -112,6 +125,7 @@ class ChatCompPage extends Component {
                                     </button>
                                 </th>
                             </tr>
+                            </tbody>
                         </table>
                         <hr style={{
                             // width:"90%",

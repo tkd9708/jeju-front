@@ -160,10 +160,18 @@ class App extends Component {
                             } else {
                                 //기존에 있던것이니까, 새로운거랑 비교를 해봐야 함.
                                 if (_temp.msgCnt < _newRoomInfo.msgCnt) {
-                                    _temp = Object.assign({}, _newRoomInfo, {
-                                        isNew: true,
-                                        newMsgCnt: _newRoomInfo.msgCnt - _temp.msgCnt,
-                                    });
+                                    if (_temp.num == store.getState().selectedRoomNum) {
+                                        //현재 대화방에 새로운 메시지가 왔을때.
+                                        _temp = Object.assign({}, _newRoomInfo, {
+                                            isNew: false,
+                                            newMsgCnt: 0,
+                                        });
+                                    } else {
+                                        _temp = Object.assign({}, _newRoomInfo, {
+                                            isNew: true,
+                                            newMsgCnt: _newRoomInfo.msgCnt - _temp.msgCnt,
+                                        });
+                                    }
                                 } else {
                                     _temp = Object.assign({}, _newRoomInfo, {
                                         isNew: false,
