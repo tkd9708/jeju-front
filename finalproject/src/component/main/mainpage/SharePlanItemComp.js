@@ -63,7 +63,8 @@ class SharePlanItemComp extends Component{
                 <img src={userImg} style={{width:70}} onError={(e) => {
                                     console.log("img error");
                                     e.target.src = profile;
-                                }}/>  <span style={{float:"right",position:"relative",bottom:40}}>{row.memId}/{this.state.user.gender}/{age}세</span>
+                                }}/>  <span style={{float:"right",position:"relative",bottom:40}}>{row.memId}
+                                {this.state.user.gender===null?'':"/"+this.state.user.gender}{this.state.user.birth===null?'':"/"+age+"세"}</span>
                     
                        
                     <br/>
