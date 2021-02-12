@@ -100,7 +100,7 @@ class RentCarItem extends Component
                     <td onClick={this.toggle.bind(this)} style={{textAlign: 'center', cursor: 'pointer'}}>{row.phonenum}</td>
                     
                     {/* 렌트카 일정 저장 모달 */}
-                    <MDBModal isOpen={this.state.open} toggle={this.toggle} centered className="RentAddModal">
+                    <MDBModal isOpen={this.state.open} toggle={this.toggle} centered className="RentAddModal" backdrop={false}>
                         <MDBModalHeader toggle={this.toggle} className="RentAddModal">업체 추가정보</MDBModalHeader>
                         <MDBModalBody>
                             <div className="RentAddModal">

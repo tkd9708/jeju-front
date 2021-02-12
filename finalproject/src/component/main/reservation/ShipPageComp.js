@@ -226,7 +226,7 @@ class ShipPageComp extends Component {
 
 
                 {/* 일정 추가 모달 */}
-                <MDBModal isOpen={this.state.open} toggle={this.toggle} centered>
+                <MDBModal isOpen={this.state.open} toggle={this.toggle} centered backdrop={false}>
                         <MDBModalHeader toggle={this.toggle} className="ShipAddModal">일정 추가</MDBModalHeader>
                         <MDBModalBody>
                             <div className="ShipAddModal">
