@@ -65,9 +65,9 @@ class CourseDay extends Component {
                                 {this.state.list.map((row)=>(
                                     <CourseItem title={row.title} img={row.img} contentsid={row.contentsid} history={this.props.history}/>
                                 ))}
-                                <Box class="recomLastCourse" style={{margin: 'auto 0', textAlign: 'center', color: '#F0CD58'}}>
-                                    {/* &nbsp;<span className="fas fa-grin-beam"></span> */}
-                                    🚩
+                                <Box class="recomLastCourse" style={{margin: 'auto 0', textAlign: 'center', color: '#036E38'}}>
+                                    &nbsp;<span className="fas fa-flag"></span>
+                                    {/* 🚩 */}
                                 </Box>
                         </Box>
                         </td>
