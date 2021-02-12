@@ -25,37 +25,37 @@ class SharePlanProfile extends Component{
 
     
 
-    getProfile=()=>{
-        let url=URL+"/member/getdata?id="+this.props.id;
+    // getProfile=()=>{
+    //     let url=URL+"/member/getdata?id="+this.props.id;
 
-        axios.get(url)
-        .then(res=>{
-            console.log(res.data);
+    //     axios.get(url)
+    //     .then(res=>{
+    //         console.log(res.data);
 
-            this.setState({
-                profile:res.data
-            });
-        }).catch(err=>{
-            console.log("프로필 오류:"+err);
-          })
-    }
+    //         this.setState({
+    //             profile:res.data
+    //         });
+    //     }).catch(err=>{
+    //         console.log("프로필 오류:"+err);
+    //       })
+    // }
 
     
-    componentDidUpdate(){
-        this.getProfile();
+    // componentDidUpdate(){
+    //     this.getProfile();
       
-    }
+    // }
 
 
 
     render(){
-        var birth1=this.state.profile.birth;
-        var today=moment();
-        var age=today.diff(birth1,'year')+1;
+        // var birth1=this.state.profile.birth;
+        // var today=moment();
+        // var age=today.diff(birth1,'year')+1;
         
         return(
             <div>
-                <span  style={{position:"relative",right:300,fontSize:30}}>{this.state.profile.gender}<br/>
+                {/* <span  style={{position:"relative",right:300,fontSize:30}}>{this.state.profile.gender}<br/>
                     {age}살
                 </span>
                 
@@ -64,7 +64,7 @@ class SharePlanProfile extends Component{
                 
                
                 
-            </div>
+            </div> */}
            </div>
         )
     }
