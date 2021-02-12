@@ -7,6 +7,7 @@ import store from "../../../redux/store";
 import ChattingRoom from "./ChattingRoom";
 import gsap, {Cubic, Quint} from "gsap";
 import ChattingLogic from "../../../ChattingLogic";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 class ChatCompPage extends Component {
 
@@ -75,7 +76,25 @@ class ChatCompPage extends Component {
                          float: "left",
                      }}
                 >
-                    <h3>채팅방 List</h3>
+                    <h3>
+                        <ArrowBackIcon
+                            className="backButton"
+                            onClick={() => {
+                                let duration = 1.0;
+                                let ease = Quint.easeInOut;
+                                gsap.to("div.chatting div.chattingWindow", {
+                                    transform: "scale(0.1)",
+                                    opacity: 0,
+                                    duration: duration,
+                                    ease: ease,
+                                });
+                                store.dispatch({
+                                    type: actionType.setChatWindow,
+                                    isOpenChatWindow: false,
+                                });
+                            }}
+                        />&nbsp;&nbsp;채팅방 List
+                    </h3>
                     <div id="roomContainer" className="roomContainer">
                         <table className="inputTable">
                             <tr>
@@ -108,9 +127,9 @@ class ChatCompPage extends Component {
                             {/*th는 추후 없애는걸로*/}
                             <table>
                                 <tr>
-                                    <th className='profileImg'>프사</th>
-                                    <th className='room'>받는 사람</th>
-                                    <th className='go'>기능버튼</th>
+                                    <th className='profileImg'></th>
+                                    <th className='room'></th>
+                                    <th className='go'>편집</th>
                                 </tr>
                             </table>
                             {this.props.chattingRoomListInfo.map((row, idx) => {

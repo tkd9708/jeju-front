@@ -23,7 +23,8 @@ div.chatting div.chattingIconBack {
     right: 20px;
     bottom: 20px;
     /*border: 5px  solid gold;*/
-    transform-origin: right bottom;
+    /*transform-origin: right bottom;*/
+    transform-origin: center center;
 }
 
 div.chatting div.chattingIconBack:hover {
@@ -42,14 +43,33 @@ div.chatting div.chattingIconBack .chattingIcon {
     transform: scale(2.8);
 }
 
+div.chatting div.chattingIconBack .chattingNotiIconBack{
+    width: 34px;
+    height: 34px;
+    border-radius: 34px;
+    background-color: #ff4242;
+    transform-origin: center center;
+    position: relative;
+    top: -30%;
+    left: -5%;
+    z-index: 22;
+}
+
+div.chatting div.chattingIconBack .chattingNotiIconBack .chattingNotiIcon{
+    color: white;
+    position: relative;
+    left: 15%;
+    top: 13%;
+}
+
 
 /*Chatting Window*/
 div.chatting div.chattingWindow{
     width: 410px;
     height: 700px;
     position: fixed;
-    right: 4%;
-    bottom: 7%;
+    right: 1.5%;
+    bottom: 0.5%;
     z-index: 22;
     /*background-color: #0d6b38;*/
     background-color: black;

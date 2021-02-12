@@ -44,14 +44,9 @@ class ChatRoomItem extends Component {
                 unsubscribe();
             }
         });*/
-        gsap.to(".containerRoot", {
-            scrollTrigger: ".containerRoot",
-            x: -500,
-            duration: 1,
-            ease: Quint.easeInOut,
-        });
 
-        window.setTimeout(()=>{
+
+        window.setTimeout(() => {
             //div.container div#chattingBoard
             let chattingBoard = document.getElementById("chattingBoard");
             console.log("setScrollBottom()", chattingBoard);
@@ -59,11 +54,11 @@ class ChatRoomItem extends Component {
             if (chattingBoard) {
                 chattingBoard.scrollTo(0, chattingBoard.scrollHeight);
             }
-        },500);
+        }, 500);
 
         store.dispatch({
             type: actionType.setSelectedRoomNum,
-            selectedRoomNum: Number(row.num),
+            selectedRoomNum: row.num,
             selectedFriend: this.state.friend,
         });
 
@@ -76,29 +71,77 @@ class ChatRoomItem extends Component {
             type: actionType.publishFunctionMsg,
             publishFunctionMsg: "changeChatAction",
         });
+
+        store.dispatch({
+            type: actionType.publishFunctionMsg,
+            publishFunctionMsg: "readMsgInChattingRoom",
+        });
+
+        gsap.to(".containerRoot", {
+            scrollTrigger: ".containerRoot",
+            x: -500,
+            duration: 1,
+            ease: Quint.easeInOut,
+        });
+    }
+
+    /*
+    start = new Date(Date.now());
+    Wed Feb 10 2021 17:41:01 GMT+0900 (대한민국 표준시)
+    start.getDate()
+    10
+    start.getMonth()+1
+    2
+    start.getYear()+1900
+    2021
+    start.getFullYear()
+    2021
+    * */
+    getLastWriteDay(_lastWriteDay) {
+        let chat = new ChattingLogic();
+        return chat.getLastWriteDay(_lastWriteDay);
+    }
+
+    getNewMsgCntNoti(_newMsgCnt) {
+        if (_newMsgCnt > 0) {
+            let _numLength = _newMsgCnt.toString().length;
+
+            return (
+                <div className="newMsgCnt"
+                     style={{
+                         width: `${(_numLength + 1) * 10}px`,
+                     }}
+                >
+                    {_newMsgCnt}
+                </div>
+            );
+        }
     }
 
     render() {
         /* row
-        lastMsg: "네그럼 오늘 일찍 집에 가세요  ㅃ"
-        num: "33"
-        user1: "yangyk7364"
-        user2: "sanghee"
+            1:
+                isNew: false
+                lastMsg: "notiTest555"
+                lastWriteday: "2021-02-09 20:28:25"
+                msgCnt: 39
+                newMsgCnt: 0
+                num: "34"
+                user1: "3color"
+                user2: "yangyk7364"
         * */
         const {row, idx} = this.props;
         let profileImg = profileImg_temp;
 
         return (
             <table>
-                <tr>
-                    <th className='profileImg'
-                        onClick={this.onClickChattingRoom.bind(this, row)}
-                    >
+                <tr className="room"
+                    onClick={this.onClickChattingRoom.bind(this, row)}
+                >
+                    <th className='profileImg'>
                         <img src={profileImg} className="profileImg"/>
                     </th>
-                    <th className='room'
-                        onClick={this.onClickChattingRoom.bind(this, row)}
-                    >
+                    <th className='room'>
                         <div>
                             <b>
                                 {this.props.friend}
@@ -108,7 +151,7 @@ class ChatRoomItem extends Component {
                         </div>
                     </th>
                     <th className='go'>
-                        <button type='button' onClick={
+                        {/*<button type='button' onClick={
                             () => {
                                 console.log("click button chatting.");
                                 // url은 유지한 채로 채팅 창 내 변화만 허용.
@@ -116,7 +159,13 @@ class ChatRoomItem extends Component {
                                 // this.props.history.push('/chattingroom/' + row.num);
                             }
                         }>버튼
-                        </button>
+                        </button>*/}
+                        <div className="etc">
+                            <div className="lastWriteDay">
+                                {this.getLastWriteDay(row.lastWriteday)}
+                            </div>
+                            {this.getNewMsgCntNoti(row.newMsgCnt)}
+                        </div>
                     </th>
                 </tr>
             </table>
