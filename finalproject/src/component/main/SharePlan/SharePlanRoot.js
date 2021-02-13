@@ -9,26 +9,25 @@ import moment from 'moment';
 import Box from '@material-ui/core/Box';
 
 
-
 class SharePlanRoot extends Component {
 
     constructor(props) {
         super(props);
         //console.log("SharePlanRoot constructor", props);
 
-        this.state={
-            clist:[],
-            id:'',
-            profile:[],
-            comment:'',
+        this.state = {
+            clist: [],
+            id: '',
+            profile: [],
+            comment: '',
             photoCheck: false,
             wishday: ''
             //groupNum: this.props.row.groupNum
         }
-        
+
     }
 
-    setName=(com, day)=>{
+    setName = (com, day) => {
         this.setState({
             comment: com,
             wishday: day
@@ -51,115 +50,121 @@ class SharePlanRoot extends Component {
     //     this.getList();
     // }
 
-    getGroupData=()=>{
-        let url=URL+"/plan/groupdata?groupnum="+this.props.row.groupNum;
+    getGroupData = () => {
+        let url = URL + "/plan/groupdata?groupnum=" + this.props.row.groupNum;
         //console.log("그룹넘버 : " + this.props.row.groupNum);
         axios.get(url)
-        .then(res=>{
-            // console.log(res.data[0].memId);
+            .then(res => {
+                // console.log(res.data[0].memId);
 
-            this.setState({
-                clist:res.data,
-                id: res.data[0].memId
-            });
+                this.setState({
+                    clist: res.data,
+                    id: res.data[0].memId
+                });
 
-            this.getProfile();
-        }).catch(err=>{
-            console.log("목록 오류:"+err);
-          })
+                this.getProfile();
+            }).catch(err => {
+            console.log("목록 오류:" + err);
+        })
     }
 
-   
 
-    componentDidMount(){
+    componentDidMount() {
         this.getGroupData();
     }
 
     // componentDidUpdate(){
     //     this.getProfile();
-      
+
     // }
 
-    getProfile=()=>{
-        let url=URL+"/member/getdata?id=" + this.state.id;
+    getProfile = () => {
+        let url = URL + "/member/getdata?id=" + this.state.id;
 
         axios.get(url)
-        .then(res=>{
-            //console.log("profile : " + res.data);
+            .then(res => {
+                //console.log("profile : " + res.data);
 
-            if(res.data.photo.substring(0,4)=='http'){
+                if (res.data.photo.substring(0, 4) == 'http') {
+                    this.setState({
+                        photoCheck: true
+                    })
+                }
                 this.setState({
-                    photoCheck: true
-                })
-            }
-            this.setState({
-                profile:res.data
-            });
-        }).catch(err=>{
-            console.log("프로필 오류:"+err);
-          })
+                    profile: res.data
+                });
+            }).catch(err => {
+            console.log("프로필 오류:" + err);
+        })
     }
 
-    render(){
-        const {row}=this.props.row;
-        const {day}=this.props.day;
-        var birth1=this.state.profile.birth;
-        var today=moment();
-        var age=today.diff(birth1,'year')+2;
-        var profileImg = this.state.profile.photo=="no"?profile:
-                        this.state.photoCheck?this.state.profile.photo: URL + "/" + this.state.profile.photo;
-        
-        return(
-            
+    openChattingRoomDirect() {
+        console.log("openChattingRoomDirect()", this.state.id);
+    }
+
+    render() {
+        const {row} = this.props.row;
+        const {day} = this.props.day;
+        var birth1 = this.state.profile.birth;
+        var today = moment();
+        var age = today.diff(birth1, 'year') + 2;
+        var profileImg = this.state.profile.photo == "no" ? profile :
+            this.state.photoCheck ? this.state.profile.photo : URL + "/" + this.state.profile.photo;
+
+        return (
+
             <div>
                 {/* {this.props.row.memId} */}
                 <div className="SharePlanSlide">
-                <div style={{textAlign: 'left'}} className="SharePlanSlideTitle">
-                    <strong style={{color: '#036E38'}}>{this.state.id}</strong>&nbsp;님의 <strong style={{color: '#036E38'}}>{this.state.wishday}</strong> 일정입니다.
-                </div>
-                <br/>
+                    <div style={{textAlign: 'left'}} className="SharePlanSlideTitle">
+                        <strong style={{color: '#036E38'}}
+                                onClick={() => {
+                                    this.openChattingRoomDirect();
+                                }}
+                        >{this.state.id}</strong>&nbsp;님의
+                        <strong style={{color: '#036E38'}}
+                        >{this.state.wishday}</strong> 일정입니다.
+                    </div>
+                    <br/>
                     <Box
-                                display="flex"
-                                flexWrap="wrap"
-                                justifyContent="center"
-                                width="100%"
-                                className="SharePlanBox"
-                            >
-                                <Box className="SharePlanProfile">
-                                    <div>
-                                        <img src={profileImg} onError={(e) => {
-                                            console.log("img error");
-                                            e.target.src = profile;
-                                        }}/>
-                                        <strong>{this.state.id}</strong><br/>
-                                        <strong>{this.state.profile.gender==null?"비공개":this.state.profile.gender} / {this.state.profile.birth==null?"비공개":age + "세"}</strong><br/>
-                                    </div>
-                                    <div className="balloon">
-                                        <div>
-                                            {this.state.comment}
-                                        </div>
-                                    </div>
-                                </Box>
-                                <Box className="SharePlanProfile2">
-                                    
-                                    <div className="SharePlanTimeline">
-                                        {this.state.clist.map((row)=>(
-                                            <SharePlanSub row={row} day={day} setName={this.setName.bind(this)}></SharePlanSub>
-                                        ))}
-                                    </div>
-                                </Box>
-                            </Box>
-                    
-                
-                <br/>
-                
+                        display="flex"
+                        flexWrap="wrap"
+                        justifyContent="center"
+                        width="100%"
+                        className="SharePlanBox"
+                    >
+                        <Box className="SharePlanProfile">
+                            <div>
+                                <img src={profileImg} onError={(e) => {
+                                    console.log("img error");
+                                    e.target.src = profile;
+                                }}/>
+                                <strong>{this.state.id}</strong><br/>
+                                <strong>{this.state.profile.gender == null ? "비공개" : this.state.profile.gender} / {this.state.profile.birth == null ? "비공개" : age + "세"}</strong><br/>
+                            </div>
+                            <div className="balloon">
+                                <div>
+                                    {this.state.comment}
+                                </div>
+                            </div>
+                        </Box>
+                        <Box className="SharePlanProfile2">
 
-                
-                
-                
+                            <div className="SharePlanTimeline">
+                                {this.state.clist.map((row) => (
+                                    <SharePlanSub row={row} day={day} setName={this.setName.bind(this)}></SharePlanSub>
+                                ))}
+                            </div>
+                        </Box>
+                    </Box>
+
+
+                    <br/>
+
+
+                </div>
             </div>
-            </div> 
-            
+
         )
     }
 
