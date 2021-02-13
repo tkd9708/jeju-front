@@ -384,7 +384,7 @@ class App extends Component {
         window.setTimeout(setPositionFooter, 1000);
     }
 
-    render() {
+    render() {//
         let {logged} = this.state;
         // console.log("App render");
         return (
