@@ -8,6 +8,7 @@ import OPENNURI from "../../../image/img_opentype01.png";
 import ColorSkycons, { ColorSkyconsType } from 'react-color-skycons';
 import styled from "styled-components";
 import './Weather.css'
+import Slider from "react-slick";
 
 // ReactAnimatedWeather
 const defaults = {
@@ -133,6 +134,7 @@ class Weather extends Component {
         this.getMidtermWeather();
         this.getLocation();
         this._getJejuGridList();
+        this.xml2jsonCurrentWth(48, 36)
     }
     
     getWeatherList = () => {
@@ -793,7 +795,8 @@ class Weather extends Component {
                 console.log("/MidFcstInfoService/getMidLandFcst" + queryParams_9);
                 console.log("중기육상예보조회 데이타 : " + res9.data.response.body.items.item[0].wf3Am);
                 this.setState({
-                    c_midTermWeather_2: res9.data.response.body.items.item,
+                    // c_midTermWeather_2: res9.data.response.body.items.item,
+                    c_midTermWeather_2: res9.data.response.body.items.item[0],
                 });
             })
             .catch(error => {
@@ -1055,15 +1058,64 @@ class Weather extends Component {
         
         var arrDayStr = ['일', '월', '화', '수', '목', '금', '토'];
         
+        var info = this.state.c_midTermWeather_1.split("○").filter(it => it.includes(" "));
+        var infoTag = document.body.offsetWidth >= 770?info.map((row)=>(<div>○&nbsp;{row}</div>)):"";
+
+        var lowTem = [];
+        this.state.c_WeatherPages.map((row, index)=>(
+            row.data.response.body.items.item
+            .filter(weather => weather.category === 'TMN')
+            .map((itemrow, idx) => (
+                    lowTem[idx] = itemrow.fcstValue
+                ))
+            ))
+
+            var highTem = [];
+            this.state.c_WeatherPages.map((row, index)=>(
+                row.data.response.body.items.item
+                .filter(weather => weather.category === 'TMX')
+                .map((itemrow, idx) => (
+                    highTem[idx] = itemrow.fcstValue
+                ))
+            ))
+
+        const settings = {
+            dots: false,  // 점은 안 보이게
+            infinite: true, // 무한으로 즐기게
+            speed: 500,
+            slidesToShow: 7, //4장씩 보이게 해주세요
+            slidesToScroll: 1, //1장씩 넘어가세요
+            
+            responsive: [ 
+              {
+                  breakpoint: 1200, 
+                  settings: {
+                    slidesToShow: 6,
+                  }
+              },
+              {
+                breakpoint: 1023,
+                settings: {
+                  slidesToShow: 5
+                }
+              },
+              {
+                breakpoint: 550,
+                settings: {
+                  slidesToShow: 3
+                }
+              }
+            ]
+          };
+
         return (
-            <div style={{ fontSize : '.7rem' }}>
+            <div className="myPlanTop5">
                 {/* <br /> */}
 
                 {/* 총 데이타수: */}
                 {/* {this.state.c_weatherInfo.length}개 */}
                 {/* {this.state.c_TourWeatherPages.length}개 */}
                 {/* {JSON.parse(localStorage.getItem('weather_1'))} */}
-                <br />
 
                 {/* '관광지-지역이름' &nbsp; '코스 명' &nbsp; '관광지명' &nbsp; '테마' &nbsp; '최고기온' &nbsp; '최저기온' &nbsp; '풍향' &nbsp; '풍속' &nbsp; '하늘상태' &nbsp; '습도' &nbsp; '강수확률' &nbsp; '강수량' &nbsp; */}
                 {/* '최고기온' &nbsp; '최저기온' &nbsp; '하늘상태' */}
@@ -1220,12 +1272,113 @@ class Weather extends Component {
                 
                 {/* '동네예보조회 여러페이지 하늘상태' */}
                 <div className='jejuWeatherContainer'>
-                    <select onChange={this.selectChange} value={this.props.selectBoxValue}>
-                        {options}
-                    </select>
+                {
+                    // store.getState.weatherInfo_3.map((row)=>(
+                        this.state.c_weatherInfo_4.filter(w => w.category === 'T1H').map((row)=>(
+                            <>
+                            <span id="weatherNowTem">현재기온&nbsp;<strong style={{color: '#2BBBAD'}}>{row.obsrValue}℃</strong></span>
+                            {/* ({row.category}) */}
+                        </>
+                    ))
+                }
+                    <div style={{float: 'right'}}>
+                        <select onChange={this.selectChange} class="browser-default custom-select" value={this.props.selectBoxValue}>
+                            {options}
+                        </select>
+                    </div>
+                    <br />
+                
+                <div className="weatherInfo">
+                {
+                    this.state.c_WeatherPages.map((row, index)=>(
+                        row.data.response.body.items.item
+                        .filter(weather => weather.category === 'TMN')
+                        .map((itemrow, idx) => (
+                            <div>
+                                <strong>
+                                {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}
+                                /
+                                {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
+                                {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}</strong>
+                                &nbsp;
+                                {arrDayStr[this.FindWeekday(itemrow.fcstDate)]}
+                                &nbsp;
+                                최저 <strong style={{color: '#2BBBAD'}}>{lowTem[idx]}℃</strong> / 최고 <strong style={{color: '#2BBBAD'}}>{highTem[idx]}℃</strong> 
+                            </div>
+                        ))
+                        ))
+                }   
+                </div>
+                
+                <br/>
+                {/* {
+                    this.state.c_WeatherPages.map((row, index)=>(
+                        row.data.response.body.items.item
+                        .filter(weather => weather.category === 'TMN')
+                        .map((itemrow, idx) => (
+                            <React.Fragment> */}
+                                {/* {itemrow.category}&nbsp; */}
+                                {/* 발표일자{itemrow.baseDate}&nbsp; */}
+                                {/* 발표시각{this.changeFcstTime(itemrow.baseTime.substr(0, 2))}시&nbsp; */}
+                                {/* 예보일자 */}
+                                {/* {itemrow.fcstDate}&nbsp; */}
+                                {/* {Number(itemrow.fcstDate.substr(0, 4))}년도 */}
+                            
+                                {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
+                                {/* {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}
+                                / */}
+                                {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
+                                {/* {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}
+                                &nbsp;
+                                {arrDayStr[this.FindWeekday(itemrow.fcstDate)]}
+                                &nbsp;
+                                최저
+                                {itemrow.fcstValue}℃&nbsp; */}
+                                {/* 예보시각
+                                {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시 */}
+                            {/* </React.Fragment>
+                        ))
+                        ))
+                }
+                <br/>
+                &nbsp; */}
+                {/* '동네예보조회 여러페이지 낮 최고기온' */}
+                {/* {
+                    this.state.c_WeatherPages.map((row, index)=>(
+                        row.data.response.body.items.item
+                        .filter(weather => weather.category === 'TMX')
+                        .map((itemrow, idx) => (
+                            <React.Fragment> */}
+                                {/* {itemrow.category}&nbsp; */}
+                                {/* 발표일자{itemrow.baseDate}&nbsp; */}
+                                {/* 발표시각{this.changeFcstTime(itemrow.baseTime.substr(0, 2))}시&nbsp; */}
+                                {/* 예보일자 */}
+                                {/* {itemrow.fcstDate}&nbsp; */}
+                                {/* {Number(itemrow.fcstDate.substr(0, 4))}년도 */}
+                            
+                                {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
+                                {/* {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}
+                                / */}
+                                {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
+                                {/* {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}
+                                &nbsp;
+                                {arrDayStr[this.FindWeekday(itemrow.fcstDate)]}
+                                &nbsp;
+                                최고
+                                {itemrow.fcstValue}℃&nbsp; */}
+                                {/* 예보시각
+                                {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시 */}
+                            {/* </React.Fragment>
+                        ))
+                    ))
+                }
+                <br /> */}
+                    
+                    
 
-                    {this.state.c_address}
-                    <div className='preventFloat'>
+                    {/* {this.state.c_address} */}
+                    <Slider {...settings}>
+                    {/* <div className='preventFloat'> */}
                     {
                         this.state.c_WeatherPages.map((row, index)=>(
                             row.data.response.body.items.item
@@ -1255,75 +1408,161 @@ class Weather extends Component {
                                     {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
                                     {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}
                                     &nbsp;
-                                    {arrDayStr[this.FindWeekday(itemrow.fcstDate)]}
+                                    {arrDayStr[this.FindWeekday(itemrow.fcstDate)]}<br/>
                                     &nbsp;
                                     {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시
                                 </div>
                             ))
                             ))
                     }
-                    {
-                        this.state.c_midTermWeather_2.map((row, index) => (
-                            <React.Fragment>
+                    
+                    </Slider>
+                    {/* <Slider {...settings}>
+                    <div className='jejuWeatherDiv'>
+                             {this.AfterDays(3)}&nbsp;
+                             {arrDayStr[(todayDay+3)%7]}
+                             <br />
+                            오전💧{this.state.c_midTermWeather_2.rnSt3Am}%&nbsp;<br/>
+                            {this.midTermWeatherIcons(this.state.c_midTermWeather_2.wf3Am)}
+                            <br />
+                            오후💧{this.state.c_midTermWeather_2.rnSt3Pm}%&nbsp;<br/>
+                             {this.midTermWeatherIcons(this.state.c_midTermWeather_2.wf3Pm)}
+                        </div>
+                               <div className='jejuWeatherDiv'>
+                                    {this.AfterDays(4)}&nbsp;
+                                    {arrDayStr[(todayDay+4)%7]}
+                                    <br />
+                                    오전💧{this.state.c_midTermWeather_2.rnSt4Am}%&nbsp;<br/>
+                                    {this.midTermWeatherIcons(this.state.c_midTermWeather_2.wf4Am)}
+                                    <br />
+                                    오후💧{this.state.c_midTermWeather_2.rnSt4Pm}%&nbsp;<br/>
+                                    {this.midTermWeatherIcons(this.state.c_midTermWeather_2.wf4Pm)} 
+                                </div>
                                 <div className='jejuWeatherDiv'>
-                                    {this.AfterDays(3)}&nbsp;
-                                    {arrDayStr[(todayDay+3)%7]}
+                                    {this.AfterDays(5)}&nbsp;
+                                    {arrDayStr[(todayDay+5)%7]}
                                     <br />
-                                    오전💧{row.rnSt3Am}%&nbsp;
+                                    오전💧{this.state.c_midTermWeather_2.rnSt5Am}%&nbsp;<br/>
+                                    {this.midTermWeatherIcons(this.state.c_midTermWeather_2.wf5Am)}
+                                    <br />
+                                    오후💧{this.state.c_midTermWeather_2.rnSt5Pm}%&nbsp;<br/>
+                                    {this.midTermWeatherIcons(this.state.c_midTermWeather_2.wf5Pm)}
+                                </div>
+                                <div className='jejuWeatherDiv'>
+                                    {this.AfterDays(6)}&nbsp;
+                                    {arrDayStr[(todayDay+6)%7]}
+                                    <br />
+                                    오전💧{this.state.c_midTermWeather_2.rnSt6Am}%&nbsp;<br/>
+                                    {this.midTermWeatherIcons(this.state.c_midTermWeather_2.wf6Am)}
+                                    <br />
+                                    오후💧{this.state.c_midTermWeather_2.rnSt6Pm}%&nbsp;<br/>
+                                    {this.midTermWeatherIcons(this.state.c_midTermWeather_2.wf6Pm)}
+                                </div>
+                                <div className='jejuWeatherDiv'>
+                                    {this.AfterDays(7)}&nbsp;
+                                    {arrDayStr[(todayDay+7)%7]}
+                                    <br />
+                                    오전💧{this.state.c_midTermWeather_2.rnSt7Am}%&nbsp;<br/>
+                                    {this.midTermWeatherIcons(this.state.c_midTermWeather_2.wf7Am)}
+                                    <br />
+                                    오후💧{this.state.c_midTermWeather_2.rnSt7Pm}%&nbsp;<br/>
+                                    {this.midTermWeatherIcons(this.state.c_midTermWeather_2.wf7Pm)}
+                                </div>
+                                <div className='jejuWeatherDiv'>
+                                    {this.AfterDays(8)}&nbsp;
+                                    {arrDayStr[(todayDay+8)%7]}
+                                    <br />
+                                    <br />
+                                    💧{this.state.c_midTermWeather_2.rnSt8}%
+                                    <br />
+                                    {this.state.c_midTermWeather_2.wf8}&nbsp;
+                                    {this.midTermWeatherIcons(this.state.c_midTermWeather_2.wf8)}
+                                </div>
+                                <div className='jejuWeatherDiv'>
+                                    {this.AfterDays(9)}&nbsp;
+                                    {arrDayStr[(todayDay+9)%7]}
+                                    <br />
+                                    <br />
+                                    💧{this.state.c_midTermWeather_2.rnSt9}%
+                                    <br />
+                                    {this.state.c_midTermWeather_2.wf9}&nbsp;
+                                    {this.midTermWeatherIcons(this.state.c_midTermWeather_2.wf9)}
+                                </div>
+                                <div className='jejuWeatherDiv'>
+                                    {this.AfterDays(10)}&nbsp;
+                                    {arrDayStr[(todayDay+10)%7]}
+                                    <br />
+                                    <br />
+                                    💧{this.state.c_midTermWeather_2.rnSt10}%
+                                    <br />
+                                    {this.state.c_midTermWeather_2.wf10}&nbsp;
+                                    {this.midTermWeatherIcons(this.state.c_midTermWeather_2.wf10)}
+                                </div>
+                    </Slider> */}
+                        
+                    {/* {
+                        this.state.c_midTermWeather_2.map((row, index) => ( */}
+                            {/* // <React.Fragment>
+                            // <>
+                            //     <div className='jejuWeatherDiv'>
+                            //         {this.AfterDays(3)}&nbsp;
+                            //         {arrDayStr[(todayDay+3)%7]}
+                            //         <br />
+                            //         오전💧{row.rnSt3Am}%&nbsp; */}
                                     {/* {row.wf3Am}&nbsp; */}
-                                    {this.midTermWeatherIcons(row.wf3Am)}
+                                    {/* {this.midTermWeatherIcons(row.wf3Am)}
                                     <br />
-                                    오후💧{row.rnSt3Pm}%&nbsp;
+                                    오후💧{row.rnSt3Pm}%&nbsp; */}
                                     {/* {row.wf3Pm}&nbsp; */}
-                                    {this.midTermWeatherIcons(row.wf3Pm)}
+                                    {/* {this.midTermWeatherIcons(row.wf3Pm)}
                                 </div>
                                 <div className='jejuWeatherDiv'>
                                     {this.AfterDays(4)}&nbsp;
                                     {arrDayStr[(todayDay+4)%7]}
                                     <br />
                                     오전💧{row.rnSt4Am}%&nbsp;
-                                    {this.midTermWeatherIcons(row.wf4Am)}
+                                    {this.midTermWeatherIcons(row.wf4Am)} */}
                                     {/* {row.wf4Am} */}
-                                    <br />
+                                    {/* <br />
                                     오후💧{row.rnSt4Pm}%&nbsp;
-                                    {this.midTermWeatherIcons(row.wf4Pm)}
+                                    {this.midTermWeatherIcons(row.wf4Pm)}  */}
                                     {/* {row.wf4Pm}&nbsp; */}
-                                </div>
-                                <div className='jejuWeatherDiv'>
+                                {/* </div> */}
+                                {/* <div className='jejuWeatherDiv'>
                                     {this.AfterDays(5)}&nbsp;
                                     {arrDayStr[(todayDay+5)%7]}
                                     <br />
                                     오전💧{row.rnSt5Am}%&nbsp;
-                                    {this.midTermWeatherIcons(row.wf5Am)}
+                                    {this.midTermWeatherIcons(row.wf5Am)} */}
                                     {/* {row.wf5Am} */}
-                                    <br />
+                                    {/* <br />
                                     오후💧{row.rnSt5Pm}%&nbsp;
-                                    {this.midTermWeatherIcons(row.wf5Pm)}
+                                    {this.midTermWeatherIcons(row.wf5Pm)} */}
                                     {/* {row.wf5Pm}&nbsp; */}
-                                </div>
+                                {/* </div>
                                 <div className='jejuWeatherDiv'>
                                     {this.AfterDays(6)}&nbsp;
                                     {arrDayStr[(todayDay+6)%7]}
                                     <br />
                                     오전💧{row.rnSt6Am}%&nbsp;
                                     {/* {row.wf6Am} */}
-                                    {this.midTermWeatherIcons(row.wf6Am)}
+                                    {/* {this.midTermWeatherIcons(row.wf6Am)}
                                     <br />
-                                    오후💧{row.rnSt6Pm}%&nbsp;
+                                    오후💧{row.rnSt6Pm}%&nbsp;  */}
                                     {/* {row.wf6Pm}&nbsp; */}
-                                    {this.midTermWeatherIcons(row.wf6Pm)}
+                                    {/* {this.midTermWeatherIcons(row.wf6Pm)}
                                 </div>
                                 <div className='jejuWeatherDiv'>
                                     {this.AfterDays(7)}&nbsp;
                                     {arrDayStr[(todayDay+7)%7]}
-                                    <br />
-                                    오전💧{row.rnSt7Am}%&nbsp;
+                                    <br /> */}
+                                    {/* 오전💧{row.rnSt7Am}%&nbsp; */}
                                     {/* {row.wf7Am} */}
-                                    {this.midTermWeatherIcons(row.wf7Am)}
-                                    <br />
-                                    오후💧{row.rnSt7Pm}%&nbsp;
+                                    {/* {this.midTermWeatherIcons(row.wf7Am)} */}
+                                    {/* <br /> */}
+                                    {/* 오후💧{row.rnSt7Pm}%&nbsp; */}
                                     {/* {row.wf7Pm}&nbsp; */}
-                                    {this.midTermWeatherIcons(row.wf7Pm)}
+                                    {/* {this.midTermWeatherIcons(row.wf7Pm)}
                                 </div>
                                 <div className='jejuWeatherDiv'>
                                     {this.AfterDays(8)}&nbsp;
@@ -1354,85 +1593,17 @@ class Weather extends Component {
                                     <br />
                                     {row.wf10}&nbsp;
                                     {this.midTermWeatherIcons(row.wf10)}
-                                </div>
-                            </React.Fragment>
+                                </div> */}
+                             {/* </React.Fragment> */}
+                            {/* </>
                         ))
-                    }
-                    </div>
+                    } */}
+                    
+                    {/* </div> */}
+                    
+                    
                 <br />
-                <br />
-                {
-                    // store.getState.weatherInfo_3.map((row)=>(
-                        this.state.c_weatherInfo_4.filter(w => w.category === 'T1H').map((row)=>(
-                            <>
-                            (현재기온&nbsp;
-                            {/* ({row.category}) */}
-                            {row.obsrValue}℃)
-                        </>
-                    ))
-                }
-                &nbsp;
-                {
-                    this.state.c_WeatherPages.map((row, index)=>(
-                        row.data.response.body.items.item
-                        .filter(weather => weather.category === 'TMN')
-                        .map((itemrow, idx) => (
-                            <React.Fragment>
-                                {/* {itemrow.category}&nbsp; */}
-                                {/* 발표일자{itemrow.baseDate}&nbsp; */}
-                                {/* 발표시각{this.changeFcstTime(itemrow.baseTime.substr(0, 2))}시&nbsp; */}
-                                {/* 예보일자 */}
-                                {/* {itemrow.fcstDate}&nbsp; */}
-                                {/* {Number(itemrow.fcstDate.substr(0, 4))}년도 */}
-                            
-                                {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
-                                {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}
-                                /
-                                {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
-                                {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}
-                                &nbsp;
-                                {arrDayStr[this.FindWeekday(itemrow.fcstDate)]}
-                                &nbsp;
-                                최저
-                                {itemrow.fcstValue}℃&nbsp;
-                                {/* 예보시각
-                                {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시 */}
-                            </React.Fragment>
-                        ))
-                        ))
-                }
-                &nbsp;
-                {/* '동네예보조회 여러페이지 낮 최고기온' */}
-                {
-                    this.state.c_WeatherPages.map((row, index)=>(
-                        row.data.response.body.items.item
-                        .filter(weather => weather.category === 'TMX')
-                        .map((itemrow, idx) => (
-                            <React.Fragment>
-                                {/* {itemrow.category}&nbsp; */}
-                                {/* 발표일자{itemrow.baseDate}&nbsp; */}
-                                {/* 발표시각{this.changeFcstTime(itemrow.baseTime.substr(0, 2))}시&nbsp; */}
-                                {/* 예보일자 */}
-                                {/* {itemrow.fcstDate}&nbsp; */}
-                                {/* {Number(itemrow.fcstDate.substr(0, 4))}년도 */}
-                            
-                                {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
-                                {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}
-                                /
-                                {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
-                                {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}
-                                &nbsp;
-                                {arrDayStr[this.FindWeekday(itemrow.fcstDate)]}
-                                &nbsp;
-                                최고
-                                {itemrow.fcstValue}℃&nbsp;
-                                {/* 예보시각
-                                {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시 */}
-                            </React.Fragment>
-                        ))
-                    ))
-                }
-                <br />
+                
                 {/* '체감온도'
                 {
                     this.state.c_weatherInfo_2.map((row)=>(
@@ -1442,9 +1613,13 @@ class Weather extends Component {
                         ))
                 }
                 <br /> */}
-                {this.state.c_midTermWeather_1}
+                {/* {this.state.c_midTermWeather_1} */}
+                <div className="weatherInfo">
+                    {infoTag}
+                </div>
+
                 <br />
-                <img src = { OPENNURI } alt='OPENNURI' />
+                {/* <img src = { OPENNURI } alt='OPENNURI' /> */}
                 </div>
 
 
