@@ -446,7 +446,7 @@ class ShareBoardRowItem extends Component {
 
                 {/*/////////////////////////////////////Modal/////////////////////////////////////////////////////*/}
                 {/* //header 부분에 텍스트를 입력한다. */}
-                <MDBModal isOpen={this.state.open} toggle={this.toggle} size="lg">
+                <MDBModal isOpen={this.state.open} toggle={this.toggle} size="lg" backdrop={false}>
                     <MDBModalHeader toggle={this.toggle}>
 
                         {row.subject.split(",")[0]=="Food"?
@@ -462,8 +462,9 @@ class ShareBoardRowItem extends Component {
                         <span id="ShareModalTitle"><b>{row.id}</b>님이 공유하신 맛집입니다.</span></MDBModalHeader>
                     <MDBModalBody>
                         {/* <div id="ShareModalAll" ref={this.myRef} onScroll={this.onScroll}> */}
-                        <div id="ShareModalAll">
-                        <Box display="flex"
+                        <div id="ShareModalScroll">
+                            <div id="ShareModalAll">
+                            <Box display="flex"
                             flexWrap="wrap"
                             p={1}
                             m={1}
@@ -530,8 +531,10 @@ class ShareBoardRowItem extends Component {
                                         >작성
                                         </MDBBtn>
                             </div>
-                        </div>
+                            </div>
+                        
                             <ShareReview regroup={row.regroup}/>
+                        </div>
 
                     </MDBModalBody>
                     <MDBModalFooter>
