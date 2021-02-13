@@ -101,6 +101,9 @@ class SharePlanPageComp extends Component {
                   <input type="date" className="wishday form-control" ref="wishday"  onChange={this.getGroup.bind(this)}/>
                 </div>
                 
+            <div className="shareplanSlideTitle">
+              <strong>오늘 기준 가까운 날짜의 공유된 일정입니다.</strong>
+            </div>
                 
                 {/* <strong>오늘 이후의 등록된 일정입니다.</strong>  */}
             <div className="share-slide-list-bar">
