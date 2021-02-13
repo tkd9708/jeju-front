@@ -41,14 +41,16 @@
         padding-right: 0px;
     }
     .EtcBoardNotice button.slick-prev::before {
-        left: -5px;
+        display: none;
+        /* left: -15px;
         font-size: 20px !important;
-        color: black;
+        color: black; */
     }
     .EtcBoardNotice button.slick-next::before {
-        left: -5px;
+        display: none;
+        /* left: -15px;
         font-size: 20px !important;
-        color: black;
+        color: black; */
     }
     .ShareitemContentDiv img {
         width: 26.8vw;
