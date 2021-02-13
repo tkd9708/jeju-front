@@ -46,6 +46,7 @@ class ShipPageComp extends Component {
     }
 
     componentDidMount(){
+        window.scrollTo(0, 0);
         new WOW().init();
     }
 
@@ -200,10 +201,10 @@ class ShipPageComp extends Component {
                                      성산 ↔ 우도행<br/>
                                     <select class="browser-default custom-select" onClick={this.changeMonth}>
                                         <option disabled selected>가는 날짜</option>
-                                        <option value="1">1~2월, 11,12월</option>
+                                        <option value="1">1월~2월, 11월~12월</option>
                                         <option value="2">3월, 10월</option>
                                         <option value="3">4월, 9월</option>
-                                        <option value="4">5 ~ 8월</option>
+                                        <option value="4">5월 ~ 8월</option>
                                     </select>
                                 </TabPanel>
                                 <TabPanel value={this.state.value} index={1}>
@@ -235,10 +236,10 @@ class ShipPageComp extends Component {
                                 value={this.state.content} onChange={this.changeMonth}/> */}
                                 🚢&nbsp;&nbsp;<b>출발지 → 도착지</b>
                                 <select class="browser-default custom-select" onClick={this.changeDestination}>
-                                    <option value="성산→우도">성산→우도</option>
-                                    <option value="종달→우도">종달→우도</option>
-                                    <option value="우도→성산">우도→성산</option>
-                                    <option value="우도→종달">우도→종달</option>
+                                    <option value="성산→우도">성산 → 우도</option>
+                                    <option value="종달→우도">종달 → 우도</option>
+                                    <option value="우도→성산">우도 → 성산</option>
+                                    <option value="우도→종달">우도 → 종달</option>
                                 </select>
                                 <br/>
                                 🗓&nbsp;&nbsp;<b>승선일</b>

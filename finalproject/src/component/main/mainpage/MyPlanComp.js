@@ -180,7 +180,7 @@ class MyPlanComp extends Component {
                             <span>&nbsp;오늘의 <strong style={{color: '#2BBBAD'}}>TOP5</strong></span>
                                 {list}
                             </div>
-            :<h2><Weather/></h2>
+            :<Weather/>;
 
         return (
             <div className="myPlanComp myPlanParent">

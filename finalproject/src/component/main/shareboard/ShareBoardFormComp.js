@@ -130,6 +130,11 @@ class ShareBoardFormComp extends Component {
             })
     };
 
+    componentWillMount(){
+        
+        window.scrollTo(0, 0);
+    }
+
     render() {
         //const url="http://localhost:9002/photo/";
         // console.log("ShareBoardFormComp render()", this.props);

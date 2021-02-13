@@ -30,6 +30,7 @@ class RentCarPageComp extends Component {
 
     componentWillMount()
     {
+        window.scrollTo(0, 0);
         this.list();
         new WOW().init();
     }

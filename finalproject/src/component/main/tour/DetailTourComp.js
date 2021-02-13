@@ -62,6 +62,7 @@ class DetailTourComp extends Component {
     }
 
     componentWillMount(){
+        window.scrollTo(0, 0);
         console.log("DetailTourComp render()", this.props);
         this.setAvgStar();
     }

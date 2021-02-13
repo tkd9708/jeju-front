@@ -81,6 +81,7 @@ class NoticePageComp extends Component {
     componentWillMount()
     {
         this.getTotalCount();
+        window.scrollTo(0, 0);
     }
     render() {
         const {boards}=this.state;

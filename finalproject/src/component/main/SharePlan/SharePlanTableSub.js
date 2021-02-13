@@ -12,11 +12,9 @@ import {URL} from "../../../redux/config";
 import store from "../../../redux/store";
 import './SharePlanCss.css';
 import { FcCheckmark } from "react-icons/fc";
+import Grid from '@material-ui/core/Grid';
 
-
-
-
-class SharePlanSub extends Component {
+class SharePlanTableSub extends Component {
 
     constructor(props) {
         super(props);
@@ -26,10 +24,7 @@ class SharePlanSub extends Component {
             deleteOpen:false,
             deleteSetOpen:false
             
-        }
-
-        
-        
+        } 
     }
 
     deleteOpen=()=>{
@@ -44,11 +39,10 @@ class SharePlanSub extends Component {
         })
     };
 
-
     onDelete=()=>{
         let url=URL+"/plan/delete?num="+this.props.row.num;
         
-        //console.log(this.props.row.num); 
+        console.log(this.props.row.num); 
         
         axios.get(url)
         .then(res=>{
@@ -73,13 +67,10 @@ class SharePlanSub extends Component {
         });
        }
 
-
     componentDidMount(){
         // this.getProfile();
         this.props.setName(this.props.row.comment, this.props.row.wishday);
     }
-
-
 
     render(){
         const {row} = this.props;
@@ -107,18 +98,15 @@ class SharePlanSub extends Component {
         }
 
         return(
-            
-                <div>
-                <div>
+            <div>
+                
+                    <div style={{margin: 'auto 0'}}>
                     <TimelineItem  >
-            
                         <TimelineOppositeContent>
                             <Typography variant="body2" color="textSecondary">
                                 {this.props.row.wishtime}
                             </Typography>
                         </TimelineOppositeContent>
-
-                    
 
                         <TimelineSeparator>
                             <TimelineDot style={{backgroundColor:'white'}}>
@@ -142,22 +130,21 @@ class SharePlanSub extends Component {
                             </TimelineContent>
                         }
                         
-                        
                         {/* <Typography variant="h6" component="h1" style={{cursor:'pointer',fontSize:20}} 
                             onClick={this.deleteOpen.bind(this)}>
                             {this.props.row.wishday===this.props.day?this.props.row.title:this.props.row.title}
                         </Typography> */}
                 
                     </TimelineItem>
-               
+                    </div>
+            
                <Dialog 
                     open={this.state.deleteOpen} 
                     onClose={this.deleteClose.bind(this)}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                     <DialogTitle id="alert-dialog-title">{this.props.row.title.includes(",")===true?this.props.row.title.split(",")[1]
-                     :this.props.row.title}</DialogTitle>
+                     <DialogTitle id="alert-dialog-title">{this.props.row.title}</DialogTitle>
                         <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             해당 공유일정을 삭제하시겠습니까?
@@ -175,14 +162,10 @@ class SharePlanSub extends Component {
                         </Button>
                         </DialogActions>
                  </Dialog>
-                
-                
                  
-            </div>
             </div>
         )
     }
-
 }
 
-export default SharePlanSub;
+export default SharePlanTableSub;

@@ -24,7 +24,9 @@ class MobileMyPage extends Component {
         super(props);
 
         this.state = {
-            memberData: []
+            memberData: [],
+            wishCount: 0,
+            sharePlanCount:0,
         }
     }
 
@@ -53,9 +55,20 @@ class MobileMyPage extends Component {
             }).catch(err=>{
                 console.log("wishlist 일정갯수 가져오기 오류 : " + err);
             })
+        
+        url=URL+"/plan/count?memId="+store.getState().loginId;
+        axios.get(url)
+        .then(res=>{
+            this.setState({
+                sharePlanCount:res.data
+            })
+        }).catch(err=>{
+            console.log("sharePlan 갯수 가져오기 오류 :"+err);
+        })    
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         this.getMyData(); //처음 시작시 백엔드로부터 데이타 가져오기
     }
     
@@ -78,16 +91,17 @@ class MobileMyPage extends Component {
                                         console.log("img error");
                                         e.target.src = userImg;
                                     }}
-                                    />
+                                    /><br/>
+                                    {this.state.memberData.id}
                                 </td>
                             </tr>
-                            <tr>
-                                <td width="50%">{this.state.memberData.id}</td>
-                                <td width="50%">{this.state.memberData.name}</td>
+                            <tr style={{textAlign: 'center'}}>
+                                <td width="50%"><strong>나의 일정</strong>&nbsp;&nbsp;{this.state.wishCount}</td>
+                                <td width="50%"><strong>공유 일정</strong>&nbsp;&nbsp;{this.state.sharePlanCount}</td>
                             </tr>
-                            <tr>
-                                <td colSpan="2">{this.state.memberData.email}@{this.state.memberData.email2}</td>
-                            </tr>
+                            {/* <tr style={{textAlign: 'center'}}>
+                                <td colSpan="2"><strong>{this.state.memberData.email}@{this.state.memberData.email2}</strong></td>
+                            </tr> */}
                         </table>
 
                         {/* <ListItem button>
