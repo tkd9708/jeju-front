@@ -143,7 +143,7 @@ class SearchResultComp extends Component {
                         &nbsp;&nbsp;&nbsp;"{this.state.searchVal}" 의 검색 결과&nbsp;&nbsp;&nbsp;
                     </span>
                 </div>
-                <div style={{width: '100%'}}>
+                <div style={{width: '95%'}}>
                     <FormControl className="selectTourList">
                         <InputLabel>category</InputLabel>
                         <Select native
