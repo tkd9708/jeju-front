@@ -23,7 +23,10 @@ class NoticeAddForm extends Component
         }
     }
 
-      
+      componentWillMount(){
+          
+        window.scrollTo(0, 0);
+      }
     onDataInsert=()=>{
         let subject = this.state.subject;
         let content = this.editorRef.current.getInstance().getHtml();

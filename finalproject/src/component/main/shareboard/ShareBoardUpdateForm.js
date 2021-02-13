@@ -80,6 +80,7 @@ class ShareBoardUpdateForm extends Component {
     }
 
     componentWillMount() {
+        window.scrollTo(0, 0);
         this.onSelectData();
     }
 

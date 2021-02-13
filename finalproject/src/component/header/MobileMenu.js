@@ -307,7 +307,7 @@ function MobileMenu(props) {
           {/* <Typography className={classes.title} variant="b" noWrap>
             제주 일상
           </Typography> */}
-          <img src={titleImage} style={{width: '20vw'}}/>
+          <img src={titleImage} style={{width: '20vw'}} onClick={()=>{props.history.push("/")}}/>
           <div className={classes.grow} />
           <div className={classes.sectionMobile}>
             <IconButton

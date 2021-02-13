@@ -28,7 +28,11 @@
     /* 업데이트 폼 */
     #MypageUpdateForm{
         margin: 100px auto;
-        width: 90vw;
+        width: 95vw;
+    }
+    #memberUpdateChip {
+        max-width: 90vw;
+        overflow-x: hidden;
     }
     #MypageUpdateForm>table>caption {
         font-size: 13pt;
@@ -104,6 +108,10 @@
         margin: 100px auto;
         width: 80vw;
     }
+    #memberUpdateChip {
+        max-width: 75vw;
+        overflow-x: hidden;
+    }
     #MypageUpdateForm>form>table>caption {
         font-size: 20pt;
     }
@@ -172,7 +180,11 @@
     /* 업데이트 폼 */
     #MypageUpdateForm{
         margin: 100px auto;
-        width: 50vw;
+        width: 60vw;
+    }
+    #memberUpdateChip {
+        max-width: 55vw;
+        overflow-x: hidden;
     }
     #MypageUpdateForm>form>table>caption {
         font-size: 20pt;
@@ -240,7 +252,11 @@
     /* 업데이트 폼 */
     #MypageUpdateForm{
         margin: 100px auto;
-        width: 40vw;
+        width: 50vw;
+    }
+    #memberUpdateChip {
+        max-width: 45vw;
+        overflow-x: hidden;
     }
     #MypageUpdateForm>form>table>caption {
         font-size: 20pt;

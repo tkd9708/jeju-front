@@ -226,6 +226,7 @@ class SocialUpdateForm extends Component {
         // console.log("MemberUpdateFormComp render()", this.props);
 
         const chip = this.state.photo=='no'|this.state.photo==''?"":<Chip
+                                                id="memberUpdateChip"
                                                 variant="outlined"
                                                 size="small"
                                                 label={this.state.photo}

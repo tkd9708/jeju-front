@@ -105,6 +105,7 @@ class NoticeUpdateForm extends Component
     };
 
     componentWillMount() {
+        window.scrollTo(0, 0);
         // console.log("content willmount");
         this.onSelectData();
     }

@@ -47,6 +47,7 @@ class ReservationPageComp extends Component {
     }
 
     componentDidMount(){
+      window.scrollTo(0, 0);
       new WOW().init();
   }
     

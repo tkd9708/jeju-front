@@ -4,7 +4,7 @@ import axios from 'axios';
 import {URL} from "../../../redux/config";
 import Slider from "react-slick";
 import SharePlanRoot from './SharePlanRoot';
-
+import Grid from '@material-ui/core/Grid';
 
 import store from '../../../redux/store';
 import { StoreTwoTone } from "@material-ui/icons";
@@ -65,6 +65,7 @@ class SharePlanPageComp extends Component {
     
 
     componentDidMount(){
+      window.scrollTo(0, 0);
         this.getGroupnum();
        //this.getPlan();
     }
@@ -101,32 +102,42 @@ class SharePlanPageComp extends Component {
                   <input type="date" className="wishday form-control" ref="wishday"  onChange={this.getGroup.bind(this)}/>
                 </div>
                 
+            <div className="shareplanSlideTitle">
+              <strong>오늘 기준 가까운 날짜의 공유된 일정입니다.</strong>
+            </div>
                 
                 {/* <strong>오늘 이후의 등록된 일정입니다.</strong>  */}
-            <div className="share-slide-list-bar">
-              <div className="share-slide-list-box">
-                  <br/>
                 
-                  {this.state.glist==''?
-                  <div>찾으시는 날짜에 공유된 정보가 없습니다.</div>
-                : 
-                <Slider {...settings}>
-                {this.state.glist.map((row)=>(
-                        <SharePlanRoot row={row} day={this.refs.wishday.value}></SharePlanRoot>
-                ))}
-            </Slider>
-                }
+                  
                 
-                
-                
-                </div>
-      
-            </div>
+                  <div className="share-slide-list-bar">
+                    <div className="share-slide-list-box">
+                        <br/>
+                      
+                        {this.state.glist==''?
+                        <div>찾으시는 날짜에 공유된 정보가 없습니다.</div>
+                      : 
+                      <Slider {...settings}>
+                      {this.state.glist.map((row)=>(
+                          <SharePlanRoot row={row} day={this.refs.wishday.value}></SharePlanRoot>
+                      ))}
+                  </Slider>
+                      }
+                      
+                      </div>
+            
+                  </div>
+            
             </div>
             
             <hr/>
-            <SharePlanTable/>
-                    {/* {this.state.groupNum} */}
+            <div>
+              <Grid container>
+                {this.state.glist.map((row)=>(
+                    <SharePlanTable row={row} day={this.refs.wishday.value}></SharePlanTable>
+                ))} 
+              </Grid>
+            </div>
           </div>
         
            

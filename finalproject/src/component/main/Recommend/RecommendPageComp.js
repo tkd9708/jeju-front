@@ -45,6 +45,7 @@ class RecommendPageComp extends Component{
     }
 
     componentWillMount(){
+        window.scrollTo(0, 0);
         this.getList();
         new WOW().init();
     }

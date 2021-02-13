@@ -79,10 +79,13 @@
     #TourPageComp {
         margin-top: 50px;
     }
-    #selectTourList{
+    .selectTourList{
         float: right;
         margin: 0 !important;
         font-size: 5pt !important;
+    }
+    .selectTourList .MuiSelect-select{
+        font-size: 0.7rem;
     }
     #selectTour{
         font-size: 5pt !important;
@@ -148,10 +151,13 @@
     #TourPageComp {
         margin-top: 50px;
     }
-    #selectTourList{
+    .selectTourList{
         float: right;
         margin: 0 !important;
         font-size: 7pt !important;
+    }
+    .selectTourList .MuiSelect-select{
+        font-size: 0.7rem;
     }
     #selectTour{
         font-size: 7pt !important;
@@ -159,11 +165,11 @@
     #itemBox{
         text-align: center;
         border: 1px solid #eee;
-        width: 42vw;
+        width: 40vw;
         text-align: left;
     }
     #itemImg{
-        width: 42vw;
+        width: 40vw;
         height: 40vw;
     }
     #itemTitle{
@@ -214,10 +220,13 @@
     }
 }
 @media only screen and (min-width:450px) and (max-width:770px){
-    #selectTourList{
+    .selectTourList{
         float: right;
         margin-right: 30px;
         font-size: 9pt !important;
+    }
+    .selectTourList .MuiSelect-select{
+        font-size: 0.8rem;
     }
     #selectTour{
         font-size: 9pt !important;
@@ -281,7 +290,7 @@
     }
 }
 @media only screen and (min-width:770px){
-    #selectTourList{
+    .selectTourList{
         float: right;
         margin-right: 70px;
     }
