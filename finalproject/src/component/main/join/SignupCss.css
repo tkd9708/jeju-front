@@ -2,7 +2,11 @@
 @media only screen and (max-width:450px){
     #SignupForm{
         margin: 100px auto;
-        width: 90vw;
+        width: 95vw;
+    }
+    #SignChip {
+        max-width: 90vw;
+        overflow-x: hidden;
     }
     #SignupForm>table>caption {
         font-size: 13pt;
@@ -69,6 +73,10 @@
         margin: 100px auto;
         width: 80vw;
     }
+    #SignChip {
+        max-width: 75vw;
+        overflow-x: hidden;
+    }
     #SignupForm>table>caption {
         font-size: 15pt;
     }
@@ -127,7 +135,11 @@
 @media only screen and (min-width:770px) and (max-width:1023px){
     #SignupForm{
         margin: 100px auto;
-        width: 50vw;
+        width: 60vw;
+    }
+    #SignChip {
+        max-width: 55vw;
+        overflow-x: hidden;
     }
     #SignupForm>table>caption {
         font-size: 18pt;
@@ -186,7 +198,11 @@
 @media only screen and (min-width:1023px){
     #SignupForm{
         margin: 100px auto;
-        width: 50vw;
+        width: 60vw;
+    }
+    #SignChip {
+        max-width: 55vw;
+        overflow-x: hidden;
     }
     #SignupForm>table>caption {
         font-size: 20pt;

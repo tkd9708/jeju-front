@@ -319,6 +319,7 @@ class SignupPageComp extends Component {
     render() {
 
         const chip = this.state.photo==''?"":<Chip
+                                                id="SignChip"
                                                 variant="outlined"
                                                 size="small"
                                                 label={this.state.photo}
