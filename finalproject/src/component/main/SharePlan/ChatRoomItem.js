@@ -12,7 +12,7 @@ class ChatRoomItem extends Component {
 
     constructor(props) {
         super(props);
-        console.log("ChatRoomItem props", props);
+        // console.log("ChatRoomItem props", props);
 
         this.state = {
             friend: this.props.friend,
@@ -22,34 +22,10 @@ class ChatRoomItem extends Component {
 
     onClickChattingRoom = (row) => {
         console.log(row);
-        /*let chat = new ChattingLogic();
-        let unsubscribe = store.subscribe(() => {
-            if (store.getState().publishFunctionMsg == "setSelectedRoomNum") {
-                chat.getMsgList((res) => {
-                    console.log("click th chatting.", res);
-                    gsap.to(".containerRoot", {
-                        scrollTrigger: ".containerRoot",
-                        x: -500,
-                        duration: 1,
-                        ease: Quint.easeInOut,
-                    });
-                });
-
-                // //release.
-                // store.dispatch({
-                //     type: actionType.publishFunctionMsg,
-                //     publishFunctionMsg: "",
-                // });
-
-                unsubscribe();
-            }
-        });*/
-
-
         window.setTimeout(() => {
             //div.container div#chattingBoard
             let chattingBoard = document.getElementById("chattingBoard");
-            console.log("setScrollBottom()", chattingBoard);
+            // console.log("setScrollBottom()", chattingBoard);
 
             if (chattingBoard) {
                 chattingBoard.scrollTo(0, chattingBoard.scrollHeight);

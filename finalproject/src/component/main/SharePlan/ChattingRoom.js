@@ -46,7 +46,7 @@ const ChattingRoom = (props) => {
         //통신.
         let chat = new ChattingLogic();
         chat.getMsgList((res) => {
-            console.log(res.data.length, store.getState());
+            // console.log(res.data.length, store.getState());
 
             if (store.getState().selectedChattingRoomMsgList) {
                 if (res.data.length != store.getState().selectedChattingRoomMsgList.length) {
@@ -71,7 +71,7 @@ const ChattingRoom = (props) => {
 
             intervalContainer = window.setInterval(() => {
                 //해당 스레드는 하나만 돌게 한다.
-                console.log("store.getState().isOpenChatWindow", store.getState().isOpenChatWindow);
+                // console.log("store.getState().isOpenChatWindow", store.getState().isOpenChatWindow);
                 if (!store.getState().isOpenChatWindow) {
                     //창이 닫혀있을떄. -> 백그라운드로.
                     // window.clearTimeout(_setTimeOutObj);
@@ -98,12 +98,12 @@ const ChattingRoom = (props) => {
     }
 
     const setScrollBottom = () => {
-        console.log("setScrollBottom()");
+        // console.log("setScrollBottom()");
 
         window.setTimeout(() => {
             //div.container div#chattingBoard
             let chattingBoard = document.getElementById("chattingBoard");
-            console.log("setScrollBottom()", chattingBoard);
+            // console.log("setScrollBottom()", chattingBoard);
 
             if (chattingBoard) {
                 chattingBoard.scrollTo(0, chattingBoard.scrollHeight);

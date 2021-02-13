@@ -39,6 +39,42 @@ class ChattingLogic {
             });
     }
 
+    isCheckOfChatRoom(loginId, searchId, callback = null) {
+        let url = URL + "/chat/idCheckOfChat" +
+            "?user=" + loginId +
+            "&searchId=" + searchId;
+
+        console.log(url);
+
+        axios.get(url)
+            .then(res => {
+                console.log("isCheckOfChatRoom()", res);
+                if (callback != null) {
+                    callback(res);
+                }
+            })
+            .catch(err => {
+                console.log("isCheckOfChatRoom()", err);
+            });
+    }
+
+    isMemberIdCheck(searchId, callback = null) {
+        let url = URL + '/member/checkid' +
+            '?id=' + searchId;
+
+        console.log("isMemberIdCheck()", url);
+
+        axios.get(url)
+            .then(res => {
+                console.log("isMemberIdCheck()", res);
+                if (callback != null) {
+                    callback(res);
+                }
+            }).catch(err => {
+            console.log("isMemberIdCheck()", err);
+        })
+    }
+
     createRoom(friendId, callback = null) {
         let url = URL + "/chat/createRoom";
         let user1 = store.getState().loginId;
