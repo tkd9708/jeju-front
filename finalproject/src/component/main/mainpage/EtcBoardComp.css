@@ -74,6 +74,41 @@
         bottom: 40px;
         left: 100px; 
     }  */
+
+    /* 말풍선 */
+    .etcBalloon {  
+        position:relative; 
+        margin: 15px auto;
+        padding: 10px;
+        width:22vw; 
+        height: 60px;
+        background:#eee; 
+        border-radius: 10px;
+        color: #333;
+    }
+    .etcBalloon:after { 
+        border-top:0px solid transparent; 
+        border-left: 10px solid transparent; 
+        border-right: 10px solid transparent; 
+        border-bottom: 10px solid #eee; 
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 50px;
+    }
+    .SharePlanitemContent {
+        height: 45px;
+        overflow-y: hidden;
+    }
+    .etcBalloon div {
+        margin: auto 0;
+    }
+    .SharePlanitemTitle img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
 }
 @media only screen and (min-width:550px) and (max-width:770px){
     .NoticeitemBox,.SharePlanitemBox {
@@ -116,12 +151,12 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -5px;
         font-size: 20px !important;
-        color: black;
+        color: gray;
     }
     .EtcBoardNotice button.slick-next::before {
         left: -5px;
         font-size: 20px !important;
-        color: black;
+        color: gray;
     }
     .ShareitemContentDiv img {
         width: 24.8vw;
@@ -145,6 +180,41 @@
         bottom: 40px;
         left: 100px; 
     }  */
+
+    /* 말풍선 */
+    .etcBalloon {  
+        position:relative; 
+        margin: 30px auto;
+        padding: 10px;
+        width:20vw; 
+        height: 80px;
+        background:#eee; 
+        border-radius: 10px;
+        color: #333;
+    }
+    .etcBalloon:after { 
+        border-top:0px solid transparent; 
+        border-left: 10px solid transparent; 
+        border-right: 10px solid transparent; 
+        border-bottom: 10px solid #eee; 
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 70px;
+    }
+    .SharePlanitemContent {
+        height: 70px;
+        overflow-y: hidden;
+    }
+    .etcBalloon div {
+        margin: auto 0;
+    }
+    .SharePlanitemTitle img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
 }
 @media only screen and (min-width:770px) and (max-width:1023px){
     .NoticeitemBox,.SharePlanitemBox {
@@ -187,12 +257,12 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -5px;
         font-size: 20px !important;
-        color: black;
+        color: gray;
     }
     .EtcBoardNotice button.slick-next::before {
         left: -5px;
         font-size: 20px !important;
-        color: black;
+        color: gray;
     }
     .ShareitemContentDiv img {
         width: 24.8vw;
@@ -216,6 +286,41 @@
         bottom: 40px;
         left: 100px; 
     }  */
+
+    /* 말풍선 */
+    .etcBalloon {  
+        position:relative; 
+        margin: 30px auto;
+        padding: 10px;
+        width:20vw; 
+        height: 100px;
+        background:#eee; 
+        border-radius: 10px;
+        color: #333;
+    }
+    .etcBalloon:after { 
+        border-top:0px solid transparent; 
+        border-left: 10px solid transparent; 
+        border-right: 10px solid transparent; 
+        border-bottom: 10px solid #eee; 
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 130px;
+    }
+    .SharePlanitemContent {
+        height: 90px;
+        overflow-y: hidden;
+    }
+    .etcBalloon div {
+        margin: auto 0;
+    }
+    .SharePlanitemTitle img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
 }
 @media only screen and (min-width:1023px) and (max-width:1200px){
     .NoticeitemBox,.SharePlanitemBox {
@@ -258,12 +363,12 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -20px;
         font-size: 20px !important;
-        color: black;
+        color: gray;
     }
     .EtcBoardNotice button.slick-next::before {
         left: 5px;
         font-size: 20px !important;
-        color: black;
+        color: gray;
     }
     .ShareitemContentDiv img {
         width: 19.8vw;
@@ -283,6 +388,41 @@
         bottom: 40px;
         left: 100px; 
     }  */
+
+    /* 말풍선 */
+    .etcBalloon {  
+        position:relative; 
+        margin: 30px auto;
+        padding: 10px;
+        width:15vw; 
+        height: 100px;
+        background:#eee; 
+        border-radius: 10px;
+        color: #333;
+    }
+    .etcBalloon:after { 
+        border-top:0px solid transparent; 
+        border-left: 10px solid transparent; 
+        border-right: 10px solid transparent; 
+        border-bottom: 10px solid #eee; 
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 130px;
+    }
+    .SharePlanitemContent {
+        height: 90px;
+        overflow-y: hidden;
+    }
+    .etcBalloon div {
+        margin: auto 0;
+    }
+    .SharePlanitemTitle img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
 }
 
 @media only screen and (min-width:1200px) and (max-width:1600px){
@@ -326,12 +466,12 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -25px;
         font-size: 20px !important;
-        color: black;
+        color: gray;
     }
     .EtcBoardNotice button.slick-next::before {
         left: -5px;
         font-size: 20px !important;
-        color: black;
+        color: gray;
     }
     .ShareitemContentDiv img {
         width: 16.8vw;
@@ -351,6 +491,41 @@
         bottom: 40px;
         left: 100px; 
     }  */
+
+    /* 말풍선 */
+    .etcBalloon {  
+        position:relative; 
+        margin: 30px auto;
+        padding: 10px;
+        width:15vw; 
+        height: 100px;
+        background:#eee; 
+        border-radius: 10px;
+        color: #333;
+    }
+    .etcBalloon:after { 
+        border-top:0px solid transparent; 
+        border-left: 10px solid transparent; 
+        border-right: 10px solid transparent; 
+        border-bottom: 10px solid #eee; 
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 130px;
+    }
+    .SharePlanitemContent {
+        height: 90px;
+        overflow-y: hidden;
+    }
+    .etcBalloon div {
+        margin: auto 0;
+    }
+    .SharePlanitemTitle img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
 }
 @media only screen and (min-width:1600px){
     .NoticeitemBox,.SharePlanitemBox {
@@ -394,12 +569,12 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -25px;
         font-size: 20px !important;
-        color: black;
+        color: gray;
     }
     .EtcBoardNotice button.slick-next::before {
         left: -5px;
         font-size: 20px !important;
-        color: black;
+        color: gray;
     }
     .ShareitemContentDiv img {
         width: 14.8vw;
@@ -422,4 +597,38 @@
     }  */
 
 
+    /* 말풍선 */
+    .etcBalloon {  
+        position:relative; 
+        margin: 30px auto;
+        padding: 10px;
+        width:12vw; 
+        height: 130px;
+        background:#eee; 
+        border-radius: 10px;
+        color: #333;
+    }
+    .etcBalloon:after { 
+        border-top:0px solid transparent; 
+        border-left: 10px solid transparent; 
+        border-right: 10px solid transparent; 
+        border-bottom: 10px solid #eee; 
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 130px;
+    }
+    .etcBalloon div {
+        margin: auto 0;
+    }
+    .SharePlanitemContent {
+        height: 120px;
+        overflow-y: hidden;
+    }
+    .SharePlanitemTitle img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
 }
