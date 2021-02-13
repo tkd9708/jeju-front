@@ -80,7 +80,7 @@ class Weather extends Component {
     constructor(props) {
         super(props);
         console.log("Weather class 생성자", props);
-        
+
         store.subscribe(function() {
             // console.log("날씨 클래스 생성자에서 state 변경에 대한 변화를 구독합니다 변화를 확인했습니다 store에서 weatherInfo 값을 가져와 첫번째 courseAreaName을 보여줍니다 : " + store.getState().weatherInfo[0].courseName);
         }.bind(this));
