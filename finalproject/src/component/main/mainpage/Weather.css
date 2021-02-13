@@ -10,13 +10,25 @@
     padding: 1rem 1rem 1rem 1rem;
 }
 
+.jejuWeatherDiv_small {
+    border-radius: 0.6667rem;
+    background: linear-gradient(225deg, #ffffff, #e6e6e6);
+    box-shadow:  -0.22223rem 0.22223rem 0.44446rem #ededed,
+             0.22223rem -0.22223rem 0.44446rem #ffffff;
+    width: 4.5rem;
+    height: 6rem;
+    float:left;
+    margin: 1rem 1rem 1rem 1rem;
+    padding: 1rem 1rem 1rem 1rem;
+}
+
 .jejuWeatherContainer {
     border-radius: 0.6667rem;
     background: linear-gradient(225deg, #ffffff, #e6e6e6);
     box-shadow:  -0.22223rem 0.22223rem 0.44446rem #ededed,
              0.22223rem -0.22223rem 0.44446rem #ffffff;
-    width: 70rem;
-    height: 45rem;
+    width: 56rem;
+    height: 42rem;
     margin: 1rem 1rem 1rem 1rem;
     padding: 1rem 1rem 1rem 1rem;
     text-align: center;
