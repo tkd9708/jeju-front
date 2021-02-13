@@ -252,7 +252,7 @@ div.search-myplan div {
     }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 450px) {
     div.search-myplan {
         display: flex;
         flex-wrap: wrap;
@@ -1143,7 +1143,7 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
 /*etcBoardComp*/
 div.etcBoardComp {
     /*flex: 1;*/
-    height: 700px;
+    /* height: 700px; */
     border-top: 1px solid #ddd;
     padding: 10px;
 }

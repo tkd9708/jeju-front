@@ -14,6 +14,7 @@
     /* padding: 0 10%; */
 }
 
+
 /*말풍선*/
 
 
@@ -99,6 +100,7 @@
         margin: 20px auto;
         padding: 10px 10px;
         border: 0.1px solid #eee;
+        border-top: 1px solid green;
         /* border-radius: 20%; */
         /* box-shadow: 4px 2px 2px gray; */
     }
@@ -203,6 +205,7 @@
         margin: 30px auto;
         padding: 10px 10px;
         border: 0.1px solid #eee;
+        border-top: 1px solid green;
         /* border-radius: 20%; */
         /* box-shadow: 4px 2px 2px gray; */
     }
@@ -303,6 +306,7 @@
         margin: 30px auto;
         padding: 30px 30px;
         border: 0.1px solid #eee;
+        border-top: 2px solid green;
         /* border-radius: 20%; */
         /* box-shadow: 4px 2px 2px gray; */
     }
@@ -398,6 +402,7 @@
         margin: 50px auto;
         padding: 50px 50px;
         border: 0.1px solid #eee;
+        border-top: 2px solid green;
         /* border-radius: 20%; */
         /* box-shadow: 4px 2px 2px gray; */
     }
@@ -490,6 +495,8 @@
         margin: 50px auto;
         padding: 50px 70px;
         border: 0.1px solid #eee;
+        border-top: 1px solid green;
+        /* box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important; */
         /* border-radius: 20%; */
         /* box-shadow: 4px 2px 2px gray; */
     }
