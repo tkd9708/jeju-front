@@ -402,6 +402,9 @@ class App extends Component {
                     >
                         <ChatIcon
                             className="chattingIcon"
+                            style={{
+                                fontSize: "1.5em",
+                            }}
                             onClick={(e) => {
                                 let duration = 1.0;
                                 let ease = Quint.easeInOut;
@@ -424,12 +427,22 @@ class App extends Component {
                                         this.setChattingIconIsNew(false);
                                     }
                                     //chatting icon click. Open
-                                    gsap.to("div.chatting div.chattingWindow", {
-                                        transform: "scale(0.9)",
-                                        opacity: 1,
-                                        duration: duration,
-                                        ease: ease,
-                                    });
+                                    if (matchMedia("screen and (max-width:450px)").matches) {
+                                        gsap.to("div.chatting div.chattingWindow", {
+                                            transform: "scale(0.8)",
+                                            opacity: 1,
+                                            duration: duration,
+                                            ease: ease,
+                                        });
+                                    } else {
+                                        gsap.to("div.chatting div.chattingWindow", {
+                                            transform: "scale(1.2)",
+                                            opacity: 1,
+                                            duration: duration,
+                                            ease: ease,
+                                        });
+                                    }
+
                                     store.dispatch({
                                         type: actionType.setChatWindow,
                                         isOpenChatWindow: true,
@@ -438,35 +451,6 @@ class App extends Component {
                                         type: actionType.publishFunctionMsg,
                                         publishFunctionMsg: "changeChatAction",
                                     });
-                                    /*
-                                    //통신먼저 하고 결과값으로 액션.
-                                    let chat = new ChattingLogic();
-                                    chat.getRoomList((res) => {
-                                        console.log(res);
-
-                                        gsap.to("div.chatting div.chattingWindow", {
-                                            transform: "scale(1)",
-                                            opacity: 1,
-                                            duration: duration,
-                                            ease: ease,
-                                        });
-                                        store.dispatch({
-                                            type: actionType.setChatWindow,
-                                            isOpenChatWindow: true,
-                                        });
-                                        store.dispatch({
-                                            type: actionType.publishFunctionMsg,
-                                            publishFunctionMsg: "changeChatAction",
-                                        });
-                                        store.dispatch({
-                                            type: actionType.chattingRoomListInfo,
-                                            chattingRoomListInfo: res.data,
-                                        });
-                                        this.setState({
-                                            chattingRoomListInfo: res.data,
-                                        });
-                                    });
-                                    */
                                 }
                             }}
                         />
