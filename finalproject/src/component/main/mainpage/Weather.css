@@ -27,13 +27,14 @@
     background: linear-gradient(225deg, #ffffff, #e6e6e6);
     box-shadow:  -0.22223rem 0.22223rem 0.44446rem #ededed,
              0.22223rem -0.22223rem 0.44446rem #ffffff;
+    /* width: 56rem; */
     width: 56rem;
     height: 42rem;
-    margin: 1rem 1rem 1rem 1rem;
+    margin: 1rem 1rem 1rem 27rem;
     padding: 1rem 1rem 1rem 1rem;
     text-align: center;
 }
-
+/* margin: 1rem 1rem 1rem 3rem은 위 1rem, 오른쪽 1rem, 아래 1rem, 왼쪽 3rem */
 .preventFloat:after {
     display: block;
     clear: both;
