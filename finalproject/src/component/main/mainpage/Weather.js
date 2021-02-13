@@ -58,6 +58,23 @@ let YO = 136; // 기준점 Y좌표 (GRID)
 
 // LCC DFS 좌표변환 ( code : "toXY"(위경도->좌표, v1:위도, v2:경도), "toLL"(좌표->위경도, v1:x, v2:y) )
 
+const krSkyStatus = ['맑음', '구름조금', '구름많음', '흐림', '비', '비눈', '눈비', '눈'];
+
+const skyStatus = ['CLEAR_DAY', 'PARTLY_CLOUDY_DAY', 'CLOUDY', 'FOG', 'RAIN', 'RAIN_SNOW', 'SLEET', 'SNOW'];
+        
+const skyStatusEnum = Object.freeze({
+    CLEAR_DAY: 0,
+    PARTLY_CLOUDY_DAY: 1,
+    CLOUDY: 2,
+    FOG: 3,
+    RAIN: 4,
+    RAIN_SNOW: 5,
+    SLEET: 6,
+    SNOW: 7,
+});
+
+const skyColor = ['goldenrod', 'grey', 'grey', 'black', 'grey', 'black', 'black', 'black'];
+
 class Weather extends Component {
     
     constructor(props) {
@@ -67,7 +84,7 @@ class Weather extends Component {
         store.subscribe(function() {
             // console.log("날씨 클래스 생성자에서 state 변경에 대한 변화를 구독합니다 변화를 확인했습니다 store에서 weatherInfo 값을 가져와 첫번째 courseAreaName을 보여줍니다 : " + store.getState().weatherInfo[0].courseName);
         }.bind(this));
-
+        
         
         // 리덕스스토어에구독한다
         
@@ -790,25 +807,205 @@ class Weather extends Component {
         return tnStr;
     }
 
+    midTermWeatherIcons = (wParam) => {
+        let midTermWeatherIconsResult = '';
+        if (wParam === '맑음')
+        {
+            midTermWeatherIconsResult = 
+                <ColorSkycons
+                    type = { 'CLEAR_DAY' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                />;
+        }
+        else if (wParam === '구름많음')
+        {
+            midTermWeatherIconsResult = 
+                <ColorSkycons
+                    type = { 'CLOUDY' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                />;
+        }            
+        else if(wParam === '구름많고 비')
+        {
+            midTermWeatherIconsResult = 
+                <>
+                <ColorSkycons
+                    type = { 'CLOUDY' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                />
+                <ColorSkycons
+                    type = { 'RAIN' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                />
+                </>;
+        }
+        else if(wParam === '구름많고 눈')
+        {
+            midTermWeatherIconsResult = 
+                <>
+                <ColorSkycons
+                    type = { 'CLOUDY' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                />
+                <ColorSkycons
+                    type = { 'SNOW' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                />
+                </>;
+        }
+        else if(wParam === '구름많고 비/눈')
+        {
+            midTermWeatherIconsResult = 
+                <>
+                <ColorSkycons
+                    type = { 'CLOUDY' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                /> 
+                <ColorSkycons
+                    type = { 'RAIN_SNOW' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                />
+                </>;
+        }
+        else if(wParam === '구름많고 소나기')
+        {
+            midTermWeatherIconsResult = 
+                <>
+                <ColorSkycons
+                    type = { 'CLOUDY' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                /> 
+                <ColorSkycons
+                    type = { 'RAIN' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                />
+                </>;
+        }
+        else if (wParam === '흐림')
+        {
+            midTermWeatherIconsResult = 
+                <ColorSkycons
+                    type = { 'FOG' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                />;
+        }    
+        else if (wParam === '흐리고 비')
+        {
+            midTermWeatherIconsResult = 
+                <>
+                <ColorSkycons
+                    type = { 'FOG' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                /> 
+                <ColorSkycons
+                    type = { 'RAIN' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                />
+                </>;
+        }
+        else if (wParam === '흐리고 눈')
+        {
+            midTermWeatherIconsResult = 
+                <>
+                <ColorSkycons
+                    type = { 'FOG' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                /> 
+                <ColorSkycons
+                    type = { 'SNOW' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                />
+                </>;
+        }
+        else if (wParam === '흐리고 비/눈')
+        {
+            midTermWeatherIconsResult = 
+                <>
+                <ColorSkycons
+                    type = { 'FOG' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                /> 
+                <ColorSkycons
+                    type = { 'RAIN_SNOW' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                />
+                </>;
+        }
+        else if (wParam === '흐리고 소나기')
+        {
+            midTermWeatherIconsResult = 
+                <>
+                <ColorSkycons
+                    type = { 'FOG' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                /> 
+                <ColorSkycons
+                    type = { 'RAIN' }
+                    animate = { defaults.animate }
+                    size = { defaults.size }
+                    resizeClear = { true }
+                    // {...svgProps}
+                />
+                </>;
+        }
+        return midTermWeatherIconsResult;
+    }
+
     render() {
-        const { c_weatherInfo } = this.state;
-        
-        const skyStatus = ['CLEAR_DAY', 'PARTLY_CLOUDY_DAY', 'CLOUDY', 'FOG', 'RAIN', 'RAIN_SNOW', 'SLEET', 'SNOW'];
-        
-        const krSkyStatus = ['맑음', '구름조금', '구름많음', '흐림', '비', '비눈', '눈비', '눈']
-
-        const skyStatusEnum = Object.freeze({
-            CLEAR_DAY: 0,
-            PARTLY_CLOUDY_DAY: 1,
-            CLOUDY: 2,
-            FOG: 3,
-            RAIN: 4,
-            RAIN_SNOW: 5,
-            SLEET: 6,
-            SNOW: 7,
-        });
-
-        const skyColor = ['goldenrod', 'grey', 'grey', 'black', 'grey', 'black', 'black', 'black'];
 
         var options = this.state.jejuGridList.map((jejuGrid) => {
             return(
@@ -1062,67 +1259,91 @@ class Weather extends Component {
                                     {this.AfterDays(3)}&nbsp;
                                     {arrDayStr[(todayDay+3)%7]}
                                     <br />
-                                    오전 강수 확률{row.rnSt3Am}&nbsp;
-                                    오후 강수 확률{row.rnSt3Pm}&nbsp;
-                                    오전 {row.wf3Am}&nbsp;
-                                    오후 {row.wf3Pm}&nbsp;
+                                    오전💧{row.rnSt3Am}%&nbsp;
+                                    {/* {row.wf3Am}&nbsp; */}
+                                    {this.midTermWeatherIcons(row.wf3Am)}
+                                    <br />
+                                    오후💧{row.rnSt3Pm}%&nbsp;
+                                    {/* {row.wf3Pm}&nbsp; */}
+                                    {this.midTermWeatherIcons(row.wf3Pm)}
                                 </div>
                                 <div className='jejuWeatherDiv'>
                                     {this.AfterDays(4)}&nbsp;
                                     {arrDayStr[(todayDay+4)%7]}
                                     <br />
-                                    오전 강수 확률{row.rnSt4Am}&nbsp;
-                                    오전 {row.wf4Am}&nbsp;
-                                    오후 강수 확률{row.rnSt4Pm}&nbsp;
-                                    오후 {row.wf4Pm}&nbsp;
+                                    오전💧{row.rnSt4Am}%&nbsp;
+                                    {this.midTermWeatherIcons(row.wf4Am)}
+                                    {/* {row.wf4Am} */}
+                                    <br />
+                                    오후💧{row.rnSt4Pm}%&nbsp;
+                                    {this.midTermWeatherIcons(row.wf4Pm)}
+                                    {/* {row.wf4Pm}&nbsp; */}
                                 </div>
                                 <div className='jejuWeatherDiv'>
                                     {this.AfterDays(5)}&nbsp;
                                     {arrDayStr[(todayDay+5)%7]}
                                     <br />
-                                    오전 강수 확률{row.rnSt5Am}&nbsp;
-                                    오전 {row.wf5Am}&nbsp;
-                                    오후 강수 확률{row.rnSt5Pm}&nbsp;
-                                    오후 {row.wf5Pm}&nbsp;
+                                    오전💧{row.rnSt5Am}%&nbsp;
+                                    {this.midTermWeatherIcons(row.wf5Am)}
+                                    {/* {row.wf5Am} */}
+                                    <br />
+                                    오후💧{row.rnSt5Pm}%&nbsp;
+                                    {this.midTermWeatherIcons(row.wf5Pm)}
+                                    {/* {row.wf5Pm}&nbsp; */}
                                 </div>
                                 <div className='jejuWeatherDiv'>
                                     {this.AfterDays(6)}&nbsp;
                                     {arrDayStr[(todayDay+6)%7]}
                                     <br />
-                                    오전 강수 확률{row.rnSt6Am}&nbsp;
-                                    오전 {row.wf6Am}&nbsp;
-                                    오후 강수 확률{row.rnSt6Pm}&nbsp;
-                                    오후 {row.wf6Pm}&nbsp;
+                                    오전💧{row.rnSt6Am}%&nbsp;
+                                    {/* {row.wf6Am} */}
+                                    {this.midTermWeatherIcons(row.wf6Am)}
+                                    <br />
+                                    오후💧{row.rnSt6Pm}%&nbsp;
+                                    {/* {row.wf6Pm}&nbsp; */}
+                                    {this.midTermWeatherIcons(row.wf6Pm)}
                                 </div>
                                 <div className='jejuWeatherDiv'>
                                     {this.AfterDays(7)}&nbsp;
                                     {arrDayStr[(todayDay+7)%7]}
                                     <br />
-                                    오전 강수 확률{row.rnSt7Am}&nbsp;
-                                    오전 {row.wf7Am}&nbsp;
-                                    오후 강수 확률{row.rnSt7Pm}&nbsp;
-                                    오후 {row.wf7Pm}&nbsp;
+                                    오전💧{row.rnSt7Am}%&nbsp;
+                                    {/* {row.wf7Am} */}
+                                    {this.midTermWeatherIcons(row.wf7Am)}
+                                    <br />
+                                    오후💧{row.rnSt7Pm}%&nbsp;
+                                    {/* {row.wf7Pm}&nbsp; */}
+                                    {this.midTermWeatherIcons(row.wf7Pm)}
                                 </div>
                                 <div className='jejuWeatherDiv'>
                                     {this.AfterDays(8)}&nbsp;
                                     {arrDayStr[(todayDay+8)%7]}
                                     <br />
-                                    강수 확률{row.rnSt8}&nbsp;
-                                    날씨예보{row.wf8}&nbsp;
+                                    <br />
+                                    💧{row.rnSt8}%
+                                    <br />
+                                    {row.wf8}&nbsp;
+                                    {this.midTermWeatherIcons(row.wf8)}
                                 </div>
                                 <div className='jejuWeatherDiv'>
                                     {this.AfterDays(9)}&nbsp;
                                     {arrDayStr[(todayDay+9)%7]}
                                     <br />
-                                    강수 확률{row.rnSt9}&nbsp;
-                                    날씨예보{row.wf9}&nbsp;
+                                    <br />
+                                    💧{row.rnSt9}%
+                                    <br />
+                                    {row.wf9}&nbsp;
+                                    {this.midTermWeatherIcons(row.wf9)}
                                 </div>
                                 <div className='jejuWeatherDiv'>
                                     {this.AfterDays(10)}&nbsp;
                                     {arrDayStr[(todayDay+10)%7]}
                                     <br />
-                                     강수 확률{row.rnSt10}&nbsp;
-                                     날씨예보{row.wf10}&nbsp;
+                                    <br />
+                                    💧{row.rnSt10}%
+                                    <br />
+                                    {row.wf10}&nbsp;
+                                    {this.midTermWeatherIcons(row.wf10)}
                                 </div>
                             </React.Fragment>
                         ))
