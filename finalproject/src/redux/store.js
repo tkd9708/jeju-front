@@ -150,7 +150,7 @@ const reducer = function (state, action) {
         });
     }
 
-    console.log("reducer()", state, action, newState);
+    // console.log("reducer()", state, action, newState);
     return newState;
 }
 

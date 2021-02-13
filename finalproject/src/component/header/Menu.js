@@ -31,7 +31,7 @@ class Menu extends Component {
         }
 
         store.subscribe(function () {
-            console.log("Menu subscribe()", store.getState().logged);
+            // console.log("Menu subscribe()", store.getState().logged);
             this.setState({
                 logged: store.getState().logged,
             });
@@ -39,7 +39,7 @@ class Menu extends Component {
     }
 
     setMainView = (mainView) => {
-        console.log("Home setMainView()");
+        // console.log("Home setMainView()");
         store.dispatch({
             type: actionType.setMainView,
             // mainView: mainViewType.MainPage
@@ -183,7 +183,7 @@ class Menu extends Component {
                                 this.setMainView(mainViewType.Notice);
                             }}
                     // >Notice</NavLink>
-                     >공지사항</NavLink> 
+                     >공지사항</NavLink>
                 </li>
                 <li className="dropdown menuLi">
                     {/* <a className="dropdownTitle">Tour</a> */}

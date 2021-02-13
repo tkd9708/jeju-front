@@ -134,7 +134,7 @@ class App extends Component {
 
                 let chat = new ChattingLogic();
                 chat.getRoomList((res) => {
-                    console.log("res", res, "chattingRoomListInfo", store.getState().chattingRoomListInfo);
+                    // console.log("res", res, "chattingRoomListInfo", store.getState().chattingRoomListInfo);
                     let roomListInfo = store.getState().chattingRoomListInfo;
                     let newList = [];   //속성마다 isNew 가 추가된것
                     let resultIsNewChattingIcon = false;
@@ -233,7 +233,7 @@ class App extends Component {
             });
 
             this.intervalOfChattingBackgroundUpdate = window.setInterval((/*loginId, testParam1*/) => {
-                console.log("chatting_background_update", store.getState().loginId);
+                // console.log("chatting_background_update", store.getState().loginId);
 
                 store.dispatch({
                     type: actionType.publishFunctionMsg,
@@ -306,7 +306,7 @@ class App extends Component {
     }
 
     setChattingUpdate(chattingRoomListInfo, isNewChattingIcon) {
-        console.log("setChattingUpdate() 1111", chattingRoomListInfo, isNewChattingIcon);
+        // console.log("setChattingUpdate() 1111", chattingRoomListInfo, isNewChattingIcon);
         if (isNewChattingIcon) {
             //채팅창이 오픈상태라면 노트 안보이게.
             if (store.getState().isOpenChatWindow) {
@@ -386,7 +386,7 @@ class App extends Component {
 
     render() {
         let {logged} = this.state;
-        console.log("App render");
+        // console.log("App render");
         return (
             <BrowserRouter>
                 <Menu logged={logged}
