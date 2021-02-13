@@ -8,6 +8,8 @@ import OPENNURI from "../../../image/img_opentype01.png";
 import ColorSkycons, { ColorSkyconsType } from 'react-color-skycons';
 import styled from "styled-components";
 import './Weather.css'
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 // ReactAnimatedWeather
 const defaults = {
@@ -74,6 +76,26 @@ const skyStatusEnum = Object.freeze({
 });
 
 const skyColor = ['goldenrod', 'grey', 'grey', 'black', 'grey', 'black', 'black', 'black'];
+
+const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 8
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 3
+    }
+};
 
 class Weather extends Component {
     
@@ -1055,8 +1077,24 @@ class Weather extends Component {
         
         var arrDayStr = ['일', '월', '화', '수', '목', '금', '토'];
         
+        const CustomDot = ({ onMove, index, onClick, active }) => {
+            // onMove means if dragging or swiping in progress.
+            // active is provided by this lib for checking if the item is active
+            return (
+                <li
+                    className={active ? "active" : "inactive"}
+                    onClick={() => onClick()}
+                >
+                    <div className='jejuWeatherDot'>
+
+                    </div>
+                </li>
+            );
+        };
+
         return (
             <div style={{ fontSize : '.7rem' }}>
+                
                 {/* <br /> */}
 
                 {/* 총 데이타수: */}
@@ -1220,18 +1258,42 @@ class Weather extends Component {
                 
                 {/* '동네예보조회 여러페이지 하늘상태' */}
                 <div className='jejuWeatherContainer'>
+                    
                     <select onChange={this.selectChange} value={this.props.selectBoxValue}>
                         {options}
                     </select>
 
                     {this.state.c_address}
+                    
+                        
+                    
                     <div className='preventFloat'>
+                    <Carousel 
+                        swipeable={true}
+                        draggable={true}
+                        showDots={true}
+                        responsive={responsive}
+                        infinite={true}
+                        // autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                        // autoPlaySpeed={4000}
+                        keyBoardControl={true}
+                        customTransition="all .5"
+                        transitionDuration={500}
+                        containerClass="carousel-container"
+                        removeArrowOnDeviceType={["tablet", "mobile", "desktop"]}
+                        deviceType={this.props.deviceType}
+                        dotListClass=""
+                        itemClass="carousel-item-padding-40-px"
+                        renderButtonGroupOutside={false}
+                        renderDotsOutside={false}
+                        customDot={<CustomDot />}
+                    >
                     {
                         this.state.c_WeatherPages.map((row, index)=>(
                             row.data.response.body.items.item
                             .filter(weather => weather.category === 'SKY')
                             .map((itemrow, idx) => (
-                                <div className='jejuWeatherDiv_small'>
+                                <div className='jejuWeatherDiv_small active'>
                                     {/* {itemrow.category}&nbsp; */}
                                     {/* {itemrow.fcstValue}&nbsp; */}
                                     <ColorSkycons
@@ -1262,6 +1324,7 @@ class Weather extends Component {
                             ))
                             ))
                     }
+                    </Carousel>
                     {
                         this.state.c_midTermWeather_2.map((row, index) => (
                             <React.Fragment>
