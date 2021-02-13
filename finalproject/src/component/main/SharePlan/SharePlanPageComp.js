@@ -4,7 +4,7 @@ import axios from 'axios';
 import {URL} from "../../../redux/config";
 import Slider from "react-slick";
 import SharePlanRoot from './SharePlanRoot';
-
+import Grid from '@material-ui/core/Grid';
 
 import store from '../../../redux/store';
 import { StoreTwoTone } from "@material-ui/icons";
@@ -131,8 +131,13 @@ class SharePlanPageComp extends Component {
             </div>
             
             <hr/>
-            <SharePlanTable/>
-                    {/* {this.state.groupNum} */}
+            <div>
+              <Grid container>
+                {this.state.glist.map((row)=>(
+                    <SharePlanTable row={row} day={this.refs.wishday.value}></SharePlanTable>
+                ))} 
+              </Grid>
+            </div>
           </div>
         
            
