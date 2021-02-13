@@ -105,7 +105,7 @@ class TourPageComp extends Component {
                     </span>
                 </div>
                 <div style={{width: '100%'}}>
-                    <FormControl id="selectTourList">
+                    <FormControl className="selectTourList">
                         <InputLabel>정렬순서</InputLabel>
                         <Select
                             native

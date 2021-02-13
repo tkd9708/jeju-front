@@ -9,6 +9,7 @@ import Select from "@material-ui/core/Select";
 import Box from "@material-ui/core/Box";
 import ItemComp from "../tour/ItemComp";
 import PageComp from "../tour/PageComp";
+import '../tour/TourCss.css';
 
 class SearchResultComp extends Component {
 
@@ -143,14 +144,14 @@ class SearchResultComp extends Component {
                     </span>
                 </div>
                 <div style={{width: '100%'}}>
-                    <FormControl id="selectTourList">
+                    <FormControl className="selectTourList">
                         <InputLabel>category</InputLabel>
                         <Select native
                                 value={this.select}
                                 onChange={this.selectChange.bind(this)}
                         >
                             <option value="all">All</option>
-                            <option value="area">Location</option>
+                            <option value="area">Area</option>
                             <option value="spot">Spot</option>
                             <option value="tag">Tag</option>
                         </Select>
