@@ -56,6 +56,7 @@ class MobileMyPage extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         this.getMyData(); //처음 시작시 백엔드로부터 데이타 가져오기
     }
     

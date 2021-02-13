@@ -65,6 +65,7 @@ class SharePlanPageComp extends Component {
     
 
     componentDidMount(){
+      window.scrollTo(0, 0);
         this.getGroupnum();
        //this.getPlan();
     }
