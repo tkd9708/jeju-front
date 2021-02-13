@@ -121,6 +121,7 @@ class Weather extends Component {
             c_TourWeatherPages: [], // 여러 페이지 관광지 날씨정보들
             c_midTermWeather_1: '', // 중기전망조회 전체 날씨 정보1
             c_midTermWeather_2: [], // 중기육상예보조회 전체 날씨 정보2
+            c_midTermWeather_3: [], // 중기기온조회 전체 날씨 정보3
         };
         // 리덕스를 안쓰고 클래스 내부 state를 씁니다
     }
@@ -704,19 +705,19 @@ class Weather extends Component {
         if (timeValue > 12)
         {
             timeValue = timeValue - 12;
-            timeValue = `오후 ${timeValue}`;
+            timeValue = `오후${timeValue}`;
         }
         else if (timeValue < 12)
         {
-            timeValue = `오전 ${timeValue}`;
+            timeValue = `오전${timeValue}`;
         }
         else if (timeValue === 12)
         {
-            timeValue = `정오 ${timeValue}`;
+            timeValue = `정오${timeValue}`;
         }
         else if (timeValue === 0)
         {
-            timeValue = `자정 12시(0시)`;
+            timeValue = `자정12시(0시)`;
         }
         return timeValue;
     }
@@ -797,6 +798,27 @@ class Weather extends Component {
             })
             .catch(error => {
                 console.log(`중기육상예보조회 오류 : ${error}`);
+            });
+
+        var url_10 = 'http://apis.data.go.kr/1360000/MidFcstInfoService/getMidTa';
+        var queryParams_10 = '?' + encodeURIComponent('ServiceKey') + '=' + apiKey;
+        queryParams_10 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
+        queryParams_10 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10');
+        queryParams_10 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
+        queryParams_10 += '&' + encodeURIComponent('regId') + '=' + encodeURIComponent('11G00201'); // 예보구역코드 제주도 제주 
+        // 발표시각 -일 2회(06:00,18:00)회 생성 되며 발표시각을 입력-최근 24시간 자료만 제공
+        queryParams_10 += '&' + encodeURIComponent('tmFc') + '=' + encodeURIComponent(`${yyyy_3}${mm_3}${dd_3}${tmFCValue}`);
+
+        axios.get("/MidFcstInfoService/getMidTa" + queryParams_10)
+            .then(res10 => {
+                console.log(`/MidFcstInfoService/getMidTa${queryParams_10}`);
+                console.log(`중기기온조회 데이타 : ${res10.data.response.body.items.item[0].taMin3}`);
+                this.setState({
+                    c_midTermWeather_3: res10.data.response.body.items.item,
+                });
+            })
+            .catch(err => {
+                console.log(`중기기온조회 오류 : ${err}`);
             });
     }
 
@@ -1034,25 +1056,18 @@ class Weather extends Component {
         var arrDayStr = ['일', '월', '화', '수', '목', '금', '토'];
         
         return (
-            
             <div style={{ fontSize : '.7rem' }}>
-                <select onChange={this.selectChange} value={this.props.selectBoxValue}>
-                    {options}
-                </select>
+                {/* <br /> */}
 
-                {this.state.c_address}
-
-                <br />
-
-                총 데이타수:
-                {this.state.c_weatherInfo.length}개
-                {this.state.c_TourWeatherPages.length}개
+                {/* 총 데이타수: */}
+                {/* {this.state.c_weatherInfo.length}개 */}
+                {/* {this.state.c_TourWeatherPages.length}개 */}
                 {/* {JSON.parse(localStorage.getItem('weather_1'))} */}
                 <br />
 
                 {/* '관광지-지역이름' &nbsp; '코스 명' &nbsp; '관광지명' &nbsp; '테마' &nbsp; '최고기온' &nbsp; '최저기온' &nbsp; '풍향' &nbsp; '풍속' &nbsp; '하늘상태' &nbsp; '습도' &nbsp; '강수확률' &nbsp; '강수량' &nbsp; */}
-                '최고기온' &nbsp; '최저기온' &nbsp; '하늘상태'
-                <br />
+                {/* '최고기온' &nbsp; '최저기온' &nbsp; '하늘상태' */}
+                {/* <br /> */}
                 {
                     // c_weatherInfo.map((row)=>(
                     //     <>
@@ -1085,7 +1100,7 @@ class Weather extends Component {
                     //     </>
                     //     ))
                 }
-                <br />
+                {/* <br /> */}
                 {/* '여러페이지관광코스별_관광지_상세_날씨 최고기온'
                 {
                     this.state.c_TourWeatherPages.map((row, index)=>(
@@ -1110,7 +1125,7 @@ class Weather extends Component {
                         ))
                         ))
                 } */}
-                <br />
+                {/* <br /> */}
                 {/* '여러페이지관광코스별_관광지_상세_날씨 하늘상태' */}
                 {/* {
                     this.state.c_TourWeatherPages.map((row, index)=>(
@@ -1123,40 +1138,30 @@ class Weather extends Component {
                     ))
                 } */}
                 
-                <br />
-                '체감온도'
-                <br />
-                {
-                    this.state.c_weatherInfo_2.map((row)=>(
-                        <>
-                        {row.btIndex}℃
-                        </>
-                        ))
-                }
-
-                <br />
-                '초단기실황조회'
-                <br/>
+                {/* <br /> */}
+                {/* <br /> */}
+                {/* '초단기실황조회' */}
+                {/* <br/> */}
                 {/* '기온' '동서바람성분' '풍향' '남북바람성분' '풍속' */}
-                <br />
+                {/* <br /> */}
                 {
                     // store.getState.weatherInfo_3.map((row)=>(
-                        this.state.c_weatherInfo_4.filter(w => w.category === 'T1H').map((row)=>(
-                            <>
-                            '현재기온'
-                            {/* ({row.category}) */}
-                            {row.obsrValue}℃
-                        </>
-                    ))
+                    //     this.state.c_weatherInfo_4.filter(w => w.category === 'T1H').map((row)=>(
+                    //         <>
+                    //         '현재기온'
+                    //         {/* ({row.category}) */}
+                    //         {row.obsrValue}℃
+                    //     </>
+                    // ))
                 }
 
-                <br />
-                '동네예보조회'
-                {this.state.c_weatherInfo_6.length}개
-                <br/>
+                {/* <br /> */}
+                {/* '동네예보조회'
+                {this.state.c_weatherInfo_6.length}개 */}
+                {/* <br/> */}
                 {/* '발표시각' &nbsp; '예보일자' &nbsp; '예보시각' &nbsp; '자료구분문자' &nbsp; '예보 값' */}
                 {/* '자료구분문자' &nbsp; '예보 값' */}
-                <br />
+                {/* <br /> */}
                 {
                     // this.state.c_weatherInfo_6.filter(w => w.category === 'SKY' || w.category === 'TMN' || w.category === 'TMX').map((row)=>(
                     //     this.state.c_weatherInfo_6.filter(w => w.category === 'SKY' || w.category === 'TMN' || w.category === 'TMX').map((row, index)=>(
@@ -1213,15 +1218,20 @@ class Weather extends Component {
                     // ))
                 }
                 
-                '동네예보조회 여러페이지 하늘상태'
+                {/* '동네예보조회 여러페이지 하늘상태' */}
                 <div className='jejuWeatherContainer'>
+                    <select onChange={this.selectChange} value={this.props.selectBoxValue}>
+                        {options}
+                    </select>
+
+                    {this.state.c_address}
                     <div className='preventFloat'>
                     {
                         this.state.c_WeatherPages.map((row, index)=>(
                             row.data.response.body.items.item
                             .filter(weather => weather.category === 'SKY')
                             .map((itemrow, idx) => (
-                                <div className='jejuWeatherDiv'>
+                                <div className='jejuWeatherDiv_small'>
                                     {/* {itemrow.category}&nbsp; */}
                                     {/* {itemrow.fcstValue}&nbsp; */}
                                     <ColorSkycons
@@ -1231,7 +1241,7 @@ class Weather extends Component {
                                         resizeClear = { true }
                                         // {...svgProps}
                                     />
-                                    {krSkyStatus[itemrow.fcstValue-1]}
+                                    {/* {krSkyStatus[itemrow.fcstValue-1]} */}
                                     {/* {this.changeFcstTime(itemrow.baseTime.substr(0, 2))}시&nbsp; */}
                                     {/* {itemrow.fcstDate}&nbsp; */}
                                     {/* 변경전({changeDateFormat.getFullYear()}, {changeDateFormat.getMonth()+1}, {changeDateFormat.getDate()}, {arrDayStr[changeDateFormat.getDay()]}요일) */}
@@ -1240,12 +1250,12 @@ class Weather extends Component {
                                     {/* {Number(itemrow.fcstDate.substr(0, 4))}년도 */}
                                     <br />                                
                                     {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
-                                    {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}월
-                                
+                                    {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}
+                                    /
                                     {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
-                                    {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}일
+                                    {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}
                                     &nbsp;
-                                    {arrDayStr[this.FindWeekday(itemrow.fcstDate)]}요일
+                                    {arrDayStr[this.FindWeekday(itemrow.fcstDate)]}
                                     &nbsp;
                                     {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시
                                 </div>
@@ -1350,6 +1360,18 @@ class Weather extends Component {
                     }
                     </div>
                 <br />
+                <br />
+                {
+                    // store.getState.weatherInfo_3.map((row)=>(
+                        this.state.c_weatherInfo_4.filter(w => w.category === 'T1H').map((row)=>(
+                            <>
+                            (현재기온&nbsp;
+                            {/* ({row.category}) */}
+                            {row.obsrValue}℃)
+                        </>
+                    ))
+                }
+                &nbsp;
                 {
                     this.state.c_WeatherPages.map((row, index)=>(
                         row.data.response.body.items.item
@@ -1364,14 +1386,14 @@ class Weather extends Component {
                                 {/* {Number(itemrow.fcstDate.substr(0, 4))}년도 */}
                             
                                 {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
-                                {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}월
-                            
+                                {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}
+                                /
                                 {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
-                                {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}일
+                                {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}
                                 &nbsp;
-                                {arrDayStr[this.FindWeekday(itemrow.fcstDate)]}요일
+                                {arrDayStr[this.FindWeekday(itemrow.fcstDate)]}
                                 &nbsp;
-                                최저기온
+                                최저
                                 {itemrow.fcstValue}℃&nbsp;
                                 {/* 예보시각
                                 {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시 */}
@@ -1379,8 +1401,7 @@ class Weather extends Component {
                         ))
                         ))
                 }
-
-                <br />
+                &nbsp;
                 {/* '동네예보조회 여러페이지 낮 최고기온' */}
                 {
                     this.state.c_WeatherPages.map((row, index)=>(
@@ -1396,14 +1417,14 @@ class Weather extends Component {
                                 {/* {Number(itemrow.fcstDate.substr(0, 4))}년도 */}
                             
                                 {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
-                                {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}월
-                            
+                                {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}
+                                /
                                 {/* 일{changeDate = Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))} */}
-                                {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}일
+                                {Number(itemrow.fcstDate.substr(6, 1)) === 0 ? Number(itemrow.fcstDate.substr(7, 1)) : Number(itemrow.fcstDate.substr(6, 2))}
                                 &nbsp;
-                                {arrDayStr[this.FindWeekday(itemrow.fcstDate)]}요일
+                                {arrDayStr[this.FindWeekday(itemrow.fcstDate)]}
                                 &nbsp;
-                                최고기온
+                                최고
                                 {itemrow.fcstValue}℃&nbsp;
                                 {/* 예보시각
                                 {this.changeFcstTime(itemrow.fcstTime.substr(0, 2))}시 */}
@@ -1412,7 +1433,18 @@ class Weather extends Component {
                     ))
                 }
                 <br />
+                {/* '체감온도'
+                {
+                    this.state.c_weatherInfo_2.map((row)=>(
+                        <>
+                        {row.btIndex}℃
+                        </>
+                        ))
+                }
+                <br /> */}
                 {this.state.c_midTermWeather_1}
+                <br />
+                <img src = { OPENNURI } alt='OPENNURI' />
                 </div>
 
 
@@ -1471,9 +1503,6 @@ class Weather extends Component {
 
                     // ))
                 }
-
-                <h4>Weather</h4>
-                <img src = { OPENNURI } alt='OPENNURI' />
             </div>
         )
     }
