@@ -102,6 +102,8 @@ class Weather extends Component {
             c_change_date_format: '',
             c_WeatherPages: [], // 여러 페이지 날씨정보들
             c_TourWeatherPages: [], // 여러 페이지 관광지 날씨정보들
+            c_midTermWeather_1: '', // 중기전망조회 전체 날씨 정보1
+            c_midTermWeather_2: [], // 중기육상예보조회 전체 날씨 정보2
         };
         // 리덕스를 안쓰고 클래스 내부 state를 씁니다
     }
@@ -110,6 +112,7 @@ class Weather extends Component {
         this.getWeatherList();
         this.getWeatherList_2();
         // this.getWeatherList_3();
+        this.getMidtermWeather();
         this.getLocation();
         this._getJejuGridList();
     }
@@ -719,7 +722,7 @@ class Weather extends Component {
         queryParams_8 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); // 페이지번호
         queryParams_8 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); // 한 페이지 결과 수
         queryParams_8 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
-        queryParams_8 += '&' + encodeURIComponent('stnId') + '=' + encodeURIComponent('108'); // 지점번호
+        queryParams_8 += '&' + encodeURIComponent('stnId') + '=' + encodeURIComponent('184'); // 지점번호 제주도
         // 발표시각 일2회(06:00,18:00)회 생성 되며 발표시각을 입력-최근 24시간 자료만 제공
 
         var today_3 = new Date();
@@ -743,16 +746,48 @@ class Weather extends Component {
             tmFCValue = '1800';
         }
 
+        dd_3 = dd_3 < 10 ? '0' + dd_3 : dd_3;
+        mm_3 = mm_3 < 10 ? '0' + mm_3 : mm_3;
+
         queryParams_8 += '&' + encodeURIComponent('tmFc') + '=' + encodeURIComponent(`${yyyy_3}${mm_3}${dd_3}${tmFCValue}`);
 
         axios.get("/MidFcstInfoService/getMidFcst" + queryParams_8)
             .then(res8 => {
                 console.log("/MidFcstInfoService/getMidFcst" + queryParams_8);
                 console.log("중기예보 데이타 : " + res8.data.response.body.items.item[0].wfSv);
+                this.setState({
+                    c_midTermWeather_1: res8.data.response.body.items.item[0].wfSv,
+                });
             })
             .catch(error => {
                 console.log('중기예보 오류 : ' + error);
             });
+
+        var queryParams_9 = '?' + encodeURIComponent('ServiceKey') + '=' + apiKey;
+        queryParams_9 += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
+        queryParams_9 += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10');
+        queryParams_9 += '&' + encodeURIComponent('dataType') + '=' + encodeURIComponent('JSON');
+        queryParams_9 += '&' + encodeURIComponent('regId') + '=' + encodeURIComponent('11G00000'); // 제주도
+        queryParams_9 += '&' + encodeURIComponent('tmFc') + '=' + encodeURIComponent(`${yyyy_3}${mm_3}${dd_3}${tmFCValue}`); // 발표시각
+
+        axios.get("/MidFcstInfoService/getMidLandFcst" + queryParams_9)
+            .then(res9 => {
+                console.log("/MidFcstInfoService/getMidLandFcst" + queryParams_9);
+                console.log("중기육상예보조회 데이타 : " + res9.data.response.body.items.item[0].wf3Am);
+                this.setState({
+                    c_midTermWeather_2: res9.data.response.body.items.item,
+                });
+            })
+            .catch(error => {
+                console.log(`중기육상예보조회 오류 : ${error}`);
+            });
+    }
+
+    AfterDays = (days) => {
+        var todayNaljja = new Date();
+        todayNaljja.setDate(todayNaljja.getDate()+days);
+        var tnStr = (todayNaljja.getMonth()+1) + '월' + todayNaljja.getDate() + '일';
+        return tnStr;
     }
 
     render() {
@@ -791,12 +826,14 @@ class Weather extends Component {
         });
         
         var changeDateFormat = new Date();
-        var changeYear = changeDateFormat.getFullYear();
-        var changeMonth = changeDateFormat.getMonth();
-        var changeDate = changeDateFormat.getDate();
-        var changeDay = changeDateFormat.getDay();
-        var fcstDay = changeDateFormat.getDay();
+        
+        var TodayYear = changeDateFormat.getFullYear();
+        var TodayMonth = changeDateFormat.getMonth();
+        var TodayDate = changeDateFormat.getDate();
+        let todayDay = changeDateFormat.getDay();
 
+        var fcstDay = changeDateFormat.getDay();
+        
         var arrDayStr = ['일', '월', '화', '수', '목', '금', '토'];
         
         return (
@@ -1003,8 +1040,8 @@ class Weather extends Component {
                                     {/* 변경전({changeDateFormat.getFullYear()}, {changeDateFormat.getMonth()+1}, {changeDateFormat.getDate()}, {arrDayStr[changeDateFormat.getDay()]}요일) */}
                                         
                                     {/* 년도{changeYear = Number(itemrow.fcstDate.substr(0, 4))} */}
-                                    {Number(itemrow.fcstDate.substr(0, 4))}년도
-                                
+                                    {/* {Number(itemrow.fcstDate.substr(0, 4))}년도 */}
+                                    <br />                                
                                     {/* 월{changeMonth = Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))} */}
                                     {Number(itemrow.fcstDate.substr(4, 1)) === 0 ? Number(itemrow.fcstDate.substr(5, 1)) : Number(itemrow.fcstDate.substr(4, 2))}월
                                 
@@ -1017,6 +1054,78 @@ class Weather extends Component {
                                 </div>
                             ))
                             ))
+                    }
+                    {
+                        this.state.c_midTermWeather_2.map((row, index) => (
+                            <React.Fragment>
+                                <div className='jejuWeatherDiv'>
+                                    {this.AfterDays(3)}&nbsp;
+                                    {arrDayStr[(todayDay+3)%7]}
+                                    <br />
+                                    오전 강수 확률{row.rnSt3Am}&nbsp;
+                                    오후 강수 확률{row.rnSt3Pm}&nbsp;
+                                    오전 {row.wf3Am}&nbsp;
+                                    오후 {row.wf3Pm}&nbsp;
+                                </div>
+                                <div className='jejuWeatherDiv'>
+                                    {this.AfterDays(4)}&nbsp;
+                                    {arrDayStr[(todayDay+4)%7]}
+                                    <br />
+                                    오전 강수 확률{row.rnSt4Am}&nbsp;
+                                    오전 {row.wf4Am}&nbsp;
+                                    오후 강수 확률{row.rnSt4Pm}&nbsp;
+                                    오후 {row.wf4Pm}&nbsp;
+                                </div>
+                                <div className='jejuWeatherDiv'>
+                                    {this.AfterDays(5)}&nbsp;
+                                    {arrDayStr[(todayDay+5)%7]}
+                                    <br />
+                                    오전 강수 확률{row.rnSt5Am}&nbsp;
+                                    오전 {row.wf5Am}&nbsp;
+                                    오후 강수 확률{row.rnSt5Pm}&nbsp;
+                                    오후 {row.wf5Pm}&nbsp;
+                                </div>
+                                <div className='jejuWeatherDiv'>
+                                    {this.AfterDays(6)}&nbsp;
+                                    {arrDayStr[(todayDay+6)%7]}
+                                    <br />
+                                    오전 강수 확률{row.rnSt6Am}&nbsp;
+                                    오전 {row.wf6Am}&nbsp;
+                                    오후 강수 확률{row.rnSt6Pm}&nbsp;
+                                    오후 {row.wf6Pm}&nbsp;
+                                </div>
+                                <div className='jejuWeatherDiv'>
+                                    {this.AfterDays(7)}&nbsp;
+                                    {arrDayStr[(todayDay+7)%7]}
+                                    <br />
+                                    오전 강수 확률{row.rnSt7Am}&nbsp;
+                                    오전 {row.wf7Am}&nbsp;
+                                    오후 강수 확률{row.rnSt7Pm}&nbsp;
+                                    오후 {row.wf7Pm}&nbsp;
+                                </div>
+                                <div className='jejuWeatherDiv'>
+                                    {this.AfterDays(8)}&nbsp;
+                                    {arrDayStr[(todayDay+8)%7]}
+                                    <br />
+                                    강수 확률{row.rnSt8}&nbsp;
+                                    날씨예보{row.wf8}&nbsp;
+                                </div>
+                                <div className='jejuWeatherDiv'>
+                                    {this.AfterDays(9)}&nbsp;
+                                    {arrDayStr[(todayDay+9)%7]}
+                                    <br />
+                                    강수 확률{row.rnSt9}&nbsp;
+                                    날씨예보{row.wf9}&nbsp;
+                                </div>
+                                <div className='jejuWeatherDiv'>
+                                    {this.AfterDays(10)}&nbsp;
+                                    {arrDayStr[(todayDay+10)%7]}
+                                    <br />
+                                     강수 확률{row.rnSt10}&nbsp;
+                                     날씨예보{row.wf10}&nbsp;
+                                </div>
+                            </React.Fragment>
+                        ))
                     }
                     </div>
                 <br />
@@ -1081,6 +1190,8 @@ class Weather extends Component {
                         ))
                     ))
                 }
+                <br />
+                {this.state.c_midTermWeather_1}
                 </div>
 
 
