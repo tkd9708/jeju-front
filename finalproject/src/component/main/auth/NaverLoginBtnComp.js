@@ -45,7 +45,7 @@ function NaverLoginBtnComp (props) {
             clientId: 'dPXRHN5aH3Xl6lXxm7bn',
             callbackUrl: "http://localhost:3000/login?naver=true",
             isPopup: false, // 팝업을 통한 연동처리 여부
-            loginButton: {color: "green", type: 3, height: 60},
+            loginButton: {color: "green", type: 3},
             callbackHandle: true
             // callback 페이지가 분리되었을 경우에 callback 페이지에서는 callback처리를 해줄수 있도록 설정합니다
         });

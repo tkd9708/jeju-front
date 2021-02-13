@@ -61,7 +61,10 @@
         font-size: 0.8em;
     }
     #googleLogin button, #naverIdLogin, #naverIdLogin img{
-        width: 80vw !important;
+        width: 90vw !important;
+    }
+    #naverIdLogin img {
+        height: 15vw;
     }
     #googleLogin span {
         font-weight: 700 !important;
@@ -127,6 +130,9 @@
     #googleLogin button, #naverIdLogin, #naverIdLogin img{
         width: 50vw !important;
     }
+    #naverIdLogin img {
+        height: 10vw;
+    }
     #googleLogin span {
         font-weight: 700 !important;
         font-size: 0.8rem;
@@ -190,6 +196,9 @@
     #googleLogin button, #naverIdLogin, #naverIdLogin img{
         width: 40vw !important;
     }
+    #naverIdLogin img {
+        height: 6vw;
+    }
     #googleLogin span {
         font-weight: 700 !important;
         font-size: 1rem;
@@ -249,6 +258,9 @@
     }
     #googleLogin button, #naverIdLogin, #naverIdLogin img{
         width: 30vw !important;
+    }
+    #naverIdLogin img {
+        height: 6vw;
     }
     #googleLogin span {
         font-weight: 700 !important;
