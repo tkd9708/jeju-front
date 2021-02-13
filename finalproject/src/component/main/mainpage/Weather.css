@@ -21,10 +21,22 @@
     margin: 1rem 1rem 1rem 1rem;
     padding: 1rem 1rem 1rem 1rem;
     text-align: center;
+    user-select: none;
 }
 
 
 /* margin: 1rem 1rem 1rem 3rem은 위 1rem, 오른쪽 1rem, 아래 1rem, 왼쪽 3rem */
+
+.jejuWeatherDot {
+    border-radius: 9.375rem;
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    box-shadow: 0.125rem 0.125rem 0.188rem #d9d9d9,
+                -0.125rem -0.125rem 0.188rem #ffffff;
+    width: 0.45rem;
+    height: 0.45rem;
+    padding: 0.313rem 0.313rem 0.313rem 0.313rem;
+    margin: 0.8rem 0.8rem 0.3131rem 0.8rem;
+}
 .preventFloat:after {
     /* display: block;
     clear: both;

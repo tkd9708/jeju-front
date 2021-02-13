@@ -48,7 +48,7 @@ class SharePlanSub extends Component {
     onDelete=()=>{
         let url=URL+"/plan/delete?num="+this.props.row.num;
         
-        console.log(this.props.row.num); 
+        //console.log(this.props.row.num); 
         
         axios.get(url)
         .then(res=>{
@@ -156,7 +156,8 @@ class SharePlanSub extends Component {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                     <DialogTitle id="alert-dialog-title">{this.props.row.title}</DialogTitle>
+                     <DialogTitle id="alert-dialog-title">{this.props.row.title.includes(",")===true?this.props.row.title.split(",")[1]
+                     :this.props.row.title}</DialogTitle>
                         <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             해당 공유일정을 삭제하시겠습니까?

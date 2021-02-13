@@ -25,7 +25,7 @@ class SharePlanItemComp extends Component{
 
             if(res.data.photo.substring(0,4)=='http'){
                 this.setState({
-                    photoCheck: true
+                    isphoto: true
                 })
             }
             this.setState({
@@ -50,35 +50,28 @@ class SharePlanItemComp extends Component{
         this.state.isphoto?this.state.user.photo: URL + "/" + this.state.user.photo;
 
         return(
-            <div className="NoticeitemBox" style={{
+            <div className="SharePlanitemBox" style={{
                 cursor: 'pointer',
                 
             }}
                  onClick={()=>{this.props.history.push("/shareplan/" + row.groupNum)}}
             >
                 
-                <div className="NoticeitemTitle"
+                <div className="SharePlanitemTitle"
                      style={{whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'}}
                 > 
                 <img src={userImg} style={{width:70}} onError={(e) => {
                                     console.log("img error");
                                     e.target.src = profile;
-                                }}/>  <span style={{float:"right",position:"relative",bottom:40}}>{row.memId}
+                                }}/>  <span className="SharePlanProfile">{row.memId}
                                 {this.state.user.gender===null?'':"/"+this.state.user.gender}{this.state.user.birth===null?'':"/"+age+"세"}</span>
                     
                        
                     <br/>
                 </div>
-               <div className="NoticeitemContentDiv">
-                    {/* <p className="NoticeitemContent"
-                       style={{fontWeight: '500', color: '#888', overflow: 'hidden'}}
-                       dangerouslySetInnerHTML={ {__html: codes} }
-                    >
-                    </p> */}
-                    
-                </div>
-                <div className="NoticeitemContentDiv">
-                    <p className="NoticeitemContent"
+               
+                <div className="SharePlanitemContentDiv">
+                    <p className="SharePlanitemContent"
                        style={{fontWeight: '500',  overflow: 'hidden'}}
                     >   {row.comment}
                     </p>

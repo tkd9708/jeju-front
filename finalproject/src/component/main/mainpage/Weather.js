@@ -76,12 +76,32 @@ const skyStatusEnum = Object.freeze({
 
 const skyColor = ['goldenrod', 'grey', 'grey', 'black', 'grey', 'black', 'black', 'black'];
 
+const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 8
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 3
+    }
+};
+
 class Weather extends Component {
     
     constructor(props) {
         super(props);
         console.log("Weather class 생성자", props);
-        
+
         store.subscribe(function() {
             // console.log("날씨 클래스 생성자에서 state 변경에 대한 변화를 구독합니다 변화를 확인했습니다 store에서 weatherInfo 값을 가져와 첫번째 courseAreaName을 보여줍니다 : " + store.getState().weatherInfo[0].courseName);
         }.bind(this));
@@ -1384,7 +1404,7 @@ class Weather extends Component {
                             row.data.response.body.items.item
                             .filter(weather => weather.category === 'SKY')
                             .map((itemrow, idx) => (
-                                <div className='jejuWeatherDiv_small'>
+                                <div className='jejuWeatherDiv_small active'>
                                     {/* {itemrow.category}&nbsp; */}
                                     {/* {itemrow.fcstValue}&nbsp; */}
                                     <ColorSkycons
