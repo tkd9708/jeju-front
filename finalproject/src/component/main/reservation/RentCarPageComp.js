@@ -43,7 +43,8 @@ class RentCarPageComp extends Component {
                         <div class="col-md-12 mb-4 white-text text-center ShipTitle">
                                 <h1 class="h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInDown"
                                 data-wow-delay="0.3s"><strong>RENT CAR</strong></h1>
-                                <p class="wow fadeInDown" data-wow-delay="0.4s">_________________________</p>
+                                <hr style={{backgroundColor: '#fff', width: '20vw', height: '1px', margin: '20px auto'}} class="wow fadeInDown" data-wow-delay="0.4s"></hr>
+                                {/* <p class="wow fadeInDown" data-wow-delay="0.4s">_________________________</p> */}
                                 <h5 class="text-uppercase mb-4 white-text wow fadeInDown" data-wow-delay="0.4s">
                                     <strong>면허가 존재한다!&nbsp;&nbsp;&nbsp;뚜벅이 여행이 싫다!<br/>
                                     편하게 여행을 즐기실 수 있는 제주도의 렌트카 정보들을 확인해보세요.</strong></h5>

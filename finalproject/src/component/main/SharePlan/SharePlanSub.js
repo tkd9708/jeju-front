@@ -9,6 +9,7 @@ import TimelineDot from '@material-ui/lab/TimelineDot';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import {URL} from "../../../redux/config";
+import store from "../../../redux/store";
 import './SharePlanCss.css';
 import { FcCheckmark } from "react-icons/fc";
 
@@ -61,7 +62,7 @@ class SharePlanSub extends Component {
        onGroupDelete=()=>{
         let url=URL+"/plan/groupdelete?groupnum="+this.props.row.groupNum;
         
-        console.log(this.props.row.groupNum); 
+        // console.log(this.props.row.groupNum); 
         
         axios.get(url)
         .then(res=>{
@@ -81,7 +82,29 @@ class SharePlanSub extends Component {
 
 
     render(){
-        
+        const {row} = this.props;
+        var flag = '';
+
+        if(row.title.includes(",")){
+            if(row.title.split(",")[0]=="항공")
+                flag = "🛬";
+            else if(row.title.split(",")[0]=="우도배")
+                flag = "🚢";
+            else if(row.title.split(",")[0]=="음식점")
+                flag = "🍔";
+            else if(row.title.split(",")[0]=="카페")
+                flag = "☕";
+            else if(row.title.split(",")[0]=="숙박")
+                flag = "🛏";
+            else if(row.title.split(",")[0]=="Food" || row.title.split(",")[0]=="Bar" || row.title.split(",")[0]=="Cafe")
+                flag = "👩‍🍳";
+            else
+                flag = "📅";
+            
+        }
+        else{
+            flag = "🛕";
+        }
 
         return(
             
@@ -99,22 +122,31 @@ class SharePlanSub extends Component {
 
                         <TimelineSeparator>
                             <TimelineDot style={{backgroundColor:'white'}}>
-                                📅
+                                {flag}
                             </TimelineDot>
                             <TimelineConnector />
                         </TimelineSeparator>
 
-                        <TimelineContent onClick={this.deleteOpen.bind(this)} style={{cursor:'pointer'}} >
-                            <div>
-                                {this.props.row.wishday===this.props.day?this.props.row.title:this.props.row.title}
-                            </div>
+                        {store.getState().loginId==this.props.row.memId?
+                            <TimelineContent onClick={this.deleteOpen.bind(this)} style={{cursor:'pointer'}} >
+                                <div>
+                                    {/* {this.props.row.wishday===this.props.day?this.props.row.title:this.props.row.title} */}
+                                    <strong>{row.title.includes(",")?row.title.split(",")[1]:row.title}</strong>
+                                </div>
+                            </TimelineContent>:
+                            <TimelineContent>
+                                <div>
+                                    <strong>{row.title.includes(",")?row.title.split(",")[1]:row.title}</strong>
+                                    {/* {this.props.row.wishday===this.props.day?this.props.row.title:this.props.row.title} */}
+                                </div>
+                            </TimelineContent>
+                        }
+                        
+                        
                         {/* <Typography variant="h6" component="h1" style={{cursor:'pointer',fontSize:20}} 
                             onClick={this.deleteOpen.bind(this)}>
                             {this.props.row.wishday===this.props.day?this.props.row.title:this.props.row.title}
                         </Typography> */}
-                        
-                    </TimelineContent>
-                        
                 
                     </TimelineItem>
                

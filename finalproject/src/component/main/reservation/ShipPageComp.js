@@ -152,7 +152,8 @@ class ShipPageComp extends Component {
                         <div class="col-md-12 mb-4 white-text text-center ShipTitle">
                                 <h1 class="h1-reponsive white-text text-uppercase font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInDown"
                                 data-wow-delay="0.3s"><strong>UDO</strong></h1>
-                                <p class="wow fadeInDown" data-wow-delay="0.4s">______________________</p>
+                                <hr style={{backgroundColor: '#fff', width: '20vw', height: '1px', margin: '20px auto'}} class="wow fadeInDown" data-wow-delay="0.4s"></hr>
+                                {/* <p class="wow fadeInDown" data-wow-delay="0.4s">______________________</p> */}
                                 <h5 class="text-uppercase mb-4 white-text wow fadeInDown" data-wow-delay="0.4s">
                                     <strong>우도를 안가면 제주도 여행이라 할 수 없다!<br/>
                                     우도행 배편 시간과 금액을 미리 확인해보세요.</strong></h5>
@@ -226,7 +227,7 @@ class ShipPageComp extends Component {
 
 
                 {/* 일정 추가 모달 */}
-                <MDBModal isOpen={this.state.open} toggle={this.toggle} centered>
+                <MDBModal isOpen={this.state.open} toggle={this.toggle} centered backdrop={false}>
                         <MDBModalHeader toggle={this.toggle} className="ShipAddModal">일정 추가</MDBModalHeader>
                         <MDBModalBody>
                             <div className="ShipAddModal">

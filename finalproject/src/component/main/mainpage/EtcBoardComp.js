@@ -162,7 +162,7 @@ export default function EtcBoardComp(props) {
           {
             breakpoint: 550,
             settings: {
-              slidesToShow: 2
+              slidesToShow: 3
             }
           }
         ]

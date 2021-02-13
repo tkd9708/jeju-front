@@ -13,14 +13,17 @@ import SharePlanTable from './SharePlanTable';
 
 class SharePlanPageComp extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor({match}) {
+        super();
 
         this.state={
            glist:[],
-           list:[]
+           list:[],
+          //  groupNum:match.params.groupNum
 
         }
+
+        // this.currnetPage=this.state.groupNum;
     
     }
 
@@ -33,7 +36,7 @@ class SharePlanPageComp extends Component {
 
         axios.get(url)
         .then(res=>{
-          console.log("선택 데이터 : " + res.data);
+          // console.log("선택 데이터 : " + res.data);
             this.setState({
                 glist:res.data
             });
@@ -49,7 +52,7 @@ class SharePlanPageComp extends Component {
         
         axios.get(url)
         .then(res=>{
-          console.log("데이터 ; " + res.data);
+          // console.log("데이터 ; " + res.data);
             this.setState({
                 glist:res.data
                 
@@ -99,17 +102,21 @@ class SharePlanPageComp extends Component {
                 </div>
                 
                 
+                {/* <strong>오늘 이후의 등록된 일정입니다.</strong>  */}
             <div className="share-slide-list-bar">
               <div className="share-slide-list-box">
                   <br/>
                 
+                  {this.state.glist==''?
+                  <div>찾으시는 날짜에 공유된 정보가 없습니다.</div>
+                : 
                 <Slider {...settings}>
+                {this.state.glist.map((row)=>(
+                        <SharePlanRoot row={row} day={this.refs.wishday.value}></SharePlanRoot>
+                ))}
+            </Slider>
+                }
                 
-                  {this.state.glist.map((row)=>(
-                          <SharePlanRoot row={row} day={this.refs.wishday.value}></SharePlanRoot>
-                  ))}
-                   
-                </Slider>
                 
                 
                 </div>
@@ -119,7 +126,7 @@ class SharePlanPageComp extends Component {
             
             <hr/>
             <SharePlanTable/>
-          
+                    {/* {this.state.groupNum} */}
           </div>
         
            

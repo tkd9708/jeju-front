@@ -1,6 +1,9 @@
 @media only screen and (max-width:550px){
+    .etcBoardComp .MuiBox-root{
+        padding: 0 !important;
+    }
     .NoticeitemBox {
-        width: 30vw;
+        width: 27vw;
         height: 150px;
         text-align: center;
         border: 1px solid #eee;
@@ -40,13 +43,15 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -5px;
         font-size: 20px !important;
+        color: black;
     }
     .EtcBoardNotice button.slick-next::before {
         left: -5px;
         font-size: 20px !important;
+        color: black;
     }
     .ShareitemContentDiv img {
-        width: 30vw;
+        width: 26.8vw;
         height: 100px;
     }
     .NoticeitemContentDiv h6 {
@@ -102,13 +107,15 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -5px;
         font-size: 20px !important;
+        color: black;
     }
     .EtcBoardNotice button.slick-next::before {
         left: -5px;
         font-size: 20px !important;
+        color: black;
     }
     .ShareitemContentDiv img {
-        width: 25vw;
+        width: 24.8vw;
         height: 180px;
     }
     .NoticeitemContentDiv h6 {
@@ -164,13 +171,15 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -5px;
         font-size: 20px !important;
+        color: black;
     }
     .EtcBoardNotice button.slick-next::before {
         left: -5px;
         font-size: 20px !important;
+        color: black;
     }
     .ShareitemContentDiv img {
-        width: 25vw;
+        width: 24.8vw;
         height: 180px;
     }
     .NoticeitemContentDiv h6 {
@@ -226,13 +235,15 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -20px;
         font-size: 20px !important;
+        color: black;
     }
     .EtcBoardNotice button.slick-next::before {
         left: 5px;
         font-size: 20px !important;
+        color: black;
     }
     .ShareitemContentDiv img {
-        width: 20vw;
+        width: 19.8vw;
         height: 180px;
     }
     .NoticeitemContentDiv h6 {
@@ -285,13 +296,15 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -25px;
         font-size: 20px !important;
+        color: black;
     }
     .EtcBoardNotice button.slick-next::before {
         left: -5px;
         font-size: 20px !important;
+        color: black;
     }
     .ShareitemContentDiv img {
-        width: 17vw;
+        width: 16.8vw;
         height: 220px;
     }
     .NoticeitemContentDiv h6 {
@@ -344,13 +357,15 @@
     .EtcBoardNotice button.slick-prev::before {
         left: -25px;
         font-size: 20px !important;
+        color: black;
     }
     .EtcBoardNotice button.slick-next::before {
         left: -5px;
         font-size: 20px !important;
+        color: black;
     }
     .ShareitemContentDiv img {
-        width: 15vw;
+        width: 14.8vw;
         height: 230px;
     }
     .NoticeitemContentDiv h6 {
