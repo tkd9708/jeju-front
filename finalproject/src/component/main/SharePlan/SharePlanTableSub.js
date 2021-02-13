@@ -100,6 +100,7 @@ class SharePlanTableSub extends Component {
         return(
             <div>
                 
+                    <div style={{margin: 'auto 0'}}>
                     <TimelineItem  >
                         <TimelineOppositeContent>
                             <Typography variant="body2" color="textSecondary">
@@ -135,6 +136,7 @@ class SharePlanTableSub extends Component {
                         </Typography> */}
                 
                     </TimelineItem>
+                    </div>
             
                <Dialog 
                     open={this.state.deleteOpen} 

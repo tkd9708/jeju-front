@@ -7,6 +7,7 @@ import profile from './Img_profile.png';
 import moment from 'moment';
 import SharePlanTableSub from './SharePlanTableSub';
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class SharePlanTable extends Component {
 
@@ -82,47 +83,47 @@ class SharePlanTable extends Component {
         var profileImg = this.state.profile.photo=="no"?profile:
                         this.state.photoCheck?this.state.profile.photo: URL + "/" + this.state.profile.photo;
         return(
-            <div className="SharePlanTable">
-                <div style={{textAlign: 'left'}} className="SharePlanTableTitle">
-                    <strong style={{color: '#036E38'}}>{this.state.id}</strong>&nbsp;님의<br/>
-                    <strong style={{color: '#036E38'}}>{this.state.wishday}</strong> 일정입니다.
-                </div>
-                <br/>
-                    <Box
-                                display="flex"
-                                flexWrap="wrap"
-                                justifyContent="center"
-                                width="100%"
-                                className="SharePlanTableBox"
-                            >
-                            <Grid item xs={3}>
-                                <Box className="SharePlanProfile">
-                                    <div>
-                                        <img src={profileImg} onError={(e) => {
+                    <Box className="SharePlanTableProfile">
+                                    <div style={{textAlign: 'center'}}>
+                                        {/* <img src={profileImg} onError={(e) => {
                                             console.log("img error");
                                             e.target.src = profile;
-                                        }}/>
-                                        <strong>{this.state.id}</strong><br/>
-                                        <strong>{this.state.profile.gender==null?"비공개":this.state.profile.gender} / {this.state.profile.birth==null?"비공개":age + "세"}</strong><br/>
+                                        }}/> */}
+                                         <Tooltip title={
+                                             <div style={{textAlign: 'center'}}>
+                                                 <img src={profileImg} className="SharePlanTooltipImg" onError={(e) => {
+                                                console.log("img error");
+                                                e.target.src = profile;
+                                            }}/>
+                                            <br/>
+                                            <strong>{this.state.id}</strong><br/>
+                                            <strong>{this.state.profile.gender==null?"비공개":this.state.profile.gender} / {this.state.profile.birth==null?"비공개":age + "세"}</strong><br/>
+                                            <div className="SharePlanTooltipComment">{this.state.comment}</div>
+                                             </div>
+                                         } placement="top">
+                                            <strong style={{color: '#036E38', cursor: 'pointer'}}>{this.state.id}</strong>
+                                         </Tooltip>
+                                        &nbsp;님의
+                                        {/* <br/> */}
+                                        <strong style={{color: '#036E38'}}>{this.state.wishday}</strong> 일정
+                                        
                                     </div>
-                                    <div className="balloon">
-                                        <div>
-                                            {this.state.comment}
-                                        </div>
-                                    </div>
-                                </Box>
-                                <Box className="SharePlanProfile2">
-                                    
-                                    <div className="SharePlanTimeline">
+                                    <div className="SharePlanTableTimeline SharePlanTimeline">
                                         {this.state.clist.map((row)=>(
                                             <SharePlanTableSub row={row} day={day} setName={this.setName.bind(this)}></SharePlanTableSub>
                                         ))}
                                     </div>
-                                </Box>
-                            </Grid>
-                    </Box>
-                <br/>
-            </div>
+                                    {/* <div className="balloon">
+                                        <div>
+                                            {this.state.comment}
+                                        </div>
+                                    </div> */}
+                                {/* <Box className="SharePlanProfile2">
+                                    
+                                    
+                                </Box> */}
+                            {/* </Grid> */}
+                        </Box>
         )
     }
 }

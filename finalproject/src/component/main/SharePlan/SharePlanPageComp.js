@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import store from '../../../redux/store';
 import { StoreTwoTone } from "@material-ui/icons";
 import SharePlanTable from './SharePlanTable';
+import Box from '@material-ui/core/Box';
+import ReviewPage from '../mypage/ReviewPage';
 
 
 class SharePlanPageComp extends Component {
@@ -19,12 +21,43 @@ class SharePlanPageComp extends Component {
         this.state={
            glist:[],
            list:[],
+           allList: [],
+           pageNum: 1,
           //  groupNum:match.params.groupNum
 
         }
 
         // this.currnetPage=this.state.groupNum;
+        this.currentPage = this.state.pageNum;
+        this.totalCount = 0;
+        this.perPage = 6; // 한페이지당 보여질 글의 갯수
+        this.perBlock = 5; // 한블럭당 출력할 페이지의 갯수
+        this.totalPage = 0; // 총 페이지의 갯수
+        this.startPage = 0; // 각 블럭당 시작 페이지 번호
+        this.endPage = 0; // 각 블럭당 끝페이지 번호
+        this.start = 0; // 각 블럭당 불러올 글의 시작번호
+        this.end = 0; // 각 블럭당 글의 끝번호
+        this.no = 0; // 각 페이지에서 출력할 시작번호
     
+    }
+
+    paginate = (num) =>{
+        
+      this.currentPage = num;
+      this.getAllGroupnum();
+  }
+
+      getTotalCount = () => {
+
+        let url = URL + "/plan/allcount";
+
+        axios.get(url)
+            .then(res => {
+                this.totalCount = res.data;
+                this.getAllGroupnum();
+            }).catch(err => {
+            console.log("shareplan getTotalCount 오류 : " + err);
+        })
     }
 
     getGroup=()=>{
@@ -62,11 +95,42 @@ class SharePlanPageComp extends Component {
           })
     }
 
+    getAllGroupnum=()=>{
+      // 나머지가 있을 경우에는 1페이지 더 추가 (예 : 총글수가 9이고 한페이지당 2개씩 볼 경우)
+      this.totalPage = Math.floor(this.totalCount / this.perPage) + (this.totalCount % this.perPage > 0 ? 1 : 0);
+
+      // 시작페이지와 끝페이지 구하기
+      this.startPage = Math.floor((this.currentPage - 1) / this.perBlock) * this.perBlock + 1;
+      this.endPage = this.startPage + this.perBlock - 1;
+      // 마지막 블럭은 endPage를 totalPage로 해놔야 한다.
+      if (this.endPage > this.totalPage)
+          this.endPage = this.totalPage;
+
+      // mysql은 첫 글이 0번이므로 +1 안해도됨 (오라클은 1번)
+      this.start = (this.currentPage - 1) * this.perPage;
+
+      this.no = this.totalCount - (this.currentPage - 1) * this.perPage;
+
+      let url=URL+"/plan/allgroupnum?start=" + this.start + "&perPage=" + this.perPage;
+
+      axios.get(url)
+      .then(res=>{
+        // console.log("데이터 ; " + res.data);
+          this.setState({
+            allList:res.data
+              
+          });
+      }).catch(err=>{
+          console.log("리스트 오류:"+err);
+        })
+  }
+
     
 
     componentDidMount(){
       window.scrollTo(0, 0);
         this.getGroupnum();
+        this.getTotalCount();
        //this.getPlan();
     }
 
@@ -130,14 +194,34 @@ class SharePlanPageComp extends Component {
             
             </div>
             
-            <hr/>
-            <div>
-              <Grid container>
-                {this.state.glist.map((row)=>(
-                    <SharePlanTable row={row} day={this.refs.wishday.value}></SharePlanTable>
-                ))} 
-              </Grid>
-            </div>
+            {/* <hr/> */}
+            <div className="detailTitle">
+              <span className="detailTitleContent" style={{backgroundColor:'white',color:'#036E38'}}>
+                    &nbsp;&nbsp;전체 리스트&nbsp;&nbsp;
+                </span>
+                </div>
+                <div className="detailIntro" style={{color: "#888"}}>
+                    회원분들이 올리신 모든 공유 리스트 목록입니다.<br/>
+                    괜찮은 일정을 내 일정으로 ~
+                    <br/>
+                </div>
+            {/* <div> */}
+              {/* <Grid container> */}
+              
+                  <Box
+                                display="flex"
+                                flexWrap="wrap"
+                                justifyContent="center"
+                                width="100%"
+                                className="SharePlanTableBox">
+                      {this.state.allList.map((row)=>(
+                          <SharePlanTable row={row} day={this.refs.wishday.value}></SharePlanTable>
+                      ))} 
+                </Box>
+                <ReviewPage paginate={this.paginate.bind(this)} startPage={this.startPage} endPage={this.endPage} 
+                    currentPage={this.currentPage} totalPage={this.totalPage}/>
+              {/* </Grid> */}
+            {/* </div> */}
           </div>
         
            

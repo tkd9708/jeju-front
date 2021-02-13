@@ -175,6 +175,36 @@
     .balloon div {
         margin: auto 0;
     }  
+
+    /* 테이블 */
+    .SharePlanTableBox {
+        width: 90vw;
+    }
+    .SharePlanTableProfile {
+        width: 85vw;
+        height: 250px;
+        border: 0.1px solid #eee;
+        padding: 10px;
+        margin: 30px 15px;
+        border-top: 2px solid green;
+    }
+    .SharePlanTableProfile > div{
+        font-size: 0.8rem;
+    }
+    .SharePlanTooltipImg {
+        width: 50px;
+        height: 50px;
+    }
+    .SharePlanTableTimeline {
+        margin: 15px 0;
+        height: 150px;
+        overflow-y: scroll;
+    }
+    .SharePlanTooltipComment {
+        margin-top: 10px;
+        font-size: 1rem;
+        line-height: 20px;
+    }
 }
 @media only screen and (min-width:450px) and (max-width:770px){
     /*달력*/
@@ -280,6 +310,36 @@
     .balloon div {
         margin: auto 0;
     }  
+
+    /* 테이블 */
+    .SharePlanTableBox {
+        width: 90vw;
+    }
+    .SharePlanTableProfile {
+        width: 40vw;
+        height: 250px;
+        border: 0.1px solid #eee;
+        padding: 10px;
+        margin: 30px 15px;
+        border-top: 2px solid green;
+    }
+    .SharePlanTableProfile > div{
+        font-size: 0.8rem;
+    }
+    .SharePlanTooltipImg {
+        width: 50px;
+        height: 50px;
+    }
+    .SharePlanTableTimeline {
+        margin: 15px 0;
+        height: 150px;
+        overflow-y: scroll;
+    }
+    .SharePlanTooltipComment {
+        margin-top: 10px;
+        font-size: 1rem;
+        line-height: 20px;
+    }
 }
 @media only screen and (min-width:770px) and (max-width:1023px){
     /*달력*/
@@ -381,6 +441,33 @@
     .balloon div {
         margin: auto 0;
     }  
+    
+    /* 테이블 */
+    .SharePlanTableBox {
+        width: 70vw;
+    }
+    .SharePlanTableProfile {
+        width: 300px;
+        height: 250px;
+        border: 0.1px solid #eee;
+        padding: 15px;
+        margin: 50px 20px;
+        border-top: 2px solid green;
+    }
+    .SharePlanTooltipImg {
+        width: 50px;
+        height: 50px;
+    }
+    .SharePlanTableTimeline {
+        margin: 20px 0;
+        height: 150px;
+        overflow-y: scroll;
+    }
+    .SharePlanTooltipComment {
+        margin-top: 10px;
+        font-size: 1rem;
+        line-height: 20px;
+    }
 }
 @media only screen and (min-width:1023px) and (max-width:1500px){
     /*달력*/
@@ -473,6 +560,33 @@
     }
     .balloon div {
         margin: auto 0;
+    }
+
+    /* 테이블 */
+    .SharePlanTableBox {
+        width: 70vw;
+    }
+    .SharePlanTableProfile {
+        width: 350px;
+        height: 300px;
+        border: 0.1px solid #eee;
+        padding: 15px;
+        margin: 50px 20px;
+        border-top: 2px solid green;
+    }
+    .SharePlanTooltipImg {
+        width: 50px;
+        height: 50px;
+    }
+    .SharePlanTableTimeline {
+        margin: 20px 0;
+        height: 200px;
+        overflow-y: scroll;
+    }
+    .SharePlanTooltipComment {
+        margin-top: 10px;
+        font-size: 1rem;
+        line-height: 20px;
     }
 }
 @media only screen and (min-width:1500px){
@@ -567,6 +681,33 @@
     }
     .balloon div {
         margin: auto 0;
+    }
+
+    /* 테이블 */
+    .SharePlanTableBox {
+        width: 70vw;
+    }
+    .SharePlanTableProfile {
+        width: 350px;
+        height: 300px;
+        border: 0.1px solid #eee;
+        padding: 15px;
+        margin: 50px 20px;
+        border-top: 2px solid green;
+    }
+    .SharePlanTooltipImg {
+        width: 50px;
+        height: 50px;
+    }
+    .SharePlanTableTimeline {
+        margin: 20px 0;
+        height: 200px;
+        overflow-y: scroll;
+    }
+    .SharePlanTooltipComment {
+        margin-top: 10px;
+        font-size: 1rem;
+        line-height: 20px;
     }
 }
 
