@@ -87,10 +87,10 @@ class MyReview extends Component {
 
     render() {
         // console.log("MyReview render()", this.props);
-        let photoCol = '';
-        if (matchMedia("screen and (min-width:400px)").matches) {
-            photoCol = <TableCell align="center" className="mypageReCol">photo</TableCell>;
-        }
+        // let photoCol = '';
+        // if (matchMedia("screen and (min-width:400px)").matches) {
+        //     photoCol = <TableCell align="center" className="mypageReCol">photo</TableCell>;
+        // }
         const tag = this.state.reviewList==''?<div style={{textAlign: 'center', margin: '10px'}}><b className="mypageReCol">등록된 review가 없습니다.</b></div>:""; 
 
         return (
@@ -109,7 +109,7 @@ class MyReview extends Component {
                         <TableHead>
                             <TableRow>
                                 <TableCell align="center" className="mypageReCol">#</TableCell>
-                                {photoCol}
+                                {/* {photoCol} */}
                                 <TableCell align="center" className="mypageReCol">review</TableCell>
                                 <TableCell align="center" className="mypageReCol">star</TableCell>
                                 <TableCell align="center" className="mypageReCol">date</TableCell>

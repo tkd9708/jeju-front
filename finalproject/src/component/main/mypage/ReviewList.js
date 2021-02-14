@@ -30,21 +30,21 @@ class ReviewList extends Component {
         
         const {row}=this.props;
         const date = row.writeday.split(" ")[0];
-        const photo = row.photo=="no"?"x":<img src={row.photo} alt="profile"/>;
+        // const photo = row.photo=="no"?"x":<img src={row.photo} alt="profile"/>;
         const star = row.star==1?<SentimentVeryDissatisfiedIcon/>:row.star==2?<SentimentDissatisfiedIcon/>:row.star==3?<SentimentSatisfiedIcon/>
             :row.star==4?<SentimentSatisfiedAltIcon/>:<SentimentVerySatisfiedIcon/>;
 
-        let photoCol = '';
-        if (matchMedia("screen and (min-width:400px)").matches) {
-            photoCol = <TableCell align="center" className="mypageReCol">{photo}</TableCell>;
-        }
+        // let photoCol = '';
+        // if (matchMedia("screen and (min-width:400px)").matches) {
+        //     photoCol = <TableCell align="center" className="mypageReCol">{photo}</TableCell>;
+        // }
 
         return (
            
                 <TableRow> 
                 
                     <TableCell align="center" className="mypageReCol">{this.props.idx}</TableCell>
-                    {photoCol}
+                    {/* {photoCol} */}
                     <TableCell className="mypageReCol"> 
                         <Link to={`/tour/${row.contentsid}`} id="mypageReviewLink">
                             <div id="mypageReContent" style={{whiteSpace:'nowrap', textOverflow:'ellipsis', overflow:'hidden'}}>{row.content}</div>

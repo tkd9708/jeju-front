@@ -283,7 +283,7 @@ class Week extends Component {
                     <Button onClick={this.alertClose.bind(this)} color="primary">
                         NO
                     </Button>
-                    <Link to="/shareplan">
+                    <Link to="/shareplan/1">
                       <Button onClick={
                           ()=>{
                               this.setState({
