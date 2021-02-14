@@ -7,6 +7,7 @@ import { URL, actionType, mainViewType } from "../../../redux/config";
 import NaverLoginBtnComp from "./NaverLoginBtnComp";
 import FaceBookLoginBtnComp from "./FaceBookLoginBtnComp";
 import KakaoLoginBtnComp from "./KakaoLoginBtnComp";
+import KakaoLoginBtnComp2 from "./KakaoLoginBtnComp2";
 import KakaoLoginBtnComp3 from "./KakaoLoginBtnComp3";
 
 import TextField from "@material-ui/core/TextField";
@@ -185,7 +186,7 @@ class LoginPageComp extends Component {
                     <br/>
                     <NaverLoginBtnComp />
                     <br />
-                    {/* <KakaoLoginBtnComp3 /> */}
+                    <KakaoLoginBtnComp2 />
                     <br/><br/>
                 </div>
 
