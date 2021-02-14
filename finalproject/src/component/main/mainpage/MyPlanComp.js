@@ -17,7 +17,7 @@ import axios from 'axios';
 import {URL} from '../../../redux/config';
 import MyPlanRightItem from './MyPlanRightItem';
 import MyPlanLeftItem from './MyPlanLeftItem';
-import Weather from "./Weather";
+import Weather2 from "./Weather2";
 import Slider from "react-slick";
 
 class MyPlanComp extends Component {
@@ -180,7 +180,7 @@ class MyPlanComp extends Component {
                             <span>&nbsp;오늘의 <strong style={{color: '#2BBBAD'}}>TOP5</strong></span>
                                 {list}
                             </div>
-            :<Weather/>;
+            :<Weather2/>;
 
         return (
             <div className="myPlanComp myPlanParent">
