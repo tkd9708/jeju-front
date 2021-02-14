@@ -165,7 +165,7 @@ class SharePlanRoot extends Component {
 
                             <div className="SharePlanTimeline">
                                 {this.state.clist.map((row) => (
-                                    <SharePlanSub row={row} day={day} setName={this.setName.bind(this)}></SharePlanSub>
+                                    <SharePlanSub row={row} day={day} setName={this.setName.bind(this)} history={this.props.history}></SharePlanSub>
                                 ))}
                             </div>
                         </Box>
