@@ -109,7 +109,7 @@ class Weather2 extends Component {
             c_weatherInfo: [], // 전체 날씨 정보1,
             c_weatherInfo_2: [], // 전체 날씨 정보2
             c_weatherInfo_3: [], // 초단기실황조회 전체 날씨 정보3
-            c_weatherInfo_4: [], // 초단기실황조회_2 전체 날씨 정보4
+            c_weatherInfo_4: '', // 초단기실황조회_2 전체 날씨 정보4
             c_weatherInfo_5: [], // 초단기예보조회 전체 날씨 정보5
             c_weatherInfo_6: [], // 동네예보조회 전체 날씨 정보6
             jejuGridList: [], // 초기 리스트는 비어있습니다.
@@ -129,13 +129,13 @@ class Weather2 extends Component {
     }
     
     componentDidMount(){
-        this.ex();
+        
         // this.getWeatherList();
         // this.getWeatherList_2();
         // this.getMidtermWeather();
         // this.getLocation();
-        // this._getJejuGridList();
-        // this.xml2jsonCurrentWth(48, 36)
+        this._getJejuGridList();
+        this.ex(48, 36)
     }
     
     getWeatherList = () => {
@@ -417,25 +417,139 @@ class Weather2 extends Component {
         return rs;
     }
 
-    ex=()=>{
-        axios.get(URL + "/weather/list")
+    ex=(nx, ny)=>{
+        var today_2 = new Date();
+        var dd = today_2.getDate();
+        var mm = today_2.getMonth()+1;
+        var yyyy = today_2.getFullYear();
+        var hours = today_2.getHours();
+        var minutes = today_2.getMinutes();
+        console.log("시간 (분) : " + minutes);
+
+        if(minutes <= 40){
+            // 40분 이전이라면 한시간 전 값
+            hours = hours - 1;
+            if(hours < 0){
+                // 자정 이전은 전날로 계산
+                // 00:40분 이전이라면 'base_date'는 전날이고 'base_time'은 2300이다.
+                today_2.setDate(today_2.getDate() - 1);
+                dd = today_2.getDate();
+                mm = today_2.getMonth() + 1;
+                yyyy = today_2.getFullYear();
+                hours = 23;
+            }
+        }
+        if(hours < 10) {
+            hours = '0' + hours;
+        }
+        if(mm < 10) {
+            mm = '0' + mm;
+        }
+        if(dd < 10) {
+            dd = '0' + dd;
+        }
+        
+        today_2 = yyyy+""+mm+""+dd;
+        
+        axios.get(URL + "/weather/nowTem?today=" + today_2 + "&hours=" + hours + "&nx=" + nx + "&ny=" + ny)
+        .then(res4 => {
+                // console.log("초단기실황조회_2 : " + res4.data.response.body.items.item);
+                // console.log("/VilageFcstInfoService/getUltraSrtNcst" + queryParams_4);
+                
+                // 날씨 클래스 내부 state에 정보 저장한다
+                this.setState({
+                    c_weatherInfo_4: res4.data,
+                });
+                // 날씨 클래스 내부 state에 정보 저장한다
+            })
+            .catch(err => {
+                console.log("초단기실황조회 error : " + err);
+                alert("다시 시도해주세요.\n : " + err);
+            });
+
+
+            /////////////////////////////////////////////////////////
+        today_2 = new Date();
+        var hours_2 = today_2.getHours(); // 현재 시간 얻기
+        var dd_2 = today_2.getDate();
+        var mm_2 = today_2.getMonth()+1;
+        var yyyy_2 = today_2.getFullYear();
+
+        if (hours_2 < 2) {
+            today_2.setDate(today_2.getDate() - 1);
+            dd_2 = today_2.getDate();
+            mm_2 = today_2.getMonth()+1;
+            yyyy_2 = today_2.getFullYear();
+            hours_2 = 23;
+        }
+        else {
+            hours_2 = hours_2 - ((hours_2 + 1) % 3);
+        }
+
+        hours_2 = hours_2 < 10 ? '0' + hours_2 : hours_2;
+        mm_2 = mm_2 < 10 ? '0' + mm_2 : mm_2;
+        dd_2 = dd_2 < 10 ? '0' + dd_2 : dd_2;
+
+        today_2 = yyyy_2 + "" + mm_2 + "" + dd_2;
+
+        axios.get(URL + "/weather/list?today=" + today_2 + "&hours=" + hours_2 + "&nx=" + nx + "&ny=" + ny)
             .then(res7 => {
                     // console.log("/VilageFcstInfoService/getVilageFcst" + queryParams_7);
                     // console.log("동네예보조회 여러페이지 : " + res7.data.response.body.items.item[0].category);
 
                     // 날씨 클래스 내부 state에 정보 저장한다
-                    console.log("날씨 데이터 : " + res7.data);
+                    // console.log("날씨 데이터 : " + res7.data);
                     this.setState({
                         // c_WeatherPages: this.state.c_WeatherPages.concat(res7),
                         c_WeatherPages: res7.data
                     })
-                    console.log("날씨 데이터2 : " + this.state.c_WeatherPages);
+                    // console.log("날씨 데이터2 : " + this.state.c_WeatherPages);
                     // 날씨 클래스 내부 state에 정보 저장한다
                 })
                 .catch(err => { 
                     console.log("동네예보조회 여러페이지 error : " + err);
                     alert("동네예보조회 여러페이지를 다시 시도해주세요.\n : " + err);
                 });
+
+
+        //////////////////////////////////////////////////////////////
+        var today_3 = new Date();
+        var dd_3 = today_3.getDate();
+        var mm_3 = today_3.getMonth()+1;
+        var yyyy_3 = today_3.getFullYear();
+        var hour = today_3.getHours(); // 현재 시간 얻기
+        let tmFCValue = '0600'; // 초깃값
+
+        if (hour < 6 && hour >= 0) {
+            today_3.setDate( today_3.getDate() - 1 );
+            dd_3 = today_3.getDate();
+            mm_3 = today_3.getMonth()+1;
+            yyyy_3 = today_3.getFullYear();
+            tmFCValue = `1800`;
+        }
+        else if (hour >= 6 && hour < 18) {
+            tmFCValue = '0600';
+        }
+        else if (hour >= 18) {
+            tmFCValue = '1800';
+        }
+
+        dd_3 = dd_3 < 10 ? '0' + dd_3 : dd_3;
+        mm_3 = mm_3 < 10 ? '0' + mm_3 : mm_3;
+
+        var tmFc = yyyy_3 + mm_3 + dd_3 + tmFCValue;
+
+        axios.get(URL + "/weather/info?tmFc=" + tmFc)
+            .then(res8 => {
+                // console.log("/MidFcstInfoService/getMidFcst" + queryParams_8);
+                // console.log("중기예보 데이타 : " + res8.data.response.body.items.item[0].wfSv);
+                this.setState({
+                    c_midTermWeather_1: res8.data,
+                });
+            })
+            .catch(error => {
+                console.log('중기예보 오류 : ' + error);
+            });
     }
 
     xml2jsonCurrentWth = (nx, ny) => {
@@ -665,7 +779,8 @@ class Weather2 extends Component {
         console.log("select박스 선택한 value 행정구역코드 : " + event.target.value);
         console.log("data-nx 와 data-ny : " + dataset.nx + ", " + dataset.ny);
         
-        this.xml2jsonCurrentWth(dataset.nx, dataset.ny);
+        // this.xml2jsonCurrentWth(dataset.nx, dataset.ny);
+        this.ex(dataset.nx, dataset.ny);
         
         // 주소-좌표 변환 객체를 생성합니다
         var geocoder = new kakao.maps.services.Geocoder();
@@ -1050,22 +1165,24 @@ class Weather2 extends Component {
         var infoTag = document.body.offsetWidth >= 770?info.map((row)=>(<div>○&nbsp;{row}</div>)):"";
 
         var lowTem = [];
-        // this.state.c_WeatherPages.map((row, index)=>(
+        this.state.c_WeatherPages
+        // .map((row, index)=>(
         //     row
-        //     .filter(weather => weather.category === 'TMN')
-        //     .map((itemrow, idx) => (
-        //             lowTem[idx] = itemrow.fcstValue
-        //         ))
-        //     ))
+            .filter(weather => weather.category === 'TMN')
+            .map((itemrow, idx) => (
+                    lowTem[idx] = itemrow.fcstValue
+                ))
+            // ))
 
-        //     var highTem = [];
-        //     this.state.c_WeatherPages.map((row, index)=>(
-        //         row
-        //         .filter(weather => weather.category === 'TMX')
-        //         .map((itemrow, idx) => (
-        //             highTem[idx] = itemrow.fcstValue
-        //         ))
-        //     ))
+            var highTem = [];
+            this.state.c_WeatherPages
+            // .map((row, index)=>(
+            //     row
+                .filter(weather => weather.category === 'TMX')
+                .map((itemrow, idx) => (
+                    highTem[idx] = itemrow.fcstValue
+                ))
+            // ))
 
         const settings = {
             dots: false,  // 점은 안 보이게
@@ -1101,15 +1218,14 @@ class Weather2 extends Component {
                 
                 {/* '동네예보조회 여러페이지 하늘상태' */}
                 <div className='jejuWeatherContainer'>
-                {
-                    // store.getState.weatherInfo_3.map((row)=>(
+                    <span id="weatherNowTem">현재기온&nbsp;<strong style={{color: '#2BBBAD'}}>{this.state.c_weatherInfo_4}℃</strong></span>
+                {/* {
                         this.state.c_weatherInfo_4.filter(w => w.category === 'T1H').map((row)=>(
                             <>
                             <span id="weatherNowTem">현재기온&nbsp;<strong style={{color: '#2BBBAD'}}>{row.obsrValue}℃</strong></span>
-                            {/* ({row.category}) */}
                         </>
                     ))
-                }
+                } */}
                     <div style={{float: 'right'}}>
                         <select onChange={this.selectChange} class="browser-default custom-select" value={this.props.selectBoxValue}>
                             {options}
@@ -1118,9 +1234,10 @@ class Weather2 extends Component {
                     <br />
                 
                 <div className="weatherInfo">
-                {/* {
-                    this.state.c_WeatherPages.map((row, index)=>(
-                        row
+                {
+                    this.state.c_WeatherPages
+                    // .map((row, index)=>(
+                    //     row
                         .filter(weather => weather.category === 'TMN')
                         .map((itemrow, idx) => (
                             <div>
@@ -1134,8 +1251,8 @@ class Weather2 extends Component {
                                 최저 <strong style={{color: '#2BBBAD'}}>{lowTem[idx]}℃</strong> / 최고 <strong style={{color: '#2BBBAD'}}>{highTem[idx]}℃</strong> 
                             </div>
                         ))
-                        ))
-                }    */}
+                        // ))
+                }   
                 </div>
                 
                 <br/>
@@ -1145,7 +1262,7 @@ class Weather2 extends Component {
                         this.state.c_WeatherPages
                         // .map((row, index)=>(
                         //     row
-                            // .filter(weather => weather.category === 'SKY')
+                            .filter(weather => weather.category === 'SKY')
                             .map((itemrow, idx) => (
                                 <div className='jejuWeatherDiv_small active'>
                                     {/* {itemrow.category}&nbsp; */}
