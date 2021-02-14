@@ -212,8 +212,8 @@ div.container div#chattingBoard div.myMsg div.msgText {
     margin-right: 10px;
 }
 
-div.container div#chattingBoard div.myMsg div.msgTime {
-    /*float: right;*/
+div.container div#chattingBoard .msgTime {
+    font-size: 0.8rem;
 }
 
 div.container div#chattingBoard div.myMsg td.myMsgBox {

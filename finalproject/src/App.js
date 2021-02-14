@@ -468,13 +468,13 @@ class App extends Component {
                     {/*항상떠있는 아이콘*/}
                     <div
                         className="chattingIconBack"
+                        onClick={this.clickChatIcon.bind(this)}
                     >
                         <ChatIcon
                             className="chattingIcon"
                             style={{
                                 fontSize: "1.5em",
                             }}
-                            onClick={this.clickChatIcon.bind(this)}
                         />
                         {/* 노티가 보일지 말지 선택 함수. */}
                         {this.getNotiOfChatting()}

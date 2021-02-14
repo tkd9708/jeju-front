@@ -8,6 +8,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import gsap, {Quint} from "gsap";
 import noProfile from "../../../image/noProfile.png";
 import ChattingLogic from "../../../ChattingLogic";
+// import "./SharePlanCss.css";
 
 const ChattingRoom = (props) => {
     // console.log("ChattingRoom props", props);
@@ -23,9 +24,11 @@ const ChattingRoom = (props) => {
     let selectedRoomNum = store.getState().selectedRoomNum;
     let intervalContainer = null;
     let preMsgCnt, curMsgCnt = 0;
+    const [friendProfileImg, setFriendProfileImg] = useState("no");
 
 
     useEffect(() => {
+        getProfileImg();
         printCommentEachOther();
         return (() => {
             setScrollBottom();
@@ -37,6 +40,13 @@ const ChattingRoom = (props) => {
             setScrollBottom();
         })
     }, [msgListCount]);
+
+    const getProfileImg = () => {
+        let chat = new ChattingLogic();
+        chat.getProfileImage(props.selectedFriend, (res) => {
+            setFriendProfileImg(res.data.photo);
+        });
+    }
 
     const handleChange = (e) => {
         setMsg(e.target.value);
@@ -190,12 +200,17 @@ const ChattingRoom = (props) => {
                                     <tbody>
                                     <tr>
                                         <td rowSpan={2} valign={"top"}>
-                                            <img src={noProfile} className="profileImg"/>
+                                            <img src={friendProfileImg} className="profileImg"
+                                                 onError={(e) => {
+                                                     console.log("img error");
+                                                     e.target.src = noProfile;
+                                                 }}
+                                            />
                                         </td>
                                         <td>
                                             <b>{e.sender}</b>
                                         </td>
-                                        <td rowSpan={2} valign={"bottom"}>
+                                        <td rowSpan={2} valign={"bottom"} className="msgTime">
                                             &nbsp;<b>{_strTime}</b>
                                         </td>
                                     </tr>
