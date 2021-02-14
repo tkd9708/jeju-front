@@ -15,7 +15,7 @@ class KakaoLoginBtnComp3 extends Component {
 
     kakaoLoginClickHandler = () => {
         Kakao.Auth.authorize({
-            redirectUri: URL + "/member/oauthKakao"
+            redirectUri: "http://localhost:3000/login"
         });
     }
 

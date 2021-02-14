@@ -62,6 +62,8 @@ export const actionType = {
     setSearchResultDataList: "setSearchResultDataList",
     googleLogin: "googleLogin",
     googleLogout: "googleLogout",
+    kakaoLogin: "kakaoLogin",
+    kakaoLogout: "kakaoLogout",
     weatherUpdate: "weatherUpdate",
     setChatWindow: "setChatWindow",
     setSelectedRoomNum: "setSelectedRoomNum",

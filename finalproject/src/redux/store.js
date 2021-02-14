@@ -18,12 +18,17 @@ const reducer = function (state, action) {
             id: "",
             loginId: "",
             loginEmail: "",
+            name: '',
+            photo: '',
             googleOn: false,
+            kakaoOn: false,
+
             mainSearch: {
                 category: "all",
                 searchVal: "",
                 searchResultDataList: [],
             },
+
             weatherInfo: [], // 날씨정보
             weatherInfo_2: [], // 날씨정보_2
             weatherInfo_3: [], // 날씨정보_3
@@ -95,6 +100,19 @@ const reducer = function (state, action) {
     } else if (action.type === actionType.googleLogout) {
         newState = Object.assign({}, state, {
             googleOn: action.googleOn
+        })
+    } else if (action.type === actionType.kakaoLogin) {
+        newState = Object.assign({}, state, {
+            kakaoOn: action.kakaoOn,
+            loginId: action.loginId,
+            logged: action.logged,
+            name: action.name,
+            photo: action.photo,
+            loginEmail: action.loginEmail,
+            }) 
+    } else if (action.type === actionType.kakaoLogout) {
+        newState = Object.assign({}, state, {
+            kakaoOn: action.kakaoOn,
         })
     } else if (action.type === actionType.setSearchResultDataList) {
         newState = Object.assign({}, state, {
