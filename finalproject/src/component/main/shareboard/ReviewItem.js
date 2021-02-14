@@ -10,6 +10,7 @@ import './Share.css';
 import { Visibility } from '@material-ui/icons';
 import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 import BuildIcon from '@material-ui/icons/Build';
+import profile from '../SharePlan/Img_profile.png';
 
 class ReviewItem extends Component {
 
@@ -18,7 +19,8 @@ class ReviewItem extends Component {
         this.state = {
             isOpen: false,
             saveType: "",
-            photo:''
+            photo:'',
+            isphoto:false
         }
 
         
@@ -196,6 +198,11 @@ class ReviewItem extends Component {
         let url = URL + '/member/getdata?id=' + this.props.row.id;
         axios.get(url)
         .then(response=>{
+            if(response.data.photo.substring(0,4)=='http'){
+                this.setState({
+                    isphoto: true
+                })
+            }
             this.setState({
                 photo: response.data.photo       
             })
@@ -223,8 +230,8 @@ class ReviewItem extends Component {
     */
     render() {
         const {row} = this.props;
-        const photo = this.state.photo=="no"?userimg:URL + "/" + this.state.photo;
-
+        const photo = this.state.photo=="no"?userimg:this.state.isphoto?this.state.photo: URL + "/" + this.state.photo;
+        
         return (
             <div className="ShareModalReviewItem" style={{marginLeft: `calc(15px*${row.relevel})`, borderBottom: '1px dotted #ddd'}}>
                 {/*num:{row.num} / {row.photo} / id:{row.id}*/}
@@ -235,7 +242,10 @@ class ReviewItem extends Component {
                     src={photo}
                     alt=""
                     className="ShareModalReviewProfile"
-                    style={{borderRadius:'100%', border:'0.1px solid #ddd'}}
+                    style={{borderRadius:'100%', border:'0.1px solid #ddd'}} onError={(e) => {
+                        console.log("img error");
+                        e.target.src = profile;
+                    }}
                   />
                 &nbsp;&nbsp;<b style={{fontWeight: '500'}}>{row.id}</b>&nbsp;&nbsp;
                 
