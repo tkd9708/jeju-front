@@ -1,12 +1,13 @@
 import React, {Component} from "react";
 import SharePlanSub from './SharePlanSub';
 import axios from 'axios';
-import {URL} from "../../../redux/config";
+import {actionType, URL} from "../../../redux/config";
 import './SharePlanCss.css';
 import profile from './Img_profile.png';
 
 import moment from 'moment';
 import Box from '@material-ui/core/Box';
+import store from "../../../redux/store";
 
 
 class SharePlanRoot extends Component {
@@ -100,6 +101,14 @@ class SharePlanRoot extends Component {
 
     openChattingRoomDirect() {
         console.log("openChattingRoomDirect()", this.state.id);
+        store.dispatch({
+            type: actionType.selectedDirectRoomFriend,
+            selectedDirectRoomFriend: this.state.id,
+        });
+        store.dispatch({
+            type: actionType.publishFunctionMsg,
+            publishFunctionMsg: "openChattingRoomDirect",
+        });
     }
 
     render() {
@@ -117,10 +126,14 @@ class SharePlanRoot extends Component {
                 {/* {this.props.row.memId} */}
                 <div className="SharePlanSlide">
                     <div style={{textAlign: 'left'}} className="SharePlanSlideTitle">
-                        <strong style={{color: '#036E38'}}
-                                onClick={() => {
-                                    this.openChattingRoomDirect();
-                                }}
+                        <strong
+                            style={{
+                                color: '#036E38',
+                                cursor: "pointer",
+                            }}
+                            onClick={() => {
+                                this.openChattingRoomDirect();
+                            }}
                         >{this.state.id}</strong>&nbsp;님의
                         <strong style={{color: '#036E38'}}
                         >{this.state.wishday}</strong> 일정입니다.

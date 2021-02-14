@@ -253,6 +253,26 @@ class App extends Component {
 
             }
         }.bind(this));
+
+        store.subscribe(() => {
+            if (store.getState().publishFunctionMsg == "openChattingRoomDirect") {
+                store.dispatch({
+                    type: actionType.publishFunctionMsg,
+                    publishFunctionMsg: "",
+                });
+
+                //createRoom
+                store.dispatch({
+                    type: actionType.publishFunctionMsg,
+                    publishFunctionMsg: "createRoomDirect",
+                });
+
+                if (!store.getState().isOpenChatWindow) {
+                    //auto open.
+                    this.clickChatIcon();
+                }
+            }
+        });
     }//constructor()
 
     /*setChattingRoomListInfo = (chattingRoomListInfo) => {
@@ -384,6 +404,55 @@ class App extends Component {
         window.setTimeout(setPositionFooter, 1000);
     }
 
+    clickChatIcon() {
+        let duration = 1.0;
+        let ease = Quint.easeInOut;
+
+        if (store.getState().isOpenChatWindow) {
+            //chatting icon click. Close
+            gsap.to("div.chatting div.chattingWindow", {
+                transform: "scale(0.1)",
+                opacity: 0,
+                duration: duration,
+                ease: ease,
+            });
+            store.dispatch({
+                type: actionType.setChatWindow,
+                isOpenChatWindow: false,
+            });
+        } else {
+            //노티가 true 다면, 없애기.
+            if (this.state.isNewChattingIcon) {
+                this.setChattingIconIsNew(false);
+            }
+            //chatting icon click. Open
+            if (matchMedia("screen and (max-width:450px)").matches) {
+                gsap.to("div.chatting div.chattingWindow", {
+                    transform: "scale(0.8)",
+                    opacity: 1,
+                    duration: duration,
+                    ease: ease,
+                });
+            } else {
+                gsap.to("div.chatting div.chattingWindow", {
+                    transform: "scale(1.2)",
+                    opacity: 1,
+                    duration: duration,
+                    ease: ease,
+                });
+            }
+
+            store.dispatch({
+                type: actionType.setChatWindow,
+                isOpenChatWindow: true,
+            });
+            store.dispatch({
+                type: actionType.publishFunctionMsg,
+                publishFunctionMsg: "changeChatAction",
+            });
+        }
+    }
+
     render() {//
         let {logged} = this.state;
         // console.log("App render");
@@ -405,54 +474,7 @@ class App extends Component {
                             style={{
                                 fontSize: "1.5em",
                             }}
-                            onClick={(e) => {
-                                let duration = 1.0;
-                                let ease = Quint.easeInOut;
-
-                                if (store.getState().isOpenChatWindow) {
-                                    //chatting icon click. Close
-                                    gsap.to("div.chatting div.chattingWindow", {
-                                        transform: "scale(0.1)",
-                                        opacity: 0,
-                                        duration: duration,
-                                        ease: ease,
-                                    });
-                                    store.dispatch({
-                                        type: actionType.setChatWindow,
-                                        isOpenChatWindow: false,
-                                    });
-                                } else {
-                                    //노티가 true 다면, 없애기.
-                                    if (this.state.isNewChattingIcon) {
-                                        this.setChattingIconIsNew(false);
-                                    }
-                                    //chatting icon click. Open
-                                    if (matchMedia("screen and (max-width:450px)").matches) {
-                                        gsap.to("div.chatting div.chattingWindow", {
-                                            transform: "scale(0.8)",
-                                            opacity: 1,
-                                            duration: duration,
-                                            ease: ease,
-                                        });
-                                    } else {
-                                        gsap.to("div.chatting div.chattingWindow", {
-                                            transform: "scale(1.2)",
-                                            opacity: 1,
-                                            duration: duration,
-                                            ease: ease,
-                                        });
-                                    }
-
-                                    store.dispatch({
-                                        type: actionType.setChatWindow,
-                                        isOpenChatWindow: true,
-                                    });
-                                    store.dispatch({
-                                        type: actionType.publishFunctionMsg,
-                                        publishFunctionMsg: "changeChatAction",
-                                    });
-                                }
-                            }}
+                            onClick={this.clickChatIcon.bind(this)}
                         />
                         {/* 노티가 보일지 말지 선택 함수. */}
                         {this.getNotiOfChatting()}

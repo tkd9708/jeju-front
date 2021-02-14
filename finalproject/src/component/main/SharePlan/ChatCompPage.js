@@ -46,6 +46,37 @@ class ChatCompPage extends Component {
                 });
             }
         });
+
+        store.subscribe(() => {
+            if (store.getState().publishFunctionMsg == "createRoomDirect") {
+                store.dispatch({
+                    type: actionType.publishFunctionMsg,
+                    publishFunctionMsg: "",
+                });
+
+                // let _promise = new Promise((resolve)=>{
+                //     resolve();
+                // });
+                //
+                // _promise.then(()=>{
+                //     return new Promise((resolve)=>{
+                //     });
+                // });
+
+                this.createRoomDirect();
+            }
+        });
+    }
+
+    createRoomDirect() {
+        console.log("createRoomDirect()", store.getState().selectedDirectRoomFriend);
+        this.setState({
+            user2: store.getState().selectedDirectRoomFriend,
+        });
+
+        this.forceUpdate(() => {
+            this.createRoom();
+        });
     }
 
     handleChange = (e) => {
@@ -54,7 +85,7 @@ class ChatCompPage extends Component {
         })
     }
 
-    createRoom() {
+    createRoom(callback = null) {
         if (this.state.user2.trim().length < 1) {
             return;
         }
@@ -100,6 +131,22 @@ class ChatCompPage extends Component {
                 chat.isCheckOfChatRoom(loginId, user2, (res) => {
                     if (res.data > 0) {
                         window.alert("이미 추가된 친구입니다.");
+                        chat.getSearchIdRoom(loginId, user2, (res) => {
+                            if (res.data && res.data.length > 0) {
+                                console.log(res.data[0].num);
+                                //바로 이동.
+                                store.dispatch({
+                                    type: actionType.setSelectedRoomNum,
+                                    selectedRoomNum: res.data[0].num,
+                                    selectedFriend: user2,
+                                });
+
+                                store.dispatch({
+                                    type: actionType.publishFunctionMsg,
+                                    publishFunctionMsg: "directOpenChattingRoom",
+                                });
+                            }
+                        });
                         throw new Error("exist already.");
                     } else {
                         if (window.confirm(`${user2}님을 대화방에 추가할까요?`)) {
@@ -116,7 +163,23 @@ class ChatCompPage extends Component {
                         type: actionType.publishFunctionMsg,
                         publishFunctionMsg: "chattingRoomListInfo",
                     });
-                    resolve();
+                    chat.getSearchIdRoom(loginId, user2, (res) => {
+                        if (res.data && res.data.length > 0) {
+                            console.log(res.data[0].num);
+                            //바로 이동.
+                            store.dispatch({
+                                type: actionType.setSelectedRoomNum,
+                                selectedRoomNum: res.data[0].num,
+                                selectedFriend: user2,
+                            });
+
+                            store.dispatch({
+                                type: actionType.publishFunctionMsg,
+                                publishFunctionMsg: "directOpenChattingRoom",
+                            });
+                        }
+                        resolve();
+                    });
                 });
             });
         }).catch(err => {
