@@ -158,8 +158,8 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
                     </div>
                     
                     {/* 일정 추가 모달 */}
-                    <MDBModal isOpen={this.state.open} toggle={this.toggle} centered>
-                        <MDBModalHeader toggle={this.toggle} className="RCA-planAddModal" backdrop={false}>일정 추가</MDBModalHeader>
+                    <MDBModal isOpen={this.state.open} toggle={this.toggle} centered backdrop={false}>
+                        <MDBModalHeader toggle={this.toggle} className="RCA-planAddModal">일정 추가</MDBModalHeader>
                         <MDBModalBody>
                             <div className="RCA-planAddModal">
                                 {/* <span className="addtitle">일정 추가</span><br/> */}
