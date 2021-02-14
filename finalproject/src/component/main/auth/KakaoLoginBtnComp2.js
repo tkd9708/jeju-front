@@ -70,8 +70,8 @@ class KakaoLoginBtnComp2 extends Component {
                         var getAppKey = Kakao.Auth.getAppKey();
                         var getAccessToken = Kakao.Auth.getAccessToken();
 
-                        alert('getAppKey : ' + getAppKey);
-                        alert('getAccessToken : ' + getAccessToken);
+                        // alert('getAppKey : ' + getAppKey);
+                        // alert('getAccessToken : ' + getAccessToken);
 
                         store.dispatch({
                             type: actionType.kakaoLogin,

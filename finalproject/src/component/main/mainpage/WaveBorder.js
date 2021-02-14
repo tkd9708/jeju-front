@@ -7,6 +7,7 @@ import jeju3 from "../../../image/jeju3.jpeg";
 import udo1 from "../../../image/udo1.jpg";
 import Logo2 from "../../../image/logo2.png";
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
+import qrcode from "../../../image/frame.png";
 
 const styles = {
     waves: {
@@ -89,10 +90,10 @@ function WaveBorder(props) {
                 <MDBContainer fluid className="text-center text-md-left">
                     <MDBRow>
                     <MDBCol md="6" style={{color: '#eee'}}>
-                        <h5 className="title">(주)제주일상</h5>
-                        <p>
-                        경기도 서초구 강남대로 459 (서초동 1300-34)
-                        </p>
+                        <h5 className="title"><img src={qrcode} style={{ width: '10vh', float: 'left'}}/>
+                        <br /><br /><br />&nbsp;(주)제주일상
+                        </h5>
+                        <p>&nbsp;경기도 서초구 강남대로 459 (서초동 1300-34)</p>
                     </MDBCol>
                     <MDBCol md="6">
                         {/* <h5 className="title">Links</h5> */}

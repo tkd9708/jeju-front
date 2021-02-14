@@ -9,6 +9,13 @@ import ColorSkycons, { ColorSkyconsType } from 'react-color-skycons';
 import styled from "styled-components";
 import './Weather.css'
 import Slider from "react-slick";
+import { render } from "react-dom";
+import { Stage } from "react-konva";
+import Konva from "konva";
+
+// 브라우저의 윈도우 객체에서 Kakao API 가져오기
+// 리액트 컴포넌트 상단에 작성하여 Kakao api에 접근할수있다
+const { Kakao } = window;
 
 // ReactAnimatedWeather
 const defaults = {
@@ -96,7 +103,17 @@ const responsive = {
     }
 };
 
+let arrDayStr = ['일', '월', '화', '수', '목', '금', '토'];
+
+var changeDateFormat = new Date();
+
+var TodayYear = changeDateFormat.getFullYear();
+var TodayMonth = changeDateFormat.getMonth();
+var TodayDate = changeDateFormat.getDate();
+let todayDay = changeDateFormat.getDay();
+
 class Weather2 extends Component {
+    
     
     constructor(props) {
         super(props);
@@ -132,10 +149,14 @@ class Weather2 extends Component {
         
         // this.getWeatherList();
         // this.getWeatherList_2();
-        // this.getMidtermWeather();
+        this.getMidtermWeather();
         // this.getLocation();
         this._getJejuGridList();
         this.ex(48, 36)
+        
+        Kakao.init('acb5c619931d74e5fe4dddcfc0e71a12');
+        
+        console.log("Kakao.isInitialized()", Kakao.isInitialized());
     }
     
     getWeatherList = () => {
@@ -1298,7 +1319,7 @@ class Weather2 extends Component {
                 <div className="weatherInfo">
                     {infoTag}
                 </div>
-
+                
                 <br />
                 </div>
 
