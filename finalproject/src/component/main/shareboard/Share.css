@@ -689,19 +689,19 @@ input {
 
 
 @media only screen and (max-height:570px){
-    #ShareModalScroll {
+    .ShareModalScroll {
         height: 50vh;
         overflow-y: scroll;
     }
 }
 @media only screen and (min-height:570px) and (max-height:770px){
-    #ShareModalScroll {
+    .ShareModalScroll {
         height: 50vh;
         overflow-y: scroll;
     }
 }
 @media only screen and (min-height:770px){
-    #ShareModalScroll {
+    .ShareModalScroll {
         height: 70vh;
         overflow-y: scroll;
     }
