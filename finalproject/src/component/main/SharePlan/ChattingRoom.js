@@ -43,7 +43,7 @@ const ChattingRoom = (props) => {
 
     const getProfileImg = () => {
         let chat = new ChattingLogic();
-        chat.getProfileImage(props.selectedFriend, (res) => {
+        chat.getProfileImage(store.getState().selectedFriend, (res) => {
             setFriendProfileImg(res.data.photo);
         });
     }
@@ -147,10 +147,15 @@ const ChattingRoom = (props) => {
 
                         store.dispatch({
                             type: actionType.publishFunctionMsg,
+                            publishFunctionMsg: "readMsgInChattingRoom",
+                        });
+
+                        store.dispatch({
+                            type: actionType.publishFunctionMsg,
                             publishFunctionMsg: "chattingRoomListInfo",
                         });
                     }}
-                />&nbsp;&nbsp;{props.selectedFriend}
+                />&nbsp;&nbsp;{store.getState().selectedFriend}
             </h3>
 
 
