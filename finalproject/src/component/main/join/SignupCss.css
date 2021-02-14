@@ -259,8 +259,11 @@
     #googleLogin button, #naverIdLogin, #naverIdLogin img{
         width: 30vw !important;
     }
+    #googleLogin button span {
+        font-size: 1.3rem;
+    }
     #naverIdLogin img {
-        height: 6vw;
+        height: 5vw;
     }
     #googleLogin span {
         font-weight: 700 !important;
