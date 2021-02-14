@@ -212,11 +212,17 @@ class Week extends Component {
 
       axios.post(url,{memId,wishday,comment})
       .then(res=>{
-        this.refs.comment.value='';
-          this.setState({
-            alertOpen: true,
-            
-          })
+        // this.refs.comment.value='';
+          if(res.data == true){
+            this.setState({
+              alertOpen: true,
+              
+            })
+          }
+          else{
+            alert("등록할 일정이 없습니다.");
+            this.toggle();
+          }
       }).catch(err=>{
        console.log("shareplan insert 오류 : " + err);
       })
