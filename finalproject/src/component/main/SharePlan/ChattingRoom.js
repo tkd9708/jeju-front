@@ -8,6 +8,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import gsap, {Quint} from "gsap";
 import noProfile from "../../../image/noProfile.png";
 import ChattingLogic from "../../../ChattingLogic";
+// import "./SharePlanCss.css";
 
 const ChattingRoom = (props) => {
     // console.log("ChattingRoom props", props);
@@ -23,9 +24,11 @@ const ChattingRoom = (props) => {
     let selectedRoomNum = store.getState().selectedRoomNum;
     let intervalContainer = null;
     let preMsgCnt, curMsgCnt = 0;
+    const [friendProfileImg, setFriendProfileImg] = useState("no");
 
 
     useEffect(() => {
+        getProfileImg();
         printCommentEachOther();
         return (() => {
             setScrollBottom();
@@ -38,6 +41,13 @@ const ChattingRoom = (props) => {
         })
     }, [msgListCount]);
 
+    const getProfileImg = () => {
+        let chat = new ChattingLogic();
+        chat.getProfileImage(store.getState().selectedFriend, (res) => {
+            setFriendProfileImg(res.data.photo);
+        });
+    }
+
     const handleChange = (e) => {
         setMsg(e.target.value);
     }
@@ -46,7 +56,7 @@ const ChattingRoom = (props) => {
         //통신.
         let chat = new ChattingLogic();
         chat.getMsgList((res) => {
-            console.log(res.data.length, store.getState());
+            // console.log(res.data.length, store.getState());
 
             if (store.getState().selectedChattingRoomMsgList) {
                 if (res.data.length != store.getState().selectedChattingRoomMsgList.length) {
@@ -71,7 +81,7 @@ const ChattingRoom = (props) => {
 
             intervalContainer = window.setInterval(() => {
                 //해당 스레드는 하나만 돌게 한다.
-                console.log("store.getState().isOpenChatWindow", store.getState().isOpenChatWindow);
+                // console.log("store.getState().isOpenChatWindow", store.getState().isOpenChatWindow);
                 if (!store.getState().isOpenChatWindow) {
                     //창이 닫혀있을떄. -> 백그라운드로.
                     // window.clearTimeout(_setTimeOutObj);
@@ -98,12 +108,12 @@ const ChattingRoom = (props) => {
     }
 
     const setScrollBottom = () => {
-        console.log("setScrollBottom()");
+        // console.log("setScrollBottom()");
 
         window.setTimeout(() => {
             //div.container div#chattingBoard
             let chattingBoard = document.getElementById("chattingBoard");
-            console.log("setScrollBottom()", chattingBoard);
+            // console.log("setScrollBottom()", chattingBoard);
 
             if (chattingBoard) {
                 chattingBoard.scrollTo(0, chattingBoard.scrollHeight);
@@ -135,12 +145,19 @@ const ChattingRoom = (props) => {
                             selectedFriend: "",
                         });
 
+                        window.setTimeout(()=>{
+                            store.dispatch({
+                                type: actionType.publishFunctionMsg,
+                                publishFunctionMsg: "readMsgInChattingRoom",
+                            });
+                        }, 500);
+
                         store.dispatch({
                             type: actionType.publishFunctionMsg,
                             publishFunctionMsg: "chattingRoomListInfo",
                         });
                     }}
-                />&nbsp;&nbsp;{props.selectedFriend}
+                />&nbsp;&nbsp;{store.getState().selectedFriend}
             </h3>
 
 
@@ -190,12 +207,17 @@ const ChattingRoom = (props) => {
                                     <tbody>
                                     <tr>
                                         <td rowSpan={2} valign={"top"}>
-                                            <img src={noProfile} className="profileImg"/>
+                                            <img src={friendProfileImg} className="profileImg"
+                                                 onError={(e) => {
+                                                     console.log("img error");
+                                                     e.target.src = noProfile;
+                                                 }}
+                                            />
                                         </td>
                                         <td>
                                             <b>{e.sender}</b>
                                         </td>
-                                        <td rowSpan={2} valign={"bottom"}>
+                                        <td rowSpan={2} valign={"bottom"} className="msgTime">
                                             &nbsp;<b>{_strTime}</b>
                                         </td>
                                     </tr>

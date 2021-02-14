@@ -87,7 +87,7 @@
         font-weight: 700;
     }
 }
-@media only screen and (min-width:1023px){
+@media only screen and (min-width:1023px) and (max-width:1500px){
     .noticeTable {
         width: 80vw;
     }
@@ -97,6 +97,28 @@
     }
     .noticeContentEditor img {
         max-width: 70vw;
+    }
+
+    /* 입력폼 */
+    .noticeInsertTable {
+        margin: 100px auto;
+        width: 80vw;
+    }
+    .noticeInsertTable caption {
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+}
+@media only screen and (min-width:1500px){
+    .noticeTable {
+        width: 80vw;
+    }
+    .noticeTable thead td b{
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+    .noticeContentEditor img {
+        max-width: 50vw;
     }
 
     /* 입력폼 */

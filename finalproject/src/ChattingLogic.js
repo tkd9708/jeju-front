@@ -39,6 +39,42 @@ class ChattingLogic {
             });
     }
 
+    isCheckOfChatRoom(loginId, searchId, callback = null) {
+        let url = URL + "/chat/idCheckOfChat" +
+            "?user=" + loginId +
+            "&searchId=" + searchId;
+
+        console.log(url);
+
+        axios.get(url)
+            .then(res => {
+                console.log("isCheckOfChatRoom()", res);
+                if (callback != null) {
+                    callback(res);
+                }
+            })
+            .catch(err => {
+                console.log("isCheckOfChatRoom()", err);
+            });
+    }
+
+    isMemberIdCheck(searchId, callback = null) {
+        let url = URL + '/member/checkid' +
+            '?id=' + searchId;
+
+        console.log("isMemberIdCheck()", url);
+
+        axios.get(url)
+            .then(res => {
+                console.log("isMemberIdCheck()", res);
+                if (callback != null) {
+                    callback(res);
+                }
+            }).catch(err => {
+            console.log("isMemberIdCheck()", err);
+        })
+    }
+
     createRoom(friendId, callback = null) {
         let url = URL + "/chat/createRoom";
         let user1 = store.getState().loginId;
@@ -120,7 +156,7 @@ class ChattingLogic {
     }
 
     getLastWriteDay(_lastWriteDay) {
-        let _date = new Date(_lastWriteDay);
+        let _date = new Date(_lastWriteDay.replaceAll("-", "/"));
         let _strTime = ""; //_date.getHours() + ":" + _date.getMinutes();
         let _now = new Date(Date.now());
         let _nowYear = _now.getFullYear();
@@ -135,15 +171,54 @@ class ChattingLogic {
         }
 
         if (_nowMonth > _date.getMonth() + 1 || _nowDate > _date.getDate()) {
-            _strTime += (_date.getMonth() + 1) + "월 " + _date.getDate() + "일";
+            _strTime += (_date.getMonth() + 1).toString().padStart(2, '0') + "월 "
+                + _date.getDate().toString().padStart(2, '0') + "일";
             isToday = false;
         }
 
         if (isToday) {
-            _strTime = _date.getHours() + ":" + _date.getMinutes();
+            _strTime = _date.getHours().toString().padStart(2, '0') + ":"
+                + _date.getMinutes().toString().padStart(2, '0');
         }
 
         return _strTime;
+    }
+
+    getSearchIdRoom(user, searchId, callback = null) {
+        let url = URL + "/chat/getSearchIdRoom" +
+            "?user=" + user +
+            "&searchId=" + searchId;
+
+        console.log(url);
+
+        axios.get(url)
+            .then(res => {
+                console.log(res);
+                if (callback != null) {
+                    callback(res);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    getProfileImage(id, callback = null) {
+        let url = URL + "/member/getdata" +
+            "?id=" + id;
+
+        console.log(url);
+
+        axios.get(url)
+            .then(res => {
+                console.log("getProfileImage() ", res);
+                if (callback != null) {
+                    callback(res);
+                }
+            })
+            .catch(err => {
+                console.log("getProfileImage() ", err);
+            });
     }
 
 }

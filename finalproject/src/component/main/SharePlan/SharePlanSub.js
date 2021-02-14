@@ -53,7 +53,7 @@ class SharePlanSub extends Component {
         axios.get(url)
         .then(res=>{
             this.deleteClose();
-            
+            window.location.href="/shareplan/1";
         }).catch(err=>{
           console.log("삭제시 오류:"+err);
         });
@@ -67,7 +67,7 @@ class SharePlanSub extends Component {
         axios.get(url)
         .then(res=>{
             this.deleteClose();
-            
+            window.location.href = "/shareplan/1";
         }).catch(err=>{
           console.log("삭제시 오류:"+err);
         });

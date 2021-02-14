@@ -22,7 +22,9 @@ ul.menu li.logo {
     width: calc((100%/7*2));
 }
 .logo img {
-    width: 10vw;
+    /* width: 10vw; */
+    height: 85px;
+    /* overflow-y: hidden; */
 }
 
 ul.menu li a {

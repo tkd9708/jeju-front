@@ -5,6 +5,7 @@ import PageComp from "./PageComp";
 import DetailReviewComp from "./DetailReviewComp";
 import {URL} from '../../../redux/config';
 import './TourDetailCss.css';
+import ReviewPage from '../mypage/ReviewPage';
 
 class ReviewListComp extends Component {
 
@@ -99,8 +100,8 @@ class ReviewListComp extends Component {
                 
 
                 {/* 페이징 */}
-                <PageComp area={this.state.area} startPage={this.startPage} endPage={this.endPage} currentPage={this.currentPage} 
-                    totalPage={this.totalPage} paginate={this.paginate.bind(this)}></PageComp>
+                <ReviewPage area={this.state.area} startPage={this.startPage} endPage={this.endPage} currentPage={this.currentPage} 
+                    totalPage={this.totalPage} paginate={this.paginate.bind(this)} type="tourreview"></ReviewPage>
             </div>
         );
     }

@@ -134,7 +134,7 @@ class App extends Component {
 
                 let chat = new ChattingLogic();
                 chat.getRoomList((res) => {
-                    console.log("res", res, "chattingRoomListInfo", store.getState().chattingRoomListInfo);
+                    // console.log("res", res, "chattingRoomListInfo", store.getState().chattingRoomListInfo);
                     let roomListInfo = store.getState().chattingRoomListInfo;
                     let newList = [];   //속성마다 isNew 가 추가된것
                     let resultIsNewChattingIcon = false;
@@ -233,7 +233,7 @@ class App extends Component {
             });
 
             this.intervalOfChattingBackgroundUpdate = window.setInterval((/*loginId, testParam1*/) => {
-                console.log("chatting_background_update", store.getState().loginId);
+                // console.log("chatting_background_update", store.getState().loginId);
 
                 store.dispatch({
                     type: actionType.publishFunctionMsg,
@@ -253,6 +253,26 @@ class App extends Component {
 
             }
         }.bind(this));
+
+        store.subscribe(() => {
+            if (store.getState().publishFunctionMsg == "openChattingRoomDirect") {
+                store.dispatch({
+                    type: actionType.publishFunctionMsg,
+                    publishFunctionMsg: "",
+                });
+
+                //createRoom
+                store.dispatch({
+                    type: actionType.publishFunctionMsg,
+                    publishFunctionMsg: "createRoomDirect",
+                });
+
+                if (!store.getState().isOpenChatWindow) {
+                    //auto open.
+                    this.clickChatIcon();
+                }
+            }
+        });
     }//constructor()
 
     /*setChattingRoomListInfo = (chattingRoomListInfo) => {
@@ -306,7 +326,7 @@ class App extends Component {
     }
 
     setChattingUpdate(chattingRoomListInfo, isNewChattingIcon) {
-        console.log("setChattingUpdate() 1111", chattingRoomListInfo, isNewChattingIcon);
+        // console.log("setChattingUpdate() 1111", chattingRoomListInfo, isNewChattingIcon);
         if (isNewChattingIcon) {
             //채팅창이 오픈상태라면 노트 안보이게.
             if (store.getState().isOpenChatWindow) {
@@ -384,9 +404,58 @@ class App extends Component {
         window.setTimeout(setPositionFooter, 1000);
     }
 
-    render() {
+    clickChatIcon() {
+        let duration = 1.0;
+        let ease = Quint.easeInOut;
+
+        if (store.getState().isOpenChatWindow) {
+            //chatting icon click. Close
+            gsap.to("div.chatting div.chattingWindow", {
+                transform: "scale(0.1)",
+                opacity: 0,
+                duration: duration,
+                ease: ease,
+            });
+            store.dispatch({
+                type: actionType.setChatWindow,
+                isOpenChatWindow: false,
+            });
+        } else {
+            //노티가 true 다면, 없애기.
+            if (this.state.isNewChattingIcon) {
+                this.setChattingIconIsNew(false);
+            }
+            //chatting icon click. Open
+            if (matchMedia("screen and (max-width:450px)").matches) {
+                gsap.to("div.chatting div.chattingWindow", {
+                    transform: "scale(0.8)",
+                    opacity: 1,
+                    duration: duration,
+                    ease: ease,
+                });
+            } else {
+                gsap.to("div.chatting div.chattingWindow", {
+                    transform: "scale(1.2)",
+                    opacity: 1,
+                    duration: duration,
+                    ease: ease,
+                });
+            }
+
+            store.dispatch({
+                type: actionType.setChatWindow,
+                isOpenChatWindow: true,
+            });
+            store.dispatch({
+                type: actionType.publishFunctionMsg,
+                publishFunctionMsg: "changeChatAction",
+            });
+        }
+    }
+
+    render() {//
         let {logged} = this.state;
-        console.log("App render");
+        // console.log("App render");
         return (
             <BrowserRouter>
                 <Menu logged={logged}
@@ -399,75 +468,12 @@ class App extends Component {
                     {/*항상떠있는 아이콘*/}
                     <div
                         className="chattingIconBack"
+                        onClick={this.clickChatIcon.bind(this)}
                     >
                         <ChatIcon
                             className="chattingIcon"
-                            onClick={(e) => {
-                                let duration = 1.0;
-                                let ease = Quint.easeInOut;
-
-                                if (store.getState().isOpenChatWindow) {
-                                    //chatting icon click. Close
-                                    gsap.to("div.chatting div.chattingWindow", {
-                                        transform: "scale(0.1)",
-                                        opacity: 0,
-                                        duration: duration,
-                                        ease: ease,
-                                    });
-                                    store.dispatch({
-                                        type: actionType.setChatWindow,
-                                        isOpenChatWindow: false,
-                                    });
-                                } else {
-                                    //노티가 true 다면, 없애기.
-                                    if (this.state.isNewChattingIcon) {
-                                        this.setChattingIconIsNew(false);
-                                    }
-                                    //chatting icon click. Open
-                                    gsap.to("div.chatting div.chattingWindow", {
-                                        transform: "scale(0.9)",
-                                        opacity: 1,
-                                        duration: duration,
-                                        ease: ease,
-                                    });
-                                    store.dispatch({
-                                        type: actionType.setChatWindow,
-                                        isOpenChatWindow: true,
-                                    });
-                                    store.dispatch({
-                                        type: actionType.publishFunctionMsg,
-                                        publishFunctionMsg: "changeChatAction",
-                                    });
-                                    /*
-                                    //통신먼저 하고 결과값으로 액션.
-                                    let chat = new ChattingLogic();
-                                    chat.getRoomList((res) => {
-                                        console.log(res);
-
-                                        gsap.to("div.chatting div.chattingWindow", {
-                                            transform: "scale(1)",
-                                            opacity: 1,
-                                            duration: duration,
-                                            ease: ease,
-                                        });
-                                        store.dispatch({
-                                            type: actionType.setChatWindow,
-                                            isOpenChatWindow: true,
-                                        });
-                                        store.dispatch({
-                                            type: actionType.publishFunctionMsg,
-                                            publishFunctionMsg: "changeChatAction",
-                                        });
-                                        store.dispatch({
-                                            type: actionType.chattingRoomListInfo,
-                                            chattingRoomListInfo: res.data,
-                                        });
-                                        this.setState({
-                                            chattingRoomListInfo: res.data,
-                                        });
-                                    });
-                                    */
-                                }
+                            style={{
+                                fontSize: "1.5em",
                             }}
                         />
                         {/* 노티가 보일지 말지 선택 함수. */}
@@ -518,7 +524,7 @@ class App extends Component {
                         <Route path="/car/:name?" component={RentCarPageComp}/>
                         <Route path="/ship/:name?" component={ShipPageComp}/>
                         <Route path="/tourlist/:name?/:pageNum?" component={TourPageComp}/>
-                        <Route path="/shareplan/:name?/" component={SharePlanPageComp}/>
+                        <Route path="/shareplan/:pageNum?/" component={SharePlanPageComp}/>
                         <Route path="/chattingroom/:num?" component={ChattingRoom}/>
                         <Route path="/Recommend" component={RecommendCourse}/>
                     </Switch>

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from 'axios';
-import {URL} from "../../../redux/config";
+import {actionType, URL} from "../../../redux/config";
 import './SharePlanCss.css';
 import Box from '@material-ui/core/Box';
 import profile from './Img_profile.png';
@@ -8,6 +8,7 @@ import moment from 'moment';
 import SharePlanTableSub from './SharePlanTableSub';
 import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip';
+import store from "../../../redux/store";
 
 class SharePlanTable extends Component {
 
@@ -34,7 +35,7 @@ class SharePlanTable extends Component {
 
     getGroupData=()=>{
         let url=URL+"/plan/groupdata?groupnum="+this.props.row.groupNum;
-        //console.log("그룹넘버 : " + this.props.row.groupNum);
+        // console.log("그룹넘버 : " + this.props.row.groupNum);
         axios.get(url)
         .then(res=>{
             // console.log(res.data[0].memId);
@@ -44,13 +45,14 @@ class SharePlanTable extends Component {
                 id: res.data[0].memId
             });
 
+            // console.log(this.state.id);
             this.getProfile();
         }).catch(err=>{
             console.log("목록 오류:"+err);
           })
     }
 
-    componentDidMount(){
+    componentWillMount(){
         this.getGroupData();
     }
 
@@ -74,9 +76,20 @@ class SharePlanTable extends Component {
           })
     }
 
+    openChattingRoomDirect() {
+        console.log("openChattingRoomDirect()", this.state.id);
+        store.dispatch({
+            type: actionType.selectedDirectRoomFriend,
+            selectedDirectRoomFriend: this.state.id,
+        });
+        store.dispatch({
+            type: actionType.publishFunctionMsg,
+            publishFunctionMsg: "openChattingRoomDirect",
+        });
+    }
+
     render(){
         const {row}=this.props.row;
-        const {day}=this.props.day;
         var birth1=this.state.profile.birth;
         var today=moment();
         var age=today.diff(birth1,'year')+2;
@@ -101,16 +114,20 @@ class SharePlanTable extends Component {
                                             <div className="SharePlanTooltipComment">{this.state.comment}</div>
                                              </div>
                                          } placement="top">
-                                            <strong style={{color: '#036E38', cursor: 'pointer'}}>{this.state.id}</strong>
+                                            <strong style={{color: '#036E38', cursor: 'pointer'}}
+                                                    onClick={() => {
+                                                        this.openChattingRoomDirect();
+                                                    }}
+                                            >{this.state.id}</strong>
                                          </Tooltip>
                                         &nbsp;님의
                                         {/* <br/> */}
                                         <strong style={{color: '#036E38'}}>{this.state.wishday}</strong> 일정
-                                        
+
                                     </div>
                                     <div className="SharePlanTableTimeline SharePlanTimeline">
                                         {this.state.clist.map((row)=>(
-                                            <SharePlanTableSub row={row} day={day} setName={this.setName.bind(this)}></SharePlanTableSub>
+                                            <SharePlanTableSub row={row} setName={this.setName.bind(this)} pageNum={this.props.pageNum}></SharePlanTableSub>
                                         ))}
                                     </div>
                                     {/* <div className="balloon">
@@ -119,8 +136,8 @@ class SharePlanTable extends Component {
                                         </div>
                                     </div> */}
                                 {/* <Box className="SharePlanProfile2">
-                                    
-                                    
+
+
                                 </Box> */}
                             {/* </Grid> */}
                         </Box>

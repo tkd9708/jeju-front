@@ -205,17 +205,24 @@ class Week extends Component {
       
       let memId=store.getState().loginId;
       let wishday=this.props.selected;
+      console.log("날짜 : " + wishday);
       let comment=this.refs.comment.value;
       let url= URL+"/plan/groupinsert?memId="+ memId + "&wishday=" + wishday + "&comment=" +comment;
       
 
       axios.post(url,{memId,wishday,comment})
       .then(res=>{
-        this.refs.comment.value='';
-          this.setState({
-            alertOpen: true,
-            
-          })
+        // this.refs.comment.value='';
+          if(res.data == true){
+            this.setState({
+              alertOpen: true,
+              
+            })
+          }
+          else{
+            alert("등록할 일정이 없습니다.");
+            this.toggle();
+          }
       }).catch(err=>{
        console.log("shareplan insert 오류 : " + err);
       })

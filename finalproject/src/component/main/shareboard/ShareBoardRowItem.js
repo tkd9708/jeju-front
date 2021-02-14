@@ -100,9 +100,9 @@ class ShareBoardRowItem extends Component {
     }
 
     getAnswerCount = () => {
-        let num = this.props.row.num;
+        let regroup = this.props.row.regroup;
         let url = URL + "/share/answercount" +
-            "?num=" + num;
+            "?num=" + regroup;
 
         axios.get(url
         ).then(res => {
@@ -462,7 +462,7 @@ class ShareBoardRowItem extends Component {
                         <span id="ShareModalTitle"><b>{row.id}</b>님이 공유하신 맛집입니다.</span></MDBModalHeader>
                     <MDBModalBody>
                         {/* <div id="ShareModalAll" ref={this.myRef} onScroll={this.onScroll}> */}
-                        <div id="ShareModalScroll">
+                        <div className="ShareModalScroll">
                             <div id="ShareModalAll">
                             <Box display="flex"
                             flexWrap="wrap"
@@ -503,9 +503,9 @@ class ShareBoardRowItem extends Component {
                                     <MDBIcon icon="map-marker-alt" />&nbsp;&nbsp;{row.addr}
                                 </p>
                             </Box>
-                            <Box m={1} className="ShareModalItemContent">
-                                {row.content}
-                            </Box>
+                            <div className="ShareModalItemContent">
+                                    {row.content}
+                            </div>
                         </Box>
                         <br/>
                         <hr/>

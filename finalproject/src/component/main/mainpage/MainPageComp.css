@@ -1,24 +1,5 @@
-@media only screen and (max-width: 450px){
-    div.mainPageComp {
-        display: flex;
-        flex-direction: column;
-        padding: 10px;
-    }
-}
-@media only screen and (min-width: 450px) and (max-width: 770px){
-    div.mainPageComp {
-        display: flex;
-        flex-direction: column;
-        padding: 15px;
-    }
-}
-@media only screen and (min-width: 770px) and (max-width: 1023px){
-    div.mainPageComp {
-        display: flex;
-        flex-direction: column;
-        padding: 20px;
-    }
-}
+
+/*mainPageComp*/
 @media only screen and (min-width: 1023px){
     div.mainPageComp {
         display: flex;
@@ -26,7 +7,27 @@
         padding: 20px;
     }
 }
-
+@media only screen and (min-width: 700px) and (max-width: 1023px){
+    div.mainPageComp {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+    }
+}
+@media only screen and (min-width: 450px) and (max-width: 700px){
+    div.mainPageComp {
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+    }
+}
+@media only screen and (max-width: 450px){
+    div.mainPageComp {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+    }
+}
 
 div.mainPageComp div {
     /*border: 1px solid black;*/
@@ -84,8 +85,7 @@ div.mainPageComp div {
         width: 100%;
     }
 }
-
-@media only screen and (min-width: 770px) and (max-width: 1023px) {
+@media only screen and (min-width: 700px) and (max-width: 1023px) {
     div.mainPhotoComp {
         max-height: 300px;
         min-height: 300px;
@@ -98,8 +98,20 @@ div.mainPageComp div {
         width: 100%;
     }
 }
+@media only screen and (min-width: 450px) and (max-width: 700px) {
+    div.mainPhotoComp {
+        max-height: 150px;
+        min-height: 150px;
+        overflow: hidden;
+    }
 
-@media only screen and (min-width: 400px) and (max-width: 770px) {
+    div.mainPhotoComp img {
+        max-height: initial;
+        margin-top: -15%;
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 450px) {
     div.mainPhotoComp {
         max-height: 150px;
         min-height: 150px;
@@ -113,25 +125,11 @@ div.mainPageComp div {
     }
 }
 
-@media only screen and (max-width: 400px) {
-    div.mainPhotoComp {
-        max-height: 150px;
-        min-height: 150px;
-        overflow: hidden;
-    }
-
-    div.mainPhotoComp img {
-        max-height: initial;
-        margin-top: -15%;
-        width: 100%;
-    }
-}
 
 /*search-myplan*/
 div.search-myplan div {
     /*border: 1px solid black;*/
 }
-
 @media only screen and (min-width: 1023px) {
     div.search-myplan {
         display: flex;
@@ -173,8 +171,7 @@ div.search-myplan div {
         color: #333;
     }
 }
-
-@media only screen and (max-width: 1023px) {
+@media only screen and (min-width: 700px) and (max-width: 1023px) {
     div.search-myplan {
         display: flex;
         flex-wrap: wrap;
@@ -221,8 +218,7 @@ div.search-myplan div {
         color: #333;
     }
 }
-
-@media only screen and (max-width: 770px) {
+@media only screen and (min-width: 450px) and (max-width: 700px) {
     div.search-myplan {
         padding: 10px;
         margin: 15px 0 ;
@@ -252,7 +248,6 @@ div.search-myplan div {
         color: #333;
     }
 }
-
 @media only screen and (max-width: 450px) {
     div.search-myplan {
         display: flex;
@@ -265,14 +260,15 @@ div.search-myplan div {
     div.search-myplan .searchComp {
         flex-grow: 0;
         height: 200px;
+        padding: 20px;
         /*min-width: 770px;*/
-        max-width: 1023px;
+        /*max-width: 1023px;*/
     }
 
     div.search-myplan .myPlanComp {
-        height: 500px;
-        min-width: 770px;
-        max-width: 1023px;
+        height: 300px;
+        /*min-width: 770px;*/
+        /*max-width: 1023px;*/
     }
 
     div.search-myplan .searchComp .MuiInputBase-root{
@@ -302,18 +298,6 @@ div.search-myplan div {
 }
 
 
-/*@media only screen and (min-width:770px) and (max-width:1023px){*/
-
-/*}*/
-
-
-/*@media only screen and (min-width:400px) and (max-width:770px){*/
-
-/*}*/
-
-/*@media only screen and (max-width:400px){*/
-
-/*}*/
 
 
 /*hotPlaceComp*/
@@ -485,7 +469,6 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
         height: 530px
     }
 }
-
 @media only screen and (min-width: 1023px) and (max-width: 1500px) {
     div.hotPlaceComp {
         display: flex;
@@ -647,8 +630,7 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
         height: 550px;
     }
 }
-
-@media only screen and (min-width: 770px) and (max-width: 1023px) {
+@media only screen and (min-width: 700px) and (max-width: 1023px) {
     div.hotPlaceComp {
         display: flex;
         flex-wrap: wrap;
@@ -811,8 +793,7 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
         height: 450px
     }
 }
-
-@media only screen and (min-width: 450px) and (max-width: 770px) {
+@media only screen and (min-width: 450px) and (max-width: 700px) {
     div.hotPlaceComp {
         display: flex;
         flex-wrap: wrap;
@@ -835,9 +816,9 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
         font-weight: 900;
     }
     div.hotPlaceComp div.hotPlace_location div.btn_go {
-        transform: scale(0.7);
+        transform: scale(0.6);
         position: absolute;
-        top: 140px;
+        top: -82px;
         left: 10px;
     }
 
@@ -974,7 +955,6 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
     }
 
 }
-
 @media only screen and (max-width: 450px) {
     #mainHomePage {
         margin-top: 50px;
@@ -1001,9 +981,9 @@ div.hotPlaceComp div.hotPlace_location div.btn_go div {
         font-weight: 900;
     }
     div.hotPlaceComp div.hotPlace_location div.btn_go {
-        transform: scale(0.5);
+        transform: scale(0.45);
         position: absolute;
-        top: 250px;
+        top: 128px;
         left: 0px;
     }
 
