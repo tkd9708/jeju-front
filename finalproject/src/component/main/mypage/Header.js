@@ -186,7 +186,7 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
                     <MDBModal isOpen={this.state.listopen} toggle={this.listToggle} centered backdrop={false}>
                         <MDBModalHeader toggle={this.listToggle} className="RCA-planAddModal">일정 목록</MDBModalHeader>
                         <MDBModalBody>
-                            <div className="RCA-planAddModal">
+                            <div className="RCA-planAddModal ShareModalScroll">
                                 {/* <ScheduleList clist={this.state.clist}></ScheduleList> */}
                                 {this.props.clist.map((row)=>(
                                     <ScheduleList row={row} YM={this.props.YM}></ScheduleList>

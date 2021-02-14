@@ -462,7 +462,7 @@ class ShareBoardRowItem extends Component {
                         <span id="ShareModalTitle"><b>{row.id}</b>님이 공유하신 맛집입니다.</span></MDBModalHeader>
                     <MDBModalBody>
                         {/* <div id="ShareModalAll" ref={this.myRef} onScroll={this.onScroll}> */}
-                        <div id="ShareModalScroll">
+                        <div className="ShareModalScroll">
                             <div id="ShareModalAll">
                             <Box display="flex"
                             flexWrap="wrap"
