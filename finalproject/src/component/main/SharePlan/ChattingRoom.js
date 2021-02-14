@@ -145,10 +145,12 @@ const ChattingRoom = (props) => {
                             selectedFriend: "",
                         });
 
-                        store.dispatch({
-                            type: actionType.publishFunctionMsg,
-                            publishFunctionMsg: "readMsgInChattingRoom",
-                        });
+                        window.setTimeout(()=>{
+                            store.dispatch({
+                                type: actionType.publishFunctionMsg,
+                                publishFunctionMsg: "readMsgInChattingRoom",
+                            });
+                        }, 500);
 
                         store.dispatch({
                             type: actionType.publishFunctionMsg,

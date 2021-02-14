@@ -156,7 +156,7 @@ class ChattingLogic {
     }
 
     getLastWriteDay(_lastWriteDay) {
-        let _date = new Date(_lastWriteDay);
+        let _date = new Date(_lastWriteDay.replaceAll("-", "/"));
         let _strTime = ""; //_date.getHours() + ":" + _date.getMinutes();
         let _now = new Date(Date.now());
         let _nowYear = _now.getFullYear();
@@ -203,7 +203,7 @@ class ChattingLogic {
             });
     }
 
-    getProfileImage(id, callback = null){
+    getProfileImage(id, callback = null) {
         let url = URL + "/member/getdata" +
             "?id=" + id;
 
@@ -211,13 +211,13 @@ class ChattingLogic {
 
         axios.get(url)
             .then(res => {
-                console.log("getProfileImage() ",res);
+                console.log("getProfileImage() ", res);
                 if (callback != null) {
                     callback(res);
                 }
             })
             .catch(err => {
-                console.log("getProfileImage() ",err);
+                console.log("getProfileImage() ", err);
             });
     }
 
