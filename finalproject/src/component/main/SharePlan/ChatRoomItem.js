@@ -18,7 +18,59 @@ class ChatRoomItem extends Component {
             friend: this.props.friend,
             num: this.props.row.num,
         }
+
+        store.subscribe(() => {
+            if (store.getState().publishFunctionMsg == "directOpenChattingRoom") {
+                console.log("directOpenChattingRoom subscribe"
+                    , store.getState().selectedRoomNum
+                    , store.getState().selectedFriend);
+
+                store.dispatch({
+                    type: actionType.publishFunctionMsg,
+                    publishFunctionMsg: "",
+                });
+
+                this.setState({
+                    friend: store.getState().selectedFriend,
+                });
+
+                this.forceUpdate(()=>{
+                    window.setTimeout(() => {
+                        //div.container div#chattingBoard
+                        let chattingBoard = document.getElementById("chattingBoard");
+                        // console.log("setScrollBottom()", chattingBoard);
+
+                        if (chattingBoard) {
+                            chattingBoard.scrollTo(0, chattingBoard.scrollHeight);
+                        }
+                    }, 500);
+
+                    store.dispatch({
+                        type: actionType.publishFunctionMsg,
+                        publishFunctionMsg: "setSelectedRoomNum",
+                    });
+
+                    store.dispatch({
+                        type: actionType.publishFunctionMsg,
+                        publishFunctionMsg: "changeChatAction",
+                    });
+
+                    store.dispatch({
+                        type: actionType.publishFunctionMsg,
+                        publishFunctionMsg: "readMsgInChattingRoom",
+                    });
+
+                    gsap.to(".containerRoot", {
+                        scrollTrigger: ".containerRoot",
+                        x: -500,
+                        duration: 1,
+                        ease: Quint.easeInOut,
+                    });
+                });
+            }
+        })
     }
+
 
     onClickChattingRoom = (row) => {
         console.log(row);

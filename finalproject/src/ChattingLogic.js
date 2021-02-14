@@ -182,6 +182,25 @@ class ChattingLogic {
         return _strTime;
     }
 
+    getSearchIdRoom(user, searchId, callback = null) {
+        let url = URL + "/chat/getSearchIdRoom" +
+            "?user=" + user +
+            "&searchId=" + searchId;
+
+        console.log(url);
+
+        axios.get(url)
+            .then(res => {
+                console.log(res);
+                if (callback != null) {
+                    callback(res);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
 }
 
 export default ChattingLogic;

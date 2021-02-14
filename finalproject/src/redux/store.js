@@ -36,6 +36,7 @@ const reducer = function (state, action) {
             isChatAutoUpdate: false,
             isChatAutoBackgroundUpdate: false,
             chattingRoomListInfo: [],
+            selectedDirectRoomFriend: "",
 
             /* pub/sub */
             publishFunctionMsg: "",
@@ -147,6 +148,10 @@ const reducer = function (state, action) {
     } else if (action.type === actionType.selectedChattingRoomMsgList) {
         newState = Object.assign({}, state, {
             selectedChattingRoomMsgList: action.selectedChattingRoomMsgList,
+        });
+    } else if (action.type === actionType.selectedDirectRoomFriend) {
+        newState = Object.assign({}, state, {
+            selectedDirectRoomFriend: action.selectedDirectRoomFriend,
         });
     }
 
