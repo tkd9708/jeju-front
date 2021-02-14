@@ -7,6 +7,7 @@ import gsap, {Quint, TweenMax} from "gsap";
 import profileImg_temp from "../../../image/noProfile.png";
 import store from "../../../redux/store";
 import ChattingLogic from "../../../ChattingLogic";
+import userImg from "../../../image/user.png";
 
 class ChatRoomItem extends Component {
 
@@ -17,6 +18,7 @@ class ChatRoomItem extends Component {
         this.state = {
             friend: this.props.friend,
             num: this.props.row.num,
+            friendProfileImg: "no",
         }
 
         store.subscribe(() => {
@@ -34,7 +36,7 @@ class ChatRoomItem extends Component {
                     friend: store.getState().selectedFriend,
                 });
 
-                this.forceUpdate(()=>{
+                this.forceUpdate(() => {
                     window.setTimeout(() => {
                         //div.container div#chattingBoard
                         let chattingBoard = document.getElementById("chattingBoard");
@@ -69,6 +71,15 @@ class ChatRoomItem extends Component {
                 });
             }
         })
+    }
+
+    componentDidMount() {
+        let chat = new ChattingLogic();
+        chat.getProfileImage(this.props.friend, (res) => {
+            this.setState({
+                friendProfileImg: res.data.photo,
+            });
+        });
     }
 
 
@@ -163,7 +174,10 @@ class ChatRoomItem extends Component {
                 user2: "yangyk7364"
         * */
         const {row, idx} = this.props;
-        let profileImg = profileImg_temp;
+        const url = URL + "/";
+        let profileImg = (this.state.friendProfileImg == "no") ? profileImg_temp
+            : (this.state.friendProfileImg.includes("http")) ? this.state.friendProfileImg
+                : (url + this.state.friendProfileImg);
 
         return (
             <table>
@@ -171,7 +185,12 @@ class ChatRoomItem extends Component {
                     onClick={this.onClickChattingRoom.bind(this, row)}
                 >
                     <th className='profileImg'>
-                        <img src={profileImg} className="profileImg"/>
+                        <img src={profileImg} className="profileImg"
+                             onError={(e)=>{
+                                 console.log("img error");
+                                 e.target.src = profileImg_temp;
+                             }}
+                        />
                     </th>
                     <th className='room'>
                         <div>

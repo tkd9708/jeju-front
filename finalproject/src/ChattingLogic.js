@@ -171,12 +171,14 @@ class ChattingLogic {
         }
 
         if (_nowMonth > _date.getMonth() + 1 || _nowDate > _date.getDate()) {
-            _strTime += (_date.getMonth() + 1) + "월 " + _date.getDate() + "일";
+            _strTime += (_date.getMonth() + 1).toString().padStart(2, '0') + "월 "
+                + _date.getDate().toString().padStart(2, '0') + "일";
             isToday = false;
         }
 
         if (isToday) {
-            _strTime = _date.getHours() + ":" + _date.getMinutes();
+            _strTime = _date.getHours().toString().padStart(2, '0') + ":"
+                + _date.getMinutes().toString().padStart(2, '0');
         }
 
         return _strTime;
@@ -198,6 +200,24 @@ class ChattingLogic {
             })
             .catch(err => {
                 console.log(err);
+            });
+    }
+
+    getProfileImage(id, callback = null){
+        let url = URL + "/member/getdata" +
+            "?id=" + id;
+
+        console.log(url);
+
+        axios.get(url)
+            .then(res => {
+                console.log("getProfileImage() ",res);
+                if (callback != null) {
+                    callback(res);
+                }
+            })
+            .catch(err => {
+                console.log("getProfileImage() ",err);
             });
     }
 
