@@ -260,6 +260,7 @@ div.search-myplan div {
     div.search-myplan .searchComp {
         flex-grow: 0;
         height: 200px;
+        padding: 20px;
         /*min-width: 770px;*/
         /*max-width: 1023px;*/
     }
