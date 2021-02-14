@@ -247,7 +247,7 @@ function MobileMenu(props) {
                 <AccordionDetails>
                     <List onClick={handleDrawerClose}>
                         <ListItem><a href="/share/1" style={{color: 'black'}}>맛집 공유</a></ListItem>
-                        <ListItem><a href="/shareplan" style={{color: 'black'}}>일정 공유</a></ListItem>
+                        <ListItem><a href="/shareplan/1" style={{color: 'black'}}>일정 공유</a></ListItem>
                         <ListItem><a href="/Recommend" style={{color: 'black'}}>코스 추천</a></ListItem>
                     </List>
                 </AccordionDetails>

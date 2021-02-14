@@ -224,15 +224,6 @@ class Menu extends Component {
                     >Share</NavLink>
                 </li> */}
                 <li className="dropdown menuLi">
-                    {/* <a className="dropdownTitle">Share</a> */}
-                    <a className="dropdownTitle">소통공간</a>
-                        <div className="dropdown-content" >
-                            <a href="/share/1">맛집 공유</a>
-                            <a href="/shareplan">일정 공유</a>
-                            <a href="/Recommend">코스 추천</a>
-                        </div>
-                </li>
-                <li className="dropdown menuLi">
                     {/* <a className="dropdownTitle">Traffic</a> */}
                     <a className="dropdownTitle">교통안내</a>
                         <div className="dropdown-content" >
@@ -247,6 +238,16 @@ class Menu extends Component {
                             }}
                     >Reservation</NavLink> */}
                 </li>
+                <li className="dropdown menuLi">
+                    {/* <a className="dropdownTitle">Share</a> */}
+                    <a className="dropdownTitle">소통공간</a>
+                        <div className="dropdown-content" >
+                            <a href="/share/1">맛집 공유</a>
+                            <a href="/shareplan/1">일정 공유</a>
+                            <a href="/Recommend">코스 추천</a>
+                        </div>
+                </li>
+                
                 {this.state.logged ?
                     <li className="dropdown menuLi">
                         {/* <a className="dropdownTitle">My</a> */}

@@ -524,7 +524,7 @@ class App extends Component {
                         <Route path="/car/:name?" component={RentCarPageComp}/>
                         <Route path="/ship/:name?" component={ShipPageComp}/>
                         <Route path="/tourlist/:name?/:pageNum?" component={TourPageComp}/>
-                        <Route path="/shareplan/:name?/" component={SharePlanPageComp}/>
+                        <Route path="/shareplan/:pageNum?/" component={SharePlanPageComp}/>
                         <Route path="/chattingroom/:num?" component={ChattingRoom}/>
                         <Route path="/Recommend" component={RecommendCourse}/>
                     </Switch>

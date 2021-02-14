@@ -35,7 +35,7 @@ class SharePlanTable extends Component {
 
     getGroupData=()=>{
         let url=URL+"/plan/groupdata?groupnum="+this.props.row.groupNum;
-        //console.log("그룹넘버 : " + this.props.row.groupNum);
+        // console.log("그룹넘버 : " + this.props.row.groupNum);
         axios.get(url)
         .then(res=>{
             // console.log(res.data[0].memId);
@@ -45,13 +45,15 @@ class SharePlanTable extends Component {
                 id: res.data[0].memId
             });
 
+            console.log(this.state.id);
             this.getProfile();
         }).catch(err=>{
             console.log("목록 오류:"+err);
           })
     }
 
-    componentDidMount(){
+    componentWillMount(){
+        console.log("willmount!!!!!!!!!!!!!")
         this.getGroupData();
     }
 
@@ -89,7 +91,6 @@ class SharePlanTable extends Component {
 
     render(){
         const {row}=this.props.row;
-        const {day}=this.props.day;
         var birth1=this.state.profile.birth;
         var today=moment();
         var age=today.diff(birth1,'year')+2;
@@ -127,7 +128,7 @@ class SharePlanTable extends Component {
                                     </div>
                                     <div className="SharePlanTableTimeline SharePlanTimeline">
                                         {this.state.clist.map((row)=>(
-                                            <SharePlanTableSub row={row} day={day} setName={this.setName.bind(this)}></SharePlanTableSub>
+                                            <SharePlanTableSub row={row} setName={this.setName.bind(this)}></SharePlanTableSub>
                                         ))}
                                     </div>
                                     {/* <div className="balloon">
