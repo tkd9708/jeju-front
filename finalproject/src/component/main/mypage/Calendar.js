@@ -205,6 +205,7 @@ class Week extends Component {
       
       let memId=store.getState().loginId;
       let wishday=this.props.selected;
+      console.log("날짜 : " + wishday);
       let comment=this.refs.comment.value;
       let url= URL+"/plan/groupinsert?memId="+ memId + "&wishday=" + wishday + "&comment=" +comment;
       

@@ -45,7 +45,7 @@ class SharePlanTable extends Component {
                 id: res.data[0].memId
             });
 
-            console.log(this.state.id);
+            // console.log(this.state.id);
             this.getProfile();
         }).catch(err=>{
             console.log("목록 오류:"+err);
@@ -53,7 +53,6 @@ class SharePlanTable extends Component {
     }
 
     componentWillMount(){
-        console.log("willmount!!!!!!!!!!!!!")
         this.getGroupData();
     }
 
@@ -128,7 +127,7 @@ class SharePlanTable extends Component {
                                     </div>
                                     <div className="SharePlanTableTimeline SharePlanTimeline">
                                         {this.state.clist.map((row)=>(
-                                            <SharePlanTableSub row={row} setName={this.setName.bind(this)}></SharePlanTableSub>
+                                            <SharePlanTableSub row={row} setName={this.setName.bind(this)} pageNum={this.props.pageNum}></SharePlanTableSub>
                                         ))}
                                     </div>
                                     {/* <div className="balloon">

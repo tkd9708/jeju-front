@@ -242,7 +242,7 @@ class SharePlanPageComp extends Component {
                                 width="100%"
                                 className="SharePlanTableBox">
                       {this.state.allList.map((row)=>(
-                          <SharePlanTable row={row}></SharePlanTable>
+                          <SharePlanTable row={row} pageNum={this.state.pageNum}></SharePlanTable>
                           // <Box className="SharePlanTableProfile">
 
                           //   {row.groupNum}
