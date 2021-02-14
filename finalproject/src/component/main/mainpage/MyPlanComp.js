@@ -174,10 +174,10 @@ class MyPlanComp extends Component {
                         <span>&nbsp;다가오는 <strong style={{color: '#2BBBAD'}}>Spot</strong></span>
                         {list}
                     </div>:check==false?<div className="myPlanRight myPlanTop5">
-                            <span>&nbsp;오늘의 <strong style={{color: '#2BBBAD'}}>TOP5</strong></span>
+                            <span>&nbsp;이달의 <strong style={{color: '#2BBBAD'}}>명소</strong></span>
                                 {list}
                             </div>:<div className="myPlanRight">
-                            <span>&nbsp;오늘의 <strong style={{color: '#2BBBAD'}}>TOP5</strong></span>
+                            <span>&nbsp;이달의 <strong style={{color: '#2BBBAD'}}>명소</strong></span>
                                 {list}
                             </div>
             :<Weather2/>;

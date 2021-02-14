@@ -100,9 +100,9 @@ class ShareBoardRowItem extends Component {
     }
 
     getAnswerCount = () => {
-        let num = this.props.row.num;
+        let regroup = this.props.row.regroup;
         let url = URL + "/share/answercount" +
-            "?num=" + num;
+            "?num=" + regroup;
 
         axios.get(url
         ).then(res => {
@@ -503,9 +503,9 @@ class ShareBoardRowItem extends Component {
                                     <MDBIcon icon="map-marker-alt" />&nbsp;&nbsp;{row.addr}
                                 </p>
                             </Box>
-                            <Box m={1} className="ShareModalItemContent">
-                                {row.content}
-                            </Box>
+                            <div className="ShareModalItemContent">
+                                    {row.content}
+                            </div>
                         </Box>
                         <br/>
                         <hr/>
