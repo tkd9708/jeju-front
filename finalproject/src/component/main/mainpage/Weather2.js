@@ -10,8 +10,8 @@ import styled from "styled-components";
 import './Weather.css'
 import Slider from "react-slick";
 import { render } from "react-dom";
-import { Stage } from "react-konva";
-import Konva from "konva";
+// import { Stage } from "reactkonva";
+// import Konva from "konva";
 
 // 브라우저의 윈도우 객체에서 Kakao API 가져오기
 // 리액트 컴포넌트 상단에 작성하여 Kakao api에 접근할수있다

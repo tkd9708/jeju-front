@@ -60,7 +60,7 @@
     #LoginForm input, #LoginForm table td{
         font-size: 0.8em;
     }
-    #googleLogin button, #naverIdLogin, #naverIdLogin img{
+    #googleLogin button, #naverIdLogin, #naverIdLogin img, #kakao-login-btn{
         width: 90vw !important;
     }
     #naverIdLogin img {

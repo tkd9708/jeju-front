@@ -123,7 +123,7 @@ class KakaoLoginBtnComp2 extends Component {
         
         
         return (
-            <div>
+            <div id="kakaoBtn">
                 <a id="kakao-login-btn"></a>
                 <a href="http://developers.kakao.com/logout"></a>
 
