@@ -134,7 +134,7 @@ class SignupPageComp extends Component {
         var hp = this.state.hp;
         let url = URL + "/member/insert";
 
-        if(id.trim()==='' || name.trim()==='' || pass.trim()==='' || pwCheck.trim()==='' || birth.trim()===''
+        if(id.trim()==='' || name.trim()==='' || pass.trim()==='' || pwCheck.trim()==='' || birth.trim()===''|| photo===''
             || gender.trim()==='' || address.trim()==='' || addrdetail.trim()==='' ||
             email.trim()==='' || email2.trim()==='' || hp.trim()===''){
                 
