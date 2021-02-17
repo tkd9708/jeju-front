@@ -43,7 +43,7 @@ function NaverLoginBtnComp (props) {
         
         let naverLogin = new naver.LoginWithNaverId({
             clientId: 'dPXRHN5aH3Xl6lXxm7bn',
-            callbackUrl: "http://localhost:3000/login?naver=true",
+            callbackUrl: "http://localhost:3000/",
             isPopup: false, // 팝업을 통한 연동처리 여부
             loginButton: {color: "green", type: 3},
             callbackHandle: true

@@ -186,7 +186,7 @@ class LoginPageComp extends Component {
                     <br/>
                     <NaverLoginBtnComp />
                     <br />
-                    {/* <KakaoLoginBtnComp2 /> */}
+                    <KakaoLoginBtnComp2 />
                     <br/><br/>
                 </div>
 
